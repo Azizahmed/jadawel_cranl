@@ -1,0 +1,7 @@
+.grid-field-rating {
+  @extend %ellipsis;
+
+  block-size: $grid-view-row-height-small - 1px;
+  padding-inline-start: 5px;
+  user-select: none;
+}

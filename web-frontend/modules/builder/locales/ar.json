@@ -1,0 +1,1077 @@
+{
+  "pageShareType": {
+    "all": "في جميع الصفحات",
+    "only": "فقط على الصفحات المختارة",
+    "except": "استبعاد الصفحات المحددة"
+  },
+  "authProviderWithModal": {
+    "authProviderInError": "الرجاء تعديل هذا الموفر لإصلاح الخطأ.",
+    "title": "موفر التحرير: {name}"
+  },
+  "textDecorationSelector": {
+    "underline": "تسطير",
+    "stroke": "سكتة دماغية",
+    "italic": "مائل",
+    "uppercase": "أحرف كبيرة"
+  },
+  "ratingFieldForm": {
+    "maxValue": "القيمة القصوى",
+    "color": "لون",
+    "style": "أسلوب",
+    "star": "نجم",
+    "heart": "قلب",
+    "thumbsUp": "ممتاز",
+    "flag": "علَم",
+    "value": "قيمة"
+  },
+  "ratingElementForm": {
+    "maxValue": "الحد الأقصى",
+    "color": "لون",
+    "ratingStyle": "أسلوب",
+    "star": "نجم",
+    "heart": "قلب",
+    "smile": "يبتسم",
+    "thumbsUp": "ممتاز",
+    "flag": "علَم"
+  },
+  "automationSettingsModal": {
+    "title": "سير العمل"
+  },
+  "abFileInput": {
+    "delete": "يمسح"
+  },
+  "elementsGuidedTourStep": {
+    "title": "أضف عناصر إلى صفحتك",
+    "content": "كل تطبيق يحتاج إلى مكونات! أضف عناصر مثل الجداول والنماذج والأزرار والمزيد لإضفاء الحيوية على تطبيقك."
+  },
+  "dataGuidedTourStep": {
+    "title": "قم بتوصيل بياناتك",
+    "content": "قم بربط جداول جداول الخاصة بك هنا لعرض بياناتك وتصفيتها وتحديثها ديناميكيًا عبر عناصر مختلفة."
+  },
+  "previewGuidedTourStep": {
+    "title": "مركز التحكم الخاص بك",
+    "content": "هذا هو المكان الذي تقوم فيه بتكوين صفحات تطبيقك. أضف عناصر، وقم بمعاينة النتيجة، وقم ببناء تطبيقك بالطريقة التي تريدها بالضبط."
+  },
+  "devicesGuidedTourStep": {
+    "title": "المعاينة على أجهزة مختلفة",
+    "content": "قم بالتبديل بين معاينات سطح المكتب والجهاز اللوحي والجوال لترى كيف يبدو تطبيقك على أحجام الشاشات المختلفة. تأكد من أن تصميمك يعمل بشكل مثالي عبر جميع الأجهزة!"
+  },
+  "sidePanelGuidedTourStep": {
+    "title": "اللوحة الجانبية: تخصيص العناصر",
+    "content": "**علامة التبويب العامة** – تكوين العنصر المحدد.\n\n**علامة تبويب النمط** – تخصيص المساحة المتروكة والهامش والحدود والمزيد.\n\n**علامة تبويب الرؤية** – التحكم في من يمكنه رؤية هذا العنصر: المستخدمون الذين قاموا بتسجيل الدخول، أو المستخدمون الذين قاموا بتسجيل الخروج، أو أدوار محددة.\n\n**علامة تبويب الأحداث** – إذا كان العنصر يدعم الإجراءات، فقم بتكوينها هنا للتفاعل الديناميكي."
+  },
+  "previewPublishGuidedTourStep": {
+    "title": "معاينة ونشر التطبيق الخاص بك",
+    "content": "انقر على **معاينة** لاختبار تطبيقك بشكل خاص. عندما تصبح جاهزًا، انقر فوق **نشر** لمشاركتها مع الجمهور عبر النطاق."
+  },
+  "visibilityForm": {
+    "allVisitors": "جميع الزوار",
+    "loggedInVisitors": "الزوار المسجلين",
+    "notLoggedInVisitors": "الزوار الذين قاموا بتسجيل الخروج",
+    "warningTitle": "هذه ميزة أمنية",
+    "warningMessage": "تحقق من {link} لمعرفة المزيد حول كيفية تأمين البيانات.",
+    "documentationLink": "الوثائق",
+    "excludedRolesLabel": "جميع الأدوار باستثناء",
+    "switchAllowLabel": "يسمح",
+    "switchDisallowLabel": "عدم السماح",
+    "rolesSelectAll": "حدد الكل",
+    "rolesDeselectAll": "قم بإلغاء تحديد الكل",
+    "rolesSelectHint": "حدد دورًا واحدًا أو أكثر",
+    "roleTypesHint": "حدد نوع الدور",
+    "roleTypeAllowAllRoles": "جميع الأدوار",
+    "roleTypeAllowAllRolesExcept": "عدم السماح بالأدوار...",
+    "roleTypeDisallowAllRolesExcept": "السماح بالأدوار...",
+    "rolesAllMembersOf": "جميع أعضاء {name}",
+    "noRole": "لا دور",
+    "errorFetchingRolesTitle": "تعذر جلب أدوار المستخدم",
+    "errorFetchingRolesMessage": "حدثت مشكلة أثناء جلب أدوار المستخدم.",
+    "visibilityCondition": "حالة الرؤية",
+    "visibilityConditionHelper": "إذا كانت نتيجة هذه الصيغة صحيحة، واختيار الزائر أعلاه صحيح، فسيكون العنصر مرئيًا. يؤثر هذا الشرط فقط على رؤية العنصر. لاستبعاد البيانات من استجابة الخادم بدلاً من ذلك، استخدم خيار تصفية دور المستخدم أعلاه.",
+    "visibilityConditionPlaceholder": "حالة..."
+  },
+  "userDataProviderType": {
+    "isAuthenticated": "يتم المصادقة",
+    "id": "بطاقة تعريف",
+    "email": "بريد إلكتروني",
+    "username": "اسم المستخدم",
+    "role": "دور"
+  },
+  "buttonField": {
+    "noLabel": "لم يذكر اسمه..."
+  },
+  "buttonFieldForm": {
+    "infoMessage": "لتكوين الإجراءات لهذا الزر، افتح علامة التبويب \"الأحداث\" للعنصر الحالي.",
+    "labelPlaceholder": "أدخل تسمية..."
+  },
+  "resetButton": {
+    "reset": "إعادة التعيين إلى قيمة السمة الافتراضية"
+  },
+  "backgroundModes": {
+    "fill": "يملأ",
+    "tile": "بلاط",
+    "fit": "ملائم"
+  },
+  "customStyle": {
+    "backToElement": "العودة إلى تكوين العنصر",
+    "configureThemeOverrides": "تكوين تجاوزات السمة لهذا العنصر"
+  },
+  "serviceSchemaPropertySelector": {
+    "label": "ملكية",
+    "noProperties": "لا توجد عقارات متاحة"
+  },
+  "userSourceDropdown": {
+    "label": "مصدر المستخدم",
+    "addUserSource": "إضافة مصدر مستخدم جديد",
+    "noUserSources": "لا توجد مصادر مستخدم متاحة"
+  },
+  "dataSourceDropdown": {
+    "label": "مصدر البيانات",
+    "noDataSources": "لا توجد مصادر بيانات متاحة",
+    "noSharedDataSources": "لا توجد مصادر بيانات مشتركة متاحة",
+    "shared": "مشترك",
+    "pageOnly": "هذه الصفحة",
+    "addNew": "إضافة مصدر بيانات جديد"
+  },
+  "multiPageContainerElementForm": {
+    "pagePosition": "موضع",
+    "behaviour": "سلوك",
+    "display": "عرض",
+    "selectAll": "حدد الكل",
+    "deselectAll": "قم بإلغاء تحديد الكل"
+  },
+  "updateUserSourceForm": {
+    "nameFieldLabel": "اسم",
+    "nameFieldPlaceholder": "أدخل اسما...",
+    "authTitle": "المصادقة",
+    "integrationFieldLabel": "اندماج",
+    "addProvider": "إضافة مزود"
+  },
+  "builderLoginPageForm": {
+    "pageDropdownLabel": "صفحة تسجيل الدخول",
+    "pageDropdownPlaceholder": "حدد صفحة",
+    "pageDropdownDescription": "حدد صفحة تسجيل الدخول التي يجب إعادة توجيه المستخدمين الذين لم يقوموا بتسجيل الدخول إليها عند محاولتهم الوصول إلى صفحة محظورة."
+  },
+  "formContainerElement": {
+    "submitDeactivatedText": "أكمل جميع الحقول المطلوبة للتقديم",
+    "defaultSubmitButtonLabel": "يُقدِّم"
+  },
+  "formContainerElementForm": {
+    "submitButtonLabel": "زر الإرسال",
+    "submitButtonPlaceholder": "أدخل القيمة...",
+    "buttonColor": "لون الزر",
+    "resetToInitialValuesTitle": "إعادة التعيين إلى القيم الافتراضية بعد الإرسال",
+    "resetToInitialValuesDescription": "إذا تم تحديده، فسيتم استخدام القيم الافتراضية للنموذج لإعادة تعيين النموذج بعد الإرسال الناجح. إذا لم يتم تحديدها، فستظل قيم المستخدم."
+  },
+  "choiceOptionSelector": {
+    "label": "خيارات",
+    "value": "قيم الخيار",
+    "valuePlaceholder": "أدخل القيمة",
+    "name": "أسماء الخيار",
+    "namePlaceholder": "أدخل الاسم",
+    "addOption": "إضافة خيار",
+    "addOptionDescription": "انقر فوق \"إضافة خيار\" لإضافة خيارات إلى القائمة المنسدلة",
+    "optionType": "نوع الخيارات",
+    "manual": "يدوي",
+    "dataSource": "مصدر البيانات",
+    "formulas": "الصيغ"
+  },
+  "fieldMappingContext": {
+    "enableField": "تمكين الحقل",
+    "disableField": "تعطيل الحقل"
+  },
+  "checkboxElementForm": {
+    "labelTitle": "اسم الخيار",
+    "valueTitle": "القيمة الافتراضية",
+    "requiredTitle": "مطلوب"
+  },
+  "choiceElement": {
+    "addOptions": "أضف خيارات لبدء استخدام هذا العنصر..."
+  },
+  "userSourceUsersContext": {
+    "searchPlaceholder": "مستخدم البحث",
+    "anonymous": "مجهول",
+    "unnamed": "لم يذكر اسمه",
+    "noEmail": "لا يوجد بريد إلكتروني"
+  },
+  "userSelector": {
+    "viewAs": "عرض كـ: {user}",
+    "anonymous": "مجهول",
+    "member": "عضو {prefix}"
+  },
+  "recordSelectorElementForm": {
+    "selectRecordsFrom": "حدد السجلات من",
+    "noDataSourceMessage": "اختر مصدر بيانات يحتوي على صفوف متعددة لسرد كافة النتائج.",
+    "optionNameSuffix": "لاحقة اسم الخيار",
+    "optionNameSuffixPlaceholder": "أدخل لاحقة...",
+    "optionNameSuffixHelper": "يتم إلحاق هذه اللاحقة باسم كل خيار عند فتح القائمة المنسدلة وتساعد على التمييز بينها.",
+    "itemsPerPage": "العناصر لكل صفحة",
+    "itemsPerPagePlaceholder": "أدخل القيمة...",
+    "multipleLabel": "السماح بقيم متعددة",
+    "record": "سجل {id}"
+  },
+  "currentRecordDataProviderType": {
+    "index": "فِهرِس",
+    "firstPartName": "مصدر البيانات: {name}",
+    "schemaProperty": "{prefixName}: {schemaProperty}"
+  },
+  "workflowActionTypes": {
+    "notificationLabel": "إظهار الإخطار",
+    "openPageLabel": "افتح الصفحة",
+    "logoutLabel": "تسجيل الخروج",
+    "refreshDataSourceLabel": "تحديث مصدر البيانات",
+    "httpRequest": "إرسال طلب HTTP",
+    "errorNavigateToPageMissing": "مفقود: انتقل إلى الخاصية",
+    "errorPageParameterInError": "تم تكوين معلمة صفحة واحدة على الأقل بشكل خاطئ",
+    "errorNavigationUrlMissing": "خاصية عنوان URL للتنقل مفقودة",
+    "errorDataSourceMissing": "لم يتم تحديد مصدر بيانات"
+  },
+  "notificationWorkflowActionForm": {
+    "titleLabel": "عنوان",
+    "titlePlaceholder": "أدخل النص...",
+    "descriptionLabel": "وصف",
+    "descriptionPlaceholder": "أدخل النص..."
+  },
+  "event": {
+    "addAction": "إضافة إجراء"
+  },
+  "collectionFieldType": {
+    "boolean": "منطقية",
+    "button": "زر",
+    "text": "نص",
+    "link": "وصلة",
+    "tags": "العلامات",
+    "image": "صورة",
+    "rating": "تصنيف",
+    "errorValueMissing": "خاصية القيمة مفقودة"
+  },
+  "textFieldForm": {
+    "fieldValueLabel": "قيمة",
+    "fieldValuePlaceholder": "أدخل القيمة..."
+  },
+  "linkFieldForm": {
+    "fieldValueLabel": "عنوان URL",
+    "fieldValuePlaceholder": "أدخل القيمة...",
+    "fieldLinkNameLabel": "نص الارتباط",
+    "fieldLinkNamePlaceholder": "أدخل القيمة...",
+    "buttonColor": "لون الزر"
+  },
+  "tagsFieldForm": {
+    "fieldValuesLabel": "قيم",
+    "fieldValuesPlaceholder": "أدخل القيم...",
+    "fieldColorsLabel": "الألوان",
+    "fieldColorsPlaceholder": "أدخل الألوان..."
+  },
+  "linkField": {
+    "details": "تفاصيل"
+  },
+  "imageFieldForm": {
+    "fieldSrcLabel": "مصدر الصورة",
+    "fieldSrcPlaceholder": "أدخل القيمة",
+    "fieldAltLabel": "نص بديل",
+    "fieldAltPlaceholder": "أدخل القيمة...",
+    "fieldAltHelp": "يتم استخدامه بواسطة برامج قراءة الشاشة ويتم عرضه إذا تعذر تحميل الصورة"
+  },
+  "createUserSourceForm": {
+    "userSourceType": "يكتب",
+    "userSourceIntegration": "اندماج",
+    "userSourceName": "اسم"
+  },
+  "choiceElementForm": {
+    "multiple": "السماح بقيم متعددة",
+    "display": "عرض",
+    "dropdown": "اسقاط",
+    "checkbox": "خانة الاختيار",
+    "radio": "راديو"
+  },
+  "dropdown": {
+    "empty": "لا توجد خيارات متاحة"
+  },
+  "tableElementForm": {
+    "dataSource": "مصدر البيانات",
+    "fields": "الحقول",
+    "fieldValueLabel": "قيمة",
+    "addField": "إضافة حقل",
+    "fieldValuePlaceholder": "أدخل القيمة...",
+    "itemsPerPage": "العناصر لكل صفحة",
+    "fieldDefaultName": "عمود",
+    "name": "اسم",
+    "noName": "لا اسم",
+    "fieldType": "يكتب",
+    "itemsPerPagePlaceholder": "أدخل القيمة...",
+    "selectSourceFirst": "اختر مصدر بيانات و/أو خاصية لبدء تكوين حقولك.",
+    "buttonColor": "لون الزر",
+    "refreshFieldsFromDataSource": "تحديث الحقول من مصدر البيانات",
+    "buttonLoadMoreLabel": "عرض المزيد من التصنيف",
+    "propertySelectorMissingArrays": "لم يتم العثور على حقول ذات قيمة متعددة لاستخدامها كصفوف."
+  },
+  "tableElement": {
+    "showMore": "عرض المزيد"
+  },
+  "abTable": {
+    "loading": "تحميل...",
+    "empty": "لم يتم العثور على أي عناصر."
+  },
+  "repeatElement": {
+    "empty": "لم يتم العثور على أي عناصر.",
+    "showMore": "عرض المزيد",
+    "missingDataSourceTooltip": "اختر مصدر بيانات لبدء إضافة العناصر.",
+    "missingSchemaPropertyTooltip": "اختر خاصية للبدء في إضافة العناصر.",
+    "emptyState": "لم يتم العثور على سجلات."
+  },
+  "collectionElementForm": {
+    "noDataSourceMessage": "اختر مصدر بيانات يحتوي على صفوف متعددة لسرد كافة النتائج، أو مصدر بيانات صف واحد لاختيار خاصية داخل هذا الصف.",
+    "noSchemaPropertyMessage": "اختر خاصية داخل مصدر البيانات لاستخدامها كبيانات قائمة للعنصر الخاص بك.",
+    "propertyOptionLabel": "إجراءات المستخدم"
+  },
+  "propertyOptionForm": {
+    "fieldHeading": "مجال",
+    "filterHeading": "فلتر",
+    "sortHeading": "نوع",
+    "searchHeading": "يبحث",
+    "optionUnavailable": "غير متاح",
+    "noPropertiesAvailable": "لا توجد حقول متاحة.",
+    "formDescription": "اختر الخصائص التي يمكن لزائري صفحة مصدر بيانات هذا العنصر تصفيتها وفرزها والبحث عنها."
+  },
+  "repeatElementForm": {
+    "dataSource": "مصدر البيانات",
+    "itemsPerPage": "العناصر لكل صفحة",
+    "itemsPerPagePlaceholder": "أدخل القيمة...",
+    "itemsPerRowLabel": "العناصر لكل صف",
+    "itemsPerRowDescription": "عدد الأعمدة لكل صف ونوع الجهاز.",
+    "buttonLoadMoreLabel": "عرض المزيد من التصنيف",
+    "toggleEditorRepetitionsLabel": "تعطيل التكرار مؤقتا",
+    "propertySelectorMissingArrays": "لم يتم العثور على حقول ذات قيمة متعددة للتكرار معها.",
+    "gapLabel": "المسافة بين التكرارات",
+    "gapVerticalLabel": "رَأسِيّ",
+    "gapHorizontalLabel": "أفقي"
+  },
+  "recordSelectorElement": {
+    "emptyAdhocState": "لم يتم العثور على سجلات تطابق '{query}'.",
+    "emptyState": "لم يتم العثور على سجلات."
+  },
+  "inputThemeConfigBlock": {
+    "label": "ملصق",
+    "input": "مدخل",
+    "backgroundColor": "لون الخلفية",
+    "textColor": "لون النص",
+    "borderColor": "لون الحدود",
+    "borderSize": "حجم الحدود",
+    "borderRadius": "نصف قطر الحدود",
+    "padding": "حشوة",
+    "fontFamily": "الخط",
+    "size": "حجم الخط",
+    "weight": "وزن الخط"
+  },
+  "imageThemeConfigBlock": {
+    "alignment": "تنسيق",
+    "maxWidthLabel": "أقصى عرض",
+    "maxHeightLabel": "أقصى ارتفاع",
+    "maxHeightPlaceholder": "أدخل الحد الأقصى للارتفاع",
+    "maxWidthPlaceholder": "أدخل الحد الأقصى للعرض",
+    "imageConstraintsLabel": "قيود",
+    "imageConstraintFullWidth": "يمتد إلى أقصى عرض",
+    "imageConstraintCover": "غطاء",
+    "imageConstraintCoverDisabled": "غير متوفر بأقصى ارتفاع فارغ.",
+    "imageConstraintContain": "يحتوي",
+    "imageConstraintContainDisabled": "غير متوفر مع أقصى ارتفاع.",
+    "imageBorderRadiusLabel": "نصف قطر الحدود",
+    "imageBorderRadiusPlaceholder": "أدخل نصف قطر حدود الصورة."
+  },
+  "tableThemeConfigBlock": {
+    "borderColor": "لون الحدود",
+    "backgroundAlternateColor": "حتى لون الصفوف",
+    "backgroundColor": "لون الخلفية",
+    "textColor": "لون النص",
+    "borderSize": "حجم الحدود",
+    "borderRadius": "نصف قطر الحدود",
+    "padding": "حشوة",
+    "fontFamily": "الخط",
+    "size": "مقاس",
+    "fontSize": "حجم الخط",
+    "fontWeight": "وزن الخط",
+    "table": "طاولة",
+    "header": "رأس",
+    "alignment": "تنسيق",
+    "cells": "الخلايا",
+    "separators": "فواصل",
+    "verticalSeparatorColor": "اللون العمودي",
+    "verticalSeparatorSize": "الحجم العمودي",
+    "horizontalSeparatorColor": "اللون الأفقي",
+    "horizontalSeparatorSize": "الحجم الأفقي"
+  },
+  "buttonElementForm": {
+    "valueLabel": "نص الزر",
+    "valuePlaceholder": "أدخل النص..."
+  },
+  "buttonElement": {
+    "missingValue": "نص الزر مفقود...",
+    "emptyValue": "نص الزر فارغ..."
+  },
+  "eventTypes": {
+    "clickLabel": "عند النقر",
+    "submitLabel": "على تقديم",
+    "afterLoginLabel": "بعد تسجيل الدخول"
+  },
+  "getFormulaComponent": {
+    "errorTooltip": "مرجع غير صالح"
+  },
+  "fontSidePanelForm": {
+    "label": "لون الخط"
+  },
+  "typographyThemeConfigBlock": {
+    "headingLabel": "العنوان {i} (h{i})",
+    "headingValue": "العنوان <h{i}>",
+    "color": "لون",
+    "size": "مقاس",
+    "weight": "وزن",
+    "textAlignment": "تنسيق",
+    "bodyLabel": "جسم",
+    "decoration": "زخرفة النص",
+    "fontFamily": "الخط"
+  },
+  "fontWeightType": {
+    "thin": "رفيع",
+    "extraLight": "خفيف للغاية",
+    "light": "ضوء",
+    "regular": "عادي",
+    "medium": "واسطة",
+    "semiBold": "شبه جريئة",
+    "bold": "عريض",
+    "extraBold": "جريئة للغاية",
+    "black": "أسود",
+    "extraBlack": "أسود للغاية"
+  },
+  "buttonThemeConfigBlock": {
+    "backgroundColor": "لون الخلفية",
+    "button": "زر",
+    "defaultState": "الحالة الافتراضية",
+    "hoverState": "حالة التحويم",
+    "activeState": "الحالة النشطة",
+    "textAlignment": "محاذاة النص",
+    "alignment": "تنسيق",
+    "width": "عرض",
+    "textColor": "لون النص",
+    "borderColor": "لون الحدود",
+    "borderSize": "حجم الحدود",
+    "borderRadius": "نصف قطر الحدود",
+    "padding": "حشوة",
+    "fontFamily": "الخط",
+    "size": "حجم الخط",
+    "weight": "وزن الخط"
+  },
+  "linkThemeConfigBlock": {
+    "color": "لون",
+    "link": "وصلة",
+    "defaultState": "الحالة الافتراضية",
+    "hoverState": "حالة التحويم",
+    "activeState": "الحالة النشطة",
+    "alignment": "تنسيق",
+    "fontFamily": "الخط",
+    "size": "حجم الخط",
+    "weight": "وزن الخط",
+    "decoration": "زخرفة النص"
+  },
+  "defaultStyleForm": {
+    "boxTop": "قمة",
+    "boxBottom": "قاع",
+    "boxLeft": "غادر",
+    "boxRight": "يمين",
+    "backgroundLabel": "خلفية",
+    "backgroundColor": "لون الخلفية",
+    "widthLabel": "عرض",
+    "backgroundImage": "صورة",
+    "backgroundImageMode": "وضع التعبئة",
+    "cssClasses": "فئات CSS",
+    "cssClassesHelp": "قم بتعيين قائمة فئات مفصولة بمسافات لهذا العنصر والتي ستظهر في HTML الذي تم إنشاؤه.",
+    "cssClassesPlaceholder": "أدخل فئات CSS..."
+  },
+  "styleBoxForm": {
+    "borderColor": "لون الحدود",
+    "borderLabel": "مقاس",
+    "paddingLabel": "حشوة",
+    "marginLabel": "هامِش"
+  },
+  "radiusStyleForm": {
+    "cornerRadiusLabel": "شعاع الزاوية",
+    "backgroundRadiusLabel": "خلفية",
+    "borderRadiusLabel": "حدود"
+  },
+  "themeConfigBlockType": {
+    "color": "الألوان",
+    "page": "صفحة",
+    "typography": "الطباعة",
+    "button": "زر",
+    "link": "وصلة",
+    "image": "صورة",
+    "input": "مدخل",
+    "table": "طاولة"
+  },
+  "colorThemeConfigBlock": {
+    "transparent": "شفاف",
+    "primaryColor": "أساسي",
+    "secondaryColor": "ثانوي",
+    "borderColor": "حدود",
+    "successColor": "نجاح",
+    "warningColor": "تحذير",
+    "errorColor": "خطأ",
+    "customColors": "ألوان مخصصة",
+    "addCustomColor": "أضف لونًا مخصصًا",
+    "customColorPrefix": "مخصص"
+  },
+  "pageThemeConfigBlock": {
+    "backgroundColor": "لون الخلفية",
+    "backgroundImage": "صورة الخلفية",
+    "backgroundMode": "وضع الخلفية"
+  },
+  "colorThemeConfigBlockType": {
+    "transparent": "شفاف",
+    "primary": "أساسي",
+    "secondary": "ثانوي",
+    "border": "حدود",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "error": "خطأ"
+  },
+  "pageForm": {
+    "defaultName": "صفحة",
+    "nameTitle": "اسم",
+    "nameSubtitle": "الاسم الفريد للصفحة",
+    "namePlaceholder": "أدخل اسما...",
+    "pathTitle": "طريق",
+    "addAnotherParameter": "إضافة معلمة سلسلة استعلام أخرى",
+    "addParameter": "إضافة معلمة سلسلة الاستعلام",
+    "queryParamsSubtitleTutorial": "يمكن استخدام معلمات الاستعلام لتحميل البيانات ديناميكيًا، اعتمادًا على المعلمة المتوفرة.",
+    "pathSubtitle": "يمكن إضافة معلمة عبر :parameter",
+    "pathPlaceholder": "أدخل مسار...",
+    "pathParamsTitle": "معلمات المسار",
+    "queryParamsTitle": "معلمات سلسلة الاستعلام",
+    "pathParamsSubtitle": "يتم تعريفها بواسطة: المعلمة في المسار",
+    "pathParamsSubtitleTutorial": "يمكن استخدام معلمات المسار لتحميل البيانات ديناميكيًا، اعتمادًا على المعلمة المتوفرة. أضف : معلمة إلى المسار لإضافة واحدة."
+  },
+  "pathParamTypes": {
+    "textName": "نص",
+    "numericName": "رقمي"
+  },
+  "queryParamTypes": {
+    "textName": "نص",
+    "numericName": "رقمي"
+  },
+  "pageEditor": {
+    "title": "منشئ التطبيقات",
+    "pageNotFound": "لم يتم العثور على الصفحة"
+  },
+  "publicPage": {
+    "siteNotFound": "لم يتم العثور على الموقع",
+    "pageNotFound": "لم يتم العثور على الصفحة",
+    "loginToastTitle": "تمت المصادقة بنجاح",
+    "loginToastMessage": "لقد تم تسجيل الدخول بنجاح.",
+    "authorizedToastTitle": "المصادقة مطلوبة",
+    "authorizedToastMessage": "يجب عليك تسجيل الدخول للوصول إلى هذه الصفحة. الرجاء تسجيل الدخول للمتابعة."
+  },
+  "integrationSettings": {
+    "title": "التكامل",
+    "noIntegrationMessage": "لم تقم بإنشاء أي عمليات تكامل بعد. يمكن إنشاؤها عن طريق إضافة مصدر البيانات أو الإجراء أو مصادقة المستخدم.",
+    "integrationMessage": "يمكنك إنشاء عمليات تكامل جديدة عن طريق إضافة مصدر البيانات أو الإجراء أو مصادقة المستخدم."
+  },
+  "dataSourceForm": {
+    "namePlaceholder": "اسم المصدر",
+    "nameLabel": "اسم",
+    "actionLabel": "فعل",
+    "integrationLabel": "اندماج",
+    "servicePlaceholder": "اختر خدمة",
+    "integrationPlaceholder": "حدد التكامل",
+    "errorUniqueName": "يجب أن يكون اسم مصدر البيانات فريدًا."
+  },
+  "dataSourceContext": {
+    "addDataSource": "إضافة مصدر بيانات جديد",
+    "noDataSourceTitle": "لم تقم بإضافة مصدر بيانات بعد.",
+    "noDataSourceMessage": "يمكن استخدام مصادر البيانات لجلب البيانات من مصادر داخلية أو خارجية وعرضها على الصفحة.",
+    "sharedDataSourceTitle": "المشتركة بين الصفحات",
+    "pageDataSourceTitle": "لهذه الصفحة",
+    "sharedDataSourceDescription": "يمكن الوصول إليه في كل صفحة ويتم جلبه مرة واحدة عند تحميل الصفحة الأولى.",
+    "pageDataSourceDescription": "يتم جلبه عندما ينتقل المستخدم إلى هذه الصفحة."
+  },
+  "dataSourceItem": {
+    "notConfigured": "لم يتم تكوينه"
+  },
+  "dataSourceItemContext": {
+    "shareBetweenPages": "المشاركة بين الصفحات",
+    "unshareBetweenPages": "إلغاء المشاركة من الصفحات الأخرى"
+  },
+  "dataSourceCreateEditModal": {
+    "editTitle": "تحرير مصدر البيانات",
+    "createTitle": "إنشاء مصدر البيانات",
+    "sharedWarning": "تتم مشاركة مصدر البيانات هذا بحيث تؤثر تغييراتك على صفحات متعددة."
+  },
+  "linkNavigationSelection": {
+    "navigateTo": "انتقل إلى",
+    "navigateToCustom": "عنوان URL مخصص",
+    "paramPlaceholder": "أدخل قيمة...",
+    "urlPlaceholder": "أدخل عنوان URL...",
+    "url": "عنوان URL المقصود",
+    "paramsInErrorDescription": "المعلمات المحفوظة لا تتطابق مع معلمات الصفحة. ربما تم حذف الصفحة أو تحديثها.",
+    "paramsInErrorButton": "تحديث المعلمات",
+    "target": "فتح في...",
+    "targetSelf": "نفس علامة التبويب",
+    "targetNewTab": "علامة تبويب جديدة"
+  },
+  "linkElementForm": {
+    "text": "نص",
+    "textPlaceholder": "أدخل النص...",
+    "variant": "البديل",
+    "variantLink": "وصلة",
+    "variantButton": "زر",
+    "buttonColor": "لون الزر"
+  },
+  "widthSelector": {
+    "width": "عرض",
+    "widthAuto": "آلي",
+    "widthFull": "العرض الكامل"
+  },
+  "backgroundTypes": {
+    "none": "لا أحد",
+    "color": "لون"
+  },
+  "widthTypes": {
+    "fullBleed": "نزيف كامل",
+    "fullWidth": "العرض الكامل",
+    "normal": "طبيعي",
+    "medium": "واسطة",
+    "small": "صغير"
+  },
+  "horizontalAlignmentSelector": {
+    "alignmentLeft": "غادر",
+    "alignmentCenter": "مركز",
+    "alignmentRight": "يمين"
+  },
+  "verticalAlignmentSelector": {
+    "alignmentTop": "قمة",
+    "alignmentCenter": "وسط",
+    "alignmentBottom": "قاع"
+  },
+  "pageSettingsTypes": {
+    "pageName": "صفحة"
+  },
+  "pageVisibilitySettingsTypes": {
+    "pageName": "الرؤية",
+    "logInPageWarningTitle": "لم يتم تعيين صفحة تسجيل الدخول",
+    "logInPagewarningMessage": "عندما يحاول مستخدم مجهول الوصول إلى هذه الصفحة، ستتم إعادة توجيهه إلى صفحة تسجيل الدخول. يرجى ضبط صفحة تسجيل الدخول في الإعدادات العامة للتطبيق.",
+    "logInPageInfoTitle": "سيتم إعادة توجيه المستخدمين المجهولين",
+    "logInPageInfoMessage": "ستتم إعادة توجيه المستخدمين المجهولين الذين يحاولون الوصول إلى هذه الصفحة إلى صفحة {logInPageName}."
+  },
+  "pageSettings": {
+    "title": "صفحة",
+    "pageUpdatedTitle": "تغيرت",
+    "pageUpdatedDescription": "تم تحديث إعدادات الصفحة."
+  },
+  "pageVisibilitySettings": {
+    "title": "الرؤية",
+    "allVisitors": "جميع الزوار",
+    "loggedInVisitors": "الزوار المسجلين",
+    "description": "من يمكنه رؤية هذه الصفحة"
+  },
+  "iframeElementForm": {
+    "missingValue": "مصدر IFrame مفقود...",
+    "emptyValue": "مصدر IFrame فارغ...",
+    "sourceTypeLabel": "نوع المصدر",
+    "urlLabel": "عنوان URL",
+    "urlPlaceholder": "الارتباط بالمورد الخارجي المراد تضمينه",
+    "urlHelp": "ملاحظة: يرجى التأكد من أنك تتحكم في عنوان URL الذي تم إدخاله أو تثق به.",
+    "embedLabel": "تضمين",
+    "embedPlaceholder": "محتوى HTML الخام المراد تضمينه",
+    "heightLabel": "الارتفاع (بكسل)",
+    "heightPlaceholder": "الارتفاع بالبكسل"
+  },
+  "columnElementForm": {
+    "columnAmountTitle": "تَخطِيط",
+    "verticalAlignment": "المحاذاة العمودية",
+    "columnAmountName": "لا أعمدة | عمود واحد | أعمدة {columnAmount}",
+    "columnGapTitle": "المسافة بين الأعمدة",
+    "columnGapPlaceholder": "أدخل مسافة بين الأعمدة..."
+  },
+  "domainSettings": {
+    "titleOverview": "المجالات",
+    "titleAddDomain": "أضف المجال",
+    "addDomain": "أضف المجال",
+    "noDomainMessage": "لم تقم بعد بربط المجال بهذا التطبيق. يجب عليك إضافة نطاق لتتمكن من نشر تطبيقك. يمكنك نشر إصدارات مختلفة من تطبيقك لكل مجال مدرج هنا."
+  },
+  "userSourceSettings": {
+    "titleAddUserSource": "مصدر مستخدم جديد",
+    "titleUpdateUserSource": "تحرير مصدر المستخدم",
+    "noUserSourceMessage": "لم تقم بإضافة مصدر مستخدم إلى هذا التطبيق بعد. يجب عليك إضافة مصدر مستخدم إذا كنت تريد أن يتمكن المستخدمون من مصادقة تطبيقك.",
+    "titleOverview": "مصادر المستخدم",
+    "addUserSource": "إضافة مصدر المستخدم"
+  },
+  "themeSettings": {
+    "titleOverview": "سمة"
+  },
+  "generalSettings": {
+    "titleOverview": "عام",
+    "labelForm": "الرمز المفضل",
+    "labelDescription": "اختر ICO أو PNG أو GIF أو JPEG بحجم 128 × 128 بكسل.",
+    "labelButton": "تحميل الرمز المفضل",
+    "cantUploadFaviconTitle": "تعذر تحميل ملف Favicon",
+    "cantUploadFaviconDescription": "عذرًا، لا يمكن تحميل صورة الرمز المفضل. يرجى التأكد من أن ملف الصورة فريد وأنه تنسيق صورة مدعوم.",
+    "cantUpdateApplicationTitle": "تعذر تحديث التطبيق",
+    "cantUpdateApplicationDescription": "عذرًا، لا يمكن تحديث التطبيق."
+  },
+  "dnsStatus": {
+    "description": "قم بزيارة إعدادات DNS الخاصة بنطاقاتك وقم بإجراء التغييرات التالية",
+    "typeHeader": "يكتب",
+    "hostHeader": "يستضيف",
+    "valueHeader": "قيمة"
+  },
+  "domainForm": {
+    "invalidDomain": "اسم المجال المقدم غير صالح",
+    "notUniqueDomain": "النطاق المقدم مستخدم بالفعل"
+  },
+  "customDomainForm": {
+    "domainNameLabel": "اسم المجال"
+  },
+  "subDomainForm": {
+    "domainNameLabel": "اسم المجال"
+  },
+  "subDomainDetails": {
+    "text": "لقد تم بالفعل تكوين إعدادات DNS الخاصة بالمجال والتحقق منها. إنه يعمل دون إجراء أي تغييرات إضافية."
+  },
+  "domainCard": {
+    "refresh": "تحديث الإعدادات",
+    "detailLabel": "إظهار التفاصيل",
+    "unpublishedDomainWarning": "يرجى نشر التطبيق لإتاحته على هذا النطاق."
+  },
+  "domainTypes": {
+    "customName": "المجال المخصص",
+    "subDomainName": "النطاق الفرعي",
+    "subDomain": "النطاق الفرعي لـ {domain}"
+  },
+  "linkElement": {
+    "missingValue": "نص الرابط مفقود...",
+    "emptyValue": "نص الرابط فارغ..."
+  },
+  "menuElementForm": {
+    "menuItemsLabel": "عناصر القائمة",
+    "addMenuItemLink": "يضيف...",
+    "alignment": "تنسيق",
+    "menuItemDefaultName": "صفحة",
+    "menuItemLabelLabel": "ملصق",
+    "menuItemTypeLabel": "يكتب",
+    "menuItemTypeSeparator": "فاصل",
+    "menuItemVariantLabel": "البديل",
+    "menuItemVariantLink": "وصلة",
+    "menuItemVariantButton": "زر",
+    "namePlaceholder": "صفحة",
+    "addSubLink": "إضافة رابط فرعي",
+    "menuItemSubLinkDefaultName": "رابط فرعي",
+    "menuItemAddLink": "وصلة",
+    "menuItemAddButton": "زر",
+    "menuItemAddSeparator": "فاصل",
+    "menuItemAddSpacer": "فاصل",
+    "eventDescription": "لتكوين الإجراءات لهذا الزر، افتح علامة التبويب \"الأحداث\" لهذا العنصر.",
+    "noMenuItemsMessage": "انقر فوق \"إضافة\" لإضافة عنصر القائمة الأول."
+  },
+  "simpleContainerElementForm": {
+    "noConfigurationOptions": "لا يحتوي عنصر الحاوية على أي خيارات تكوين."
+  },
+  "imageElement": {
+    "missingValue": "النص البديل مفقود...",
+    "emptyValue": "نص بديل فارغ..."
+  },
+  "generalForm": {
+    "labelTitle": "ملصق",
+    "labelPlaceholder": "أدخل التسمية",
+    "valueTitle": "قيمة",
+    "defaultValueTitle": "القيمة الافتراضية",
+    "defaultValuePlaceholder": "أدخل القيمة الافتراضية",
+    "valuePlaceholder": "أدخل القيمة",
+    "placeholderTitle": "العنصر النائب",
+    "placeholderPlaceholder": "أدخل عنصرًا نائبًا",
+    "requiredTitle": "مطلوب",
+    "validationTitle": "تصديق"
+  },
+  "inputTextElementForm": {
+    "multilineTitle": "متعدد الأسطر",
+    "rowsTitle": "عدد الخطوط",
+    "rowsPlaceholder": "أدخل عدد صفوف هذا الإدخال",
+    "validationTypeAnyLabel": "أي",
+    "validationTypeAnyDescription": "السماح بتعيين أي قيمة في هذا الإدخال.",
+    "validationTypeIntegerLabel": "رقم",
+    "validationTypeIntegerDescription": "فرض قيمة رقمية في هذا الإدخال (يقبل الأعداد الصحيحة والكسور العشرية).",
+    "validationTypeEmailLabel": "بريد إلكتروني",
+    "validationTypeEmailDescription": "فرض قيمة عنوان البريد الإلكتروني في هذا الإدخال.",
+    "inputType": "نوع الإدخال",
+    "inputTypeTextLabel": "نص",
+    "inputTypePasswordLabel": "كلمة المرور",
+    "passwordTypeWarning": "كلمات المرور هي بيانات حساسة. يرجى توخي الحذر في كيفية التعامل مع كلمات المرور وتخزينها في تطبيقك."
+  },
+  "dateTimePickerElementForm": {
+    "includeTime": "تضمين الوقت",
+    "invalidDateError": "تاريخ غير صالح. يرجى التأكد من أن تاريخ الإدخال يطابق التنسيق المحدد."
+  },
+  "imageElementForm": {
+    "fileLabel": "صورة",
+    "invalidUrlError": "عنوان URL غير صالح",
+    "altTextTitle": "نص بديل",
+    "altTextDescription": "يتم استخدامه بواسطة برامج قراءة الشاشة ويتم عرضه إذا تعذر تحميل الصورة",
+    "fileSourceTypeUpload": "رفع",
+    "fileSourceTypeURL": "عنوان URL",
+    "urlWarning": "ملاحظة: يرجى التأكد من أنك تتحكم في عنوان URL الذي تم إدخاله أو تثق به.",
+    "uploadFileButton": "تحميل الملف"
+  },
+  "addElementButton": {
+    "label": "عنصر"
+  },
+  "addElementModal": {
+    "title": "إضافة عنصر جديد",
+    "searchPlaceholder": "عناصر البحث",
+    "elementInProgress": "إضافة عنصر..."
+  },
+  "addElementCategory": {
+    "suggestedElement": "العناصر المقترحة",
+    "baseElement": "العناصر الأساسية",
+    "layoutElement": "عناصر التخطيط",
+    "formElement": "عناصر النموذج"
+  },
+  "elementMenu": {
+    "drag": "اسحب لإعادة الترتيب",
+    "moveUp": "تحرك للأعلى",
+    "moveDown": "تحرك للأسفل",
+    "moveLeft": "تحرك لليسار",
+    "moveRight": "تحرك لليمين",
+    "selectParent": "حدد الوالدين"
+  },
+  "duplicatePageJobType": {
+    "name": "صفحة مكررة",
+    "duplicating": "تكرار",
+    "duplicatedTitle": "الصفحة مكررة"
+  },
+  "pageSidePanelType": {
+    "general": "عام",
+    "style": "أسلوب",
+    "visibility": "الرؤية",
+    "events": "الأحداث",
+    "eventsTabDeactivatedNoEvents": "هذا العنصر لا يدعم أي أحداث",
+    "eventsTabInError": "تم تكوين إجراء واحد أو أكثر بشكل خاطئ."
+  },
+  "emptySidePanelState": {
+    "message": "انقر على أحد العناصر لرؤية المزيد من التفاصيل"
+  },
+  "pagePreview": {
+    "emptyMessage": "انقر لإنشاء عنصر",
+    "header": "رأس",
+    "footer": "تذييل"
+  },
+  "elementForms": {
+    "textInputPlaceholder": "أدخل النص...",
+    "urlInputPlaceholder": "أدخل عنوان URL...",
+    "invalidFormula": "الصيغة غير صالحة"
+  },
+  "headingElement": {
+    "missingValue": "عنوان مفقود...",
+    "emptyValue": "عنوان فارغ..."
+  },
+  "headingElementForm": {
+    "levelTitle": "مستوى",
+    "textTitle": "نص",
+    "textPlaceholder": "أدخل النص...",
+    "headingName": "العنوان {level} <h{level}>",
+    "textError": "القيمة غير صالحة."
+  },
+  "textElement": {
+    "missingValue": "نص مفقود...",
+    "emptyValue": "نص فارغ..."
+  },
+  "textElementForm": {
+    "textTitle": "نص",
+    "textPlaceholder": "أدخل النص...",
+    "textError": "القيمة غير صالحة.",
+    "textFormatTypeLabel": "شكل",
+    "textFormatTypePlain": "نص عادي",
+    "textFormatTypeMarkdown": "تخفيض السعر"
+  },
+  "orientations": {
+    "label": "توجيه",
+    "horizontal": "أفقي",
+    "vertical": "رَأسِيّ"
+  },
+  "menuElement": {
+    "missingValue": "عنصر القائمة مفقود",
+    "separator": "فاصل",
+    "spacer": "فاصل",
+    "missingLinkValue": "اسم الرابط مفقود...",
+    "emptyLinkValue": "اسم الرابط فارغ...",
+    "missingButtonValue": "اسم الزر مفقود...",
+    "emptyButtonValue": "اسم الزر فارغ..."
+  },
+  "elementType": {
+    "heading": "عنوان",
+    "headingDescription": "عنوان رأس الصفحة",
+    "text": "نص",
+    "textDescription": "نص متعدد الأسطر",
+    "link": "وصلة",
+    "linkDescription": "رابط إلى الصفحة/URL",
+    "image": "صورة",
+    "imageDescription": "عرض الصورة",
+    "inputText": "إدخال البيانات",
+    "inputTextDescription": "حقل إدخال البيانات",
+    "column": "أعمدة",
+    "columnDescription": "حاوية الأعمدة",
+    "button": "زر",
+    "buttonDescription": "عنصر زر",
+    "table": "طاولة",
+    "tableDescription": "عنصر الجدول",
+    "formContainer": "استمارة",
+    "formContainerDescription": "عنصر النموذج",
+    "choice": "خيار",
+    "choiceDescription": "لاختيار قيمة واحدة/متعددة",
+    "checkbox": "خانة الاختيار",
+    "checkboxDescription": "عنصر خانة الاختيار",
+    "iframe": "إطار iframe",
+    "iframeDescription": "إطار مضمن",
+    "authForm": "نموذج تسجيل الدخول",
+    "authFormDescription": "نموذج تسجيل دخول المستخدم",
+    "repeat": "يكرر",
+    "repeatDescription": "مجموعة متكررة من العناصر",
+    "recordSelector": "محدد السجل",
+    "recordSelectorDescription": "محدد السجل ذو الصلة",
+    "dateTimePicker": "منتقي التاريخ والوقت",
+    "dateTimePickerDescription": "حقل إدخال التاريخ والوقت",
+    "header": "رأس متعدد الصفحات",
+    "headerDescription": "حاوية مشتركة عبر الصفحات",
+    "footer": "تذييل متعدد الصفحات",
+    "footerDescription": "حاوية مشتركة عبر الصفحات",
+    "notAllowedUnlessTop": "هذا العنصر مسموح به فقط في أعلى الصفحة",
+    "notAllowedUnlessBottom": "هذا العنصر مسموح به فقط في أسفل الصفحة",
+    "notAllowedUnlessHeader": "هذا العنصر مسموح به فقط داخل رأس الصفحة",
+    "notAllowedUnlessFooter": "هذا العنصر مسموح به فقط داخل تذييل الصفحة",
+    "notAllowedInsideContainer": "هذا العنصر غير مسموح به داخل الحاوية",
+    "notAllowedInsideSameType": "هذا العنصر غير مسموح به في حاوية من نفس النوع",
+    "ratingInput": "مدخلات التقييم",
+    "ratingInputDescription": "عنصر إدخال التصنيف",
+    "rating": "تصنيف",
+    "ratingDescription": "عنصر تصنيف",
+    "invalidElementValue": "قيمة عنصر غير صالحة: {value}",
+    "notAllowedLocation": "هذا العنصر غير مسموح به في هذا الموقع",
+    "menu": "قائمة طعام",
+    "menuDescription": "عنصر القائمة",
+    "simpleContainer": "حاوية",
+    "simpleContainerDescription": "حاوية للعناصر الأخرى",
+    "fileInput": "إدخال الملف",
+    "fileInputDescription": "مدخل لتحميل الملفات",
+    "errorValueMissing": "خاصية القيمة مفقودة",
+    "errorEmptyContainer": "هذه الحاوية فارغة",
+    "errorParentWithDataSourceMissing": "لم يتم تحديد مصدر بيانات على العنصر أو الحاوية الأصلية",
+    "errorDataSourceMissing": "لم يتم تحديد مصدر بيانات",
+    "errorSchemaPropertyMissing": "لم يتم تحديد خاصية المخطط",
+    "errorWorkflowActionInError": "تم تكوين إجراء واحد على الأقل بشكل خاطئ",
+    "errorCollectionFieldInError": "تم تكوين حقل واحد على الأقل بشكل خاطئ",
+    "errorNavigateToPageMissing": "مفقود: انتقل إلى الخاصية",
+    "errorPageParameterInError": "تم تكوين معلمة صفحة واحدة على الأقل بشكل خاطئ",
+    "errorNavigationUrlMissing": "خاصية عنوان URL للتنقل مفقودة",
+    "errorImageFileMissing": "ملف الصورة مفقود",
+    "errorImageUrlMissing": "خاصية عنوان URL للصورة مفقودة",
+    "errorNoWorkflowAction": "لم يتم تكوين إجراء سير العمل",
+    "errorOptionsMissing": "لم يتم تكوين أي خيار",
+    "errorIframeUrlMissing": "خاصية عنوان URL لـ IFrame مفقودة",
+    "errorIframeContentMissing": "محتوى IFrame مفقود",
+    "errorNoMenuItem": "لم يتم تكوين أي عنصر قائمة",
+    "errorMenuItemInError": "تم تكوين قائمة واحدة على الأقل بشكل خاطئ",
+    "errorSubMenuItemInError": "تم تكوين قائمة فرعية واحدة على الأقل بشكل خاطئ"
+  },
+  "publishActionModal": {
+    "title": "نشر",
+    "description": "انشر تطبيقك على الهواء مباشرة من خلال النشر على أحد النطاقات. لاحظ أن التطبيق الخاص بك يمكن أن يحتوي على مجالات متعددة، كل منها يشغل إصدارًا مختلفًا من التطبيق.",
+    "publish": "نشر",
+    "publishSucceedTitle": "تم نشر الموقع",
+    "publishSucceedDescription": "لقد تم نشر الموقع بنجاح.",
+    "publishSucceedLink": "عرض الموقع",
+    "publishFailedTitle": "فشل نشر الموقع",
+    "publishFailedDescription": "فشل نشر الموقع. يرجى المحاولة مرة أخرى في وقت لاحق.",
+    "openInNewTab": "افتح في علامة تبويب جديدة",
+    "importingState": "استيراد",
+    "noDomain": "يجب أن يكون لديك نطاق واحد على الأقل حتى تتمكن من نشر طلبك.",
+    "addDomain": "أضف المجال"
+  },
+  "lastPublishedDomainDate": {
+    "neverPublished": "أبداً",
+    "lastPublished": "آخر نشر:"
+  },
+  "elementsContext": {
+    "searchPlaceholder": "عناصر البحث",
+    "noPageElements": "لم يتم العثور على عناصر لهذه الصفحة",
+    "noElements": "لم يتم العثور على عناصر"
+  },
+  "common": {
+    "dateFormatTitle": "تنسيق التاريخ",
+    "dateFormatEU": "الأوروبية",
+    "dateFormatUS": "نحن",
+    "dateFormatISO": "ايزو",
+    "timeFormatTitle": "تنسيق الوقت",
+    "timeFormat24Hour": "24 ساعة",
+    "timeFormat12Hour": "12 ساعة"
+  },
+  "builderToast": {
+    "details": "تفاصيل",
+    "defaultTitle": "خطأ غير متوقع",
+    "defaultMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى في وقت لاحق.",
+    "invalidContextTitle": "طلب غير صالح",
+    "invalidContextMessage": "الطلب غير صالح.",
+    "InvalidContentTitle": "النموذج غير صالح",
+    "invalidContentMessage": "يحتوي حقل واحد أو أكثر على قيم غير صالحة.",
+    "serviceMisconfiguredTitle": "التكوين غير مكتمل",
+    "serviceMisconfiguredMessage": "يرجى التحقق من التكوين.",
+    "errorWorkflowActionDispatch": "فشل الإجراء \"{name}\":",
+    "errorDataSourceDispatch": "فشل تحميل بيانات \"{name}\":"
+  },
+  "dataProviderType": {
+    "dataSource": "سجلات البيانات",
+    "dataSourceContext": "الخيارات المتاحة",
+    "pageParameter": "المعلمة",
+    "currentRecord": "مصدر البيانات",
+    "formData": "بيانات النموذج",
+    "previousAction": "الإجراء السابق",
+    "user": "مستخدم"
+  },
+  "formDataProviderType": {
+    "nodeMissing": "مفتقد"
+  },
+  "builderForm": {
+    "submit": "إضافة التطبيق"
+  },
+  "sidebarComponentBuilder": {
+    "settings": "إعدادات",
+    "createPage": "صفحة جديدة"
+  },
+  "builderSettingsModal": {
+    "title": "طلب"
+  },
+  "builderSettingTypes": {
+    "generalName": "عام",
+    "integrationsName": "التكامل",
+    "themeName": "سمة",
+    "domainsName": "المجالات",
+    "userSourcesName": "المستخدمين"
+  },
+  "createPageModal": {
+    "header": "إنشاء صفحة",
+    "submit": "إضافة صفحة"
+  },
+  "pageErrors": {
+    "errorNameNotUnique": "توجد صفحة بهذا الاسم بالفعل",
+    "errorNameNotUniqueDescription": "الرجاء إدخال اسم فريد للصفحة",
+    "errorPathNotUnique": "يوجد مسار بهذا الاسم بالفعل",
+    "errorStartingSlash": "يجب أن يبدأ المسار بـ \"/\"",
+    "errorValidPathCharacters": "يحتوي المسار على أحرف غير صالحة",
+    "errorUniquePathParams": "يجب أن تكون معلمات المسار فريدة.",
+    "errorUniqueValidQueryParams": "يجب أن تكون أسماء معلمات الاستعلام فريدة وصالحة."
+  },
+  "pageHeaderItemTypes": {
+    "labelElements": "عناصر",
+    "labelDataSource": "بيانات",
+    "labelVariables": "المتغيرات",
+    "labelSettings": "إعدادات الصفحة"
+  },
+  "pageActionTypes": {
+    "preview": "معاينة",
+    "publish": "نشر"
+  }
+}

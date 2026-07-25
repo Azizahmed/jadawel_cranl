@@ -1,0 +1,53 @@
+.property-option-form__table .baserow-table {
+  border-radius: 5px;
+  overflow: hidden; // To prevent the border-radius from being clipped.
+  border: solid 1px $color-neutral-400;
+
+  thead .baserow-table__row {
+    background-color: $color-neutral-100;
+
+    .baserow-table__header-cell {
+      block-size: 45px;
+      padding-inline-start: 10px;
+      text-align: center;
+      border-block-end: 1px solid $color-neutral-400;
+    }
+
+    .property-option-form__table-field {
+      text-align: start;
+    }
+  }
+
+  tbody .baserow-table__row {
+    .baserow-table__cell {
+      padding-inline-start: 10px;
+      block-size: 45px;
+    }
+
+    .property-option-form__table-option {
+      div.checkbox {
+        inline-size: fit-content;
+
+        /* Align the checkbox to the center of the cell. */
+        margin: 0 auto;
+      }
+    }
+
+    .property-option-form__table-property {
+      @extend %ellipsis;
+
+      max-inline-size: 100px;
+    }
+
+    &:not(:last-child) {
+      .baserow-table__cell {
+        border-block-end: 1px solid $color-neutral-400;
+      }
+    }
+  }
+
+  .baserow-table__empty-message {
+    block-size: 45px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,144 @@
+.modal__wrapper {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  z-index: $z-index-modal;
+  background-color: rgba($color-neutral-700, 0.16);
+  scrollbar-gutter: stable;
+}
+
+.modal__box {
+  @extend %box;
+
+  position: relative;
+  margin: 40px auto;
+  max-inline-size: 660px;
+  background-color: $white;
+
+  @include rounded($rounded-md);
+
+  &.modal__box--with-sidebar {
+    display: flex;
+    padding: 0;
+    max-inline-size: 960px;
+  }
+
+  &.modal__box--full-screen {
+    @include absolute(20px);
+
+    max-inline-size: none;
+    margin: 0;
+    overflow: auto;
+  }
+
+  &.modal__box--full-height {
+    block-size: calc(100% - 80px);
+  }
+
+  &.modal__box--full-max-height {
+    max-block-size: calc(100% - 80px);
+  }
+
+  &.modal__box--wide {
+    max-inline-size: 720px;
+  }
+
+  &.modal__box--small {
+    max-inline-size: 520px;
+  }
+
+  &.modal__box--tiny {
+    max-inline-size: 320px;
+    padding: 15px;
+  }
+
+  &.modal__box--no-padding {
+    padding: 0;
+  }
+
+  &.modal__box--right {
+    margin-inline-end: 20px;
+
+    @media (max-width: 720px) {
+      max-inline-size: calc(100% - 50px);
+    }
+  }
+
+  .box__title {
+    margin-block-start: 0;
+  }
+}
+
+.modal__box-sidebar {
+  position: relative;
+  background-color: $color-neutral-50;
+  flex: 0 0;
+
+  &.modal__box-sidebar--scrollable {
+    overflow-y: auto;
+  }
+
+  &.modal__box-sidebar--left {
+    flex-basis: 200px;
+    border-inline-end: 1px solid $palette-neutral-200;
+    border-start-start-radius: 6px;
+    border-end-start-radius: 6px;
+  }
+
+  &.modal__box-sidebar--right {
+    flex-basis: 300px;
+    border-inline-start: 1px solid $palette-neutral-200;
+    border-start-end-radius: 6px;
+    border-end-end-radius: 6px;
+  }
+
+  &.modal__box-sidebar--collapsed {
+    flex-basis: 48px;
+  }
+}
+
+.modal__box-content {
+  position: relative;
+  inline-size: 100%;
+  min-inline-size: 0;
+  flex: 1;
+  scrollbar-gutter: stable;
+
+  &.modal__box-content--scrollable {
+    overflow-y: auto;
+  }
+
+  &:not(.modal__box-content-no-padding) {
+    padding: 32px 40px;
+  }
+}
+
+.modal__actions {
+  @include absolute(10px, 20px, auto, auto);
+
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+}
+
+.modal__close,
+%modal-close {
+  font-size: 20px;
+  color: $color-neutral-400;
+
+  &:hover {
+    color: $color-neutral-800;
+  }
+}
+
+.modal__collapse {
+  @extend %modal-close;
+
+  margin-inline-end: 4px;
+}
+
+.modal__head {
+  padding-block-end: 24px;
+  margin-block-end: 24px;
+  border-block-end: solid 1px $color-neutral-200;
+}

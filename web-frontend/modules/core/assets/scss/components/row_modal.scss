@@ -1,0 +1,86 @@
+.row-modal__title {
+  min-block-size: 29px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-modal__field-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.row-modal__field-item {
+  margin-block-end: 20px;
+  padding: 0;
+}
+
+.row-modal__field-item-handle {
+  inline-size: 12px;
+  block-size: 16px;
+  position: relative;
+  inset-block-start: 1px;
+  display: inline-block;
+  margin-inline-end: 4px;
+  background-image: radial-gradient($color-neutral-200 40%, transparent 40%);
+  background-size: 4px 4px;
+  background-repeat: repeat;
+  cursor: grab;
+
+  &:hover {
+    background-image: radial-gradient($color-neutral-500 40%, transparent 40%);
+  }
+}
+
+.row-modal__hidden-separator {
+  display: flex;
+  margin-block: 20px 30px;
+  gap: 10px;
+}
+
+.row-modal__hidden-separator-line {
+  flex: 1;
+  block-size: 0;
+  margin: auto;
+  border-block-end: 1px solid $color-neutral-200;
+}
+
+.row-modal__hidden-separator-link {
+  color: $color-neutral-900;
+  padding: 8px;
+  border: 1px solid $color-neutral-200;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+    background-color: $color-neutral-100;
+  }
+
+  &--disabled:hover {
+    cursor: inherit;
+    background-color: transparent;
+  }
+
+  & i {
+    margin-inline-start: 10px;
+  }
+}
+
+.row-modal__add-field {
+  display: inline-block;
+  margin: 12px 0 6px 4px;
+
+  @include flex-align-items(4px);
+
+  &:hover {
+    text-decoration: none;
+    color: $color-neutral-900;
+  }
+}
+
+.row-modal__add-field-icon {
+  font-size: 20px;
+}

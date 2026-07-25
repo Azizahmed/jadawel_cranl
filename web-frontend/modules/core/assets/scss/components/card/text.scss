@@ -1,0 +1,9 @@
+.card-text {
+  @extend %ellipsis;
+
+  inline-size: 100%;
+  font-size: 13px;
+  min-inline-size: 1px;
+  line-height: 16px;
+  block-size: 16px;
+}

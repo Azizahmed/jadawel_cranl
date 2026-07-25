@@ -1,0 +1,70 @@
+.layout {
+  position: absolute;
+  inset: 0;
+}
+
+.layout__resize {
+  @include absolute(0, auto, 0, auto);
+
+  inline-size: 5px;
+  z-index: $z-index-layout-resize;
+
+  &:hover {
+    cursor: col-resize;
+
+    &::before {
+      @include absolute(0, auto, 0, 0);
+
+      content: '';
+      background-color: $palette-neutral-400;
+      inline-size: 3px;
+    }
+  }
+}
+
+.layout__col-1 {
+  position: absolute;
+  z-index: $z-index-layout-col-1;
+  inset-inline-start: 0;
+  inset-block: 0;
+  inline-size: 240px;
+}
+
+.layout__col-2 {
+  position: absolute;
+  z-index: $z-index-layout-col-3;
+
+  // Jadawel: logical inset so col-2 sits after the sidebar in both LTR and RTL.
+  inset-block: 0;
+  inset-inline: 240px 0;
+}
+
+.layout__col-2-scroll {
+  @include absolute(0);
+
+  overflow: auto;
+
+  &.layout__col-2-scroll--white-background {
+    background-color: $white;
+  }
+}
+
+.layout__col-2-1 {
+  position: absolute;
+  z-index: $z-index-layout-col-3-1;
+  inset-inline: 0;
+  inset-block-start: 0;
+  block-size: 51px;
+}
+
+.layout__col-2-2 {
+  position: absolute;
+  z-index: $z-index-layout-col-3-2;
+  inset: 51px 0 0;
+}
+
+.layout__col-3 {
+  position: absolute;
+  z-index: $z-index-layout-col-3;
+  block-size: 100%;
+}

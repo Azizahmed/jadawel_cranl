@@ -1,0 +1,91 @@
+.field-file__list {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.field-file__item {
+  display: flex;
+
+  &:not(:last-child) {
+    margin-block-end: 10px;
+  }
+}
+
+.field-file__preview {
+  flex: 0 0 48px;
+  margin-inline-end: 16px;
+}
+
+.field-file__icon {
+  display: block;
+  border: solid 1px $color-neutral-400;
+  color: $color-neutral-600;
+  overflow: hidden;
+
+  @include center-text(48px, 22px);
+  @include rounded($rounded);
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-inline-size: 100%;
+    max-block-size: 100%;
+  }
+
+  &--static {
+    cursor: unset;
+  }
+}
+
+.field-file__description {
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding-block-start: 6px;
+}
+
+.field-file__name {
+  @extend %ellipsis;
+
+  position: relative;
+  font-size: 13px;
+  font-weight: 600;
+  margin-block-end: 8px;
+}
+
+.field-file__info {
+  @extend %ellipsis;
+
+  font-size: 12px;
+  color: $color-neutral-600;
+}
+
+.field-file__actions {
+  display: flex;
+  margin-inline-start: 16px;
+  text-align: end;
+  padding-block-start: 6px;
+  font-size: 13px;
+  color: $color-success-500;
+  gap: 5px;
+}
+
+.field-file__action {
+  position: relative;
+  color: $color-neutral-400;
+
+  @include center-text(24px, 13px);
+  @include rounded($rounded);
+
+  &:not(:last-child) {
+    margin-inline-end: 8px;
+  }
+
+  &:hover {
+    color: $color-neutral-900;
+    background-color: $color-neutral-100;
+  }
+}

@@ -1,0 +1,6 @@
+.rich-text-modal__editor {
+  block-size: 100%;
+  max-block-size: calc(100% - 60px);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}

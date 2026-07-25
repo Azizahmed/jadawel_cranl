@@ -1,0 +1,27 @@
+.card-multiple-collaborators__list-wrapper {
+  overflow: hidden;
+  margin: 0 -16px;
+  block-size: 30px;
+}
+
+.card-multiple-collaborators__list {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  block-size: 30px + 15px;
+  padding: 0 16px 15px;
+  overflow-x: scroll;
+}
+
+.card-multiple-collaborators__item {
+  block-size: 24px;
+  margin-block: 5px;
+  margin-inline: 0 4px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-inline-end: 5px;
+  }
+}

@@ -1,0 +1,1141 @@
+{
+  "adminWorkspaces": {
+    "title": "مساحات العمل"
+  },
+  "guidedTourStep": {
+    "step": "{step} من {totalSteps}",
+    "gotIt": "فهمتها",
+    "next": "التالي",
+    "back": "خلف"
+  },
+  "welcomeGuidedTourStep": {
+    "title": "مرحبا بكم في جداول",
+    "content": "دعنا نقوم بجولة سريعة للتعرف على الأساسيات. من خلال بضع نقرات فقط، ستتعلم كيفية تنظيم بياناتك وتصورها بسهولة",
+    "buttonText": "ابدأ الجولة"
+  },
+  "controlCenterGuidedTourStep": {
+    "title": "مركز التحكم جداول الخاص بك",
+    "content": "يساعدك الشريط الجانبي الأيسر على إدارة مساحة العمل الخاصة بك:\n\n- الصفحة الرئيسية - قم بالوصول إلى لوحة التحكم الرئيسية.\n- الإخطارات - ابق على اطلاع بالتغييرات والإشارات.\n- دعوة الأعضاء - التعاون عن طريق إضافة أعضاء الفريق.\n- سلة المهملات - قم بإدراج جميع العناصر المحذوفة واستعادتها."
+  },
+  "createNewGuidedTourStep": {
+    "title": "إنشاء قاعدة بيانات أو تطبيق جديد",
+    "content": "انقر فوق \"إضافة جديد...\" لإعداد قاعدة بيانات أو تطبيق أو لوحة تحكم جديدة لمشروعك أو قسمك أو فريقك."
+  },
+  "mcpEndpointSettings": {
+    "title": "خادم MCP",
+    "createEndpoint": "إنشاء نقطة النهاية",
+    "createNewTitle": "إنشاء نقطة نهاية خادم MCP",
+    "backToOverview": "خلف",
+    "noEndpointsMessage": "لم تتم إضافة أي نقاط نهاية خادم MCP (بروتوكول سياق النموذج). يمكن استخدامها للتكامل مباشرة مع LLM مثل Claude، والسماح لـ LLM بتنفيذ الإجراءات مباشرة في جداول. قم بإنشاء نقطة نهاية للخادم للبدء."
+  },
+  "mcpEndpointForm": {
+    "nameLabel": "اسم",
+    "workspaceLabel": "مساحة العمل"
+  },
+  "mcpEndpoint": {
+    "detailLabel": "مزيد من التفاصيل",
+    "endpointURLIntro": "يمكن إضافة عنوان URL لخادم MCP (بروتوكول سياق النموذج) إلى أي عميل يدعم خوادم MCP. إنها نقطة نهاية فريدة تمنح LLM الوصول المباشر لتنفيذ الإجراءات في مساحة العمل نيابة عنك.",
+    "reveal": "كشف عنوان URL الكامل",
+    "warning": "تعامل مع عنوان URL لـ MCP الخاص بك ككلمة مرور، حيث أنه يتمتع بالقدرة على تعديل البيانات في جداول.",
+    "claudeInstructions": "ثلاث خطوات بسيطة لبدء استخدام Claude Desktop وجداول MCP.\n\n1. افتح إعدادات Claude Desktop من شريط التنقل. (⌘+،)\n1. انتقل إلى علامة التبويب \"تطوير\"، وانقر على \"تحرير التكوين\".\n1. قم بتضمين تكوين JSON التالي في `clude_desktop_config.json`.",
+    "cursorInstructions": "ثلاث خطوات بسيطة للبدء باستخدام Cursor وجداول MCP.\n\n1. افتح إعدادات المؤشر (⇧+⌘+J)\n1. انتقل إلى علامة التبويب \"MCP\" وانقر على \"إضافة خادم MCP\"\n1. أضف تكوين JSON التالي.",
+    "windsurfInstructions": "خطوتان سهلتان لإعداد MCP مع Cascase في Windsurf.\n\n1. انتقل إلى Windsurf - الإعدادات -> الإعدادات المتقدمة أو لوحة الأوامر -> افتح صفحة إعدادات Windsurf.\n1. قم بالتمرير لأسفل إلى قسم Cascade وستجد خيار إضافة خادم جديد وعرض الخوادم الموجودة وزر لعرض ملف تكوين JSON الأولي على `mcp_config.json`. أضف إليه ما يلي:"
+  },
+  "coreHTTPTriggerServiceForm": {
+    "title": "عنوان URL للويب هوك",
+    "urlVersion": "إصدار",
+    "urlVersionPublished": "تم النشر",
+    "urlVersionTest": "امتحان",
+    "copyUrl": "انسخ عنوان URL للويب هوك",
+    "urlCopied": "تم نسخ عنوان URL للخطاف على الويب إلى الحافظة",
+    "description": "سيتلقى خطاف الويب هذا طلبات HTTP ويقوم بتشغيل سير العمل باستخدام بيانات الطلب كحمولة.",
+    "methodsOptionLabel": "طرق HTTP المسموح بها",
+    "methodsOptionDescription": "يتحكم في طرق HTTP المسموح بها لخطاف الويب هذا. يؤدي استبعاد GET إلى تقليل فرصة تشغيل خطاف الويب عن طريق الخطأ.",
+    "methodsOptionAll": "الجميع",
+    "methodsOptionExcludeGet": "استبعاد الحصول على"
+  },
+  "twoFactorAuthEmpty": {
+    "title": "لم تقم بتمكين المصادقة الثنائية بعد",
+    "description": "أضف طبقة إضافية من الأمان إلى حسابك.",
+    "enable": "تمكين 2FA",
+    "notAllowedTitle": "المصادقة الثنائية غير ممكّنة",
+    "notAllowedDescription": "لا يمكن إضافة المصادقة الثنائية إلا للحسابات المعتمدة على كلمة المرور."
+  },
+  "nodeHelpTooltip": {
+    "exampleLabel": "مثال",
+    "result": "النتيجة: {result}"
+  },
+  "enableWithQRCode": {
+    "scanQRCode": "مسح رمز الاستجابة السريعة",
+    "scanQRCodeDescription": "امسح الرمز ضوئيًا باستخدام تطبيق مثل Google Authenticator أو Authy أو Microsoft Authenticator.",
+    "clickToCopy": "بدلا من ذلك، انقر هنا لنسخ الرمز.",
+    "secretCopiedTitle": "منسوخ سري",
+    "secretCopiedMessage": "تم نسخ سر TOTP إلى الحافظة.",
+    "enterCode": "أدخل الرمز الموضح",
+    "enterCodeDescription": "أدخل الرمز المكون من 6 أرقام الذي يظهره التطبيق لتأكيد أنك قمت بإعداده بشكل صحيح.",
+    "verificationFailed": "فشل التحقق",
+    "verificationFailedDescription": "الرمز الذي تم إدخاله غير صالح.",
+    "provisioningFailed": "فشل التزويد",
+    "checkSuccess": "تم تمكين المصادقة الثنائية بنجاح"
+  },
+  "adminUsers": {
+    "title": "المستخدمين"
+  },
+  "deleteWorkspaceModal": {
+    "title": "حذف {name}",
+    "confirmation": "هل أنت متأكد أنك تريد حذف مساحة العمل: {name}؟",
+    "comment": "سيتم حذف مساحة العمل نهائيًا، بما في ذلك التطبيقات ذات الصلة. ليس من الممكن التراجع عن هذا الإجراء.",
+    "delete": "حذف مساحة العمل {name}"
+  },
+  "activeUsers": {
+    "newUsers": "مستخدمين جدد",
+    "activeUsers": "المستخدمين النشطين"
+  },
+  "usersAdminTable": {
+    "allUsers": "كافة المستخدمين",
+    "username": "اسم المستخدم",
+    "name": "اسم",
+    "workspaces": "مساحات العمل",
+    "lastLogin": "آخر تسجيل دخول",
+    "dateJoined": "تم التسجيل",
+    "active": "نشيط"
+  },
+  "editUserContext": {
+    "changePassword": "تغيير كلمة المرور",
+    "delete": "حذف نهائيا",
+    "impersonate": "انتحال شخصية"
+  },
+  "changePasswordForm": {
+    "newPassword": "كلمة المرور الجديدة",
+    "repeatPassword": "كرر كلمة المرور",
+    "changePassword": "تغيير كلمة المرور",
+    "error": {
+      "doesntMatch": "يجب أن يتطابق هذا الحقل مع حقل كلمة المرور الخاصة بك."
+    }
+  },
+  "userForm": {
+    "fullName": "الاسم الكامل",
+    "email": "بريد إلكتروني",
+    "isActive": "نشط",
+    "warning": {
+      "changeEmail": "إن تغيير عنوان البريد الإلكتروني لهذا المستخدم يعني أنه عند قيامهم بتسجيل الدخول، يجب عليهم استخدام عنوان البريد الإلكتروني الجديد للقيام بذلك. يجب أن يتم إبلاغ هذا مع هذا المستخدم.",
+      "inactiveUser": "عندما يتم وضع علامة على المستخدم على أنه غير نشط، يتم منعه من تسجيل الدخول.",
+      "userStaff": "إن جعل طاقم عمل المستخدم يمنحهم حق الوصول الإداري إلى جميع المستخدمين وجميع مساحات العمل والقدرة على إلغاء أذونات الموظفين الخاصة بك."
+    },
+    "error": {
+      "invalidName": "الرجاء إدخال اسم كامل صالح، يجب أن يكون أطول من حرفين وأقل من 150 حرفًا.",
+      "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح."
+    }
+  },
+  "changeUserPasswordModal": {
+    "changePassword": "تغيير كلمة المرور لـ {username}"
+  },
+  "deleteUserModal": {
+    "title": "حذف {username}",
+    "confirmation": "هل أنت متأكد من أنك تريد حذف المستخدم: {name}؟",
+    "comment1": "سيتم حذف حساب المستخدم، إلا أن مساحات العمل التي يكون المستخدم عضوًا فيها ستظل موجودة. لن يتم حذف مساحة عمل المستخدمين، حتى لو كان هذا المستخدم هو آخر مستخدم في مساحة العمل. يؤدي حذف المستخدم الأخير في مساحة العمل إلى منع أي شخص من الوصول إلى مساحة العمل هذه.",
+    "comment2": "بعد حذف مستخدم، يمكن للمستخدم الجديد التسجيل مرة أخرى باستخدام عنوان البريد الإلكتروني للمستخدمين المحذوفين. للتأكد من عدم قدرتهم على التسجيل مرة أخرى، قم بدلاً من ذلك بإلغاء تنشيط المستخدم وعدم حذفه.",
+    "delete": "حذف المستخدم {username}"
+  },
+  "editUserModal": {
+    "delete": "حذف المستخدم",
+    "edit": "تحرير { username }"
+  },
+  "twoFactorAuthField": {
+    "enabled": "ممكّن",
+    "disabled": "عاجز"
+  },
+  "adminDashboard": {
+    "title": "لوحة القيادة",
+    "totals": "المجاميع",
+    "totalUsers": "إجمالي المستخدمين",
+    "totalWorkspaces": "إجمالي مساحات العمل",
+    "totalApplications": "إجمالي الطلبات",
+    "newUsers": "مستخدمين جدد",
+    "newUsers24h": "المستخدمون الجدد يستمرون 24 ساعة",
+    "newUsers7days": "المستخدمون الجدد يستمرون لمدة 7 أيام",
+    "newUsers30days": "المستخدمون الجدد يستمرون لمدة 30 يومًا",
+    "activeUsers": "المستخدمين النشطين",
+    "activeUsers24h": "المستخدمون النشطون يستمرون لمدة 24 ساعة",
+    "activeUsers7days": "المستخدمون النشطون يستمرون لمدة 7 أيام",
+    "activeUsers30days": "يستمر المستخدمون النشطون لمدة 30 يومًا",
+    "viewAll": "عرض الكل"
+  },
+  "formGroup": {
+    "protectedField": "هذا الحقل محمي. انقر للتغيير.",
+    "cancelProtectedField": "إلغاء التغيير"
+  },
+  "userSourceType": {
+    "userCountSummary": "مستخدمو {count} ({lastUpdated})"
+  },
+  "selectAIModelForm": {
+    "AIType": "نوع الذكاء الاصطناعي",
+    "AIModel": "نموذج الذكاء الاصطناعي",
+    "fileField": "حقل الملف",
+    "temperatureLabel": "درجة حرارة",
+    "temperatureDescription": "تعمل درجة حرارة LLM، وهي معلمة تم تعيينها بين 0 و{max}، على ضبط عشوائية الاستجابة - حيث تنتج القيم المنخفضة إجابات مركزة، بينما تزيد القيم الأعلى من الإبداع."
+  },
+  "moreStep": {
+    "title": "أخبرنا أكثر قليلا",
+    "how": "كيف سمعت عنا؟",
+    "howSearchEngine": "محرك البحث (جوجل/بنج)",
+    "howSocialMedia": "وسائل التواصل الاجتماعي",
+    "howOnlineAds": "الإعلانات عبر الإنترنت",
+    "howContent": "المحتوى (مدونة/رسالة إخبارية/فيديو)",
+    "howReviewSite": "مراجعة الموقع/السوق",
+    "howFriend": "من صديق",
+    "howColleague": "من زميل",
+    "howEvent": "حدث أو ندوة عبر الإنترنت",
+    "howSales": "انتشار المبيعات",
+    "howOther": "آخر",
+    "country": "دولة"
+  },
+  "teamStep": {
+    "description": "في أي فريق أنت؟",
+    "marketingTeam": "تسويق",
+    "productAndDesignTeam": "المنتج والتصميم",
+    "engineeringTeam": "هندسة",
+    "operationsTeam": "العمليات",
+    "itAndSupportTeam": "تكنولوجيا المعلومات والدعم",
+    "hrAndLegalTeam": "الموارد البشرية والقانونية",
+    "financeTeam": "تمويل",
+    "creativeProductionTeam": "الإنتاج الإبداعي",
+    "salesAndAccountManagementTeam": "إدارة المبيعات والحسابات",
+    "customerServiceTeam": "خدمة العملاء",
+    "manufacturingTeam": "تصنيع",
+    "otherPersonalTeam": "أخرى / شخصي"
+  },
+  "colorInput": {
+    "default": "تقصير"
+  },
+  "colorPickerContext": {
+    "pickColorPlaceholder": "أو اختر لونًا محددًا مسبقًا"
+  },
+  "imageInput": {
+    "labelDescription": "اختر صورة للتحميل...",
+    "labelButton": "رفع"
+  },
+  "user": {
+    "isStaff": "هل الموظفين",
+    "isWorkspaceAdmin": "هو مسؤول مساحة العمل",
+    "active": "نشيط",
+    "deactivated": "معطل"
+  },
+  "adminType": {
+    "dashboard": "لوحة القيادة",
+    "users": "المستخدمين",
+    "workspaces": "مساحات العمل"
+  },
+  "workspacesAdminTable": {
+    "allWorkspaces": "كافة مساحات العمل",
+    "id": "بطاقة تعريف",
+    "name": "اسم",
+    "members": "أعضاء",
+    "applications": "التطبيقات",
+    "created": "مخلوق",
+    "rowCount": "عدد الصفوف",
+    "freeUsers": "المستخدمين مجانا",
+    "seatsTaken": "تم شغل المقاعد",
+    "storageUsage": "سعة التخزين المستخدمة (ميجابايت)",
+    "usageHelpText": "يتم حسابه كل ليلة عند تمكين إعداد تتبع استخدام مساحة العمل"
+  },
+  "editWorkspaceContext": {
+    "delete": "حذف نهائيا"
+  },
+  "workspaceInvitationAcceptedNotification": {
+    "title": "لقد قبلت {sender} دعوتك للانضمام إلى {workspaceName}",
+    "deletedUser": "مستخدم محذوف"
+  },
+  "workspaceInvitationRejectedNotification": {
+    "title": "لقد رفض {sender} دعوتك للانضمام إلى {workspaceName}",
+    "deletedUser": "مستخدم محذوف"
+  },
+  "workspaceInvitationCreatedNotification": {
+    "title": "لقد دعاك {sender} للانضمام إلى {workspaceName}",
+    "deletedUser": "مستخدم محذوف"
+  },
+  "versionUpgradeNotification": {
+    "title": "{version} هنا! اطلع على الجديد."
+  },
+  "emailNotifications": {
+    "title": "إشعارات البريد الإلكتروني",
+    "label": "الإشارات والتعليقات والإخطارات الأخرى",
+    "description": "قم بتكوين معدل تكرار إرسال رسائل البريد الإلكتروني إلى صندوق الوارد الخاص بك.",
+    "instant": "فوري",
+    "daily": "يوميًا",
+    "weekly": "أسبوعي",
+    "never": "أبداً",
+    "submitButton": "تردد التحديث"
+  },
+  "formulaInputField": {
+    "errorInvalidFormula": "الصيغة غير صالحة.",
+    "advancedFormulaMode": "وضع الصيغة المتقدمة",
+    "invalidFormulaTitle": "صيغة غير صالحة",
+    "invalidSyntax": "صيغة الخبراء ليست صالحة، يرجى التحقق من بناء الجملة."
+  },
+  "formulaInputErrorContext": {
+    "viewFullError": "عرض الخطأ الكامل"
+  },
+  "formulaInputExplorerContext": {
+    "variables": "المتغيرات",
+    "functions": "وظائف",
+    "operators": "مشغلي",
+    "search": "يبحث",
+    "useRegularInputModalTitle": "هل تريد استخدام الإدخال العادي لهذا الحقل؟",
+    "useSimpleInput": "التبديل إلى الوضع الأساسي",
+    "useSimpleInputModalTitle": "التبديل إلى الوضع الأساسي؟",
+    "useAdvancedInput": "التبديل إلى وضع الخبراء",
+    "useAdvancedInputModalTitle": "التبديل إلى وضع الخبراء؟",
+    "modalMessage": "سيؤدي التبديل إلى وضع مختلف إلى مسح الصيغة الحالية. هل أنت متأكد أنك تريد الاستمرار؟"
+  },
+  "formulaParserErrors": {
+    "invalidArgCountMin": "تتوقع الدالة \"{funcType}\" الحد الأدنى من وسيطات {minArgs}.",
+    "invalidArgCountExact": "تتوقع الدالة \"{funcType}\" وسيطات {minArgs} بالضبط.",
+    "invalidArgCountRange": "تتوقع الدالة \"{funcType}\" بين الوسيطتين {minArgs} و{maxArgs}."
+  },
+  "dataExplorer": {
+    "noMatchingNodesText": "لم يتم العثور على نتائج مطابقة.",
+    "noProvidersText": "لم يتم العثور على موفري البيانات. للبدء، يمكنك، على سبيل المثال، إضافة مصدر بيانات أو معلمة صفحة."
+  },
+  "dataExplorerNode": {
+    "showMore": "عرض المزيد من التكرار",
+    "selectNode": "يختار"
+  },
+  "richTextEditorBubbleMenu": {
+    "bold": "عريض",
+    "italic": "مائل",
+    "underline": "تسطير",
+    "strikethrough": "يضرب",
+    "link": "وصلة",
+    "linkEditPlaceholder": "رابط الرابط...",
+    "linkEditDone": "منتهي"
+  },
+  "richTextEditorFloatingMenu": {
+    "hierarchy": "تَسَلسُل",
+    "lists": "القوائم",
+    "paragraph": "فقرة",
+    "heading1": "العنوان 1",
+    "heading2": "العنوان 2",
+    "heading3": "العنوان 3",
+    "orderedList": "قائمة مرقمة",
+    "unorderedList": "قائمة نقطية",
+    "code": "شفرة",
+    "taskList": "قائمة المهام"
+  },
+  "datetime": {
+    "secondsAgo": "الآن | منذ ثانية واحدة | {n} قبل ثانية",
+    "minutesAgo": "منذ 0 دقيقة | منذ دقيقة واحدة | {n} منذ دقائق",
+    "hoursAgo": "منذ 0 ساعات | منذ ساعة واحدة | {n} منذ ساعات",
+    "daysAgo": "منذ 0 أيام | منذ يوم واحد | {n} منذ أيام",
+    "monthsAgo": "منذ 0 أشهر | منذ شهر واحد | {n} منذ أشهر",
+    "yearsAgo": "منذ 0 سنوات | منذ سنة واحدة | {n} منذ سنوات",
+    "lessThanMinuteAgo": "منذ أقل من دقيقة",
+    "justNow": "الآن"
+  },
+  "crudTableSearch": {
+    "search": "يبحث"
+  },
+  "membersSettings": {
+    "membersTabTitle": "أعضاء",
+    "invitesTabTitle": "يدعو",
+    "membersTable": {
+      "title": "أعضاء {userAmount} في {workspaceName}",
+      "inviteMember": "دعوة عضو",
+      "columns": {
+        "name": "اسم",
+        "email": "بريد إلكتروني",
+        "role": "الدور الافتراضي",
+        "highestRole": "الدور الاعلى",
+        "highestRoleHelpText": "أعلى دور تم تعيينه له من قبل هذا المستخدم بشكل مباشر أو من فريق، في أي شيء في مساحة العمل هذه",
+        "highestRoleInstanceHelpText": "أعلى دور لهذا المستخدم في المثيل",
+        "teams": "فرق",
+        "2fa": "2FA"
+      },
+      "actions": {
+        "copyEmail": "نسخ البريد الإلكتروني",
+        "remove": "إزالة من مساحة العمل"
+      }
+    },
+    "invitesTable": {
+      "title": "{invitesAmount} الدعوات المعلقة في {workspaceName}",
+      "columns": {
+        "email": "بريد إلكتروني",
+        "role": "الدور الافتراضي"
+      },
+      "actions": {
+        "copyEmail": "نسخ البريد الإلكتروني",
+        "remove": "إلغاء الدعوة"
+      }
+    },
+    "membersInviteModal": {
+      "title": "دعوة أعضاء مساحة العمل",
+      "submit": "أرسل دعوة",
+      "helpIconText": "سيكون الدور المحدد هو الدور الافتراضي للمستخدمين في مساحة العمل هذه.",
+      "errors": {
+        "userAlreadyInWorkspace": {
+          "title": "المستخدم موجود بالفعل في مساحة العمل.",
+          "text": "لا يمكن إرسال دعوة عندما يكون المستخدم عضوًا بالفعل في مساحة العمل."
+        }
+      }
+    }
+  },
+  "memberSelectionList": {
+    "searchPlaceholder": "يجد ...",
+    "selectedAmountLabel": "تم تحديد {count}"
+  },
+  "memberAssignmentModalFooter": {
+    "invite": "دعوة {count}",
+    "deselectAll": "قم بإلغاء تحديد الكل",
+    "selectAll": "حدد الكل"
+  },
+  "removeFromWorkspaceModal": {
+    "title": "تأكيد الإزالة من مساحة العمل",
+    "confirmation": "هل أنت متأكد أنك تريد إزالة {name} من {workspaceName}؟ لا يمكن التراجع عن هذا الإجراء.",
+    "remove": "يزيل"
+  },
+  "editRoleContext": {
+    "billableRolesLink": "وثائق الأدوار القابلة للفوترة",
+    "additionalRoles": "أدوار إضافية"
+  },
+  "highestPaidRoleField": {
+    "billable": "قابلة للفوترة"
+  },
+  "integrationCreateEditModal": {
+    "createTitle": "التكامل الجديد",
+    "editTitle": "تحرير التكامل",
+    "warningTitle": "تحذير"
+  },
+  "integrationEditForm": {
+    "name": "اسم",
+    "namePlaceholder": "أدخل اسم التكامل..."
+  },
+  "integrationDropdown": {
+    "addIntegration": "إضافة تكامل جديد",
+    "noIntegrations": "لم يتم العثور على عمليات تكامل.",
+    "selectTypeFirst": "اختر النوع أولا",
+    "integrationPlaceholder": "حدد التكامل"
+  },
+  "dropdown": {
+    "empty": "لا توجد عناصر متاحة"
+  },
+  "richTextEditorMentionsList": {
+    "notFound": "لم يتم العثور على مستخدمين"
+  },
+  "formSidebar": {
+    "fields": "الحقول",
+    "rowEditableBy": "تحديث الصفوف عبر الحقول",
+    "rowEditableByDescription": "يمكن تحديث الصفوف الموجودة في هذا الجدول باستخدام هذا النموذج عبر حقول تحرير الصفوف التالية:",
+    "actions": {
+      "addAll": "أضف الكل",
+      "removeAll": "إزالة الكل",
+      "addField": "إضافة حقل"
+    },
+    "notifyUserOnSubmit": "تلقي إشعار عند الإرسال",
+    "fieldsDescription": "جميع الحقول موجودة في النموذج",
+    "prefillOrHideInfoLink": "التعبئة المسبقة أو الإخفاء ديناميكيًا",
+    "modal": {
+      "title": "قم بملء الحقول مسبقًا أو إخفائها ديناميكيًا",
+      "descriptionPartOne": "يمكن ملء النماذج مسبقًا لمساعدة المستخدم على ملء النموذج بشكل أسرع.",
+      "descriptionPartTwo": "يمكن ملء جميع الحقول المتوفرة في النموذج مسبقًا.",
+      "howToHide": {
+        "title": "كيفية إخفاء الحقل",
+        "description": "إذا كنت تريد إخفاء حقل ديناميكيًا، فيمكنك القيام بذلك عبر معلمات الاستعلام المضافة إلى الجمهور من عنوان url. تكون معلمات الاستعلام هذه مسبوقة بـ `hide_` لتجنب التعارض مع معلمات الاستعلام المستقبلية المحتملة."
+      },
+      "howToPrefill": {
+        "title": "كيفية ملء النموذج مسبقًا",
+        "description": "إذا كنت تريد ملء نموذج بالبيانات مسبقًا، فيمكنك القيام بذلك عبر معلمات الاستعلام المضافة إلى عنوان URL العام للنموذج. تكون معلمات الاستعلام هذه مسبوقة بـ \"ملء مسبق\" لتجنب أي تعارض مع معلمات الاستعلام المستقبلية المحتملة."
+      },
+      "format": {
+        "title": "شكل",
+        "description": "تنسيق معلمات الاستعلام كما يلي:",
+        "codeSnippet": "?prefill_&#60;field_name&#62;=&#60;value&#62;"
+      },
+      "example": {
+        "title": "مثال",
+        "description": "في المثال أدناه، نريد ملء حقل يسمى \"الاسم\" بقيمة \"مايك\".",
+        "codeSnippet": "?prefill_Name=مايك"
+      },
+      "spaces": {
+        "title": "المساحات",
+        "description": "يتم استبدال المسافات في اسم الحقل بـ `+` لتجنب أي مشكلات تتعلق بمعلمة الاستعلام.",
+        "codeSnippet": "?prefill_my+field=مايك"
+      },
+      "multipleValues": {
+        "title": "قيم متعددة",
+        "description": "إذا كنت تريد ملء حقول متعددة مسبقًا، فيمكنك القيام بذلك عن طريق إضافة `،` بين القيم.",
+        "codeSnippet": "?prefill_multi+select=مايك,جون"
+      },
+      "specialFieldTypes": {
+        "title": "أنواع الحقول الخاصة",
+        "description": "بشكل عام، قيمة الملء المسبق هي نفس قيمة الحقل. ولكن هناك بعض الاستثناءات حيث تتم ترجمة القيمة إلى قيمة مختلفة.",
+        "ratingField": {
+          "title": "مجال التقييم",
+          "description": "يقبل حقل التصنيف رقمًا للإشارة إلى عدد النجوم التي يجب ملؤها.",
+          "codeSnippet": "?prefill_rated=3"
+        },
+        "linkRowField": {
+          "title": "حقل صف الارتباط",
+          "description": "يمكن أن يقبل حقل صف الارتباط القيمة التي تظهر في القائمة المنسدلة المحددة.",
+          "codeSnippet": "?prefill_link+row=مايك"
+        },
+        "selectField": {
+          "title": "حقل تحديد فردي/تحديد متعدد",
+          "description": "يمكن لحقل تحديد واحد أن يقبل القيمة التي تظهر في القائمة المنسدلة المحددة. وكذلك الأمر بالنسبة لحقل التحديد المتعدد، ولكنه يمكنه أيضًا قبول قيم متعددة.",
+          "codeSnippet": "?prefill_single+select=مايك"
+        },
+        "dateField": {
+          "title": "حقل التاريخ",
+          "description": "يمكن أن يقبل حقل التاريخ تاريخًا بالتنسيقات التالية وسيستخدم تنسيق التاريخ الخاص بالحقل لتحليل التاريخ.",
+          "codeSnippet": "// المعايير\nISO_8601\n\n// التنسيقات العامة\n\"YYYY-MM-DD\"،\n'YYYY-MM-DD hh:mm A'،\n'YYYY-MM-DD سمو: ملم'،\n\n// الاتحاد الأوروبي\n\"يوم/شهر/سنة\"، \n'DD/MM/YYYY hh:mm A'، \n'يوم/شهر/سنة س س: ملم'\n\n// الولايات المتحدة\n\"شهر/يوم/سنة\"، \n'MM/DD/YYYY hh:mm A'، \n'MM/DD/YYYY HH:mm'"
+        }
+      }
+    }
+  },
+  "job": {
+    "statePending": "في انتظار البدء...",
+    "stateStarted": "بدأت...",
+    "stateFinished": "انتهى",
+    "stateCanceled": "تم الإلغاء",
+    "stateFailed": "فشل",
+    "errorJobCannotBeCancelledTitle": "لا يمكن الإلغاء",
+    "errorJobCannotBeCancelledDescription": "لا يمكن إلغاء المهمة لأنها قد اكتملت بالفعل.\nيرجى حذف اللقطة الأولى في القائمة أدناه لإزالتها.",
+    "errorJobAlreadyRunningTitle": "قيد التشغيل بالفعل",
+    "errorJobAlreadyRunningDescription": "هناك مهمة استيراد أخرى قيد التشغيل بالفعل. عليك أن تنتظر حتى ينتهي هذا قبل البدء بآخر."
+  },
+  "settings": {
+    "settingsTitle": "إعدادات المشرف",
+    "baserowInstanceId": "معرف المثيل",
+    "instanceIdDescription": "معرف المثيل هو المعرف الفريد لنسخة جداول الخاصة بك.",
+    "baserowVersion": "نسخة جداول",
+    "baserowVersionDescription": "رقم إصدار هذا المثيل.",
+    "accountRestrictions": "قيود الحساب",
+    "settingAllowResetPasswordName": "السماح بإعادة تعيين كلمة المرور",
+    "settingAllowResetPasswordDescription": "بشكل افتراضي، يمكن للمستخدمين طلب رابط إعادة تعيين كلمة المرور.",
+    "settingAllowResetPasswordWarning": "يرجى ملاحظة أنه يمكنك قفل نفسك خارج النظام ولا يمكن استعادة إمكانية الوصول إذا نسيت كلمة المرور الخاصة بك.",
+    "settingAllowNewAccountsName": "السماح بإنشاء حسابات جديدة",
+    "settingAllowNewAccountsDescription": "افتراضيًا، يمكن لأي مستخدم يزور نطاق جداول الخاص بك الاشتراك للحصول على حساب جديد.",
+    "settingAllowSignupsViaWorkspaceInvitationsName": "السماح بالاشتراكات عبر دعوات مساحة العمل",
+    "settingAllowSignupsViaWorkspaceInvitationDescription": "حتى إذا تم تعطيل إنشاء حسابات جديدة، فإن هذا الخيار يسمح للمستخدمين المدعوين مباشرة بمواصلة إنشاء حساب.",
+    "settingAllowNonStaffCreateWorkspaceOperation": "السماح للجميع بإنشاء مساحات عمل جديدة",
+    "settingAllowNonStaffCreateWorkspaceOperationDescription": "بشكل افتراضي، يمكن للجميع إنشاء مساحات عمل جديدة. قم بتعطيل هذا للسماح للموظفين فقط بإنشاء مساحات عمل جديدة.",
+    "settingAllowNonStaffCreateWorkspaceOperationWarning": "سيتم إنشاء مساحة عمل للمستخدمين الجدد تلقائيًا لهم حيث يكونون مسؤولين.",
+    "settingTrackWorkspaceUsage": "تتبع استخدام مساحة العمل",
+    "settingTrackWorkspaceUsageDescription": "لتمكين مهمة ليلية تحسب استخدام الصفوف والملفات لكل مساحة عمل، ويتم عرضها على صفحة إدارة مساحة العمل المميزة.",
+    "userSettings": "مستخدم",
+    "settingUserDeletionGraceDelay": "حذف تأخير السماح",
+    "settingUserDeletionGraceDelayDescription": "هذا هو عدد الأيام التي لم يتم فيها تسجيل الدخول، وبعدها يتم حذف الحساب المقرر حذفه نهائيًا.",
+    "invalidAccountDeletionGraceDelay": "هذه القيمة مطلوبة ويجب أن تكون عددًا صحيحًا موجبًا أصغر من 32000",
+    "enabled": "ممكّن",
+    "maintenance": "صيانة",
+    "emailVerification": "التحقق من البريد الإلكتروني",
+    "emailVerificationDescription": "يتحكم في ما إذا كان يجب التحقق من عناوين البريد الإلكتروني.",
+    "emailVerificationNoVerification": "لا التحقق",
+    "emailVerificationRecommended": "مُستَحسَن",
+    "emailVerificationEnforced": "القسري",
+    "settingsVerifyImportSignature": "التحقق من توقيع الاستيراد",
+    "settingsVerifyImportSignatureDescription": "عند التمكين، يتم التحقق من توقيع البيانات المستوردة لضمان عدم التلاعب بالبيانات."
+  },
+  "dashboard": {
+    "title": "لوحة القيادة",
+    "becomeGithubSponsor": "كن أحد رعاة GitHub",
+    "suggestedTemplates": "القوالب المقترحة",
+    "resources": "موارد",
+    "apiDocumentation": "وثائق واجهة برمجة التطبيقات",
+    "apiDocumentationMessage": "تعرف على المزيد حول الكود الخاص بنا",
+    "emptyWorkspace": "مساحة العمل هذه فارغة",
+    "emptyWorkspaceMessage": "ابدأ بإنشاء قاعدة بيانات أو تطبيق جديد.",
+    "addNew": "إضافة جديد...",
+    "noWorkspace": "لا توجد مساحة عمل",
+    "noWorkspaceDescription": "ابدأ بإنشاء مساحة عمل جديدة"
+  },
+  "dashboardApplication": {
+    "createdAt": "مخلوق"
+  },
+  "templateCard": {
+    "viewMore": "عرض المزيد"
+  },
+  "userSessionExpiredToast": {
+    "title": "انتهت صلاحية الجلسة",
+    "content": "لقد تم تسجيل خروجك لأن رمز المصادقة الخاص بك قد انتهت صلاحيته. الرجاء تسجيل الدخول مرة أخرى."
+  },
+  "userPasswordChangedToast": {
+    "title": "تم تغيير كلمة المرور",
+    "content": "لقد تم تغيير كلمة المرور الخاصة بك. الرجاء تسجيل الدخول مرة أخرى."
+  },
+  "restoreToast": {
+    "restore": "استعادة حذف {type}"
+  },
+  "copyingToast": {
+    "title": "جارٍ النسخ...",
+    "content": "تحضير بياناتك"
+  },
+  "PastingToast": {
+    "title": "جارٍ اللصق...",
+    "content": "تحضير بياناتك"
+  },
+  "clearingToast": {
+    "title": "المقاصة...",
+    "content": "تحضير بياناتك"
+  },
+  "undoRedoToast": {
+    "undoingTitle": "جارٍ التراجع...",
+    "undoingText": "التراجع عن الإجراء الخاص بك",
+    "undoneTitle": "تم التراجع عنه",
+    "undoneText": "تم التراجع عن الإجراء",
+    "noMoreUndo": "لا يوجد المزيد من الإجراءات للتراجع عنها",
+    "skippingUndoDueToError": "فشل التراجع بسبب خطأ غير معروف، وتم تخطيه.",
+    "redoingTitle": "جارٍ إعادة...",
+    "redoingText": "إعادة الإجراء الخاص بك",
+    "redoneTitle": "إعادة بنائه",
+    "redoneText": "تم إعادة تنفيذ الإجراء",
+    "noMoreRedo": "ليس هناك المزيد من الإجراءات لإعادتها",
+    "skippingRedoDueToError": "فشلت الإعادة بسبب خطأ غير معروف، وتم تخطيها.",
+    "failed": "فشل"
+  },
+  "permissionsUpdatedToast": {
+    "title": "تم تحديث الأذونات",
+    "content": "قد يؤثر هذا على ما يمكنك الوصول إليه، يرجى إعادة تحميل الصفحة.",
+    "action": "إعادة تحميل"
+  },
+  "errorLayout": {
+    "notFound": "لم يتم العثور على الصفحة التي تبحث عنها. قد يكون هذا بسبب أن عنوان URL غير صحيح أو أنه ليس لديك إذن لعرض هذه الصفحة.",
+    "error": "حدث خطأ ما أثناء تحميل الصفحة. لقد تم إخطار المطورين لدينا بالمشكلة. يرجى محاولة التحديث أو العودة إلى لوحة التحكم.",
+    "backDashboard": "العودة إلى لوحة القيادة",
+    "backLogin": "العودة لتسجيل الدخول",
+    "wrong": "حدث خطأ ما",
+    "refresh": "تحديث الصفحة"
+  },
+  "generativeAIModelType": {
+    "openai": "OpenAI",
+    "openaiApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
+    "openaiApiKeyDescription": "قم بتوفير مفتاح OpenAI API إذا كنت ترغب في تمكين التكامل. [تعليمات حول الحصول على مفتاح واجهة برمجة التطبيقات](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).",
+    "openaiOrganization": "المنظمة (اختياري)",
+    "openaiModelsLabel": "النماذج الممكّنة",
+    "openaiModelsDescription": "قم بتقديم قائمة مفصولة بفواصل [نماذج OpenAI](https://platform.openai.com/docs/models/continious-model-upgrades) التي يمكن استخدامها في جداول. (على سبيل المثال، `gpt-3.5-turbo،gpt-4`)",
+    "openaiBaseUrl": "عنوان URL الأساسي",
+    "openaiBaseUrlDescription": "يستخدم عنوان URL الأساسي الافتراضي لـ OpenAI إذا كان الحقل فارغًا. ويمكن تغييره اختياريًا إلى https://eu.api.openai.com/v1 أو https://&#60;your-resource-name&#62;.openai.azure.com أو أي واجهة API أخرى متوافقة مع OpenAI.",
+    "anthropic": "أنثروبي",
+    "anthropicApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
+    "anthropicApiKeyDescription": "قم بتوفير مفتاح Anthropic API إذا كنت ترغب في تمكين التكامل. [تعليمات حول الحصول على مفتاح واجهة برمجة التطبيقات](https://docs.anthropic.com/en/api/getting-started).",
+    "anthropicModelsLabel": "النماذج الممكّنة",
+    "anthropicModelsDescription": "قدِّم قائمة [نماذج إنسانية] مفصولة بفواصل (https://docs.anthropic.com/en/docs/about-claude/models) التي يمكن استخدامها في جداول. (على سبيل المثال، `كلود-3-5-سونيت-20241022،كلود-3-أوبوس-20240229`)",
+    "mistral": "ميسترال",
+    "mistralApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
+    "mistralApiKeyDescription": "قم بتوفير مفتاح Mistral API إذا كنت ترغب في تمكين التكامل. [تعليمات حول الحصول على مفتاح واجهة برمجة التطبيقات](https://docs.mistral.ai/getting-started/quickstart/).",
+    "mistralModelsLabel": "النماذج الممكّنة",
+    "mistralModelsDescription": "قدِّم قائمة [نماذج ميسترال] مفصولة بفواصل (https://docs.mistral.ai/getting-started/models/models_overview/) التي يمكن استخدامها في جداول. (على سبيل المثال، \"ميسترال-كبير-الأحدث، ميسترال-صغير-الأحدث\")",
+    "ollama": "أولاما",
+    "ollamaHostLabel": "يستضيف",
+    "ollamaHostDescription": "قم بتوفير اسم المضيف لخادم [Ollama](https://ollama.com/). يتم تشغيل هذا عادةً محليًا على جهازك الخاص.",
+    "ollamaModelsLabel": "النماذج الممكّنة",
+    "ollamaModelsDescription": "قم بتوفير قائمة مفصولة بفواصل [نماذج Ollama المثبتة](https://ollama.com/library). لاحظ أنه يجب تنزيل النموذج وتثبيته قبل استخدامه. (على سبيل المثال، `llama2,mistral`)",
+    "openRouter": "OpenRouter",
+    "openRouterApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
+    "openRouterApiKeyDescription": "قم بتوفير مفتاح OpenRouter API إذا كنت ترغب في تمكين التكامل. [احصل على مفتاح واجهة برمجة التطبيقات](https://openrouter.ai/settings/keys).",
+    "openRouterOrganization": "المنظمة (اختياري)",
+    "openRouterModelsLabel": "النماذج الممكّنة",
+    "openRouterModelsDescription": "قم بتوفير قائمة مفصولة بفواصل [نماذج OpenRouter](https://openrouter.ai/models) التي يمكن استخدامها في جداول. (على سبيل المثال `openai/gpt-4o,anthropic/clude-3-haiku`)"
+  },
+  "generativeAIWorkspaceSettings": {
+    "title": "إعدادات الذكاء الاصطناعي التوليدية",
+    "description": "يمكن استخدام هذه الإعدادات لتعيين تكوين الذكاء الاصطناعي التوليدي على مستوى مساحة العمل بشكل اختياري. يمكن تعطيل ميزات مثل حقل AI لأنها تفتقر إلى مفتاح API لأحد النماذج المدعومة. ومن خلال توفير الإعدادات هنا، يمكنك تمكين هذه الميزات. يؤدي ترك قيمة فارغة إلى العودة إلى إعدادات المثيلات العامة. لاحظ أن كل شخص في مساحة العمل سيشارك هذه الإعدادات.",
+    "changedTitle": "تم تحديث الإعدادات بشكل صحيح",
+    "changedDescription": "تم تحديث الإعدادات وسيتم استخدامها الآن في مساحة العمل هذه.",
+    "submitButton": "تحديث الإعدادات",
+    "openSettings": "افتح الإعدادات",
+    "hideSettings": "إخفاء الإعدادات"
+  },
+  "templateCategories": {
+    "search": "قوالب البحث",
+    "title": "قوالب"
+  },
+  "templateHeader": {
+    "use": "استخدم هذا القالب"
+  },
+  "createApplicationContext": {
+    "fromTemplate": "من القالب",
+    "fromTemplateDesc": "ابدأ بسرعة باستخدام أحد القوالب الموصى بها",
+    "table": "طاولة",
+    "tableDesc": "قم بإنشاء مكان جديد لإدارة البيانات في قاعدة البيانات الخاصة بك.",
+    "importWorkspace": "استيراد البيانات",
+    "importWorkspaceDesc": "إضافة البيانات الموجودة من مثيل جداول."
+  },
+  "applicationForm": {
+    "nameLabel": "اسم",
+    "namePlaceholder": "أدخل الاسم..."
+  },
+  "connectingToast": {
+    "title": "إعادة الاتصال",
+    "content": "محاولة إعادة إنشاء التحديثات في الوقت الحقيقي."
+  },
+  "failedConnectingToast": {
+    "title": "فشل",
+    "content": "لا يمكن إعادة إنشاء التحديثات في الوقت الحقيقي. يرجى التحديث للمتابعة.",
+    "action": "تحديث الصفحة"
+  },
+  "authorizationErrorToast": {
+    "title": "خطأ في التفويض",
+    "content": "يبدو أنك لا تملك الأذونات اللازمة لرؤية هذا المورد.",
+    "action": "تحديث الصفحة"
+  },
+  "importWorkspaceModal": {
+    "title": "استيراد بيانات جداول",
+    "description": "يمكنك استيراد بيانات جداول الموجودة عن طريق تحميل ملف .zip من مثيل جداول آخر.",
+    "import": "استيراد البيانات",
+    "upload": "رفع",
+    "uploadAndImport": "تحميل واستيراد",
+    "cancel": "يلغي",
+    "done": "منتهي",
+    "close": "يغلق",
+    "retry": "أعد المحاولة",
+    "uploading": "جاري التحميل...",
+    "chooseFile": "اختر الملف",
+    "selectApplications": "حدد البيانات المراد استيرادها",
+    "deselectAll": "قم بإلغاء تحديد الكل",
+    "selectAll": "حدد الكل",
+    "databases": "قواعد البيانات",
+    "applications": "التطبيقات",
+    "successTitle": "تم استيراد بيانات جداول بنجاح",
+    "successMessage": "تطبيقات {count} المستوردة",
+    "signatureVerificationNote": "لا يمكن استيراد ملف مضغوط من مصدر غير موثوق به.",
+    "invalidResourceTitle": "المورد غير صالح",
+    "invalidResourceMessage": "الملف المقدم ليس تصدير جداول صالحًا.",
+    "untrustedPublicKeyTitle": "توقيع غير موثوق به",
+    "untrustedPublicKeyMessage": "تم توقيع الملف المقدم باستخدام مفتاح عام غير موثوق به. اطلب من المسؤول إضافة المفتاح العام إلى قائمة المفاتيح الموثوقة أو تعطيل التحقق من التوقيع لتتمكن من استيراد هذا الملف.",
+    "importingState": "جارٍ الاستيراد...",
+    "importingTableStructure": "الإنشاء: {table}",
+    "importingTableData": "استيراد البيانات: {table}"
+  },
+  "importWorkspaceForm": {
+    "selectApplicationsToImport": "حدد التطبيقات المراد استيرادها"
+  },
+  "workspaceInvitation": {
+    "title": "دعوة",
+    "message": "لقد دعاك {by} للانضمام إلى {workspace}.",
+    "reject": "يرفض",
+    "accept": "يقبل"
+  },
+  "workspaceSettingsModal": {
+    "title": "إعدادات مساحة العمل"
+  },
+  "workspaceSettingType": {
+    "generativeAI": "الذكاء الاصطناعي التوليدي"
+  },
+  "totpLogin": {
+    "backupCodesTitle": "أدخل الرمز الاحتياطي",
+    "backupCodesDescription": "قم بتسجيل الدخول باستخدام الرمز الاحتياطي المخصص للاستخدام مرة واحدة.",
+    "authenticate": "مصادقة",
+    "goBack": "عُد",
+    "totpTitle": "المصادقة الثنائية",
+    "totpDescription": "أدخل الرمز من تطبيق المصادقة الخاص بك.",
+    "verify": "يؤكد",
+    "useBackupCode": "استخدم الرمز الاحتياطي",
+    "verificationFailed": "فشل التحقق",
+    "verificationFailedDescription": "الرمز الذي تم إدخاله غير صحيح.",
+    "loginExpired": "انتهت صلاحية تسجيل الدخول",
+    "loginExpiredDescription": "يرجى تقديم كلمة المرور الخاصة بك مرة أخرى.",
+    "rateLimit": "محاولات كثيرة جدًا."
+  },
+  "clearAllNotificationsConfirmModal": {
+    "title": "هل أنت متأكد أنك تريد مسح كافة الإخطارات؟",
+    "message": "سيتم حذف جميع الإشعارات نهائيًا ولن تتمكن من رؤيتها مرة أخرى."
+  },
+  "error": {
+    "alreadyExistsTitle": "المستخدم موجود بالفعل",
+    "alreadyExistsMessage": "يوجد بالفعل مستخدم لديه عنوان البريد الإلكتروني المقدم.",
+    "passwordRequired": "كلمة المرور مطلوبة.",
+    "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+    "disabledAccountTitle": "تم تعطيل الحساب",
+    "disabledAccountMessage": "لقد تم تعطيل حساب المستخدم هذا.",
+    "captchaVerificationFailedTitle": "فشل التحقق من كلمة التحقق",
+    "captchaVerificationFailedMessage": "فشل التحقق من كلمة التحقق. يرجى المحاولة مرة أخرى.",
+    "incorrectCredentialTitle": "أوراق اعتماد غير صحيحة",
+    "incorrectCredentialMessage": "عنوان البريد الإلكتروني أو كلمة المرور المقدمة غير صحيحة.",
+    "inputRequired": "الإدخال مطلوب.",
+    "disabledPasswordProviderTitle": "تم تعطيل مصادقة كلمة المرور.",
+    "disabledPasswordProviderMessage": "الرجاء استخدام مزود مصادقة آخر."
+  },
+  "field": {
+    "language": "لغة",
+    "emailAddress": "عنوان البريد الإلكتروني",
+    "name": "اسمك",
+    "password": "كلمة المرور",
+    "passwordRepeat": "كرر كلمة المرور"
+  },
+  "invitationTitle": "دعوة",
+  "invitationMessage": "لقد دعاك {invitedBy} للانضمام إلى {workspace}.",
+  "exportWorkspaceModal": {
+    "title": "يصدّر",
+    "description": "سيتم تصدير بياناتك كملف ZIP، والذي يمكن استيراده إلى مثيل جداول آخر.",
+    "exportSettings": "إعدادات التصدير",
+    "export": "تصدير البيانات",
+    "reset": "ابدأ جديدًا",
+    "cancel": "يلغي",
+    "download": "تحميل",
+    "exportingState": "جارٍ التصدير...",
+    "exportingTableState": "التصدير: {table}",
+    "exportingCreateArchiveState": "إنشاء الأرشيف",
+    "noExports": "لا توجد عمليات تصدير لمساحة العمل هذه حتى الآن.",
+    "created": "مخلوق"
+  },
+  "exportWorkspaceForm": {
+    "exportSettingsLabel": "إعدادات التصدير",
+    "selectDataToExport": "حدد البيانات للتصدير",
+    "selectAll": "حدد الكل",
+    "deselectAll": "قم بإلغاء تحديد الكل",
+    "onlyStructureLabel": "هيكل التصدير فقط",
+    "onlyStructureDescription": "في حالة تمكينه، سيتم تصدير بنية التطبيقات فقط. لن يتم تضمين البيانات."
+  },
+  "paginator": {
+    "page": "صفحة",
+    "of": "من {pages}"
+  },
+  "workspaceSearch": {
+    "title": "يبحث",
+    "searchEverything": "يبحث...",
+    "searching": "جارٍ البحث...",
+    "noResults": "لم يتم العثور على نتائج",
+    "noResultsSubtitle": "لم نتمكن من العثور على أي شيء يطابق \"{searchTerm}\"",
+    "welcome": "ابحث في كل شيء في مساحة العمل الخاصة بك",
+    "welcomeSubtitle": "استخدم مربع البحث أعلاه للعثور على التطبيقات والجداول والحقول والمزيد",
+    "navigate": "انتقل",
+    "select": "يختار",
+    "close": "يغلق",
+    "empty": "(فارغ)",
+    "types": {
+      "applications": "التطبيقات",
+      "tables": "الجداول",
+      "fields": "الحقول",
+      "rows": "الصفوف"
+    }
+  },
+  "copied": {
+    "label": "منسوخ!"
+  },
+  "action": {
+    "cancel": "يلغي",
+    "submit": "يُقدِّم"
+  },
+  "duplicateApplicationJobType": {
+    "duplicating": "تكرار",
+    "duplicatedTitle": "التطبيق مكرر"
+  },
+  "InstallTemplateJobType": {
+    "installing": "التثبيت",
+    "installedTitle": "تم تثبيت القالب"
+  },
+  "twoFactorAuthSettings": {
+    "title": "المصادقة الثنائية",
+    "loadingError": "تعذر تحميل التكوين الثنائي."
+  },
+  "disableTwoFactorAuth": {
+    "title": "هل أنت متأكد أنك تريد تعطيل المصادقة الثنائية (2FA)؟",
+    "description": "سيفقد حسابك طبقة إضافية من الأمان. إذا اكتشف شخص ما كلمة المرور الخاصة بك، فقد يتمكن من تسجيل الدخول إلى حسابك.",
+    "cancel": "اتركه",
+    "disable": "إبطال",
+    "successTitle": "تم تعطيل المصادقة الثنائية",
+    "errorWrongPasswordTitle": "كلمة مرور خاطئة",
+    "errorWrongPasswordMessage": "كلمة المرور التي تم إدخالها لا تتطابق مع كلمة المرور الخاصة بك."
+  },
+  "enableTwoFactorOptions": {
+    "cancel": "يلغي",
+    "continue": "يكمل"
+  },
+  "saveBackupCode": {
+    "description": "إذا فقدت إمكانية الوصول إلى تطبيق المصادقة أو الهاتف الخاص بك ولم تتمكن من تلقي أو إنشاء رموز المصادقة، فيمكنك استخدام هذه النسخة الاحتياطية. يمكنك استخدامه مرة واحدة فقط. تأكد من كتابته أو نسخه في مكان آمن حتى تتمكن من الوصول إليه دون تسجيل الدخول.",
+    "backupCodes": "رموز النسخ الاحتياطي",
+    "copy": "ينسخ",
+    "continue": "يكمل",
+    "backupCodesCopiedTitle": "منسوخ!",
+    "backupCodesCopiedMessage": "تم نسخ الرموز الاحتياطية إلى الحافظة."
+  },
+  "totpAuthType": {
+    "name": "تطبيق المصادقة",
+    "description": "استخدم أحد التطبيقات للحصول على رموز المصادقة الثنائية. نوصي باستخدام تطبيقات مثل Google Authenticator وAuthy وMicrosoft Authenticator.",
+    "enabledDescription": "ستتلقى رموز التحقق عبر تطبيق المصادقة. لإعداد تطبيق أو طريقة مختلفة، ما عليك سوى تعطيل المصادقة الثنائية والإعداد مرة أخرى.",
+    "sideLabel": "مُستَحسَن"
+  },
+  "twoFactorEnabled": {
+    "enabled": "ممكّن",
+    "disable": "تعطيل المصادقة الثنائية (2FA)."
+  },
+  "sidebar": {
+    "createWorkspace": "إنشاء مساحة عمل",
+    "addNewWorkspace": "إضافة مساحة عمل جديدة",
+    "inviteOthers": "دعوة آخرين",
+    "members": "الأعضاء",
+    "logoff": "تسجيل الخروج",
+    "errorNoWorkspace": "ليس لديك أي مساحات عمل.",
+    "adminTools": "أدوات المشرف",
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "trash": "سلة المهملات",
+    "settings": "إعداداتي",
+    "notifications": "الإشعارات",
+    "adminSettings": "إعدادات المشرف",
+    "general": "عام",
+    "people": "الأشخاص",
+    "licenses": "التراخيص"
+  },
+  "sidebarApplication": {
+    "rename": "إعادة تسمية",
+    "duplicate": "تكرار",
+    "viewTrash": "عرض سلة المهملات",
+    "delete": "حذف",
+    "snapshots": "اللقطات"
+  },
+  "settingsModal": {
+    "title": "إعداداتي"
+  },
+  "dashboardWorkspace": {
+    "createApplication": "إنشاء جديد"
+  },
+  "accountForm": {
+    "nameLabel": "اسمك",
+    "languageLabel": "لغة الواجهة"
+  },
+  "accountSettings": {
+    "title": "الحساب",
+    "changedTitle": "تم التغيير",
+    "changedDescription": "تم تغيير معلومات حسابك.",
+    "submitButton": "تحديث الحساب"
+  },
+  "passwordSettings": {
+    "title": "تغيير كلمة المرور",
+    "changedTitle": "تم تغيير كلمة المرور",
+    "changedDescription": "تم تغيير كلمة المرور. عند تسجيل الدخول في المرة التالية، استخدم كلمة المرور الجديدة.",
+    "oldPasswordLabel": "كلمة المرور الحالية",
+    "oldPasswordRequiredError": "كلمة المرور الحالية مطلوبة.",
+    "newPasswordLabel": "كلمة المرور الجديدة",
+    "repeatNewPasswordLabel": "تأكيد كلمة المرور الجديدة",
+    "repeatNewPasswordMatchError": "يجب أن يطابق هذا الحقل حقل كلمة المرور الجديدة.",
+    "submitButton": "تغيير كلمة المرور",
+    "errorInvalidOldPasswordTitle": "كلمة مرور غير صالحة",
+    "errorInvalidOldPasswordMessage": "تعذر تغيير كلمة المرور لأن كلمة المرور الحالية غير صالحة."
+  },
+  "emailSettings": {
+    "title": "تغيير عنوان البريد الإلكتروني",
+    "successTitle": "تم إرسال رسالة التأكيد",
+    "successDescription": "أرسلنا رسالة تأكيد إلى عنوانك الجديد. يرجى التحقق من البريد الوارد والنقر على الرابط لإكمال تغيير البريد الإلكتروني.",
+    "currentEmailLabel": "عنوان البريد الإلكتروني الحالي",
+    "newEmailLabel": "عنوان البريد الإلكتروني الجديد",
+    "passwordLabel": "كلمة المرور الحالية",
+    "submitButton": "إرسال رسالة التأكيد",
+    "errorInvalidPasswordTitle": "كلمة مرور غير صالحة",
+    "errorInvalidPasswordMessage": "تعذر طلب تغيير البريد الإلكتروني لأن كلمة المرور غير صحيحة.",
+    "errorEmailExistsTitle": "البريد الإلكتروني مستخدم بالفعل",
+    "errorEmailExistsMessage": "تعذر طلب تغيير البريد الإلكتروني لأن حساباً بهذا العنوان موجود بالفعل.",
+    "errorNotAllowedTitle": "لا يُسمح بتغيير البريد الإلكتروني",
+    "errorNotAllowedMessage": "لا يمكنك تغيير عنوان بريدك الإلكتروني لأن حسابك يستخدم المصادقة الأحادية SSO."
+  },
+  "deleteAccountSettings": {
+    "title": "حذف الحساب",
+    "description": "يمكنك جدولة حذف حسابك بإدخال كلمة المرور الحالية والنقر على الزر. سيُحذف حسابك نهائياً بعد {days} أيام. وفي هذه الأثناء، إذا سجلت الدخول مجدداً، فسيُلغى حذف الحساب.",
+    "workspaceNoticeDescription": "عند حذف حسابك نهائياً، ستُحذف أيضاً كل مساحات العمل والبيانات المرتبطة التي تكون فيها آخر مستخدم نشط يملك صلاحيات المسؤول. مساحات العمل أدناه هي التي ستُحذف لأنك المسؤول الوحيد فيها. لمنع حذفها، امنح مستخدماً آخر صلاحية المسؤول أولاً قبل حذف حسابك.",
+    "orphanWorkspaces": "ستُحذف نهائياً أيضاً بعد فترة السماح",
+    "orphanWorkspaceMemberCount": "غير مشتركة مع أي شخص|مشتركة مع مستخدم واحد|مشتركة مع {count} مستخدمين",
+    "password": "كلمة المرور",
+    "passwordConfirm": "تأكيد كلمة المرور",
+    "repeatPasswordMatchError": "يجب أن يطابق هذا الحقل حقل كلمة المرور الأول.",
+    "submitButton": "حذف الحساب",
+    "errorInvalidPasswordTitle": "كلمة مرور غير صالحة",
+    "errorInvalidPasswordMessage": "تعذر حذف حسابك لأن كلمة المرور غير صالحة.",
+    "errorUserIsLastAdminTitle": "آخر مسؤول",
+    "errorUserIsLastAdminMessage": "تعذر حذف حسابك لأنك آخر مسؤول في نسخة جداول هذه.",
+    "accountDeletedSuccessTitle": "تمت جدولة حذف الحساب",
+    "accountDeletedSuccessMessage": "تمت جدولة حذف حسابك.",
+    "workspaceLoadingError": "فشل التحقق من مساحات العمل",
+    "workspaceLoadingErrorDescription": "فشل التحقق من مساحات العمل المطلوب حذفها، يرجى تحديث الصفحة."
+  },
+  "login": {
+    "title": "مرحباً بعودتك",
+    "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني..",
+    "passwordPlaceholder": "أدخل كلمة المرور..",
+    "forgotPassword": "هل نسيتها؟",
+    "signUpText": "هل أنت جديد في جداول؟",
+    "signUp": "إنشاء حساب",
+    "displayPasswordLogin": "تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور",
+    "redirecting": "جارٍ التحويل إلى موفر المصادقة..."
+  },
+  "resetPassword": {
+    "title": "إعادة تعيين كلمة المرور",
+    "newPassword": "كلمة المرور الجديدة",
+    "repeatNewPassword": "تأكيد كلمة المرور الجديدة",
+    "repeatPasswordPlaceholder": "أعد إدخال كلمة المرور الجديدة",
+    "submit": "تغيير كلمة المرور",
+    "changed": "تم تغيير كلمة المرور",
+    "message": "يمكنك الآن تسجيل الدخول إلى جداول باستخدام كلمة المرور الجديدة.",
+    "errorInvalidLinkTitle": "رابط غير صالح",
+    "errorInvalidLinkMessage": "تعذر إعادة تعيين كلمة المرور لأن الرابط غير صالح.",
+    "errorLinkExpiredTitle": "انتهت صلاحية الرابط",
+    "errorLinkExpiredMessage": "انتهت صلاحية رابط إعادة تعيين كلمة المرور. يرجى طلب رابط آخر.",
+    "errorLinkAlreadyUsedTitle": "استُخدم الرابط بالفعل",
+    "errorLinkAlreadyUsedMessage": "استُخدم رابط إعادة تعيين كلمة المرور هذا بالفعل. يرجى طلب رابط جديد.",
+    "disabled": "إعادة تعيين كلمة المرور معطّلة",
+    "disabledMessage": "لا يمكن إعادة تعيين كلمة المرور لأنها معطّلة."
+  },
+  "changeEmail": {
+    "title": "تأكيد تغيير البريد الإلكتروني",
+    "submit": "تأكيد تغيير البريد الإلكتروني",
+    "changed": "تم تغيير عنوان البريد الإلكتروني",
+    "message": "تم تغيير عنوان بريدك الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول إلى جداول باستخدام عنوان بريدك الإلكتروني الجديد.",
+    "errorInvalidLinkTitle": "رابط غير صالح",
+    "errorInvalidLinkMessage": "تعذر تغيير عنوان البريد الإلكتروني لأن الرابط غير صالح.",
+    "errorLinkExpiredTitle": "انتهت صلاحية الرابط",
+    "errorLinkExpiredMessage": "انتهت صلاحية رابط تغيير البريد الإلكتروني. يرجى طلب رابط جديد من إعدادات حسابك.",
+    "errorEmailExistsTitle": "البريد الإلكتروني مستخدم بالفعل",
+    "errorEmailExistsMessage": "تعذر تغيير عنوان البريد الإلكتروني لأن حساباً بهذا العنوان موجود بالفعل.",
+    "errorEmailAlreadyChangedTitle": "تم تغيير البريد الإلكتروني بالفعل",
+    "errorEmailAlreadyChangedMessage": "تم تغيير عنوان البريد الإلكتروني بالفعل إلى العنوان المطلوب."
+  },
+  "signup": {
+    "headTitle": "إنشاء حساب",
+    "title": "إنشاء حساب",
+    "disabled": "إنشاء الحسابات معطّل",
+    "disabledMessage": "لا يمكن إنشاء حساب لأن هذه الإمكانية معطّلة.",
+    "requireFirstUser": "مرحباً بك في جداول!",
+    "requireFirstUserMessage": "يرجى تعبئة النموذج أدناه لإنشاء المستخدم المسؤول.",
+    "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني..",
+    "namePlaceholder": "أدخل اسمك..",
+    "passwordPlaceholder": "أدخل كلمة المرور..",
+    "passwordRepeatPlaceholder": "أكّد كلمة المرور..",
+    "loginText": "هل لديك حساب بالفعل؟",
+    "login": "تسجيل الدخول"
+  },
+  "forgotPassword": {
+    "title": "نسيت كلمة المرور",
+    "message": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
+    "submit": "إرسال الرابط",
+    "confirmationTitle": "تحقق من بريدك الإلكتروني",
+    "confirmation": "أرسلنا رسالة إلى {email} تتضمن رابطاً لإعادة تعيين كلمة مرور جداول.",
+    "disabled": "استعادة كلمة المرور معطّلة",
+    "disabledMessage": "لا يمكن إعادة تعيين كلمة المرور لأنها معطّلة.",
+    "loginText": "هل لديك حساب وكلمة مرور بالفعل؟",
+    "goBack": "العودة"
+  },
+  "dashboardVerifyEmail": {
+    "title": "يرجى التحقق من صندوق البريد والنقر على الرابط لتأكيد بريدك الإلكتروني.",
+    "resendConfirmationEmail": "إعادة إرسال رسالة التأكيد"
+  },
+  "resendEmailVerification": {
+    "confirmationEmailSentTitle": "تم إرسال رسالة التأكيد",
+    "confirmationEmailSentDescription": "تم إرسال رسالة التأكيد."
+  },
+  "verifyEmailAddress": {
+    "confirmation": "تم تأكيد عنوان بريدك الإلكتروني.",
+    "goToDashboard": "الانتقال إلى لوحة التحكم",
+    "invalidToken": "رمز التأكيد غير صالح.",
+    "disabledPasswordProvider": "موفر مصادقة كلمة المرور معطّل.",
+    "emailMismatchWarning": "يرجى ملاحظة أن البريد الإلكتروني المؤكد لا يخص الحساب الذي تستخدمه حالياً."
+  },
+  "emailNotVerified": {
+    "title": "تأكيد البريد الإلكتروني مطلوب",
+    "description": "يرجى التحقق من صندوق البريد والنقر على الرابط للتأكيد. بعد التأكيد، سيُفعّل حسابك.",
+    "resend": "إعادة إرسال رسالة التأكيد"
+  },
+  "onboarding": {
+    "title": "البدء",
+    "creating": "جارٍ إنشاء مساحة العمل الأولى",
+    "continue": "متابعة",
+    "skip": "تخطي الآن",
+    "cancel": "لا أريد مساعدة في الإعداد",
+    "failedTitle": "حدث خطأ ما",
+    "failedDescription": "لم تكتمل عملية البدء بالكامل، مع احتمال اكتمال بعض أجزائها.",
+    "failedTryAgain": "إعادة المحاولة",
+    "failedSkip": "تخطي عملية البدء"
+  },
+  "workspaceForm": {
+    "nameLabel": "الاسم"
+  },
+  "leaveWorkspaceModal": {
+    "title": "مغادرة {workspace}",
+    "message": "هل أنت متأكد من رغبتك في مغادرة مساحة العمل {workspace}؟ لن تتمكن بعد ذلك من الوصول إلى التطبيقات المرتبطة، ولإعادة الوصول يجب أن يدعوك أحد المسؤولين مجدداً. لن تُحذف مساحة العمل عند مغادرتها، وسيظل لدى الأعضاء الآخرين حق الوصول إليها. لا يمكن مغادرة مساحة العمل إذا كنت آخر مسؤول فيها لأن ذلك سيتركها بلا إدارة.",
+    "leave": "مغادرة مساحة العمل"
+  },
+  "createWorkspaceModal": {
+    "createNew": "إنشاء مساحة عمل جديدة",
+    "defaultName": "مساحة عمل بدون عنوان",
+    "add": "إضافة مساحة عمل",
+    "permissionDeniedTitle": "تم رفض الإذن",
+    "permissionDeniedBody": "ليس لديك الإذن المطلوب لإنشاء مساحة عمل جديدة."
+  },
+  "workspaceInviteForm": {
+    "invitationFormTitle": "الدعوة عبر البريد الإلكتروني",
+    "errorInvalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+    "additionalRoles": "أدوار إضافية"
+  },
+  "workspaceContext": {
+    "renameWorkspace": "إعادة تسمية مساحة العمل",
+    "exportWorkspace": "تصدير البيانات",
+    "importWorkspace": "استيراد البيانات",
+    "settings": "الإعدادات",
+    "members": "الأعضاء",
+    "auditLog": "سجل التدقيق",
+    "viewTrash": "عرض سلة المهملات",
+    "leaveWorkspace": "مغادرة مساحة العمل",
+    "deleteWorkspace": "حذف مساحة العمل"
+  },
+  "trashSidebar": {
+    "unnamedWorkspace": "مساحة عمل بدون اسم {id}",
+    "workspaces": "مساحات العمل"
+  },
+  "trashContents": {
+    "message": "استعادة العناصر المحذوفة خلال {duration} الماضية",
+    "empty": "لم يُحذف أي شيء خلال الأيام الثلاثة الماضية.",
+    "emptyButtonTrashed": "حذف {type} نهائياً",
+    "emptyButtonNotTrashed": "إفراغ سلة مهملات {type}",
+    "unnamed": "{type} بدون اسم {id}"
+  },
+  "trashEmptyModal": {
+    "titleIsTrashed": "هل أنت متأكد من رغبتك في حذف {name} نهائياً؟",
+    "titleIsNotTrashed": "هل أنت متأكد من رغبتك في إفراغ سلة مهملات {name}؟",
+    "messageIsTrashed": "سيؤدي ذلك إلى حذفه وكل محتوياته نهائياً، ولن يمكن استعادتها بعد ذلك.",
+    "messageIsNotTrashed": "سيؤدي ذلك إلى حذف العناصر المدرجة نهائياً، ولن يمكن استعادتها بعد ذلك.",
+    "buttonIsTrashed": "حذف نهائي",
+    "buttonIsNotTrashed": "إفراغ"
+  },
+  "trashEntry": {
+    "deletedUser": "مستخدم محذوف",
+    "fromParent": "من {parent}",
+    "name": "حذف {user} {type} {title} {parent}",
+    "restore": "استعادة",
+    "andMore": "... و{count} أخرى",
+    "unnamed": "{type} بدون اسم {id}"
+  },
+  "trashModal": {
+    "emptyTitle": "لم يتم العثور على مساحات عمل",
+    "emptyMessage": "لست عضواً في أي مساحة عمل. التطبيقات مثل قواعد البيانات تابعة لمساحة عمل، لذا يجب عليك إنشاء مساحة عمل لإنشائها.",
+    "emptyMessageWithoutCreatePermission": "لست عضواً في أي مساحة عمل. التطبيقات مثل قواعد البيانات تابعة لمساحة عمل، لذا لإنشائها يجب أن يدعوك مسؤول إلى مساحة عمل أولاً."
+  },
+  "uploadViaURLUserFileUpload": {
+    "title": "رفع ملف من رابط",
+    "urlLabel": "رابط URL للملف",
+    "urlError": "يلزم إدخال رابط URL صالح."
+  },
+  "userFilesModal": {
+    "title": "الرفع من"
+  },
+  "uploadFileUserFileUpload": {
+    "title": "الرفع من جهازي",
+    "drop": "أفلت هنا",
+    "clickOrDrop": "انقر أو أفلت ملفاتك هنا",
+    "retry": "إعادة المحاولة"
+  },
+  "uploadFileDropzone": {
+    "drop": "أفلت هنا",
+    "clickOrDrop": "انقر أو أفلت ملفاتك هنا",
+    "errorTooManyFilesTitle": "عدد كبير جداً من الملفات",
+    "errorTooManyFilesMessage": "يمكنك رفع ملف واحد فقط",
+    "errorWrongFileTypeTitle": "نوع ملف غير صحيح",
+    "errorWrongFileTypeMessage": "لا يمكنك رفع ملف من النوع {type}"
+  },
+  "notificationPanel": {
+    "title": "الإشعارات",
+    "markAllAsRead": "تعليم الكل كمقروء",
+    "clearAll": "مسح الكل",
+    "noNotificationTitle": "ليس لديك أي إشعارات",
+    "noNotification": "سنُعلمك بالتحديثات المهمة وفي كل مرة تتم الإشارة إليك في جداول.",
+    "newNotificationsAvailable": "توجد إشعارات جديدة",
+    "refresh": "تحديث"
+  }
+}

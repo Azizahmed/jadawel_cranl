@@ -1,0 +1,27 @@
+.column-element {
+  display: flex;
+  inline-size: 100%;
+  justify-content: space-between;
+  gap: var(--space-between-columns);
+  align-items: stretch;
+}
+
+.column-element__column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: var(--alignment);
+  inline-size: var(--column-width);
+}
+
+.column-element__element {
+  inline-size: 100%;
+}
+
+.column-element__column > .add-element-zone {
+  flex: 1;
+}
+
+.column-element__column > .add-element-zone--drag-active {
+  min-block-size: 24px;
+}

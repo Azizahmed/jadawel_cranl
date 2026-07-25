@@ -1,0 +1,59 @@
+.value-provider-list--row {
+  display: flex;
+  flex-wrap: nowrap;
+  inline-size: 100%;
+  margin-block-start: 12px;
+}
+
+.value-provider-list--read-only {
+  opacity: 0.8;
+}
+
+.value-provider-list__item {
+  position: relative;
+  padding: 12px;
+
+  @include rounded($rounded);
+
+  &:not(:last-child) {
+    margin-block-end: 6px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-neutral-100;
+  }
+
+  &.active {
+    background-color: $color-primary-100;
+
+    &:hover {
+      background-color: $color-primary-100;
+    }
+  }
+
+  .value-provider-list--row & {
+    inline-size: calc(50% - 6px);
+
+    &:nth-child(1n + 2) {
+      margin-inline-start: 12px;
+    }
+
+    &:not(:last-child) {
+      margin-block-end: 0;
+    }
+  }
+
+  .value-provider-list--read-only &:hover {
+    cursor: default;
+    background-color: transparent;
+  }
+}
+
+.value-provider-list__item-active-icon {
+  text-align: center;
+  color: $palette-green-500;
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+}

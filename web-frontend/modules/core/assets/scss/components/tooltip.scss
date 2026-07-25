@@ -1,0 +1,87 @@
+.tooltip {
+  position: relative;
+  padding-block-start: 8px;
+
+  &::after {
+    content: '';
+    /* stylelint-disable csstools/use-logical -- the cursor-position vars are
+       physical pixel values computed in JS, so the anchors must stay physical */
+    margin-left: -6px;
+    inline-size: 0;
+    block-size: 0;
+    border-style: solid;
+    border-width: 0 6px 8px;
+    border-color: transparent transparent $color-neutral-800;
+    position: absolute;
+    inset-block-start: 0;
+    left: var(--tooltip-cursor-position-left, 50%);
+    right: var(--tooltip-cursor-position-right, auto);
+    /* stylelint-enable csstools/use-logical */
+  }
+
+  &.tooltip--top {
+    padding-block: 0 8px;
+
+    &::after {
+      inset-block: auto 0;
+      border-width: 8px 6px 0;
+      border-color: $color-neutral-800 transparent transparent transparent;
+    }
+  }
+
+  &.tooltip--body {
+    position: absolute;
+    z-index: $z-index-tooltip;
+  }
+
+  &.tooltip--center {
+    transform: translateX(-50%);
+  }
+}
+
+.tooltip__content {
+  background-color: $palette-neutral-1200;
+  color: $white;
+  padding: 0 8px;
+  text-align: center;
+
+  @include fixed-height(26px, 12px);
+  @include rounded($rounded-md);
+
+  &--expandable {
+    padding: 12px;
+    text-align: start;
+    max-block-size: 320px;
+    line-height: 20px;
+    font-size: 12px;
+    overflow: auto;
+    block-size: auto;
+    max-inline-size: 320px;
+
+    @include rounded($rounded);
+
+    &::-webkit-scrollbar {
+      inline-size: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: $color-neutral-500;
+      background-clip: content-box;
+      border: 2px solid transparent;
+    }
+  }
+
+  &--expandable-plain-text {
+    white-space: pre-wrap;
+  }
+
+  &--align-right {
+    transform: translateX(calc(50% - 20px));
+  }
+}

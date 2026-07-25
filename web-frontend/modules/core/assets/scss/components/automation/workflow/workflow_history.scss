@@ -1,0 +1,40 @@
+.workflow-history__divider {
+  block-size: 1px;
+  inline-size: 100%;
+  background-color: $palette-neutral-200;
+  margin-block: 16px;
+}
+
+.workflow-history__header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+  color: $palette-neutral-600;
+  user-select: none;
+}
+
+.workflow-history__header-title {
+  flex: 1;
+  color: $color-neutral-900;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.workflow-history__header-date {
+  font-size: 11px;
+}
+
+.workflow-history__run-time {
+  margin-inline-start: 24px;
+  margin-block-start: 12px;
+  font-size: 11px;
+}
+
+.workflow-history__message {
+  font-size: 12px;
+  line-height: 16px;
+  color: $palette-neutral-900;
+  margin-inline-start: 24px;
+  margin-block-start: 12px;
+}

@@ -1,0 +1,21 @@
+.side-panels {
+  background-color: $white;
+  block-size: 100%;
+}
+
+.side-panel {
+  padding: 15px;
+}
+
+.side-panels__panel .button.button--link {
+  color: $palette-neutral-800;
+  margin-block-start: 6px;
+
+  &:hover {
+    color: $color-neutral-900;
+  }
+}
+
+.style-box-form__control .control__label {
+  margin-block-end: 16px;
+}

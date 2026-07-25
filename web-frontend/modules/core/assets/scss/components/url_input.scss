@@ -1,0 +1,15 @@
+.url-input {
+  position: relative;
+}
+
+.url-input__link {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 17px;
+  line-height: 44px;
+  max-inline-size: calc(100% - (17px * 2));
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  vertical-align: center;
+}

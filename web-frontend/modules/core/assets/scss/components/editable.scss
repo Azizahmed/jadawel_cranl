@@ -1,0 +1,8 @@
+.editable--multi-line {
+  display: inline-block;
+
+  &:empty {
+    line-height: 1em;
+    min-inline-size: 10px; /* Chrome fix to show cursor */
+  }
+}

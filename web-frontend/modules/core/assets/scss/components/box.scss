@@ -1,0 +1,61 @@
+.box,
+%box {
+  background-color: $white;
+  padding: 32px 40px;
+
+  @include elevation($elevation-medium);
+  @include rounded($rounded-md);
+}
+
+.box__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  inline-size: 100%;
+  padding-block-end: 40px;
+  margin-block-end: 40px;
+  border-block-end: 1px solid $color-neutral-200;
+}
+
+.box__head-logo {
+  block-size: 16px;
+  margin-block-end: 64px;
+
+  & img {
+    block-size: 100%;
+  }
+}
+
+.box__head-title,
+%box-head-title {
+  overflow-wrap: break-word;
+  margin: 0;
+  padding: 0;
+}
+
+.box__title,
+%box-title {
+  @extend %box-head-title;
+
+  padding-block-end: 20px;
+  margin-block-end: 20px;
+  border-block-end: 1px solid $color-neutral-200;
+}
+
+.box__message {
+  text-align: center;
+}
+
+.box__message-icon {
+  font-size: 50px;
+  color: $color-primary-500;
+  margin-block-end: 30px;
+}
+
+.box__message-title {
+  margin-block-end: 30px;
+}
+
+.box__message-text {
+  color: $color-neutral-900;
+}

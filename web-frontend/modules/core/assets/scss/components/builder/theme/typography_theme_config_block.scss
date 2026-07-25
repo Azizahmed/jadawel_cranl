@@ -1,0 +1,7 @@
+.typography-theme-config-block__input-number {
+  inline-size: 80px;
+}
+
+.typography-theme-config-block__heading-preview {
+  @extend %ellipsis;
+}

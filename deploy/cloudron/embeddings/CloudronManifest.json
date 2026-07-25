@@ -1,0 +1,15 @@
+{
+  "id": "sa.jadawel.embeddings",
+  "title": "Jadawel Embeddings",
+  "author": "Abdulaziz",
+  "description": "file://DESCRIPTION.md",
+  "tagline": "Embeddings server for the AI assistant docs lookup.",
+  "website": "https://github.com/Azizahmed/Jadawel",
+  "contactEmail": "gotoaziz100@gmail.com",
+  "tags": ["no-code", "nocode", "database", "data", "collaborate", "airtable"],
+  "version": "2.1.4",
+  "healthCheckPath": "/api/_health/",
+  "httpPort": 80,
+  "memoryLimit": 1000000,
+  "manifestVersion": 2
+}

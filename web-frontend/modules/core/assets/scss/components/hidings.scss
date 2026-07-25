@@ -1,0 +1,91 @@
+.hidings {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidings__head {
+  padding: 4px 16px 0;
+}
+
+.hidings__cover {
+  margin: 16px 0 10px;
+}
+
+.hidings__search {
+  position: relative;
+  border-block-end: 1px solid $color-neutral-200;
+
+  @include flex-align-items;
+}
+
+.hidings__search-icon {
+  color: $color-neutral-400;
+  font-size: 18px;
+}
+
+.hidings__search-input {
+  display: block;
+  inline-size: 100%;
+  border: none;
+  padding: 0 12px;
+  border-start-start-radius: 6px;
+  border-start-end-radius: 6px;
+
+  @include fixed-height(36px, 14px);
+}
+
+.hidings__body {
+  padding: 0 16px;
+  overflow-y: scroll;
+  block-size: 100%;
+}
+
+.hidings__list {
+  position: relative;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.hidings__item-name {
+  line-height: 28px;
+}
+
+.hidings__item {
+  @include flex-align-items(8px);
+
+  position: relative;
+  display: flex;
+  margin-block-end: 10px;
+  padding: 0;
+
+  > .switch,
+  > .hidings__item-name {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+}
+
+.hidings__item-handle {
+  flex: 0 0 8px;
+  inline-size: 8px;
+  block-size: 16px;
+  background-image: radial-gradient($color-neutral-200 40%, transparent 40%);
+  background-size: 4px 4px;
+  background-repeat: repeat;
+
+  &:hover {
+    background-image: radial-gradient($color-neutral-500 40%, transparent 40%);
+  }
+}
+
+.hidings__footer {
+  display: flex;
+  inline-size: 100%;
+  flex-direction: row;
+  padding: 8px 16px 16px;
+}
+
+.hidings__footer-button:not(:last-child) {
+  margin-inline-end: 10px;
+}

@@ -1,0 +1,31 @@
+.decorator-item {
+  display: flex;
+  inline-size: 100%;
+
+  @include rounded($rounded);
+}
+
+.decorator-item__image {
+  margin-inline-end: 12px;
+}
+
+.decorator-item__content {
+  min-inline-size: 0;
+}
+
+.decorator-item__title {
+  @extend %ellipsis;
+
+  font-weight: 600;
+  font-size: 14px;
+  margin-block-end: 6px;
+  line-height: 140%;
+}
+
+.decorator-item__description {
+  @extend %ellipsis;
+
+  font-size: 13px;
+  line-height: 140%;
+  color: $color-neutral-600;
+}

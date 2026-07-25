@@ -1,0 +1,70 @@
+.dashboard-app__layout {
+  display: flex;
+}
+
+.dashboard-app__layout-scrollable {
+  block-size: 100%;
+  overflow: auto;
+}
+
+.dashboard-app__content {
+  min-block-size: calc(100vh - 100px);
+  min-inline-size: 400px;
+  display: flex;
+  flex-direction: column;
+  margin-block: 24px;
+  margin-inline: 24px 20px;
+  padding: 56px 80px;
+  background-color: $white;
+  border: 1px solid $palette-neutral-200;
+  box-shadow: 0 1px 2px 0 rgba(7, 8, 16, 0.1);
+
+  @include rounded($rounded);
+
+  @media screen and (max-width: $dashboard-breakpoint) {
+    padding: 20px 24px;
+  }
+}
+
+.dashboard-app__content--small {
+  min-block-size: calc(100vh - 212px);
+}
+
+.dashboard-app__content-header {
+  margin-block-end: 24px;
+}
+
+.dashboard-app__title {
+  color: $palette-neutral-1200;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.dashboard-app__description {
+  color: $palette-neutral-900;
+  margin-block-start: 14px;
+  font-size: 12px;
+  font-weight: 400px;
+  line-height: 20px;
+
+  @include contenteditable-placeholder;
+}
+
+.dashboard-app__edit-icon {
+  color: $palette-neutral-700;
+  font-size: 18px;
+  margin-block-end: 2px;
+}
+
+.dashboard-app__edit {
+  line-height: 14px;
+  color: $palette-neutral-1000;
+  padding-inline-start: 8px;
+
+  &:hover {
+    .dashboard-app__edit-icon {
+      color: $palette-neutral-1300;
+    }
+  }
+}

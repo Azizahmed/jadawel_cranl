@@ -1,0 +1,11 @@
+{
+  "maximumMissingKeys": {
+    "locales": 0,
+    "modules/automation/locales": 0,
+    "modules/builder/locales": 0,
+    "modules/core/locales": 0,
+    "modules/dashboard/locales": 0,
+    "modules/database/locales": 0,
+    "modules/integrations/locales": 0
+  }
+}

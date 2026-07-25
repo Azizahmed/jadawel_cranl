@@ -1,0 +1,86 @@
+apiVersion: v2
+name: jadawel
+description: Jadawel - an Arabic-first, RTL-native online spreadsheet-database.
+type: application
+version: 1.0.52
+appVersion: "2.2.2"
+home: https://github.com/Azizahmed/Jadawel/tree/main/deploy/helm/jadawel
+sources:
+  - https://github.com/Azizahmed/Jadawel
+
+# NOTE: the `baserow` subchart name and the `baserow-*` aliases below are load-bearing.
+# The name must match `charts/baserow-common/Chart.yaml`, the aliases are the value keys
+# used throughout values.yaml and the templates, and both are pinned in Chart.lock.
+dependencies:
+  - name: baserow
+    alias: baserow-backend-asgi
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+
+  - name: baserow
+    alias: baserow-backend-wsgi
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+
+  - name: baserow
+    alias: baserow-frontend
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+
+  - name: baserow
+    alias: baserow-celery-beat-worker
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+
+  - name: baserow
+    alias: baserow-celery-export-worker
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+
+  - name: baserow
+    alias: baserow-celery-worker
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+
+  - name: baserow
+    alias: baserow-celery-flower
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+    condition: baserow-celery-flower.enabled
+
+  - name: baserow
+    alias: baserow-embeddings
+    version: "1.0.52"
+    repository: "file://charts/baserow-common"
+    condition: baserow-embeddings.enabled
+
+  - name: redis
+    version: 19.5.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled
+
+  - name: postgresql
+    version: 15.5.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+
+  - name: minio
+    version: 14.6.18
+    repository: https://charts.bitnami.com/bitnami
+    condition: minio.enabled
+
+  - name: caddy-ingress-controller
+    alias: caddy
+    version: 1.1.0
+    repository: https://caddyserver.github.io/ingress
+    condition: caddy.enabled
+
+annotations:
+  artifacthub.io/category: database
+  artifacthub.io/keywords: jadawel, arabic, rtl, database, spreadsheet, self-hosted
+  artifacthub.io/links: |
+    - name: source
+      url: https://github.com/Azizahmed/Jadawel
+    - name: helm
+      url: https://github.com/Azizahmed/Jadawel/tree/main/deploy/helm/jadawel
+  artifacthub.io/quality: production

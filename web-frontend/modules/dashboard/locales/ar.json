@@ -1,0 +1,47 @@
+{
+  "dashboard": {
+    "descriptionPlaceholder": "الوصف"
+  },
+  "dashboardHeader": {
+    "doneEditing": "تم التعديل"
+  },
+  "emptyDashboard": {
+    "title": "لا تحتوي لوحة التحكم هذه على أي عناصر",
+    "subtitle": "ابدأ بإضافة عنصر.",
+    "addWidget": "إضافة عنصر"
+  },
+  "dashboardHeaderMenuItems": {
+    "editMode": "وضع التعديل"
+  },
+  "createWidgetModal": {
+    "title": "إضافة عنصر جديد"
+  },
+  "widget": {
+    "fixConfiguration": "إصلاح الإعدادات"
+  },
+  "summaryWidget": {
+    "name": "ملخص"
+  },
+  "emptyDashboardSidebar": {
+    "title": "لم يتم تحديد أي عنصر",
+    "message": "انقر على أحد العناصر لعرض التفاصيل."
+  },
+  "widgetSettings": {
+    "title": "العنوان",
+    "description": "الوصف"
+  },
+  "aggregateRowsDataSourceForm": {
+    "data": "البيانات",
+    "sourceFieldLabel": "المصدر",
+    "viewFieldLabel": "العرض",
+    "notSelected": "غير محدد",
+    "aggregationFieldLabel": "الحقل",
+    "aggregationTypeLabel": "ملخص"
+  },
+  "widgetContext": {
+    "delete": "حذف"
+  },
+  "trashType": {
+    "widget": "عنصر"
+  }
+}

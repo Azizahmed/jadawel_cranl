@@ -1,0 +1,126 @@
+.onboarding {
+  background-color: $white;
+
+  @include absolute(0, 0, 0, 0);
+}
+
+.onboarding__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include absolute(0, 0, 0, 0);
+}
+
+.onboarding__loading-text {
+  margin-block-start: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.onboarding__loading-progress {
+  margin-block-start: 20px;
+  inline-size: 320px;
+}
+
+.onboarding__waiting-message {
+  margin-block-start: 20px;
+  font-size: 14px;
+  inline-size: 320px;
+  text-align: center;
+  line-height: 1.6;
+  color: $palette-neutral-900;
+}
+
+.onboarding__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include absolute(0, 50%, 0, 0);
+
+  @media screen and (max-width: $onboarding-breakpoint) {
+    inset-inline-end: 0;
+  }
+}
+
+.onboarding__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  inline-size: 100%;
+  padding: 40px;
+}
+
+.onboarding__logo {
+  max-inline-size: 107px;
+}
+
+.onboarding__body-wrapper {
+  block-size: 100%;
+  inline-size: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.onboarding__body {
+  block-size: 100%;
+  margin: 40px auto 0;
+  max-inline-size: 542px;
+  padding: 0 40px;
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.onboarding__actions {
+  margin-block-start: auto;
+  padding: 20px 0 40px;
+}
+
+.onboarding__skip {
+  margin-block-start: 20px;
+  text-align: center;
+}
+
+.onboarding__cancel {
+  inline-size: 100%;
+  border-block-start: solid 1px $palette-neutral-200;
+  padding: 28px;
+  text-align: center;
+}
+
+.onboarding__preview {
+  display: block;
+  overflow: hidden;
+  background-color: $palette-neutral-200;
+
+  @include absolute(0, 0, 0, 50%);
+
+  @media screen and (max-width: $onboarding-breakpoint) {
+    display: none;
+  }
+}
+
+.onboarding__form-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.onboarding__form-group-column {
+  flex: 1 1 45%;
+}
+
+.onboarding__form-group-label {
+  margin-block-end: 0.5rem;
+}
+
+@media screen and (max-width: $onboarding-breakpoint) {
+  .onboarding__form-group-column {
+    flex: 1 1 100%;
+  }
+}

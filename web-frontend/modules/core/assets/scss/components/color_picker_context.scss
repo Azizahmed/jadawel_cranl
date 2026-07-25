@@ -1,0 +1,54 @@
+.color-picker-context {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.color-picker-context__color {
+  display: flex;
+  margin-block-start: 12px;
+}
+
+.color-picker-context__color-type {
+  flex: 0 0 70px;
+}
+
+.color-picker-context__color-hex {
+  inline-size: 95px;
+  margin-inline-start: 16px;
+}
+
+.color-picker-context__color-rgb {
+  display: flex;
+  gap: 5px;
+  inline-size: 135px;
+  margin-inline-start: 11px;
+
+  .form-input__input {
+    padding: 12px 5px;
+    text-align: center;
+  }
+}
+
+.color-picker-context__color-opacity {
+  inline-size: 80px;
+
+  .form-input__input {
+    padding-inline-end: 5px;
+  }
+}
+
+.color-picker-context__variables {
+  margin-block-start: 12px;
+  max-inline-size: 310px;
+}
+
+.color-picker-context__variable-color {
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: 3px;
+  margin-inline-end: 6px;
+  flex: 20px 0 0;
+
+  @include elevation($elevation-low);
+}

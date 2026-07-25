@@ -1,0 +1,220 @@
+.simple-grid__right-scrollbar-wrapper {
+  position: relative;
+  overflow: hidden;
+  block-size: 100%;
+  flex: 1;
+}
+
+.simple-grid__right-wrapper {
+  overflow: hidden;
+  block-size: 100%;
+}
+
+.simple-grid__right {
+  display: inline-flex;
+  flex-direction: column;
+  block-size: 100%;
+  padding-inline-end: 30px;
+}
+
+.simple-grid__head {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.simple-grid__field {
+  position: relative;
+  inline-size: 150px;
+  background-color: $color-neutral-100;
+  border-block-end: 1px solid $color-neutral-200;
+  border-inline-end: 1px solid $color-neutral-200;
+
+  &.simple-grid__field--first {
+    inline-size: 40px;
+    border-inline-end: none;
+  }
+}
+
+.simple-grid__field-description {
+  @extend %ellipsis;
+
+  z-index: 1;
+  padding: 0 10px;
+  inline-size: 100%;
+
+  @include fixed-height(33px, 13px);
+}
+
+.simple-grid__field-icon {
+  margin-inline-end: 6px;
+}
+
+.simple-grid__field-width {
+  inline-size: 9px;
+  block-size: 26px;
+  cursor: col-resize;
+  z-index: 2;
+
+  @include absolute(3px, -5px, 3px, auto);
+
+  &::before {
+    content: '';
+
+    @include absolute(0, 2px, 0, 2px);
+
+    border-radius: 2px;
+  }
+
+  &:hover::before,
+  &.dragging::before {
+    background-color: $color-primary-500;
+  }
+}
+
+.simple-grid__body {
+  block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-block-end: 12px;
+
+  .simple-grid--with-footer & {
+    padding-block-end: 0;
+  }
+}
+
+.simple-grid__cell {
+  position: relative;
+  inline-size: 150px;
+  background-color: $white;
+  block-size: 33px;
+  border-block-end: 1px solid $color-neutral-200;
+  border-inline-end: 1px solid $color-neutral-200;
+
+  &.simple-grid__cell--first {
+    @extend %ellipsis;
+
+    inline-size: 40px;
+    line-height: 32px;
+    padding-inline-start: 8px;
+  }
+
+  &.simple-grid__cell--single {
+    inline-size: 100%;
+  }
+
+  &.simple-grid__cell--with-checkbox {
+    inline-size: 64px;
+    padding-inline-end: 22px;
+  }
+}
+
+.simple-grid__cell-checkbox {
+  @include absolute(0, 0, 0, 0);
+
+  display: flex;
+  vertical-align: center;
+  justify-content: center;
+  background-color: inherit;
+}
+
+.simple-grid__row--hover {
+  cursor: pointer;
+
+  .simple-grid__cell,
+  .grid-view__cell {
+    background-color: $color-primary-100;
+  }
+}
+
+.simple-grid__row--disabled {
+  cursor: initial;
+
+  .simple-grid__cell,
+  .grid-view__cell {
+    background-color: $color-neutral-50;
+  }
+}
+
+.simple-grid__row--checked {
+  .simple-grid__cell,
+  .grid-view__cell {
+    background-color: $color-primary-100;
+  }
+}
+
+.simple-grid__add-row {
+  display: block;
+  line-height: 33px;
+  color: $color-neutral-900;
+  background-color: $white;
+  padding-inline-start: 8px;
+}
+
+.simple-grid__foot {
+  display: flex;
+  align-items: center;
+  margin-block-start: auto;
+  padding: 0 10px;
+  block-size: 44px;
+  background-color: $color-neutral-50;
+  border-block-start: solid 1px $color-neutral-200;
+}
+
+.simple-grid__left {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  border-inline-end: solid 1px $color-neutral-400;
+
+  .simple-grid__cell,
+  .simple-grid__field {
+    &:last-child {
+      border-inline-end: none;
+    }
+  }
+}
+
+.simple-grid__row--hover.simple-grid__row--checked {
+  .simple-grid__cell,
+  .grid-view__cell {
+    background-color: darken($color-primary-100, 1%);
+  }
+}
+
+.simple-grid__right-wrapper-footer {
+  position: absolute;
+  background: #fafafa;
+  block-size: 44px;
+  inset-block-end: 0;
+  border-block-start: solid 1px #d9dbde;
+  inline-size: 100%;
+}
+
+.simple-grid__row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.simple-grid {
+  display: flex;
+
+  &.simple-grid--border {
+    border: 1px solid $color-neutral-200;
+  }
+
+  &.simple-grid--full-height {
+    block-size: 100%;
+  }
+
+  &:not(.simple-grid--with-footer) {
+    .simple-grid__row,
+    .simple-grid__head {
+      .simple-grid__cell,
+      .simple-grid__field {
+        &:last-child {
+          border-inline-end: none;
+        }
+      }
+    }
+  }
+}

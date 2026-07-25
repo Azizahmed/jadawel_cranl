@@ -1,0 +1,20 @@
+.markdown {
+  & > .ab-blockquote,
+  & > .ab-code,
+  & > .ab-heading,
+  & > .ab-hr,
+  & > .ab-image,
+  & > .ab-link,
+  & > .ab-table,
+  & > .ab-text {
+    margin-block-start: 1.5em;
+  }
+
+  & > .ab-list {
+    margin-block-start: 1em;
+  }
+}
+
+.markdown > *:first-child {
+  margin-block-start: 0;
+}

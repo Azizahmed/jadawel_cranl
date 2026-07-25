@@ -1,0 +1,34 @@
+.field-date__container {
+  display: flex;
+  gap: 8px;
+}
+
+.field-date {
+  inline-size: 30%;
+  flex: 30;
+  min-inline-size: 80px;
+  max-inline-size: 200px;
+}
+
+.field-date__time {
+  inline-size: 25%;
+  flex: 25;
+  min-inline-size: 70px;
+  max-inline-size: 150px;
+}
+
+.field-date__tzinfo {
+  inline-size: 10%;
+  margin-block: auto;
+  color: $color-neutral-400;
+  flex: 10;
+  min-inline-size: fit-content;
+}
+
+.field-date-read-only-timestamp {
+  color: $color-neutral-400;
+}
+
+.color--tzinfo {
+  color: $color-neutral-500;
+}

@@ -1,0 +1,84 @@
+// Jadawel (arabase) global RTL / Arabic-first stylesheet.
+// Registered as a global Nuxt stylesheet by modules/arabase/module.js so it loads
+// after core's default.scss and can layer Arabic-first + RTL behaviour on top.
+// Scope (Phase 1.2-1.4):
+//   1. Arabic typography - flip the font stack priority + comfortable line-height
+//      whenever the document is RTL.
+//   2. Directional icon flipping - horizontal arrows/chevrons mirror under [dir=rtl];
+//      an explicit opt-out (.rtl-no-flip) keeps universal icons upright.
+//   3. Numeric / date / identifier cells stay LTR so digits never bidi-scramble.
+// Deep, component-specific RTL (grid virtualisation scroll math, per-view chrome) is
+// done as real CSS-logical-property conversions in the core SCSS, not piled up here.
+// This file is for cross-cutting concerns that genuinely belong in one place.
+
+// 1. Arabic typography.
+// Arabic face first in RTL; Inter remains for any Latin glyphs it covers.
+[dir='rtl'] body,
+[dir='rtl'] input,
+[dir='rtl'] textarea,
+[dir='rtl'] button,
+[dir='rtl'] select {
+  font-family: 'IBM Plex Sans Arabic', Inter, sans-serif;
+}
+
+// 2. Directional icon flipping + Arabic line-height.
+// Iconoir glyphs render via an ::before pseudo-element on the <i>. We mirror the
+// whole element for icons whose meaning is inline-directional (they point
+// "back"/"forward"/"previous"/"next"). Vertical arrows (up/down) and
+// non-directional icons (search, settings, plus) are left untouched.
+[dir='rtl'] {
+  // Arabic needs more vertical room than Latin to avoid clipping marks/descenders.
+  line-height: 1.6;
+
+  .iconoir-nav-arrow-left,
+  .iconoir-nav-arrow-right,
+  .iconoir-arrow-left,
+  .iconoir-arrow-right,
+  .iconoir-fast-arrow-left,
+  .iconoir-fast-arrow-right,
+  .iconoir-arrow-left-circle,
+  .iconoir-arrow-right-circle,
+  .iconoir-long-arrow-left,
+  .iconoir-long-arrow-right,
+  .iconoir-undo,
+  .iconoir-redo {
+    &:not(.rtl-no-flip) {
+      transform: scaleX(-1);
+    }
+  }
+}
+
+// Escape hatch: add `rtl-no-flip` on an icon that must keep its LTR orientation
+// even in RTL (e.g. a play button, a code-editor caret hint).
+.rtl-no-flip {
+  transform: none !important;
+}
+
+// 3. Force LTR on numeric / date / identifier content.
+// Digits are inherently LTR; inside an RTL row a bare number can have its sign,
+// decimal separator or thousands grouping reordered by the bidi algorithm.
+// Pinning direction: ltr on these cells guarantees stable digits. Alignment is
+// kept as the field already defines it (numbers stay end-aligned).
+.grid-field-number,
+.grid-field-number__input,
+.grid-field-duration,
+.grid-field-duration__input,
+.grid-field-date,
+.grid-field-date__input,
+.grid-field-phone-number,
+.grid-field-url,
+.grid-field-email {
+  direction: ltr;
+}
+
+// Reusable helpers for any Arabic-context place that must present LTR data
+// (identifiers like Iqama numbers, IBANs, phone numbers, codes).
+.force-ltr {
+  direction: ltr !important;
+  unicode-bidi: embed;
+}
+
+.force-ltr--end {
+  direction: ltr !important;
+  text-align: end;
+}

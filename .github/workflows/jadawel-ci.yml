@@ -1,0 +1,140 @@
+name: Jadawel CI
+
+# Self-contained CI for the Jadawel fork. Unlike upstream Baserow's ci.yml (kept
+# for reference but disabled — it pushes to Baserow's own registry/SaaS and needs
+# their secrets), this workflow builds and tests entirely within the job and needs
+# no secrets, so it runs green on any fork.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: jadawel-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-lint:
+    name: Backend lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.29"
+      - name: ruff check + format
+        working-directory: backend
+        run: |
+          uv run ruff check src/ tests/
+          uv run ruff format --check src/ tests/
+
+  backend-test:
+    name: Backend smoke + fork-hygiene tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: baserow
+          POSTGRES_PASSWORD: baserow
+          POSTGRES_DB: baserow
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U baserow"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DJANGO_SETTINGS_MODULE: baserow.config.settings.test
+      DATABASE_HOST: localhost
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: baserow
+      DATABASE_USER: baserow
+      DATABASE_PASSWORD: baserow
+      PYTHONPATH: src:tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.29"
+      - name: Install backend (frozen)
+        working-directory: backend
+        run: uv sync --frozen
+      - name: Django system check
+        working-directory: backend
+        run: uv run python src/baserow/manage.py check
+      - name: Fork-hygiene tests (premium/enterprise must stay gone)
+        working-directory: backend
+        run: uv run pytest tests/arabase -q
+
+  frontend-lint:
+    name: Frontend lint (eslint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install deps
+        working-directory: web-frontend
+        run: yarn install --frozen-lockfile
+      - name: eslint
+        working-directory: web-frontend
+        run: yarn eslint
+
+  frontend-locale-parity:
+    name: Arabic locale parity (strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Arabic locale parity
+        working-directory: web-frontend
+        run: yarn locale:check
+
+  frontend-test:
+    name: Frontend unit tests (vitest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install deps
+        working-directory: web-frontend
+        run: yarn install --frozen-lockfile
+      - name: vitest
+        working-directory: web-frontend
+        run: yarn test:core --run
+
+  docker-build:
+    name: Docker image build (backend + web-frontend)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build backend image (ci target)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: backend/Dockerfile
+          target: ci
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build web-frontend image (ci target)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: web-frontend/Dockerfile
+          target: ci
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

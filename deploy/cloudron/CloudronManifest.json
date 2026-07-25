@@ -1,0 +1,22 @@
+{
+  "id": "sa.jadawel.cloudronapp",
+  "title": "Jadawel",
+  "author": "Abdulaziz",
+  "description": "file://DESCRIPTION.md",
+  "tagline": "Arabic-first collaborative spreadsheet-database",
+  "website": "https://github.com/Azizahmed/Jadawel",
+  "contactEmail": "gotoaziz100@gmail.com",
+  "icon": "file://logo.png",
+  "tags": ["no-code", "nocode", "database", "data", "collaborate", "airtable"],
+  "version": "2.2.2",
+  "healthCheckPath": "/api/_health/",
+  "httpPort": 80,
+  "addons": {
+    "postgresql": {},
+    "sendmail": {},
+    "localstorage": {}
+  },
+  "memoryLimit": 2147483648,
+  "manifestVersion": 2,
+  "multiDomain": true
+}

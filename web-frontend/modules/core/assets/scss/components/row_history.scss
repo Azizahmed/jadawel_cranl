@@ -1,0 +1,69 @@
+.row-history {
+  @include absolute(0, 0, 0, 0);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.row-history__body {
+  position: relative;
+  block-size: 100%;
+  overflow-y: auto;
+  border-start-start-radius: 6px;
+
+  .infinite-scroll {
+    padding-block-end: 10px;
+  }
+}
+
+.row-history__empty {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 30px;
+  block-size: 100%;
+  border-start-start-radius: 6px;
+}
+
+.row-history__empty-icon {
+  font-size: 30px;
+  margin-block-end: 30px;
+}
+
+.row-history__empty-text {
+  font-size: 14px;
+  line-height: 160%;
+  margin-block-end: 30px;
+}
+
+.row-history__loading {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.row-history__day-separator {
+  position: relative;
+  block-size: 1px;
+  background: $color-neutral-200;
+  margin: 32px 0;
+
+  span {
+    position: absolute;
+    inset-block-start: -16px;
+    left: 50%; /* stylelint-disable-line csstools/use-logical -- symmetric centering */
+    transform: translateX(-50%);
+    background: white;
+    padding: 8px 12px;
+    border: 1px solid $color-neutral-200;
+    box-shadow: 0 1px 2px rgba(19, 45, 69, 0.1);
+    border-radius: 80px;
+    font-weight: 600;
+    white-space: nowrap;
+    block-size: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,17 @@
+.ab-blockquote {
+  border-inline-start: 0.5em solid
+    var(
+      --element-background-color-contrast,
+      var(--page-background-color-contrast, grey)
+    );
+  padding-block: 0.5em;
+  padding-inline: 1em 0;
+
+  .markdown & {
+    margin: 0.5em 0 0;
+
+    .ab-text {
+      margin: 0;
+    }
+  }
+}

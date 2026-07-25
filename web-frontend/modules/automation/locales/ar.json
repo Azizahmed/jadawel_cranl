@@ -1,0 +1,201 @@
+{
+  "simulateDispatch": {
+    "sampleDataLabel": "الإخراج",
+    "triggerNodeAwaitingEvent": "العقدة تنتظر. يرجى تشغيل الحدث يدويًا لملء الحمولة وإكمال الاختبار.",
+    "simulationInProgress": "اختبار العقدة قيد التقدم...",
+    "errorNodeNotConfigured": "يجب تكوين العقدة قبل أن يتم اختبارها.",
+    "errorPreviousNodeNotConfigured": "يجب تكوين العقدة السابقة \"{node}\".",
+    "errorPreviousNodesNotTested": "يجب اختبار العقدة السابقة \"{node}\" أولاً.",
+    "buttonLabelTest": "حدث الاختبار",
+    "buttonLabelTestAgain": "حدث الاختبار مرة أخرى",
+    "testNodeDescription": "اختبر هذا الحدث للتأكد من صحة التكوين. يمكن استخدام البيانات من هذا الاختبار في خطوات لاحقة.",
+    "buttonLabelShowPayload": "إظهار الحمولة",
+    "buttonLabelShowError": "إظهار الخطأ",
+    "sampleDataModalTitle": "الحمولة لـ {nodeLabel}",
+    "sampleDataModalSubTitle": "حمولة JSON",
+    "sampleDataCopy": "ينسخ",
+    "errorOccurred": "حدث خطأ...",
+    "sampleDataCopied": "تم نسخ الحمولة إلى الحافظة"
+  },
+  "nodeType": {
+    "triggerDeletionError": "لا يمكن حذف المشغلات، بل استبدالها فقط.",
+    "localBaserowRowsCreatedLabel": "يتم إنشاء الصفوف في {tableName}",
+    "localBaserowRowsUpdatedLabel": "يتم تحديث الصفوف في {tableName}",
+    "localBaserowRowsDeletedLabel": "يتم حذف الصفوف في {tableName}",
+    "localBaserowCreateRowLabel": "قم بإنشاء صف في {tableName}",
+    "localBaserowUpdateRowLabel": "قم بتحديث صف في {tableName}",
+    "localBaserowDeleteRowLabel": "حذف صف في {tableName}",
+    "localBaserowGetRowLabel": "قراءة صف في {tableName}",
+    "localBaserowListRowsLabel": "قائمة الصفوف في {tableName}",
+    "localBaserowAggregateRowsLabel": "تلخيص الصفوف في {tableName}",
+    "httpRequestLabel": "إرسال طلب HTTP",
+    "smtpEmailLabel": "إرسال بريد إلكتروني",
+    "routerLabel": "اتبع أحد فروع {edgeCount}",
+    "iterationLabel": "كرر على العناصر",
+    "defaultEdgeLabelFallback": "تقصير",
+    "routerWithOutputNodesDeleteError": "لا يمكن حذفه حتى تتم إزالة عقد الإخراج {outputCount} الخاصة به.",
+    "routerWithOutputNodesReplaceError": "لا يمكن استبداله حتى تتم إزالة عقد الإخراج {outputCount} الخاصة به.",
+    "iteratorWithChildrenNodesDeleteError": "لا يمكن حذفه حتى تتم إزالة العقد التابعة له.",
+    "iteratorWithChildrenNodesReplaceError": "لا يمكن استبداله حتى تتم إزالة العقد الفرعية الخاصة به.",
+    "periodicTriggerLabel": "الزناد الدوري",
+    "aiAgent": "موجه الذكاء الاصطناعي",
+    "slackWriteMessageName": "إرسال رسالة سلاك",
+    "slackWriteMessageLabel": "أرسل رسالة إلى #{channel}"
+  },
+  "workflowNode": {
+    "actionDelete": "يمسح",
+    "actionReplace": "يستبدل",
+    "actionDuplicate": "ينسخ",
+    "actionConfigure": "تكوين",
+    "beforeLabelTrigger": "يبدأ متى",
+    "beforeLabelAction": "ثم",
+    "beforeLabelCondition": "إذا تم استيفاء الشرط",
+    "beforeLabelConditionDefault": "إذا لم يتم استيفاء أي شرط (شروط).",
+    "beforeLabelRepeat": "لكل عنصر",
+    "moreEdit": "يحرر",
+    "moreReplace": "يستبدل",
+    "nodeOptions": "خيارات العقدة",
+    "displayLabelDebug": "المعرف: {id} | السابق: {previousNodeId} | {outputUid}",
+    "moreDuplicate": "ينسخ"
+  },
+  "workflowAddNode": {
+    "displayTitle": "إنشاء عقدة الأتمتة"
+  },
+  "workflowNodeContext": {
+    "searchPlaceholderTrigger": "البحث عن محفز...",
+    "searchPlaceholderActions": "البحث عن الإجراءات...",
+    "noResults": "لم يتم العثور على نتائج"
+  },
+  "serviceType": {
+    "periodicTrigger": "الزناد الدوري",
+    "periodicTriggerDescription": "تشغيل سير العمل على أساس دوري على فترات زمنية محددة",
+    "periodicTriggerTriggeredAt": "أثار في",
+    "errorIntervalMissing": "مطلوب فاصل زمني.",
+    "coreHTTPTrigger": "مشغل HTTP",
+    "coreHTTPTriggerDescription": "تلقي طلبات HTTP لبدء سير العمل"
+  },
+  "workflowEditor": {
+    "chooseEvent": "اختر حدثًا..."
+  },
+  "automationHeader": {
+    "startTestRun": "بدء تشغيل الاختبار",
+    "stopTestRun": "إيقاف تشغيل الاختبار",
+    "publishBtn": "نشر",
+    "settingsBtn": "إعدادات",
+    "historyBtn": "تاريخ",
+    "switchLabelDraft": "مسودة",
+    "switchLabelDisabled": "عاجز",
+    "switchLabelPaused": "متوقف مؤقتًا",
+    "switchLabelLive": "يعيش",
+    "lastPublished": "آخر نشر"
+  },
+  "dataProviderType": {
+    "currentIteration": "التكرار الحالي",
+    "item": "غرض",
+    "previousNode": "العقدة السابقة"
+  },
+  "nodeSidePanel": {
+    "labelTitle": "ملصق"
+  },
+  "historySidePanel": {
+    "title": "تاريخ",
+    "noRunsTitle": "لا يوجد أشواط حتى الآن",
+    "noRunsDescription": "عند تشغيل سير العمل هذا، سيتم عرض النتائج هنا.",
+    "statusStarted": "في تَقَدم...",
+    "statusSuccess": "ركض بنجاح",
+    "statusError": "فشل التشغيل",
+    "statusSuccessBadge": "مكتمل",
+    "statusErrorBadge": "فشل",
+    "statusDisabled": "تم التعطيل بواسطة جداول",
+    "successfulRuns": "أشواط ناجحة",
+    "completedInSeconds": "اكتمل في {s} ثواني.",
+    "completedInLessThanSecond": "تم الانتهاء منه في أقل من ثانية واحدة.",
+    "running": "قيد التشغيل لـ {at}s",
+    "failedRuns": "أشواط فاشلة",
+    "errorHideDetails": "إخفاء التفاصيل",
+    "errorShowDetails": "إظهار التفاصيل",
+    "runNumber": "قم بتشغيل {n}",
+    "runCount": "يعمل {n}",
+    "testRun": "امتحان",
+    "showResult": "عرض النتيجة"
+  },
+  "automationWorkflow": {
+    "title": "سير العمل"
+  },
+  "automationWelcomeGuidedTourStep": {
+    "title": "مرحبًا بك في جداول Automation!",
+    "content": "دعونا نأخذ جولة سريعة. ستتعرف على كيفية إعداد المشغلات وإضافة الإجراءات واختبار سير عملك ونشره - دون الحاجة إلى أي تعليمات برمجية."
+  },
+  "automationGraphGuidedTourStep": {
+    "title": "إدارة الرسم البياني لسير العمل الخاص بك هنا",
+    "content": "قم بإنشاء مشغل وإجراءات هنا لتحديد ما يجب أن يفعله سير العمل. حدد مشغلًا أو إجراءً لتهيئته في اللوحة الجانبية."
+  },
+  "automationTestRunGuidedTourStep": {
+    "title": "اختبار سير العمل الخاص بك",
+    "content": "عندما تكون جاهزًا، ابدأ تشغيلًا تجريبيًا لرؤية سير عملك أثناء التنفيذ. سيتم تشغيل المشغل مرة واحدة لمحاكاة التنفيذ الكامل."
+  },
+  "automationHistoryGuidedTourStep": {
+    "title": "عرض تاريخ سير العمل",
+    "content": "استخدم لوحة السجل لمراجعة عمليات الاختبار السابقة وعمليات التنفيذ المنشورة. إنها طريقة رائعة لتصحيح النتائج أو تأكيدها."
+  },
+  "automationPublishGuidedTourStep": {
+    "title": "نشر سير العمل الخاص بك",
+    "content": "بمجرد اختبار الإعداد الخاص بك وتحسينه، قم بنشر سير العمل الخاص بك لتفعيله. سيتم الآن تشغيل المشغل الخاص به تلقائيًا في الموعد المحدد."
+  },
+  "automationWorkflowStateGuidedTourStep": {
+    "title": "التحكم في حالة سير العمل",
+    "content": "ومن هنا، يمكنك إيقاف سير العمل مؤقتًا أو استئنافه في أي وقت. أنت دائمًا تتحكم في ما إذا كان نشطًا أم معطلاً."
+  },
+  "automationDocsGuidedTourStep": {
+    "title": "استكشف الوثائق",
+    "content": "إذا واجهتك مشكلة أو أردت معرفة المزيد، فانقر فوق الزر المميز للحصول على أدلة تفصيلية والأسئلة الشائعة حول إنشاء عمليات التشغيل الآلي في جداول."
+  },
+  "sidebarComponentAutomation": {
+    "createAutomationWorkflow": "سير العمل الجديد"
+  },
+  "createAutomationWorkflowModal": {
+    "header": "إنشاء سير العمل",
+    "submit": "إضافة سير العمل"
+  },
+  "automationWorkflowForm": {
+    "defaultName": "سير العمل",
+    "nameTitle": "اسم",
+    "nameSubtitle": "الاسم الفريد لسير العمل",
+    "namePlaceholder": "أدخل اسما..."
+  },
+  "duplicateAutomationWorkflowJobType": {
+    "name": "تكرار سير عمل الأتمتة",
+    "duplicating": "تكرار",
+    "duplicatedTitle": "تم تكرار سير العمل"
+  },
+  "trashType": {
+    "workflow": "سير العمل",
+    "automation": "الأتمتة"
+  },
+  "generalSettings": {
+    "titleOverview": "عام",
+    "nameLabel": "اسم الأتمتة",
+    "notificationLabel": "إشعارات",
+    "notificationCheckboxLabel": "احصل على إشعار عند فشل هذه الأتمتة",
+    "cantUpdateAutomationTitle": "تعذر تحديث الأتمتة",
+    "cantUpdateAutomationDescription": "عذرًا، لا يمكن تحديث الأتمتة."
+  },
+  "workflowGeneralSettings": {
+    "titleOverview": "إعدادات سير العمل",
+    "nameLabel": "اسم سير العمل",
+    "workflowDisabledRecipientsLabel": "مستلمو الإشعارات",
+    "workflowDisabledRecipientsHelp": "سيحصل أعضاء مساحة العمل هؤلاء على إشعار داخل التطبيق إذا تم تعطيل سير العمل هذا تلقائيًا.",
+    "selectWorkflowDisabledRecipients": "حدد المستلمين",
+    "noWorkflowDisabledRecipients": "لم يتم تحديد أي مستلمين.",
+    "cantUpdateWorkflowTitle": "تعذر تحديث سير العمل",
+    "cantUpdateWorkflowDescription": "عذرًا، لا يمكن تحديث سير العمل."
+  },
+  "workflowDisabledNotification": {
+    "body": "تم تعطيل سير العمل {name}."
+  },
+  "integrationSettings": {
+    "title": "التكامل",
+    "noIntegrationMessage": "لم تقم بإنشاء أي عمليات تكامل بعد. يمكن إنشاؤها عن طريق إضافة مصدر البيانات أو الإجراء أو مصادقة المستخدم.",
+    "integrationMessage": "يمكنك إنشاء عمليات تكامل جديدة عن طريق إضافة مصدر البيانات أو الإجراء أو مصادقة المستخدم."
+  }
+}

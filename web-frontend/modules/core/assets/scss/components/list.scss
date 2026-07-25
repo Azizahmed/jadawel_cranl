@@ -1,0 +1,26 @@
+.list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.list__item {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 15px;
+  font-size: 14px;
+  align-items: center;
+
+  &:not(:first-child) {
+    border-block-start: 1px solid $color-neutral-200;
+  }
+}
+
+.list__left-side {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list__right-side {
+  @include flex-align-items;
+}

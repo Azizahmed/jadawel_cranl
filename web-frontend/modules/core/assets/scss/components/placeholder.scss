@@ -1,0 +1,28 @@
+.placeholder {
+  margin: 60px auto;
+  inline-size: 520px;
+  text-align: center;
+
+  &.placeholder--align-left {
+    text-align: start;
+    margin-inline: 0;
+  }
+}
+
+.placeholder__logo {
+  margin-block-end: 50px;
+}
+
+.placeholder__logo-image {
+  max-inline-size: 120px;
+}
+
+.placeholder__icon {
+  color: $color-neutral-900;
+  font-size: 34px;
+}
+
+.placeholder__title {
+  font-size: 33px;
+  font-weight: 600;
+}

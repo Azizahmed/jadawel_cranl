@@ -1,0 +1,158 @@
+.array-field__item {
+  padding: 0 5px;
+  background-color: $color-neutral-100;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  @include rounded($rounded);
+  @include fixed-height(22px, 13px);
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
+
+  .row-modal__field-item &,
+  .grid-view-array-field.active & {
+    max-inline-size: calc(100% - 8px);
+    white-space: initial;
+    display: flex;
+  }
+
+  &.array-field__item--loading {
+    align-items: center;
+    background-color: revert;
+    inline-size: 30px;
+  }
+}
+
+.array-field__ellipsis,
+.array-field__name {
+  .row-modal__field-item &,
+  .grid-view-array-field.active & {
+    max-inline-size: 100%;
+
+    @extend %ellipsis;
+  }
+}
+
+.array-field__time {
+  padding-inline-start: 5px;
+}
+
+.array-field__button {
+  .row-modal__field-item &,
+  .active & {
+    max-inline-size: calc(100% - 8px);
+  }
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
+}
+
+.array-field__button-button {
+  block-size: 22px;
+}
+
+.array-field__multiple-select-container,
+.array-field__multiple-collaborators-container {
+  display: contents;
+
+  .row-modal__field-item &,
+  .grid-view-array-field.active & {
+    max-inline-size: 100%;
+  }
+}
+
+.array-field__single-option {
+  white-space: nowrap;
+  margin-block-start: 1px;
+  overflow: unset;
+  flex-wrap: nowrap;
+
+  // must use !import because the `select-option-style` overwrites the `max-width`, and
+  // we don't want to use that one.
+  max-inline-size: calc(100% - 8px) !important;
+  box-sizing: unset;
+
+  @include select-option-style(inline-flex, true);
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
+
+  .row-modal__field-item & {
+    box-sizing: border-box;
+  }
+
+  .grid-view-array-field.active & {
+    display: flex;
+    overflow: auto;
+  }
+}
+
+.array-field__file {
+  white-space: nowrap;
+  display: flex;
+  block-size: 22px;
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
+
+  .grid-view--row-height-large & {
+    block-size: 26px;
+  }
+}
+
+.array-field__file-link {
+  cursor: initial;
+
+  // The link is not clickable when the cell is not active.
+  .active & {
+    cursor: pointer;
+  }
+}
+
+%array-field-file-border {
+  border: solid 1px $color-neutral-400;
+
+  @include rounded($rounded);
+}
+
+.array-field__file-image {
+  @extend %array-field-file-border;
+
+  display: block;
+  inline-size: auto;
+  block-size: 22px;
+}
+
+.array-field__file-icon {
+  @extend %array-field-file-border;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-neutral-600;
+  inline-size: 22px;
+  block-size: 22px;
+}
+
+.array-field__boolean {
+  block-size: 22px;
+  display: flex;
+}
+
+.array-field__checkbox {
+  margin: auto;
+  color: $color-success-600;
+
+  @include center-text(18px, 11px);
+  @include rounded($rounded);
+
+  &--false {
+    color: $color-error-600;
+  }
+}

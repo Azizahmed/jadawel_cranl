@@ -1,0 +1,40 @@
+.grid-field-single-select__cell {
+  &.active {
+    inset-block-end: auto;
+    inset-inline-end: auto;
+    block-size: auto;
+    min-block-size: 100%;
+    min-inline-size: 100%;
+  }
+}
+
+.grid-field-single-select {
+  position: relative;
+  display: block;
+  block-size: 32px;
+  padding: 0 10px;
+  inline-size: 100%;
+  user-select: none;
+
+  .grid-view__cell.active &:not(.grid-field-single-select--read-only):hover {
+    cursor: pointer;
+  }
+
+  &.grid-field-single-select--selected {
+    padding-inline-end: 32px;
+  }
+}
+
+.grid-field-single-select__option {
+  margin-block-start: 6px;
+
+  @include select-option-style(inline-block, true);
+}
+
+.grid-field-single-select__icon {
+  font-size: 11px;
+  color: $color-neutral-900;
+  transform: translateY(-50%);
+
+  @include absolute(50%, 10px, auto, auto);
+}

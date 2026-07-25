@@ -1,0 +1,24 @@
+.infinite-scroll {
+  @include absolute(0, 0, 0, 0);
+
+  overflow-y: auto;
+
+  &--reversed {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  &__loading-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  &__end-line {
+    inline-size: 90%;
+    padding-block-start: 10px;
+    margin-inline: 5%;
+    margin-block-end: 20px;
+    border-block-end: solid 1px #d9dbde;
+  }
+}

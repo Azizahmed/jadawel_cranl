@@ -1,0 +1,201 @@
+.guided-tour-step__container {
+  background: transparent;
+  pointer-events: all;
+  z-index: $z-index-guided-tour-container;
+
+  @include absolute(0, 0, 0, 0);
+}
+
+.guided-tour-step {
+  position: absolute;
+  box-sizing: border-box;
+  inline-size: 326px;
+  background-color: $palette-neutral-1200;
+  display: flex;
+  flex-direction: column;
+  z-index: $z-index-guided-tour-step;
+  transform: translateY(0) translateX(0);
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  transition:
+    top 0.1s ease,
+    left 0.1s ease,
+    transform 0.1s ease,
+    position 0.1s ease;
+
+  @include absolute(0, 0, auto, auto);
+  @include rounded($rounded-md);
+
+  &::after {
+    content: '';
+    inline-size: 0;
+    block-size: 0;
+    border-style: solid;
+    border-width: 8px 6px 8px 0;
+    border-color: transparent $palette-neutral-1200 transparent transparent;
+    transform: rotate(0deg);
+    position: absolute;
+  }
+
+  // Positioned in the middle of the screen.
+  &--center {
+    left: 50%; /* stylelint-disable-line csstools/use-logical -- symmetric centering */
+    inset-block-start: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+
+  // Positioned left from the parent, aligned to the top of it.
+  &--left-top {
+    inset-inline-start: 0;
+    transform: translateX(calc(-100% - 12px));
+
+    &::after {
+      inset-inline-end: -8px;
+      inset-block-start: 12px;
+      border-width: 6px 0 6px 8px;
+      border-color: transparent transparent transparent $palette-neutral-1200;
+    }
+  }
+
+  // Positioned right from the parent, aligned to the top of it.
+  &--right-top {
+    inset-inline-start: calc(100% + 12px);
+
+    &::after {
+      inset-block-start: 12px;
+      inset-inline-start: -6px;
+    }
+  }
+
+  // Positioned right from the parent, aligned at the bottom of it.
+  &--right-bottom {
+    inset-block-start: 100%;
+    inset-inline-start: calc(100% + 12px);
+    transform: translateY(-100%);
+
+    &::after {
+      inset-inline-start: -6px;
+      inset-block-end: 12px;
+    }
+  }
+
+  // Position at the bottom of the parent, aligned to the left of it.
+  &--bottom-left {
+    inset-inline-start: 0;
+    inset-block-start: calc(100% + 12px);
+
+    &::after {
+      inset-inline-start: 12px;
+      inset-block-start: -6px;
+      border-width: 0 8px 6px;
+      border-color: transparent transparent $palette-neutral-1200;
+    }
+  }
+
+  // Position at the bottom of the parent, aligned to the right of it.
+  &--bottom-right {
+    inset-inline-start: 100%;
+    inset-block-start: calc(100% + 12px);
+    transform: translateX(-100%);
+
+    &::after {
+      inset-inline-end: 12px;
+      inset-block-start: -6px;
+      border-width: 0 8px 6px;
+      border-color: transparent transparent $palette-neutral-1200;
+    }
+  }
+
+  // Position at the bottom of the parent, centered horizontally.
+  &--bottom-center {
+    left: 50%; /* stylelint-disable-line csstools/use-logical -- symmetric centering */
+    inset-block-start: calc(100% + 12px);
+    transform: translateX(-50%);
+
+    &::after {
+      left: 50%; /* stylelint-disable-line csstools/use-logical -- symmetric centering */
+      inset-block-start: -6px;
+      transform: translateX(-50%);
+      border-width: 0 8px 6px;
+      border-color: transparent transparent $palette-neutral-1200;
+    }
+  }
+
+  // Position at the top of the parent, centered horizontally.
+  &--top-center {
+    left: 50%; /* stylelint-disable-line csstools/use-logical -- symmetric centering */
+    inset-block-start: 0;
+    transform: translateX(-50%) translateY(calc(-100% - 12px));
+
+    &::after {
+      left: 50%; /* stylelint-disable-line csstools/use-logical -- symmetric centering */
+      inset-block-end: -6px;
+      transform: translateX(-50%);
+      border-width: 6px 8px 0;
+      border-color: $palette-neutral-1200 transparent transparent transparent;
+    }
+  }
+}
+
+.guided-tour-step__body {
+  padding: 20px 20px 0;
+  min-block-size: 0;
+  overflow: hidden scroll;
+}
+
+.guided-tour-step__page {
+  color: $palette-neutral-500;
+  font-size: 11px;
+  line-height: 16px;
+  margin-block-end: 10px;
+}
+
+.guided-tour-step__title {
+  color: $white;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-block-end: 10px;
+}
+
+.guided-tour-step__description {
+  font-size: 12px;
+  line-height: 20px;
+  color: $palette-neutral-300;
+
+  .markdown p {
+    color: $palette-neutral-300;
+    margin-block-end: 10px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .markdown strong {
+    color: $palette-neutral-300;
+  }
+
+  .markdown ul {
+    padding-inline-start: 1em;
+  }
+
+  .markdown > * {
+    margin-block-end: 0;
+  }
+}
+
+.guided-tour-step__foot {
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 20px;
+}
+
+.guided-tour-step__back {
+  color: $white;
+  font-weight: 500;
+  font-size: 13px;
+
+  &:hover {
+    text-decoration: none;
+    color: $palette-neutral-300;
+  }
+}

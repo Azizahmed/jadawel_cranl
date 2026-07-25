@@ -1,0 +1,23 @@
+.card-rich-text {
+  @extend %ellipsis;
+
+  inline-size: 100%;
+  font-size: 13px;
+  min-inline-size: 1px;
+  line-height: 16px;
+  block-size: 32px;
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    pointer-events: auto !important;
+    color: $color-primary-500;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

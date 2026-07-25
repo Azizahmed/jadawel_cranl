@@ -1,0 +1,127 @@
+.grid-field-many-to-many__cell.active {
+  inset-block-end: auto;
+  block-size: auto;
+  min-inline-size: 100%;
+  min-block-size: 100%;
+}
+
+.grid-field-many-to-many__list {
+  overflow: hidden;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  list-style: none;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin: 0;
+  padding: 5px 3px;
+  gap: 4px;
+  user-select: none;
+
+  .grid-view--row-height-medium &,
+  .grid-view--row-height-large & {
+    block-size: auto;
+    flex-wrap: wrap;
+    padding-block: 3px;
+  }
+
+  .grid-view--row-height-medium & {
+    max-block-size: $grid-view-row-height-medium - 1px;
+  }
+
+  .grid-view--row-height-large & {
+    max-block-size: $grid-view-row-height-large - 1px;
+  }
+
+  .grid-field-many-to-many__cell.active & {
+    block-size: auto;
+    max-block-size: 300px;
+    overflow: auto;
+    flex-wrap: wrap;
+  }
+}
+
+.grid-field-many-to-many__item {
+  white-space: nowrap;
+  padding: 0 5px;
+  background-color: $color-neutral-100;
+  display: flex;
+  color: $color-neutral-900;
+
+  @include rounded($rounded);
+  @include fixed-height(22px, 13px);
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .grid-field-many-to-many__cell.active & {
+    background-color: $color-primary-100;
+    max-inline-size: calc(100% - 5px);
+
+    .grid-view__column--matches-search & {
+      background-color: $color-primary-200;
+    }
+
+    &.grid-field-many-to-many__item--loading {
+      inline-size: 30px;
+      align-items: center;
+      background-color: revert;
+    }
+  }
+
+  &.grid-field-many-to-many__item--link {
+    display: none;
+    color: $color-neutral-900;
+    inline-size: 22px;
+    block-size: 22px;
+    justify-content: center;
+
+    @include flex-align-items;
+
+    &:hover {
+      background-color: $color-primary-200;
+
+      .grid-view__column--matches-search & {
+        background-color: $color-primary-300;
+      }
+    }
+
+    .grid-field-many-to-many__cell.active & {
+      display: flex;
+    }
+  }
+}
+
+.grid-field-many-to-many__name {
+  white-space: nowrap;
+  overflow: hidden;
+  max-inline-size: 100%;
+}
+
+.grid-field-many-to-many__cell.active .grid-field-many-to-many__name {
+  @extend %ellipsis;
+}
+
+.grid-field-many-to-many__loading {
+  margin: 5px 0 0 4px;
+
+  @include loading(12px);
+}
+
+.grid-field-many-to-many__remove {
+  display: none;
+  color: $color-neutral-900;
+  padding: 0 2px;
+  justify-content: center;
+
+  @include flex-align-items;
+
+  &:hover {
+    color: $color-neutral-500;
+  }
+
+  .grid-field-many-to-many__cell.active & {
+    display: flex;
+  }
+}

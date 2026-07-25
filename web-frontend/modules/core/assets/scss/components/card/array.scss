@@ -1,0 +1,30 @@
+.card-array__wrapper {
+  overflow: hidden;
+  margin: 0 -16px;
+  block-size: 22px;
+}
+
+.card-array {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  block-size: 22px + 15px;
+  padding: 0 16px 15px;
+  overflow-x: scroll;
+  gap: 4px;
+
+  .array-field__item,
+  .array-field__boolean,
+  .array-field__single-option,
+  .array-field__file,
+  .array-field__button {
+    margin-block: 0;
+    margin-inline-start: 0;
+
+    @include fixed-height(22px, 13px);
+  }
+
+  .array-field__item {
+    background-color: $color-primary-100;
+  }
+}

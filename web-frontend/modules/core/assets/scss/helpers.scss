@@ -1,0 +1,339 @@
+%clearfix {
+  &::after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+}
+
+.clearfix {
+  @extend %clearfix;
+}
+
+.hidden {
+  display: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  transform: translateX(-10000px) translateY(-10000px);
+}
+
+.align-right {
+  text-align: end;
+}
+
+.background-white {
+  background-color: $white;
+}
+
+.color-primary {
+  color: $color-primary-500 !important;
+}
+
+.color-success {
+  color: $color-success-500 !important;
+}
+
+.color-warning {
+  color: $color-warning-500 !important;
+}
+
+.color-error {
+  color: $color-error-500 !important;
+}
+
+.color-neutral {
+  color: $color-neutral-500 !important;
+}
+
+.padding-top-0 {
+  padding-block-start: 0 !important;
+}
+
+.padding-top-2 {
+  padding-block-start: 16px !important;
+}
+
+.margin-top-0 {
+  margin-block-start: 0 !important;
+}
+
+.margin-top-1 {
+  margin-block-start: 8px !important;
+}
+
+.margin-top-2 {
+  margin-block-start: 16px !important;
+}
+
+.margin-top-3 {
+  margin-block-start: 30px !important;
+}
+
+.margin-top-4 {
+  margin-block-start: 40px !important;
+}
+
+.margin-bottom-0 {
+  margin-block-end: 0 !important;
+}
+
+.margin-bottom-1 {
+  margin-block-end: 8px !important;
+}
+
+.margin-bottom-2 {
+  margin-block-end: 16px !important;
+}
+
+.margin-bottom-24 {
+  margin-block-start: 24px !important;
+}
+
+.margin-bottom-3 {
+  margin-block-end: 30px !important;
+}
+
+.margin-bottom-4 {
+  margin-block-end: 40px !important;
+}
+
+.margin-left-auto {
+  margin-inline-start: auto !important;
+}
+
+.margin-left-0 {
+  margin-inline-start: 0 !important;
+}
+
+.margin-left-1 {
+  margin-inline-start: 8px !important;
+}
+
+.margin-left-2 {
+  margin-inline-start: 16px !important;
+}
+
+.margin-left-3 {
+  margin-inline-start: 30px !important;
+}
+
+.margin-left-4 {
+  margin-inline-start: 40px !important;
+}
+
+.margin-right-auto {
+  margin-inline-end: auto !important;
+}
+
+.margin-right-0 {
+  margin-inline-end: 0 !important;
+}
+
+.margin-right-1 {
+  margin-inline-end: 8px !important;
+}
+
+.margin-right-2 {
+  margin-inline-end: 16px !important;
+}
+
+.margin-right-3 {
+  margin-inline-end: 30px !important;
+}
+
+.margin-right-4 {
+  margin-inline-end: 40px !important;
+}
+
+.resizing-horizontal {
+  cursor: col-resize;
+}
+
+// This selector can only be used to temporarily show an element for calculating
+// positions.
+.forced-block {
+  display: block !important;
+}
+
+// Sometimes we forcefully want to disable the user-select property to initial
+// because the element is for example being edited via a contenteditable attribute
+// which does not work in combination with the user-select: none; property in Safari.
+.forced-user-select-initial {
+  user-select: initial !important;
+}
+
+.forced-text-overflow-initial {
+  text-overflow: initial !important;
+}
+
+.forced-pointer-events-auto {
+  pointer-events: auto !important;
+}
+
+.prevent-scroll {
+  overflow: hidden !important;
+}
+
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+
+.remove-number-input-controls,
+%remove-number-input-controls {
+  appearance: textfield !important;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+
+.flex {
+  inline-size: 100%;
+  display: flex;
+  gap: var(--gap, 10px);
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-100 {
+  inline-size: 100%;
+  flex-basis: 100%;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-end {
+  align-items: end;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
+
+.max-width-100 {
+  max-inline-size: 100%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+/* spacer classes generation */
+
+@each $size in $spacings {
+  .p-#{$size},
+  %p-#{$size} {
+    padding: #{$size}px;
+  }
+
+  .px-#{$size},
+  %px-#{$size} {
+    padding-inline: #{$size}px #{$size}px;
+  }
+
+  .py-#{$size},
+  %py-#{$size} {
+    padding-block: #{$size}px;
+  }
+
+  .m-#{$size},
+  %m-#{$size} {
+    margin: #{$size}px;
+  }
+
+  .my-#{$size},
+  %my-#{$size} {
+    margin-block: #{$size}px;
+  }
+
+  .mx-#{$size},
+  %mx-#{$size} {
+    margin-inline: #{$size}px #{$size}px;
+  }
+
+  .pl-#{$size},
+  %pl-#{$size} {
+    padding-inline-start: #{$size}px;
+  }
+
+  .ml-#{$size},
+  %ml-#{$size} {
+    margin-inline-start: #{$size}px;
+  }
+
+  .pr-#{$size},
+  %pr-#{$size} {
+    padding-inline-end: #{$size}px;
+  }
+
+  .mr-#{$size},
+  %mr-#{$size} {
+    margin-inline-end: #{$size}px;
+  }
+
+  .pb-#{$size},
+  %pb-#{$size} {
+    padding-block-end: #{$size}px;
+  }
+
+  .mb-#{$size},
+  %mb-#{$size} {
+    margin-block-end: #{$size}px;
+  }
+
+  .pt-#{$size},
+  %pt-#{$size} {
+    padding-block-start: #{$size}px;
+  }
+
+  .mt-#{$size},
+  %mt-#{$size} {
+    margin-block-start: #{$size}px;
+  }
+}
