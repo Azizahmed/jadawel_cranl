@@ -83,8 +83,34 @@ export default {
   emits: ['next', 'previous'],
   async mounted() {
     const updatePosition = () => {
+      // Cleared first so the measurement below reflects the position the
+      // stylesheet asks for, not the one the previous run nudged it to.
+      this.$el.style.translate = ''
+
       const rect = this.$el.getBoundingClientRect()
       this.$el.style['max-height'] = `calc(100vh - ${rect.top - 12}px)`
+
+      // The step is anchored to whatever element it highlights, so near a
+      // screen edge - or in a narrow window - part of it can end up outside
+      // the viewport, taking the next/back buttons with it. Nudge it back in.
+      // `translate` is used rather than `transform` because each position
+      // modifier sets its own `transform`, which must be preserved.
+      const margin = 12
+      const overflowStart = margin - rect.left
+      const overflowEnd = rect.right - (window.innerWidth - margin)
+      let shift = 0
+
+      if (overflowStart > 0) {
+        shift = overflowStart
+      } else if (overflowEnd > 0) {
+        shift = -overflowEnd
+      }
+
+      // Never push the opposite edge out while rescuing this one; a step wider
+      // than the viewport is pinned to the inline-start edge instead.
+      if (shift !== 0 && rect.width <= window.innerWidth - margin * 2) {
+        this.$el.style.translate = `${Math.round(shift)}px`
+      }
     }
 
     // Delay the position update to the next tick to let the Context content

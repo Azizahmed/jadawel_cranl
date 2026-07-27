@@ -13,5 +13,13 @@
     height 0.1s ease;
 
   @include rounded($rounded);
-  @include absolute(0, 0, 0, 0);
+
+  // Deliberately no insets. The box is positioned by inline `left`/`top`/
+  // `width`/`height` written by Highlight.vue from physical
+  // getBoundingClientRect measurements. Declaring an end inset here as well
+  // over-constrains the box: with a definite width, CSS drops `right` under
+  // LTR but drops `left` under RTL, which threw the inline position away and
+  // pinned the highlight — and every guided tour step anchored to it — to the
+  // edge of the screen.
+  position: absolute;
 }

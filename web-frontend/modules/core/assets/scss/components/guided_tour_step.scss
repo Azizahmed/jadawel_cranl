@@ -49,6 +49,13 @@
     inset-inline-start: 0;
     transform: translateX(calc(-100% - 12px));
 
+    // `transform` is a physical property, so unlike the logical inset above it
+    // does not mirror on its own. Without this the step is pulled off the
+    // inline-start edge of the screen instead of away from its anchor.
+    [dir='rtl'] & {
+      transform: translateX(calc(100% + 12px));
+    }
+
     &::after {
       inset-inline-end: -8px;
       inset-block-start: 12px;
@@ -97,6 +104,12 @@
     inset-inline-start: 100%;
     inset-block-start: calc(100% + 12px);
     transform: translateX(-100%);
+
+    // See the note on `--left-top`: the physical transform has to be mirrored
+    // by hand or the step is pushed a full width past its anchor.
+    [dir='rtl'] & {
+      transform: translateX(100%);
+    }
 
     &::after {
       inset-inline-end: 12px;
