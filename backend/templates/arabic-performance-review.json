@@ -1,0 +1,741 @@
+{
+    "baserow_template_version": 1,
+    "name": "تقييم الأداء",
+    "icon": "iconoir-okrs",
+    "keywords": [
+        "تقييم الأداء",
+        "الموارد البشرية",
+        "موظفون",
+        "أهداف",
+        "مراجعة",
+        "performance review",
+        "hr",
+        "employees",
+        "goals",
+        "arabic"
+    ],
+    "categories": [
+        "قوالب عربية",
+        "Arabic templates"
+    ],
+    "export": [
+        {
+            "id": 393,
+            "name": "تقييم الأداء",
+            "order": 1,
+            "type": "database",
+            "tables": [
+                {
+                    "id": 1198,
+                    "name": "الموظفون",
+                    "order": 1,
+                    "fields": [
+                        {
+                            "id": 11632,
+                            "type": "text",
+                            "name": "اسم الموظف",
+                            "description": null,
+                            "order": 0,
+                            "primary": true,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "text_default": ""
+                        },
+                        {
+                            "id": 11635,
+                            "type": "text",
+                            "name": "المسمى الوظيفي",
+                            "description": null,
+                            "order": 1,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "text_default": ""
+                        },
+                        {
+                            "id": 11636,
+                            "type": "single_select",
+                            "name": "القسم",
+                            "description": null,
+                            "order": 2,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "select_options": [
+                                {
+                                    "id": 4377,
+                                    "value": "الهندسة",
+                                    "color": "blue",
+                                    "order": 0
+                                },
+                                {
+                                    "id": 4378,
+                                    "value": "التسويق",
+                                    "color": "green",
+                                    "order": 1
+                                },
+                                {
+                                    "id": 4379,
+                                    "value": "المبيعات",
+                                    "color": "orange",
+                                    "order": 2
+                                },
+                                {
+                                    "id": 4380,
+                                    "value": "الموارد البشرية",
+                                    "color": "red",
+                                    "order": 3
+                                },
+                                {
+                                    "id": 4381,
+                                    "value": "المالية",
+                                    "color": "dark-blue",
+                                    "order": 4
+                                }
+                            ],
+                            "single_select_default": null
+                        },
+                        {
+                            "id": 11637,
+                            "type": "date",
+                            "name": "تاريخ التعيين",
+                            "description": null,
+                            "order": 3,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "date_format": "ISO",
+                            "date_include_time": false,
+                            "date_time_format": "24",
+                            "date_show_tzinfo": false,
+                            "date_force_timezone": null
+                        },
+                        {
+                            "id": 11638,
+                            "type": "text",
+                            "name": "المدير المباشر",
+                            "description": null,
+                            "order": 4,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "text_default": ""
+                        },
+                        {
+                            "id": 11639,
+                            "type": "email",
+                            "name": "البريد الإلكتروني",
+                            "description": null,
+                            "order": 5,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": []
+                        },
+                        {
+                            "id": 11644,
+                            "type": "link_row",
+                            "name": "التقييمات",
+                            "description": null,
+                            "order": 6,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "link_row_table_id": 1199,
+                            "link_row_related_field_id": 11643,
+                            "link_row_limit_selection_view_id": null,
+                            "has_related_field": true,
+                            "link_row_multiple_relationships": true
+                        },
+                        {
+                            "id": 11656,
+                            "type": "link_row",
+                            "name": "الأهداف",
+                            "description": null,
+                            "order": 7,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "link_row_table_id": 1200,
+                            "link_row_related_field_id": 11655,
+                            "link_row_limit_selection_view_id": null,
+                            "has_related_field": true,
+                            "link_row_multiple_relationships": true
+                        }
+                    ],
+                    "views": [
+                        {
+                            "id": 4422,
+                            "type": "grid",
+                            "name": "Grid",
+                            "order": 1,
+                            "ownership_type": "collaborative",
+                            "owned_by": "admin@jadawel.local",
+                            "filter_type": "AND",
+                            "filters_disabled": false,
+                            "filters": [],
+                            "filter_groups": [],
+                            "sortings": [],
+                            "group_bys": [],
+                            "decorations": [],
+                            "public": false,
+                            "row_identifier_type": "id",
+                            "row_height_size": "small",
+                            "frozen_column_count": 1,
+                            "field_options": []
+                        }
+                    ],
+                    "rows": [
+                        {
+                            "id": 3,
+                            "order": "1.00000000000000000000",
+                            "created_on": "2026-07-27T19:14:54.841275+00:00",
+                            "updated_on": "2026-07-27T19:14:54.841275+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11632": "ريم الدوسري",
+                            "field_11635": "مهندسة برمجيات",
+                            "field_11636": 4377,
+                            "field_11637": "2024-02-11",
+                            "field_11638": "خالد الحربي",
+                            "field_11639": "reem@example.com",
+                            "field_11644": [
+                                3
+                            ],
+                            "field_11656": [
+                                3
+                            ]
+                        },
+                        {
+                            "id": 4,
+                            "order": "2.00000000000000000000",
+                            "created_on": "2026-07-27T19:14:55.559990+00:00",
+                            "updated_on": "2026-07-27T19:14:55.559990+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11632": "ماجد السبيعي",
+                            "field_11635": "أخصائي مبيعات",
+                            "field_11636": 4379,
+                            "field_11637": "2023-08-01",
+                            "field_11638": "سارة العتيبي",
+                            "field_11639": "majed@example.com",
+                            "field_11644": [
+                                4
+                            ],
+                            "field_11656": [
+                                4
+                            ]
+                        },
+                        {
+                            "id": 5,
+                            "order": "3.00000000000000000000",
+                            "created_on": "2026-07-27T19:14:56.446558+00:00",
+                            "updated_on": "2026-07-27T19:14:56.446558+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11632": "هند الزهراني",
+                            "field_11635": "أخصائية موارد بشرية",
+                            "field_11636": 4380,
+                            "field_11637": "2022-05-16",
+                            "field_11638": "سارة العتيبي",
+                            "field_11639": "hind@example.com",
+                            "field_11644": [
+                                5
+                            ],
+                            "field_11656": [
+                                5
+                            ]
+                        }
+                    ],
+                    "data_sync": null,
+                    "field_rules": []
+                },
+                {
+                    "id": 1199,
+                    "name": "التقييمات",
+                    "order": 2,
+                    "fields": [
+                        {
+                            "id": 11640,
+                            "type": "text",
+                            "name": "عنوان التقييم",
+                            "description": null,
+                            "order": 0,
+                            "primary": true,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "text_default": ""
+                        },
+                        {
+                            "id": 11643,
+                            "type": "link_row",
+                            "name": "الموظف",
+                            "description": null,
+                            "order": 1,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "link_row_table_id": 1198,
+                            "link_row_related_field_id": 11644,
+                            "link_row_limit_selection_view_id": null,
+                            "has_related_field": true,
+                            "link_row_multiple_relationships": true
+                        },
+                        {
+                            "id": 11645,
+                            "type": "single_select",
+                            "name": "فترة التقييم",
+                            "description": null,
+                            "order": 2,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "select_options": [
+                                {
+                                    "id": 4382,
+                                    "value": "الربع الأول",
+                                    "color": "blue",
+                                    "order": 0
+                                },
+                                {
+                                    "id": 4383,
+                                    "value": "الربع الثاني",
+                                    "color": "green",
+                                    "order": 1
+                                },
+                                {
+                                    "id": 4384,
+                                    "value": "الربع الثالث",
+                                    "color": "orange",
+                                    "order": 2
+                                },
+                                {
+                                    "id": 4385,
+                                    "value": "الربع الرابع",
+                                    "color": "red",
+                                    "order": 3
+                                },
+                                {
+                                    "id": 4386,
+                                    "value": "سنوي",
+                                    "color": "dark-blue",
+                                    "order": 4
+                                }
+                            ],
+                            "single_select_default": null
+                        },
+                        {
+                            "id": 11646,
+                            "type": "rating",
+                            "name": "التقييم العام",
+                            "description": null,
+                            "order": 3,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "max_value": 5,
+                            "color": "dark-orange",
+                            "style": "star"
+                        },
+                        {
+                            "id": 11647,
+                            "type": "date",
+                            "name": "تاريخ التقييم",
+                            "description": null,
+                            "order": 4,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "date_format": "ISO",
+                            "date_include_time": false,
+                            "date_time_format": "24",
+                            "date_show_tzinfo": false,
+                            "date_force_timezone": null
+                        },
+                        {
+                            "id": 11648,
+                            "type": "text",
+                            "name": "المُقيِّم",
+                            "description": null,
+                            "order": 5,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "text_default": ""
+                        },
+                        {
+                            "id": 11649,
+                            "type": "long_text",
+                            "name": "نقاط القوة",
+                            "description": null,
+                            "order": 6,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "long_text_enable_rich_text": null
+                        },
+                        {
+                            "id": 11650,
+                            "type": "long_text",
+                            "name": "مجالات التحسين",
+                            "description": null,
+                            "order": 7,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "long_text_enable_rich_text": null
+                        },
+                        {
+                            "id": 11651,
+                            "type": "boolean",
+                            "name": "معتمد",
+                            "description": null,
+                            "order": 8,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "boolean_default": false
+                        }
+                    ],
+                    "views": [
+                        {
+                            "id": 4423,
+                            "type": "grid",
+                            "name": "Grid",
+                            "order": 1,
+                            "ownership_type": "collaborative",
+                            "owned_by": "admin@jadawel.local",
+                            "filter_type": "AND",
+                            "filters_disabled": false,
+                            "filters": [],
+                            "filter_groups": [],
+                            "sortings": [],
+                            "group_bys": [],
+                            "decorations": [],
+                            "public": false,
+                            "row_identifier_type": "id",
+                            "row_height_size": "small",
+                            "frozen_column_count": 1,
+                            "field_options": []
+                        }
+                    ],
+                    "rows": [
+                        {
+                            "id": 3,
+                            "order": "1.00000000000000000000",
+                            "created_on": "2026-07-27T19:15:19.407579+00:00",
+                            "updated_on": "2026-07-27T19:15:19.407579+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11640": "تقييم ريم الدوسري — الربع الأول 2026",
+                            "field_11643": [
+                                3
+                            ],
+                            "field_11645": 4382,
+                            "field_11646": 5,
+                            "field_11647": "2026-04-02",
+                            "field_11648": "خالد الحربي",
+                            "field_11649": "جودة عالية في الكود، والتزام دقيق بالمواعيد، ومبادرة في تحسين أداء النظام.",
+                            "field_11650": "زيادة المشاركة في مراجعة أكواد الزملاء.",
+                            "field_11651": "true"
+                        },
+                        {
+                            "id": 4,
+                            "order": "2.00000000000000000000",
+                            "created_on": "2026-07-27T19:15:21.372042+00:00",
+                            "updated_on": "2026-07-27T19:15:21.372042+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11640": "تقييم ماجد السبيعي — الربع الأول 2026",
+                            "field_11643": [
+                                4
+                            ],
+                            "field_11645": 4382,
+                            "field_11646": 4,
+                            "field_11647": "2026-04-03",
+                            "field_11648": "سارة العتيبي",
+                            "field_11649": "تجاوز المستهدف البيعي بنسبة 18% وبناء علاقات قوية مع العملاء.",
+                            "field_11650": "تحسين دقة تحديث بيانات العملاء في النظام.",
+                            "field_11651": "true"
+                        },
+                        {
+                            "id": 5,
+                            "order": "3.00000000000000000000",
+                            "created_on": "2026-07-27T19:15:23.815908+00:00",
+                            "updated_on": "2026-07-27T19:15:23.815908+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11640": "تقييم هند الزهراني — سنوي 2025",
+                            "field_11643": [
+                                5
+                            ],
+                            "field_11645": 4386,
+                            "field_11646": 4,
+                            "field_11647": "2026-01-20",
+                            "field_11648": "سارة العتيبي",
+                            "field_11649": "تنظيم ممتاز لبرامج التدريب ورفع رضا الموظفين.",
+                            "field_11650": "تفويض المهام التشغيلية لتوفير وقت للتخطيط.",
+                            "field_11651": "false"
+                        }
+                    ],
+                    "data_sync": null,
+                    "field_rules": []
+                },
+                {
+                    "id": 1200,
+                    "name": "الأهداف",
+                    "order": 3,
+                    "fields": [
+                        {
+                            "id": 11652,
+                            "type": "text",
+                            "name": "الهدف",
+                            "description": null,
+                            "order": 0,
+                            "primary": true,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "text_default": ""
+                        },
+                        {
+                            "id": 11655,
+                            "type": "link_row",
+                            "name": "الموظف",
+                            "description": null,
+                            "order": 1,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "link_row_table_id": 1198,
+                            "link_row_related_field_id": 11656,
+                            "link_row_limit_selection_view_id": null,
+                            "has_related_field": true,
+                            "link_row_multiple_relationships": true
+                        },
+                        {
+                            "id": 11657,
+                            "type": "single_select",
+                            "name": "الحالة",
+                            "description": null,
+                            "order": 2,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "select_options": [
+                                {
+                                    "id": 4387,
+                                    "value": "لم يبدأ",
+                                    "color": "blue",
+                                    "order": 0
+                                },
+                                {
+                                    "id": 4388,
+                                    "value": "قيد التنفيذ",
+                                    "color": "green",
+                                    "order": 1
+                                },
+                                {
+                                    "id": 4389,
+                                    "value": "محقق",
+                                    "color": "orange",
+                                    "order": 2
+                                },
+                                {
+                                    "id": 4390,
+                                    "value": "غير محقق",
+                                    "color": "red",
+                                    "order": 3
+                                }
+                            ],
+                            "single_select_default": null
+                        },
+                        {
+                            "id": 11658,
+                            "type": "date",
+                            "name": "الموعد النهائي",
+                            "description": null,
+                            "order": 3,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "date_format": "ISO",
+                            "date_include_time": false,
+                            "date_time_format": "24",
+                            "date_show_tzinfo": false,
+                            "date_force_timezone": null
+                        },
+                        {
+                            "id": 11659,
+                            "type": "number",
+                            "name": "نسبة الإنجاز %",
+                            "description": null,
+                            "order": 4,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "number_decimal_places": 0,
+                            "number_negative": false,
+                            "number_prefix": "",
+                            "number_suffix": "",
+                            "number_separator": "",
+                            "number_default": null
+                        },
+                        {
+                            "id": 11660,
+                            "type": "long_text",
+                            "name": "مؤشر القياس",
+                            "description": null,
+                            "order": 5,
+                            "primary": false,
+                            "read_only": false,
+                            "db_index": false,
+                            "immutable_type": false,
+                            "immutable_properties": false,
+                            "field_constraints": [],
+                            "long_text_enable_rich_text": null
+                        }
+                    ],
+                    "views": [
+                        {
+                            "id": 4424,
+                            "type": "grid",
+                            "name": "Grid",
+                            "order": 1,
+                            "ownership_type": "collaborative",
+                            "owned_by": "admin@jadawel.local",
+                            "filter_type": "AND",
+                            "filters_disabled": false,
+                            "filters": [],
+                            "filter_groups": [],
+                            "sortings": [],
+                            "group_bys": [],
+                            "decorations": [],
+                            "public": false,
+                            "row_identifier_type": "id",
+                            "row_height_size": "small",
+                            "frozen_column_count": 1,
+                            "field_options": []
+                        }
+                    ],
+                    "rows": [
+                        {
+                            "id": 3,
+                            "order": "1.00000000000000000000",
+                            "created_on": "2026-07-27T19:15:45.784075+00:00",
+                            "updated_on": "2026-07-27T19:15:45.784075+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11652": "خفض زمن استجابة واجهة برمجة التطبيقات إلى أقل من 300 مللي ثانية",
+                            "field_11655": [
+                                3
+                            ],
+                            "field_11657": 4388,
+                            "field_11658": "2026-06-30",
+                            "field_11659": "70",
+                            "field_11660": "قياس النسبة المئوية 95 لزمن الاستجابة أسبوعيًا."
+                        },
+                        {
+                            "id": 4,
+                            "order": "2.00000000000000000000",
+                            "created_on": "2026-07-27T19:15:48.040750+00:00",
+                            "updated_on": "2026-07-27T19:15:48.040750+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11652": "تحقيق مبيعات بقيمة مليون ريال في النصف الأول",
+                            "field_11655": [
+                                4
+                            ],
+                            "field_11657": 4388,
+                            "field_11658": "2026-06-30",
+                            "field_11659": "45",
+                            "field_11660": "إجمالي قيمة الصفقات المغلقة."
+                        },
+                        {
+                            "id": 5,
+                            "order": "3.00000000000000000000",
+                            "created_on": "2026-07-27T19:15:50.207256+00:00",
+                            "updated_on": "2026-07-27T19:15:50.207256+00:00",
+                            "created_by": "admin@jadawel.local",
+                            "last_modified_by": "admin@jadawel.local",
+                            "field_11652": "إطلاق برنامج تأهيل الموظفين الجدد",
+                            "field_11655": [
+                                5
+                            ],
+                            "field_11657": 4389,
+                            "field_11658": "2026-02-28",
+                            "field_11659": "100",
+                            "field_11660": "اكتمال البرنامج وتطبيقه على جميع التعيينات الجديدة."
+                        }
+                    ],
+                    "data_sync": null,
+                    "field_rules": []
+                }
+            ]
+        }
+    ]
+}

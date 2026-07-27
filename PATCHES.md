@@ -267,3 +267,40 @@ inline sides fixes it (measured 351px, fully on screen).
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `modules/core/assets/scss/components/dropdown.scss` | `.dropdown__items--fixed`: `inset-inline-end: auto` → `inset-inline: auto` | Release *both* inline insets; a JS-supplied physical `left` must not combine with the base `right: 0` | low — 1 line, adjacent to the existing `--floating` patch |
+
+---
+
+## Templates — tolerate types this build does not ship (2026-07-27)
+
+Bug (reproduced): the template picker was empty. `/api/templates/` returned `[]`
+and `core_template` had 0 rows, because **every bundled template failed to
+install**. Stripping `premium/` and `enterprise/` leaves several registries
+empty, and the import path treated a missing type as fatal:
+
+- `view_type_registry` has only grid/gallery/form — `timeline`, `kanban` and
+  `calendar` are proprietary, and 118 of the 155 templates use at least one.
+- `field_rules` is missing `date_dependency`.
+- `user_source_type_registry` is empty (`local_baserow` lived in enterprise),
+  which aborted the whole `sync_templates` run rather than one template.
+
+Verified before changing anything: of the 816 tables across all templates,
+**none** would be left without a view, since every table has a grid/gallery/form
+view. Skipping a proprietary view therefore degrades cleanly — the table and its
+data import, only that one view is absent.
+
+No proprietary code was copied or reimplemented to fix this.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/baserow/contrib/database/application_types.py` | `_import_table_views`: catch `ViewTypeDoesNotExist`, log and skip the view instead of aborting the application import | An export made where kanban/calendar/timeline exist must still import here | medium — small block inside an upstream loop |
+| `backend/src/baserow/contrib/database/application_types.py` | `_import_field_rules`: catch `InstanceTypeDoesNotExist`, log and skip the rule (reads `type` before `import_rule` pops it) | Same, for the proprietary `date_dependency` rule | low |
+| `backend/src/baserow/core/handler.py` | `sync_templates`: wrap the per-template `_sync_template` call in try/except, collect failures, log a summary at the end | One unimportable template must not abort the sync of the other 154; each template already has its own atomic block so the rollback is clean | medium — upstream occasionally edits this loop |
+| `backend/src/baserow/contrib/builder/application_types.py` | `import_user_sources_serialized`: catch `InstanceTypeDoesNotExist`, log and skip the user source | `user_source_type_registry` is empty (`local_baserow` was enterprise); without this the builder app and its databases are lost | low |
+| `backend/src/baserow/contrib/builder/pages/handler.py` | `import_elements`: drop elements whose type is unregistered, plus their descendants, before the priority sort | The sort key itself resolves every type through the registry, so an unknown type raised *before* the import loop. Descendants are removed to a fixed point because parents are not guaranteed to be serialized first | medium |
+| `backend/src/baserow/contrib/builder/pages/handler.py` | `import_workflow_actions`: skip actions whose `element_id` is absent from `id_mapping` | An action bound to a skipped element raised `KeyError` and aborted the page | low |
+
+Chain of missing types encountered, in the order they surfaced: `view_type`
+(timeline/kanban/calendar) → `field_rules` (date_dependency) → `user_source`
+(local_baserow) → `element_type` (auth_form, input_file) → workflow actions
+orphaned by the skipped element. Templates went 0 → 24 → 123 → 155 as each was
+handled.

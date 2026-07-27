@@ -11,6 +11,7 @@ from django.db.models import Prefetch, QuerySet
 from django.db.transaction import Atomic
 from django.urls import include, path
 
+from loguru import logger
 from rest_framework import serializers
 
 from baserow.contrib.builder.builder_beta_init_application import (
@@ -27,6 +28,7 @@ from baserow.contrib.builder.pages.models import Page
 from baserow.contrib.builder.theme.handler import ThemeHandler
 from baserow.contrib.builder.theme.registries import theme_config_block_registry
 from baserow.contrib.builder.types import BuilderDict
+from baserow.core.exceptions import InstanceTypeDoesNotExist
 from baserow.core.handler import CoreHandler
 from baserow.core.integrations.handler import IntegrationHandler
 from baserow.core.integrations.models import Integration
@@ -332,14 +334,32 @@ class BuilderApplicationType(ApplicationType):
         imported_user_sources: List[Integration] = []
 
         for serialized_user_source in serialized_user_sources:
-            integration = UserSourceHandler().import_user_source(
-                builder,
-                serialized_user_source,
-                id_mapping,
-                cache=self.cache,
-                files_zip=files_zip,
-                storage=storage,
-            )
+            try:
+                integration = UserSourceHandler().import_user_source(
+                    builder,
+                    serialized_user_source,
+                    id_mapping,
+                    cache=self.cache,
+                    files_zip=files_zip,
+                    storage=storage,
+                )
+            except InstanceTypeDoesNotExist:
+                # User sources are a proprietary feature, so this registry is
+                # empty here and every builder app carrying one would otherwise
+                # fail to import — taking its databases down with it. Skipping
+                # the user source keeps the rest of the template usable; only
+                # the app's end-user authentication is unavailable, which it
+                # would be on this build regardless.
+                logger.warning(
+                    "Skipping user source '{}' in application '{}': user "
+                    "source type '{}' is not available on this instance.",
+                    serialized_user_source.get("name"),
+                    builder.name,
+                    serialized_user_source.get("type"),
+                )
+                progress.increment(state=IMPORT_SERIALIZED_IMPORTING)
+                continue
+
             imported_user_sources.append(integration)
 
             progress.increment(state=IMPORT_SERIALIZED_IMPORTING)

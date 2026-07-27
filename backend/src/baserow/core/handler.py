@@ -1877,19 +1877,34 @@ class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context
             if pattern is None or re.search(pattern, p.stem)
         ]
 
+        failed_templates = []
+
         for template_file_path in tqdm(
             template_files_paths,
             desc="Syncing Jadawel templates. Disable by setting "
             "BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=false.",
         ):
-            with transaction.atomic():
-                self._sync_template(
-                    template_file_path,
-                    sync_templates_import_export_config,
-                    installed_templates,
-                    installed_categories,
-                    storage,
-                    force=force,
+            try:
+                with transaction.atomic():
+                    self._sync_template(
+                        template_file_path,
+                        sync_templates_import_export_config,
+                        installed_templates,
+                        installed_categories,
+                        storage,
+                        force=force,
+                    )
+            except Exception:
+                # One unimportable template must not cost us the other 150+.
+                # Each template already syncs inside its own atomic block, so
+                # the failure rolls back on its own and the next one starts
+                # from a clean state. Templates are content, not code: a
+                # template referencing a type this build does not ship is a
+                # data problem to report, not a reason to abort the install.
+                failed_templates.append(template_file_path.stem)
+                logger.exception(
+                    "Failed to sync template '{}', skipping it.",
+                    template_file_path.stem,
                 )
 
         if clean_templates:
@@ -1914,6 +1929,16 @@ class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context
             TemplateCategory.objects.annotate(num_templates=Count("templates")).filter(
                 num_templates=0
             ).delete()
+
+        if failed_templates:
+            logger.warning(
+                "Synced {} of {} templates. Skipped {} that could not be "
+                "imported: {}",
+                len(template_files_paths) - len(failed_templates),
+                len(template_files_paths),
+                len(failed_templates),
+                ", ".join(sorted(failed_templates)),
+            )
 
     def _sync_template(
         self,

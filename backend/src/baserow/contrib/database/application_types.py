@@ -16,6 +16,8 @@ from django.urls import include, path
 from django.utils import translation
 from django.utils.translation import gettext as _
 
+from loguru import logger
+
 from baserow.contrib.database.api.serializers import DatabaseSerializer
 from baserow.contrib.database.db.schema import safe_django_schema_editor
 from baserow.contrib.database.fields.field_cache import FieldCache
@@ -26,8 +28,10 @@ from baserow.contrib.database.fields.utils.field_constraint import (
 from baserow.contrib.database.models import Database, Field, View
 from baserow.contrib.database.operations import ListTablesDatabaseTableOperationType
 from baserow.contrib.database.table.handler import TableHandler
+from baserow.contrib.database.views.exceptions import ViewTypeDoesNotExist
 from baserow.contrib.database.views.registries import view_type_registry
 from baserow.core.db import specific_queryset
+from baserow.core.exceptions import InstanceTypeDoesNotExist
 from baserow.core.handler import CoreHandler
 from baserow.core.models import Application, Workspace
 from baserow.core.registries import (
@@ -645,9 +649,25 @@ class DatabaseApplicationType(ApplicationType):
             field_rules_handler = FieldRuleHandler(table)
             serialized_rules = serialized_table["field_rules"]
             for serialized_rule in serialized_rules:
-                field_rules_handler.import_rule(
-                    serialized_rule, id_mapping["database_fields"]
-                )
+                # import_rule pops "type" off the dict before it looks the type
+                # up, so read it now or there is nothing left to report.
+                rule_type_name = serialized_rule.get("type")
+                try:
+                    field_rules_handler.import_rule(
+                        serialized_rule, id_mapping["database_fields"]
+                    )
+                except InstanceTypeDoesNotExist:
+                    # Same reasoning as the skipped view types above: a field
+                    # rule this instance cannot model (e.g. the proprietary
+                    # date_dependency rule) must not abort the import of the
+                    # table it happens to sit on. The table's data is intact
+                    # without it; only the automatic rule enforcement is lost.
+                    logger.warning(
+                        "Skipping field rule in table '{}': rule type '{}' is "
+                        "not available on this instance.",
+                        serialized_table["name"],
+                        rule_type_name,
+                    )
 
     def _import_table_rows(
         self,
@@ -945,7 +965,26 @@ class DatabaseApplicationType(ApplicationType):
         table_name = serialized_table["name"]
         cache: Dict[str, Any] = {}
         for serialized_view in serialized_table["views"]:
-            view_type = view_type_registry.get(serialized_view["type"])
+            try:
+                view_type = view_type_registry.get(serialized_view["type"])
+            except ViewTypeDoesNotExist:
+                # Skip the view rather than aborting the whole import. Exports
+                # made on an instance that has view types this one does not
+                # (Jadawel ships without the proprietary kanban/calendar/
+                # timeline views) would otherwise take the entire application
+                # down with them — which is what made every bundled template
+                # fail to install. Each table keeps its remaining views.
+                logger.warning(
+                    "Skipping view '{}' in table '{}': view type '{}' is not "
+                    "available on this instance.",
+                    serialized_view.get("name"),
+                    table_name,
+                    serialized_view["type"],
+                )
+                progress.increment(
+                    state=f"{IMPORT_SERIALIZED_IMPORTING_TABLE_STRUCTURE}{table_name}"
+                )
+                continue
             view_type.import_serialized(
                 table,
                 serialized_view,

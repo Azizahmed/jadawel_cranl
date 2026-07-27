@@ -6,6 +6,8 @@ from django.core.files.storage import Storage
 from django.db import IntegrityError
 from django.db.models import QuerySet
 
+from loguru import logger
+
 from baserow.contrib.builder.constants import IMPORT_SERIALIZED_IMPORTING
 from baserow.contrib.builder.data_sources.handler import DataSourceHandler
 from baserow.contrib.builder.elements.handler import ElementHandler
@@ -807,6 +809,46 @@ class PageHandler:
         # That why we are iterating until all elements are created.
         imported_elements = []
 
+        # Drop elements whose type this instance does not ship (the proprietary
+        # auth_form and input_file) before anything else touches them: the sort
+        # key below already resolves every type through the registry, so an
+        # unknown type would raise before the import loop even starts and cost
+        # us the whole application. Descendants of a dropped element go too —
+        # they could never be attached to a parent that was never created, and
+        # leaving them in would make the loop spin without ever importing them.
+        available_types = set(element_type_registry.get_types())
+        dropped_types = {
+            e["type"] for e in serialized_elements if e["type"] not in available_types
+        }
+        dropped_ids = {
+            e["id"] for e in serialized_elements if e["type"] not in available_types
+        }
+        # Serialized elements are not guaranteed to list parents before their
+        # children, so walk to a fixed point rather than filtering in one pass.
+        while True:
+            orphans = {
+                e["id"]
+                for e in serialized_elements
+                if e["id"] not in dropped_ids
+                and e["parent_element_id"] in dropped_ids
+            }
+            if not orphans:
+                break
+            dropped_ids |= orphans
+
+        supported_elements = [
+            e for e in serialized_elements if e["id"] not in dropped_ids
+        ]
+
+        if dropped_ids:
+            logger.warning(
+                "Skipping {} element(s) on page '{}': element type(s) {} are "
+                "not available on this instance.",
+                len(dropped_ids),
+                page.name,
+                ", ".join(sorted(dropped_types)),
+            )
+
         # Sort the serialized elements so that we import:
         # Containers first
         # Everything else after that.
@@ -816,7 +858,7 @@ class PageHandler:
             ).import_element_priority
 
         prioritized_elements = sorted(
-            serialized_elements, key=element_priority_sort, reverse=True
+            supported_elements, key=element_priority_sort, reverse=True
         )
 
         # True if we have imported at least one element on last iteration
@@ -900,6 +942,29 @@ class PageHandler:
 
         # Sort action because we might have formula that use previous actions
         serialized_workflow_actions.sort(key=lambda action: action["order"])
+
+        # An action bound to an element that was skipped during element import
+        # (an unavailable type, e.g. the proprietary auth_form) has nothing left
+        # to hang off, and resolving its element_id through id_mapping would
+        # raise a KeyError and abort the page.
+        element_mapping = id_mapping.get("builder_page_elements", {})
+        skipped_actions = [
+            a
+            for a in serialized_workflow_actions
+            if a.get("element_id") is not None
+            and a["element_id"] not in element_mapping
+        ]
+        if skipped_actions:
+            logger.warning(
+                "Skipping {} workflow action(s) on page '{}' bound to elements "
+                "that are not available on this instance.",
+                len(skipped_actions),
+                page.name,
+            )
+            skipped_ids = {id(a) for a in skipped_actions}
+            serialized_workflow_actions = [
+                a for a in serialized_workflow_actions if id(a) not in skipped_ids
+            ]
 
         for serialized_workflow_action in serialized_workflow_actions:
             BuilderWorkflowActionHandler().import_workflow_action(
