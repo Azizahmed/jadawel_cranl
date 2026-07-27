@@ -267,7 +267,10 @@ services:
   # requests to either the backend or web-frontend and also serving user uploaded files
   # from the media volume.
   caddy:
-    image: caddy:2.11.1
+    image: jadawel/caddy:${BASEROW_VERSION:-2.2.2}
+    build:
+      dockerfile: ./Caddy.Dockerfile
+      context: .
     restart: unless-stopped
     environment:
       # Controls what port the Caddy server binds to inside its container.
@@ -276,16 +279,30 @@ services:
       PRIVATE_BACKEND_URL: ${PRIVATE_BACKEND_URL:-http://backend:8000}
       BASEROW_PUBLIC_URL: ${BASEROW_PUBLIC_URL:-}
       MEDIA_URL: ${MEDIA_URL:-}
-    ports:
-      - "${HOST_PUBLISH_IP:-0.0.0.0}:${WEB_FRONTEND_PORT:-80}:80"
-      - "${HOST_PUBLISH_IP:-0.0.0.0}:${WEB_FRONTEND_SSL_PORT:-443}:443"
+    expose:
+      - "80"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
       - media:/baserow/media
       - caddy_config:/config
       - caddy_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=coolify"
+      - "traefik.http.middlewares.jadawel-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.jadawel-http.entrypoints=http"
+      - "traefik.http.routers.jadawel-http.middlewares=jadawel-redirect"
+      - "traefik.http.routers.jadawel-http.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)"
+      - "traefik.http.routers.jadawel-http.service=jadawel"
+      - "traefik.http.routers.jadawel-https.entrypoints=https"
+      - "traefik.http.routers.jadawel-https.middlewares=gzip"
+      - "traefik.http.routers.jadawel-https.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)"
+      - "traefik.http.routers.jadawel-https.service=jadawel"
+      - "traefik.http.routers.jadawel-https.tls=true"
+      - "traefik.http.routers.jadawel-https.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jadawel.loadbalancer.server.port=80"
     networks:
       local:
+      coolify:
 
   backend:
     image: jadawel/backend:${BASEROW_VERSION:-2.2.2}
@@ -488,3 +505,5 @@ volumes:
 networks:
   local:
     driver: bridge
+  coolify:
+    external: true
