@@ -33,7 +33,7 @@
   "aggregateRowsDataSourceForm": {
     "data": "البيانات",
     "sourceFieldLabel": "المصدر",
-    "viewFieldLabel": "العرض",
+    "viewFieldLabel": "طريقة العرض",
     "notSelected": "غير محدد",
     "aggregationFieldLabel": "الحقل",
     "aggregationTypeLabel": "ملخص"

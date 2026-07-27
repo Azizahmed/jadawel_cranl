@@ -57,7 +57,7 @@
     "bccEmailsPlaceholder": "bcc1{'@'}example.com،bcc2{'@'}example.com",
     "subject": "موضوع",
     "subjectPlaceholder": "موضوع البريد الإلكتروني الخاص بك",
-    "bodyType": "نوع الجسم",
+    "bodyType": "نوع المحتوى",
     "bodyTypePlain": "نص عادي",
     "bodyTypeHtml": "HTML",
     "body": "جسم",
@@ -69,7 +69,7 @@
   },
   "routerForm": {
     "defaultEdgeLabelLabel": "تسمية الفرع الافتراضي",
-    "defaultEdgeLabelPlaceholder": "تقصير",
+    "defaultEdgeLabelPlaceholder": "افتراضي",
     "defaultEdgeLabelDescription": "اختياريًا، اختر التسمية التي سيتم عرضها على الفرع الافتراضي.",
     "branchesHeading": "الفروع",
     "branchesDescription": "تسمح لك الفروع بتنفيذ العقد فقط عند استيفاء الشرط. يتم تنفيذ الفروع من اليسار إلى اليمين حتى يتم استيفاء الشرط، وإلا سيتم تنفيذ الفرع الافتراضي.",
@@ -93,12 +93,12 @@
     "supportSetupStep1": "انتقل إلى {link} في مساحة العمل الخاصة بك.",
     "supportSetupStep1Link": "صفحة التطبيقات",
     "supportSetupStep2": "أنشئ تطبيقًا جديدًا، واختر \"من البداية\" وأدخل اسمًا. حدد مساحة العمل التي يجب أن يعمل تطبيقك فيها، ثم انقر فوق \"إنشاء\".",
-    "supportSetupStep3": "في الشريط الجانبي الأيسر، انتقل إلى \"OAuth > الأذونات\"، ثم قم بالتمرير لأسفل إلى النطاقات وضمن \"نطاقات Bot Token Scopes\"، حدد \"إضافة نطاق OAuth\".",
-    "supportSetupStep4": "للسماح لتطبيقك بنشر الرسائل، قم بإضافة نطاق {scope}.",
+    "supportSetupStep3": "في الشريط الجانبي الأيسر داخل Slack، انتقل إلى \"OAuth > Permissions\"، ثم مرّر لأسفل إلى Scopes، وضمن \"Bot Token Scopes\" اختر \"Add an OAuth Scope\".",
+    "supportSetupStep4": "للسماح لتطبيقك بنشر الرسائل، أضف النطاق {scope}.",
     "supportPairingHeading": "2. الاقتران مع تطبيق Slack الخاص بك",
     "supportPairingStep1": "إذا كان تطبيقك جديدًا: انتقل إلى \"الإعدادات\" > \"تثبيت التطبيق\". انقر فوق الزر الأخضر لتثبيت التطبيق على مساحة العمل الخاصة بك.",
     "supportPairingStep2": "انسخ \"Bot User OAuth Token\" الخاص بك وقم بتخزينه في حقل \"Bot User Token\" في هذا النموذج.",
-    "supportPairingStep3": "أخيرًا، إذا كان تطبيقك جديدًا: في Slack، قم بدعوة تطبيقك إلى القناة التي اخترتها باستخدام {command}"
+    "supportPairingStep3": "أخيرًا، إذا كان تطبيقك جديدًا: في Slack، ادعُ تطبيقك إلى القناة التي اخترتها باستخدام {command}"
   },
   "slackWriteMessageServiceForm": {
     "alertMessage": "يجب أن يقترن هذا الإجراء بتطبيق Slack. يرجى اتباع الدليل الموجود في نافذة عمليات التكامل المنبثقة للبدء.",
@@ -107,11 +107,11 @@
     "channelPlaceholder": "أدخل اسم القناة",
     "messageLabel": "رسالة",
     "messagePlaceholder": "أدخل رسالة...",
-    "channelNoPrefix": "قم بإزالة \"#\" قبل اسم القناة."
+    "channelNoPrefix": "أزِل \"#\" قبل اسم القناة."
   },
   "localBaserowTableSelector": {
-    "viewFieldLabel": "منظر",
-    "tableFieldLabel": "طاولة",
+    "viewFieldLabel": "طريقة العرض",
+    "tableFieldLabel": "الجدول",
     "chooseNoView": "لم يتم التحديد",
     "databaseFieldLabel": "قاعدة البيانات",
     "oneWayDataSyncedTableDescription": "متزامنة في اتجاه واحد",
@@ -132,16 +132,16 @@
     "passwordPlaceholder": "كلمة المرور الخاصة بك"
   },
   "localBaserowTableServiceConditionalForm": {
-    "addFilter": "إضافة مرشح إضافي",
+    "addFilter": "إضافة عامل تصفية إضافي",
     "noFilterTitle": "لم تقم بعد بإنشاء عامل تصفية مصدر البيانات",
     "noFilterText": "تسمح لك عوامل تصفية مصدر البيانات بإظهار صفوف جدول جداول التي تنطبق على شروطك.",
     "relatedFieldNotFound": "لم يتم العثور على الحقل ذي الصلة.",
-    "filterTypeNotFound": "نوع الفلتر غير متوافق.",
-    "noCompatibleFilterTypesErrorTitle": "لا توجد أنواع مرشحات متوافقة",
-    "noCompatibleFilterTypesErrorMessage": "لا يحتوي أي من حقولك على أي أنواع مرشحات متوافقة",
+    "filterTypeNotFound": "نوع عامل التصفية غير متوافق.",
+    "noCompatibleFilterTypesErrorTitle": "لا توجد أنواع عوامل تصفية متوافقة",
+    "noCompatibleFilterTypesErrorMessage": "لا يحتوي أي من حقولك على أي أنواع عوامل تصفية متوافقة",
     "textFilterInputPlaceholder": "أدخل النص...",
     "formulaFilterInputPlaceholder": "اختر صيغة...",
-    "useFormulaForValue": "استخدم صيغة لهذا المرشح",
+    "useFormulaForValue": "استخدم صيغة لهذا عامل التصفية",
     "useDefaultForValue": "استخدم عامل التصفية الافتراضي لهذا الحقل"
   },
   "localBaserowTableServiceSortForm": {
@@ -170,7 +170,7 @@
     "addHeader": "إضافة رأس",
     "formData": "بيانات النموذج",
     "addFormData": "إضافة بيانات النموذج",
-    "bodyType": "نوع الجسم",
+    "bodyType": "نوع محتوى الطلب",
     "bodyContent": "محتوى الجسم",
     "urlPlaceholder": "أدخل عنوان URL لنقطة النهاية...",
     "bodyPlaceholder": "إضافة نص الطلب...",
@@ -178,7 +178,7 @@
     "nameFieldRequired": "خاصية الاسم مطلوبة.",
     "seconds": "ثواني",
     "nameFieldInvalid": "يجب أن يحتوي الاسم على أحرف أبجدية رقمية أو شرطات أو شرطات سفلية فقط، ويجب ألا يبدأ بشرطة أو شرطة سفلية.",
-    "timeout": "نفذ الوقت"
+    "timeout": "مهلة الانتظار"
   },
   "userSourceType": {
     "localBaserow": "مصادقة الجدول جداول"
@@ -188,7 +188,7 @@
     "userMessage": "من خلال إنشاء هذا الاتصال، فإنك تسمح للتطبيق باستخدام حسابك لإجراء تغييرات في مساحة عمل جداول المحلية الخاصة بك."
   },
   "aiForm": {
-    "description": "قم بتكوين إعدادات موفر الذكاء الاصطناعي لهذا التكامل. افتراضيًا، يتم توريث إعدادات الذكاء الاصطناعي لمساحة العمل.",
+    "description": "اضبط إعدادات موفّر الذكاء الاصطناعي لهذا التكامل. وتُورَّث إعدادات الذكاء الاصطناعي لمساحة العمل افتراضيًا.",
     "workspaceSettingsTitle": "إعدادات الذكاء الاصطناعي لمساحة العمل",
     "workspaceSettingsDescription": "يرث هذا التكامل إعدادات موفر الذكاء الاصطناعي من مساحة العمل الخاصة بك افتراضيًا. يمكنك تجاوز مقدمي خدمات محددين أدناه.",
     "overrideWorkspaceSettings": "تجاوز إعدادات مساحة العمل لهذا الموفر",
@@ -234,7 +234,7 @@
     "defaultResultCountPlaceholder": "القيمة الافتراضية..."
   },
   "serviceRefinementForms": {
-    "filterTabTitle": "تصفية | 1 فلتر | مرشحات {count}",
+    "filterTabTitle": "تصفية | عامل تصفية واحد | {count} عوامل تصفية",
     "sortTabTitle": "فرز | 1 فرز | {count} أنواع",
     "searchTabTitle": "بحث | 1 بحث | عمليات البحث {count}",
     "searchFieldPlaceHolder": "أدخل مصطلح البحث...",
@@ -243,7 +243,7 @@
     "refinements": "التحسينات"
   },
   "localBaserowAggregateRowsForm": {
-    "aggregationFieldLabel": "مجال",
+    "aggregationFieldLabel": "الحقل",
     "aggregationTypeLabel": "تجميع",
     "searchFieldPlaceHolder": "أدخل مصطلح البحث...",
     "noTableChosenForFiltering": "اختر جدولاً لبدء استخدام عوامل تصفية مصدر البيانات."
@@ -253,7 +253,7 @@
     "localBaserowGetRowDescription": "قراءة صف واحد من جدول جداول.",
     "localBaserowListRows": "قائمة صفوف متعددة",
     "localBaserowListRowsDescription": "قراءة صفوف متعددة من جدول جداول.",
-    "localBaserowAggregateRows": "تلخيص المجال",
+    "localBaserowAggregateRows": "تلخيص الحقل",
     "localBaserowAggregateRowsDescription": "يلخص حقلاً في جدول جداول.",
     "localBaserowCreateRow": "إنشاء صف",
     "localBaserowCreateRowDescription": "إنشاء صف جديد في جدول جداول.",
@@ -286,7 +286,7 @@
     "trashedField": "حقل المهملات",
     "errorUrlMissing": "خاصية URL مفقودة",
     "errorNoTableSelected": "لم يتم تحديد أي جدول",
-    "errorFilterInError": "تم تكوين مرشح واحد على الأقل بشكل خاطئ",
+    "errorFilterInError": "تم تكوين عامل تصفية واحد على الأقل بشكل خاطئ",
     "errorSortingInError": "تم تكوين نوع واحد على الأقل بشكل خاطئ",
     "errorNoFieldSelected": "لم يتم تحديد أي حقل",
     "errorNoAggregationTypeSelected": "لم يتم تحديد نوع التجميع",

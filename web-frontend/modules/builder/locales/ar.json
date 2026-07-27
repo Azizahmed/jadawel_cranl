@@ -30,7 +30,7 @@
     "ratingStyle": "أسلوب",
     "star": "نجم",
     "heart": "قلب",
-    "smile": "يبتسم",
+    "smile": "وجه مبتسم",
     "thumbsUp": "ممتاز",
     "flag": "علَم"
   },
@@ -38,15 +38,15 @@
     "title": "سير العمل"
   },
   "abFileInput": {
-    "delete": "يمسح"
+    "delete": "حذف"
   },
   "elementsGuidedTourStep": {
     "title": "أضف عناصر إلى صفحتك",
     "content": "كل تطبيق يحتاج إلى مكونات! أضف عناصر مثل الجداول والنماذج والأزرار والمزيد لإضفاء الحيوية على تطبيقك."
   },
   "dataGuidedTourStep": {
-    "title": "قم بتوصيل بياناتك",
-    "content": "قم بربط جداول جداول الخاصة بك هنا لعرض بياناتك وتصفيتها وتحديثها ديناميكيًا عبر عناصر مختلفة."
+    "title": "اربط بياناتك",
+    "content": "اربط جداولك في المنصة هنا لعرض بياناتك وتصفيتها وتحديثها ديناميكيًا عبر عناصر مختلفة."
   },
   "previewGuidedTourStep": {
     "title": "مركز التحكم الخاص بك",
@@ -54,7 +54,7 @@
   },
   "devicesGuidedTourStep": {
     "title": "المعاينة على أجهزة مختلفة",
-    "content": "قم بالتبديل بين معاينات سطح المكتب والجهاز اللوحي والجوال لترى كيف يبدو تطبيقك على أحجام الشاشات المختلفة. تأكد من أن تصميمك يعمل بشكل مثالي عبر جميع الأجهزة!"
+    "content": "بدّل بين معاينات سطح المكتب والجهاز اللوحي والجوال لترى كيف يبدو تطبيقك على أحجام الشاشات المختلفة. وتأكد من أن تصميمك يعمل بشكل مثالي على جميع الأجهزة."
   },
   "sidePanelGuidedTourStep": {
     "title": "اللوحة الجانبية: تخصيص العناصر",
@@ -72,10 +72,10 @@
     "warningMessage": "تحقق من {link} لمعرفة المزيد حول كيفية تأمين البيانات.",
     "documentationLink": "الوثائق",
     "excludedRolesLabel": "جميع الأدوار باستثناء",
-    "switchAllowLabel": "يسمح",
+    "switchAllowLabel": "السماح",
     "switchDisallowLabel": "عدم السماح",
     "rolesSelectAll": "حدد الكل",
-    "rolesDeselectAll": "قم بإلغاء تحديد الكل",
+    "rolesDeselectAll": "إلغاء تحديد الكل",
     "rolesSelectHint": "حدد دورًا واحدًا أو أكثر",
     "roleTypesHint": "حدد نوع الدور",
     "roleTypeAllowAllRoles": "جميع الأدوار",
@@ -90,7 +90,7 @@
     "visibilityConditionPlaceholder": "حالة..."
   },
   "userDataProviderType": {
-    "isAuthenticated": "يتم المصادقة",
+    "isAuthenticated": "تمت المصادقة",
     "id": "بطاقة تعريف",
     "email": "بريد إلكتروني",
     "username": "اسم المستخدم",
@@ -107,7 +107,7 @@
     "reset": "إعادة التعيين إلى قيمة السمة الافتراضية"
   },
   "backgroundModes": {
-    "fill": "يملأ",
+    "fill": "ملء",
     "tile": "بلاط",
     "fit": "ملائم"
   },
@@ -137,7 +137,7 @@
     "behaviour": "سلوك",
     "display": "عرض",
     "selectAll": "حدد الكل",
-    "deselectAll": "قم بإلغاء تحديد الكل"
+    "deselectAll": "إلغاء تحديد الكل"
   },
   "updateUserSourceForm": {
     "nameFieldLabel": "اسم",
@@ -153,7 +153,7 @@
   },
   "formContainerElement": {
     "submitDeactivatedText": "أكمل جميع الحقول المطلوبة للتقديم",
-    "defaultSubmitButtonLabel": "يُقدِّم"
+    "defaultSubmitButtonLabel": "إرسال"
   },
   "formContainerElementForm": {
     "submitButtonLabel": "زر الإرسال",
@@ -215,7 +215,7 @@
     "schemaProperty": "{prefixName}: {schemaProperty}"
   },
   "workflowActionTypes": {
-    "notificationLabel": "إظهار الإخطار",
+    "notificationLabel": "إظهار الإشعار",
     "openPageLabel": "افتح الصفحة",
     "logoutLabel": "تسجيل الخروج",
     "refreshDataSourceLabel": "تحديث مصدر البيانات",
@@ -272,7 +272,7 @@
     "fieldAltHelp": "يتم استخدامه بواسطة برامج قراءة الشاشة ويتم عرضه إذا تعذر تحميل الصورة"
   },
   "createUserSourceForm": {
-    "userSourceType": "يكتب",
+    "userSourceType": "النوع",
     "userSourceIntegration": "اندماج",
     "userSourceName": "اسم"
   },
@@ -296,7 +296,7 @@
     "fieldDefaultName": "عمود",
     "name": "اسم",
     "noName": "لا اسم",
-    "fieldType": "يكتب",
+    "fieldType": "النوع",
     "itemsPerPagePlaceholder": "أدخل القيمة...",
     "selectSourceFirst": "اختر مصدر بيانات و/أو خاصية لبدء تكوين حقولك.",
     "buttonColor": "لون الزر",
@@ -324,10 +324,10 @@
     "propertyOptionLabel": "إجراءات المستخدم"
   },
   "propertyOptionForm": {
-    "fieldHeading": "مجال",
-    "filterHeading": "فلتر",
-    "sortHeading": "نوع",
-    "searchHeading": "يبحث",
+    "fieldHeading": "الحقل",
+    "filterHeading": "عامل التصفية",
+    "sortHeading": "ترتيب",
+    "searchHeading": "بحث",
     "optionUnavailable": "غير متاح",
     "noPropertiesAvailable": "لا توجد حقول متاحة.",
     "formDescription": "اختر الخصائص التي يمكن لزائري صفحة مصدر بيانات هذا العنصر تصفيتها وفرزها والبحث عنها."
@@ -372,7 +372,7 @@
     "imageConstraintFullWidth": "يمتد إلى أقصى عرض",
     "imageConstraintCover": "غطاء",
     "imageConstraintCoverDisabled": "غير متوفر بأقصى ارتفاع فارغ.",
-    "imageConstraintContain": "يحتوي",
+    "imageConstraintContain": "احتواء",
     "imageConstraintContainDisabled": "غير متوفر مع أقصى ارتفاع.",
     "imageBorderRadiusLabel": "نصف قطر الحدود",
     "imageBorderRadiusPlaceholder": "أدخل نصف قطر حدود الصورة."
@@ -389,7 +389,7 @@
     "size": "مقاس",
     "fontSize": "حجم الخط",
     "fontWeight": "وزن الخط",
-    "table": "طاولة",
+    "table": "جدول",
     "header": "رأس",
     "alignment": "تنسيق",
     "cells": "الخلايا",
@@ -474,7 +474,7 @@
   "defaultStyleForm": {
     "boxTop": "قمة",
     "boxBottom": "قاع",
-    "boxLeft": "غادر",
+    "boxLeft": "يسار",
     "boxRight": "يمين",
     "backgroundLabel": "خلفية",
     "backgroundColor": "لون الخلفية",
@@ -482,7 +482,7 @@
     "backgroundImage": "صورة",
     "backgroundImageMode": "وضع التعبئة",
     "cssClasses": "فئات CSS",
-    "cssClassesHelp": "قم بتعيين قائمة فئات مفصولة بمسافات لهذا العنصر والتي ستظهر في HTML الذي تم إنشاؤه.",
+    "cssClassesHelp": "حدّد قائمة فئات مفصولة بمسافات لهذا العنصر تظهر في HTML الناتج.",
     "cssClassesPlaceholder": "أدخل فئات CSS..."
   },
   "styleBoxForm": {
@@ -504,7 +504,7 @@
     "link": "وصلة",
     "image": "صورة",
     "input": "مدخل",
-    "table": "طاولة"
+    "table": "جدول"
   },
   "colorThemeConfigBlock": {
     "transparent": "شفاف",
@@ -633,14 +633,14 @@
     "color": "لون"
   },
   "widthTypes": {
-    "fullBleed": "نزيف كامل",
+    "fullBleed": "ملء العرض بالكامل",
     "fullWidth": "العرض الكامل",
     "normal": "طبيعي",
     "medium": "واسطة",
     "small": "صغير"
   },
   "horizontalAlignmentSelector": {
-    "alignmentLeft": "غادر",
+    "alignmentLeft": "يسار",
     "alignmentCenter": "مركز",
     "alignmentRight": "يمين"
   },
@@ -661,7 +661,7 @@
   },
   "pageSettings": {
     "title": "صفحة",
-    "pageUpdatedTitle": "تغيرت",
+    "pageUpdatedTitle": "تم التغيير",
     "pageUpdatedDescription": "تم تحديث إعدادات الصفحة."
   },
   "pageVisibilitySettings": {
@@ -683,7 +683,7 @@
     "heightPlaceholder": "الارتفاع بالبكسل"
   },
   "columnElementForm": {
-    "columnAmountTitle": "تَخطِيط",
+    "columnAmountTitle": "التخطيط",
     "verticalAlignment": "المحاذاة العمودية",
     "columnAmountName": "لا أعمدة | عمود واحد | أعمدة {columnAmount}",
     "columnGapTitle": "المسافة بين الأعمدة",
@@ -716,9 +716,9 @@
     "cantUpdateApplicationDescription": "عذرًا، لا يمكن تحديث التطبيق."
   },
   "dnsStatus": {
-    "description": "قم بزيارة إعدادات DNS الخاصة بنطاقاتك وقم بإجراء التغييرات التالية",
-    "typeHeader": "يكتب",
-    "hostHeader": "يستضيف",
+    "description": "انتقل إلى إعدادات DNS لنطاقاتك وأجرِ التغييرات التالية",
+    "typeHeader": "النوع",
+    "hostHeader": "المضيف",
     "valueHeader": "قيمة"
   },
   "domainForm": {
@@ -754,7 +754,7 @@
     "alignment": "تنسيق",
     "menuItemDefaultName": "صفحة",
     "menuItemLabelLabel": "ملصق",
-    "menuItemTypeLabel": "يكتب",
+    "menuItemTypeLabel": "النوع",
     "menuItemTypeSeparator": "فاصل",
     "menuItemVariantLabel": "البديل",
     "menuItemVariantLink": "وصلة",
@@ -786,7 +786,7 @@
     "placeholderTitle": "العنصر النائب",
     "placeholderPlaceholder": "أدخل عنصرًا نائبًا",
     "requiredTitle": "مطلوب",
-    "validationTitle": "تصديق"
+    "validationTitle": "التحقق"
   },
   "inputTextElementForm": {
     "multilineTitle": "متعدد الأسطر",
@@ -833,10 +833,10 @@
   },
   "elementMenu": {
     "drag": "اسحب لإعادة الترتيب",
-    "moveUp": "تحرك للأعلى",
-    "moveDown": "تحرك للأسفل",
-    "moveLeft": "تحرك لليسار",
-    "moveRight": "تحرك لليمين",
+    "moveUp": "نقل لأعلى",
+    "moveDown": "نقل لأسفل",
+    "moveLeft": "نقل لليسار",
+    "moveRight": "نقل لليمين",
     "selectParent": "حدد الوالدين"
   },
   "duplicatePageJobType": {
@@ -886,10 +886,10 @@
     "textError": "القيمة غير صالحة.",
     "textFormatTypeLabel": "شكل",
     "textFormatTypePlain": "نص عادي",
-    "textFormatTypeMarkdown": "تخفيض السعر"
+    "textFormatTypeMarkdown": "Markdown"
   },
   "orientations": {
-    "label": "توجيه",
+    "label": "الاتجاه",
     "horizontal": "أفقي",
     "vertical": "رَأسِيّ"
   },
@@ -917,9 +917,9 @@
     "columnDescription": "حاوية الأعمدة",
     "button": "زر",
     "buttonDescription": "عنصر زر",
-    "table": "طاولة",
+    "table": "جدول",
     "tableDescription": "عنصر الجدول",
-    "formContainer": "استمارة",
+    "formContainer": "نموذج",
     "formContainerDescription": "عنصر النموذج",
     "choice": "خيار",
     "choiceDescription": "لاختيار قيمة واحدة/متعددة",
@@ -929,7 +929,7 @@
     "iframeDescription": "إطار مضمن",
     "authForm": "نموذج تسجيل الدخول",
     "authFormDescription": "نموذج تسجيل دخول المستخدم",
-    "repeat": "يكرر",
+    "repeat": "تكرار",
     "repeatDescription": "مجموعة متكررة من العناصر",
     "recordSelector": "محدد السجل",
     "recordSelectorDescription": "محدد السجل ذو الصلة",
@@ -1003,7 +1003,7 @@
   "common": {
     "dateFormatTitle": "تنسيق التاريخ",
     "dateFormatEU": "الأوروبية",
-    "dateFormatUS": "نحن",
+    "dateFormatUS": "الولايات المتحدة",
     "dateFormatISO": "ايزو",
     "timeFormatTitle": "تنسيق الوقت",
     "timeFormat24Hour": "24 ساعة",
@@ -1042,7 +1042,7 @@
     "createPage": "صفحة جديدة"
   },
   "builderSettingsModal": {
-    "title": "طلب"
+    "title": "تطبيق"
   },
   "builderSettingTypes": {
     "generalName": "عام",

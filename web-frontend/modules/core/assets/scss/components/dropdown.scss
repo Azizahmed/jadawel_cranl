@@ -77,7 +77,16 @@
   &.dropdown__items--fixed {
     flex-direction: column;
     position: fixed;
-    inset-inline-end: auto;
+
+    // Both inline sides must be released, not just one. This variant is
+    // `position: fixed` and gets a physical inline `left` from JS, which never
+    // writes a matching `right`. The base rule sets both inline insets to 0 so
+    // the nested menu can stretch to its trigger; leaving either one here
+    // combines with that inline `left` and stretches the menu across the whole
+    // viewport. Cancelling only the inline-end hid this under LTR, where it
+    // maps to `right` — under RTL it maps to `left`, so the stray `right: 0`
+    // survived.
+    inset-inline: auto;
 
     &:not(.hidden) {
       display: flex;

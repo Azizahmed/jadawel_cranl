@@ -21,13 +21,17 @@ export const allowedIdenticalValues = new Set([
   'AI',
   'API',
   'Airtable',
+  'Anthropic',
   'CSV',
   'HTTP',
   'HTTPS',
   'HTML',
   'JSON',
   'Jadawel',
+  'Markdown',
+  'Mistral',
   'Nafath',
+  'Ollama',
   'OpenAI',
   'OpenRouter',
   'PostgreSQL',
@@ -36,6 +40,8 @@ export const allowedIdenticalValues = new Set([
   'Slack',
   'URL',
   'UUID',
+  'Webhooks',
+  'Webhooks {name}',
   'XML',
   '2FA',
   'smtp.gmail.com',
@@ -46,11 +52,17 @@ export const allowedIdenticalValues = new Set([
   '0-59',
   '15',
   '1-31',
-  '?prefill_&#60;field_name&#62;=&#60;value&#62;',
-  '?prefill_rated=3',
   '{prefixName}: {schemaProperty}',
   'yyyy-mm-dd',
 ])
+
+// Keys whose value is a literal code sample — a query string, a config file
+// name, a moment.js format token. Translating any of it produces something the
+// user cannot paste and that silently does not work, so these are exempt from
+// the "must differ from English" and "must contain Arabic" checks. Earlier
+// passes had turned `?prefill_rating=3` into `?prefill_rated=3` and the date
+// format tokens into 'يوم/شهر/سنة', both of which are broken input.
+export const literalValueKeyPattern = /(^|\.)codeSnippet$/
 
 export function parseLocaleJson(contents, filename = 'locale file') {
   try {
@@ -146,7 +158,13 @@ export function validateLocalePair(
       issues.push(issue('token-mismatch', key, { englishTokens, arabicTokens }))
     }
 
-    if (englishValue === arabicValue && !allowIdentical.has(arabicValue)) {
+    const isLiteralValue = literalValueKeyPattern.test(key)
+
+    if (
+      englishValue === arabicValue &&
+      !allowIdentical.has(arabicValue) &&
+      !isLiteralValue
+    ) {
       issues.push(issue('identical-to-english', key, { value: arabicValue }))
     }
 
@@ -154,7 +172,8 @@ export function validateLocalePair(
       !isBlank &&
       !hasTemporaryMarker &&
       !/[\u0600-\u06ff]/.test(arabicValue) &&
-      !allowIdentical.has(arabicValue)
+      !allowIdentical.has(arabicValue) &&
+      !isLiteralValue
     ) {
       issues.push(issue('missing-arabic-script', key, { value: arabicValue }))
     }

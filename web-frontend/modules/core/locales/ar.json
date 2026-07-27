@@ -6,16 +6,16 @@
     "step": "{step} من {totalSteps}",
     "gotIt": "فهمتها",
     "next": "التالي",
-    "back": "خلف"
+    "back": "رجوع"
   },
   "welcomeGuidedTourStep": {
-    "title": "مرحبا بكم في جداول",
+    "title": "مرحبًا بك في منصة جداول",
     "content": "دعنا نقوم بجولة سريعة للتعرف على الأساسيات. من خلال بضع نقرات فقط، ستتعلم كيفية تنظيم بياناتك وتصورها بسهولة",
     "buttonText": "ابدأ الجولة"
   },
   "controlCenterGuidedTourStep": {
-    "title": "مركز التحكم جداول الخاص بك",
-    "content": "يساعدك الشريط الجانبي الأيسر على إدارة مساحة العمل الخاصة بك:\n\n- الصفحة الرئيسية - قم بالوصول إلى لوحة التحكم الرئيسية.\n- الإخطارات - ابق على اطلاع بالتغييرات والإشارات.\n- دعوة الأعضاء - التعاون عن طريق إضافة أعضاء الفريق.\n- سلة المهملات - قم بإدراج جميع العناصر المحذوفة واستعادتها."
+    "title": "مركز التحكم في منصة جداول",
+    "content": "يساعدك الشريط الجانبي على إدارة مساحة عملك:\n\n- الصفحة الرئيسية – الوصول إلى لوحة التحكم الرئيسية.\n- الإشعارات – متابعة التغييرات والإشارات إليك.\n- دعوة الأعضاء – التعاون بإضافة أعضاء الفريق.\n- سلة المهملات – عرض جميع العناصر المحذوفة واستعادتها."
   },
   "createNewGuidedTourStep": {
     "title": "إنشاء قاعدة بيانات أو تطبيق جديد",
@@ -26,7 +26,7 @@
     "createEndpoint": "إنشاء نقطة النهاية",
     "createNewTitle": "إنشاء نقطة نهاية خادم MCP",
     "backToOverview": "خلف",
-    "noEndpointsMessage": "لم تتم إضافة أي نقاط نهاية خادم MCP (بروتوكول سياق النموذج). يمكن استخدامها للتكامل مباشرة مع LLM مثل Claude، والسماح لـ LLM بتنفيذ الإجراءات مباشرة في جداول. قم بإنشاء نقطة نهاية للخادم للبدء."
+    "noEndpointsMessage": "لم تُضَف أي نقاط نهاية لخادم MCP (بروتوكول سياق النموذج). ويمكن استخدامها للتكامل مباشرةً مع نموذج لغوي كبير مثل Claude، والسماح له بتنفيذ إجراءات مباشرةً في منصة جداول. أنشئ نقطة نهاية للخادم للبدء."
   },
   "mcpEndpointForm": {
     "nameLabel": "اسم",
@@ -34,12 +34,12 @@
   },
   "mcpEndpoint": {
     "detailLabel": "مزيد من التفاصيل",
-    "endpointURLIntro": "يمكن إضافة عنوان URL لخادم MCP (بروتوكول سياق النموذج) إلى أي عميل يدعم خوادم MCP. إنها نقطة نهاية فريدة تمنح LLM الوصول المباشر لتنفيذ الإجراءات في مساحة العمل نيابة عنك.",
+    "endpointURLIntro": "يمكن إضافة عنوان URL لخادم MCP (بروتوكول سياق النموذج) إلى أي عميل يدعم خوادم MCP. وهي نقطة نهاية فريدة تمنح النموذج اللغوي وصولًا مباشرًا لتنفيذ إجراءات في مساحة العمل نيابةً عنك.",
     "reveal": "كشف عنوان URL الكامل",
     "warning": "تعامل مع عنوان URL لـ MCP الخاص بك ككلمة مرور، حيث أنه يتمتع بالقدرة على تعديل البيانات في جداول.",
-    "claudeInstructions": "ثلاث خطوات بسيطة لبدء استخدام Claude Desktop وجداول MCP.\n\n1. افتح إعدادات Claude Desktop من شريط التنقل. (⌘+،)\n1. انتقل إلى علامة التبويب \"تطوير\"، وانقر على \"تحرير التكوين\".\n1. قم بتضمين تكوين JSON التالي في `clude_desktop_config.json`.",
-    "cursorInstructions": "ثلاث خطوات بسيطة للبدء باستخدام Cursor وجداول MCP.\n\n1. افتح إعدادات المؤشر (⇧+⌘+J)\n1. انتقل إلى علامة التبويب \"MCP\" وانقر على \"إضافة خادم MCP\"\n1. أضف تكوين JSON التالي.",
-    "windsurfInstructions": "خطوتان سهلتان لإعداد MCP مع Cascase في Windsurf.\n\n1. انتقل إلى Windsurf - الإعدادات -> الإعدادات المتقدمة أو لوحة الأوامر -> افتح صفحة إعدادات Windsurf.\n1. قم بالتمرير لأسفل إلى قسم Cascade وستجد خيار إضافة خادم جديد وعرض الخوادم الموجودة وزر لعرض ملف تكوين JSON الأولي على `mcp_config.json`. أضف إليه ما يلي:"
+    "claudeInstructions": "ثلاث خطوات بسيطة لبدء استخدام Claude Desktop مع MCP في منصة جداول.\n\n1. افتح إعدادات Claude Desktop من شريط التنقل. (⌘+,)\n1. انتقل إلى تبويب \"Develop\"، ثم انقر على \"Edit Config\".\n1. أضف تكوين JSON التالي في `claude_desktop_config.json`.",
+    "cursorInstructions": "ثلاث خطوات بسيطة لبدء استخدام Cursor مع MCP في منصة جداول.\n\n1. افتح إعدادات Cursor (⇧+⌘+J)\n1. انتقل إلى تبويب \"MCP\" وانقر على \"Add MCP Server\"\n1. أضف تكوين JSON التالي.",
+    "windsurfInstructions": "خطوتان سهلتان لإعداد MCP مع Cascade في Windsurf.\n\n1. انتقل إلى Windsurf - Settings ← Advanced Settings، أو لوحة الأوامر ← Open Windsurf settings page.\n1. مرّر لأسفل إلى قسم Cascade، وستجد خيار إضافة خادم جديد، وعرض الخوادم الموجودة، وزرًا لعرض ملف تكوين JSON الخام في `mcp_config.json`. أضف إليه ما يلي:"
   },
   "coreHTTPTriggerServiceForm": {
     "title": "عنوان URL للويب هوك",
@@ -89,21 +89,21 @@
   },
   "activeUsers": {
     "newUsers": "مستخدمين جدد",
-    "activeUsers": "المستخدمين النشطين"
+    "activeUsers": "المستخدمون النشطون"
   },
   "usersAdminTable": {
     "allUsers": "كافة المستخدمين",
     "username": "اسم المستخدم",
-    "name": "اسم",
+    "name": "الاسم",
     "workspaces": "مساحات العمل",
     "lastLogin": "آخر تسجيل دخول",
     "dateJoined": "تم التسجيل",
-    "active": "نشيط"
+    "active": "نشط"
   },
   "editUserContext": {
     "changePassword": "تغيير كلمة المرور",
-    "delete": "حذف نهائيا",
-    "impersonate": "انتحال شخصية"
+    "delete": "حذف نهائيًا",
+    "impersonate": "انتحال الشخصية"
   },
   "changePasswordForm": {
     "newPassword": "كلمة المرور الجديدة",
@@ -118,9 +118,9 @@
     "email": "بريد إلكتروني",
     "isActive": "نشط",
     "warning": {
-      "changeEmail": "إن تغيير عنوان البريد الإلكتروني لهذا المستخدم يعني أنه عند قيامهم بتسجيل الدخول، يجب عليهم استخدام عنوان البريد الإلكتروني الجديد للقيام بذلك. يجب أن يتم إبلاغ هذا مع هذا المستخدم.",
+      "changeEmail": "تغيير عنوان البريد الإلكتروني لهذا المستخدم يعني أنه سيضطر إلى استخدام العنوان الجديد عند تسجيل الدخول، ويجب إبلاغه بذلك.",
       "inactiveUser": "عندما يتم وضع علامة على المستخدم على أنه غير نشط، يتم منعه من تسجيل الدخول.",
-      "userStaff": "إن جعل طاقم عمل المستخدم يمنحهم حق الوصول الإداري إلى جميع المستخدمين وجميع مساحات العمل والقدرة على إلغاء أذونات الموظفين الخاصة بك."
+      "userStaff": "منح المستخدم صفة الموظف يمنحه صلاحية إدارية على جميع المستخدمين وجميع مساحات العمل، وإمكانية سحب صلاحياتك أنت."
     },
     "error": {
       "invalidName": "الرجاء إدخال اسم كامل صالح، يجب أن يكون أطول من حرفين وأقل من 150 حرفًا.",
@@ -133,8 +133,8 @@
   "deleteUserModal": {
     "title": "حذف {username}",
     "confirmation": "هل أنت متأكد من أنك تريد حذف المستخدم: {name}؟",
-    "comment1": "سيتم حذف حساب المستخدم، إلا أن مساحات العمل التي يكون المستخدم عضوًا فيها ستظل موجودة. لن يتم حذف مساحة عمل المستخدمين، حتى لو كان هذا المستخدم هو آخر مستخدم في مساحة العمل. يؤدي حذف المستخدم الأخير في مساحة العمل إلى منع أي شخص من الوصول إلى مساحة العمل هذه.",
-    "comment2": "بعد حذف مستخدم، يمكن للمستخدم الجديد التسجيل مرة أخرى باستخدام عنوان البريد الإلكتروني للمستخدمين المحذوفين. للتأكد من عدم قدرتهم على التسجيل مرة أخرى، قم بدلاً من ذلك بإلغاء تنشيط المستخدم وعدم حذفه.",
+    "comment1": "سيُحذف حساب المستخدم، لكن مساحات العمل التي ينتمي إليها ستظل موجودة. ولن تُحذف مساحة عمل المستخدم حتى لو كان آخر مستخدم فيها؛ وحذف آخر مستخدم في مساحة عمل يمنع أي شخص من الوصول إليها.",
+    "comment2": "بعد حذف مستخدم، يمكن لمستخدم جديد التسجيل مرة أخرى باستخدام عنوان البريد الإلكتروني للمستخدم المحذوف. ولضمان تعذّر تسجيله مجددًا، ألغِ تنشيط المستخدم بدلًا من حذفه.",
     "delete": "حذف المستخدم {username}"
   },
   "editUserModal": {
@@ -143,22 +143,22 @@
   },
   "twoFactorAuthField": {
     "enabled": "ممكّن",
-    "disabled": "عاجز"
+    "disabled": "معطّل"
   },
   "adminDashboard": {
-    "title": "لوحة القيادة",
+    "title": "لوحة التحكم",
     "totals": "المجاميع",
     "totalUsers": "إجمالي المستخدمين",
     "totalWorkspaces": "إجمالي مساحات العمل",
-    "totalApplications": "إجمالي الطلبات",
+    "totalApplications": "إجمالي التطبيقات",
     "newUsers": "مستخدمين جدد",
-    "newUsers24h": "المستخدمون الجدد يستمرون 24 ساعة",
-    "newUsers7days": "المستخدمون الجدد يستمرون لمدة 7 أيام",
-    "newUsers30days": "المستخدمون الجدد يستمرون لمدة 30 يومًا",
-    "activeUsers": "المستخدمين النشطين",
-    "activeUsers24h": "المستخدمون النشطون يستمرون لمدة 24 ساعة",
-    "activeUsers7days": "المستخدمون النشطون يستمرون لمدة 7 أيام",
-    "activeUsers30days": "يستمر المستخدمون النشطون لمدة 30 يومًا",
+    "newUsers24h": "المستخدمون الجدد خلال آخر 24 ساعة",
+    "newUsers7days": "المستخدمون الجدد خلال آخر 7 أيام",
+    "newUsers30days": "المستخدمون الجدد خلال آخر 30 يومًا",
+    "activeUsers": "المستخدمون النشطون",
+    "activeUsers24h": "المستخدمون النشطون خلال آخر 24 ساعة",
+    "activeUsers7days": "المستخدمون النشطون خلال آخر 7 أيام",
+    "activeUsers30days": "المستخدمون النشطون خلال آخر 30 يومًا",
     "viewAll": "عرض الكل"
   },
   "formGroup": {
@@ -166,47 +166,47 @@
     "cancelProtectedField": "إلغاء التغيير"
   },
   "userSourceType": {
-    "userCountSummary": "مستخدمو {count} ({lastUpdated})"
+    "userCountSummary": "{count} مستخدم ({lastUpdated})"
   },
   "selectAIModelForm": {
     "AIType": "نوع الذكاء الاصطناعي",
     "AIModel": "نموذج الذكاء الاصطناعي",
     "fileField": "حقل الملف",
-    "temperatureLabel": "درجة حرارة",
+    "temperatureLabel": "درجة الحرارة",
     "temperatureDescription": "تعمل درجة حرارة LLM، وهي معلمة تم تعيينها بين 0 و{max}، على ضبط عشوائية الاستجابة - حيث تنتج القيم المنخفضة إجابات مركزة، بينما تزيد القيم الأعلى من الإبداع."
   },
   "moreStep": {
-    "title": "أخبرنا أكثر قليلا",
+    "title": "أخبرنا أكثر قليلًا",
     "how": "كيف سمعت عنا؟",
-    "howSearchEngine": "محرك البحث (جوجل/بنج)",
+    "howSearchEngine": "محرك بحث (Google/Bing)",
     "howSocialMedia": "وسائل التواصل الاجتماعي",
     "howOnlineAds": "الإعلانات عبر الإنترنت",
     "howContent": "المحتوى (مدونة/رسالة إخبارية/فيديو)",
-    "howReviewSite": "مراجعة الموقع/السوق",
+    "howReviewSite": "موقع مراجعات / سوق إلكتروني",
     "howFriend": "من صديق",
     "howColleague": "من زميل",
     "howEvent": "حدث أو ندوة عبر الإنترنت",
-    "howSales": "انتشار المبيعات",
+    "howSales": "تواصل من فريق المبيعات",
     "howOther": "آخر",
-    "country": "دولة"
+    "country": "الدولة"
   },
   "teamStep": {
     "description": "في أي فريق أنت؟",
-    "marketingTeam": "تسويق",
+    "marketingTeam": "التسويق",
     "productAndDesignTeam": "المنتج والتصميم",
-    "engineeringTeam": "هندسة",
+    "engineeringTeam": "الهندسة",
     "operationsTeam": "العمليات",
     "itAndSupportTeam": "تكنولوجيا المعلومات والدعم",
     "hrAndLegalTeam": "الموارد البشرية والقانونية",
-    "financeTeam": "تمويل",
+    "financeTeam": "المالية",
     "creativeProductionTeam": "الإنتاج الإبداعي",
     "salesAndAccountManagementTeam": "إدارة المبيعات والحسابات",
     "customerServiceTeam": "خدمة العملاء",
-    "manufacturingTeam": "تصنيع",
+    "manufacturingTeam": "التصنيع",
     "otherPersonalTeam": "أخرى / شخصي"
   },
   "colorInput": {
-    "default": "تقصير"
+    "default": "افتراضي"
   },
   "colorPickerContext": {
     "pickColorPlaceholder": "أو اختر لونًا محددًا مسبقًا"
@@ -216,42 +216,42 @@
     "labelButton": "رفع"
   },
   "user": {
-    "isStaff": "هل الموظفين",
-    "isWorkspaceAdmin": "هو مسؤول مساحة العمل",
-    "active": "نشيط",
+    "isStaff": "موظف",
+    "isWorkspaceAdmin": "مسؤول مساحة العمل",
+    "active": "نشط",
     "deactivated": "معطل"
   },
   "adminType": {
-    "dashboard": "لوحة القيادة",
-    "users": "المستخدمين",
+    "dashboard": "لوحة التحكم",
+    "users": "المستخدمون",
     "workspaces": "مساحات العمل"
   },
   "workspacesAdminTable": {
     "allWorkspaces": "كافة مساحات العمل",
-    "id": "بطاقة تعريف",
-    "name": "اسم",
-    "members": "أعضاء",
+    "id": "المعرّف",
+    "name": "الاسم",
+    "members": "الأعضاء",
     "applications": "التطبيقات",
-    "created": "مخلوق",
+    "created": "تاريخ الإنشاء",
     "rowCount": "عدد الصفوف",
-    "freeUsers": "المستخدمين مجانا",
-    "seatsTaken": "تم شغل المقاعد",
+    "freeUsers": "المستخدمون المجانيون",
+    "seatsTaken": "المقاعد المشغولة",
     "storageUsage": "سعة التخزين المستخدمة (ميجابايت)",
     "usageHelpText": "يتم حسابه كل ليلة عند تمكين إعداد تتبع استخدام مساحة العمل"
   },
   "editWorkspaceContext": {
-    "delete": "حذف نهائيا"
+    "delete": "حذف نهائيًا"
   },
   "workspaceInvitationAcceptedNotification": {
-    "title": "لقد قبلت {sender} دعوتك للانضمام إلى {workspaceName}",
+    "title": "قبل {sender} دعوتك للانضمام إلى {workspaceName}",
     "deletedUser": "مستخدم محذوف"
   },
   "workspaceInvitationRejectedNotification": {
-    "title": "لقد رفض {sender} دعوتك للانضمام إلى {workspaceName}",
+    "title": "رفض {sender} دعوتك للانضمام إلى {workspaceName}",
     "deletedUser": "مستخدم محذوف"
   },
   "workspaceInvitationCreatedNotification": {
-    "title": "لقد دعاك {sender} للانضمام إلى {workspaceName}",
+    "title": "دعاك {sender} للانضمام إلى {workspaceName}",
     "deletedUser": "مستخدم محذوف"
   },
   "versionUpgradeNotification": {
@@ -259,28 +259,28 @@
   },
   "emailNotifications": {
     "title": "إشعارات البريد الإلكتروني",
-    "label": "الإشارات والتعليقات والإخطارات الأخرى",
-    "description": "قم بتكوين معدل تكرار إرسال رسائل البريد الإلكتروني إلى صندوق الوارد الخاص بك.",
+    "label": "الإشارات والتعليقات والإشعارات الأخرى",
+    "description": "اضبط معدل تكرار إرسال رسائل البريد الإلكتروني إلى صندوق الوارد لديك.",
     "instant": "فوري",
     "daily": "يوميًا",
     "weekly": "أسبوعي",
     "never": "أبداً",
-    "submitButton": "تردد التحديث"
+    "submitButton": "تحديث معدل التكرار"
   },
   "formulaInputField": {
     "errorInvalidFormula": "الصيغة غير صالحة.",
     "advancedFormulaMode": "وضع الصيغة المتقدمة",
     "invalidFormulaTitle": "صيغة غير صالحة",
-    "invalidSyntax": "صيغة الخبراء ليست صالحة، يرجى التحقق من بناء الجملة."
+    "invalidSyntax": "الصيغة المتقدمة غير صالحة، يرجى التحقق من بناء الجملة."
   },
   "formulaInputErrorContext": {
     "viewFullError": "عرض الخطأ الكامل"
   },
   "formulaInputExplorerContext": {
     "variables": "المتغيرات",
-    "functions": "وظائف",
-    "operators": "مشغلي",
-    "search": "يبحث",
+    "functions": "دوال",
+    "operators": "عوامل",
+    "search": "بحث",
     "useRegularInputModalTitle": "هل تريد استخدام الإدخال العادي لهذا الحقل؟",
     "useSimpleInput": "التبديل إلى الوضع الأساسي",
     "useSimpleInputModalTitle": "التبديل إلى الوضع الأساسي؟",
@@ -289,29 +289,29 @@
     "modalMessage": "سيؤدي التبديل إلى وضع مختلف إلى مسح الصيغة الحالية. هل أنت متأكد أنك تريد الاستمرار؟"
   },
   "formulaParserErrors": {
-    "invalidArgCountMin": "تتوقع الدالة \"{funcType}\" الحد الأدنى من وسيطات {minArgs}.",
-    "invalidArgCountExact": "تتوقع الدالة \"{funcType}\" وسيطات {minArgs} بالضبط.",
-    "invalidArgCountRange": "تتوقع الدالة \"{funcType}\" بين الوسيطتين {minArgs} و{maxArgs}."
+    "invalidArgCountMin": "تتوقع الدالة \"{funcType}\" {minArgs} وسيطات على الأقل.",
+    "invalidArgCountExact": "تتوقع الدالة \"{funcType}\" {minArgs} وسيطات بالضبط.",
+    "invalidArgCountRange": "تتوقع الدالة \"{funcType}\" بين {minArgs} و{maxArgs} وسيطة."
   },
   "dataExplorer": {
     "noMatchingNodesText": "لم يتم العثور على نتائج مطابقة.",
     "noProvidersText": "لم يتم العثور على موفري البيانات. للبدء، يمكنك، على سبيل المثال، إضافة مصدر بيانات أو معلمة صفحة."
   },
   "dataExplorerNode": {
-    "showMore": "عرض المزيد من التكرار",
-    "selectNode": "يختار"
+    "showMore": "عرض المزيد من التكرارات",
+    "selectNode": "تحديد"
   },
   "richTextEditorBubbleMenu": {
     "bold": "عريض",
     "italic": "مائل",
     "underline": "تسطير",
-    "strikethrough": "يضرب",
-    "link": "وصلة",
-    "linkEditPlaceholder": "رابط الرابط...",
+    "strikethrough": "يتوسطه خط",
+    "link": "رابط",
+    "linkEditPlaceholder": "عنوان الرابط...",
     "linkEditDone": "منتهي"
   },
   "richTextEditorFloatingMenu": {
-    "hierarchy": "تَسَلسُل",
+    "hierarchy": "تسلسل",
     "lists": "القوائم",
     "paragraph": "فقرة",
     "heading1": "العنوان 1",
@@ -319,34 +319,34 @@
     "heading3": "العنوان 3",
     "orderedList": "قائمة مرقمة",
     "unorderedList": "قائمة نقطية",
-    "code": "شفرة",
+    "code": "كود",
     "taskList": "قائمة المهام"
   },
   "datetime": {
-    "secondsAgo": "الآن | منذ ثانية واحدة | {n} قبل ثانية",
-    "minutesAgo": "منذ 0 دقيقة | منذ دقيقة واحدة | {n} منذ دقائق",
-    "hoursAgo": "منذ 0 ساعات | منذ ساعة واحدة | {n} منذ ساعات",
-    "daysAgo": "منذ 0 أيام | منذ يوم واحد | {n} منذ أيام",
-    "monthsAgo": "منذ 0 أشهر | منذ شهر واحد | {n} منذ أشهر",
-    "yearsAgo": "منذ 0 سنوات | منذ سنة واحدة | {n} منذ سنوات",
+    "secondsAgo": "الآن | منذ ثانية واحدة | منذ {n} ثوانٍ",
+    "minutesAgo": "منذ 0 دقيقة | منذ دقيقة واحدة | منذ {n} دقائق",
+    "hoursAgo": "منذ 0 ساعة | منذ ساعة واحدة | منذ {n} ساعات",
+    "daysAgo": "منذ 0 يوم | منذ يوم واحد | منذ {n} أيام",
+    "monthsAgo": "منذ 0 شهر | منذ شهر واحد | منذ {n} أشهر",
+    "yearsAgo": "منذ 0 سنة | منذ سنة واحدة | منذ {n} سنوات",
     "lessThanMinuteAgo": "منذ أقل من دقيقة",
     "justNow": "الآن"
   },
   "crudTableSearch": {
-    "search": "يبحث"
+    "search": "بحث"
   },
   "membersSettings": {
-    "membersTabTitle": "أعضاء",
-    "invitesTabTitle": "يدعو",
+    "membersTabTitle": "الأعضاء",
+    "invitesTabTitle": "الدعوات",
     "membersTable": {
-      "title": "أعضاء {userAmount} في {workspaceName}",
+      "title": "{userAmount} عضو في {workspaceName}",
       "inviteMember": "دعوة عضو",
       "columns": {
-        "name": "اسم",
-        "email": "بريد إلكتروني",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
         "role": "الدور الافتراضي",
-        "highestRole": "الدور الاعلى",
-        "highestRoleHelpText": "أعلى دور تم تعيينه له من قبل هذا المستخدم بشكل مباشر أو من فريق، في أي شيء في مساحة العمل هذه",
+        "highestRole": "الدور الأعلى",
+        "highestRoleHelpText": "أعلى دور مُسنَد إلى هذا المستخدم مباشرةً أو عبر فريق، على أي عنصر في مساحة العمل هذه",
         "highestRoleInstanceHelpText": "أعلى دور لهذا المستخدم في المثيل",
         "teams": "فرق",
         "2fa": "2FA"
@@ -357,9 +357,9 @@
       }
     },
     "invitesTable": {
-      "title": "{invitesAmount} الدعوات المعلقة في {workspaceName}",
+      "title": "{invitesAmount} دعوة معلّقة في {workspaceName}",
       "columns": {
-        "email": "بريد إلكتروني",
+        "email": "البريد الإلكتروني",
         "role": "الدور الافتراضي"
       },
       "actions": {
@@ -380,18 +380,18 @@
     }
   },
   "memberSelectionList": {
-    "searchPlaceholder": "يجد ...",
+    "searchPlaceholder": "ابحث ...",
     "selectedAmountLabel": "تم تحديد {count}"
   },
   "memberAssignmentModalFooter": {
     "invite": "دعوة {count}",
-    "deselectAll": "قم بإلغاء تحديد الكل",
+    "deselectAll": "إلغاء تحديد الكل",
     "selectAll": "حدد الكل"
   },
   "removeFromWorkspaceModal": {
     "title": "تأكيد الإزالة من مساحة العمل",
     "confirmation": "هل أنت متأكد أنك تريد إزالة {name} من {workspaceName}؟ لا يمكن التراجع عن هذا الإجراء.",
-    "remove": "يزيل"
+    "remove": "إزالة"
   },
   "editRoleContext": {
     "billableRolesLink": "وثائق الأدوار القابلة للفوترة",
@@ -401,18 +401,18 @@
     "billable": "قابلة للفوترة"
   },
   "integrationCreateEditModal": {
-    "createTitle": "التكامل الجديد",
+    "createTitle": "تكامل جديد",
     "editTitle": "تحرير التكامل",
     "warningTitle": "تحذير"
   },
   "integrationEditForm": {
-    "name": "اسم",
+    "name": "الاسم",
     "namePlaceholder": "أدخل اسم التكامل..."
   },
   "integrationDropdown": {
     "addIntegration": "إضافة تكامل جديد",
     "noIntegrations": "لم يتم العثور على عمليات تكامل.",
-    "selectTypeFirst": "اختر النوع أولا",
+    "selectTypeFirst": "اختر النوع أولًا",
     "integrationPlaceholder": "حدد التكامل"
   },
   "dropdown": {
@@ -431,62 +431,62 @@
       "addField": "إضافة حقل"
     },
     "notifyUserOnSubmit": "تلقي إشعار عند الإرسال",
-    "fieldsDescription": "جميع الحقول موجودة في النموذج",
+    "fieldsDescription": "جميع الحقول موجودة في النموذج.",
     "prefillOrHideInfoLink": "التعبئة المسبقة أو الإخفاء ديناميكيًا",
     "modal": {
-      "title": "قم بملء الحقول مسبقًا أو إخفائها ديناميكيًا",
+      "title": "املأ الحقول مسبقًا أو أخفِها ديناميكيًا",
       "descriptionPartOne": "يمكن ملء النماذج مسبقًا لمساعدة المستخدم على ملء النموذج بشكل أسرع.",
       "descriptionPartTwo": "يمكن ملء جميع الحقول المتوفرة في النموذج مسبقًا.",
       "howToHide": {
         "title": "كيفية إخفاء الحقل",
-        "description": "إذا كنت تريد إخفاء حقل ديناميكيًا، فيمكنك القيام بذلك عبر معلمات الاستعلام المضافة إلى الجمهور من عنوان url. تكون معلمات الاستعلام هذه مسبوقة بـ `hide_` لتجنب التعارض مع معلمات الاستعلام المستقبلية المحتملة."
+        "description": "إذا أردت إخفاء حقل ديناميكيًا، فيمكنك ذلك عبر معلمات استعلام تُضاف إلى رابط النموذج العام. وتبدأ هذه المعلمات بالبادئة `hide_` لتجنّب التعارض مع أي معلمات استعلام مستقبلية."
       },
       "howToPrefill": {
         "title": "كيفية ملء النموذج مسبقًا",
-        "description": "إذا كنت تريد ملء نموذج بالبيانات مسبقًا، فيمكنك القيام بذلك عبر معلمات الاستعلام المضافة إلى عنوان URL العام للنموذج. تكون معلمات الاستعلام هذه مسبوقة بـ \"ملء مسبق\" لتجنب أي تعارض مع معلمات الاستعلام المستقبلية المحتملة."
+        "description": "إذا أردت ملء نموذج بالبيانات مسبقًا، فيمكنك ذلك عبر معلمات استعلام تُضاف إلى رابط النموذج العام. وتبدأ هذه المعلمات بالبادئة `prefill` لتجنّب أي تعارض مع معلمات استعلام مستقبلية."
       },
       "format": {
-        "title": "شكل",
+        "title": "التنسيق",
         "description": "تنسيق معلمات الاستعلام كما يلي:",
         "codeSnippet": "?prefill_&#60;field_name&#62;=&#60;value&#62;"
       },
       "example": {
         "title": "مثال",
-        "description": "في المثال أدناه، نريد ملء حقل يسمى \"الاسم\" بقيمة \"مايك\".",
-        "codeSnippet": "?prefill_Name=مايك"
+        "description": "في المثال أدناه نريد ملء حقل اسمه `Name` بالقيمة `Mike` مسبقًا.",
+        "codeSnippet": "?prefill_Name=Mike"
       },
       "spaces": {
         "title": "المساحات",
         "description": "يتم استبدال المسافات في اسم الحقل بـ `+` لتجنب أي مشكلات تتعلق بمعلمة الاستعلام.",
-        "codeSnippet": "?prefill_my+field=مايك"
+        "codeSnippet": "?prefill_my+field=Mike"
       },
       "multipleValues": {
         "title": "قيم متعددة",
-        "description": "إذا كنت تريد ملء حقول متعددة مسبقًا، فيمكنك القيام بذلك عن طريق إضافة `،` بين القيم.",
-        "codeSnippet": "?prefill_multi+select=مايك,جون"
+        "description": "إذا أردت ملء حقول متعددة مسبقًا، فيمكنك ذلك بإضافة `,` بين القيم.",
+        "codeSnippet": "?prefill_multi+select=Mike,John"
       },
       "specialFieldTypes": {
         "title": "أنواع الحقول الخاصة",
         "description": "بشكل عام، قيمة الملء المسبق هي نفس قيمة الحقل. ولكن هناك بعض الاستثناءات حيث تتم ترجمة القيمة إلى قيمة مختلفة.",
         "ratingField": {
-          "title": "مجال التقييم",
+          "title": "حقل التقييم",
           "description": "يقبل حقل التصنيف رقمًا للإشارة إلى عدد النجوم التي يجب ملؤها.",
-          "codeSnippet": "?prefill_rated=3"
+          "codeSnippet": "?prefill_rating=3"
         },
         "linkRowField": {
           "title": "حقل صف الارتباط",
-          "description": "يمكن أن يقبل حقل صف الارتباط القيمة التي تظهر في القائمة المنسدلة المحددة.",
-          "codeSnippet": "?prefill_link+row=مايك"
+          "description": "يقبل حقل صف الارتباط القيمة الظاهرة في قائمة التحديد المنسدلة.",
+          "codeSnippet": "?prefill_link+row=Mike"
         },
         "selectField": {
           "title": "حقل تحديد فردي/تحديد متعدد",
-          "description": "يمكن لحقل تحديد واحد أن يقبل القيمة التي تظهر في القائمة المنسدلة المحددة. وكذلك الأمر بالنسبة لحقل التحديد المتعدد، ولكنه يمكنه أيضًا قبول قيم متعددة.",
-          "codeSnippet": "?prefill_single+select=مايك"
+          "description": "يقبل حقل التحديد المفرد القيمة الظاهرة في قائمة التحديد المنسدلة، وكذلك حقل التحديد المتعدد، غير أنه يقبل قيمًا متعددة.",
+          "codeSnippet": "?prefill_single+select=Mike"
         },
         "dateField": {
           "title": "حقل التاريخ",
           "description": "يمكن أن يقبل حقل التاريخ تاريخًا بالتنسيقات التالية وسيستخدم تنسيق التاريخ الخاص بالحقل لتحليل التاريخ.",
-          "codeSnippet": "// المعايير\nISO_8601\n\n// التنسيقات العامة\n\"YYYY-MM-DD\"،\n'YYYY-MM-DD hh:mm A'،\n'YYYY-MM-DD سمو: ملم'،\n\n// الاتحاد الأوروبي\n\"يوم/شهر/سنة\"، \n'DD/MM/YYYY hh:mm A'، \n'يوم/شهر/سنة س س: ملم'\n\n// الولايات المتحدة\n\"شهر/يوم/سنة\"، \n'MM/DD/YYYY hh:mm A'، \n'MM/DD/YYYY HH:mm'"
+          "codeSnippet": "// Standards\nISO_8601\n\n// General formats\n'YYYY-MM-DD',\n'YYYY-MM-DD hh:mm A',\n'YYYY-MM-DD HH:mm',\n\n// EU\n'DD/MM/YYYY', \n'DD/MM/YYYY hh:mm A', \n'DD/MM/YYYY HH:mm'\n\n// US\n'MM/DD/YYYY', \n'MM/DD/YYYY hh:mm A', \n'MM/DD/YYYY HH:mm'"
         }
       }
     }
@@ -505,41 +505,41 @@
   "settings": {
     "settingsTitle": "إعدادات المشرف",
     "baserowInstanceId": "معرف المثيل",
-    "instanceIdDescription": "معرف المثيل هو المعرف الفريد لنسخة جداول الخاصة بك.",
-    "baserowVersion": "نسخة جداول",
+    "instanceIdDescription": "معرّف المثيل هو المعرّف الفريد لنسختك من منصة جداول.",
+    "baserowVersion": "إصدار منصة جداول",
     "baserowVersionDescription": "رقم إصدار هذا المثيل.",
     "accountRestrictions": "قيود الحساب",
     "settingAllowResetPasswordName": "السماح بإعادة تعيين كلمة المرور",
     "settingAllowResetPasswordDescription": "بشكل افتراضي، يمكن للمستخدمين طلب رابط إعادة تعيين كلمة المرور.",
-    "settingAllowResetPasswordWarning": "يرجى ملاحظة أنه يمكنك قفل نفسك خارج النظام ولا يمكن استعادة إمكانية الوصول إذا نسيت كلمة المرور الخاصة بك.",
+    "settingAllowResetPasswordWarning": "يرجى ملاحظة أنك قد تحرم نفسك من الوصول إلى النظام، ولا يمكن استعادة الوصول إذا نسيت كلمة المرور.",
     "settingAllowNewAccountsName": "السماح بإنشاء حسابات جديدة",
-    "settingAllowNewAccountsDescription": "افتراضيًا، يمكن لأي مستخدم يزور نطاق جداول الخاص بك الاشتراك للحصول على حساب جديد.",
+    "settingAllowNewAccountsDescription": "يمكن لأي مستخدم يزور نطاق منصة جداول لديك إنشاء حساب جديد افتراضيًا.",
     "settingAllowSignupsViaWorkspaceInvitationsName": "السماح بالاشتراكات عبر دعوات مساحة العمل",
     "settingAllowSignupsViaWorkspaceInvitationDescription": "حتى إذا تم تعطيل إنشاء حسابات جديدة، فإن هذا الخيار يسمح للمستخدمين المدعوين مباشرة بمواصلة إنشاء حساب.",
     "settingAllowNonStaffCreateWorkspaceOperation": "السماح للجميع بإنشاء مساحات عمل جديدة",
-    "settingAllowNonStaffCreateWorkspaceOperationDescription": "بشكل افتراضي، يمكن للجميع إنشاء مساحات عمل جديدة. قم بتعطيل هذا للسماح للموظفين فقط بإنشاء مساحات عمل جديدة.",
-    "settingAllowNonStaffCreateWorkspaceOperationWarning": "سيتم إنشاء مساحة عمل للمستخدمين الجدد تلقائيًا لهم حيث يكونون مسؤولين.",
+    "settingAllowNonStaffCreateWorkspaceOperationDescription": "يمكن للجميع إنشاء مساحات عمل جديدة بشكل افتراضي. عطّل هذا الخيار للسماح للموظفين وحدهم بإنشاء مساحات عمل جديدة.",
+    "settingAllowNonStaffCreateWorkspaceOperationWarning": "ستُنشأ لكل مستخدم جديد مساحة عمل تلقائيًا يكون فيها مسؤولًا.",
     "settingTrackWorkspaceUsage": "تتبع استخدام مساحة العمل",
     "settingTrackWorkspaceUsageDescription": "لتمكين مهمة ليلية تحسب استخدام الصفوف والملفات لكل مساحة عمل، ويتم عرضها على صفحة إدارة مساحة العمل المميزة.",
     "userSettings": "مستخدم",
-    "settingUserDeletionGraceDelay": "حذف تأخير السماح",
-    "settingUserDeletionGraceDelayDescription": "هذا هو عدد الأيام التي لم يتم فيها تسجيل الدخول، وبعدها يتم حذف الحساب المقرر حذفه نهائيًا.",
+    "settingUserDeletionGraceDelay": "مهلة السماح قبل الحذف",
+    "settingUserDeletionGraceDelayDescription": "عدد الأيام التي يمضي فيها الحساب دون تسجيل دخول قبل أن يُحذف نهائيًا بعد جدولته للحذف.",
     "invalidAccountDeletionGraceDelay": "هذه القيمة مطلوبة ويجب أن تكون عددًا صحيحًا موجبًا أصغر من 32000",
     "enabled": "ممكّن",
     "maintenance": "صيانة",
     "emailVerification": "التحقق من البريد الإلكتروني",
     "emailVerificationDescription": "يتحكم في ما إذا كان يجب التحقق من عناوين البريد الإلكتروني.",
-    "emailVerificationNoVerification": "لا التحقق",
+    "emailVerificationNoVerification": "بدون تحقق",
     "emailVerificationRecommended": "مُستَحسَن",
-    "emailVerificationEnforced": "القسري",
+    "emailVerificationEnforced": "إلزامي",
     "settingsVerifyImportSignature": "التحقق من توقيع الاستيراد",
     "settingsVerifyImportSignatureDescription": "عند التمكين، يتم التحقق من توقيع البيانات المستوردة لضمان عدم التلاعب بالبيانات."
   },
   "dashboard": {
-    "title": "لوحة القيادة",
+    "title": "لوحة التحكم",
     "becomeGithubSponsor": "كن أحد رعاة GitHub",
     "suggestedTemplates": "القوالب المقترحة",
-    "resources": "موارد",
+    "resources": "الموارد",
     "apiDocumentation": "وثائق واجهة برمجة التطبيقات",
     "apiDocumentationMessage": "تعرف على المزيد حول الكود الخاص بنا",
     "emptyWorkspace": "مساحة العمل هذه فارغة",
@@ -549,7 +549,7 @@
     "noWorkspaceDescription": "ابدأ بإنشاء مساحة عمل جديدة"
   },
   "dashboardApplication": {
-    "createdAt": "مخلوق"
+    "createdAt": "تاريخ الإنشاء"
   },
   "templateCard": {
     "viewMore": "عرض المزيد"
@@ -563,7 +563,7 @@
     "content": "لقد تم تغيير كلمة المرور الخاصة بك. الرجاء تسجيل الدخول مرة أخرى."
   },
   "restoreToast": {
-    "restore": "استعادة حذف {type}"
+    "restore": "استعادة {type} المحذوف"
   },
   "copyingToast": {
     "title": "جارٍ النسخ...",
@@ -574,7 +574,7 @@
     "content": "تحضير بياناتك"
   },
   "clearingToast": {
-    "title": "المقاصة...",
+    "title": "جارٍ المسح...",
     "content": "تحضير بياناتك"
   },
   "undoRedoToast": {
@@ -584,9 +584,9 @@
     "undoneText": "تم التراجع عن الإجراء",
     "noMoreUndo": "لا يوجد المزيد من الإجراءات للتراجع عنها",
     "skippingUndoDueToError": "فشل التراجع بسبب خطأ غير معروف، وتم تخطيه.",
-    "redoingTitle": "جارٍ إعادة...",
+    "redoingTitle": "جارٍ إعادة التنفيذ...",
     "redoingText": "إعادة الإجراء الخاص بك",
-    "redoneTitle": "إعادة بنائه",
+    "redoneTitle": "تمت الإعادة",
     "redoneText": "تم إعادة تنفيذ الإجراء",
     "noMoreRedo": "ليس هناك المزيد من الإجراءات لإعادتها",
     "skippingRedoDueToError": "فشلت الإعادة بسبب خطأ غير معروف، وتم تخطيها.",
@@ -599,8 +599,8 @@
   },
   "errorLayout": {
     "notFound": "لم يتم العثور على الصفحة التي تبحث عنها. قد يكون هذا بسبب أن عنوان URL غير صحيح أو أنه ليس لديك إذن لعرض هذه الصفحة.",
-    "error": "حدث خطأ ما أثناء تحميل الصفحة. لقد تم إخطار المطورين لدينا بالمشكلة. يرجى محاولة التحديث أو العودة إلى لوحة التحكم.",
-    "backDashboard": "العودة إلى لوحة القيادة",
+    "error": "حدث خطأ ما أثناء تحميل الصفحة. لقد تم إشعار المطورين لدينا بالمشكلة. يرجى محاولة التحديث أو العودة إلى لوحة التحكم.",
+    "backDashboard": "العودة إلى لوحة التحكم",
     "backLogin": "العودة لتسجيل الدخول",
     "wrong": "حدث خطأ ما",
     "refresh": "تحديث الصفحة"
@@ -608,37 +608,37 @@
   "generativeAIModelType": {
     "openai": "OpenAI",
     "openaiApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
-    "openaiApiKeyDescription": "قم بتوفير مفتاح OpenAI API إذا كنت ترغب في تمكين التكامل. [تعليمات حول الحصول على مفتاح واجهة برمجة التطبيقات](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).",
+    "openaiApiKeyDescription": "أدخل مفتاح OpenAI API إذا كنت ترغب في تفعيل التكامل. [تعليمات الحصول على مفتاح API](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).",
     "openaiOrganization": "المنظمة (اختياري)",
     "openaiModelsLabel": "النماذج الممكّنة",
-    "openaiModelsDescription": "قم بتقديم قائمة مفصولة بفواصل [نماذج OpenAI](https://platform.openai.com/docs/models/continious-model-upgrades) التي يمكن استخدامها في جداول. (على سبيل المثال، `gpt-3.5-turbo،gpt-4`)",
+    "openaiModelsDescription": "أدخل قائمة مفصولة بفواصل من [نماذج OpenAI](https://platform.openai.com/docs/models/continuous-model-upgrades) التي يمكن استخدامها في منصة جداول. (مثال: `gpt-3.5-turbo,gpt-4`)",
     "openaiBaseUrl": "عنوان URL الأساسي",
     "openaiBaseUrlDescription": "يستخدم عنوان URL الأساسي الافتراضي لـ OpenAI إذا كان الحقل فارغًا. ويمكن تغييره اختياريًا إلى https://eu.api.openai.com/v1 أو https://&#60;your-resource-name&#62;.openai.azure.com أو أي واجهة API أخرى متوافقة مع OpenAI.",
-    "anthropic": "أنثروبي",
+    "anthropic": "Anthropic",
     "anthropicApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
-    "anthropicApiKeyDescription": "قم بتوفير مفتاح Anthropic API إذا كنت ترغب في تمكين التكامل. [تعليمات حول الحصول على مفتاح واجهة برمجة التطبيقات](https://docs.anthropic.com/en/api/getting-started).",
+    "anthropicApiKeyDescription": "أدخل مفتاح Anthropic API إذا كنت ترغب في تفعيل التكامل. [تعليمات الحصول على مفتاح API](https://docs.anthropic.com/en/api/getting-started).",
     "anthropicModelsLabel": "النماذج الممكّنة",
-    "anthropicModelsDescription": "قدِّم قائمة [نماذج إنسانية] مفصولة بفواصل (https://docs.anthropic.com/en/docs/about-claude/models) التي يمكن استخدامها في جداول. (على سبيل المثال، `كلود-3-5-سونيت-20241022،كلود-3-أوبوس-20240229`)",
-    "mistral": "ميسترال",
+    "anthropicModelsDescription": "أدخل قائمة مفصولة بفواصل من [نماذج Anthropic](https://docs.anthropic.com/en/docs/about-claude/models) التي يمكن استخدامها في منصة جداول. (مثال: `claude-3-5-sonnet-20241022,claude-3-opus-20240229`)",
+    "mistral": "Mistral",
     "mistralApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
-    "mistralApiKeyDescription": "قم بتوفير مفتاح Mistral API إذا كنت ترغب في تمكين التكامل. [تعليمات حول الحصول على مفتاح واجهة برمجة التطبيقات](https://docs.mistral.ai/getting-started/quickstart/).",
+    "mistralApiKeyDescription": "أدخل مفتاح Mistral API إذا كنت ترغب في تفعيل التكامل. [تعليمات الحصول على مفتاح API](https://docs.mistral.ai/getting-started/quickstart/).",
     "mistralModelsLabel": "النماذج الممكّنة",
-    "mistralModelsDescription": "قدِّم قائمة [نماذج ميسترال] مفصولة بفواصل (https://docs.mistral.ai/getting-started/models/models_overview/) التي يمكن استخدامها في جداول. (على سبيل المثال، \"ميسترال-كبير-الأحدث، ميسترال-صغير-الأحدث\")",
-    "ollama": "أولاما",
-    "ollamaHostLabel": "يستضيف",
-    "ollamaHostDescription": "قم بتوفير اسم المضيف لخادم [Ollama](https://ollama.com/). يتم تشغيل هذا عادةً محليًا على جهازك الخاص.",
+    "mistralModelsDescription": "أدخل قائمة مفصولة بفواصل من [نماذج Mistral](https://docs.mistral.ai/getting-started/models/models_overview/) التي يمكن استخدامها في منصة جداول. (مثال: `mistral-large-latest,mistral-small-latest`)",
+    "ollama": "Ollama",
+    "ollamaHostLabel": "المضيف",
+    "ollamaHostDescription": "أدخل اسم المضيف لخادم [Ollama](https://ollama.com/) لديك. ويعمل هذا الخادم عادةً محليًا على جهازك.",
     "ollamaModelsLabel": "النماذج الممكّنة",
-    "ollamaModelsDescription": "قم بتوفير قائمة مفصولة بفواصل [نماذج Ollama المثبتة](https://ollama.com/library). لاحظ أنه يجب تنزيل النموذج وتثبيته قبل استخدامه. (على سبيل المثال، `llama2,mistral`)",
+    "ollamaModelsDescription": "أدخل قائمة مفصولة بفواصل من [نماذج Ollama المثبّتة](https://ollama.com/library). لاحظ أنه يجب تنزيل النموذج وتثبيته قبل استخدامه. (مثال: `llama2,mistral`)",
     "openRouter": "OpenRouter",
     "openRouterApiKeyLabel": "مفتاح واجهة برمجة التطبيقات",
-    "openRouterApiKeyDescription": "قم بتوفير مفتاح OpenRouter API إذا كنت ترغب في تمكين التكامل. [احصل على مفتاح واجهة برمجة التطبيقات](https://openrouter.ai/settings/keys).",
+    "openRouterApiKeyDescription": "أدخل مفتاح OpenRouter API إذا كنت ترغب في تفعيل التكامل. [احصل على مفتاح API](https://openrouter.ai/settings/keys).",
     "openRouterOrganization": "المنظمة (اختياري)",
     "openRouterModelsLabel": "النماذج الممكّنة",
-    "openRouterModelsDescription": "قم بتوفير قائمة مفصولة بفواصل [نماذج OpenRouter](https://openrouter.ai/models) التي يمكن استخدامها في جداول. (على سبيل المثال `openai/gpt-4o,anthropic/clude-3-haiku`)"
+    "openRouterModelsDescription": "أدخل قائمة مفصولة بفواصل من [نماذج OpenRouter](https://openrouter.ai/models) التي يمكن استخدامها في منصة جداول. (مثال: `openai/gpt-4o,anthropic/claude-3-haiku`)"
   },
   "generativeAIWorkspaceSettings": {
-    "title": "إعدادات الذكاء الاصطناعي التوليدية",
-    "description": "يمكن استخدام هذه الإعدادات لتعيين تكوين الذكاء الاصطناعي التوليدي على مستوى مساحة العمل بشكل اختياري. يمكن تعطيل ميزات مثل حقل AI لأنها تفتقر إلى مفتاح API لأحد النماذج المدعومة. ومن خلال توفير الإعدادات هنا، يمكنك تمكين هذه الميزات. يؤدي ترك قيمة فارغة إلى العودة إلى إعدادات المثيلات العامة. لاحظ أن كل شخص في مساحة العمل سيشارك هذه الإعدادات.",
+    "title": "إعدادات الذكاء الاصطناعي التوليدي",
+    "description": "تُستخدم هذه الإعدادات لضبط تكوين الذكاء الاصطناعي التوليدي على مستوى مساحة العمل اختياريًا. فقد تكون ميزات مثل حقل الذكاء الاصطناعي معطّلة لعدم توفّر مفتاح API لأحد النماذج المدعومة، وبإدخال الإعدادات هنا يمكنك تفعيلها. وترك أي قيمة فارغة يعيدها إلى إعدادات المثيل العامة. ولاحظ أن جميع أعضاء مساحة العمل يشتركون في هذه الإعدادات.",
     "changedTitle": "تم تحديث الإعدادات بشكل صحيح",
     "changedDescription": "تم تحديث الإعدادات وسيتم استخدامها الآن في مساحة العمل هذه.",
     "submitButton": "تحديث الإعدادات",
@@ -646,8 +646,8 @@
     "hideSettings": "إخفاء الإعدادات"
   },
   "templateCategories": {
-    "search": "قوالب البحث",
-    "title": "قوالب"
+    "search": "البحث في القوالب",
+    "title": "القوالب"
   },
   "templateHeader": {
     "use": "استخدم هذا القالب"
@@ -655,22 +655,22 @@
   "createApplicationContext": {
     "fromTemplate": "من القالب",
     "fromTemplateDesc": "ابدأ بسرعة باستخدام أحد القوالب الموصى بها",
-    "table": "طاولة",
-    "tableDesc": "قم بإنشاء مكان جديد لإدارة البيانات في قاعدة البيانات الخاصة بك.",
+    "table": "جدول",
+    "tableDesc": "أنشئ مكانًا جديدًا لإدارة البيانات في قاعدة بياناتك.",
     "importWorkspace": "استيراد البيانات",
-    "importWorkspaceDesc": "إضافة البيانات الموجودة من مثيل جداول."
+    "importWorkspaceDesc": "أضف بيانات موجودة من مثيل لمنصة جداول."
   },
   "applicationForm": {
-    "nameLabel": "اسم",
+    "nameLabel": "الاسم",
     "namePlaceholder": "أدخل الاسم..."
   },
   "connectingToast": {
     "title": "إعادة الاتصال",
-    "content": "محاولة إعادة إنشاء التحديثات في الوقت الحقيقي."
+    "content": "جارٍ محاولة استعادة التحديثات الفورية."
   },
   "failedConnectingToast": {
     "title": "فشل",
-    "content": "لا يمكن إعادة إنشاء التحديثات في الوقت الحقيقي. يرجى التحديث للمتابعة.",
+    "content": "تعذّرت استعادة التحديثات الفورية. يرجى تحديث الصفحة للمتابعة.",
     "action": "تحديث الصفحة"
   },
   "authorizationErrorToast": {
@@ -679,32 +679,32 @@
     "action": "تحديث الصفحة"
   },
   "importWorkspaceModal": {
-    "title": "استيراد بيانات جداول",
-    "description": "يمكنك استيراد بيانات جداول الموجودة عن طريق تحميل ملف .zip من مثيل جداول آخر.",
+    "title": "استيراد بيانات منصة جداول",
+    "description": "يمكنك استيراد بيانات موجودة من منصة جداول برفع ملف ‎.zip من مثيل آخر للمنصة.",
     "import": "استيراد البيانات",
     "upload": "رفع",
-    "uploadAndImport": "تحميل واستيراد",
-    "cancel": "يلغي",
+    "uploadAndImport": "رفع واستيراد",
+    "cancel": "إلغاء",
     "done": "منتهي",
-    "close": "يغلق",
+    "close": "إغلاق",
     "retry": "أعد المحاولة",
-    "uploading": "جاري التحميل...",
+    "uploading": "جارٍ الرفع...",
     "chooseFile": "اختر الملف",
     "selectApplications": "حدد البيانات المراد استيرادها",
-    "deselectAll": "قم بإلغاء تحديد الكل",
+    "deselectAll": "إلغاء تحديد الكل",
     "selectAll": "حدد الكل",
     "databases": "قواعد البيانات",
     "applications": "التطبيقات",
-    "successTitle": "تم استيراد بيانات جداول بنجاح",
-    "successMessage": "تطبيقات {count} المستوردة",
+    "successTitle": "تم استيراد بيانات منصة جداول بنجاح",
+    "successMessage": "تم استيراد {count} تطبيق",
     "signatureVerificationNote": "لا يمكن استيراد ملف مضغوط من مصدر غير موثوق به.",
     "invalidResourceTitle": "المورد غير صالح",
-    "invalidResourceMessage": "الملف المقدم ليس تصدير جداول صالحًا.",
+    "invalidResourceMessage": "الملف المقدَّم ليس ملف تصدير صالحًا من منصة جداول.",
     "untrustedPublicKeyTitle": "توقيع غير موثوق به",
     "untrustedPublicKeyMessage": "تم توقيع الملف المقدم باستخدام مفتاح عام غير موثوق به. اطلب من المسؤول إضافة المفتاح العام إلى قائمة المفاتيح الموثوقة أو تعطيل التحقق من التوقيع لتتمكن من استيراد هذا الملف.",
     "importingState": "جارٍ الاستيراد...",
-    "importingTableStructure": "الإنشاء: {table}",
-    "importingTableData": "استيراد البيانات: {table}"
+    "importingTableStructure": "جارٍ الإنشاء: {table}",
+    "importingTableData": "جارٍ استيراد البيانات: {table}"
   },
   "importWorkspaceForm": {
     "selectApplicationsToImport": "حدد التطبيقات المراد استيرادها"
@@ -712,8 +712,8 @@
   "workspaceInvitation": {
     "title": "دعوة",
     "message": "لقد دعاك {by} للانضمام إلى {workspace}.",
-    "reject": "يرفض",
-    "accept": "يقبل"
+    "reject": "رفض",
+    "accept": "قبول"
   },
   "workspaceSettingsModal": {
     "title": "إعدادات مساحة العمل"
@@ -723,12 +723,12 @@
   },
   "totpLogin": {
     "backupCodesTitle": "أدخل الرمز الاحتياطي",
-    "backupCodesDescription": "قم بتسجيل الدخول باستخدام الرمز الاحتياطي المخصص للاستخدام مرة واحدة.",
+    "backupCodesDescription": "سجّل الدخول باستخدام الرمز الاحتياطي المخصص للاستخدام مرة واحدة.",
     "authenticate": "مصادقة",
-    "goBack": "عُد",
+    "goBack": "رجوع",
     "totpTitle": "المصادقة الثنائية",
     "totpDescription": "أدخل الرمز من تطبيق المصادقة الخاص بك.",
-    "verify": "يؤكد",
+    "verify": "تحقّق",
     "useBackupCode": "استخدم الرمز الاحتياطي",
     "verificationFailed": "فشل التحقق",
     "verificationFailedDescription": "الرمز الذي تم إدخاله غير صحيح.",
@@ -737,7 +737,7 @@
     "rateLimit": "محاولات كثيرة جدًا."
   },
   "clearAllNotificationsConfirmModal": {
-    "title": "هل أنت متأكد أنك تريد مسح كافة الإخطارات؟",
+    "title": "هل أنت متأكد أنك تريد مسح كل الإشعارات؟",
     "message": "سيتم حذف جميع الإشعارات نهائيًا ولن تتمكن من رؤيتها مرة أخرى."
   },
   "error": {
@@ -747,16 +747,16 @@
     "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح.",
     "disabledAccountTitle": "تم تعطيل الحساب",
     "disabledAccountMessage": "لقد تم تعطيل حساب المستخدم هذا.",
-    "captchaVerificationFailedTitle": "فشل التحقق من كلمة التحقق",
-    "captchaVerificationFailedMessage": "فشل التحقق من كلمة التحقق. يرجى المحاولة مرة أخرى.",
-    "incorrectCredentialTitle": "أوراق اعتماد غير صحيحة",
+    "captchaVerificationFailedTitle": "فشل التحقق من اختبار CAPTCHA",
+    "captchaVerificationFailedMessage": "فشل التحقق من اختبار CAPTCHA. يرجى المحاولة مرة أخرى.",
+    "incorrectCredentialTitle": "بيانات اعتماد غير صحيحة",
     "incorrectCredentialMessage": "عنوان البريد الإلكتروني أو كلمة المرور المقدمة غير صحيحة.",
     "inputRequired": "الإدخال مطلوب.",
     "disabledPasswordProviderTitle": "تم تعطيل مصادقة كلمة المرور.",
     "disabledPasswordProviderMessage": "الرجاء استخدام مزود مصادقة آخر."
   },
   "field": {
-    "language": "لغة",
+    "language": "اللغة",
     "emailAddress": "عنوان البريد الإلكتروني",
     "name": "اسمك",
     "password": "كلمة المرور",
@@ -765,25 +765,25 @@
   "invitationTitle": "دعوة",
   "invitationMessage": "لقد دعاك {invitedBy} للانضمام إلى {workspace}.",
   "exportWorkspaceModal": {
-    "title": "يصدّر",
-    "description": "سيتم تصدير بياناتك كملف ZIP، والذي يمكن استيراده إلى مثيل جداول آخر.",
+    "title": "تصدير",
+    "description": "ستُصدَّر بياناتك كملف ZIP يمكن استيراده إلى مثيل آخر من منصة جداول.",
     "exportSettings": "إعدادات التصدير",
     "export": "تصدير البيانات",
     "reset": "ابدأ جديدًا",
-    "cancel": "يلغي",
+    "cancel": "إلغاء",
     "download": "تحميل",
     "exportingState": "جارٍ التصدير...",
-    "exportingTableState": "التصدير: {table}",
-    "exportingCreateArchiveState": "إنشاء الأرشيف",
+    "exportingTableState": "جارٍ التصدير: {table}",
+    "exportingCreateArchiveState": "جارٍ إنشاء الأرشيف",
     "noExports": "لا توجد عمليات تصدير لمساحة العمل هذه حتى الآن.",
-    "created": "مخلوق"
+    "created": "تاريخ الإنشاء"
   },
   "exportWorkspaceForm": {
     "exportSettingsLabel": "إعدادات التصدير",
     "selectDataToExport": "حدد البيانات للتصدير",
     "selectAll": "حدد الكل",
-    "deselectAll": "قم بإلغاء تحديد الكل",
-    "onlyStructureLabel": "هيكل التصدير فقط",
+    "deselectAll": "إلغاء تحديد الكل",
+    "onlyStructureLabel": "تصدير الهيكل فقط",
     "onlyStructureDescription": "في حالة تمكينه، سيتم تصدير بنية التطبيقات فقط. لن يتم تضمين البيانات."
   },
   "paginator": {
@@ -791,16 +791,16 @@
     "of": "من {pages}"
   },
   "workspaceSearch": {
-    "title": "يبحث",
-    "searchEverything": "يبحث...",
+    "title": "بحث",
+    "searchEverything": "بحث...",
     "searching": "جارٍ البحث...",
     "noResults": "لم يتم العثور على نتائج",
     "noResultsSubtitle": "لم نتمكن من العثور على أي شيء يطابق \"{searchTerm}\"",
     "welcome": "ابحث في كل شيء في مساحة العمل الخاصة بك",
     "welcomeSubtitle": "استخدم مربع البحث أعلاه للعثور على التطبيقات والجداول والحقول والمزيد",
-    "navigate": "انتقل",
-    "select": "يختار",
-    "close": "يغلق",
+    "navigate": "تنقّل",
+    "select": "تحديد",
+    "close": "إغلاق",
     "empty": "(فارغ)",
     "types": {
       "applications": "التطبيقات",
@@ -813,39 +813,39 @@
     "label": "منسوخ!"
   },
   "action": {
-    "cancel": "يلغي",
-    "submit": "يُقدِّم"
+    "cancel": "إلغاء",
+    "submit": "إرسال"
   },
   "duplicateApplicationJobType": {
-    "duplicating": "تكرار",
-    "duplicatedTitle": "التطبيق مكرر"
+    "duplicating": "جارٍ التكرار",
+    "duplicatedTitle": "تم تكرار التطبيق"
   },
   "InstallTemplateJobType": {
-    "installing": "التثبيت",
+    "installing": "جارٍ التثبيت",
     "installedTitle": "تم تثبيت القالب"
   },
   "twoFactorAuthSettings": {
     "title": "المصادقة الثنائية",
-    "loadingError": "تعذر تحميل التكوين الثنائي."
+    "loadingError": "تعذّر تحميل إعدادات المصادقة الثنائية."
   },
   "disableTwoFactorAuth": {
     "title": "هل أنت متأكد أنك تريد تعطيل المصادقة الثنائية (2FA)؟",
     "description": "سيفقد حسابك طبقة إضافية من الأمان. إذا اكتشف شخص ما كلمة المرور الخاصة بك، فقد يتمكن من تسجيل الدخول إلى حسابك.",
-    "cancel": "اتركه",
-    "disable": "إبطال",
+    "cancel": "إبقاؤه مفعّلًا",
+    "disable": "تعطيل",
     "successTitle": "تم تعطيل المصادقة الثنائية",
     "errorWrongPasswordTitle": "كلمة مرور خاطئة",
     "errorWrongPasswordMessage": "كلمة المرور التي تم إدخالها لا تتطابق مع كلمة المرور الخاصة بك."
   },
   "enableTwoFactorOptions": {
-    "cancel": "يلغي",
-    "continue": "يكمل"
+    "cancel": "إلغاء",
+    "continue": "متابعة"
   },
   "saveBackupCode": {
     "description": "إذا فقدت إمكانية الوصول إلى تطبيق المصادقة أو الهاتف الخاص بك ولم تتمكن من تلقي أو إنشاء رموز المصادقة، فيمكنك استخدام هذه النسخة الاحتياطية. يمكنك استخدامه مرة واحدة فقط. تأكد من كتابته أو نسخه في مكان آمن حتى تتمكن من الوصول إليه دون تسجيل الدخول.",
     "backupCodes": "رموز النسخ الاحتياطي",
-    "copy": "ينسخ",
-    "continue": "يكمل",
+    "copy": "نسخ",
+    "continue": "متابعة",
     "backupCodesCopiedTitle": "منسوخ!",
     "backupCodesCopiedMessage": "تم نسخ الرموز الاحتياطية إلى الحافظة."
   },
@@ -857,7 +857,7 @@
   },
   "twoFactorEnabled": {
     "enabled": "ممكّن",
-    "disable": "تعطيل المصادقة الثنائية (2FA)."
+    "disable": "تعطيل المصادقة الثنائية"
   },
   "sidebar": {
     "createWorkspace": "إنشاء مساحة عمل",
@@ -941,7 +941,7 @@
     "errorInvalidPasswordTitle": "كلمة مرور غير صالحة",
     "errorInvalidPasswordMessage": "تعذر حذف حسابك لأن كلمة المرور غير صالحة.",
     "errorUserIsLastAdminTitle": "آخر مسؤول",
-    "errorUserIsLastAdminMessage": "تعذر حذف حسابك لأنك آخر مسؤول في نسخة جداول هذه.",
+    "errorUserIsLastAdminMessage": "تعذّر حذف حسابك لأنك آخر مسؤول في هذا المثيل من منصة جداول.",
     "accountDeletedSuccessTitle": "تمت جدولة حذف الحساب",
     "accountDeletedSuccessMessage": "تمت جدولة حذف حسابك.",
     "workspaceLoadingError": "فشل التحقق من مساحات العمل",
@@ -952,7 +952,7 @@
     "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني..",
     "passwordPlaceholder": "أدخل كلمة المرور..",
     "forgotPassword": "هل نسيتها؟",
-    "signUpText": "هل أنت جديد في جداول؟",
+    "signUpText": "هل أنت جديد على منصة جداول؟",
     "signUp": "إنشاء حساب",
     "displayPasswordLogin": "تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور",
     "redirecting": "جارٍ التحويل إلى موفر المصادقة..."
@@ -964,7 +964,7 @@
     "repeatPasswordPlaceholder": "أعد إدخال كلمة المرور الجديدة",
     "submit": "تغيير كلمة المرور",
     "changed": "تم تغيير كلمة المرور",
-    "message": "يمكنك الآن تسجيل الدخول إلى جداول باستخدام كلمة المرور الجديدة.",
+    "message": "يمكنك الآن تسجيل الدخول إلى منصة جداول باستخدام كلمة المرور الجديدة.",
     "errorInvalidLinkTitle": "رابط غير صالح",
     "errorInvalidLinkMessage": "تعذر إعادة تعيين كلمة المرور لأن الرابط غير صالح.",
     "errorLinkExpiredTitle": "انتهت صلاحية الرابط",
@@ -978,7 +978,7 @@
     "title": "تأكيد تغيير البريد الإلكتروني",
     "submit": "تأكيد تغيير البريد الإلكتروني",
     "changed": "تم تغيير عنوان البريد الإلكتروني",
-    "message": "تم تغيير عنوان بريدك الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول إلى جداول باستخدام عنوان بريدك الإلكتروني الجديد.",
+    "message": "تم تغيير عنوان بريدك الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول إلى منصة جداول باستخدام عنوان بريدك الجديد.",
     "errorInvalidLinkTitle": "رابط غير صالح",
     "errorInvalidLinkMessage": "تعذر تغيير عنوان البريد الإلكتروني لأن الرابط غير صالح.",
     "errorLinkExpiredTitle": "انتهت صلاحية الرابط",
@@ -993,7 +993,7 @@
     "title": "إنشاء حساب",
     "disabled": "إنشاء الحسابات معطّل",
     "disabledMessage": "لا يمكن إنشاء حساب لأن هذه الإمكانية معطّلة.",
-    "requireFirstUser": "مرحباً بك في جداول!",
+    "requireFirstUser": "مرحبًا بك في منصة جداول!",
     "requireFirstUserMessage": "يرجى تعبئة النموذج أدناه لإنشاء المستخدم المسؤول.",
     "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني..",
     "namePlaceholder": "أدخل اسمك..",
@@ -1007,7 +1007,7 @@
     "message": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
     "submit": "إرسال الرابط",
     "confirmationTitle": "تحقق من بريدك الإلكتروني",
-    "confirmation": "أرسلنا رسالة إلى {email} تتضمن رابطاً لإعادة تعيين كلمة مرور جداول.",
+    "confirmation": "أرسلنا رسالة إلى {email} تتضمن رابطًا لإعادة تعيين كلمة مرور حسابك في منصة جداول.",
     "disabled": "استعادة كلمة المرور معطّلة",
     "disabledMessage": "لا يمكن إعادة تعيين كلمة المرور لأنها معطّلة.",
     "loginText": "هل لديك حساب وكلمة مرور بالفعل؟",
@@ -1134,7 +1134,7 @@
     "markAllAsRead": "تعليم الكل كمقروء",
     "clearAll": "مسح الكل",
     "noNotificationTitle": "ليس لديك أي إشعارات",
-    "noNotification": "سنُعلمك بالتحديثات المهمة وفي كل مرة تتم الإشارة إليك في جداول.",
+    "noNotification": "سنُعلمك بالتحديثات المهمة وفي كل مرة يُشار إليك في منصة جداول.",
     "newNotificationsAvailable": "توجد إشعارات جديدة",
     "refresh": "تحديث"
   }

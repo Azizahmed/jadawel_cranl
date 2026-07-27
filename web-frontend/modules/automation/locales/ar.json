@@ -13,7 +13,7 @@
     "buttonLabelShowError": "إظهار الخطأ",
     "sampleDataModalTitle": "الحمولة لـ {nodeLabel}",
     "sampleDataModalSubTitle": "حمولة JSON",
-    "sampleDataCopy": "ينسخ",
+    "sampleDataCopy": "نسخ",
     "errorOccurred": "حدث خطأ...",
     "sampleDataCopied": "تم نسخ الحمولة إلى الحافظة"
   },
@@ -22,8 +22,8 @@
     "localBaserowRowsCreatedLabel": "يتم إنشاء الصفوف في {tableName}",
     "localBaserowRowsUpdatedLabel": "يتم تحديث الصفوف في {tableName}",
     "localBaserowRowsDeletedLabel": "يتم حذف الصفوف في {tableName}",
-    "localBaserowCreateRowLabel": "قم بإنشاء صف في {tableName}",
-    "localBaserowUpdateRowLabel": "قم بتحديث صف في {tableName}",
+    "localBaserowCreateRowLabel": "إنشاء صف في {tableName}",
+    "localBaserowUpdateRowLabel": "تحديث صف في {tableName}",
     "localBaserowDeleteRowLabel": "حذف صف في {tableName}",
     "localBaserowGetRowLabel": "قراءة صف في {tableName}",
     "localBaserowListRowsLabel": "قائمة الصفوف في {tableName}",
@@ -32,7 +32,7 @@
     "smtpEmailLabel": "إرسال بريد إلكتروني",
     "routerLabel": "اتبع أحد فروع {edgeCount}",
     "iterationLabel": "كرر على العناصر",
-    "defaultEdgeLabelFallback": "تقصير",
+    "defaultEdgeLabelFallback": "افتراضي",
     "routerWithOutputNodesDeleteError": "لا يمكن حذفه حتى تتم إزالة عقد الإخراج {outputCount} الخاصة به.",
     "routerWithOutputNodesReplaceError": "لا يمكن استبداله حتى تتم إزالة عقد الإخراج {outputCount} الخاصة به.",
     "iteratorWithChildrenNodesDeleteError": "لا يمكن حذفه حتى تتم إزالة العقد التابعة له.",
@@ -43,20 +43,20 @@
     "slackWriteMessageLabel": "أرسل رسالة إلى #{channel}"
   },
   "workflowNode": {
-    "actionDelete": "يمسح",
-    "actionReplace": "يستبدل",
-    "actionDuplicate": "ينسخ",
+    "actionDelete": "حذف",
+    "actionReplace": "استبدال",
+    "actionDuplicate": "تكرار",
     "actionConfigure": "تكوين",
-    "beforeLabelTrigger": "يبدأ متى",
+    "beforeLabelTrigger": "يبدأ عند",
     "beforeLabelAction": "ثم",
     "beforeLabelCondition": "إذا تم استيفاء الشرط",
     "beforeLabelConditionDefault": "إذا لم يتم استيفاء أي شرط (شروط).",
     "beforeLabelRepeat": "لكل عنصر",
-    "moreEdit": "يحرر",
-    "moreReplace": "يستبدل",
+    "moreEdit": "تعديل",
+    "moreReplace": "استبدال",
     "nodeOptions": "خيارات العقدة",
     "displayLabelDebug": "المعرف: {id} | السابق: {previousNodeId} | {outputUid}",
-    "moreDuplicate": "ينسخ"
+    "moreDuplicate": "تكرار"
   },
   "workflowAddNode": {
     "displayTitle": "إنشاء عقدة الأتمتة"
@@ -86,7 +86,7 @@
     "switchLabelDraft": "مسودة",
     "switchLabelDisabled": "عاجز",
     "switchLabelPaused": "متوقف مؤقتًا",
-    "switchLabelLive": "يعيش",
+    "switchLabelLive": "مباشر",
     "lastPublished": "آخر نشر"
   },
   "dataProviderType": {
@@ -114,7 +114,7 @@
     "failedRuns": "أشواط فاشلة",
     "errorHideDetails": "إخفاء التفاصيل",
     "errorShowDetails": "إظهار التفاصيل",
-    "runNumber": "قم بتشغيل {n}",
+    "runNumber": "التشغيل {n}",
     "runCount": "يعمل {n}",
     "testRun": "امتحان",
     "showResult": "عرض النتيجة"
@@ -128,7 +128,7 @@
   },
   "automationGraphGuidedTourStep": {
     "title": "إدارة الرسم البياني لسير العمل الخاص بك هنا",
-    "content": "قم بإنشاء مشغل وإجراءات هنا لتحديد ما يجب أن يفعله سير العمل. حدد مشغلًا أو إجراءً لتهيئته في اللوحة الجانبية."
+    "content": "أنشئ مُشغِّلًا وإجراءات هنا لتحديد ما يجب أن يفعله سير العمل. وحدّد مُشغِّلًا أو إجراءً لتهيئته في اللوحة الجانبية."
   },
   "automationTestRunGuidedTourStep": {
     "title": "اختبار سير العمل الخاص بك",
@@ -140,7 +140,7 @@
   },
   "automationPublishGuidedTourStep": {
     "title": "نشر سير العمل الخاص بك",
-    "content": "بمجرد اختبار الإعداد الخاص بك وتحسينه، قم بنشر سير العمل الخاص بك لتفعيله. سيتم الآن تشغيل المشغل الخاص به تلقائيًا في الموعد المحدد."
+    "content": "بعد اختبار إعدادك وتحسينه، انشر سير العمل لتفعيله. وعندها سيعمل مُشغِّله تلقائيًا وفق الجدول الزمني المحدد."
   },
   "automationWorkflowStateGuidedTourStep": {
     "title": "التحكم في حالة سير العمل",

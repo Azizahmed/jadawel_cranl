@@ -247,3 +247,23 @@ One central change mirrors every context/panel/dropdown in the app.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `web-frontend/modules/core/components/Context.vue` | Mirror `horizontal` + negate `horizontalOffset` in `calculatePositions` when dir=rtl | RTL panels must anchor inline-start and grow towards content; fixes off-screen filter panel + never-opening workspace selector | medium — upstream touches this method occasionally; re-apply block is 12 lines at the top of `calculatePositions` |
+
+---
+
+## Phase 1 WP4 — over-constrained absolute boxes in RTL (2026-07-27)
+
+One CSS bug class produced three separate RTL-only failures. A box with a
+definite width plus **both** `left` and `right` is over-constrained, so CSS drops
+one of them — `right` under LTR, but **`left` under RTL**. Every instance was
+invisible in English and broken in Arabic.
+
+`.dropdown__items` sets both inline insets to `0` (the base rule lets a nested
+menu stretch to its trigger). The `--fixed` variant is `position: fixed` and
+receives a physical inline `left` from JS with no matching `right`, so cancelling
+only `inset-inline-end` left a stray `right: 0` alive under RTL and stretched the
+"add field" menu across the whole viewport (measured 1892px wide). Releasing both
+inline sides fixes it (measured 351px, fully on screen).
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `modules/core/assets/scss/components/dropdown.scss` | `.dropdown__items--fixed`: `inset-inline-end: auto` → `inset-inline: auto` | Release *both* inline insets; a JS-supplied physical `left` must not combine with the base `right: 0` | low — 1 line, adjacent to the existing `--floating` patch |
