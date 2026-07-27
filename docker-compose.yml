@@ -24,8 +24,8 @@
 ########################################################################################
 
 # Backend environment variables and their defaults are documented inline below.
-x-backend-variables:
-  &backend-variables # Most users should only need to set these first four variables.
+x-backend-variables: &backend-variables
+  # Most users should only need to set these first four variables.
   SECRET_KEY: ${SECRET_KEY:?}
   BASEROW_JWT_SIGNING_KEY: ${BASEROW_JWT_SIGNING_KEY:-}
   DATABASE_PASSWORD: ${DATABASE_PASSWORD:?}
