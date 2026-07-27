@@ -93,10 +93,10 @@
     "description": "حدد المكان الذي تريد البدء منه:",
     "databaseNameLabel": "اسم قاعدة البيانات",
     "databaseNamePrefill": "قاعدة بيانات {name}",
-    "scratch": "يخدش",
-    "import": "ملف",
-    "airtable": "طاولة هوائية",
-    "template": "نموذج",
+    "scratch": "من الصفر",
+    "import": "استيراد ملف",
+    "airtable": "Airtable",
+    "template": "قالب",
     "workspaceName": "مساحة عمل {name}"
   },
   "ViewFilterTypeDateUpgradeToMultiStep": {

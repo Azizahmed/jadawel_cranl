@@ -20,6 +20,7 @@ export const localeDirectories = [
 export const allowedIdenticalValues = new Set([
   'AI',
   'API',
+  'Airtable',
   'CSV',
   'HTTP',
   'HTTPS',
