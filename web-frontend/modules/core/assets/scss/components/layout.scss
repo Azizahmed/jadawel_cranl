@@ -55,6 +55,11 @@
   inset-inline: 0;
   inset-block-start: 0;
   block-size: 51px;
+
+  // Jadawel: reserve the corner the workspace utility icons are pinned to.
+  // Every header using this class is a flex row whose end-side content is
+  // pushed over with `margin-inline-start: auto`, so the padding is enough.
+  padding-inline-end: $app-utilities-band;
 }
 
 .layout__col-2-2 {

@@ -61,7 +61,6 @@
         v-if="hasSelectedWorkspace"
         :selected-workspace="selectedWorkspace"
         :right-sidebar-open="rightSidebarOpen"
-        @open-workspace-search="$emit('open-workspace-search')"
       ></SidebarMenu>
 
       <SidebarWithWorkspace
@@ -135,7 +134,7 @@ export default {
       default: false,
     },
   },
-  emits: ['open-workspace-search', 'set-col1-width'],
+  emits: ['set-col1-width'],
   data() {
     return {
       showAdmin: false,

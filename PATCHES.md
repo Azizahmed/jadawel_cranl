@@ -437,3 +437,54 @@ both directions, stylelint clean on both stylesheets, locale parity 3470/3470.
 | `web-frontend/modules/core/components/sidebar/SidebarWithWorkspace.vue` | One flat application list; drop headings, per-type `+`, separators | Chrome outweighed content | medium |
 | `web-frontend/modules/database/components/sidebar/SidebarItem.vue` | Table glyph on every row | Rows were undifferentiated text | low |
 | `web-frontend/modules/core/locales/{en,ar}.json` | Add `sidebar.searchTooltip` | Keeps the keyboard shortcut discoverable without the box | low |
+
+---
+
+## Workspace utilities move to the content header (2026-07-28)
+
+Follow-up to the sidebar work above. The utility icons were still inside the
+sidebar, which put them top-right in Arabic; they belong in the top-left corner
+of the content area, next to where the eye already goes for search. And with a
+magnifier in both places the app showed two search icons that did different
+things.
+
+`AppUtilities.vue` now renders notifications, members, invite and trash, pinned
+to the top inline-end corner of `.layout__col-2`. It is mounted once by the app
+layout rather than by each header, because there are five separate header
+components — table, dashboard, automation, builder, workspace home — and the
+group has to appear on all of them. The band it occupies is reserved by the
+headers themselves via `padding-inline-end: $app-utilities-band`; each is a flex
+row whose end-side content is pushed over with `margin-inline-start: auto`, so a
+padding on the container is sufficient and no header needs to know the group
+exists. The workspace home page has a 74px header rather than the shared 51px
+one, so a `:has()` rule matches the group's height to it.
+
+There is deliberately no search icon in the group. The two searches were never
+the same feature: the sidebar box was the global Ctrl/⌘ K search, while the
+magnifier in the view header is `ViewSearch`, which searches rows in the table
+you are looking at. `ViewSearch` has no keyboard shortcut — the magnifier is its
+only affordance — whereas global search keeps Ctrl/⌘ K, so dropping the global
+icon is the one that loses nothing outright.
+
+The cost, stated plainly: global search now has no visible affordance anywhere.
+On a table page there is exactly one magnifier and it searches that table; on
+the workspace home and dashboards there is none. If that proves wrong, the fix
+is to put the global-search icon back into the group and remove `ViewSearch`
+from the view header instead.
+
+Verified in the running app: on a table page the group sits at 0–142px with the
+view search starting at 152px and exactly one magnifier on the page; on the
+workspace home the group matches the 74px header and centres on it, with the
+header's own controls starting flush at 142px. Toggling `dir` moves the group
+from the far left to the far right, which is the conventional corner in English.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/components/AppUtilities.vue` | New: the four utility buttons | Must appear on every page, not per header | low |
+| `web-frontend/modules/core/assets/scss/components/app_utilities.scss` | New: pinned band, button and badge styles | — | low |
+| `web-frontend/modules/core/layouts/app.vue` | Mount `AppUtilities` in `layout__col-2`; drop the dead search emit | Single mount point for every page | medium |
+| `web-frontend/modules/core/assets/scss/components/layout.scss` | `.layout__col-2-1` reserves the band | Five headers share this class | medium |
+| `web-frontend/modules/core/assets/scss/components/dashboard.scss` | `.dashboard__header` reserves the band | Workspace home has its own taller header | low |
+| `web-frontend/modules/core/assets/scss/variables.scss` | Add `$app-utilities-band` | Consumed by both header stylesheets | low |
+| `web-frontend/modules/core/components/sidebar/{SidebarMenu,Sidebar}.vue` | Remove the icon row and the search emit chain | Moved to the content header | medium |
+| `web-frontend/modules/core/locales/{en,ar}.json` | Remove `sidebar.searchTooltip` | Its only consumer is gone | low |

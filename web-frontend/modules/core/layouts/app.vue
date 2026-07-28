@@ -13,7 +13,6 @@
           :width="col1Width"
           :right-sidebar-open="col3Visible"
           @set-col1-width="col1Width = $event"
-          @open-workspace-search="openWorkspaceSearch"
         />
       </div>
 
@@ -25,6 +24,11 @@
         }"
       >
         <slot />
+
+        <AppUtilities
+          v-if="selectedWorkspace && selectedWorkspace.id"
+          :workspace="selectedWorkspace"
+        />
       </div>
 
       <div
@@ -76,6 +80,7 @@ import RightSidebar from '@baserow/modules/core/components/sidebar/RightSidebar.
 import HorizontalResize from '@baserow/modules/core/components/HorizontalResize.vue'
 import GuidedTour from '@baserow/modules/core/components/guidedTour/GuidedTour.vue'
 import WorkspaceSearchModal from '@baserow/modules/core/components/workspace/WorkspaceSearchModal.vue'
+import AppUtilities from '@baserow/modules/core/components/AppUtilities.vue'
 import { CORE_ACTION_SCOPES } from '@baserow/modules/core/utils/undoRedoConstants'
 import {
   isOsSpecificModifierPressed,

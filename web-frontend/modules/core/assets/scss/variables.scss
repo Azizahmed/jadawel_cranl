@@ -9,6 +9,12 @@ $scrollbar-size: 6px;
 $grid-columns: 12;
 $grid-width: 20px;
 
+// Jadawel: width of the band the workspace utility icons occupy in the top
+// inline-end corner of the content area. Every page header reserves it with a
+// padding so the group never lands on the header's own controls.
+// 4 buttons x 30px + 3 gaps x 2px + 8px padding either side.
+$app-utilities-band: 142px !default;
+
 // all z-indexes
 $z-index-layout-col-1: 3 !default;
 $z-index-layout-col-2: 2 !default;
