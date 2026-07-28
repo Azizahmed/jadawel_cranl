@@ -1,9 +1,0 @@
-{
-    "automationWorkflow": {
-        "title": "Flusso di lavoro"
-    },
-    "automationWelcomeGuidedTourStep": {
-        "title": "Benvenuto in Jadawel Automations!",
-        "content": "Facciamo un breve tour. Vedrai come impostare i trigger, aggiungere azioni, testare il tuo flusso di lavoro e pubblicarlo — nessuna codifica richiesta."
-    }
-}

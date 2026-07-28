@@ -379,18 +379,15 @@ AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.AllowAllUsersModelBacke
 # this is honoured live per deploy without a migration.
 LANGUAGE_CODE = os.getenv("BASEROW_DEFAULT_LOCALE", "ar")
 
+# Jadawel ships Arabic and English only. The upstream project's other
+# translations were removed deliberately: they were partial and unreviewed.
+# `UserProfile.language` validates against this list (see
+# api/user/validators.py) and takes its choices from it, so any change here
+# needs a matching migration — and must stay in sync with
+# `web-frontend/config/locales.js`.
 LANGUAGES = [
-    # Jadawel fork: Arabic added as a first-class, primary language.
     ("ar", "Arabic"),
     ("en", "English"),
-    ("fr", "French"),
-    ("nl", "Dutch"),
-    ("de", "German"),
-    ("es", "Spanish"),
-    ("it", "Italian"),
-    ("pl", "Polish"),
-    ("ko", "Korean"),
-    ("uk", "Ukrainian"),
 ]
 
 TIME_ZONE = "UTC"

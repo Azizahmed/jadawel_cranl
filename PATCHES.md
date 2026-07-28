@@ -337,3 +337,42 @@ value measured 3.93:1 against white, failing WCAG AA. `#278053` measures
 | `web-frontend/modules/core/assets/scss/base.scss` | Faint brand-derived grid on `body`, 32px, fixed attachment | Texture behind the transparent `.layout__col-2-scroll` | low |
 | 34 × `web-frontend/modules/core/assets/scss/**` | `$palette-blue-*` → `$palette-brand-*` (78 occurrences) | Chrome bypassed the semantic token | medium — mechanical, re-runnable |
 | `backend/templates/{all-fields,custom-code-demos,formulas,password-reset}.json` | Category `"Baserow"` → `"Examples"` | A template category named after the upstream project was visible in the picker | low |
+
+---
+
+## Arabic and English only (2026-07-28)
+
+Drops every language except Arabic and English across both tiers: 113 frontend
+locale JSON files, 53 backend `locale/<lang>` directories with their .po/.mo
+catalogues, and the eight surplus entries in each of the two language lists.
+
+Three things this touched that are easy to miss:
+
+- `UserProfile.language` takes `choices` from `settings.LANGUAGES`, so trimming
+  the list is a model change and needs a migration, not just a settings edit.
+- Dropping a language does not touch rows that already hold it. A user sitting
+  on `fr` would keep requesting a locale the frontend can no longer resolve, so
+  the migration also normalises those rows to the default. It is deliberately
+  one-way — the original values are overwritten, and reversing restores the
+  choices but not the users' previous languages.
+- `modules/builder/plugin.js` imported seven locale JSON files that nothing in
+  the file used. Dead as they were, they still broke the build the moment the
+  files were deleted. Two further modules referenced deleted locales from inside
+  commented-out legacy blocks; those were inert but cleaned for consistency.
+
+Backend Arabic was already absent upstream (there is no `locale/ar` catalogue),
+so server-side strings such as e-mails fall back to the English msgid. That is
+pre-existing, not a regression from this change.
+
+Verified: `makemigrations --check` reports no drift; `PATCH /api/user/account/`
+rejects `fr` with "Only the following language keys are valid: ar,en" and
+accepts both `ar` and `en`; the login language switcher offers exactly العربية
+and English; locale parity stays 3469/3469 with strict mode clean.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/config/locales.js` | Keep `ar` + `en` | Single source of truth for the frontend language list | low |
+| `backend/src/baserow/config/settings/base.py` | `LANGUAGES` → `ar`, `en` | Drives `UserProfile.language` choices and API validation | low |
+| `backend/src/baserow/core/migrations/0116_jadawel_arabic_english_only.py` | New: alter choices + normalise stranded users | Model change; orphaned rows would request an unresolvable locale | low |
+| `web-frontend/modules/builder/plugin.js` | Remove 7 unused locale imports | Dead imports that broke the build once the files were gone | low |
+| 113 × `web-frontend/**/locales/*.json`, 53 × `backend/**/locale/<lang>/` | Deleted | Unshipped languages | low |

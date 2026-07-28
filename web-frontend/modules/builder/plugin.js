@@ -1,11 +1,6 @@
-import en from '@baserow/modules/builder/locales/en.json'
-import fr from '@baserow/modules/builder/locales/fr.json'
-import nl from '@baserow/modules/builder/locales/nl.json'
-import de from '@baserow/modules/builder/locales/de.json'
-import es from '@baserow/modules/builder/locales/es.json'
-import it from '@baserow/modules/builder/locales/it.json'
-import pl from '@baserow/modules/builder/locales/pl.json'
-import ko from '@baserow/modules/builder/locales/ko.json'
+// NB: no locale imports here. Translations are registered centrally from
+// config/locales.js via each module's module.js; these were dead imports that
+// bound nothing, and they broke the build once the files were removed.
 import {
   GeneralBuilderSettingsType,
   DomainsBuilderSettingsType,
