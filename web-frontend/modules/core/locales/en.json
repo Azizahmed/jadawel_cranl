@@ -57,6 +57,7 @@
     "trash": "Trash",
     "settings": "My settings",
     "notifications": "Notifications",
+    "searchTooltip": "Search everything ({shortcut} K)",
     "adminSettings": "Admin settings",
     "general": "General",
     "people": "People",
