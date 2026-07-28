@@ -11,9 +11,9 @@
   @include rounded($rounded-md);
 
   &:hover {
-    border: 1px solid $palette-blue-500;
-    background-color: $palette-blue-50;
-    border-color: $palette-blue-300;
+    border: 1px solid $palette-brand-500;
+    background-color: $palette-brand-50;
+    border-color: $palette-brand-300;
     cursor: pointer;
   }
 }
@@ -44,7 +44,7 @@
   @include elevation($elevation-low);
 
   .add-element-zone:hover & {
-    color: $palette-blue-600;
+    color: $palette-brand-600;
   }
 
   .add-element-zone.add-element-zone--disabled & {
@@ -61,8 +61,8 @@
 }
 
 .add-element-zone--drag-active {
-  border: 1px dashed $palette-blue-400;
-  background-color: rgba($palette-blue-50, 0.6);
+  border: 1px dashed $palette-brand-400;
+  background-color: rgba($palette-brand-50, 0.6);
 
   &:hover {
     border-color: $palette-green-400;

@@ -79,10 +79,10 @@
 
 .alert--info-primary {
   @include alert-style(
-    $palette-blue-50,
-    $palette-blue-700,
-    $palette-blue-800,
-    $palette-blue-200
+    $palette-brand-50,
+    $palette-brand-700,
+    $palette-brand-800,
+    $palette-brand-200
   );
 }
 

@@ -72,11 +72,11 @@
 }
 
 .radio__input input[type='radio']:checked + label {
-  @include fill-radio('#{$palette-blue-500}');
+  @include fill-radio('#{$palette-brand-500}');
 }
 
 .radio__input input[type='radio']:checked + label:hover {
-  @include fill-radio('#{$palette-blue-700}');
+  @include fill-radio('#{$palette-brand-700}');
 }
 
 .radio__input input[type='radio']:disabled:checked + label {
@@ -107,7 +107,7 @@
     block-size: 14px;
     border-radius: 50%;
     border: 0.2em solid;
-    border-color: $palette-blue-500 transparent $palette-blue-500 transparent;
+    border-color: $palette-brand-500 transparent $palette-brand-500 transparent;
     animation: spin infinite 1800ms;
     animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
   }

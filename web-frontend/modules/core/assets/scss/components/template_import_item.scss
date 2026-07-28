@@ -22,7 +22,7 @@
   @include rounded($rounded-md);
 
   .template-import-item--active & {
-    border: 2px solid $palette-blue-500;
+    border: 2px solid $palette-brand-500;
   }
 }
 

@@ -149,12 +149,12 @@
 }
 
 .toast__icon--info-primary {
-  background: $palette-blue-50;
-  color: $palette-blue-800;
+  background: $palette-brand-50;
+  color: $palette-brand-800;
 
   .toast__loading {
     &::after {
-      border-color: $palette-blue-800 transparent $palette-blue-800 transparent;
+      border-color: $palette-brand-800 transparent $palette-brand-800 transparent;
     }
   }
 }
@@ -189,10 +189,10 @@
 }
 
 .toast__actions-button--primary {
-  color: $palette-blue-500;
+  color: $palette-brand-500;
 
   &:hover {
-    color: $palette-blue-600;
+    color: $palette-brand-600;
   }
 }
 
@@ -200,5 +200,5 @@
   cursor: wait;
   user-select: none;
 
-  @include loading-spinner($palette-blue-500, 11px);
+  @include loading-spinner($palette-brand-500, 11px);
 }

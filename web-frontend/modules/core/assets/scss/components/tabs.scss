@@ -54,7 +54,7 @@
   &.tabs__item--active::after {
     content: '';
     block-size: 2px;
-    background-color: $palette-blue-500;
+    background-color: $palette-brand-500;
 
     @include absolute(auto, 0, -1px, 0);
   }
@@ -80,7 +80,7 @@
   }
 
   .tabs__item--active &:hover {
-    color: $palette-blue-500;
+    color: $palette-brand-500;
   }
 
   .tabs__item:not(.tabs__item--disabled) &:hover {

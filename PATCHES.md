@@ -304,3 +304,36 @@ Chain of missing types encountered, in the order they surfaced: `view_type`
 (local_baserow) → `element_type` (auth_form, input_file) → workflow actions
 orphaned by the skipped element. Templates went 0 → 24 → 123 → 155 as each was
 handled.
+
+---
+
+## Jadawel theme — sage/emerald palette (2026-07-28)
+
+Retones the interface from Baserow's blue to a calm sage/emerald, and adds a
+faint grid behind the working area.
+
+The important structural change is in `colors.scss`. The `$colors` map is
+**user data** — its keys are what get written to the database when someone
+picks a colour for a select option or a view — but it was reading the semantic
+`$color-*` tokens. Repointing `$color-primary-*` at the brand would therefore
+have silently repainted colours people already chose, and a select option
+labelled "blue" would have come back green. The map now reads raw `$palette-*`
+values only, with the greys frozen to their pre-sage hex. Verified: all 42
+entries resolve byte-identically before and after.
+
+34 component stylesheets referenced `$palette-blue-*` directly for chrome
+(buttons, inputs, checkboxes, tabs, toasts, focus rings) rather than going
+through `$color-primary-*`, so repointing the semantic token alone left the
+primary button blue. All 78 occurrences were moved to `$palette-brand-*`.
+
+`$palette-brand-500` is pinned at `#278053` rather than a lighter, more
+saturated green: -500 is the step that carries white text, and the lighter
+value measured 3.93:1 against white, failing WCAG AA. `#278053` measures
+4.89:1. Verified in-browser after the change.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/assets/scss/colors.scss` | Add `$palette-brand-*`; tint neutrals sage; repoint `$color-primary-*` at brand; decouple `$colors` map from semantic tokens | Brand retone without touching stored user colours | medium — upstream edits this file |
+| `web-frontend/modules/core/assets/scss/base.scss` | Faint brand-derived grid on `body`, 32px, fixed attachment | Texture behind the transparent `.layout__col-2-scroll` | low |
+| 34 × `web-frontend/modules/core/assets/scss/**` | `$palette-blue-*` → `$palette-brand-*` (78 occurrences) | Chrome bypassed the semantic token | medium — mechanical, re-runnable |
+| `backend/templates/{all-fields,custom-code-demos,formulas,password-reset}.json` | Category `"Baserow"` → `"Examples"` | A template category named after the upstream project was visible in the picker | low |

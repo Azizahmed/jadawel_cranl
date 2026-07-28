@@ -9,6 +9,25 @@ html {
 
 body {
   background-color: $color-neutral-100;
+
+  // A faint sage grid behind the app surface. `.layout__col-2-scroll` is
+  // transparent unless a page opts into `--white-background`, so this shows
+  // through the working area and reads as texture behind the white cards
+  // rather than as a pattern competing with them. The lines are derived from
+  // the brand so the tint stays consistent if the brand is retuned.
+  background-image:
+    linear-gradient(
+      to right,
+      rgba($palette-brand-900, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba($palette-brand-900, 0.045) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+  background-attachment: fixed;
 }
 
 a {

@@ -18,7 +18,7 @@
   @include rounded($rounded-xl);
 
   &.workflow-node-content--selected {
-    border: 1.5px solid $palette-blue-500;
+    border: 1.5px solid $palette-brand-500;
   }
 
   &.workflow-node-content--utility {
@@ -27,7 +27,7 @@
     border: 1.5px dashed $palette-neutral-400;
 
     &.workflow-node-content--selected {
-      border: 1.5px dashed $palette-blue-500;
+      border: 1.5px dashed $palette-brand-500;
     }
   }
 }

@@ -12,7 +12,7 @@
   &:focus,
   &:focus-within {
     &:not(.form-textarea--disabled):not(.form-textarea--error) {
-      border-color: $palette-blue-500;
+      border-color: $palette-brand-500;
     }
   }
 

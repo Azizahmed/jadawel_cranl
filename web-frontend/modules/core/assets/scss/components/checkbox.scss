@@ -67,15 +67,15 @@
   }
 
   .checkbox--checked:not(.checkbox--disabled) & {
-    background: $palette-blue-500;
+    background: $palette-brand-500;
     box-shadow: none;
-    border: 1px solid $palette-blue-500;
+    border: 1px solid $palette-brand-500;
   }
 
   .checkbox--indeterminate:not(.checkbox--disabled) & {
-    background: $palette-blue-500;
+    background: $palette-brand-500;
     box-shadow: none;
-    border: 1px solid $palette-blue-500;
+    border: 1px solid $palette-brand-500;
   }
 
   .checkbox:active:not(.checkbox--checked) & {
@@ -84,8 +84,8 @@
   }
 
   :active.checkbox--checked:not(.checkbox--disabled) & {
-    background-color: $palette-blue-700;
-    border: 1px solid $palette-blue-700;
+    background-color: $palette-brand-700;
+    border: 1px solid $palette-brand-700;
   }
 }
 

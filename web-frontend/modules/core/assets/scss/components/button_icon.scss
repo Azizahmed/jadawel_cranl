@@ -17,14 +17,14 @@
 
   &:hover:not(.button-icon--loading):not([disabled]) {
     background: $palette-neutral-25;
-    color: $palette-blue-600;
+    color: $palette-brand-600;
     text-decoration: none;
   }
 
   &.active,
   &:active:not(.button-icon--loading):not([disabled]) {
     background: $palette-neutral-50;
-    color: $palette-blue-700;
+    color: $palette-brand-700;
     box-shadow: none !important;
   }
 

@@ -16,25 +16,25 @@
   @include rounded($rounded-md);
 
   &:hover:not(.chips--disabled) {
-    border: 1px solid $palette-blue-300;
-    background: rgba($palette-blue-1000, 0.06);
+    border: 1px solid $palette-brand-300;
+    background: rgba($palette-brand-1000, 0.06);
 
     &.chips--active {
       border-color: transparent;
-      box-shadow: 0 0 0 1.5px $palette-blue-300;
+      box-shadow: 0 0 0 1.5px $palette-brand-300;
     }
   }
 
   &:active:not(.chips--disabled) {
-    border: 1px solid $palette-blue-500;
-    background: rgba($palette-blue-1000, 0.1);
+    border: 1px solid $palette-brand-500;
+    background: rgba($palette-brand-1000, 0.1);
   }
 }
 
 .chips--active:not(.chips--disabled) {
   border-color: transparent;
-  box-shadow: 0 0 0 1.5px $palette-blue-300;
-  background: rgba($palette-blue-1000, 0.08);
+  box-shadow: 0 0 0 1.5px $palette-brand-300;
+  background: rgba($palette-brand-1000, 0.08);
 }
 
 .chips__icon {

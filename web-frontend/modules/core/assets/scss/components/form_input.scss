@@ -32,7 +32,7 @@
   &:focus:not(.form-input--no-border),
   &:focus-within:not(.form-input--no-border) {
     &:not(.form-input--disabled):not(.form-input--error) {
-      border-color: $palette-blue-500;
+      border-color: $palette-brand-500;
     }
   }
 
@@ -158,7 +158,7 @@
   }
 
   .form-input--focus & {
-    color: $palette-blue-500;
+    color: $palette-brand-500;
   }
 
   .form-input--loading &.form-input__icon-right {
@@ -177,7 +177,7 @@
       .form-input--error
     ):not(.form-input--no-border)
     & {
-    color: $palette-blue-500;
+    color: $palette-brand-500;
   }
 }
 

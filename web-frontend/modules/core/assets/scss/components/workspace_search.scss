@@ -36,7 +36,7 @@
   @include absolute(calc(50% - 10px), auto, auto, 16px);
 
   &--active {
-    color: $palette-blue-500;
+    color: $palette-brand-500;
   }
 }
 

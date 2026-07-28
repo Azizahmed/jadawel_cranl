@@ -3,22 +3,25 @@
 $white: #fff;
 $black: #000;
 
+// Neutrals carry a slight sage cast so surfaces sit with the brand instead of
+// reading as cold grey next to it. The steps keep their original lightness, so
+// every existing contrast pairing in the app holds.
 $palette-neutral-0: $white !default;
-$palette-neutral-25: #fafafa !default;
-$palette-neutral-50: #f7f7f7 !default;
-$palette-neutral-100: #f5f5f5 !default;
-$palette-neutral-200: #ededed !default;
-$palette-neutral-300: #e6e6e7 !default;
-$palette-neutral-400: #d7d8d9 !default;
-$palette-neutral-500: #cdcecd !default;
-$palette-neutral-600: #b5b5b7 !default;
-$palette-neutral-700: #9c9c9f !default;
-$palette-neutral-800: #838387 !default;
-$palette-neutral-900: #6a6b70 !default;
-$palette-neutral-1000: #515258 !default;
-$palette-neutral-1100: #393a40 !default;
-$palette-neutral-1200: #202128 !default;
-$palette-neutral-1300: #070810 !default;
+$palette-neutral-25: #fafbf9 !default;
+$palette-neutral-50: #f7f9f6 !default;
+$palette-neutral-100: #f4f7f2 !default;
+$palette-neutral-200: #eaefe7 !default;
+$palette-neutral-300: #e2e9df !default;
+$palette-neutral-400: #d3dbcf !default;
+$palette-neutral-500: #c7d0c4 !default;
+$palette-neutral-600: #b0bbad !default;
+$palette-neutral-700: #97a394 !default;
+$palette-neutral-800: #7e8a7c !default;
+$palette-neutral-900: #667063 !default;
+$palette-neutral-1000: #4d564b !default;
+$palette-neutral-1100: #363d34 !default;
+$palette-neutral-1200: #1e241d !default;
+$palette-neutral-1300: #080b07 !default;
 
 $palette-blue-50: #f0f4fc !default;
 $palette-blue-100: #dae4fd !default;
@@ -32,6 +35,29 @@ $palette-blue-800: #275d9f !default;
 $palette-blue-900: #1d508b !default;
 $palette-blue-1000: #124377 !default;
 $palette-blue-1100: #083663 !default;
+
+// Jadawel brand — a calm sage/emerald. This is the accent the whole interface
+// leans on. It is deliberately a scale of its own rather than a retuned
+// $palette-green-*, because that green is a user-selectable value stored in the
+// database (select options, view colors); changing it would repaint data people
+// already picked.
+// -500 is the step that carries white text (primary buttons, avatars, the
+// active nav marker), so it is pinned dark enough to clear WCAG AA 4.5:1
+// against white — measured 4.88:1. A lighter, more saturated green reads
+// closer to the reference but only reaches 3.93:1, which fails on every
+// button label in the product.
+$palette-brand-50: #f0f7f3 !default;
+$palette-brand-100: #dbeee3 !default;
+$palette-brand-200: #b5dcc5 !default;
+$palette-brand-300: #8ac5a3 !default;
+$palette-brand-400: #55a97d !default;
+$palette-brand-500: #278053 !default;
+$palette-brand-600: #216d46 !default;
+$palette-brand-700: #1b5a3a !default;
+$palette-brand-800: #15472e !default;
+$palette-brand-900: #103522 !default;
+$palette-brand-1000: #0b2417 !default;
+$palette-brand-1100: #06170e !default;
 
 $palette-green-50: #ecfcf1 !default;
 $palette-green-100: #d0f6dc !default;
@@ -116,15 +142,18 @@ $palette-purple-1100: #46205e !default;
 // map allows us to easily tweak them without having to do a massive search and replace.
 // Once we're sure about the changes, we can do a search and replace, replace the old
 // ones for the correct new ones, and then remove these.
-$color-primary-100: $palette-blue-50 !default;
-$color-primary-200: $palette-blue-100 !default;
-$color-primary-300: $palette-blue-200 !default;
-$color-primary-400: $palette-blue-400 !default;
-$color-primary-500: $palette-blue-500 !default;
-$color-primary-600: $palette-blue-700 !default;
-$color-primary-700: $palette-blue-800 !default;
-$color-primary-800: $palette-blue-900 !default;
-$color-primary-900: $palette-blue-1100 !default;
+// The interface accent. Points at the brand scale, not at blue — this is what
+// turns buttons, links, active nav, focus rings and progress markers green.
+// The $colors map further down deliberately does NOT read these tokens.
+$color-primary-100: $palette-brand-50 !default;
+$color-primary-200: $palette-brand-100 !default;
+$color-primary-300: $palette-brand-200 !default;
+$color-primary-400: $palette-brand-400 !default;
+$color-primary-500: $palette-brand-500 !default;
+$color-primary-600: $palette-brand-700 !default;
+$color-primary-700: $palette-brand-800 !default;
+$color-primary-800: $palette-brand-900 !default;
+$color-primary-900: $palette-brand-1100 !default;
 
 $color-neutral-10: $palette-neutral-25 !default;
 $color-neutral-50: $palette-neutral-25 !default;
@@ -194,51 +223,59 @@ $color-cyan-300: $palette-cyan-300 !default;
 $color-cyan-400: $palette-cyan-400 !default;
 
 // Should stay in sync with 'backend/src/baserow/core/constants.py::BASEROW_COLORS'.
+//
+// These are USER DATA, not interface styling: the key is what gets written to
+// the database when someone picks a colour for a select option, a view or a
+// calendar label. So this map reads raw $palette-* values and never the
+// semantic $color-* tokens — otherwise restyling the interface (repointing
+// $color-primary-* at the brand green, tinting the neutrals) would silently
+// repaint colours people already chose, and a field labelled "blue" would come
+// back green. The greys are frozen to their pre-sage hex for the same reason.
 $colors: (
-  'light-blue': $color-primary-100,
-  'light-green': $color-success-100,
-  'light-cyan': $color-cyan-100,
-  'light-orange': $color-warning-100,
-  'light-yellow': $color-yellow-100,
-  'light-red': $color-error-100,
-  'light-brown': $color-brown-100,
-  'light-purple': $color-purple-100,
-  'light-pink': $color-pink-100,
-  'light-gray': $color-neutral-100,
+  'light-blue': $palette-blue-50,
+  'light-green': $palette-green-50,
+  'light-cyan': $palette-cyan-100,
+  'light-orange': $palette-yellow-50,
+  'light-yellow': $palette-yellow-50,
+  'light-red': $palette-red-50,
+  'light-brown': #f5e6dc,
+  'light-purple': $palette-purple-50,
+  'light-pink': #f7e1f2,
+  'light-gray': #f5f5f5,
 
-  'blue': $color-primary-200,
-  'green': $color-success-200,
-  'cyan': $color-cyan-200,
-  'orange': $color-warning-200,
-  'yellow': $color-yellow-200,
-  'red': $color-error-200,
-  'brown': $color-brown-200,
-  'purple': $color-purple-200,
-  'pink': $color-pink-200,
-  'gray': $color-neutral-200,
+  'blue': $palette-blue-100,
+  'green': $palette-green-100,
+  'cyan': $palette-cyan-200,
+  'orange': $palette-yellow-100,
+  'yellow': $palette-yellow-200,
+  'red': $palette-red-100,
+  'brown': #f5ceb0,
+  'purple': $palette-purple-200,
+  'pink': #f7b2e7,
+  'gray': #d7d8d9,
 
-  'dark-blue': $color-primary-300,
-  'dark-green': $color-success-300,
-  'dark-cyan': $color-cyan-300,
-  'dark-orange': $color-warning-300,
-  'dark-yellow': $color-yellow-300,
-  'dark-red': $color-error-300,
-  'dark-brown': $color-brown-300,
-  'dark-purple': $color-purple-300,
-  'dark-pink': $color-pink-300,
-  'dark-gray': $color-neutral-300,
+  'dark-blue': $palette-blue-200,
+  'dark-green': $palette-green-200,
+  'dark-cyan': $palette-cyan-300,
+  'dark-orange': $palette-yellow-200,
+  'dark-yellow': $palette-yellow-300,
+  'dark-red': $palette-red-200,
+  'dark-brown': #f5c098,
+  'dark-purple': $palette-purple-300,
+  'dark-pink': #f285d9,
+  'dark-gray': #cdcecd,
 
-  'darker-blue': $color-primary-400,
-  'darker-green': $color-success-400,
-  'darker-cyan': $color-cyan-400,
-  'darker-orange': $color-warning-400,
-  'darker-yellow': $color-yellow-400,
-  'darker-red': $color-error-400,
-  'darker-brown': $color-brown-400,
-  'darker-purple': $color-purple-400,
-  'darker-pink': $color-pink-400,
-  'darker-gray': $color-neutral-400,
+  'darker-blue': $palette-blue-400,
+  'darker-green': $palette-green-400,
+  'darker-cyan': $palette-cyan-400,
+  'darker-orange': $palette-yellow-400,
+  'darker-yellow': $palette-yellow-400,
+  'darker-red': $palette-red-400,
+  'darker-brown': #f5a96e,
+  'darker-purple': $palette-purple-400,
+  'darker-pink': #ff6dde,
+  'darker-gray': #b5b5b7,
 
-  'deep-dark-green': $color-success-500,
-  'deep-dark-orange': $color-warning-500,
+  'deep-dark-green': $palette-green-600,
+  'deep-dark-orange': $palette-yellow-500,
 );

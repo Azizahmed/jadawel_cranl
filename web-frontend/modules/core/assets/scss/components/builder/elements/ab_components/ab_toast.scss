@@ -145,10 +145,10 @@
 }
 
 .ab-toast__icon--info-primary {
-  color: var(--main-primary-color, $palette-blue-800);
+  color: var(--main-primary-color, $palette-brand-800);
   background-color: color-mix(
     in srgb,
-    var(--main-primary-color, $palette-blue-800),
+    var(--main-primary-color, $palette-brand-800),
     $white 80%
   );
 }
