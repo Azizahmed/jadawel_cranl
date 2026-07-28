@@ -8,13 +8,21 @@
       @mousedown.prevent
       @click.prevent="selectTable(database, table)"
     >
+      <!--
+        Jadawel: every table row carries a glyph. Without one, a database with a
+        dozen tables is a dozen identical lines of text and the eye has nothing
+        to anchor on. A synced table shows the sync icon instead of the table
+        icon rather than both — one glyph slot, and the sync state is the more
+        specific fact.
+      -->
       <i
         v-if="table.data_sync"
         v-tooltip:[syncTooltipOptions]="
           `${$t('sidebarItem.lastSynced')}: ${lastSyncedDate}`
         "
-        class="iconoir-data-transfer-down"
+        class="tree__sub-icon iconoir-data-transfer-down"
       ></i>
+      <i v-else class="tree__sub-icon iconoir-table"></i>
       <Editable
         ref="rename"
         :value="table.name"

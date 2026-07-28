@@ -14,6 +14,23 @@
   }
 }
 
+/*
+ * Jadawel: `active` used to be the same 4% neutral wash as `:hover`, so the row
+ * you had open and the row under the cursor were indistinguishable. Selection
+ * now carries the brand tint and a marker bar; hover keeps the neutral wash.
+ * The two states must never resolve to the same colour again.
+ */
+%tree-active-marker {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: 4px;
+  inline-size: 3px;
+  background-color: $color-primary-500;
+
+  @include rounded($rounded);
+}
+
 .tree__item {
   @extend %first-last-no-margin;
 
@@ -23,14 +40,20 @@
   @include rounded($rounded-md);
 
   &.active {
-    background-color: rgba($palette-neutral-1300, 0.04);
+    background-color: $color-primary-100;
+
+    &::before {
+      @extend %tree-active-marker;
+    }
   }
 
   &.tree__item--loading::after {
     content: ' ';
+    position: absolute;
+    inset-block-start: 8px;
+    inset-inline-end: 9px;
 
     @include loading(14px);
-    @include absolute(8px, 9px, auto, auto);
   }
 }
 
@@ -99,10 +122,9 @@
   &--empty::before {
     @extend %empty;
 
-    left: 24px;
-    right: 40px;
-    top: 8px;
-    height: 16px;
+    inset-inline: 24px 40px;
+    inset-block-start: 8px;
+    block-size: 16px;
     border-radius: 16px;
   }
 }
@@ -116,14 +138,14 @@
   font-weight: 500;
 
   .active & {
-    color: $palette-neutral-1200;
+    color: $color-primary-700;
   }
 }
 
 .tree__progress-percentage {
   display: inline-block;
   position: absolute;
-  right: 35px;
+  inset-inline-end: 35px;
   color: $color-primary-500;
 }
 
@@ -135,7 +157,7 @@
   font-size: 16px;
 
   .active & {
-    color: $palette-neutral-1200;
+    color: $color-primary-500;
   }
 }
 
@@ -160,32 +182,40 @@
   @extend %tree-sub-size;
 
   position: relative;
-  margin: 2px 0 0 21px;
+  margin: 2px 0 0;
+  margin-inline-start: 21px;
 
   @include rounded($rounded-md);
 
-  &:hover,
-  &.active {
+  &:hover {
     background-color: rgba($palette-neutral-1300, 0.04);
+  }
+
+  &.active {
+    background-color: $color-primary-100;
+
+    &::after {
+      @extend %tree-active-marker;
+    }
   }
 
   &::before,
   &::after {
     content: '';
     position: absolute;
-    left: -8px;
+    inset-inline-start: -8px;
   }
 
   &::before {
-    height: 32px;
-    border-inline-end: 1px solid $palette-neutral-200;
+    block-size: 32px;
+    border-inline-start: 1px solid $palette-neutral-200;
   }
 
   &:not(:last-child) {
     margin-bottom: 2px;
 
     &::before {
-      height: 34px;
+      block-size: 34px;
     }
   }
 }
@@ -204,7 +234,8 @@
 
   color: $palette-neutral-900;
   font-weight: 500;
-  padding: 0 32px 0 16px;
+  padding-block: 0;
+  padding-inline: 16px 32px;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -215,24 +246,36 @@
   }
 
   .active > & {
-    color: $palette-neutral-1200;
+    color: $color-primary-700;
   }
 
   /* stylelint-disable-next-line */
   &--empty::before {
     @extend %empty;
 
-    left: 32px;
-    right: 40px;
-    top: 8px;
-    height: 14px;
+    inset-inline: 32px 40px;
+    inset-block-start: 8px;
+    block-size: 14px;
     border-radius: 14px;
   }
 }
 
+.tree__sub-icon {
+  flex: 0 0 auto;
+  font-size: 15px;
+  color: $palette-neutral-700;
+
+  .tree__sub.active & {
+    color: $color-primary-500;
+  }
+}
+
 .tree__sub-link--loading {
+  position: absolute;
+  inset-block-start: 9px;
+  inset-inline-end: 9px;
+
   @include loading(14px);
-  @include absolute(9px, 9px, auto, auto);
 }
 
 .tree__sub-link--disabled {
@@ -249,7 +292,8 @@
 
 .tree__sub-add {
   display: inline-block;
-  margin: 10px 0 10px 6px;
+  margin-block: 10px;
+  margin-inline: 6px 0;
   line-height: 17px;
   font-size: 12px;
   font-weight: 500;
@@ -274,11 +318,10 @@
 %tree-right-icon {
   position: absolute;
   z-index: 1;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  max-height: 32px;
-  width: 32px;
+  inset-inline-end: 0;
+  inset-block: 0;
+  max-block-size: 32px;
+  inline-size: 32px;
   color: $color-neutral-700;
   font-size: 16px;
   display: none;
@@ -307,8 +350,8 @@
 
 .tree__counter {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
 }
 
 .tree__heading {

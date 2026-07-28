@@ -376,3 +376,64 @@ and English; locale parity stays 3469/3469 with strict mode clean.
 | `backend/src/baserow/core/migrations/0116_jadawel_arabic_english_only.py` | New: alter choices + normalise stranded users | Model change; orphaned rows would request an unresolvable locale | low |
 | `web-frontend/modules/builder/plugin.js` | Remove 7 unused locale imports | Dead imports that broke the build once the files were gone | low |
 | 113 × `web-frontend/**/locales/*.json`, 53 × `backend/**/locale/<lang>/` | Deleted | Unshipped languages | low |
+
+---
+
+## Sidebar simplification (2026-07-28)
+
+The panel was hard to read for three reasons that compound: you could not tell
+which row was selected, table rows carried no glyph, and four one-item sections
+each paid for a heading, a `+` and a separator.
+
+**Selection was invisible.** `.tree__item.active`, `.tree__action:hover` and
+`.tree__sub:hover` all resolved to the same `rgba($palette-neutral-1300, 0.04)`,
+so the open table and the row under the cursor were the same colour. Selection
+now carries the brand tint, brand text, a brand icon and a 3px marker bar;
+hover keeps the neutral wash. Where a row is both, `.active` wins on source
+order. These two states must never resolve to the same value again.
+
+**Tables had no icon.** A database with a dozen tables was a dozen identical
+lines of text. Every row now shows `iconoir-table` — the same glyph the search
+results already use for a table — except synced tables, which keep the sync
+icon rather than showing two.
+
+**`tree.scss` was written in physical directions** while the rest of the
+codebase uses logical ones: the sub-item indent, the connector line, the row
+menu, the counter and the loading spinners were all pinned to the LTR side and
+did not mirror in Arabic. Converted; verified that toggling `dir` produces an
+exact mirror, so LTR geometry is byte-for-byte what upstream shipped.
+
+**Workspace utilities became an icon row.** Notifications, members, invite and
+trash were five labelled rows costing ~170px above the fold; they are now 30px
+icon buttons under the workspace picker. The whole block is 92px. The sidebar's
+own search box went with them — global search stays reachable as the first icon,
+and the Ctrl/⌘ K hint the box used to show moved into its tooltip. Every icon
+carries a tooltip and an `aria-label`; the member count moved into the members
+tooltip rather than being dropped.
+
+**The four application sections became one list.** Applications now sort on
+`order` alone, which is correct because `Application.order` is allocated per
+workspace — the grouped rendering was re-sorting one workspace-wide sequence
+inside each type. A side effect is that a database and a dashboard can now be
+dragged past each other, which the backend already accepted. The per-type `+`
+buttons are gone; the "add new" menu at the foot of the panel already offers
+every creatable type plus templates and import.
+
+Not done, deliberately: the collapse control stays in `SidebarFoot`. Moving it
+into the utility row would have removed the expand affordance when the sidebar
+is collapsed, because that row is inside the block hidden by `v-show`.
+
+Verified in the running app in Arabic: five utility buttons with correct labels,
+no search box, zero headings, zero separators, active `rgb(240,247,243)` against
+hover `rgba(8,11,7,0.04)`, marker and row menu on the correct inline edges in
+both directions, stylelint clean on both stylesheets, locale parity 3470/3470.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/assets/scss/components/tree.scss` | Distinct active state + `%tree-active-marker`; `.tree__sub-icon`; physical → logical properties | Active was indistinguishable from hover; RTL did not mirror | medium — upstream edits this file |
+| `web-frontend/modules/core/assets/scss/components/sidebar.scss` | Replace `.sidebar__search*` with `.sidebar__utilities` / `.sidebar__utility` / badge override | Search box removed, utilities became icons | medium |
+| `web-frontend/modules/core/components/sidebar/SidebarMenu.vue` | Utilities as icon buttons; tooltips + aria-labels; Ctrl/⌘ K in the search tooltip | ~140px reclaimed above the fold | medium |
+| `web-frontend/modules/core/components/sidebar/SidebarSearch.vue` | Deleted | Its only caller was `SidebarMenu` | low |
+| `web-frontend/modules/core/components/sidebar/SidebarWithWorkspace.vue` | One flat application list; drop headings, per-type `+`, separators | Chrome outweighed content | medium |
+| `web-frontend/modules/database/components/sidebar/SidebarItem.vue` | Table glyph on every row | Rows were undifferentiated text | low |
+| `web-frontend/modules/core/locales/{en,ar}.json` | Add `sidebar.searchTooltip` | Keeps the keyboard shortcut discoverable without the box | low |

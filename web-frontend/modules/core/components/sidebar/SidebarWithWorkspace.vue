@@ -14,79 +14,43 @@
           >
           </component>
         </ul>
+        <!--
+          Jadawel: one list instead of a heading, a `+` and a separator per
+          application type. Four groups of one or two items each spent more
+          vertical space on chrome than on content, and the headings were the
+          same colour and weight as the rows beneath them, so they did not read
+          as headings anyway. Every type is still creatable from the "add new"
+          menu at the foot of the panel, which also covers templates and import.
+        -->
         <ul class="tree">
-          <li
-            v-for="(
-              applicationGroup, index
-            ) in groupedApplicationsForSelectedWorkspace"
-            :key="applicationGroup.type"
+          <component
+            :is="getApplicationComponent(application)"
+            v-for="application in orderedApplications"
+            :key="application.id"
+            v-sortable="{
+              id: application.id,
+              update: orderApplications,
+              handle: '[data-sortable-handle]',
+              marginTop: -1.5,
+              enabled: $hasPermission(
+                'workspace.order_applications',
+                selectedWorkspace,
+                selectedWorkspace.id
+              ),
+            }"
+            :application="application"
+            :pending-jobs="pendingJobs[application.type]"
+            :workspace="selectedWorkspace"
+          ></component>
+        </ul>
+        <ul v-if="typedPendingJobs.length" class="tree">
+          <component
+            :is="getPendingJobComponent(job)"
+            v-for="job in typedPendingJobs"
+            :key="job.id"
+            :job="job"
           >
-            <div
-              class="tree__heading"
-              :class="{
-                'margin-bottom-2':
-                  applicationGroup.applications.length === 0 &&
-                  index < groupedApplicationsForSelectedWorkspace.length - 1,
-              }"
-            >
-              <div class="tree__heading-name">
-                {{ applicationGroup.name }}
-              </div>
-              <a
-                v-if="canCreateApplication"
-                :ref="'createApplicationModalToggle' + applicationGroup.type"
-                class="tree__heading-add"
-                @click="openCreateApplicationModal(applicationGroup.type)"
-              >
-                <i class="iconoir-plus"></i>
-                <CreateApplicationModal
-                  :ref="'createApplicationModal' + applicationGroup.type"
-                  :application-type="applicationGroup.applicationType"
-                  :workspace="selectedWorkspace"
-                ></CreateApplicationModal>
-              </a>
-            </div>
-            <ul
-              class="tree"
-              :class="{
-                'margin-bottom-0': pendingJobs[applicationGroup.type].length,
-              }"
-              :data-highlight="`applications-${applicationGroup.type}`"
-            >
-              <component
-                :is="getApplicationComponent(application)"
-                v-for="application in applicationGroup.applications"
-                :key="application.id"
-                v-sortable="{
-                  id: application.id,
-                  update: orderApplications,
-                  handle: '[data-sortable-handle]',
-                  marginTop: -1.5,
-                  enabled: $hasPermission(
-                    'workspace.order_applications',
-                    selectedWorkspace,
-                    selectedWorkspace.id
-                  ),
-                }"
-                :application="application"
-                :pending-jobs="pendingJobs[application.type]"
-                :workspace="selectedWorkspace"
-              ></component>
-            </ul>
-            <ul v-if="pendingJobs[applicationGroup.type].length" class="tree">
-              <component
-                :is="getPendingJobComponent(job)"
-                v-for="job in pendingJobs[applicationGroup.type]"
-                :key="job.id"
-                :job="job"
-              >
-              </component>
-            </ul>
-            <div
-              v-if="index < groupedApplicationsForSelectedWorkspace.length - 1"
-              class="tree__separator"
-            ></div>
-          </li>
+          </component>
         </ul>
       </div>
     </div>
@@ -123,12 +87,11 @@
 
 <script>
 import { notifyIf } from '@baserow/modules/core/utils/error'
-import CreateApplicationModal from '@baserow/modules/core/components/application/CreateApplicationModal'
 import CreateApplicationContext from '@baserow/modules/core/components/application/CreateApplicationContext'
 
 export default {
   name: 'SidebarWithWorkspace',
-  components: { CreateApplicationContext, CreateApplicationModal },
+  components: { CreateApplicationContext },
   props: {
     applications: {
       type: Array,
@@ -141,30 +104,41 @@ export default {
   },
   computed: {
     /**
-     * Because all the applications that belong to the user are in the store we will
-     * filter on the selected workspace here.
+     * Every application in the selected workspace, in one list.
+     *
+     * Sorting on `order` alone is correct because `Application.order` is
+     * allocated per workspace, not per type — the grouped rendering this
+     * replaced was re-sorting the same workspace-wide sequence inside each
+     * type. As a side effect a database and a dashboard can now be dragged
+     * past each other, which the backend already accepted.
      */
-    groupedApplicationsForSelectedWorkspace() {
-      const applicationTypes = this.$registry
-        .getOrderedList('application')
-        .map((applicationType) => {
-          return {
-            name: applicationType.getNamePlural(),
-            type: applicationType.getType(),
-            applicationType: applicationType,
-            developmentStage: applicationType.developmentStage,
-            applications: this.applications
-              .filter((application) => {
-                return (
-                  application.workspace.id === this.selectedWorkspace.id &&
-                  application.type === applicationType.getType() &&
-                  applicationType.isVisible(application)
-                )
-              })
-              .sort((a, b) => a.order - b.order),
+    orderedApplications() {
+      return this.applications
+        .filter((application) => {
+          if (application.workspace.id !== this.selectedWorkspace.id) {
+            return false
           }
+          // An application whose type is not registered in this build cannot be
+          // rendered; skipping it here keeps the sidebar alive rather than
+          // throwing out of the v-for.
+          if (!this.$registry.exists('application', application.type)) {
+            return false
+          }
+          return this.$registry
+            .get('application', application.type)
+            .isVisible(application)
         })
-      return applicationTypes
+        .sort((a, b) => a.order - b.order)
+    },
+    /**
+     * Pending jobs that belong to an application type rather than to the
+     * workspace as a whole. They used to render under their type's heading;
+     * with one list they all collect below the applications.
+     */
+    typedPendingJobs() {
+      return Object.entries(this.pendingJobs)
+        .filter(([type]) => type !== 'null')
+        .flatMap(([, jobs]) => jobs)
     },
     pendingJobs() {
       const grouped = { null: [] }
@@ -180,13 +154,6 @@ export default {
         }
       })
       return grouped
-    },
-    canCreateApplication() {
-      return this.$hasPermission(
-        'workspace.create_application',
-        this.selectedWorkspace,
-        this.selectedWorkspace.id
-      )
     },
   },
   methods: {
@@ -208,14 +175,6 @@ export default {
       } catch (error) {
         notifyIf(error, 'application')
       }
-    },
-    openCreateApplicationModal(type) {
-      if (!this.canCreateApplication) {
-        return
-      }
-
-      const target = this.$refs['createApplicationModalToggle' + type]
-      this.$refs['createApplicationModal' + type][0].toggle(target)
     },
   },
 }
