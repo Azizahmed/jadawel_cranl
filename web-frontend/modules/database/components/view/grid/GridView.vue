@@ -461,7 +461,12 @@ import {
   sortFieldsByOrderAndIdFunction,
 } from '@baserow/modules/database/utils/view'
 import viewHelpers from '@baserow/modules/database/mixins/viewHelpers'
-import { isElement } from '@baserow/modules/core/utils/dom'
+import { isElement, isRtlElement } from '@baserow/modules/core/utils/dom'
+import { getInlineScrollOffset } from '@baserow/modules/database/utils/gridViewDrag'
+import {
+  mirrorInlineRect,
+  toInlineArrowKey,
+} from '@baserow/modules/database/utils/gridViewKeyboard'
 import viewDecoration from '@baserow/modules/database/mixins/viewDecoration'
 import { populateRow } from '@baserow/modules/database/store/view/grid'
 import { clone } from '@baserow/modules/core/utils/object'
@@ -1529,10 +1534,17 @@ export default {
       ) {
         event.preventDefault()
 
+        // Arrow keys are physical, the field order is not: it runs right to
+        // left in an RTL grid, so the key has to be swapped before it means
+        // anything about fields. Resolved here rather than beside `key` so
+        // that reading the direction costs nothing on every other keystroke.
+        const rtl = isRtlElement(this.$refs.gridView)
+        const inlineKey = toInlineArrowKey(key, rtl)
+
         const { position, fieldIndex, rowIndex } = await this.$store.dispatch(
           this.storePrefix + 'view/grid/multiSelectShiftChange',
           {
-            direction: arrowShiftKeysMapping[key],
+            direction: arrowShiftKeysMapping[inlineKey],
           }
         )
 
@@ -1541,16 +1553,16 @@ export default {
         }
 
         let scrollDirection = 'both'
-        if (position === 'head' && key === 'ArrowLeft') {
+        if (position === 'head' && inlineKey === 'ArrowLeft') {
           scrollDirection = 'horizontal'
         }
-        if (position === 'head' && key === 'ArrowUp') {
+        if (position === 'head' && inlineKey === 'ArrowUp') {
           scrollDirection = 'vertical'
         }
-        if (position === 'tail' && key === 'ArrowRight') {
+        if (position === 'tail' && inlineKey === 'ArrowRight') {
           scrollDirection = 'horizontal'
         }
-        if (position === 'tail' && key === 'ArrowDown') {
+        if (position === 'tail' && inlineKey === 'ArrowDown') {
           scrollDirection = 'vertical'
         }
 
@@ -1566,7 +1578,13 @@ export default {
         const visibleFieldOptions = this.$store.getters[
           this.storePrefix + 'view/grid/getOrderedVisibleFieldOptions'
         ](this.fields)
-        let elementRight = -horizontalContainer.scrollLeft
+        // Accumulated in field order, so this is a position on the inline axis.
+        // Browsers report scrollLeft as a negative number in RTL; the distance
+        // already scrolled toward inline-end is its magnitude either way.
+        let elementRight = -getInlineScrollOffset(
+          horizontalContainer.scrollLeft,
+          rtl
+        )
         for (let i = 0; i < visibleFieldOptions.length; i++) {
           const fieldOption = visibleFieldOptions[i]
           if (i === 0) {
@@ -1592,7 +1610,17 @@ export default {
           -verticalContainer.scrollTop + rowHeight + rowIndex * rowHeight
         const elementTop = elementBottom - rowHeight
         this.scrollToElementRect(
-          { elementTop, elementBottom, elementLeft, elementRight },
+          {
+            elementTop,
+            elementBottom,
+            // scrollToElementRect measures from the container's left edge, so
+            // the inline position has to be flipped across the viewport in RTL.
+            ...mirrorInlineRect(
+              { elementLeft, elementRight },
+              horizontalContainer.clientWidth,
+              rtl
+            ),
+          },
           scrollDirection,
           field
         )

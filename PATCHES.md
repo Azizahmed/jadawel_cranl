@@ -672,3 +672,44 @@ clean, locale parity 3501/3501.
 | `web-frontend/modules/core/components/dashboard/DashboardApplication.vue` | Resolve counts through `pluralKeys` | Arabic number agreement | low |
 | `web-frontend/scripts/check-locale-parity.mjs` | Allow `two`/`few`/`many` without an English twin | Categories Arabic needs and English lacks | low |
 | `web-frontend/modules/core/locales/{en,ar}.json` | Overview/chart/template strings; count messages as per-category keys | — | low |
+
+## Grid keyboard navigation follows field order in RTL (2026-07-29)
+
+Arrow keys name a physical direction; grid navigation moves along the field
+order, which is an inline axis. `ArrowLeft` was mapped straight onto "previous
+field", which is only true in LTR — in an Arabic grid the previous field sits to
+the *right* of the selected cell, so every horizontal arrow moved the selection
+away from the key the user pressed. Reported as: pressing left goes right and
+right goes left.
+
+The swap happens once, where the key becomes a direction, so both `Tab` and the
+vertical arrows are untouched: `Tab` already means "next in reading order",
+which *is* the field order, and rows stack top to bottom in both directions.
+
+The direction is read from `.grid-view`, not from the cell. Number, date, url,
+email and phone cells are pinned to `direction: ltr` in `arabase.scss` so their
+digits stay readable; reading the cell would have left the arrows inverted in
+exactly those columns and correct everywhere else.
+
+Shift+arrow multi-select had the same inversion, plus a second bug behind it:
+its scroll-into-view rectangle is accumulated in field order — an inline
+position — but `scrollToElementRect` measures from the container's left edge.
+The two coincide only in LTR. It now normalises `scrollLeft` (browsers report it
+negative in RTL) and mirrors the finished rectangle across the viewport.
+
+Verified in the running app in Arabic: selection steps 523 → 323 → 91 px on
+`ArrowLeft`, back the same way on `ArrowRight`, crosses into the frozen primary
+column at the far right, `Tab` still moves toward inline-end, `ArrowDown` holds
+its column. Shift+arrow extends field 1 → 5 and scrolls to `scrollLeft: -671`,
+landing the last field 20px inside the viewport. The same sequence with `dir`
+toggled to `ltr` produces the exact mirror (`+671`), so LTR is unchanged.
+7/7 new vitest; the 4 pre-existing snapshot failures in
+`test/unit/database/components/view/grid` were confirmed identical with the
+change stashed.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/database/utils/gridViewKeyboard.js` | New: `toInlineArrowKey`, `mirrorInlineRect` | Pure helpers, testable without a grid | low |
+| `web-frontend/test/unit/database/utils/gridViewKeyboard.spec.js` | New: 7 tests | Swap, vertical/Tab pass-through, rect mirroring | low |
+| `web-frontend/modules/database/mixins/gridField.js` | Swap horizontal arrows before mapping to a direction | Arrows were inverted in RTL | low |
+| `web-frontend/modules/database/components/view/grid/GridView.vue` | Same swap for shift+arrow; inline-normalised scroll rect | Multi-select inverted; scroll rect was inline, consumed as physical | medium |

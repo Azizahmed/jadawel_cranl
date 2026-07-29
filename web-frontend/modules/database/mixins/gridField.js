@@ -1,7 +1,9 @@
 import {
   getElementFromRef,
+  isRtlElement,
   onClickOutside,
 } from '@baserow/modules/core/utils/dom'
+import { toInlineArrowKey } from '@baserow/modules/database/utils/gridViewKeyboard'
 import baseField from '@baserow/modules/database/mixins/baseField'
 import copyPasteHelper from '@baserow/modules/database/mixins/copyPasteHelper'
 
@@ -135,7 +137,13 @@ export default {
         if (this.canSelectNext(event)) {
           if (Object.keys(arrowKeysMapping).includes(key) && !shiftKey) {
             event.preventDefault()
-            this.$emit(arrowKeysMapping[key])
+            // The direction is read from the grid rather than from the cell:
+            // number, date and url cells are pinned to `direction: ltr` so their
+            // digits stay readable, but they sit in the same right-to-left field
+            // order as every other cell.
+            const grid = cellElement.closest('.grid-view')
+            const rtl = isRtlElement(grid || cellElement)
+            this.$emit(arrowKeysMapping[toInlineArrowKey(key, rtl)])
           } else if (key === 'Tab') {
             event.preventDefault()
             this.$emit(shiftKey ? 'selectPrevious' : 'selectNext')
