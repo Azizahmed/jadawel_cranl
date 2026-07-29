@@ -713,3 +713,37 @@ change stashed.
 | `web-frontend/test/unit/database/utils/gridViewKeyboard.spec.js` | New: 7 tests | Swap, vertical/Tab pass-through, rect mirroring | low |
 | `web-frontend/modules/database/mixins/gridField.js` | Swap horizontal arrows before mapping to a direction | Arrows were inverted in RTL | low |
 | `web-frontend/modules/database/components/view/grid/GridView.vue` | Same swap for shift+arrow; inline-normalised scroll rect | Multi-select inverted; scroll rect was inline, consumed as physical | medium |
+
+## Workspace home: two applications per row (2026-07-29)
+
+The application list was a single flex column, so on a wide screen each row was
+a ~1900px band holding a 40px icon, a short name and one line of counters. The
+list is now a two-column grid.
+
+`minmax(0, 1fr)` rather than `1fr` for the tracks: `1fr` is `minmax(auto, 1fr)`,
+and `auto` refuses to shrink below the widest counter line, which would push the
+columns out of the container instead of letting the existing text ellipsis do
+its job.
+
+Grid rows are as tall as their tallest cell, so each `li` is a flex column and
+the application block takes up the slack. Without that the two hairline
+separators in a row sit at different heights as soon as one application's name
+wraps and its neighbour's does not.
+
+Below `$dashboard-applications-breakpoint` it falls back to one column. The
+number is measured, not guessed: the longest counter line in the seeded
+workspace ("قاعدة بيانات • 10 جداول • 94 عمودًا • 66 صفًا • تاريخ الإنشاء منذ
+ساعات") needs 362px of text plus 76px of icon, gap and padding, so two columns
+and the 32px gap want ~910px of list, and the sidebar plus the utility band take
+a further ~318px off the viewport. At 1200px the counters were clipping and the
+creation date was the first thing lost; 1280px clears it.
+
+Nothing was needed for RTL — grid flow follows the writing direction on its own.
+Verified at 1400px: first application in the right column in Arabic, in the left
+column with `dir` toggled to `ltr`, separators aligned per row, no clipped
+counter lines; at 1279px a single 961px column.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/assets/scss/components/dashboard.scss` | `.dashboard__applications` flex column → two-column grid; separator pinned to the bottom of the cell | Full-width rows wasted the screen | low |
+| `web-frontend/modules/core/assets/scss/variables.scss` | New `$dashboard-applications-breakpoint` | Single column below the width where counters clip | low |

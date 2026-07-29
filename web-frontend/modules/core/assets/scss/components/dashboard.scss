@@ -76,12 +76,30 @@
   gap: 32px;
 }
 
+// Two applications per row. `minmax(0, 1fr)` rather than `1fr`, because `1fr`
+// refuses to shrink below the widest counter line and would push the columns
+// out of the container instead of letting the text ellipsis do its job.
 .dashboard__applications {
   list-style: none;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 32px;
   padding: 0;
   margin: 0;
+
+  @media screen and (max-width: $dashboard-applications-breakpoint) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// Grid rows are as tall as their tallest cell, so the separator is pushed to
+// the bottom of the cell rather than left directly under the text. Without
+// this the two hairlines in a row sit at different heights whenever one
+// application's name wraps and its neighbour's does not.
+.dashboard__applications > li {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
 }
 
 .dashboard__application-more-button {
@@ -106,6 +124,12 @@
       display: block;
     }
   }
+}
+
+// Takes up the slack in a stretched grid cell, so the separator below it stays
+// pinned to the bottom of the row.
+.dashboard__applications > li > .dashboard__application {
+  margin-block-end: auto;
 }
 
 .dashboard__application-wrapper {

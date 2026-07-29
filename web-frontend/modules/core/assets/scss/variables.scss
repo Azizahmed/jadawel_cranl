@@ -76,6 +76,14 @@ $onboarding-breakpoint: 920px !default;
 
 $dashboard-breakpoint: 900px;
 
+// Below this the workspace home drops its application list back to one column.
+// A database's counter line ("قاعدة بيانات • 10 جداول • 94 عمودًا • 66 صفًا •
+// تاريخ الإنشاء منذ ساعات") needs about 440px including the icon, so two
+// columns and the gap want ~910px of list, and the sidebar plus the utility
+// band take a further ~320px off the viewport. Narrower than this the line
+// truncates and the creation date is the first thing lost.
+$dashboard-applications-breakpoint: 1280px !default;
+
 $builder-page-max-width: 1280px;
 
 // Datepicker variables
