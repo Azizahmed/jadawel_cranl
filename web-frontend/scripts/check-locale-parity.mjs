@@ -112,6 +112,22 @@ function issue(type, key, details = {}) {
   return { type, key, ...details }
 }
 
+/**
+ * CLDR plural categories Arabic uses and English does not.
+ *
+ * Count messages are stored as one key per category (see `utils/plural`), and
+ * Arabic has six where English has two. `dashboardApplication.rowCount.many` is
+ * therefore expected to have no English twin — it is a category the language
+ * needs, not a stray key. `zero`, `one` and `other` are deliberately absent from
+ * this list: those exist in both files and must stay paired.
+ */
+const ARABIC_ONLY_PLURAL_CATEGORIES = new Set(['two', 'few', 'many'])
+
+function isArabicOnlyPluralCategory(key) {
+  const category = key.split('.').pop()
+  return ARABIC_ONLY_PLURAL_CATEGORIES.has(category)
+}
+
 export function validateLocalePair(
   englishLocale,
   arabicLocale,
@@ -180,7 +196,7 @@ export function validateLocalePair(
   }
 
   for (const key of arabic.keys()) {
-    if (!english.has(key)) {
+    if (!english.has(key) && !isArabicOnlyPluralCategory(key)) {
       issues.push(issue('unexpected', key))
     }
 
