@@ -189,29 +189,63 @@ staff accounts whose password is public in Baserow's repository).
 
 ---
 
-## 3. Not yet diagnosed — the app reloading while you work
+## 3. The app reloading while you work — every deploy forces it
 
-I could not reproduce this from outside, and I ruled out the obvious causes
-rather than guessing:
+**Deploying while somebody has the app open reloads their browser. This is
+Nuxt behaving as designed, not a fault.**
+
+The mechanism, confirmed against production:
+
+1. `experimental.appManifest` is on in production (`nuxt.config.base.ts` enables
+   it for any non-development build), so the app polls
+   `/_nuxt/builds/latest.json`. It currently answers
+   `{"id":"b3bbb855-…","timestamp":1785349350313}`.
+2. Every deploy produces a new build id and a fresh set of content-hashed
+   chunk filenames. The previous deploy's chunks no longer exist on the server.
+3. A browser that still has the old app open asks for a chunk that is now a
+   404 on its next navigation.
+4. Nuxt's `emitRouteChunkError` defaults to `'automatic'`, so it calls
+   `reloadNuxtApp()` — a hard reload.
+
+Reloading is the correct outcome; the alternative is a half-updated app that
+fails in confusing ways. But the frequency is entirely a function of how often
+you deploy. Several deploys in an afternoon means several forced reloads for
+anyone signed in.
+
+**To confirm this is what you are hitting:** note the wall-clock time of the next
+unexpected reload and compare it against the deployment history in Coolify. If
+they line up, this is it, and the fix is scheduling rather than code.
+
+### Ruled out by measurement
 
 | Suspected cause | Measured | Verdict |
 |---|---|---|
 | Websockets failing, so the client gives up and reloads | `101 Switching Protocols` in 0.44 s; anonymous auth frame returns `success: true` | **Not the cause** |
 | Backend slow or timing out | `/api/_health/` 0.28–0.36 s, `/api/settings/` 0.32 s across 5 runs | **Not the cause** |
 | TLS or redirect loop | Single clean redirect, TLS 1.3, valid certificate | **Not the cause** |
-| Containers restarting (OOM) | Cannot be observed remotely | **Untested — most likely** |
+| Containers crash-looping | All nine containers report identical uptime, including `db` and `redis` — that is a stack restart, not a crash. No OOM in the last 48 h | **Not the cause** |
 | Slow first paint being *perceived* as a reload | `/login` took 1.03–2.08 s for 1.88 MB | **Contributing; §1.1 addresses it** |
 
-Run `docs/diagnose-production.sh` on the VPS and send back the output:
+### The Jul 27 OOM was real, and no container has a memory limit
 
-```bash
-bash docs/diagnose-production.sh > jadawel-diagnostics.txt 2>&1
-```
+The kernel ran out of memory on 2026-07-27 at 08:10 and killed a process
+running as UID 9999 — the user Django runs as here — holding **4.5 GB
+resident**. The same cascade also killed `hermes`, `chromium`, and reached
+`traefik` and `systemd`.
 
-It is read-only — it restarts nothing and changes nothing. The decisive sections
-are the kernel OOM log and the container restart counts. If those are clean, the
-reload is happening in the browser and the next place to look is the devtools
-console with "Preserve log" enabled.
+It has not recurred in 48 hours, and current usage is healthy: the nine Jadawel
+containers total roughly 2.4 GB of 7.8 GB, backend at 612 MB. But `docker stats`
+reports the limit for **every** container as `7.755GiB`, which is the host's
+total — meaning no container has a limit, and one runaway process can take the
+whole box down. That is what happened on Jul 27, and it took Coolify's own proxy
+with it.
+
+This VPS is shared: Coolify itself, an InsForge stack, Karakeep with a headless
+Chromium, Meilisearch and an nginx site all run alongside Jadawel. Memory limits
+are worth setting so a Jadawel spike cannot kill its neighbours, and vice versa.
+
+Do not raise the limits until §2.4 is done — the 30-minute template sync on
+every restart is the most likely source of a memory spike in this stack.
 
 ---
 
