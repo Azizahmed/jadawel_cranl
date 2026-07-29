@@ -297,6 +297,29 @@ services:
       - "traefik.http.routers.jadawel-https.middlewares=gzip"
       - "traefik.http.routers.jadawel-https.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)"
       - "traefik.http.routers.jadawel-https.service=jadawel"
+      # Brute-force protection. Baserow does not rate limit failed logins at all
+      # by default, so credential stuffing against /api/user/token-auth/ is
+      # limited only by network speed. This router matches just the credential
+      # endpoints and is declared with a higher priority than the catch-all
+      # above so it wins for those paths.
+      #
+      # 5 req/s average with a burst of 20, per client IP. Generous enough that
+      # a real person signing in never sees it, and slow enough that guessing a
+      # password stops being practical.
+      - "traefik.http.middlewares.jadawel-auth-ratelimit.ratelimit.average=5"
+      - "traefik.http.middlewares.jadawel-auth-ratelimit.ratelimit.burst=20"
+      - "traefik.http.middlewares.jadawel-auth-ratelimit.ratelimit.period=1s"
+      # Traefik sees Coolify's proxy in front of it, so the client IP has to be
+      # read from the end of X-Forwarded-For rather than the socket, otherwise
+      # every request shares one bucket and the whole site rate limits together.
+      - "traefik.http.middlewares.jadawel-auth-ratelimit.ratelimit.sourcecriterion.ipstrategy.depth=1"
+      - "traefik.http.routers.jadawel-auth.entrypoints=https"
+      - "traefik.http.routers.jadawel-auth.priority=100"
+      - "traefik.http.routers.jadawel-auth.rule=Host(`jadawel.azoz.cloud`) && (PathPrefix(`/api/user/token-auth/`) || PathPrefix(`/api/user/token-refresh/`) || PathPrefix(`/api/user/send-reset-password-email/`) || PathPrefix(`/api/user/reset-password/`))"
+      - "traefik.http.routers.jadawel-auth.middlewares=gzip,jadawel-auth-ratelimit"
+      - "traefik.http.routers.jadawel-auth.service=jadawel"
+      - "traefik.http.routers.jadawel-auth.tls=true"
+      - "traefik.http.routers.jadawel-auth.tls.certresolver=letsencrypt"
       - "traefik.http.routers.jadawel-https.tls=true"
       - "traefik.http.routers.jadawel-https.tls.certresolver=letsencrypt"
       - "traefik.http.services.jadawel.loadbalancer.server.port=80"

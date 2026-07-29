@@ -34,6 +34,51 @@
         on_demand
     }
 
+    # Baseline response headers. Set here rather than at the edge proxy so they
+    # survive a change of reverse proxy, and so a local `docker compose` bring-up
+    # behaves like production.
+    #
+    # No Content-Security-Policy is set globally on purpose: Nuxt serves inline
+    # bootstrap scripts, so a useful policy needs nonces or hashes and would
+    # silently break the app if guessed at. The media handler below keeps its own
+    # much stricter sandbox policy for user-uploaded files, which is where an
+    # injected script would actually be dangerous.
+    #
+    header {
+        # Traefik already redirects http->https unconditionally, so pinning
+        # browsers to https for a year adds no new failure mode. Note it is
+        # sticky: a browser that has seen this will refuse plain http for the
+        # full max-age even if the header is later removed.
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+        # Advertises the framework and its version to anyone fingerprinting.
+        -X-Powered-By
+    }
+
+    # Clickjacking protection for the signed-in application only.
+    #
+    # `/form/*` and `/public/*` are the shared-link routes customers embed in
+    # their own sites, so they must stay framable by anyone. `/media/*` is left
+    # out because the media handler below already sends a far stricter
+    # `sandbox` policy, and a second CSP header would combine with it.
+    #
+    # `'self'` rather than `'none'`: clickjacking needs a third-party page to do
+    # the framing, and the application builder previews pages in a same-origin
+    # iframe, which `'none'` would break.
+    @app_only {
+        not path /form/* /public/* /media/*
+    }
+    # `>` replaces the field instead of adding to it. Django sends its own
+    # `X-Frame-Options: DENY` on API responses, and without this a request that
+    # returns an upstream error through this route ends up with two conflicting
+    # values in the same response.
+    header @app_only {
+        >Content-Security-Policy "frame-ancestors 'self'"
+        >X-Frame-Options "SAMEORIGIN"
+    }
+
     @is_jadawel_tool {
         expression `
             "{$BASEROW_PUBLIC_URL}".contains({http.request.host}) ||
@@ -51,6 +96,19 @@
             "{$MEDIA_URL:}".startsWith("http://" + {http.request.host} + ":") ||
             "{$MEDIA_URL:}".startsWith("https://" + {http.request.host} + ":")
         `
+    }
+
+    # A source map is the complete original source of the application. The build
+    # still emits them so they can be uploaded to an error tracker, and marking
+    # them `hidden` removes the `sourceMappingURL` pointer from each chunk — but
+    # the files themselves stay on disk and remain fetchable by anyone who
+    # appends `.map` to a chunk URL. This is what actually stops them going out.
+    #
+    # Scoped to the build output rather than every `*.map`, so a user who
+    # uploads a file named `something.map` can still download their own file.
+    @build_sourcemaps path /_nuxt/*.map /static/*.map
+    handle @build_sourcemaps {
+        respond 404
     }
 
     handle @is_jadawel_media {

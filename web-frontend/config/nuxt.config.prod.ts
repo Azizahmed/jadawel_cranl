@@ -16,7 +16,20 @@ import baseConfig from './nuxt.config.base.ts'
 export default {
   ...baseConfig,
   sourcemap: {
+    // Server maps stay on: they are never served to a browser and they are what
+    // makes a backend stack trace readable.
     server: true,
-    client: true,
+    // Client maps are emitted but not referenced, so Sentry can still symbolicate
+    // an uploaded bundle while the public site does not hand out 4.2 MB of
+    // original source to anyone who appends `.map` to a chunk URL.
+    client: 'hidden',
+  },
+  features: {
+    // Nuxt inlines every stylesheet into the SSR response by default. That is a
+    // good trade for a small stylesheet and a bad one here: the bundle is 1.8 MB
+    // (~188 KB gzipped) and it was being re-sent, uncacheable, on every single
+    // document request. As an external file it is fetched once and then served
+    // from cache under the `immutable` header the rest of `/_nuxt` already uses.
+    inlineStyles: false,
   },
 }

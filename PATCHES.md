@@ -747,3 +747,56 @@ counter lines; at 1279px a single 961px column.
 |------|--------|--------|------------|
 | `web-frontend/modules/core/assets/scss/components/dashboard.scss` | `.dashboard__applications` flex column → two-column grid; separator pinned to the bottom of the cell | Full-width rows wasted the screen | low |
 | `web-frontend/modules/core/assets/scss/variables.scss` | New `$dashboard-applications-breakpoint` | Single column below the width where counters clip | low |
+
+## Production hardening: security headers, source maps, inline CSS (2026-07-29)
+
+Audit of the live deployment before go-live. Full findings, including the items
+that need an admin-panel or Coolify change, are in
+[docs/PRODUCTION_HARDENING.md](docs/PRODUCTION_HARDENING.md).
+
+**The stylesheet was being inlined into every SSR response.** Nuxt does this by
+default, which is right for a small stylesheet and wrong for a 1,870,576-byte
+one: ~188 KB gzipped of uncacheable CSS on every document request, re-parsed
+before first paint. Production was serving `entry.tn0RQdqM.css` at 0 bytes,
+which is the tell. A verification build with `features.inlineStyles: false`
+emits it as a real external file under `/_nuxt/`, where the existing
+`immutable` cache header applies.
+
+**Source maps were public.** `/_nuxt/DtultdTW.js.map` returned 200 with 4.2 MB
+of original source. `sourcemap.client: 'hidden'` removes the pointer from all 81
+chunks — verified 81 maps still emitted, 0 references remaining — but the files
+stay on disk and stay fetchable, so Caddy also 404s `/_nuxt/*.map`. Scoped to
+build output, so a user's own uploaded `.map` file still downloads.
+
+**No security headers were sent at all.** HSTS, nosniff, Referrer-Policy and
+Permissions-Policy added in the Caddyfile rather than at the edge, so they
+survive a change of proxy. No global CSP: Nuxt serves inline bootstrap scripts,
+so a guessed policy breaks the app silently. HSTS is a one-way door and is
+called out as such in the doc.
+
+**Clickjacking protection is scoped.** `frame-ancestors 'self'` on the signed-in
+app, nothing on `/form/*` and `/public/*` so shared links stay embeddable.
+`'self'` not `'none'` because the builder previews pages in a same-origin
+iframe. Testing against a live Caddy — not just `caddy validate` — showed Django
+sends its own `X-Frame-Options: DENY`, producing two conflicting values on
+upstream errors; the `>` replace prefix fixes that.
+
+**Login had no rate limiting.** Twelve consecutive failed logins returned 401
+every time, never 429. Baserow's own throttle is off by default and counts
+concurrency per user, not attempts per IP. A Traefik middleware on a
+higher-priority router now covers the four credential endpoints at 5 req/s with
+burst 20, keyed on `X-Forwarded-For` depth 1 — without that every request shares
+one bucket and the site throttles as a whole.
+
+Ruled out as causes of the reported self-reloading, by measurement: websockets
+(101 upgrade in 0.44 s, anonymous auth succeeds), backend latency (0.28–0.36 s),
+and TLS/redirects. Remaining candidate is container restarts, which cannot be
+seen from outside; `docs/diagnose-production.sh` is read-only and collects it.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/config/nuxt.config.prod.ts` | `inlineStyles: false`; client sourcemaps `hidden` | 1.8 MB CSS re-sent per request; 4.2 MB of source public | low |
+| `Caddyfile` | Baseline security headers; scoped frame-ancestors; 404 for build source maps | No headers at all; app framable; maps served | medium |
+| `docker-compose.yml` | Traefik rate-limit router on the credential endpoints | No brute-force protection | low |
+| `docs/PRODUCTION_HARDENING.md` | New: findings, and the settings only the operator can change | — | low |
+| `docs/diagnose-production.sh` | New: read-only VPS diagnostics | Self-reload cause needs server-side data | low |
