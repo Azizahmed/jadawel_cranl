@@ -72,41 +72,6 @@
           :invitation="invitation"
           class="margin-top-0 margin-bottom-0"
         ></WorkspaceInvitation>
-        <div class="dashboard__extras">
-          <div
-            v-if="canCreateCreateApplication"
-            class="dashboard__suggested-templates"
-          >
-            <h4>{{ $t('dashboard.suggestedTemplates') }}</h4>
-
-            <div class="dashboard__suggested-templates-wrapper">
-              <TemplateCard
-                v-for="(template, index) in templates"
-                :key="index"
-                :template="template"
-                class="dashboard__suggested-template"
-                @click="$refs.templateModal.show(template.slug)"
-              ></TemplateCard>
-
-              <TemplateCard
-                class="dashboard__suggested-template"
-                view-more
-                @click="$refs.templateModal.show()"
-              >
-              </TemplateCard>
-            </div>
-          </div>
-          <div v-if="resourceLinksComponents.length" class="dashboard__resources">
-            <h4>{{ $t('dashboard.resources') }}</h4>
-            <div class="dashboard__resources-wrapper">
-              <component
-                :is="component"
-                v-for="(component, index) in resourceLinksComponents"
-                :key="index"
-              ></component>
-            </div>
-          </div>
-        </div>
         <div class="dashboard__wrapper">
           <ul
             v-if="orderedApplicationsInSelectedWorkspace.length"
@@ -122,6 +87,7 @@
                 <DashboardApplication
                   :application="application"
                   :workspace="selectedWorkspace"
+                  :stats="databaseStats[application.id] || null"
                   @click="selectApplication(application)"
                 />
                 <div class="dashboard__application-separator"></div>
@@ -156,6 +122,70 @@
             </span>
           </div>
         </div>
+        <!--
+          Jadawel fork: everything below the application list is secondary, and
+          ordered by how much of it is about *this* workspace. The overview is
+          the user's own data, so it comes first; templates and resource links
+          are the same for everybody and sit under it.
+        -->
+        <DashboardOverview
+          v-if="orderedApplicationsInSelectedWorkspace.length"
+          :workspace="selectedWorkspace"
+          :applications="orderedApplicationsInSelectedWorkspace"
+          :stats="databaseStats"
+          :activity="workspaceActivity"
+        />
+
+        <div class="dashboard__extras">
+          <section
+            v-if="canCreateCreateApplication"
+            class="dashboard__suggested-templates"
+          >
+            <div class="dashboard__section-head">
+              <h4 class="dashboard__section-title">
+                {{ $t('dashboard.suggestedTemplates') }}
+              </h4>
+              <a
+                class="dashboard__section-action"
+                @click="$refs.templateModal.show()"
+                >{{ $t('dashboard.browseAllTemplates') }}</a
+              >
+            </div>
+
+            <div class="dashboard__suggested-templates-wrapper">
+              <DashboardTemplateCard
+                v-for="template in featuredTemplates"
+                :key="template.slug"
+                :name="template.name"
+                :description="template.description"
+                :icon="template.icon"
+                @click="$refs.templateModal.show(template.slug)"
+              />
+
+              <DashboardTemplateCard
+                view-more
+                :name="$t('dashboard.browseTemplates')"
+                @click="$refs.templateModal.show()"
+              />
+            </div>
+          </section>
+
+          <section
+            v-if="resourceLinksComponents.length"
+            class="dashboard__resources"
+          >
+            <h4 class="dashboard__section-title">
+              {{ $t('dashboard.resources') }}
+            </h4>
+            <div class="dashboard__resources-wrapper">
+              <component
+                :is="component"
+                v-for="(component, index) in resourceLinksComponents"
+                :key="index"
+              ></component>
+            </div>
+          </section>
+        </div>
       </div>
       <CreateApplicationContext
         ref="createApplicationContext"
@@ -176,7 +206,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, unref, watchEffect } from 'vue'
 import { useRoute, useRouter, useNuxtApp, createError } from '#app'
 import { useHead, useAsyncData } from '#imports'
 
@@ -184,10 +214,13 @@ import WorkspaceContext from '@baserow/modules/core/components/workspace/Workspa
 import CreateApplicationContext from '@baserow/modules/core/components/application/CreateApplicationContext'
 import DashboardApplication from '@baserow/modules/core/components/dashboard/DashboardApplication'
 import WorkspaceInvitation from '@baserow/modules/core/components/workspace/WorkspaceInvitation'
-import TemplateCard from '@baserow/modules/core/components/template/TemplateCard'
 import editWorkspace from '@baserow/modules/core/mixins/editWorkspace'
 import DashboardVerifyEmail from '@baserow/modules/core/components/dashboard/DashboardVerifyEmail'
+import DashboardOverview from '@baserow/modules/core/components/dashboard/DashboardOverview'
+import DashboardTemplateCard from '@baserow/modules/core/components/dashboard/DashboardTemplateCard'
 import TemplateModal from '@baserow/modules/core/components/template/TemplateModal'
+import DatabaseStatsService from '@baserow/modules/arabase/services/databaseStats'
+import WorkspaceActivityService from '@baserow/modules/arabase/services/workspaceActivity'
 
 definePageMeta({
   layout: 'app',
@@ -208,27 +241,77 @@ defineOptions({
 const route = useRoute()
 const router = useRouter()
 const nuxtApp = useNuxtApp()
-const { $store, $registry, $i18n, $hasPermission } = nuxtApp
+const { $store, $registry, $i18n, $hasPermission, $client } = nuxtApp
+
+/**
+ * Row / field / table counters keyed by database id.
+ *
+ * Fetched client-side, after the page has rendered, rather than awaited in
+ * `useAsyncData` with the rest of the workspace payload. Row counting is a
+ * COUNT(*) per table, so blocking the first paint on it would make the whole
+ * page as slow as the largest workspace. The cards render immediately and fill
+ * in their numbers when this resolves.
+ */
+const databaseStats = ref({})
+
+/**
+ * Rows created per day over the last month, or null until it resolves.
+ *
+ * Fetched separately from the counters above, for the same reason those are kept
+ * out of the application payload: this query groups as well as counts, so a
+ * workspace big enough to make it slow should not hold up the card numbers.
+ */
+const workspaceActivity = ref(null)
+
+const ACTIVITY_DAYS = 30
+
+/**
+ * The templates offered on the home page, per interface language.
+ *
+ * Upstream hardcodes two English slugs here, which in an Arabic-first product
+ * meant the home page advertised English templates and never surfaced the
+ * Arabic ones this fork ships. The slugs still have to be named — there is no
+ * "featured" flag on a template — but at least the right ones are named for the
+ * language the user is reading. An unknown slug simply opens the picker with
+ * nothing preselected, so a missing template degrades rather than breaks.
+ */
+const FEATURED_TEMPLATE_SLUGS = {
+  ar: {
+    projectManagement: 'arabic-project-management',
+    performanceReview: 'arabic-performance-review',
+  },
+  en: {
+    projectManagement: 'project-management',
+    performanceReview: 'performance-reviews',
+  },
+}
+
+const FEATURED_TEMPLATE_ICONS = {
+  projectManagement: 'iconoir-task-list',
+  performanceReview: 'iconoir-okrs',
+}
 
 // ----------------------------------------------------------------------------
 // STATE
 // ----------------------------------------------------------------------------
 const selectedWorkspace = ref(null)
 const workspaceComponentArguments = ref({})
-const templates = ref([
-  {
-    name: 'Project Management',
-    slug: 'project-management',
-    type: 'calendar',
-    color: 'yellow',
-  },
-  {
-    name: 'Performance Reviews',
-    slug: 'performance-reviews',
-    type: 'table',
-    color: 'purple',
-  },
-])
+
+const featuredTemplates = computed(() => {
+  // `unref`, not `$i18n.locale` directly. In a `<script setup>` block the nuxt
+  // app's `$i18n.locale` is a ref, while the same property read through the
+  // options API is a plain string. Indexing with the ref silently misses and
+  // falls through to English — and because `$i18n.t` resolves correctly
+  // regardless, the cards render Arabic names pointing at English templates.
+  const locale = unref($i18n.locale)
+  const slugs = FEATURED_TEMPLATE_SLUGS[locale] || FEATURED_TEMPLATE_SLUGS.en
+  return Object.entries(slugs).map(([key, slug]) => ({
+    slug,
+    icon: FEATURED_TEMPLATE_ICONS[key],
+    name: $i18n.t(`dashboardTemplates.${key}.name`),
+    description: $i18n.t(`dashboardTemplates.${key}.description`),
+  }))
+})
 
 // refs used in template
 const context = ref(null)
@@ -306,6 +389,46 @@ watchEffect(() => {
   selectedWorkspace.value = dashboardData.value.selectedWorkspace
   workspaceComponentArguments.value =
     dashboardData.value.workspaceComponentArguments
+})
+
+/**
+ * Load the counters whenever the selected workspace changes.
+ *
+ * Failures are swallowed on purpose: the counters are a decoration on cards that
+ * are already fully usable without them. A toast here would put an error in front
+ * of the user for something they did not ask for and cannot act on.
+ */
+watchEffect(async () => {
+  const workspace = selectedWorkspace.value
+  if (!workspace) return
+
+  databaseStats.value = {}
+  workspaceActivity.value = null
+
+  try {
+    const { data } = await DatabaseStatsService($client).fetchAll(workspace.id)
+    // Guard against a slower response for a workspace the user has since left.
+    if (selectedWorkspace.value?.id === workspace.id) {
+      databaseStats.value = data
+    }
+  } catch {
+    databaseStats.value = {}
+  }
+
+  // Requested after the counters rather than alongside them: both walk every
+  // table in the workspace, and the numbers on the cards are worth more to the
+  // user than the chart further down the page.
+  try {
+    const { data } = await WorkspaceActivityService($client).fetch(
+      workspace.id,
+      ACTIVITY_DAYS
+    )
+    if (selectedWorkspace.value?.id === workspace.id) {
+      workspaceActivity.value = data
+    }
+  } catch {
+    workspaceActivity.value = null
+  }
 })
 
 useHead(() => ({

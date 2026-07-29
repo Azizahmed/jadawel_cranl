@@ -22,4 +22,7 @@ class ArabaseConfig(AppConfig):
         #
         # Keep imports inside ready() (not at module top) so Django app loading
         # order is respected.
-        pass
+        from arabase.plugins import ArabasePlugin
+        from baserow.core.registries import plugin_registry
+
+        plugin_registry.register(ArabasePlugin())

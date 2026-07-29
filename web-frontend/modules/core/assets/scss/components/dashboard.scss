@@ -178,15 +178,19 @@
   padding: 40px 0;
 }
 
+// Jadawel fork: the `order` declarations that used to live here are gone on
+// purpose. `.dashboard__main` is a flex column, so `order` silently overrode DOM
+// order — upstream used `order: 1` to push this block last on narrow screens and
+// `order: 0` to pull it back above the application list on wide ones. The block
+// now sits after the application list in the markup for every breakpoint, so
+// reordering the template is enough and there is no invisible rule to fight.
 .dashboard__extras {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  order: 1;
 
   @media screen and (min-width: 1280px) {
     flex-direction: row;
-    order: 0;
   }
 }
 
@@ -196,21 +200,16 @@
   }
 }
 
+/*
+ * Jadawel: the wrappers used to be stretched to `calc(100% - 33px)` so the two
+ * columns matched each other's height. That sized a panel to its neighbour
+ * rather than to its contents — the resources block rendered 190px tall around a
+ * single link. Both blocks now size to what is in them.
+ */
 .dashboard__suggested-templates-wrapper {
-  background: $palette-neutral-50;
-  padding: 24px;
-  block-size: calc(100% - 33px);
-
-  @include flex-align-items(16px);
-  @include rounded($rounded-md);
-
-  @media screen and (min-width: 1280px) {
-    order: 1;
-  }
-}
-
-.dashboard__suggested-template {
-  flex: 1 1 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .dashboard__resources {
@@ -220,28 +219,23 @@
 }
 
 .dashboard__resources-wrapper {
-  display: grid;
-  gap: 16px;
-  block-size: calc(100% - 33px);
-  grid-template-columns: repeat(1, 1fr);
-
-  @media screen and (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .dashboard__resource {
   border: 1px solid $palette-neutral-200;
-  padding: 21px;
+  padding: 9px 12px;
   text-decoration: none;
   display: flex;
 
   @include rounded($rounded-md);
-  @include elevation($elevation-low);
 
   &:hover {
     text-decoration: none;
     border-color: $palette-neutral-400;
+    background: $palette-neutral-25;
   }
 }
 
@@ -264,31 +258,337 @@
 }
 
 .dashboard__resource-icon {
-  inline-size: 40px;
-  block-size: 40px;
-  background: $palette-neutral-50;
+  inline-size: 16px;
+  block-size: 16px;
   color: $palette-neutral-700;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 15px;
   flex-shrink: 0;
-
-  @include rounded($rounded-3xl);
 }
 
 .dashboard__resource-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: $palette-neutral-1200;
   margin: 0;
 }
 
+/*
+ * The description is what made each resource a 21px-padded card. As a chip the
+ * title carries the link on its own, so the sentence underneath is hidden rather
+ * than deleted: the markup comes from a plugin extension point this fork does
+ * not own, and dropping the element would mean editing every plugin that
+ * provides one.
+ */
 .dashboard__resource-text {
-  margin: 0;
-  font-size: 12px;
+  display: none;
 }
 
 .dashboard__help {
   @include absolute(auto, 32px, 0, auto);
+}
+
+/* --------------------------------------------------------------------------
+ * Jadawel: workspace overview — stat tiles and the two charts.
+ * -------------------------------------------------------------------------- */
+
+.dashboard__section-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: $palette-neutral-1200;
+  margin: 0 0 12px;
+}
+
+.dashboard__section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+
+  .dashboard__section-title {
+    margin-block-end: 12px;
+  }
+}
+
+.dashboard__section-action {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: $color-primary-500;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+    color: $color-primary-600;
+  }
+}
+
+.dashboard__stat-tiles {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  margin-block-end: 16px;
+}
+
+.dashboard__stat-tile {
+  background: $palette-neutral-50;
+  padding: 12px 14px;
+
+  @include rounded($rounded-md);
+}
+
+.dashboard__stat-tile-label {
+  font-size: 11.5px;
+  color: $palette-neutral-900;
+  margin-block-end: 6px;
+}
+
+.dashboard__stat-tile-value {
+  font-size: 22px;
+  font-weight: 500;
+  color: $palette-neutral-1200;
+  line-height: 1.1;
+}
+
+.dashboard__charts {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.chart {
+  border: 1px solid $palette-neutral-200;
+  padding: 14px 16px;
+  min-inline-size: 0;
+
+  @include rounded($rounded-md);
+}
+
+.chart__title {
+  font-size: 12px;
+  color: $palette-neutral-1100;
+  margin-block-end: 14px;
+}
+
+.chart__empty {
+  font-size: 11.5px;
+  color: $palette-neutral-800;
+  padding-block: 18px;
+  text-align: center;
+}
+
+.chart__bars {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chart__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:not(:last-child) {
+    margin-block-end: 10px;
+  }
+}
+
+.chart__bar-label {
+  @extend %ellipsis;
+
+  flex: 0 0 34%;
+  font-size: 11px;
+  color: $palette-neutral-900;
+}
+
+.chart__bar-track {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+}
+
+/*
+ * One series, so one colour and no legend — the row label carries identity.
+ * Rounded at the data end only; the baseline end stays square so every bar
+ * visibly starts from the same line.
+ */
+.chart__bar-fill {
+  block-size: 14px;
+  background: $color-primary-500;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
+}
+
+.chart__bar-value {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: $palette-neutral-1100;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__plot {
+  position: relative;
+  block-size: 96px;
+
+  &:focus-visible {
+    outline: 2px solid $color-primary-500;
+    outline-offset: 2px;
+  }
+}
+
+.chart__svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.chart__grid {
+  stroke: $palette-neutral-200;
+  stroke-width: 1;
+}
+
+.chart__area {
+  fill: $color-primary-500;
+  fill-opacity: 0.1;
+}
+
+.chart__line {
+  fill: none;
+  stroke: $color-primary-500;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+// The 2px ring is the surface colour, so the marker stays legible where it sits
+// on the line rather than being outlined in ink.
+.chart__marker {
+  fill: $color-primary-500;
+  stroke: $white;
+  stroke-width: 2;
+}
+
+.chart__crosshair {
+  stroke: $palette-neutral-400;
+  stroke-width: 1;
+}
+
+.chart__tooltip {
+  position: absolute;
+  inset-block-start: -4px;
+  transform: translateX(-50%);
+  background: $palette-neutral-1200;
+  color: $white;
+  padding: 5px 8px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1;
+
+  @include rounded($rounded);
+}
+
+.chart__tooltip-value {
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__tooltip-label {
+  font-size: 10.5px;
+  opacity: 0.75;
+}
+
+/*
+ * The time axis reads left to right even in Arabic — see DashboardAreaChart.
+ * `direction: ltr` keeps the two end labels on the ends they describe.
+ */
+.chart__axis {
+  display: flex;
+  justify-content: space-between;
+  direction: ltr;
+  font-size: 10.5px;
+  color: $palette-neutral-800;
+  margin-block-start: 4px;
+}
+
+.chart__sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+ * Jadawel: template cards.
+ * -------------------------------------------------------------------------- */
+
+.dashboard__template-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $palette-neutral-200;
+  padding: 14px;
+  cursor: pointer;
+  text-decoration: none;
+
+  @include rounded($rounded-md);
+
+  &:hover {
+    text-decoration: none;
+    border-color: $palette-neutral-400;
+    background: $palette-neutral-25;
+  }
+}
+
+.dashboard__template-card-icon {
+  inline-size: 32px;
+  block-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-primary-100;
+  color: $color-primary-500;
+  font-size: 18px;
+  margin-block-end: 10px;
+
+  @include rounded($rounded-md);
+}
+
+.dashboard__template-card-name {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: $palette-neutral-1200;
+  margin-block-end: 4px;
+}
+
+.dashboard__template-card-description {
+  font-size: 11px;
+  color: $palette-neutral-900;
+  line-height: 1.5;
+}
+
+/*
+ * The upstream "view more" tile rendered as an empty white box that read as a
+ * failed image load. A dashed outline plus a plus glyph says "there are more"
+ * without pretending to be a card that failed to load.
+ */
+.dashboard__template-card--more {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-style: dashed;
+  color: $palette-neutral-900;
+}
+
+.dashboard__template-card-more-icon {
+  font-size: 20px;
+  color: $palette-neutral-700;
+  margin-block-end: 8px;
 }

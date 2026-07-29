@@ -488,3 +488,187 @@ from the far left to the far right, which is the conventional corner in English.
 | `web-frontend/modules/core/assets/scss/variables.scss` | Add `$app-utilities-band` | Consumed by both header stylesheets | low |
 | `web-frontend/modules/core/components/sidebar/{SidebarMenu,Sidebar}.vue` | Remove the icon row and the search emit chain | Moved to the content header | medium |
 | `web-frontend/modules/core/locales/{en,ar}.json` | Remove `sidebar.searchTooltip` | Its only consumer is gone | low |
+
+## Phase — Arabic terminology pass + hide unfinished app types (2026-07-29)
+
+**Context:** A product-language pass over the Arabic UI, plus temporarily removing two
+application types from the creation flow. Six of the seven changes are pure locale-value
+edits (no keys added or removed — parity stays 3469/3469). The seventh, the default view
+name, could not be fixed in the frontend at all: `TableHandler.create_table` names the
+view with `_("Grid")` inside `translation.override(user.profile.language)`, so the name is
+**stored as literal text** at creation time and rendered as data thereafter.
+
+Upstream ships no `ar` backend catalogue (noted in the Phase 0 language strip above), so
+that gettext call had nothing to translate to and every Arabic user's tables were created
+with a view literally named "Grid". This adds the catalogue — the first Arabic backend
+translations in the fork — and a data migration to rewrite the rows created before it
+existed. Adding the catalogue alone would have fixed only newly created tables.
+
+The `.mo` is committed alongside the `.po` because nothing in the build runs
+`compilemessages` — the same convention upstream already follows for `en`.
+
+**Application types:** `builder` ("تطبيق") and `automation` ("أتمتة") are hidden from the
+"add new" context via the existing `canBeCreated()` hook rather than by deleting the
+registrations. Existing applications of both kinds keep loading, routing and rendering
+normally; only the creation entry point is gone. Both surfaces that offer creation
+(workspace home and the sidebar) share `CreateApplicationContext`, so one hook covers both.
+Reverting is a one-line change per file.
+
+**Terminology:** "لوحة التحكم" → "لوحة البيانات" is applied to the `applicationType.*` keys
+only — the dashboard *application type*. `sidebar.dashboard`, `dashboard.title` and
+`adminType.dashboard` still read "لوحة التحكم" because they name the workspace home and the
+admin area, which are different things that happened to share a translation.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/builder/applicationTypes.js` | Add `canBeCreated() { return false }` | Hide "تطبيق" from the add-new context without unregistering the type | low |
+| `web-frontend/modules/automation/applicationTypes.js` | Add `canBeCreated() { return false }` | Same, for "أتمتة" | low |
+| `web-frontend/locales/ar.json` | `applicationType.dashboard{,s,DefaultName}` → "لوحة البيانات"; `common.summarize` → "تحليل"; `viewType.grid` → "جدول" | Product terminology; `common.summarize` is the grid footer aggregation row | low |
+| `web-frontend/modules/core/locales/ar.json` | `createApplicationContext.fromTemplate` → "القوالب الجاهزة" | Reads as a destination, not a preposition | low |
+| `web-frontend/modules/database/locales/ar.json` | `databaseDashboardResourceLinks.title` → "API"; `viewGroupBy.groupBy` + `viewGroupByContext.{groupBy,noGroupByTitle}` → "مجموعة" | "API" is the term users actually search for; "تجميع" collided with the rollup field type | low |
+| `backend/src/baserow/contrib/database/locale/ar/LC_MESSAGES/django.{po,mo}` | New: first Arabic backend catalogue; translates `"Grid"` → "جدول" | The view name is picked in the backend under `translation.override`; untranslated entries still fall back to English | low |
+| `backend/src/baserow/contrib/database/migrations/0210_jadawel_rename_default_grid_views.py` | New: rename views named exactly `"Grid"` → `"جدول"`, reversible | The catalogue fixes new tables only; existing rows hold the untranslated literal | low |
+
+### Known limitation
+`fieldType.rollup` is still "تجميع". It is a different concept (the rollup field type) that
+upstream happens to translate with the same Arabic word as group-by; renaming it was out of
+scope for this pass and needs its own term.
+
+## Phase — Workspace home: data-bearing database list (2026-07-29)
+
+**Context:** The workspace home page led with two static blocks — "suggested templates"
+(two cards hardcoded in `workspace.vue`) and "resources" (one plugin-provided API link) —
+and only then showed the user's own applications, each labelled with nothing but its type
+and creation date. This moves the application list to the top, adds real counters to it,
+and puts per-database actions on the card.
+
+**The reorder needed a stylesheet change, not just a template change.** `.dashboard__main`
+is a flex column and `.dashboard__extras` carried `order: 1` / `order: 0` (wide screens),
+so DOM order was being silently overridden — upstream used `order` to place the block
+above the list on desktop while keeping it below on mobile. Reordering the template alone
+would have had no effect above 1280px. Both `order` declarations are removed so the markup
+is the single source of truth.
+
+**Counters are a separate endpoint, not extra fields on the application payload.** That
+payload is fetched on every route because the sidebar depends on it; row counting is the
+expensive part, and folding it in would make every page load pay for a number only the home
+page renders. `GET /api/arabase/workspace/<id>/database-stats/` is fetched client-side after
+first paint, and failures are swallowed — the cards are fully usable without the numbers.
+
+**Row counts are counted live.** `TableUsage.row_count` exists but is written by the
+periodic `run_calculate_storage` task, which is gated behind the instance setting
+`track_workspace_usage` — off by default, so the table was empty for all 845 tables on the
+dev instance, and even when enabled it lags by up to 30 minutes. Each Baserow table is a
+real Postgres table, so exact counts mean one `COUNT(*)` each. Through the ORM that costs a
+dynamic model build per table (measured: ~370ms for 14 tables); as a single `UNION ALL` of
+plain counts it is ~4ms for the same 14. The endpoint does the latter, caps the fan-out at
+200 tables, and returns `rows_exact: false` with a null count past that rather than a
+partial total.
+
+**Export is the only genuinely new action.** Rename, duplicate, snapshots, trash and delete
+were already in the `⋮` menu of the dashboard card — that menu has always rendered
+`getApplicationContextComponent(application)`, the same component the sidebar uses.
+`ExportWorkspaceModal` gained an optional `application` prop; when set it preselects that
+one application, replaces the application picker with an empty slot so the scope cannot be
+widened, and retitles. Passing nothing keeps the workspace-wide behaviour the workspace
+context menu relies on.
+
+The `$tc` helper does not exist in this build of vue-i18n. Pluralised keys are called as
+`$t(key, { count })`, which is what the rest of the app already does.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/pages/workspace.vue` | Move `.dashboard__extras` after `.dashboard__wrapper`; fetch and pass `databaseStats` | Put the user's data first; feed the cards | med |
+| `web-frontend/modules/core/assets/scss/components/dashboard.scss` | Drop both `order` declarations on `.dashboard__extras` | They overrode DOM order and made the template reorder a no-op on desktop | low |
+| `web-frontend/modules/core/components/dashboard/DashboardApplication.vue` | New `stats` prop; render table/column/row counts | The counters | low |
+| `web-frontend/modules/arabase/services/databaseStats.js` | New: client for the stats endpoint | — | low |
+| `web-frontend/modules/core/components/export/ExportWorkspaceModal.vue` | Optional `application` prop: scoped title, preselection, picker suppressed | Export one database from its own menu | med |
+| `web-frontend/modules/core/components/export/ExportWorkspaceForm.vue` | Optional `initialApplicationIds` prop | Null keeps the select-all default | low |
+| `web-frontend/modules/database/components/application/ApplicationContext.vue` | Add the export item + modal inside `#additional-context-items` | Core renders no default slot, so anything outside a named slot is dropped | low |
+| `web-frontend/modules/core/locales/{en,ar}.json` | `dashboardApplication.{table,field,row}Count`, `sidebarApplication.exportDatabase`, `exportWorkspaceModal.application{Title,Description}` | — | low |
+| `backend/src/arabase/api/{database_stats,views,urls}.py`, `arabase/plugins.py` | New: the stats endpoint, mounted under `/api/arabase/` via `plugin_registry` | Additive; no core url file touched | low |
+| `backend/src/arabase/apps.py` | Register `ArabasePlugin` in `ready()` | First use of the registry hook the file was written for | low |
+
+### Known limitations
+- Arabic plural forms use the repo's existing three-form convention, so counts above ten
+  read "94 أعمدة" where strict grammar wants "94 عمودًا". The grid footer already says
+  "200 صفوف"; fixing it properly means adding Arabic CLDR plural rules to `i18n.config.ts`
+  and is a separate change.
+- Counters cover databases only. Other application types render as before.
+
+---
+
+## Workspace home: overview charts, template cards, resources (2026-07-29)
+
+The section under the application list was three problems at once. The two
+"suggested templates" were a hardcoded array of English slugs in `workspace.vue`,
+so an Arabic-first product advertised English templates and never surfaced the
+Arabic ones this fork ships. The "view more" tile rendered as an empty white box
+that reads as a failed image load. And both panels were stretched to
+`calc(100% - 33px)` so each matched its neighbour's height rather than its own
+contents — the resources block was 190px of white around a single link.
+
+**Overview strip.** Four stat tiles plus two charts, above the templates, because
+it is the only part of that area that reflects the user's own data. Rows, tables
+and members are separate tiles rather than one chart: they are 279, 14 and 1, and
+forcing measures of different magnitude onto shared axes — or worse two y-axes —
+is the standard way a chart misleads.
+
+`DashboardBarChart` plots rows per database, single hue, no legend (one series;
+the row labels carry identity), bars scaled against the largest value rather than
+the total so a small database is still visible. `DashboardAreaChart` plots rows
+added per day with a crosshair, tooltip, keyboard arrow-key traversal, and a
+visually-hidden table — the bar chart needs no table because every value is
+already text beside its bar. Both are hand-rolled SVG/CSS: no chart library, so
+no runtime CDN fetch.
+
+**The time axis deliberately does not mirror.** It reads left-to-right in Arabic
+too. Mirroring a time series is a known source of misreading and Arabic-language
+dashboards overwhelmingly keep time flowing this way.
+
+**Backend.** `/arabase/workspace/{id}/activity/` aggregates `created_on` across
+every user table, capped and reported the same way the counters are. The
+alternatives were all worse: `TableUsage` has no history and is off by default,
+`RowHistory` records only edits and is pruned, and the audit log is an enterprise
+feature this fork must not read.
+
+Two bugs found while verifying, both of which looked fine on screen:
+
+- `$i18n.locale` is a **ref** inside `<script setup>` and a **string** through the
+  options API. Indexing the slug map with the ref missed silently and fell back
+  to English, while `$i18n.t` still returned Arabic — so the cards rendered
+  Arabic names that opened the English templates. Fixed with `unref`.
+- Arabic number agreement. vue-i18n applies the English plural rule to every
+  locale, so 200 rows read `200 صفوف` and 24 columns `24 أعمدة`; Arabic takes the
+  singular above ten. Supplying a custom rule does not work — this build of
+  @nuxtjs/i18n honours neither `pluralizationRules` nor `pluralRules` from
+  `i18n.config.ts`, and both were tried; the runtime kept returning the dual form
+  for every count above one. The category is now resolved with `Intl.PluralRules`
+  (CLDR is in the browser) and used to pick a plain message key. Counts render
+  `200 صف`, `24 عمودًا`, `13 صفًا`, `6 أعمدة`.
+
+Only `dashboardApplication`'s three count messages were converted. The other 24
+Arabic plural messages still use vue-i18n's pipe syntax and the English rule;
+converting one is a local edit to that message plus a `counted()` call, with no
+further code change.
+
+Verified in the running app in both languages: tiles 3/14/279/1, bars at 100/33/6.5
+percent with the rounded end on the data side in both directions, hover tooltip
+and crosshair, activity path drawn from the live endpoint, Arabic cards opening
+`arabic-project-management`, English cards opening `project-management`, resources
+row 38px instead of 190px. Backend 8/8 pytest, frontend 9/9 vitest, stylelint
+clean, locale parity 3501/3501.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/arabase/api/activity.py` | New: rows-created-per-day aggregation | No non-enterprise source for row history | low |
+| `backend/src/arabase/api/{views,urls}.py` | New `WorkspaceActivityView` | — | low |
+| `backend/tests/arabase/test_workspace_activity.py` | New: 8 tests | Density, trashed rows, window, clamping, permissions | low |
+| `web-frontend/modules/arabase/services/workspaceActivity.js` | New service | — | low |
+| `web-frontend/modules/core/components/dashboard/Dashboard{Overview,BarChart,AreaChart,TemplateCard}.vue` | New | Overview strip and redesigned cards | low |
+| `web-frontend/modules/core/pages/workspace.vue` | Locale-aware featured templates; mount overview; fetch activity | Hardcoded English slugs; `unref` bug | medium |
+| `web-frontend/modules/core/assets/scss/components/dashboard.scss` | Chart, tile and card styles; unstretch both panels | Panels were sized to each other, not their contents | medium |
+| `web-frontend/modules/core/utils/plural.js` | New: CLDR category via `Intl.PluralRules` | vue-i18n's rule is English-only | low |
+| `web-frontend/modules/core/components/dashboard/DashboardApplication.vue` | Resolve counts through `pluralKeys` | Arabic number agreement | low |
+| `web-frontend/scripts/check-locale-parity.mjs` | Allow `two`/`few`/`many` without an English twin | Categories Arabic needs and English lacks | low |
+| `web-frontend/modules/core/locales/{en,ar}.json` | Overview/chart/template strings; count messages as per-category keys | — | low |

@@ -57,6 +57,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Restricts the export to these application ids instead of defaulting to
+     * every application in the workspace. Null keeps the original behaviour of
+     * preselecting all of them.
+     */
+    initialApplicationIds: {
+      type: Array,
+      required: false,
+      default: null,
+    },
   },
   emits: ['update'],
   setup() {
@@ -73,10 +83,14 @@ export default {
   mounted() {
     this.$nextTick(() => {
       if (this.values.application_ids.length === 0) {
-        const allApplications = this.$store.getters[
-          'application/getAllOfWorkspace'
-        ](this.workspace)
-        this.values.application_ids = allApplications.map((app) => app.id)
+        if (this.initialApplicationIds !== null) {
+          this.values.application_ids = [...this.initialApplicationIds]
+        } else {
+          const allApplications = this.$store.getters[
+            'application/getAllOfWorkspace'
+          ](this.workspace)
+          this.values.application_ids = allApplications.map((app) => app.id)
+        }
         this.$emit('update', this.values.application_ids)
       }
     })

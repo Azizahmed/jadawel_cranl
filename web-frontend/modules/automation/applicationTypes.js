@@ -42,6 +42,15 @@ export class AutomationApplicationType extends ApplicationType {
     return false
   }
 
+  /**
+   * Jadawel fork: automations are hidden from the "add new" context until the
+   * feature is ready for our users. Existing automations keep working — this
+   * only removes it as a creation option.
+   */
+  canBeCreated() {
+    return false
+  }
+
   getApplicationContextComponent() {
     return ApplicationContext
   }

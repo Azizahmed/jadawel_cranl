@@ -304,7 +304,7 @@
     "addDecorator": "إضافة الديكور"
   },
   "databaseDashboardResourceLinks": {
-    "title": "وثائق واجهة برمجة التطبيقات",
+    "title": "API",
     "description": "تعرف على المزيد حول الكود الخاص بنا"
   },
   "formViewField": {
@@ -927,15 +927,15 @@
     "sort": "ترتيب | ترتيب واحد | {count} ترتيبات"
   },
   "viewGroupByContext": {
-    "noGroupByTitle": "لم تُنشئ أي تجميعات بعد",
+    "noGroupByTitle": "لم تُنشئ أي مجموعات بعد",
     "noGroupByText": "جمّع الصفوف معًا حسب حقل.",
-    "groupBy": "تجميع حسب",
+    "groupBy": "مجموعة حسب",
     "thenBy": "ثم حسب",
     "addGroupBy": "اختر حقلًا للتجميع حسبه",
     "hiddenFieldWarning": "يشير تجميع واحد أو أكثر إلى حقول مخفية لن تكون ظاهرة للمحررين والأدوار الأدنى."
   },
   "viewGroupBy": {
-    "groupBy": "تجميع | تجميع حسب حقل واحد | تجميع حسب {count} حقول"
+    "groupBy": "مجموعة | مجموعة حسب حقل واحد | مجموعة حسب {count} حقول"
   },
   "viewContext": {
     "exportView": "تصدير العرض",

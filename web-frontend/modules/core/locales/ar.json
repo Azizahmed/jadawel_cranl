@@ -538,7 +538,9 @@
   "dashboard": {
     "title": "لوحة التحكم",
     "becomeGithubSponsor": "كن أحد رعاة GitHub",
-    "suggestedTemplates": "القوالب المقترحة",
+    "suggestedTemplates": "ابدأ من قالب",
+    "browseAllTemplates": "عرض كل القوالب",
+    "browseTemplates": "تصفَّح القوالب",
     "resources": "الموارد",
     "apiDocumentation": "وثائق واجهة برمجة التطبيقات",
     "apiDocumentationMessage": "تعرف على المزيد حول الكود الخاص بنا",
@@ -548,8 +550,60 @@
     "noWorkspace": "لا توجد مساحة عمل",
     "noWorkspaceDescription": "ابدأ بإنشاء مساحة عمل جديدة"
   },
+  "dashboardOverview": {
+    "title": "نظرة عامة",
+    "databases": "قواعد البيانات",
+    "tables": "الجداول",
+    "rows": "الصفوف",
+    "members": "الأعضاء"
+  },
+  "dashboardCharts": {
+    "rowsPerDatabase": "الصفوف حسب قاعدة البيانات",
+    "rowsAddedOverTime": "الصفوف المضافة · آخر {days} يومًا",
+    "rowsAdded": "الصفوف المضافة",
+    "date": "التاريخ",
+    "noDatabases": "لا توجد بيانات لعرضها بعد",
+    "noActivity": "لا يوجد نشاط في هذه الفترة",
+    "untitledDatabase": "قاعدة بيانات بدون عنوان",
+    "otherDatabases": "قواعد بيانات أخرى ({count})",
+    "activitySummary": "أُضيف {total} صفًا خلال {days} يومًا"
+  },
+  "dashboardTemplates": {
+    "projectManagement": {
+      "name": "إدارة المشاريع",
+      "description": "مهام ومشاريع ومكلَّفون، مع حالة وأولوية وتاريخ استحقاق."
+    },
+    "performanceReview": {
+      "name": "تقييم الأداء",
+      "description": "دورات تقييم وأهداف وملاحظات لكل موظف على مدار السنة."
+    }
+  },
   "dashboardApplication": {
-    "createdAt": "تاريخ الإنشاء"
+    "createdAt": "تاريخ الإنشاء",
+    "tableCount": {
+      "zero": "لا جداول",
+      "one": "جدول واحد",
+      "two": "جدولان",
+      "few": "{count} جداول",
+      "many": "{count} جدولًا",
+      "other": "{count} جدول"
+    },
+    "fieldCount": {
+      "zero": "لا أعمدة",
+      "one": "عمود واحد",
+      "two": "عمودان",
+      "few": "{count} أعمدة",
+      "many": "{count} عمودًا",
+      "other": "{count} عمود"
+    },
+    "rowCount": {
+      "zero": "لا صفوف",
+      "one": "صف واحد",
+      "two": "صفان",
+      "few": "{count} صفوف",
+      "many": "{count} صفًا",
+      "other": "{count} صف"
+    }
   },
   "templateCard": {
     "viewMore": "عرض المزيد"
@@ -653,7 +707,7 @@
     "use": "استخدم هذا القالب"
   },
   "createApplicationContext": {
-    "fromTemplate": "من القالب",
+    "fromTemplate": "القوالب الجاهزة",
     "fromTemplateDesc": "ابدأ بسرعة باستخدام أحد القوالب الموصى بها",
     "table": "جدول",
     "tableDesc": "أنشئ مكانًا جديدًا لإدارة البيانات في قاعدة بياناتك.",
@@ -767,6 +821,8 @@
   "exportWorkspaceModal": {
     "title": "تصدير",
     "description": "ستُصدَّر بياناتك كملف ZIP يمكن استيراده إلى مثيل آخر من منصة جداول.",
+    "applicationTitle": "تصدير قاعدة البيانات",
+    "applicationDescription": "ستُصدَّر قاعدة البيانات هذه كملف ZIP يمكن استيراده إلى مثيل آخر من منصة جداول.",
     "exportSettings": "إعدادات التصدير",
     "export": "تصدير البيانات",
     "reset": "ابدأ جديدًا",
@@ -882,7 +938,8 @@
     "duplicate": "تكرار",
     "viewTrash": "عرض سلة المهملات",
     "delete": "حذف",
-    "snapshots": "اللقطات"
+    "snapshots": "اللقطات",
+    "exportDatabase": "تصدير قاعدة البيانات"
   },
   "settingsModal": {
     "title": "إعداداتي"

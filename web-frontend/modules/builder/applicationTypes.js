@@ -43,6 +43,15 @@ export class BuilderApplicationType extends ApplicationType {
     return false
   }
 
+  /**
+   * Jadawel fork: the application builder is hidden from the "add new" context
+   * until the feature is ready for our users. Existing builder applications
+   * keep working — this only removes it as a creation option.
+   */
+  canBeCreated() {
+    return false
+  }
+
   getApplicationFormComponent() {
     return BuilderForm
   }

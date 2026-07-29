@@ -1,10 +1,19 @@
 <template>
   <Modal ref="modal">
     <h2 class="box__title">
-      {{ $t('exportWorkspaceModal.title') }} {{ workspace.name }}
+      <template v-if="application">
+        {{ $t('exportWorkspaceModal.applicationTitle') }} {{ application.name }}
+      </template>
+      <template v-else>
+        {{ $t('exportWorkspaceModal.title') }} {{ workspace.name }}
+      </template>
     </h2>
     <p>
-      {{ $t('exportWorkspaceModal.description') }}
+      {{
+        application
+          ? $t('exportWorkspaceModal.applicationDescription')
+          : $t('exportWorkspaceModal.description')
+      }}
     </p>
     <component
       :is="component"
@@ -17,9 +26,17 @@
         ref="form"
         :workspace="workspace"
         :disabled="jobIsRunning"
+        :initial-application-ids="application ? [application.id] : null"
         @submitted="submitted"
         @update="updateSelectedApplications"
-      />
+      >
+        <!--
+          Scoped to one application: the picker is replaced by an empty slot so
+          the selection cannot be widened back to the whole workspace from a menu
+          the user opened on a single database.
+        -->
+        <template v-if="application" #select-applications><span /></template>
+      </ExportWorkspaceForm>
 
       <!-- Export button section -->
       <div
@@ -104,6 +121,15 @@ export default {
     workspace: {
       type: Object,
       required: true,
+    },
+    /**
+     * Scopes the export to a single application. Null exports the whole
+     * workspace, which is how the workspace context menu still opens this modal.
+     */
+    application: {
+      type: Object,
+      required: false,
+      default: null,
     },
   },
   data() {

@@ -34,7 +34,8 @@
     "duplicate": "Duplicate",
     "viewTrash": "View trash",
     "delete": "Delete",
-    "snapshots": "Snapshots"
+    "snapshots": "Snapshots",
+    "exportDatabase": "Export database"
   },
   "duplicateApplicationJobType": {
     "duplicating": "Duplicating",
@@ -220,6 +221,8 @@
   "exportWorkspaceModal": {
     "title": "Export",
     "description": "Your data will be exported as a ZIP file, which can be imported into other Jadawel instance.",
+    "applicationTitle": "Export database",
+    "applicationDescription": "This database will be exported as a ZIP file, which can be imported into another Jadawel instance.",
     "exportSettings": "Export settings",
     "export": "Export data",
     "reset": "Start new",
@@ -509,7 +512,9 @@
   "dashboard": {
     "title": "Dashboard",
     "becomeGithubSponsor": "Become a GitHub sponsor",
-    "suggestedTemplates": "Suggested templates",
+    "suggestedTemplates": "Start from a template",
+    "browseAllTemplates": "Browse all templates",
+    "browseTemplates": "Browse templates",
     "resources": "Resources",
     "apiDocumentation": "API documentation",
     "apiDocumentationMessage": "Learn more about our code",
@@ -519,8 +524,51 @@
     "noWorkspace": "No workspace",
     "noWorkspaceDescription": "Get started by creating a new workspace"
   },
+  "dashboardOverview": {
+    "title": "Overview",
+    "databases": "Databases",
+    "tables": "Tables",
+    "rows": "Rows",
+    "members": "Members"
+  },
+  "dashboardCharts": {
+    "rowsPerDatabase": "Rows per database",
+    "rowsAddedOverTime": "Rows added · last {days} days",
+    "rowsAdded": "Rows added",
+    "date": "Date",
+    "noDatabases": "No data to show yet",
+    "noActivity": "No activity in this period",
+    "untitledDatabase": "Untitled database",
+    "otherDatabases": "{count} other databases",
+    "activitySummary": "{total} rows added over {days} days"
+  },
+  "dashboardTemplates": {
+    "projectManagement": {
+      "name": "Project management",
+      "description": "Tasks, projects and owners, with status, priority and a due date."
+    },
+    "performanceReview": {
+      "name": "Performance reviews",
+      "description": "Review cycles, goals and feedback for each employee across the year."
+    }
+  },
   "dashboardApplication": {
-    "createdAt": "created"
+    "createdAt": "created",
+    "tableCount": {
+      "zero": "no tables",
+      "one": "1 table",
+      "other": "{count} tables"
+    },
+    "fieldCount": {
+      "zero": "no columns",
+      "one": "1 column",
+      "other": "{count} columns"
+    },
+    "rowCount": {
+      "zero": "no rows",
+      "one": "1 row",
+      "other": "{count} rows"
+    }
   },
   "templateCard": {
     "viewMore": "View more"

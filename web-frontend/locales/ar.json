@@ -532,7 +532,7 @@
     "all": "الكل",
     "beta": "بيتا",
     "alpha": "ألفا",
-    "summarize": "تلخيص",
+    "summarize": "تحليل",
     "enabled": "مُفعّل",
     "disabled": "مُعطّل",
     "optional": "اختياري",
@@ -597,9 +597,9 @@
     "builders": "تطبيقات",
     "builderDefaultName": "تطبيق بدون عنوان",
     "builderDesc": "أنشئ مواقع الويب وتطبيقات الويب والبوابات بسهولة ومن دون كتابة تعليمات برمجية.",
-    "dashboard": "لوحة التحكم",
-    "dashboards": "لوحات التحكم",
-    "dashboardDefaultName": "لوحة تحكم بدون عنوان",
+    "dashboard": "لوحة البيانات",
+    "dashboards": "لوحات البيانات",
+    "dashboardDefaultName": "لوحة بيانات بدون عنوان",
     "dashboardDesc": "اعرض بياناتك ومقاييسك باستخدام المخططات والجداول والرسوم البيانية.",
     "automation": "أتمتة",
     "automations": "عمليات الأتمتة",
@@ -613,7 +613,7 @@
     "cantSelectAutomationWorkflowDescription": "تعذر تحديد الأتمتة لأنها لا تحتوي على أي مسارات عمل. استخدم الشريط الجانبي لإنشاء مسار عمل."
   },
   "viewType": {
-    "grid": "شبكة",
+    "grid": "جدول",
     "gallery": "معرض",
     "form": "نموذج",
     "sharing": {
