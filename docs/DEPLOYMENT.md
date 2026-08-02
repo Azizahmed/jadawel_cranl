@@ -56,6 +56,27 @@ Coolify builds the `jadawel/backend`, `jadawel/web-frontend` and `jadawel/caddy`
 images from source on each deploy. They are not published to any registry, so
 there is nothing to pull and no registry credentials to configure.
 
+Step 3 is not optional. The autodetecting build packs (Railpack, Nixpacks,
+Buildpacks) cannot build this repository: it is a monorepo with no application
+manifest at the root, so detection fails before any build starts with
+`Railpack could not determine how to build the app`. The per-service Dockerfiles
+are referenced from `docker-compose.yml`, which is the only supported entry
+point.
+
+### Other Coolify-derived platforms
+
+The same four settings apply on Coolify forks (Cranl, Dokploy, and friends). Two
+values differ per platform and are read from the environment rather than
+hardcoded:
+
+| Variable | Default | How to find the right value |
+|---|---|---|
+| `PROXY_NETWORK` | `coolify` | The external Docker network the platform's Traefik joins — `docker network ls` on the host. A wrong value fails the deploy with `network ... declared as external, but could not be found`. |
+| `TRAEFIK_CERTRESOLVER` | `letsencrypt` | The ACME resolver name in the platform's Traefik config. A wrong value means the site serves Traefik's self-signed default certificate. |
+
+Also budget for the build: the Nuxt production build peaks above 4 GB (see §1).
+Build servers with less will be OOM-killed part-way through the frontend image.
+
 ## 3. Environment variables
 
 Set these in the resource's **Environment Variables** tab. The three secrets must
@@ -93,17 +114,14 @@ FROM_EMAIL=no-reply@azoz.cloud
 
 ## 4. Domain
 
-The domain is **hardcoded in the Traefik labels** on the `caddy` service in
-`docker-compose.yml`, in two router rules:
+Routing is done by the **Traefik labels** on the `caddy` service in
+`docker-compose.yml`, which match on `${JADAWEL_DOMAIN:-jadawel.azoz.cloud}`.
+Setting a different domain in the platform's UI alone will *not* route — Traefik
+matches on these labels, not on the UI field.
 
-```
-traefik.http.routers.jadawel-http.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)
-traefik.http.routers.jadawel-https.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)
-```
-
-To move to another domain you must edit both lines and commit — setting a
-different domain in Coolify's UI alone will not route, because Traefik matches
-on these labels. Update `BASEROW_PUBLIC_URL` to match at the same time.
+To serve a different domain, set `JADAWEL_DOMAIN` (no scheme, no trailing slash)
+in the environment variables and update `BASEROW_PUBLIC_URL` to match at the same
+time. The default keeps `jadawel.azoz.cloud` working with nothing set.
 
 ## 5. Deploy
 
@@ -149,8 +167,14 @@ docker run --rm -v jadawel_media:/m -v ~:/out alpine tar czf /out/jadawel-media-
 
 ## Troubleshooting
 
-**`network coolify declared as external, but could not be found`** — the stack is
-being brought up outside Coolify. Deploy through Coolify instead.
+**`Railpack could not determine how to build the app`** (or the Nixpacks
+equivalent) — the resource is set to an autodetecting build pack. Switch it to
+`Docker Compose` with location `/docker-compose.yml`. See §2.
+
+**`network coolify declared as external, but could not be found`** — either the
+stack is being brought up outside the platform (deploy through it instead), or
+the platform's proxy network is not called `coolify`. Set `PROXY_NETWORK` to the
+name from `docker network ls`.
 
 **Traefik returns 404 for the domain** — the `Host()` rules in the compose labels
 do not match the domain you are requesting. See §4.
