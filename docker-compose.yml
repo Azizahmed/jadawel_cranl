@@ -287,15 +287,15 @@ services:
       - caddy_data:/data
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=${PROXY_NETWORK:-coolify}"
+      - "traefik.docker.network=coolify"
       - "traefik.http.middlewares.jadawel-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.jadawel-http.entrypoints=http"
       - "traefik.http.routers.jadawel-http.middlewares=jadawel-redirect"
-      - "traefik.http.routers.jadawel-http.rule=Host(`${JADAWEL_DOMAIN:-jadawel.azoz.cloud}`) && PathPrefix(`/`)"
+      - "traefik.http.routers.jadawel-http.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)"
       - "traefik.http.routers.jadawel-http.service=jadawel"
       - "traefik.http.routers.jadawel-https.entrypoints=https"
       - "traefik.http.routers.jadawel-https.middlewares=gzip"
-      - "traefik.http.routers.jadawel-https.rule=Host(`${JADAWEL_DOMAIN:-jadawel.azoz.cloud}`) && PathPrefix(`/`)"
+      - "traefik.http.routers.jadawel-https.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)"
       - "traefik.http.routers.jadawel-https.service=jadawel"
       # Brute-force protection. Baserow does not rate limit failed logins at all
       # by default, so credential stuffing against /api/user/token-auth/ is
@@ -315,17 +315,17 @@ services:
       - "traefik.http.middlewares.jadawel-auth-ratelimit.ratelimit.sourcecriterion.ipstrategy.depth=1"
       - "traefik.http.routers.jadawel-auth.entrypoints=https"
       - "traefik.http.routers.jadawel-auth.priority=100"
-      - "traefik.http.routers.jadawel-auth.rule=Host(`${JADAWEL_DOMAIN:-jadawel.azoz.cloud}`) && (PathPrefix(`/api/user/token-auth/`) || PathPrefix(`/api/user/token-refresh/`) || PathPrefix(`/api/user/send-reset-password-email/`) || PathPrefix(`/api/user/reset-password/`))"
+      - "traefik.http.routers.jadawel-auth.rule=Host(`jadawel.azoz.cloud`) && (PathPrefix(`/api/user/token-auth/`) || PathPrefix(`/api/user/token-refresh/`) || PathPrefix(`/api/user/send-reset-password-email/`) || PathPrefix(`/api/user/reset-password/`))"
       - "traefik.http.routers.jadawel-auth.middlewares=gzip,jadawel-auth-ratelimit"
       - "traefik.http.routers.jadawel-auth.service=jadawel"
       - "traefik.http.routers.jadawel-auth.tls=true"
-      - "traefik.http.routers.jadawel-auth.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencrypt}"
+      - "traefik.http.routers.jadawel-auth.tls.certresolver=letsencrypt"
       - "traefik.http.routers.jadawel-https.tls=true"
-      - "traefik.http.routers.jadawel-https.tls.certresolver=${TRAEFIK_CERTRESOLVER:-letsencrypt}"
+      - "traefik.http.routers.jadawel-https.tls.certresolver=letsencrypt"
       - "traefik.http.services.jadawel.loadbalancer.server.port=80"
     networks:
       local:
-      proxy:
+      coolify:
 
   backend:
     image: jadawel/backend:${BASEROW_VERSION:-2.2.2}
@@ -529,10 +529,5 @@ volumes:
 networks:
   local:
     driver: bridge
-  # The reverse-proxy network created by the hosting platform, which Traefik
-  # also joins. Coolify names it `coolify`; other Coolify-derived platforms
-  # rename it, so set PROXY_NETWORK to whatever `docker network ls` shows on
-  # that host. It must already exist — bringing this stack up by hand fails.
-  proxy:
+  coolify:
     external: true
-    name: ${PROXY_NETWORK:-coolify}
