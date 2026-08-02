@@ -17,7 +17,9 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:latest
+# Published 2026-08-02 by run 30758451992, digest
+# sha256:9bd2a24b2bf1a7ba98d7010481cb91c1698acde367095c5f2a0ad54a0bdb6238
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.2.2
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
