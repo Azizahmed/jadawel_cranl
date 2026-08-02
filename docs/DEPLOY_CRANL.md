@@ -102,8 +102,18 @@ suggests.
 for n in SECRET_KEY BASEROW_JWT_SIGNING_KEY; do echo "$n=$(tr -dc 'a-z0-9' </dev/urandom | head -c50)"; done
 ```
 
+The list below was written before the first deploy and proved incomplete. Four
+more variables turned out to be mandatory — `PORT=3000` above all, without which
+the container crash-loops. See [cranl_fix.md](../cranl_fix.md) for the full
+working set and why each is needed.
+
 | Variable | Value | Why |
 |---|---|---|
+| `PORT` | `3000` | CranL injects `PORT=80` to match the routing port, and Nitro obeys it — so the web-frontend tries to bind Caddy's socket and dies with `EADDRINUSE :::80`. `NITRO_PORT` does not override it. |
+| `DISABLE_VOLUME_CHECK` | `yes` | Boot otherwise stops at the unmounted-data-folder warning. Safe: Postgres and Redis are external. |
+| `BASEROW_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker on a 4 GB plan. |
+| `BASEROW_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
+| `SYNC_TEMPLATES_ON_STARTUP` | `false` | Drops a step that can take 30 minutes from every boot. |
 | `SECRET_KEY` | *generated* | Must be set explicitly. `baserow.sh` otherwise generates one into `/baserow/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |
 | `BASEROW_JWT_SIGNING_KEY` | *generated* | Same, via `.jwt_signing_key`. Regenerating it logs everyone out. |
 | `BASEROW_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
