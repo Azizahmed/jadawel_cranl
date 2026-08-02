@@ -1,28 +1,9 @@
+# Intentionally empty in this repository.
+#
+# jadawel_cranl is a deployment repository: it carries the root Dockerfile and
+# the image-publishing workflow on top of a copy of `Azizahmed/Jadawel`.
+# Dependency updates belong in that repository, where they are reviewed and
+# tested. Opening the same PRs here would produce changes that never get merged
+# back, silently diverging the two trees.
 version: 2
-updates:
-  # =============================================================================
-  # npm ecosystems
-  # =============================================================================
-  # Note: We only monitor directories with actual dependencies declared.
-  # /enterprise/web-frontend and /premium/web-frontend are excluded because
-  # they currently have no dependencies in their package.json files.
-  # /integrations/zapier is excluded intentionally.
-
-  - package-ecosystem: "npm"
-    directory: "/web-frontend"
-    schedule:
-      interval: "monthly"
-
-  # =============================================================================
-  # uv (Python) ecosystem
-  # =============================================================================
-  # Note: We only monitor /backend because it manages the uv workspace centrally.
-  # The workspace is defined in backend/pyproject.toml with members including
-  # ../premium/backend and ../enterprise/backend, and backend/uv.lock contains
-  # all resolved dependencies. Separate entries for enterprise/premium backends
-  # would be redundant and cause duplicate update runs.
-
-  - package-ecosystem: "uv"
-    directory: "/backend"
-    schedule:
-      interval: "monthly"
+updates: []

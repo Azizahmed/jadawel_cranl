@@ -5,10 +5,11 @@ name: Jadawel CI
 # their secrets), this workflow builds and tests entirely within the job and needs
 # no secrets, so it runs green on any fork.
 
+# Manual-only in this repository. `Azizahmed/Jadawel` is where code changes are
+# reviewed and where this runs on every push; jadawel_cranl exists to build and
+# deploy an image, so running the full suite on each deploy commit would only
+# spend private-repo Actions minutes to re-test unchanged code.
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
 
 concurrency:

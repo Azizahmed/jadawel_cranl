@@ -1,5 +1,17 @@
 # Deploying Jadawel to CranL
 
+## Which repository is this?
+
+`Azizahmed/jadawel_cranl` — a deployment copy, branched from
+`Azizahmed/Jadawel` at `codex/hostinger-coolify-deploy` and carrying the root
+`Dockerfile` and `publish-image.yml` on top of it. It exists so that CranL work
+cannot disturb the running Coolify deployment, which continues to be served from
+the original repository.
+
+Code changes belong in `Azizahmed/Jadawel`. To bring them here, merge that
+branch into this repository's `main` and publish a new image. Committing feature
+work directly here diverges the two trees with no path back.
+
 CranL is not Coolify, and none of [DEPLOYMENT.md](DEPLOYMENT.md) applies here.
 The differences that shape everything below:
 
@@ -28,7 +40,7 @@ Because the app cannot be built on CranL, the build moves to GitHub Actions
 ```
 push to branch
   -> GitHub Actions (publish-image.yml): backend + web-frontend -> all-in-one-lite
-       -> ghcr.io/azizahmed/jadawel:<tag>
+       -> ghcr.io/azizahmed/jadawel_cranl:<tag>
             -> root Dockerfile: FROM that image
                  -> CranL builds a trivial one-line image and runs it on :80
                       -> managed Postgres + managed Redis + S3
@@ -42,12 +54,11 @@ volume means the database is destroyed on every redeploy.
 
 ## 1. Publish an image
 
-Actions → **Publish all-in-one image** → Run workflow, on
-`codex/hostinger-coolify-deploy`, with a tag such as `2.2.2`. Expect 30–60
-minutes cold. It pushes `ghcr.io/azizahmed/jadawel:<tag>` and `:latest`.
+Actions → **Publish all-in-one image** → Run workflow, on `main`, with a tag such as `2.2.2`. Expect 30–60
+minutes cold. It pushes `ghcr.io/azizahmed/jadawel_cranl:<tag>` and `:latest`.
 
 Then decide the package's visibility, at
-`github.com/users/Azizahmed/packages/container/jadawel/settings`:
+`github.com/users/Azizahmed/packages/container/jadawel_cranl/settings`:
 
 - **Public** — CranL pulls with no credentials. The repository stays private,
   but the built application (including the fork's frontend bundle) becomes
@@ -76,8 +87,8 @@ time:
 
 | Setting | Value |
 |---|---|
-| Repository | `Azizahmed/Jadawel` |
-| Branch | `codex/hostinger-coolify-deploy` |
+| Repository | `Azizahmed/jadawel_cranl` |
+| Branch | `main` |
 | Build Type | **Dockerfile** |
 | Port | **80** — the image serves through its bundled Caddy, not 3000 |
 

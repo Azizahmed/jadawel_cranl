@@ -17,7 +17,7 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel:latest
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:latest
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}

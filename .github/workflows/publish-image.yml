@@ -63,14 +63,17 @@ jobs:
       - name: Resolve image name and tag
         id: meta
         run: |
-          # GHCR rejects uppercase in image paths; the owner is `Azizahmed`.
-          owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          # Derived from the repository rather than hardcoded: GHCR links a new
+          # package to the repo that first pushes it, and GITHUB_TOKEN is only
+          # guaranteed write access to that path. GHCR also rejects uppercase,
+          # and the owner is `Azizahmed`.
+          repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           if [ "${{ github.event_name }}" = "push" ]; then
             tag="${GITHUB_REF_NAME#v}"
           else
             tag="${{ inputs.tag }}"
           fi
-          echo "image=${{ env.REGISTRY }}/${owner}/jadawel" >> "$GITHUB_OUTPUT"
+          echo "image=${{ env.REGISTRY }}/${repo}" >> "$GITHUB_OUTPUT"
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
 
       # Built locally rather than pushed: these two are only inputs to the
