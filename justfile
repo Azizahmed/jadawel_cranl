@@ -912,7 +912,7 @@ build target="" tag="latest" *ARGS:
             BUILD_ARGS+=("--build-arg" "BACKEND_IMAGE=jadawel/backend:{{ tag }}")
             echo "Building web-frontend (prod)..."
             $BUILD_CMD "${BUILD_ARGS[@]}" -f web-frontend/Dockerfile --target prod -t jadawel/web-frontend:{{ tag }} .
-            BUILD_ARGS+=("--build-arg" "WEB_FRONTEND_IMAGE=jadawel/web-frontend:{{ tag }}")
+            BUILD_ARGS+=("--build-arg" "WEBFRONTEND_IMAGE=jadawel/web-frontend:{{ tag }}")
             echo "Building all-in-one..."
             NAME_ARG="jadawel/jadawel:{{ tag }}"
             $BUILD_CMD "${BUILD_ARGS[@]}" -f deploy/all-in-one/Dockerfile --target prod -t $NAME_ARG .
@@ -923,7 +923,7 @@ build target="" tag="latest" *ARGS:
             BUILD_ARGS+=("--build-arg" "BACKEND_IMAGE=jadawel/backend:{{ tag }}")
             echo "Building web-frontend (prod)..."
             $BUILD_CMD "${BUILD_ARGS[@]}" -f web-frontend/Dockerfile --target prod -t jadawel/web-frontend:{{ tag }} .
-            BUILD_ARGS+=("--build-arg" "WEB_FRONTEND_IMAGE=jadawel/web-frontend:{{ tag }}")
+            BUILD_ARGS+=("--build-arg" "WEBFRONTEND_IMAGE=jadawel/web-frontend:{{ tag }}")
             echo "Building all-in-one-lite (no postgres/redis)..."
             NAME_ARG="jadawel/jadawel:lite-{{ tag }}"
             $BUILD_CMD "${BUILD_ARGS[@]}" -f deploy/all-in-one/Dockerfile --target prod-lite -t $NAME_ARG .

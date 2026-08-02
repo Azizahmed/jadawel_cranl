@@ -1,0 +1,100 @@
+name: Publish all-in-one image
+
+# Builds the Jadawel all-in-one image and pushes it to GHCR.
+#
+# This exists because the app cannot be built on the target host. The Nuxt
+# production build peaks above 4 GB, which is more than a small PaaS app plan
+# gets, so hosts like CranL OOM part-way through the frontend image. A
+# GitHub-hosted runner has 16 GB, builds it comfortably, and the host then only
+# has to pull the result.
+#
+# The `lite` variant (target `prod-lite`) is built deliberately: it drops the
+# embedded Postgres and Redis, which are useless on a host without a persistent
+# volume — see docs/DEPLOY_CRANL.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag to publish (also pushed as :latest)"
+        required: true
+        default: "latest"
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: publish-image-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  publish:
+    name: Build and push all-in-one-lite
+    runs-on: ubuntu-latest
+    # The three chained image builds take well over the default job budget on a
+    # cold cache.
+    timeout-minutes: 180
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # The runner ships ~14 GB free, and three large images plus the build
+      # cache do not fit. These toolchains are not used by any build here.
+      - name: Reclaim runner disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY"
+          df -h /
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve image name and tag
+        id: meta
+        run: |
+          # GHCR rejects uppercase in image paths; the owner is `Azizahmed`.
+          owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          if [ "${{ github.event_name }}" = "push" ]; then
+            tag="${GITHUB_REF_NAME#v}"
+          else
+            tag="${{ inputs.tag }}"
+          fi
+          echo "image=${{ env.REGISTRY }}/${owner}/jadawel" >> "$GITHUB_OUTPUT"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+      # Built locally rather than pushed: these two are only inputs to the
+      # all-in-one image, not deployable on their own.
+      - name: Build backend (prod)
+        run: docker build -f backend/Dockerfile --target prod -t jadawel/backend:build .
+
+      - name: Build web-frontend (prod)
+        run: docker build -f web-frontend/Dockerfile --target prod -t jadawel/web-frontend:build .
+
+      - name: Build and push all-in-one-lite
+        run: |
+          docker build \
+            -f deploy/all-in-one/Dockerfile --target prod-lite \
+            --build-arg BACKEND_IMAGE=jadawel/backend:build \
+            --build-arg WEBFRONTEND_IMAGE=jadawel/web-frontend:build \
+            -t "${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}" \
+            -t "${{ steps.meta.outputs.image }}:latest" \
+            .
+          docker push "${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}"
+          docker push "${{ steps.meta.outputs.image }}:latest"
+
+      - name: Summary
+        run: |
+          echo "Pushed \`${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Pin this tag in the root \`Dockerfile\` to deploy it." >> "$GITHUB_STEP_SUMMARY"

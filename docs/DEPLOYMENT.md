@@ -1,5 +1,9 @@
 # Deploying Jadawel with Coolify
 
+> Deploying to **CranL** instead? None of this applies — it has no Docker
+> Compose build pack and cannot build this repo at all. See
+> [DEPLOY_CRANL.md](DEPLOY_CRANL.md).
+
 Jadawel is deployed through **Coolify**. Traefik (managed by Coolify) terminates
 TLS and routes to the app's Caddy container; Caddy handles internal routing to
 the backend, web-frontend and media files.
