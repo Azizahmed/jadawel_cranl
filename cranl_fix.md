@@ -121,6 +121,77 @@ path-dependent responses instead.
 Expected, not a fault. Django migrations resume where they left off, so the
 restarts worked through them and it came up clean.
 
+### 6. All 157 templates missing from the template picker
+
+Found after the deploy was otherwise healthy. Nothing was lost: the templates
+ship inside the image as `backend/templates/*.json` and had simply never been
+imported into the fresh managed Postgres.
+
+Cause was `SYNC_TEMPLATES_ON_STARTUP=false`, set in §4's env table to avoid a
+30-minute boot stall. `backend/docker/docker-entrypoint.sh:30`:
+
+```bash
+BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=${BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION:-$SYNC_TEMPLATES_ON_STARTUP}
+```
+
+The trigger variable *defaults to* the startup variable, so switching off the
+blocking boot-time sync silently switched off the non-blocking post-migration
+one too. The two are separable, and want opposite values here:
+
+| Variable | Value | Effect |
+|---|---|---|
+| `SYNC_TEMPLATES_ON_STARTUP` | `false` | Boot does **not** wait for the sync |
+| `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Sync runs in celery *after* startup |
+
+Fix was to set the trigger to `true` and Reload. The task routes to the `export`
+queue (`backend/src/baserow/core/tasks.py:23`), which under `BASEROW_RUN_MINIMAL`
+is served by the combined worker (`docker-entrypoint.sh:373-393`) — so it is
+picked up rather than sitting unrouted. It took **13m15s** for 157 templates
+while the app kept serving traffic normally.
+
+156 of 157 imported. `event-staffing` failed and was skipped without aborting the
+rest, which is the fork's patch to `CoreHandler.sync_templates` working as
+designed (`PATCHES.md`, `backend/src/baserow/core/handler.py:1880-1940`).
+
+The `view type 'kanban'/'calendar'/'timeline' is not available on this instance`
+warnings during the sync are expected and not CranL-specific: those view types
+are premium/enterprise, which this fork removes. Templates import with those
+views dropped.
+
+Left `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true` afterwards. It is
+idempotent and self-healing, so a future fresh database gets templates without
+anyone remembering this page. The cost is that each deploy spends ~13 minutes of
+the single combined worker on it, during which user exports and file imports
+queue behind it. Set it to `false` if that ever matters more.
+
+### 7. `/api/*` returns a Nuxt 404 on the `cranl.net` hostname
+
+Not a fault either, but it looks exactly like a broken backend. The `Caddyfile`
+gates the backend routes on the request host, lines 82-89:
+
+```caddy
+@is_jadawel_tool {
+    expression `
+        "{$BASEROW_PUBLIC_URL}".contains({http.request.host}) ||
+        "{$BASEROW_EXTRA_PUBLIC_URLS}".split(",")
+            .filter(u, u != "" && u.contains({http.request.host}))
+            .size() > 0
+    `
+}
+```
+
+`/api/*`, `/ws/*`, `/mcp/*`, `/assistant/*` and `/static/*` are proxied to Django
+**only** inside that matcher (line 118-131). Any other host falls through to the
+catch-all `reverse_proxy localhost:3000` on line 133, so API calls are answered
+by Nuxt with its own 404 page — a JSON body containing
+`"message": "لم يتم العثور على الموقع"`, which is the giveaway that the request
+never reached Django.
+
+With `BASEROW_PUBLIC_URL=https://jadawl.site/`, `jadawl.site` works completely
+and `jadawel-img0kf.cranl.net` 404s on every path. To keep both hosts alive, set
+`BASEROW_EXTRA_PUBLIC_URLS` to the comma-separated others — do not try to put two
+URLs in `BASEROW_PUBLIC_URL`.
+
 ---
 
 ## Working environment variables
@@ -138,7 +209,8 @@ restarts worked through them and it came up clean.
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
 | `BASEROW_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |
 | `BASEROW_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
-| `SYNC_TEMPLATES_ON_STARTUP` | `false` | Removes a step that can take 30 minutes from every boot. Templates can be synced later on demand. |
+| `SYNC_TEMPLATES_ON_STARTUP` | `false` | Removes a step that can take 30 minutes from every boot. |
+| `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | **Must be set explicitly.** It defaults to `SYNC_TEMPLATES_ON_STARTUP`, so the line above otherwise leaves the instance with zero templates (§6). |
 
 Leave `BASEROW_CADDY_ADDRESSES` unset. Its `:80` default is correct — CranL owns
 TLS, and pointing Caddy at an `https://` address makes it try to obtain its own
@@ -189,15 +261,28 @@ Note: **Deploy** returned "USA region is temporarily unavailable for new
 deployments" on 2026-08-02, which is why Reload was used. Worth re-running a
 real deploy once that clears.
 
-### Moving to `jadawl.site`
+### Moving to `jadawl.site` — done, 2026-08-03
+
+`https://jadawl.site` is the live URL and resolves, serves valid TLS and reaches
+Django. `https://jadawel-img0kf.cranl.net` now 404s on every path, by design: see
+§7 — the Caddyfile only proxies backend routes for hosts named in
+`BASEROW_PUBLIC_URL`. Add it to `BASEROW_EXTRA_PUBLIC_URLS` if a working fallback
+host is wanted.
+
+Kept for the next domain change:
 
 1. Point the DNS at `jadawel-img0kf.cranl.net`. An apex `CNAME` is invalid DNS —
    use the provider's `ALIAS`/`ANAME`, or Cloudflare's CNAME flattening. On
    Cloudflare keep the record **DNS-only (grey cloud)** until the certificate
    issues, or the proxy intercepts the ACME challenge.
-2. Once SSL is active, set `BASEROW_PUBLIC_URL=https://jadawl.site` and Reload.
+2. Once SSL is active, set `BASEROW_PUBLIC_URL` to the new origin and Reload.
    Baserow rejects requests on any host that does not match it, so the two must
-   change together.
+   change together, and the old host stops working the moment it is dropped.
+
+The value in place is `https://jadawl.site/`, **with** a trailing slash, contrary
+to the advice everywhere else in these docs. It happens to work because §7's
+check is a substring match and the CORS header on line 20 of the `Caddyfile`
+tolerates it, but it is worth trimming next time the variable is touched.
 
 ---
 
@@ -214,6 +299,8 @@ real deploy once that clears.
 | Container restarts repeatedly on first boot | Migrations in progress | Expected; they resume and finish |
 | Killed / exit 137 | OOM on the 4 GB plan | `BASEROW_RUN_MINIMAL=yes`, `BASEROW_AMOUNT_OF_WORKERS=1`, `SYNC_TEMPLATES_ON_STARTUP=false` |
 | UI loads, grid empty, websockets fail | `BASEROW_PUBLIC_URL` does not match the browser URL | Correct it and Reload |
+| Template picker empty | Sync never ran on this database | `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true`, Reload, wait ~13 min (§6) |
+| `/api/*` returns JSON with `"message": "لم يتم العثور على الموقع"` | Request host is not in `BASEROW_PUBLIC_URL`, so Caddy sent it to Nuxt instead of Django | Add the host to `BASEROW_EXTRA_PUBLIC_URLS` (§7) |
 | Uploaded files vanish after a deploy | No S3 configured | Set the `AWS_*` variables |
 | Everyone logged out after a deploy | `SECRET_KEY` / `BASEROW_JWT_SIGNING_KEY` being regenerated | Set both explicitly |
 

@@ -102,7 +102,7 @@ suggests.
 for n in SECRET_KEY BASEROW_JWT_SIGNING_KEY; do echo "$n=$(tr -dc 'a-z0-9' </dev/urandom | head -c50)"; done
 ```
 
-The list below was written before the first deploy and proved incomplete. Four
+The list below was written before the first deploy and proved incomplete. Five
 more variables turned out to be mandatory — `PORT=3000` above all, without which
 the container crash-loops. See [cranl_fix.md](../cranl_fix.md) for the full
 working set and why each is needed.
@@ -114,6 +114,7 @@ working set and why each is needed.
 | `BASEROW_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker on a 4 GB plan. |
 | `BASEROW_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Drops a step that can take 30 minutes from every boot. |
+| `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Must be set alongside the row above, which it silently defaults to (`backend/docker/docker-entrypoint.sh:30`). Without it the instance has **no templates at all**; with it they import in celery after boot instead of blocking it. |
 | `SECRET_KEY` | *generated* | Must be set explicitly. `baserow.sh` otherwise generates one into `/baserow/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |
 | `BASEROW_JWT_SIGNING_KEY` | *generated* | Same, via `.jwt_signing_key`. Regenerating it logs everyone out. |
 | `BASEROW_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
@@ -174,5 +175,12 @@ and CranL has no credential for it. See §1.
 
 **UI loads but the grid stays empty and websockets fail** —
 `BASEROW_PUBLIC_URL` does not exactly match the browser URL.
+
+**The template picker is empty** — the sync never ran against this database. See
+§4; it is a separate variable from `SYNC_TEMPLATES_ON_STARTUP`.
+
+**`/api/*` returns a Nuxt 404 page instead of JSON** — the host being requested
+is not named in `BASEROW_PUBLIC_URL`, so `Caddyfile:82-131` routes backend paths
+to the frontend. Add the extra host to `BASEROW_EXTRA_PUBLIC_URLS`.
 
 **Uploaded files disappear after a deploy** — no S3 configured. See §4.
