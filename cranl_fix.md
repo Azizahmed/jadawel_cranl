@@ -303,6 +303,7 @@ tolerates it, but it is worth trimming next time the variable is touched.
 | `/api/*` returns JSON with `"message": "لم يتم العثور على الموقع"` | Request host is not in `BASEROW_PUBLIC_URL`, so Caddy sent it to Nuxt instead of Django | Add the host to `BASEROW_EXTRA_PUBLIC_URLS` (§7) |
 | Uploaded files vanish after a deploy | No S3 configured | Set the `AWS_*` variables |
 | Everyone logged out after a deploy | `SECRET_KEY` / `BASEROW_JWT_SIGNING_KEY` being regenerated | Set both explicitly |
+| `/api/schema.json` returns a Django 500 | Pre-existing upstream schema-generation bug (see open items) — **not** a sign of a bad deploy | Ignore; use another endpoint to check liveness |
 
 ---
 
@@ -323,6 +324,13 @@ tolerates it, but it is worth trimming next time the variable is touched.
 6. **`PORT=3000` is fragile.** It is a manual env var defending against a
    platform-injected one. Making the image immune would mean forcing `PORT` in
    the frontend's supervisor wrapper in `Azizahmed/Jadawel` and republishing.
+7. **`/api/schema.json` returns 500**, so `/api/redoc/` renders nothing. It
+   predates the fork's own code: `manage.py spectacular` fails identically at
+   `5f6b4cf55` and at the chart-widget commit, in drf-spectacular's
+   `_insert_field_validators` — it calls `.get()` on the `additionalProperties`
+   schema of a `DictField`, which resolved to `None`. Cosmetic for the running
+   app (nothing but the docs endpoint uses it), but it does mean the API schema
+   cannot be used to check what a deploy is running.
 
 ## Facts worth not re-deriving
 
