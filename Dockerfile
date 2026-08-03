@@ -17,9 +17,11 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-02 by run 30758451992, digest
-# sha256:9bd2a24b2bf1a7ba98d7010481cb91c1698acde367095c5f2a0ad54a0bdb6238
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.2.2
+# Published 2026-08-03 by run 30838870746, digest
+# sha256:9d694819bf8398472f81c74f0dcef4ef7d74c3d0e3cded5bd98ddfaaf44b92d5
+# Adds the dashboard chart widgets. Carries one new migration (arabase 0001),
+# which is additive — CreateModel only, no data touched.
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.3.0
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
