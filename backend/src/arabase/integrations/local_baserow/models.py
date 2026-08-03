@@ -3,6 +3,7 @@ from django.db import models
 from baserow.contrib.database.views.models import SORT_ORDER_CHOICES, SORT_ORDER_DESC
 from baserow.contrib.integrations.local_baserow.models import (
     LocalBaserowFilterableServiceMixin,
+    LocalBaserowFilterableSortableMixin,
     LocalBaserowViewService,
 )
 from baserow.core.services.models import SearchableServiceMixin
@@ -144,3 +145,42 @@ class LocalBaserowTableServiceAggregationSortBy(models.Model):
             "<LocalBaserowTableServiceAggregationSortBy "
             f"{self.sort_on} {self.reference} {self.direction}>"
         )
+
+
+class LocalBaserowUpcomingRows(
+    LocalBaserowViewService,
+    LocalBaserowFilterableServiceMixin,
+    LocalBaserowFilterableSortableMixin,
+    SearchableServiceMixin,
+):
+    """
+    Rows whose date field falls inside a window starting today.
+
+    A list-rows service with a filter could nearly do this, but the relative-date
+    filter values are an encoded string (timezone, amount, unit) that a widget
+    settings panel has no business assembling. Holding the window as three plain
+    fields keeps the widget simple and the query server-side, which matters: the
+    alternative is fetching every row and filtering in the browser.
+    """
+
+    default_result_count = models.PositiveIntegerField(
+        default=10,
+        db_default=10,
+        help_text="The number of records returned with each page.",
+    )
+    date_field = models.ForeignKey(
+        "database.Field",
+        help_text="The date field defining when a record is due.",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    days_ahead = models.PositiveIntegerField(
+        default=7,
+        db_default=7,
+        help_text="How many days ahead of today to include.",
+    )
+    include_overdue = models.BooleanField(
+        default=True,
+        db_default=True,
+        help_text="Whether records whose date has already passed are included.",
+    )

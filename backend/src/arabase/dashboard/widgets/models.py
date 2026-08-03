@@ -48,3 +48,93 @@ class ChartWidget(Widget):
         db_default=True,
         help_text="Whether the chart's legend is shown.",
     )
+
+
+DISPLAY_STYLE_BAR = "bar"
+DISPLAY_STYLE_RING = "ring"
+DISPLAY_STYLE_CHOICES = [
+    (DISPLAY_STYLE_BAR, "Bar"),
+    (DISPLAY_STYLE_RING, "Ring"),
+]
+
+
+class RecordsListWidget(Widget):
+    """
+    The most recent rows of a table or view.
+
+    Every operations dashboard starts with a "latest requests" list, and this is
+    the cheapest widget in the set: it needs no new service, only a choice of
+    which fields to show.
+    """
+
+    data_source = models.ForeignKey(
+        "dashboard.DashboardDataSource",
+        on_delete=models.PROTECT,
+        help_text="The rows this widget lists.",
+    )
+    field_ids = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Ids of the fields to show, in order. Empty means the widget "
+        "picks the first few fields of the table itself.",
+    )
+
+
+class ProgressWidget(Widget):
+    """
+    An aggregation measured against a target.
+
+    Quotas, collection targets and SLA attainment are all the same shape — a
+    number over a goal — and a bare number (what the summary widget gives) does
+    not answer "are we on track".
+    """
+
+    data_source = models.ForeignKey(
+        "dashboard.DashboardDataSource",
+        on_delete=models.PROTECT,
+        help_text="The aggregation this widget measures.",
+    )
+    target_value = models.DecimalField(
+        max_digits=50,
+        decimal_places=10,
+        default=100,
+        db_default=100,
+        help_text="The value that counts as 100%.",
+    )
+    display_style = models.CharField(
+        max_length=8,
+        choices=DISPLAY_STYLE_CHOICES,
+        default=DISPLAY_STYLE_BAR,
+        db_default=DISPLAY_STYLE_BAR,
+        help_text="Whether progress is drawn as a bar or a ring.",
+    )
+    warning_threshold = models.PositiveIntegerField(
+        default=50,
+        db_default=50,
+        help_text="Percentage at or above which progress is no longer at risk.",
+    )
+    success_threshold = models.PositiveIntegerField(
+        default=100,
+        db_default=100,
+        help_text="Percentage at or above which progress counts as met.",
+    )
+
+
+class UpcomingDatesWidget(Widget):
+    """
+    An agenda of rows falling due soon.
+
+    The window itself lives on the data source's service, because narrowing has
+    to happen in the query rather than in the browser.
+    """
+
+    data_source = models.ForeignKey(
+        "dashboard.DashboardDataSource",
+        on_delete=models.PROTECT,
+        help_text="The upcoming rows this widget lists.",
+    )
+    field_ids = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Ids of the fields to show alongside the date, in order.",
+    )

@@ -1,10 +1,29 @@
 import { WidgetType } from '@baserow/modules/dashboard/widgetTypes'
 import ChartWidget from '@baserow/modules/arabase/dashboard/components/widget/ChartWidget'
 import ChartWidgetSettings from '@baserow/modules/arabase/dashboard/components/widget/ChartWidgetSettings'
+import ProgressWidget from '@baserow/modules/arabase/dashboard/components/widget/ProgressWidget'
+import ProgressWidgetSettings from '@baserow/modules/arabase/dashboard/components/widget/ProgressWidgetSettings'
+import RecordsListWidget from '@baserow/modules/arabase/dashboard/components/widget/RecordsListWidget'
+import RecordsListWidgetSettings from '@baserow/modules/arabase/dashboard/components/widget/RecordsListWidgetSettings'
+import UpcomingDatesWidget from '@baserow/modules/arabase/dashboard/components/widget/UpcomingDatesWidget'
+import UpcomingDatesWidgetSettings from '@baserow/modules/arabase/dashboard/components/widget/UpcomingDatesWidgetSettings'
 import BarChartSvg from '@baserow/modules/arabase/assets/images/widgets/bar_chart_widget.svg?url'
 import LineChartSvg from '@baserow/modules/arabase/assets/images/widgets/line_chart_widget.svg?url'
 import PieChartSvg from '@baserow/modules/arabase/assets/images/widgets/pie_chart_widget.svg?url'
 import DoughnutChartSvg from '@baserow/modules/arabase/assets/images/widgets/doughnut_chart_widget.svg?url'
+import RecordsListSvg from '@baserow/modules/arabase/assets/images/widgets/records_list_widget.svg?url'
+import ProgressSvg from '@baserow/modules/arabase/assets/images/widgets/progress_widget.svg?url'
+import UpcomingDatesSvg from '@baserow/modules/arabase/assets/images/widgets/upcoming_dates_widget.svg?url'
+
+/**
+ * Widgets whose data arrives as one dispatch are loading until that dispatch
+ * lands. The base class returns `false` unconditionally, which would show an
+ * empty widget instead of a spinner on first paint.
+ */
+const loadingUntilDispatched = (widget, data) => {
+  const dataSourceId = widget.data_source_id
+  return !(data[dataSourceId] && Object.keys(data[dataSourceId]).length !== 0)
+}
 
 /**
  * One widget type presented as four tiles.
@@ -74,10 +93,96 @@ export class ChartWidgetType extends WidgetType {
   }
 
   isLoading(widget, data) {
-    const dataSourceId = widget.data_source_id
-    if (data[dataSourceId] && Object.keys(data[dataSourceId]).length !== 0) {
-      return false
-    }
-    return true
+    return loadingUntilDispatched(widget, data)
+  }
+}
+
+export class RecordsListWidgetType extends WidgetType {
+  static getType() {
+    return 'records_list'
+  }
+
+  get name() {
+    return this.app.$i18n.t('recordsListWidget.name')
+  }
+
+  get createWidgetImage() {
+    return RecordsListSvg
+  }
+
+  get component() {
+    return RecordsListWidget
+  }
+
+  get settingsComponent() {
+    return RecordsListWidgetSettings
+  }
+
+  getOrder() {
+    return 20
+  }
+
+  isLoading(widget, data) {
+    return loadingUntilDispatched(widget, data)
+  }
+}
+
+export class ProgressWidgetType extends WidgetType {
+  static getType() {
+    return 'progress'
+  }
+
+  get name() {
+    return this.app.$i18n.t('progressWidget.name')
+  }
+
+  get createWidgetImage() {
+    return ProgressSvg
+  }
+
+  get component() {
+    return ProgressWidget
+  }
+
+  get settingsComponent() {
+    return ProgressWidgetSettings
+  }
+
+  getOrder() {
+    return 30
+  }
+
+  isLoading(widget, data) {
+    return loadingUntilDispatched(widget, data)
+  }
+}
+
+export class UpcomingDatesWidgetType extends WidgetType {
+  static getType() {
+    return 'upcoming_dates'
+  }
+
+  get name() {
+    return this.app.$i18n.t('upcomingDatesWidget.name')
+  }
+
+  get createWidgetImage() {
+    return UpcomingDatesSvg
+  }
+
+  get component() {
+    return UpcomingDatesWidget
+  }
+
+  get settingsComponent() {
+    return UpcomingDatesWidgetSettings
+  }
+
+  getOrder() {
+    return 40
+  }
+
+  isLoading(widget, data) {
+    return loadingUntilDispatched(widget, data)
   }
 }

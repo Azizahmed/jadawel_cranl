@@ -4,22 +4,24 @@
 
 | Phase | State |
 |---|---|
-| A — grouped aggregation service | **Implemented and tested** (32 tests green) |
+| A — grouped aggregation service | **Implemented and tested** |
 | B — chart widget backend | **Implemented and tested** |
 | C — chart widget frontend | **Implemented and tested** (4 variations, settings form, RTL, en+ar; 10 unit tests) |
-| D1/D2/D3 — the three Jadawel widgets | Not started |
+| D1 — records list widget | **Implemented and tested** |
+| D2 — progress widget | **Implemented and tested** |
+| D3 — upcoming dates widget | **Implemented and tested** |
+| Text widget (optional freebie) | Not started |
 
 Verified so far:
 
-- `makemigrations --check --dry-run arabase` → *No changes detected*, so the
-  hand-written migration matches the models
-- `pytest backend/tests/arabase` → **32 passed**
-- `vitest test/unit/arabase` → **10 passed** (`ChartWidget`: dataset/label mapping,
-  chart-type switching, bucket vs. series colouring, series overrides, no-group-by,
-  empty group label, legend toggle, misconfigured and empty states)
+- `makemigrations --check --dry-run arabase` → *No changes detected* (migration
+  0001 was hand-written and this is what confirms it matches the models; 0002 was
+  generated)
+- `pytest backend/tests/arabase` → **53 passed**
+- `vitest test/unit/arabase` → **36 passed** across four specs
 - `ruff check` / `ruff format --check` on the new code → clean
 - `prettier --check` and `stylelint` on `modules/arabase` → clean
-- `check-locale-parity.mjs --strict` → 3533/3533
+- `check-locale-parity.mjs --strict` → 3573/3573
 
 The frontend test earned its keep immediately: it caught `ChartWidget` treating
 the `colors.module.scss` import as a plain lookup table. A CSS modules object can
@@ -46,11 +48,12 @@ no locked tiles are shown.
 | Piece | Path |
 |---|---|
 | Grouped aggregation models / service type / serializers | `backend/src/arabase/integrations/local_baserow/` |
-| Chart widget model + type | `backend/src/arabase/dashboard/widgets/` |
-| Migration (hand-written) | `backend/src/arabase/migrations/0001_chart_widget_and_grouped_aggregation.py` |
+| Upcoming-rows service | `backend/src/arabase/integrations/local_baserow/upcoming_rows.py` |
+| All four widget models + types | `backend/src/arabase/dashboard/widgets/` (`base.py` holds what they share) |
+| Migrations | `backend/src/arabase/migrations/` (`0001` charts, `0002` phase D) |
 | Registry hooks | `backend/src/arabase/apps.py` |
-| Backend tests | `backend/tests/arabase/test_grouped_aggregate_rows_service_type.py`, `test_chart_widget_type.py` |
-| Frontend widget type / component / settings / form | `web-frontend/modules/arabase/dashboard/` |
+| Backend tests | `backend/tests/arabase/test_*.py` |
+| Frontend widget types / components / settings / forms | `web-frontend/modules/arabase/dashboard/` |
 | Frontend service type | `web-frontend/modules/arabase/integrations/serviceTypes.js` |
 | Registry plugin, locales, tile SVGs, SCSS | `web-frontend/modules/arabase/` |
 
@@ -72,6 +75,14 @@ no locked tiles are shown.
 5. **`series_config` supports `color` and `label` only** (no per-series chart type
    for combo charts), and the settings panel does not edit it yet — the chart
    falls back to the palette and the field name.
+6. **Rich field values render as text** in the two list widgets. A single select
+   prints its label, link rows and collaborators print a comma-joined list. Using
+   the grid's field components instead would drag editing, selection and row
+   context into a read-only list.
+7. **`local_baserow_upcoming_rows` is hidden from the application builder's data
+   source picker** (`isDataSource` returns false). It inherits the list-rows form,
+   which has no date-field control, so a builder user could otherwise create one
+   that can never dispatch.
 
 ## Goal
 
@@ -216,35 +227,46 @@ Estimate: **4–5 days**. Charts total: **~2 weeks** including review slack.
 
 ## Phase D — the three Jadawel widgets
 
-Ordered cheapest-first; each is independently shippable after Phase B's
-patterns exist (D1 and D3 don't even need Phase A).
+All three are implemented. What was built, and where it departed from the sketch:
 
-### D1. Records list widget (`records_list`) — ~2–3 days
-Latest N rows from a table/view. **Reuses `local_baserow_list_rows` as-is** —
-no new service. Model: `data_source` FK + `row_limit` (default 5, max 20) +
-displayed-fields selection. Renders a compact RTL-correct list/table; each row
-links to the record in its grid view. This is the "recent requests /
-أحدث الطلبات" widget every operations dashboard starts with.
+### D1. Records list widget (`records_list`)
+The latest rows of a table or view. Reuses `local_baserow_list_rows` unchanged.
+The row limit is the **service's** `default_result_count` rather than a widget
+field as originally planned — duplicating a limit that the service already owns
+would have meant two places to keep in step. The widget stores `field_ids`
+(remapped on import), and with none stored it shows the table's first three
+fields so a new widget is never a blank frame.
 
-### D2. Progress widget (`progress`) — ~2 days
-Aggregate vs. target. **Reuses the existing ungrouped
-`local_baserow_aggregate_rows`** — no new service. Model: `data_source` FK +
-`target_value` (decimal) + display style (`bar|ring`) + optional color
-thresholds (red/amber/green). Body: percent toward target. Covers quotas,
-collection targets, SLA attainment — the most-requested KPI style in Saudi
-business dashboards.
+### D2. Progress widget (`progress`)
+An aggregation over a target, as a bar or a ring, coloured by two thresholds.
+Reuses the existing ungrouped `local_baserow_aggregate_rows`, and reuses
+upstream's `AggregateRowsDataSourceForm` verbatim for the data half of its
+settings. Overshooting the target reads as ">100%" in the number but the bar
+stops at full, because a fill wider than its track escapes the widget.
 
-### D3. Upcoming dates widget (`upcoming_dates`) — ~3 days
-Agenda of rows whose chosen date field falls within the next N days (7/14/30),
-soonest first, overdue flagged. Reuses `local_baserow_list_rows` plus a
-date-window filter applied at dispatch (small service subclass or dispatch-time
-filter injection — decide during D3). Displays Gregorian dates through the
-existing i18n; **Hijri display is explicitly out of scope for v1** (tracked as
-a follow-up, since it touches date formatting globally).
+### D3. Upcoming dates widget (`upcoming_dates`)
+An agenda of rows due within 7/14/30 days, soonest first, overdue flagged and
+counted in the header. This needed the one new service in Phase D —
+`local_baserow_upcoming_rows`, a subclass of the list-rows service adding
+`date_field`, `days_ahead` and `include_overdue`. The alternative considered was a
+relative-date *service filter*, which was rejected: those filter values are an
+encoded string (timezone, amount, unit) that a widget settings panel has no
+business assembling. Filtering in the browser was never an option — it would mean
+fetching every row.
 
-A plain **Text/heading widget** (title + markdown body, no data source) costs
-about half a day and makes dashboards self-documenting — recommended as a
-freebie alongside any phase.
+Notes on the window: datetime fields are compared by their **date part**, since a
+timestamp compared against a date includes or drops a whole day at the boundary
+depending on the time. The date ordering deliberately replaces any view or service
+sort (an agenda not in date order is not an agenda) while filters still apply, so
+a view filter can scope the agenda to one assignee. `created_on` and
+`last_modified` are accepted as date fields, not just the `date` type. Hijri
+display remains out of scope.
+
+**Hijri display is still explicitly deferred** — it touches date formatting
+globally, not just this widget.
+
+A plain **Text/heading widget** (title + markdown body, no data source) remains
+the cheap freebie it was: about half a day, not yet built.
 
 ## Rollout
 

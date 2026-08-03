@@ -1,0 +1,43 @@
+<template>
+  <div>
+    <form v-if="dataSource" class="margin-bottom-2" @submit.prevent>
+      <FormSection :title="$t('recordsListWidgetSettings.display')">
+        <DisplayedFieldsFormGroup
+          :model-value="widget.field_ids"
+          :fields="tableFields"
+          @update:model-value="updateWidget({ field_ids: $event })"
+        />
+      </FormSection>
+    </form>
+
+    <UpcomingRowsDataSourceForm
+      v-if="dataSource"
+      ref="dataSourceForm"
+      :dashboard="dashboard"
+      :widget="widget"
+      :data-source="dataSource"
+      :default-values="dataSource"
+      :store-prefix="storePrefix"
+      @values-changed="onDataSourceValuesChanged"
+    />
+  </div>
+</template>
+
+<script>
+import DisplayedFieldsFormGroup from '@baserow/modules/arabase/dashboard/components/data_source/DisplayedFieldsFormGroup'
+import UpcomingRowsDataSourceForm from '@baserow/modules/arabase/dashboard/components/data_source/UpcomingRowsDataSourceForm'
+import dashboardWidgetSettings from '@baserow/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
+import tableFields from '@baserow/modules/database/mixins/tableFields'
+
+export default {
+  name: 'UpcomingDatesWidgetSettings',
+  components: { DisplayedFieldsFormGroup, UpcomingRowsDataSourceForm },
+  mixins: [dashboardWidgetSettings, tableFields],
+  methods: {
+    /* Overrides the method in the tableFields mixin */
+    getTableId() {
+      return this.dataSource?.table_id || null
+    },
+  },
+}
+</script>

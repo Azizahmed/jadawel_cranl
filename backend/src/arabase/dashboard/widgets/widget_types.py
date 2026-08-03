@@ -2,19 +2,34 @@ from typing import Any
 
 from rest_framework import serializers
 
-from arabase.dashboard.widgets.models import ChartWidget
+from arabase.dashboard.widgets.base import (
+    DataSourceBackedWidgetType,
+    DisplayedFieldsWidgetTypeMixin,
+)
+from arabase.dashboard.widgets.models import (
+    ChartWidget,
+    ProgressWidget,
+    RecordsListWidget,
+    UpcomingDatesWidget,
+)
 from arabase.integrations.local_baserow.service_types import (
     LocalBaserowGroupedAggregateRowsUserServiceType,
 )
-from baserow.contrib.dashboard.data_sources.handler import DashboardDataSourceHandler
-from baserow.contrib.dashboard.data_sources.models import DashboardDataSource
-from baserow.contrib.dashboard.types import WidgetDict
-from baserow.contrib.dashboard.widgets.models import Widget
+from arabase.integrations.local_baserow.upcoming_rows import (
+    LocalBaserowUpcomingRowsUserServiceType,
+)
 from baserow.contrib.dashboard.widgets.registries import WidgetType
-from baserow.core.services.registries import service_type_registry
+from baserow.contrib.integrations.local_baserow.service_types import (
+    LocalBaserowAggregateRowsUserServiceType,
+    LocalBaserowListRowsUserServiceType,
+)
+
+MAX_DISPLAYED_FIELDS = 6
+"""More columns than this stop being readable inside a dashboard widget, whatever
+the widget's width."""
 
 
-class ChartWidgetType(WidgetType):
+class ChartWidgetType(DataSourceBackedWidgetType):
     """
     The type name matches upstream Baserow's premium chart widget so that
     dashboards and templates that contain charts import into this fork.
@@ -22,6 +37,7 @@ class ChartWidgetType(WidgetType):
 
     type = "chart"
     model_class = ChartWidget
+    service_type_name = LocalBaserowGroupedAggregateRowsUserServiceType.type
     allowed_fields = WidgetType.allowed_fields + [
         "chart_type",
         "series_config",
@@ -33,50 +49,17 @@ class ChartWidgetType(WidgetType):
         "series_config",
         "show_legend",
     ]
-    serializer_field_overrides = {
-        "data_source_id": serializers.PrimaryKeyRelatedField(
-            queryset=DashboardDataSource.objects.all(),
-            required=False,
-            default=None,
-            help_text="References a data source field for the widget.",
-        )
-    }
     request_serializer_field_names = ["chart_type", "series_config", "show_legend"]
     request_serializer_field_overrides = {}
 
-    class SerializedDict(WidgetDict):
-        data_source_id: int
+    class SerializedDict(DataSourceBackedWidgetType.SerializedDict):
         chart_type: str
         series_config: dict
         show_legend: bool
 
-    def prepare_value_for_db(self, values: dict, instance: Widget | None = None):
-        if instance is None:
-            # A chart is unusable without somewhere to read numbers from, so the
-            # data source is created with the widget rather than asked for.
-            available_name = DashboardDataSourceHandler().find_unused_data_source_name(
-                values["dashboard"], "WidgetDataSource"
-            )
-            data_source = DashboardDataSourceHandler().create_data_source(
-                dashboard=values["dashboard"],
-                name=available_name,
-                service_type=service_type_registry.get(
-                    LocalBaserowGroupedAggregateRowsUserServiceType.type
-                ),
-            )
-            values["data_source"] = data_source
-        return values
-
-    def before_trashed(self, instance: Widget):
-        instance.data_source.trashed = True
-        instance.data_source.save()
-
-    def before_restore(self, instance: Widget):
-        instance.data_source.trashed = False
-        instance.data_source.save()
-
-    def after_delete(self, instance: Widget):
-        DashboardDataSourceHandler().delete_data_source(instance.data_source)
+    @property
+    def serializer_field_overrides(self):
+        return self.data_source_serializer_field_overrides
 
     def deserialize_property(
         self,
@@ -85,18 +68,10 @@ class ChartWidgetType(WidgetType):
         id_mapping: dict[str, Any],
         **kwargs,
     ) -> Any:
-        if prop_name == "data_source_id" and value:
-            return id_mapping["dashboard_data_sources"][value]
-
         if prop_name == "series_config" and value:
             return self._remap_series_config(value, id_mapping)
 
-        return super().deserialize_property(
-            prop_name,
-            value,
-            id_mapping,
-            **kwargs,
-        )
+        return super().deserialize_property(prop_name, value, id_mapping, **kwargs)
 
     @staticmethod
     def _remap_series_config(series_config: dict, id_mapping: dict[str, Any]) -> dict:
@@ -117,21 +92,126 @@ class ChartWidgetType(WidgetType):
             remapped[key] = config
         return remapped
 
-    def serialize_property(
-        self,
-        instance: Widget,
-        prop_name: str,
-        files_zip=None,
-        storage=None,
-        cache=None,
-    ):
-        if prop_name == "data_source_id":
-            return instance.data_source_id
 
-        return super().serialize_property(
-            instance,
-            prop_name,
-            files_zip=files_zip,
-            storage=storage,
-            cache=cache,
+class RecordsListWidgetType(DisplayedFieldsWidgetTypeMixin, DataSourceBackedWidgetType):
+    """The latest rows of a table or view."""
+
+    type = "records_list"
+    model_class = RecordsListWidget
+    service_type_name = LocalBaserowListRowsUserServiceType.type
+    allowed_fields = WidgetType.allowed_fields + ["field_ids"]
+    serializer_field_names = ["data_source_id", "field_ids"]
+    request_serializer_field_names = ["field_ids"]
+    request_serializer_field_overrides = {}
+
+    class SerializedDict(DataSourceBackedWidgetType.SerializedDict):
+        field_ids: list
+
+    @property
+    def serializer_field_overrides(self):
+        return {
+            **self.data_source_serializer_field_overrides,
+            "field_ids": serializers.ListField(
+                child=serializers.IntegerField(),
+                required=False,
+                max_length=MAX_DISPLAYED_FIELDS,
+                help_text="Ids of the fields to show, in order. An empty list "
+                "lets the widget choose.",
+            ),
+        }
+
+
+class ProgressWidgetType(DataSourceBackedWidgetType):
+    """An aggregation measured against a target."""
+
+    type = "progress"
+    model_class = ProgressWidget
+    service_type_name = LocalBaserowAggregateRowsUserServiceType.type
+    allowed_fields = WidgetType.allowed_fields + [
+        "target_value",
+        "display_style",
+        "warning_threshold",
+        "success_threshold",
+    ]
+    serializer_field_names = [
+        "data_source_id",
+        "target_value",
+        "display_style",
+        "warning_threshold",
+        "success_threshold",
+    ]
+    request_serializer_field_names = [
+        "target_value",
+        "display_style",
+        "warning_threshold",
+        "success_threshold",
+    ]
+    request_serializer_field_overrides = {}
+
+    class SerializedDict(DataSourceBackedWidgetType.SerializedDict):
+        target_value: str
+        display_style: str
+        warning_threshold: int
+        success_threshold: int
+
+    @property
+    def serializer_field_overrides(self):
+        return self.data_source_serializer_field_overrides
+
+    def prepare_value_for_db(self, values: dict, instance=None):
+        values = super().prepare_value_for_db(values, instance)
+
+        # A target of zero would make every percentage a division by zero, and a
+        # negative one has no meaning as a goal.
+        target = values.get("target_value", None)
+        if target is not None and target <= 0:
+            raise serializers.ValidationError(
+                {"target_value": "The target value must be greater than zero."}
+            )
+
+        # Thresholds that cross over would colour the widget by whichever check
+        # happened to run first.
+        warning = values.get(
+            "warning_threshold", getattr(instance, "warning_threshold", None)
         )
+        success = values.get(
+            "success_threshold", getattr(instance, "success_threshold", None)
+        )
+        if warning is not None and success is not None and warning > success:
+            raise serializers.ValidationError(
+                {
+                    "warning_threshold": "The warning threshold cannot be above "
+                    "the success threshold."
+                }
+            )
+
+        return values
+
+
+class UpcomingDatesWidgetType(
+    DisplayedFieldsWidgetTypeMixin, DataSourceBackedWidgetType
+):
+    """An agenda of rows falling due soon."""
+
+    type = "upcoming_dates"
+    model_class = UpcomingDatesWidget
+    service_type_name = LocalBaserowUpcomingRowsUserServiceType.type
+    allowed_fields = WidgetType.allowed_fields + ["field_ids"]
+    serializer_field_names = ["data_source_id", "field_ids"]
+    request_serializer_field_names = ["field_ids"]
+    request_serializer_field_overrides = {}
+
+    class SerializedDict(DataSourceBackedWidgetType.SerializedDict):
+        field_ids: list
+
+    @property
+    def serializer_field_overrides(self):
+        return {
+            **self.data_source_serializer_field_overrides,
+            "field_ids": serializers.ListField(
+                child=serializers.IntegerField(),
+                required=False,
+                max_length=MAX_DISPLAYED_FIELDS,
+                help_text="Ids of the fields to show alongside the date, in order.",
+            ),
+        }

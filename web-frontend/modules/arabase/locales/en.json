@@ -6,7 +6,10 @@
     "errorIncompleteSeries": "A series is missing a field or an aggregation type",
     "errorSeriesInError": "A series refers to a deleted field",
     "errorGroupByInError": "The group by refers to a deleted field",
-    "errorFilterInError": "A filter refers to a deleted field"
+    "errorFilterInError": "A filter refers to a deleted field",
+    "upcomingRows": "Upcoming rows",
+    "upcomingRowsDescription": "Rows whose date falls within the next few days",
+    "errorNoDateField": "No date field has been selected"
   },
   "chartWidget": {
     "name": "Chart",
@@ -38,5 +41,58 @@
     "addSeries": "Add series",
     "removeSeries": "Remove series",
     "seriesLimit": "A chart can show at most {count} series"
+  },
+  "recordsListWidget": {
+    "name": "Records list",
+    "noRecords": "There are no records to show",
+    "misconfigured": "Fix the widget configuration to see the records"
+  },
+  "recordsListWidgetSettings": {
+    "display": "Display"
+  },
+  "displayedFields": {
+    "label": "Fields",
+    "help": "Leave empty to show the first fields of the table"
+  },
+  "progressWidget": {
+    "name": "Progress",
+    "misconfigured": "Fix the widget configuration to see the progress",
+    "ofTarget": "{value} of {target}"
+  },
+  "progressWidgetSettings": {
+    "target": "Target",
+    "targetValue": "Target value",
+    "targetError": "The target must be a number greater than zero",
+    "displayStyle": "Style",
+    "bar": "Bar",
+    "ring": "Ring",
+    "warningThreshold": "At risk above",
+    "successThreshold": "Met above",
+    "thresholdHelp": "Percentages that decide the colour of the widget",
+    "thresholdError": "Must not be below the at-risk percentage"
+  },
+  "upcomingDatesWidget": {
+    "name": "Upcoming dates",
+    "nothingDue": "Nothing is due in this period",
+    "misconfigured": "Fix the widget configuration to see the agenda",
+    "overdueCount": "{count} overdue"
+  },
+  "listRowsDataSourceForm": {
+    "data": "Data",
+    "sourceFieldLabel": "Table",
+    "viewFieldLabel": "View",
+    "viewHelp": "The view's filters and sorting are applied",
+    "notSelected": "Not selected",
+    "rowCountLabel": "Records",
+    "rowCountError": "Enter a number between 1 and {max}"
+  },
+  "upcomingRowsDataSourceForm": {
+    "dateFieldLabel": "Date field",
+    "dateFieldHelp": "The field that decides when a record is due",
+    "noDateFields": "This table has no date fields",
+    "windowLabel": "Period",
+    "days": "Next {count} days",
+    "rowCountLabel": "Records",
+    "includeOverdue": "Include overdue records"
   }
 }

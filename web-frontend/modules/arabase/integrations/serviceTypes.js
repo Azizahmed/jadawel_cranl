@@ -1,4 +1,7 @@
-import { LocalBaserowTableServiceType } from '@baserow/modules/integrations/localBaserow/serviceTypes'
+import {
+  LocalBaserowListRowsServiceType,
+  LocalBaserowTableServiceType,
+} from '@baserow/modules/integrations/localBaserow/serviceTypes'
 import { DistributionViewAggregationType } from '@baserow/modules/database/viewAggregationTypes'
 
 /**
@@ -62,5 +65,50 @@ export class LocalBaserowGroupedAggregateRowsServiceType extends LocalBaserowTab
 
   getOrder() {
     return 21
+  }
+}
+
+/**
+ * Rows narrowed to a date window, for the upcoming dates widget.
+ *
+ * Extends the list-rows type so the schema, record naming and formula path
+ * handling all come for free — the window is the only difference, and it is
+ * configured on the widget's own settings form rather than the builder's.
+ */
+export class LocalBaserowUpcomingRowsServiceType extends LocalBaserowListRowsServiceType {
+  static getType() {
+    return 'local_baserow_upcoming_rows'
+  }
+
+  get name() {
+    return this.app.$i18n.t('arabaseServiceType.upcomingRows')
+  }
+
+  get description() {
+    return this.app.$i18n.t('arabaseServiceType.upcomingRowsDescription')
+  }
+
+  get icon() {
+    return 'iconoir-calendar'
+  }
+
+  /**
+   * Kept out of the application builder's data source picker. It inherits the
+   * list-rows form, which has no date-field control, so a builder user could
+   * create one that can never dispatch. Giving it a builder form is a follow-up.
+   */
+  get isDataSource() {
+    return false
+  }
+
+  getErrorMessage({ service }) {
+    if (service !== undefined && service.table_id && !service.date_field_id) {
+      return this.app.$i18n.t('arabaseServiceType.errorNoDateField')
+    }
+    return super.getErrorMessage({ service })
+  }
+
+  getOrder() {
+    return 22
   }
 }

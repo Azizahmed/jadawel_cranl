@@ -1,5 +1,13 @@
-import { ChartWidgetType } from '@baserow/modules/arabase/dashboard/widgetTypes'
-import { LocalBaserowGroupedAggregateRowsServiceType } from '@baserow/modules/arabase/integrations/serviceTypes'
+import {
+  ChartWidgetType,
+  ProgressWidgetType,
+  RecordsListWidgetType,
+  UpcomingDatesWidgetType,
+} from '@baserow/modules/arabase/dashboard/widgetTypes'
+import {
+  LocalBaserowGroupedAggregateRowsServiceType,
+  LocalBaserowUpcomingRowsServiceType,
+} from '@baserow/modules/arabase/integrations/serviceTypes'
 
 /**
  * Registry registrations for the fork's own types.
@@ -20,6 +28,14 @@ export default defineNuxtPlugin({
       'service',
       new LocalBaserowGroupedAggregateRowsServiceType(context)
     )
+    $registry.register(
+      'service',
+      new LocalBaserowUpcomingRowsServiceType(context)
+    )
+
     $registry.register('dashboardWidget', new ChartWidgetType(context))
+    $registry.register('dashboardWidget', new RecordsListWidgetType(context))
+    $registry.register('dashboardWidget', new ProgressWidgetType(context))
+    $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
   },
 })

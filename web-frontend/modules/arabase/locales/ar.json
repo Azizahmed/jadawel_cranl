@@ -6,7 +6,10 @@
     "errorIncompleteSeries": "إحدى السلاسل ينقصها حقل أو نوع تجميع",
     "errorSeriesInError": "إحدى السلاسل تشير إلى حقل محذوف",
     "errorGroupByInError": "التصنيف يشير إلى حقل محذوف",
-    "errorFilterInError": "أحد عوامل التصفية يشير إلى حقل محذوف"
+    "errorFilterInError": "أحد عوامل التصفية يشير إلى حقل محذوف",
+    "upcomingRows": "السجلات القادمة",
+    "upcomingRowsDescription": "السجلات التي يقع تاريخها ضمن الأيام القادمة",
+    "errorNoDateField": "لم يتم اختيار حقل تاريخ"
   },
   "chartWidget": {
     "name": "مخطط",
@@ -38,5 +41,58 @@
     "addSeries": "إضافة سلسلة",
     "removeSeries": "حذف السلسلة",
     "seriesLimit": "يمكن للمخطط عرض {count} سلاسل كحد أقصى"
+  },
+  "recordsListWidget": {
+    "name": "قائمة السجلات",
+    "noRecords": "لا توجد سجلات لعرضها",
+    "misconfigured": "صحّح إعدادات العنصر لعرض السجلات"
+  },
+  "recordsListWidgetSettings": {
+    "display": "العرض"
+  },
+  "displayedFields": {
+    "label": "الحقول",
+    "help": "اتركه فارغاً لعرض أول حقول الجدول"
+  },
+  "progressWidget": {
+    "name": "التقدّم",
+    "misconfigured": "صحّح إعدادات العنصر لعرض نسبة التقدّم",
+    "ofTarget": "{value} من {target}"
+  },
+  "progressWidgetSettings": {
+    "target": "الهدف",
+    "targetValue": "قيمة الهدف",
+    "targetError": "يجب أن يكون الهدف رقماً أكبر من صفر",
+    "displayStyle": "النمط",
+    "bar": "شريط",
+    "ring": "حلقة",
+    "warningThreshold": "متعثّر فوق",
+    "successThreshold": "مُنجز فوق",
+    "thresholdHelp": "النسب التي تحدّد لون العنصر",
+    "thresholdError": "يجب ألّا تقل عن نسبة التعثّر"
+  },
+  "upcomingDatesWidget": {
+    "name": "التواريخ القادمة",
+    "nothingDue": "لا يوجد شيء مستحق في هذه الفترة",
+    "misconfigured": "صحّح إعدادات العنصر لعرض الجدول الزمني",
+    "overdueCount": "{count} متأخّر"
+  },
+  "listRowsDataSourceForm": {
+    "data": "البيانات",
+    "sourceFieldLabel": "الجدول",
+    "viewFieldLabel": "العرض",
+    "viewHelp": "يتم تطبيق عوامل تصفية العرض وترتيبه",
+    "notSelected": "غير محدد",
+    "rowCountLabel": "عدد السجلات",
+    "rowCountError": "أدخل رقماً بين ١ و{max}"
+  },
+  "upcomingRowsDataSourceForm": {
+    "dateFieldLabel": "حقل التاريخ",
+    "dateFieldHelp": "الحقل الذي يحدّد موعد استحقاق السجل",
+    "noDateFields": "لا يحتوي هذا الجدول على حقول تاريخ",
+    "windowLabel": "الفترة",
+    "days": "الأيام {count} القادمة",
+    "rowCountLabel": "عدد السجلات",
+    "includeOverdue": "تضمين السجلات المتأخّرة"
   }
 }
