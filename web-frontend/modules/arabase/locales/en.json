@@ -1,0 +1,42 @@
+{
+  "arabaseServiceType": {
+    "groupedAggregateRows": "Grouped aggregation",
+    "groupedAggregateRowsDescription": "Aggregate a field and group the result by another field",
+    "errorNoSeries": "No series have been added",
+    "errorIncompleteSeries": "A series is missing a field or an aggregation type",
+    "errorSeriesInError": "A series refers to a deleted field",
+    "errorGroupByInError": "The group by refers to a deleted field",
+    "errorFilterInError": "A filter refers to a deleted field"
+  },
+  "chartWidget": {
+    "name": "Chart",
+    "bar": "Bar chart",
+    "line": "Line chart",
+    "pie": "Pie chart",
+    "doughnut": "Doughnut chart",
+    "noData": "There is nothing to chart yet",
+    "misconfigured": "Fix the widget configuration to see the chart",
+    "emptyGroup": "Empty",
+    "truncated": "Showing the first {count} groups"
+  },
+  "chartWidgetSettings": {
+    "appearance": "Appearance",
+    "chartType": "Chart type",
+    "showLegend": "Show legend"
+  },
+  "groupedAggregateRowsDataSourceForm": {
+    "data": "Data",
+    "series": "Series",
+    "sourceFieldLabel": "Table",
+    "viewFieldLabel": "View",
+    "notSelected": "Not selected",
+    "groupByLabel": "Group by",
+    "groupByHelp": "The field whose values become the categories of the chart",
+    "noGroupBy": "No grouping",
+    "seriesFieldLabel": "Field",
+    "aggregationTypeLabel": "Aggregation",
+    "addSeries": "Add series",
+    "removeSeries": "Remove series",
+    "seriesLimit": "A chart can show at most {count} series"
+  }
+}

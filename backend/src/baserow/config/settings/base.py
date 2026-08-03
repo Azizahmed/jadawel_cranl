@@ -1628,3 +1628,14 @@ BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY = os.getenv(
 BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY = os.getenv(
     "BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY", ""
 )
+
+
+# -- JADAWEL FORK SETTINGS --
+# The most buckets a dashboard chart will draw. A group by on a high-cardinality
+# field (an email or a name) would otherwise ask the browser to render a category
+# per row. Buckets past the cap are dropped after sorting, and the dispatch
+# result flags that it happened so the widget can say so.
+ARABASE_CHART_MAX_BUCKETS = max(
+    try_int(os.getenv("ARABASE_CHART_MAX_BUCKETS"), 100),
+    1,
+)

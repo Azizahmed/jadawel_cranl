@@ -9,6 +9,7 @@ const projectRoot = path.resolve(
 
 export const localeDirectories = [
   'locales',
+  'modules/arabase/locales',
   'modules/automation/locales',
   'modules/builder/locales',
   'modules/core/locales',

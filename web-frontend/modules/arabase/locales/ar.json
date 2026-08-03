@@ -1,0 +1,42 @@
+{
+  "arabaseServiceType": {
+    "groupedAggregateRows": "تجميع مُصنَّف",
+    "groupedAggregateRowsDescription": "تجميع قيم حقل وتصنيف النتيجة حسب حقل آخر",
+    "errorNoSeries": "لم تُضف أي سلسلة بيانات",
+    "errorIncompleteSeries": "إحدى السلاسل ينقصها حقل أو نوع تجميع",
+    "errorSeriesInError": "إحدى السلاسل تشير إلى حقل محذوف",
+    "errorGroupByInError": "التصنيف يشير إلى حقل محذوف",
+    "errorFilterInError": "أحد عوامل التصفية يشير إلى حقل محذوف"
+  },
+  "chartWidget": {
+    "name": "مخطط",
+    "bar": "مخطط أعمدة",
+    "line": "مخطط خطي",
+    "pie": "مخطط دائري",
+    "doughnut": "مخطط حلقي",
+    "noData": "لا توجد بيانات لعرضها في المخطط بعد",
+    "misconfigured": "صحّح إعدادات العنصر لعرض المخطط",
+    "emptyGroup": "فارغ",
+    "truncated": "يتم عرض أول {count} تصنيف"
+  },
+  "chartWidgetSettings": {
+    "appearance": "المظهر",
+    "chartType": "نوع المخطط",
+    "showLegend": "إظهار مفتاح المخطط"
+  },
+  "groupedAggregateRowsDataSourceForm": {
+    "data": "البيانات",
+    "series": "سلاسل البيانات",
+    "sourceFieldLabel": "الجدول",
+    "viewFieldLabel": "العرض",
+    "notSelected": "غير محدد",
+    "groupByLabel": "التصنيف حسب",
+    "groupByHelp": "الحقل الذي تصبح قيمه تصنيفات المخطط",
+    "noGroupBy": "بدون تصنيف",
+    "seriesFieldLabel": "الحقل",
+    "aggregationTypeLabel": "نوع التجميع",
+    "addSeries": "إضافة سلسلة",
+    "removeSeries": "حذف السلسلة",
+    "seriesLimit": "يمكن للمخطط عرض {count} سلاسل كحد أقصى"
+  }
+}

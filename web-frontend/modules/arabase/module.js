@@ -1,4 +1,5 @@
 import { defineNuxtModule, addPlugin, createResolver } from 'nuxt/kit'
+import { locales } from '../../config/locales.js'
 
 /**
  * Arabase (Jadawel) Nuxt module — the home for our additive frontend code.
@@ -23,13 +24,25 @@ export default defineNuxtModule({
       src: resolve('./plugin.js'),
     })
 
+    // Registry registrations (dashboard widgets, service types) live in their own
+    // plugin because they must run after the modules whose namespaces they extend.
+    addPlugin({
+      src: resolve('./registryPlugin.js'),
+    })
+
     // Global RTL / Arabic-first stylesheet. Pushed after core's default.scss
     // (core registers in its own module setup) so it can layer on top. See 1.2.
     nuxt.options.css.push(resolve('./assets/scss/arabase.scss'))
+    nuxt.options.css.push(resolve('./assets/scss/dashboard_chart_widget.scss'))
 
-    // The `ar` locale itself is activated via config/locales.js (shared list) and
-    // the existing per-module langDirs; arabase does not register its own langDir
-    // yet because it has no user-facing strings of its own. When it does, add a
-    // nuxt.hook('i18n:registerModule', ...) here with an ./locales dir.
+    // The `ar` locale itself is activated via config/locales.js (shared list).
+    // arabase keeps its own strings here rather than adding keys to an upstream
+    // module's locale files, which would conflict on every upstream merge.
+    nuxt.hook('i18n:registerModule', (register) => {
+      register({
+        langDir: resolve('./locales'),
+        locales,
+      })
+    })
   },
 })

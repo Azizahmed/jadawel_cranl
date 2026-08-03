@@ -800,3 +800,27 @@ seen from outside; `docs/diagnose-production.sh` is read-only and collects it.
 | `docker-compose.yml` | Traefik rate-limit router on the credential endpoints | No brute-force protection | low |
 | `docs/PRODUCTION_HARDENING.md` | New: findings, and the settings only the operator can change | — | low |
 | `docs/diagnose-production.sh` | New: read-only VPS diagnostics | Self-reload cause needs server-side data | low |
+
+## Dashboard charts — grouped aggregation service + chart widget (2026-08-03)
+
+Upstream's four chart widgets (bar, line, pie, doughnut) are one `chart` widget
+type living in the deleted `premium/`, backed by a premium
+`local_baserow_grouped_aggregate_rows` service. Both are rebuilt from scratch
+under `backend/src/arabase/` and `web-frontend/modules/arabase/`, keeping
+upstream's **registry type names** so dashboards and templates that contain
+charts import here instead of being skipped.
+
+New models live in `arabase` (its first migration) rather than in
+`contrib.integrations` / `contrib.dashboard`: a fork migration inserted into an
+upstream app's sequence conflicts on every merge from upstream. Cross-app FKs to
+`core.service`, `dashboard.Widget` and `dashboard.DashboardDataSource` work
+unchanged, and both types register into the existing open registries from
+`arabase/apps.py`, so no upstream Python file needed editing for the feature
+itself. The four core-file edits below are registration and tooling only.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/baserow/config/settings/base.py` | Appended `ARABASE_CHART_MAX_BUCKETS` (default 100) under a "JADAWEL FORK SETTINGS" heading at the end of the file | A chart grouped by a high-cardinality field would otherwise ask the browser for one category per row | low |
+| `web-frontend/modules/arabase/module.js` | Registers `./registryPlugin.js`, the `./locales` langDir, and `./assets/scss/dashboard_chart_widget.scss` | Fork-owned file; the widget needs registry entries, its own strings, and styles | none |
+| `web-frontend/scripts/check-locale-parity.mjs` | Added `modules/arabase/locales` to `localeDirectories` | The strict CI gate must cover the fork's own strings, which are deliberately *not* added to upstream modules' locale files | low |
+| `backend/src/arabase/apps.py` | Registers the service type and widget type in `ready()` | Fork-owned file | none |

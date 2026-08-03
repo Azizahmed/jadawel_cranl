@@ -1,0 +1,146 @@
+from django.db import models
+
+from baserow.contrib.database.views.models import SORT_ORDER_CHOICES, SORT_ORDER_DESC
+from baserow.contrib.integrations.local_baserow.models import (
+    LocalBaserowFilterableServiceMixin,
+    LocalBaserowViewService,
+)
+from baserow.core.services.models import SearchableServiceMixin
+
+SORT_ON_SERIES = "SERIES"
+SORT_ON_GROUP_BY = "GROUP_BY"
+SORT_ON_CHOICES = [
+    (SORT_ON_SERIES, SORT_ON_SERIES),
+    (SORT_ON_GROUP_BY, SORT_ON_GROUP_BY),
+]
+
+
+class LocalBaserowGroupedAggregateRows(
+    LocalBaserowViewService,
+    LocalBaserowFilterableServiceMixin,
+    SearchableServiceMixin,
+):
+    """
+    Configuration for an aggregation that is bucketed by a field.
+
+    The core `LocalBaserowAggregateRows` service returns a single number for the
+    whole table. Every chart needs one number *per bucket*, which is what this
+    service adds: zero or more `series` (field + aggregation type) computed over
+    the groups produced by a `group by` field.
+
+    With no group by configured the service still dispatches and returns one
+    bucket per series, which is what makes a single-value chart possible.
+    """
+
+
+class LocalBaserowTableServiceAggregationSeries(models.Model):
+    """One field/aggregation pair computed per bucket."""
+
+    service = models.ForeignKey(
+        LocalBaserowGroupedAggregateRows,
+        related_name="service_aggregation_series",
+        on_delete=models.CASCADE,
+        help_text="The service this aggregation series belongs to.",
+    )
+    field = models.ForeignKey(
+        "database.Field",
+        help_text="The aggregated field.",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    aggregation_type = models.CharField(
+        default="", blank=True, max_length=48, help_text="The field aggregation type."
+    )
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ("order", "id")
+
+    def __repr__(self):
+        return (
+            "<LocalBaserowTableServiceAggregationSeries "
+            f"{self.field_id} {self.aggregation_type}>"
+        )
+
+    @property
+    def key(self) -> str:
+        """
+        The name this series is addressed by in the dispatch result, in
+        `ChartWidget.series_config`, and in a sort's `reference`.
+
+        Derived from the field and aggregation type rather than the series' own
+        id so that it survives an export/import round trip: field ids are
+        remapped on import, series ids are not.
+        """
+
+        return series_key(self.field_id, self.aggregation_type)
+
+
+def series_key(field_id: int | None, aggregation_type: str) -> str:
+    return f"field_{field_id}_{aggregation_type}"
+
+
+class LocalBaserowTableServiceAggregationGroupBy(models.Model):
+    """The field whose distinct values become the buckets."""
+
+    service = models.ForeignKey(
+        LocalBaserowGroupedAggregateRows,
+        related_name="service_aggregation_group_bys",
+        on_delete=models.CASCADE,
+        help_text="The service this group by belongs to.",
+    )
+    field = models.ForeignKey(
+        "database.Field",
+        help_text="The field to group the aggregation by.",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ("order", "id")
+
+    def __repr__(self):
+        return f"<LocalBaserowTableServiceAggregationGroupBy {self.field_id}>"
+
+
+class LocalBaserowTableServiceAggregationSortBy(models.Model):
+    """
+    How the buckets are ordered, either by their label (`GROUP_BY`) or by one
+    series' value (`SERIES`).
+    """
+
+    service = models.ForeignKey(
+        LocalBaserowGroupedAggregateRows,
+        related_name="service_aggregation_sorts",
+        on_delete=models.CASCADE,
+        help_text="The service this sort belongs to.",
+    )
+    sort_on = models.CharField(
+        max_length=10,
+        choices=SORT_ON_CHOICES,
+        default=SORT_ON_SERIES,
+        help_text="Whether the sort applies to a series value or the group by field.",
+    )
+    reference = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        help_text="The series key or group by field reference being sorted on.",
+    )
+    direction = models.CharField(
+        max_length=4,
+        choices=SORT_ORDER_CHOICES,
+        default=SORT_ORDER_DESC,
+        help_text="Indicates the sort order direction.",
+    )
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ("order", "id")
+
+    def __repr__(self):
+        return (
+            "<LocalBaserowTableServiceAggregationSortBy "
+            f"{self.sort_on} {self.reference} {self.direction}>"
+        )

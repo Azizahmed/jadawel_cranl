@@ -1,0 +1,51 @@
+// Styles for the fork's dashboard chart widget.
+// A standalone stylesheet with its own `@import` of the palette, rather than a
+// partial under core/assets/scss/components: core's `default.scss` aggregates
+// those, and adding fork entries to it conflicts on every upstream merge.
+@import '@baserow/modules/core/assets/scss/colors';
+
+.dashboard-chart-widget {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.dashboard-chart-widget__chart {
+  // Chart.js sizes its canvas from the parent, so the parent needs a definite
+  // height. `min-block-size: 0` lets it shrink inside the flex column instead of
+  // overflowing the widget frame.
+  position: relative;
+  flex: 1;
+  min-block-size: 160px;
+  padding-block-start: 12px;
+}
+
+.dashboard-chart-widget__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: 100%;
+  color: $palette-neutral-700;
+  font-size: 13px;
+  text-align: center;
+}
+
+.dashboard-chart-widget__loading {
+  block-size: 200px;
+}
+
+.grouped-aggregate-series {
+  border-block-end: 1px solid $palette-neutral-200;
+  margin-block-end: 12px;
+  padding-block-end: 4px;
+
+  &:last-of-type {
+    border-block-end: none;
+  }
+}
+
+.grouped-aggregate-series__limit {
+  color: $palette-neutral-700;
+  font-size: 12px;
+}

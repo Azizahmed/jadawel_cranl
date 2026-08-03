@@ -26,3 +26,17 @@ class ArabaseConfig(AppConfig):
         from baserow.core.registries import plugin_registry
 
         plugin_registry.register(ArabasePlugin())
+
+        from arabase.integrations.local_baserow.service_types import (
+            LocalBaserowGroupedAggregateRowsUserServiceType,
+        )
+        from baserow.core.services.registries import service_type_registry
+
+        service_type_registry.register(
+            LocalBaserowGroupedAggregateRowsUserServiceType()
+        )
+
+        from arabase.dashboard.widgets.widget_types import ChartWidgetType
+        from baserow.contrib.dashboard.widgets.registries import widget_type_registry
+
+        widget_type_registry.register(ChartWidgetType())
