@@ -89,6 +89,27 @@ Chart.register(
 // able to repeat. Bar and line charts use one colour per series instead.
 const FALLBACK_PALETTE = getBaseColors()
 
+/**
+ * Resolves a stored colour to something chart.js can paint with: either a
+ * literal hex, or one of Jadawel's colour names (what a single select option
+ * stores) looked up in the shared palette.
+ *
+ * The name lookup is deliberately strict about what comes back. `colorStyles` is
+ * a CSS modules object, and asking one for a key it does not export can return a
+ * generated class name rather than `undefined` — so a value is only accepted if
+ * it actually looks like a colour.
+ */
+const resolveColor = (value) => {
+  if (typeof value !== 'string' || value === '') {
+    return null
+  }
+  if (value.startsWith('#')) {
+    return value
+  }
+  const named = colorStyles[value]
+  return typeof named === 'string' && named.startsWith('#') ? named : null
+}
+
 export default {
   name: 'ChartWidget',
   components: {
@@ -183,10 +204,11 @@ export default {
      * to see again in the chart.
      */
     bucketColors() {
-      return this.groups.map((group, index) => {
-        const named = group?.color && colorStyles[group.color]
-        return named || FALLBACK_PALETTE[index % FALLBACK_PALETTE.length]
-      })
+      return this.groups.map(
+        (group, index) =>
+          resolveColor(group?.color) ||
+          FALLBACK_PALETTE[index % FALLBACK_PALETTE.length]
+      )
     },
     chartData() {
       if (this.groups.length === 0) {
@@ -288,8 +310,7 @@ export default {
       return `${series.label} (${aggregationType.getName()})`
     },
     seriesColor(series) {
-      const configured = this.seriesConfig(series).color
-      return (configured && colorStyles[configured]) || configured || null
+      return resolveColor(this.seriesConfig(series).color)
     },
   },
 }

@@ -6,7 +6,7 @@
 |---|---|
 | A — grouped aggregation service | **Implemented and tested** (32 tests green) |
 | B — chart widget backend | **Implemented and tested** |
-| C — chart widget frontend | **Implemented** (4 variations, settings form, RTL, en+ar); unit tests still to write |
+| C — chart widget frontend | **Implemented and tested** (4 variations, settings form, RTL, en+ar; 10 unit tests) |
 | D1/D2/D3 — the three Jadawel widgets | Not started |
 
 Verified so far:
@@ -14,18 +14,24 @@ Verified so far:
 - `makemigrations --check --dry-run arabase` → *No changes detected*, so the
   hand-written migration matches the models
 - `pytest backend/tests/arabase` → **32 passed**
+- `vitest test/unit/arabase` → **10 passed** (`ChartWidget`: dataset/label mapping,
+  chart-type switching, bucket vs. series colouring, series overrides, no-group-by,
+  empty group label, legend toggle, misconfigured and empty states)
 - `ruff check` / `ruff format --check` on the new code → clean
 - `prettier --check` and `stylelint` on `modules/arabase` → clean
 - `check-locale-parity.mjs --strict` → 3533/3533
 
+The frontend test earned its keep immediately: it caught `ChartWidget` treating
+the `colors.module.scss` import as a plain lookup table. A CSS modules object can
+return a *generated class name* for a key it does not export, so an unknown colour
+name silently became a bogus colour instead of falling back to the palette. Colour
+resolution now only accepts a value that actually looks like one.
+
 Not verified:
 
-- **Frontend unit tests do not exist for the chart widget yet.** The Vue
-  templates and imports are gated instead by the production build in the publish
-  workflow, which compiles every template — a broken component fails the build
-  before anything is deployed. Real unit tests are still owed.
 - ESLint could not be run locally (it needs a generated `.nuxt/eslint.config.mjs`);
-  prettier and stylelint were run in its place.
+  prettier and stylelint were run in its place. The production build in the
+  publish workflow is the backstop that compiles every template.
 - The five failures in `tests/baserow/contrib/dashboard/api/` are **pre-existing**
   — confirmed by running them at the parent commit. They assert English DRF error
   strings that come back in Arabic because the fork defaults `LANGUAGE_CODE` to
