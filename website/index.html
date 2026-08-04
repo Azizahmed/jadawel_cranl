@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جداول — منصة سعودية لإدارة البيانات والعمليات</title>
+<meta name="description" content="جداول: منصة سحابية سعودية بديلة عن Airtable — قواعد بيانات ولوحات معلومات بواجهة عربية كاملة، استضافة داخل المملكة ومتوافقة مع معايير NDMO.">
+<meta property="og:title" content="جداول — منصة سعودية لإدارة البيانات">
+<meta property="og:description" content="مرونة عالمية، امتثال سعودي. بياناتك داخل المملكة.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7f5; --surface:#ffffff; --ink:#202128; --muted:#6e6e69; --line:#e6e6e1;
+  --green:#2e7d5b; --green-dark:#266a4d; --green-tint:#eaf4ee; --green-line:#cfe5d9;
+  --amber:#b97f24; --amber-tint:#f7efe0; --gray-tint:#f0f0ec; --radius:14px;
+  --shadow:0 12px 32px rgba(32,33,40,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden}
+body,.browser,.mini-table{font-feature-settings:"tnum"}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1120px;margin-inline:auto;padding-inline:24px}
+section{scroll-margin-top:84px}
+::selection{background:var(--green-tint);color:var(--green-dark)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;font-weight:600;font-size:15px;padding:12px 22px;border:1px solid transparent;cursor:pointer;transition:.2s;font-family:inherit}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:#c9c9c2;transform:translateY(-1px)}
+.btn-sm{padding:8px 16px;font-size:14px}
+.btn-light{background:#fff;color:var(--green-dark)}
+.btn-light:hover{transform:translateY(-1px)}
+.btn-outline-light{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
+.btn-outline-light:hover{background:rgba(255,255,255,.1)}
+
+/* ---------- navbar ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(247,247,245,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .25s}
+.nav.scrolled{box-shadow:0 6px 24px rgba(32,33,40,.07)}
+.nav-inner{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .logo{height:26px;width:auto;color:var(--ink)}
+.latin-name{font-weight:700;font-size:15px;letter-spacing:.4px;color:var(--ink)}
+.links{display:flex;gap:2px}
+.links a{padding:8px 12px;border-radius:8px;color:var(--muted);font-size:14.5px;font-weight:500}
+.links a:hover{color:var(--ink);background:var(--gray-tint)}
+.nav-actions{margin-inline-start:auto;display:flex;align-items:center;gap:10px}
+.lang-toggle{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink)}
+.lang-toggle:hover{border-color:#c9c9c2}
+.login-link{color:var(--muted);font-size:14.5px;font-weight:500;padding:8px 6px}
+.login-link:hover{color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{padding:84px 0 30px;text-align:center;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--green-line);background:var(--green-tint);color:var(--green-dark);border-radius:999px;font-size:13px;font-weight:600}
+.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.35;font-weight:700;max-width:820px;margin:22px auto 16px}
+.hero .sub{color:var(--muted);font-size:18px;line-height:2;max-width:740px;margin:0 auto 30px}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-note{margin-top:16px;color:var(--muted);font-size:13px}
+
+/* ---------- app mockup ---------- */
+.mockup-wrap{margin-top:60px;position:relative}
+.mockup-wrap::before{content:"";position:absolute;inset:-60px -40px;background:radial-gradient(55% 55% at 50% 42%,rgba(46,125,91,.13),transparent 72%);z-index:0;pointer-events:none}
+.browser{position:relative;z-index:1;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 70px rgba(32,33,40,.10);overflow:hidden;text-align:start}
+.browser-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:#fbfbfa}
+.dot{width:10px;height:10px;border-radius:50%;background:#e2e2dc}
+.url-pill{margin-inline-start:8px;flex:1;max-width:340px;background:var(--gray-tint);border-radius:8px;padding:5px 14px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.url-pill svg{width:12px;height:12px;color:var(--green)}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:430px}
+.app-side{border-inline-end:1px solid var(--line);background:#fbfbfa;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+.side-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;color:var(--muted);font-size:14px}
+.side-item svg{width:17px;height:17px;flex:none}
+.side-item.active{background:var(--green-tint);color:var(--green-dark);font-weight:600}
+.side-add{margin-top:8px;color:var(--green);font-weight:600}
+.app-main{padding:22px 26px}
+.app-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.app-top b{font-size:16px}
+.app-top .btn{margin-inline-start:auto}
+.row-item{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid var(--line)}
+.row-icon{width:42px;height:42px;flex:none;border:1px solid var(--line);border-radius:11px;display:grid;place-items:center;color:var(--muted);background:#fff}
+.row-icon svg{width:19px;height:19px}
+.row-title{font-weight:600;font-size:14.5px}
+.row-meta{color:var(--muted);font-size:12.5px;margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.stat{background:#f4f4f1;border-radius:11px;padding:14px 16px}
+.stat span{color:var(--muted);font-size:12.5px}
+.stat b{display:block;font-size:22px;margin-top:4px}
+
+/* ---------- trust strip ---------- */
+.trust{padding:44px 0 6px}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.trust-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.trust-card .ic{width:38px;height:38px;border-radius:10px;background:var(--green-tint);color:var(--green-dark);display:grid;place-items:center;margin-bottom:12px}
+.trust-card .ic svg{width:19px;height:19px}
+.trust-card b{font-size:15px}
+.trust-card p{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.8}
+
+/* ---------- section headers ---------- */
+.sec-head{text-align:center;max-width:720px;margin:0 auto 48px}
+.kicker{color:var(--green);font-weight:700;font-size:14px}
+.sec-head h2{font-size:clamp(26px,3.4vw,38px);line-height:1.5;margin:10px 0 12px}
+.sec-head .section-sub{color:var(--muted);font-size:16.5px;line-height:1.9}
+
+/* ---------- features ---------- */
+.features{padding:80px 0 30px}
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;padding:34px 0}
+.feature h3{font-size:24px;line-height:1.5;margin-bottom:10px}
+.feature .fd{color:var(--muted);font-size:16px;line-height:1.95;margin-bottom:16px}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:10px;font-size:14.5px;color:#3d3d42}
+.check .tick{flex:none;width:20px;height:20px;border-radius:50%;background:var(--green-tint);color:var(--green-dark);display:grid;place-items:center;font-size:11px;font-weight:700;margin-top:3px}
+.feature.rev .feature-visual{order:-1}
+.feature-visual{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+
+/* mini table (visual 1) */
+.mini-tabs{display:flex;gap:6px;margin-bottom:14px}
+.mini-tabs span{padding:6px 14px;border-radius:8px;font-size:12.5px;color:var(--muted);background:var(--gray-tint)}
+.mini-tabs span.on{background:var(--green-tint);color:var(--green-dark);font-weight:600}
+.mini-table{border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
+.mt-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;padding:10px 14px;border-bottom:1px solid var(--line);align-items:center}
+.mt-row:last-child{border-bottom:0}
+.mt-head{background:#fbfbfa;color:var(--muted);font-weight:600;font-size:12px}
+.chip{display:inline-flex;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:600}
+.chip.g{background:var(--green-tint);color:var(--green-dark)}
+.chip.a{background:var(--amber-tint);color:var(--amber)}
+.chip.n{background:var(--gray-tint);color:var(--muted)}
+
+/* excel visual (2) */
+.ex-flow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+.ex-box{border:1px dashed var(--line);border-radius:12px;padding:16px;text-align:center;background:#fbfbfa}
+.ex-box .file{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:13px;font-weight:600;direction:ltr}
+.ex-box .file svg{width:16px;height:16px;color:var(--green)}
+.ex-box small{display:block;color:var(--muted);margin-top:10px;font-size:12px}
+.ex-arrow{color:var(--green);width:26px;height:26px}
+[dir="ltr"] .ex-arrow{transform:scaleX(-1)}
+.ex-ok{margin-top:12px;display:flex;justify-content:center}
+
+/* mcp visual (3) */
+.code-card{background:#202128;border-radius:12px;padding:18px 20px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:2;direction:ltr;text-align:left;color:#c9c9d2;overflow:hidden}
+.code-card .cmt{color:#7a7a86}
+.code-card .ok{color:#7fd0a8}
+.code-card .cmd{color:#fff}
+.mcp-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.mcp-chips span{background:var(--green-tint);color:var(--green-dark);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600}
+
+/* mini grid */
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.mini-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.mini-card .ic{width:36px;height:36px;border-radius:9px;background:var(--green-tint);color:var(--green-dark);display:grid;place-items:center;margin-bottom:12px}
+.mini-card .ic svg{width:18px;height:18px}
+.mini-card b{font-size:15px}
+.mini-card p{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.8}
+
+/* ---------- security ---------- */
+.security{background:var(--green-tint);border-block:1px solid var(--green-line);padding:80px 0;margin-top:60px}
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sec-card{background:var(--surface);border:1px solid var(--green-line);border-radius:var(--radius);padding:22px}
+.sec-card .ic{width:38px;height:38px;border-radius:10px;background:var(--green-tint);color:var(--green-dark);display:grid;place-items:center;margin-bottom:12px}
+.sec-card .ic svg{width:19px;height:19px}
+.sec-card b{font-size:15.5px}
+.sec-card p{color:var(--muted);font-size:13.5px;margin-top:6px;line-height:1.85}
+
+/* ---------- steps ---------- */
+.steps{padding:84px 0}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;position:relative}
+.step .num{width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:16px}
+.step b{font-size:17px}
+.step p{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.9}
+
+/* ---------- pricing ---------- */
+.pricing{padding:0 0 84px}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:880px;margin-inline:auto}
+.price-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:32px;position:relative;display:flex;flex-direction:column}
+.price-card.featured{border-color:var(--green);box-shadow:0 20px 50px rgba(46,125,91,.12)}
+.p-badge{position:absolute;top:-14px;inset-inline-start:28px;background:var(--green);color:#fff;border-radius:999px;padding:5px 14px;font-size:12px;font-weight:700}
+.price-card h3{font-size:20px}
+.p-note{color:var(--muted);font-size:13.5px;margin-top:4px}
+.p-amount{display:flex;align-items:baseline;gap:8px;margin:22px 0 4px}
+.p-amount b{font-size:44px;line-height:1}
+.p-amount span{color:var(--muted);font-size:14px}
+.p-trial{color:var(--green-dark);background:var(--green-tint);display:inline-flex;align-self:flex-start;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600;margin-bottom:18px}
+.p-feats{margin:14px 0 26px;flex:1}
+.price-card .btn{width:100%}
+.p-sub-cta{margin-top:10px;text-align:center;color:var(--green-dark);font-weight:600;font-size:14px}
+.p-sub-cta:hover{text-decoration:underline}
+
+/* ---------- faq ---------- */
+.faq{padding:0 0 90px}
+.faq-list{max-width:760px;margin-inline:auto;display:flex;flex-direction:column;gap:10px}
+.faq-list details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 20px;transition:border-color .2s}
+.faq-list details[open]{border-color:var(--green-line)}
+.faq-list summary{padding:18px 0;cursor:pointer;font-weight:600;font-size:15.5px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";color:var(--green);font-size:20px;font-weight:700;transition:transform .2s;flex:none}
+.faq-list details[open] summary::after{transform:rotate(45deg)}
+.faq-list .a{color:var(--muted);font-size:14.5px;line-height:2;padding-bottom:20px}
+
+/* ---------- cta band ---------- */
+.cta-band{background:var(--green);border-radius:22px;color:#fff;text-align:center;padding:60px 32px;margin-bottom:90px;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 90% at 50% 110%,rgba(255,255,255,.14),transparent 60%)}
+.cta-band .logo{height:30px;width:auto;color:#fff;margin:0 auto 18px}
+.cta-band h2{font-size:clamp(24px,3vw,34px);line-height:1.5;position:relative}
+.cta-band p{opacity:.9;margin:10px auto 28px;max-width:560px;position:relative}
+.cta-band .hero-ctas{position:relative}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);background:var(--bg);padding:56px 0 30px}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.f-brand .logo{height:24px;width:auto;color:var(--ink)}
+.f-brand p{color:var(--muted);font-size:13.5px;margin-top:14px;max-width:280px;line-height:1.9}
+.f-col b{font-size:14px;display:block;margin-bottom:14px}
+.f-col a{display:block;color:var(--muted);font-size:13.5px;margin-bottom:10px}
+.f-col a:hover{color:var(--green-dark)}
+.f-bottom{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:960px){
+  .links{display:none}
+  .trust-grid,.sec-grid,.mini-grid,.steps-grid{grid-template-columns:1fr 1fr}
+  .feature,.feature.rev{grid-template-columns:1fr;gap:26px}
+  .feature.rev .feature-visual{order:0}
+  .app{grid-template-columns:1fr}
+  .app-side{display:none}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .trust-grid,.sec-grid,.mini-grid,.steps-grid,.price-grid,.stats,.f-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .login-link{display:none}
+  .ex-flow{grid-template-columns:1fr}
+  .ex-arrow{transform:rotate(90deg)}
+  [dir="ltr"] .ex-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<!-- ======= LOGO + ICON SYMBOLS ======= -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="jd-logo" viewBox="0 0 182.9 72.1">
+    <path fill="currentColor" fill-rule="evenodd" d="M34.62,0.07 L35.18,0.00 L35.50,0.31 L35.75,2.81 L36.37,4.07 L36.62,5.57 L37.37,6.81 L37.75,7.94 L38.37,8.69 L38.75,9.57 L39.50,10.31 L39.75,10.81 L40.62,11.44 L40.50,12.31 L39.75,13.07 L39.37,13.81 L38.75,14.31 L38.50,14.81 L37.75,15.57 L36.50,17.57 L36.50,51.94 L36.25,52.57 L36.25,54.07 L35.87,54.69 L35.37,58.07 L34.62,59.31 L34.37,60.57 L33.75,61.31 L33.37,62.57 L32.75,63.31 L32.50,63.94 L30.50,66.31 L30.37,66.69 L28.06,68.38 L27.44,69.00 L26.68,69.25 L25.81,70.00 L24.81,70.25 L23.18,71.13 L21.81,71.25 L20.18,71.88 L18.94,71.88 L18.81,72.00 L17.94,72.00 L17.81,72.13 L13.18,72.00 L10.94,71.25 L9.18,71.00 L8.06,70.25 L7.06,70.00 L6.44,69.38 L5.68,69.00 L3.62,67.07 L3.37,66.57 L2.62,65.81 L2.25,64.81 L1.62,64.07 L1.25,62.57 L0.50,60.94 L0.37,58.44 L0.00,57.57 L0.00,56.81 L0.12,56.69 L0.00,55.81 L0.12,55.69 L0.12,54.94 L0.37,54.07 L0.50,51.19 L0.62,51.07 L0.62,50.44 L0.87,49.44 L1.12,49.07 L1.37,48.07 L1.62,46.31 L2.37,44.69 L2.50,43.69 L3.37,42.31 L3.62,41.31 L4.25,40.69 L4.62,39.44 L5.06,39.13 L5.68,39.25 L5.75,39.94 L5.37,40.69 L4.75,41.44 L4.37,43.07 L3.75,44.19 L3.50,45.94 L3.12,46.81 L2.75,48.31 L2.62,51.94 L3.00,52.69 L3.00,53.07 L3.50,54.57 L4.37,55.81 L4.75,56.69 L6.06,57.88 L6.94,58.25 L7.56,58.88 L8.06,59.13 L9.06,59.38 L10.06,60.00 L11.68,60.13 L12.94,60.63 L13.94,60.63 L15.18,61.00 L20.18,61.00 L20.31,60.88 L22.56,60.50 L23.56,60.13 L24.31,60.13 L25.06,59.88 L26.06,59.25 L27.06,59.00 L27.81,58.38 L28.68,58.00 L30.25,56.57 L31.37,54.31 L31.37,6.31 L31.50,6.19 L31.62,5.07 L32.25,4.19 L32.50,3.31 L33.25,2.44 L33.62,1.44Z M88.75,0.31 L89.31,0.25 L89.62,0.44 L89.75,0.81 L89.75,1.57 L89.62,1.69 L89.62,36.31 L89.50,36.44 L89.50,39.07 L89.12,40.31 L89.12,40.94 L88.62,42.31 L88.37,44.31 L87.75,45.57 L87.37,47.19 L86.62,48.44 L86.37,49.57 L85.87,50.19 L85.50,51.31 L84.62,52.69 L84.50,53.57 L84.18,53.88 L83.68,53.88 L83.50,53.57 L83.50,52.19 L84.12,50.57 L84.00,49.69 L84.37,48.81 L84.37,46.07 L84.50,45.94 L84.50,7.07 L84.62,6.69 L85.37,5.81 L85.75,4.94 L86.25,4.44 L86.62,3.57 L87.50,2.57 L88.12,1.57 L88.50,0.57Z M115.00,14.69 L115.56,14.63 L115.81,14.75 L116.25,15.44 L116.50,16.19 L116.62,17.57 L117.37,19.19 L117.62,21.07 L118.37,22.69 L118.62,24.81 L119.37,26.69 L119.62,28.69 L120.37,30.44 L120.62,32.31 L121.00,33.44 L121.37,34.07 L121.62,35.57 L122.37,37.07 L122.62,38.19 L123.37,39.19 L123.62,39.81 L124.81,41.13 L125.31,41.38 L125.94,42.00 L127.06,42.25 L127.81,42.75 L128.68,43.00 L129.56,43.00 L129.68,43.13 L140.44,43.13 L140.56,43.25 L141.44,43.25 L141.56,43.13 L149.44,43.00 L150.31,42.75 L152.06,42.63 L153.06,42.25 L156.81,42.00 L156.94,41.88 L157.56,41.88 L159.06,41.25 L160.06,41.25 L160.18,41.13 L162.44,40.88 L163.81,40.25 L165.94,40.00 L167.81,39.25 L169.44,39.00 L170.94,38.50 L171.94,38.00 L172.25,37.69 L171.94,37.25 L169.81,37.00 L168.18,36.25 L167.06,36.13 L165.44,35.25 L163.94,35.00 L162.81,34.25 L161.68,34.13 L160.18,33.25 L158.68,33.00 L157.94,32.38 L156.94,32.13 L156.31,32.13 L155.44,31.75 L155.18,31.50 L154.31,31.25 L153.56,31.25 L153.44,31.13 L151.31,31.13 L151.18,31.25 L150.68,31.25 L148.94,32.25 L147.62,33.81 L147.37,35.07 L147.12,35.57 L146.44,36.38 L146.18,36.38 L145.87,36.07 L145.75,35.57 L145.75,32.44 L145.62,32.31 L145.62,31.81 L146.25,30.19 L146.62,28.19 L148.25,25.81 L149.94,24.25 L152.81,23.13 L155.31,23.13 L155.94,23.38 L157.18,23.50 L158.31,24.00 L160.06,24.38 L161.56,25.13 L162.31,25.25 L163.31,26.00 L164.18,26.13 L164.68,26.38 L165.18,26.88 L166.18,27.13 L166.68,27.38 L167.18,27.88 L168.56,28.25 L169.68,29.00 L171.06,29.25 L172.18,30.00 L173.31,30.13 L175.68,31.00 L177.18,31.13 L177.94,31.38 L179.81,31.63 L179.94,31.75 L180.94,31.63 L182.56,32.13 L182.87,32.44 L182.87,33.19 L182.50,34.07 L182.37,35.57 L181.62,37.31 L181.37,39.44 L180.81,40.00 L180.44,40.13 L177.44,40.25 L176.56,40.50 L176.31,40.75 L175.44,41.13 L174.18,41.25 L173.44,41.88 L171.94,42.25 L171.18,42.88 L169.94,43.25 L169.18,43.88 L167.68,44.38 L167.18,44.88 L165.94,45.38 L165.44,45.88 L164.18,46.25 L163.44,46.88 L162.94,47.13 L162.18,47.25 L161.44,47.88 L160.18,48.25 L158.94,49.13 L157.94,49.38 L157.18,50.00 L155.94,50.25 L155.06,50.88 L154.44,51.13 L153.06,51.38 L152.18,52.00 L150.44,52.25 L148.94,53.00 L146.81,53.25 L145.31,53.75 L142.94,54.00 L142.81,54.13 L128.81,54.13 L128.06,53.88 L126.81,53.88 L125.56,53.25 L124.44,53.13 L124.06,53.00 L123.06,52.13 L122.68,52.00 L120.50,49.69 L120.25,48.94 L119.50,47.94 L119.25,46.94 L118.50,45.44 L118.06,45.00 L117.50,45.57 L117.37,47.07 L116.87,47.69 L116.37,49.07 L115.75,49.69 L115.37,50.44 L114.06,52.00 L112.68,53.00 L111.68,53.50 L111.44,53.88 L110.94,54.13 L109.68,54.25 L108.81,54.75 L107.31,55.13 L103.56,55.13 L103.44,55.00 L101.56,54.88 L100.68,54.38 L99.06,54.00 L98.31,53.38 L97.18,52.88 L95.87,51.69 L95.25,50.69 L94.75,50.19 L93.50,47.07 L93.50,45.69 L93.37,45.57 L93.50,40.31 L93.75,39.69 L93.87,38.69 L94.37,37.57 L94.50,36.31 L94.94,35.88 L95.18,35.88 L95.50,36.31 L95.37,39.07 L95.50,39.19 L95.62,40.69 L97.81,43.00 L98.68,43.25 L99.44,43.88 L99.81,44.00 L101.31,44.13 L103.81,44.75 L105.06,44.75 L105.18,44.63 L107.94,44.75 L109.18,44.25 L109.31,44.38 L110.06,44.38 L110.68,44.13 L111.94,44.13 L113.44,43.75 L113.94,43.38 L115.31,43.00 L116.62,41.81 L116.62,40.57 L116.50,40.44 L116.37,39.07 L115.62,37.69 L115.37,35.94 L114.50,34.07 L114.50,33.44 L114.25,32.57 L113.50,31.07 L113.37,29.69 L112.62,28.19 L112.37,26.57 L111.75,25.19 L111.37,23.57 L111.37,22.94 L111.62,21.94 L112.37,20.81 L112.62,19.69 L113.37,18.44 L113.62,17.31 L114.37,16.19 L114.62,15.07Z M63.00,25.69 L63.81,25.63 L63.94,25.75 L64.68,25.75 L64.81,25.88 L66.44,26.13 L67.18,26.50 L67.68,27.00 L68.31,27.25 L70.37,29.57 L70.75,30.44 L71.50,31.44 L71.75,32.57 L72.37,33.44 L72.62,34.94 L73.37,36.44 L73.62,38.81 L74.37,41.69 L74.50,45.31 L74.62,45.44 L74.62,46.31 L74.75,46.44 L74.62,46.31 L74.50,52.44 L74.50,52.57 L74.50,53.57 L74.25,54.19 L74.12,55.19 L73.62,56.31 L73.50,57.81 L72.75,59.19 L72.50,60.57 L72.25,61.07 L71.75,61.57 L71.37,62.81 L70.62,63.57 L70.37,64.44 L68.62,66.44 L68.37,66.94 L67.31,68.00 L66.68,68.38 L66.18,69.00 L65.31,69.38 L64.44,70.13 L63.44,70.50 L62.81,71.00 L60.06,71.50 L58.81,72.00 L58.18,72.00 L55.68,71.25 L54.31,71.13 L53.56,70.88 L52.94,70.38 L51.18,70.00 L50.06,69.25 L48.81,69.00 L48.06,68.38 L47.06,68.13 L46.56,67.88 L46.06,67.38 L44.56,66.88 L44.06,66.38 L41.68,65.13 L41.37,64.69 L41.37,64.31 L41.81,63.88 L42.81,63.88 L42.94,64.00 L43.81,64.00 L43.94,64.13 L50.94,64.13 L51.06,64.00 L52.81,64.00 L54.68,63.50 L55.44,63.50 L56.56,63.13 L58.18,63.00 L59.81,62.25 L61.56,62.00 L62.56,61.38 L64.06,61.00 L64.81,60.38 L66.06,60.00 L66.81,59.38 L67.94,58.88 L68.56,58.25 L68.94,58.13 L69.68,57.25 L70.06,57.13 L72.37,54.44 L72.50,53.94 L73.37,52.31 L73.50,50.31 L73.62,50.19 L73.62,48.57 L73.37,47.69 L73.37,46.81 L73.25,46.44 L72.81,46.00 L72.56,46.00 L71.87,46.69 L71.25,48.31 L70.62,49.07 L70.50,49.69 L69.62,50.57 L69.50,50.94 L67.56,52.88 L66.56,53.38 L65.94,54.00 L65.18,54.13 L64.44,54.38 L64.18,54.63 L62.31,55.13 L60.68,55.13 L59.94,54.88 L59.44,54.88 L58.31,54.25 L57.44,54.00 L56.56,53.25 L55.94,53.00 L54.87,51.81 L54.25,50.57 L53.75,50.07 L53.50,49.57 L53.37,48.69 L52.75,47.44 L52.62,46.19 L52.50,46.07 L52.50,45.07 L52.37,44.94 L52.50,39.19 L52.62,39.07 L52.62,38.44 L52.87,37.44 L53.37,36.19 L53.50,35.07 L54.37,33.44 L54.50,32.69 L55.37,31.57 L55.62,30.81 L56.50,29.81 L56.62,29.44 L58.94,27.25 L59.81,26.88 L60.68,26.25Z M59.25,36.19 L62.44,36.13 L62.56,36.25 L63.18,36.25 L64.56,37.00 L65.31,37.13 L65.81,37.38 L66.31,37.88 L67.18,38.25 L69.50,40.44 L70.50,41.69 L70.50,42.57 L68.94,43.88 L67.56,44.38 L66.81,45.00 L65.31,45.25 L63.56,45.88 L60.81,46.00 L58.68,45.25 L57.56,45.13 L56.94,44.88 L56.31,44.25 L55.68,44.00 L54.50,42.69 L54.25,41.81 L54.50,39.81 L55.37,38.81 L55.62,38.31 L56.68,37.38 L57.56,37.00 L58.68,36.25Z M158.62,57.07 L159.31,57.00 L160.18,58.00 L161.06,58.50 L161.81,59.38 L162.68,60.13 L163.06,60.25 L163.56,60.88 L164.37,61.44 L164.25,62.19 L163.50,62.94 L163.12,63.69 L160.31,66.50 L159.81,66.50 L159.31,66.13 L158.06,64.75 L156.94,64.00 L155.44,62.38 L154.62,61.81 L154.62,61.31 L155.50,60.57 L156.37,59.44 L157.25,58.69Z"/>
+  </symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></g></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7.5" height="9" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="5" rx="1.5"/><rect x="13.5" y="11" width="7.5" height="10" rx="1.5"/><rect x="3" y="15" width="7.5" height="6" rx="1.5"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></g></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.8v6c0 4.6-3 7.6-7 9.2-4-1.6-7-4.6-7-9.2v-6z"/><path d="M9.2 12l2 2 3.6-3.8"/></g></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></g></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.3h-4.3"/></g></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.2 3.4-5 6.5-5s5.7 1.8 6.5 5"/><circle cx="17" cy="9" r="3"/><path d="M17.5 15.5c2.6.3 4.4 1.9 5 4.5"/></g></symbol>
+  <symbol id="i-form" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></g></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8.5 6h12M8.5 12h12M8.5 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></g></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7V3M15 7V3"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v4"/></g></symbol>
+  <symbol id="i-device" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></g></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/></g></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M11 4l1.7 4.6L17.3 10.3l-4.6 1.7L11 16.6l-1.7-4.6L4.7 10.3 9.3 8.6z"/><path d="M18.5 4.5v4M16.5 6.5h4"/></g></symbol>
+</svg>
+
+<!-- ======= NAVBAR ======= -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top" aria-label="جداول">
+      <svg class="logo"><use href="#jd-logo"/></svg>
+      <span class="latin-name" data-i18n="brandLatin"></span>
+    </a>
+    <nav class="links">
+      <a href="#features" data-i18n="navFeatures"></a>
+      <a href="#security" data-i18n="navSecurity"></a>
+      <a href="#pricing" data-i18n="navPricing"></a>
+      <a href="#faq" data-i18n="navFaq"></a>
+    </nav>
+    <div class="nav-actions">
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+      <a href="#" class="login-link" data-i18n="navLogin"></a>
+      <a href="#pricing" class="btn btn-primary btn-sm" data-i18n="navCta"></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ======= HERO ======= -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-badge">🇸🇦 <span data-i18n="heroBadge"></span></span>
+      <h1 data-i18n="heroTitle"></h1>
+      <p class="sub" data-i18n="heroSub"></p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn btn-primary" data-i18n="heroCta1"></a>
+        <a href="#cta" class="btn btn-ghost" data-i18n="heroCta2"></a>
+      </div>
+      <p class="hero-note" data-i18n="heroNote"></p>
+
+      <!-- recreated app mockup -->
+      <div class="mockup-wrap reveal">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="url-pill"><svg><use href="#i-lock"/></svg> jadawil.sa</span>
+          </div>
+          <div class="app">
+            <aside class="app-side">
+              <div class="side-item active"><svg><use href="#i-home"/></svg><span data-i18n="mkHome"></span></div>
+              <div class="side-item"><svg><use href="#i-db"/></svg><span data-i18n="mkDb1"></span></div>
+              <div class="side-item"><svg><use href="#i-db"/></svg><span data-i18n="mkDb2"></span></div>
+              <div class="side-item"><svg><use href="#i-dash"/></svg><span data-i18n="mkDash"></span></div>
+              <div class="side-item side-add">+ <span data-i18n="mkAdd"></span></div>
+            </aside>
+            <div class="app-main">
+              <div class="app-top">
+                <b data-i18n="mkWorkspace"></b>
+                <span class="btn btn-primary btn-sm">+ <span data-i18n="mkAdd"></span></span>
+              </div>
+              <div class="row-item">
+                <span class="row-icon"><svg><use href="#i-db"/></svg></span>
+                <div><div class="row-title" data-i18n="mkDb1"></div><div class="row-meta" data-i18n="mkMeta1"></div></div>
+              </div>
+              <div class="row-item">
+                <span class="row-icon"><svg><use href="#i-db"/></svg></span>
+                <div><div class="row-title" data-i18n="mkDb2"></div><div class="row-meta" data-i18n="mkMeta2"></div></div>
+              </div>
+              <div class="row-item">
+                <span class="row-icon"><svg><use href="#i-dash"/></svg></span>
+                <div><div class="row-title" data-i18n="mkDash"></div><div class="row-meta" data-i18n="mkMeta3"></div></div>
+              </div>
+              <div class="stats">
+                <div class="stat"><span data-i18n="mkStat1"></span><b>2</b></div>
+                <div class="stat"><span data-i18n="mkStat2"></span><b>4</b></div>
+                <div class="stat"><span data-i18n="mkStat3"></span><b>16</b></div>
+                <div class="stat"><span data-i18n="mkStat4"></span><b>1</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TRUST STRIP ======= -->
+  <section class="trust">
+    <div class="container trust-grid">
+      <div class="trust-card reveal"><span class="ic"><svg><use href="#i-server"/></svg></span><b data-i18n="t1t"></b><p data-i18n="t1d"></p></div>
+      <div class="trust-card reveal"><span class="ic"><svg><use href="#i-shield"/></svg></span><b data-i18n="t2t"></b><p data-i18n="t2d"></p></div>
+      <div class="trust-card reveal"><span class="ic"><svg><use href="#i-lock"/></svg></span><b data-i18n="t3t"></b><p data-i18n="t3d"></p></div>
+      <div class="trust-card reveal"><span class="ic"><svg><use href="#i-refresh"/></svg></span><b data-i18n="t4t"></b><p data-i18n="t4d"></p></div>
+    </div>
+  </section>
+
+  <!-- ======= FEATURES ======= -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="featKicker"></span>
+        <h2 data-i18n="featTitle"></h2>
+        <p class="section-sub" data-i18n="featSub"></p>
+      </div>
+
+      <!-- 1: databases -->
+      <div class="feature reveal">
+        <div>
+          <h3 data-i18n="f1t"></h3>
+          <p class="fd" data-i18n="f1d"></p>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f1b1"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f1b2"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f1b3"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f1b4"></span></div>
+        </div>
+        <div class="feature-visual">
+          <div class="mini-tabs"><span class="on" data-i18n="mvGrid"></span><span data-i18n="mvCards"></span><span data-i18n="mvBoard"></span></div>
+          <div class="mini-table">
+            <div class="mt-row mt-head"><span data-i18n="mh1"></span><span data-i18n="mh2"></span><span data-i18n="mh3"></span></div>
+            <div class="mt-row"><span data-i18n="r1c"></span><span><span class="chip g" data-i18n="stActive"></span></span><span data-i18n="r1a"></span></div>
+            <div class="mt-row"><span data-i18n="r2c"></span><span><span class="chip a" data-i18n="stProg"></span></span><span data-i18n="r2a"></span></div>
+            <div class="mt-row"><span data-i18n="r3c"></span><span><span class="chip n" data-i18n="stDone"></span></span><span data-i18n="r3a"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2: excel import -->
+      <div class="feature rev reveal">
+        <div>
+          <h3 data-i18n="f2t"></h3>
+          <p class="fd" data-i18n="f2d"></p>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f2b1"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f2b2"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f2b3"></span></div>
+        </div>
+        <div class="feature-visual">
+          <div class="ex-flow">
+            <div class="ex-box">
+              <span class="file"><svg><use href="#i-sheet"/></svg> customers.xlsx</span>
+              <small data-i18n="exBefore"></small>
+            </div>
+            <svg class="ex-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+            <div class="ex-box">
+              <span class="file" style="direction:inherit"><svg><use href="#i-db"/></svg> <span data-i18n="mkDb1"></span></span>
+              <small data-i18n="exAfter"></small>
+            </div>
+          </div>
+          <div class="ex-ok"><span class="chip g">✓ <span style="margin-inline-start:5px" data-i18n="exOk"></span></span></div>
+        </div>
+      </div>
+
+      <!-- 3: MCP -->
+      <div class="feature reveal">
+        <div>
+          <h3 data-i18n="f3t"></h3>
+          <p class="fd" data-i18n="f3d"></p>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f3b1"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f3b2"></span></div>
+          <div class="check"><span class="tick">✓</span><span data-i18n="f3b3"></span></div>
+        </div>
+        <div class="feature-visual">
+          <div class="code-card">
+            <div class="cmt"># connect your AI agent to jadawil</div>
+            <div class="cmd">$ jadawil mcp connect --scope read</div>
+            <div class="ok">✓ authenticated · residency: SA-CENTRAL-1</div>
+            <div class="cmd">&gt; list tables</div>
+            <div>→ customers · projects · reports</div>
+          </div>
+          <div class="mcp-chips"><span>🔒 <span data-i18n="mcpCap"></span></span><span>MCP</span><span>REST API</span></div>
+        </div>
+      </div>
+
+      <!-- mini grid -->
+      <div class="mini-grid">
+        <div class="mini-card reveal"><span class="ic"><svg><use href="#i-bolt"/></svg></span><b data-i18n="g1t"></b><p data-i18n="g1d"></p></div>
+        <div class="mini-card reveal"><span class="ic"><svg><use href="#i-users"/></svg></span><b data-i18n="g2t"></b><p data-i18n="g2d"></p></div>
+        <div class="mini-card reveal"><span class="ic"><svg><use href="#i-form"/></svg></span><b data-i18n="g3t"></b><p data-i18n="g3d"></p></div>
+        <div class="mini-card reveal"><span class="ic"><svg><use href="#i-list"/></svg></span><b data-i18n="g4t"></b><p data-i18n="g4d"></p></div>
+        <div class="mini-card reveal"><span class="ic"><svg><use href="#i-plug"/></svg></span><b data-i18n="g5t"></b><p data-i18n="g5d"></p></div>
+        <div class="mini-card reveal"><span class="ic"><svg><use href="#i-device"/></svg></span><b data-i18n="g6t"></b><p data-i18n="g6d"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= SECURITY ======= -->
+  <section class="security" id="security">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="secKicker"></span>
+        <h2 data-i18n="secTitle"></h2>
+        <p class="section-sub" data-i18n="secSub"></p>
+      </div>
+      <div class="sec-grid">
+        <div class="sec-card reveal"><span class="ic"><svg><use href="#i-server"/></svg></span><b data-i18n="s1t"></b><p data-i18n="s1d"></p></div>
+        <div class="sec-card reveal"><span class="ic"><svg><use href="#i-shield"/></svg></span><b data-i18n="s2t"></b><p data-i18n="s2d"></p></div>
+        <div class="sec-card reveal"><span class="ic"><svg><use href="#i-lock"/></svg></span><b data-i18n="s3t"></b><p data-i18n="s3d"></p></div>
+        <div class="sec-card reveal"><span class="ic"><svg><use href="#i-refresh"/></svg></span><b data-i18n="s5t"></b><p data-i18n="s5d"></p></div>
+        <div class="sec-card reveal"><span class="ic"><svg><use href="#i-list"/></svg></span><b data-i18n="s6t"></b><p data-i18n="s6d"></p></div>
+        <div class="sec-card reveal"><span class="ic"><svg><use href="#i-spark"/></svg></span><b data-i18n="s4t"></b><p data-i18n="s4d"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= STEPS ======= -->
+  <section class="steps">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="stepsKicker"></span>
+        <h2 data-i18n="stepsTitle"></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step reveal"><span class="num">1</span><b data-i18n="step1t"></b><p data-i18n="step1d"></p></div>
+        <div class="step reveal"><span class="num">2</span><b data-i18n="step2t"></b><p data-i18n="step2d"></p></div>
+        <div class="step reveal"><span class="num">3</span><b data-i18n="step3t"></b><p data-i18n="step3d"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= PRICING ======= -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="priceKicker"></span>
+        <h2 data-i18n="priceTitle"></h2>
+        <p class="section-sub" data-i18n="priceSub"></p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card reveal">
+          <h3 data-i18n="plan1"></h3>
+          <div class="p-amount"><b>39</b><span data-i18n="plan1Per"></span></div>
+          <span class="p-trial" data-i18n="plan1Note"></span>
+          <div class="p-feats">
+            <div class="check"><span class="tick">✓</span><span data-i18n="p1f1"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p1f2"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p1f3"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p1f4"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p1f5"></span></div>
+          </div>
+          <a href="#" class="btn btn-primary" data-i18n="plan1Cta"></a>
+        </div>
+        <div class="price-card featured reveal">
+          <span class="p-badge" data-i18n="govBadge"></span>
+          <h3 data-i18n="plan2"></h3>
+          <div class="p-amount"><b data-i18n="plan2Price"></b></div>
+          <span class="p-trial" data-i18n="plan2Note"></span>
+          <div class="p-feats">
+            <div class="check"><span class="tick">✓</span><span data-i18n="p2f1"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p2f2"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p2f3"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p2f4"></span></div>
+            <div class="check"><span class="tick">✓</span><span data-i18n="p2f5"></span></div>
+          </div>
+          <a href="#" class="btn btn-primary" data-i18n="plan2Cta"></a>
+          <a href="#cta" class="p-sub-cta" data-i18n="plan2Cta2"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FAQ ======= -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="kicker" data-i18n="faqKicker"></span>
+        <h2 data-i18n="faqTitle"></h2>
+      </div>
+      <div class="faq-list reveal">
+        <details><summary data-i18n="q1"></summary><p class="a" data-i18n="a1"></p></details>
+        <details><summary data-i18n="q2"></summary><p class="a" data-i18n="a2"></p></details>
+        <details><summary data-i18n="q3"></summary><p class="a" data-i18n="a3"></p></details>
+        <details><summary data-i18n="q4"></summary><p class="a" data-i18n="a4"></p></details>
+        <details><summary data-i18n="q5"></summary><p class="a" data-i18n="a5"></p></details>
+        <details><summary data-i18n="q6"></summary><p class="a" data-i18n="a6"></p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA BAND ======= -->
+  <section class="container" id="cta">
+    <div class="cta-band reveal">
+      <svg class="logo"><use href="#jd-logo"/></svg>
+      <h2 data-i18n="ctaTitle"></h2>
+      <p data-i18n="ctaSub"></p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn btn-light" data-i18n="ctaBtn1"></a>
+        <a href="#" class="btn btn-outline-light" data-i18n="ctaBtn2"></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ======= FOOTER ======= -->
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-brand">
+        <svg class="logo"><use href="#jd-logo"/></svg>
+        <p data-i18n="footerTag"></p>
+      </div>
+      <div class="f-col">
+        <b data-i18n="footerProduct"></b>
+        <a href="#features" data-i18n="navFeatures"></a>
+        <a href="#security" data-i18n="navSecurity"></a>
+        <a href="#pricing" data-i18n="navPricing"></a>
+        <a href="#faq" data-i18n="navFaq"></a>
+      </div>
+      <div class="f-col">
+        <b data-i18n="footerCompany"></b>
+        <a href="#" data-i18n="footerContact"></a>
+        <a href="#" data-i18n="footerSales"></a>
+      </div>
+      <div class="f-col">
+        <b data-i18n="footerCompliance"></b>
+        <a href="#security" data-i18n="fc1"></a>
+        <a href="#security" data-i18n="fc2"></a>
+        <a href="#security" data-i18n="fc3"></a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span data-i18n="footerRights"></span>
+      <span data-i18n="madeIn"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================= i18n ================= */
+const I18N = {
+ar: {
+  docTitle:"جداول — المنصة السعودية لإدارة البيانات والعمليات السحابية",
+  docDesc:"جداول: منصة بيانات سحابية سعودية تجمع بين مرونة الجداول وقوة قواعد البيانات — واجهة عربية أصيلة، لوحات مؤشرات تفاعلية، استيراد ميسّر لـ Excel، وربط برمجيات مفتوح. مستضافة بالكامل داخل المملكة ومتوافقة مع معايير NDMO وPDPL.",
+  brandLatin:"", navFeatures:"المزايا", navSecurity:"أمان البيانات", navPricing:"الأسعار", navFaq:"الأسئلة الشائعة", navLogin:"تسجيل الدخول", navCta:"ابدأ مجاناً",
+  heroBadge:"استضافة محلية بالكامل · متوافق مع ضوابط NDMO 🇸🇦",
+  heroTitle:"بياناتك وأعمالك منظمّة، على سحابة سعودية موثوقة",
+  heroSub:"جداول منصة سحابية تمنحك مرونة لا محدودة: قواعد بيانات، لوحات متابعة حية، وأتمتة للعمليات — بواجهة عربية أصيلة ودعم تام للاتجاه من اليمين إلى اليسار، وبياناتك تبقى دائماً داخل المملكة.",
+  heroCta1:"أنشئ مساحة عملك الحين", heroCta2:"احجز عرضاً توضيحياً",
+  heroNote:"١٤ يوماً تجربة مجانية · بدون بطاقة ائتمانية · إعداد سريع خلال دقائق",
+  mkWorkspace:"مساحة عمل المنشأة", mkAdd:"إضافة جديد…", mkHome:"الرئيسية", mkDb1:"قاعدة بيانات العملاء", mkDb2:"إدارة المشاريع", mkDash:"لوحة المؤشرات والتقارير",
+  mkOverview:"نظرة عامة", mkMeta1:"قاعدة بيانات · 3 جداول · 12 صفاً", mkMeta2:"قاعدة بيانات · 4 جداول · 24 عموداً", mkMeta3:"لوحة بيانات",
+  mkStat1:"قواعد البيانات", mkStat2:"الجداول", mkStat3:"الصفوف", mkStat4:"الأعضاء",
+  t1t:"استضافة داخل المملكة 100%", t1d:"تخزين بياناتك في مراكز بيانات آمنة داخل المملكة دون الخروج منها مطلقاً.",
+  t2t:"الالتزام بمعايير NDMO", t2d:"تطبيق ضوابط حماية وإدارة البيانات المعتمدة لدى المكتب الوطني لإدارة البيانات.",
+  t3t:"تشفير عالي الأمان", t3d:"تشفير البيانات أثناء النقل بنظام TLS 1.3 وأثناء التخزين بنظام AES-256.",
+  t4t:"نسخ احتياطي فوري واسترجاع", t4d:"نسخ دوري تلقائي ونقاط استعادة فورية مجربة وموثوقة.",
+  featKicker:"قدرات جداول", featTitle:"كل ما يحتاجه فريقك لتنظيم أعماله واختصار وقته", featSub:"صُممت جداول لتكون البديل الوطني للحلول العالمية — بمرونة لا محدودة وامتثال محلي شامل.",
+  f1t:"قواعد بيانات وجداول مرنة", f1d:"صمم مساحات عملك كما يحتاجها فريقك: جداول تفاعلية مترابطة، طرق عرض متعددة، ولوحات متابعة حية — دون كتابة سطر برمجي واحد.",
+  f1b1:"جداول تفاعلية وعلاقات ذكية", f1b2:"طرق عرض: جدول، بطاقات، ومخطط زمني", f1b3:"لوحات مؤشرات ومتابعة حية", f1b4:"صلاحيات وأدوار دقيقة لكل مستخدم",
+  f2t:"استيراد ميسّر لملفات Excel بالعربية", f2d:"ارفع ملفات xlsx أو csv كما هي: سلامة تامة للكلمات العربية، ضبط تلقائي لاتجاه الأعمدة، وتحويل فوري لأوراق العمل إلى جداول جاهزة.",
+  f2b1:"حفظ كامل للترميز العربي والاتجاه RTL", f2b2:"تحويل كل ورقة عمل إلى جدول مستقل", f2b3:"الحفاظ على صيغ الأرقام والتواريخ والمعادلات",
+  f3t:"دعم بروتوكول MCP لوكلاء الذكاء الاصطناعي", f3d:"اربط مساعدات الذكاء الاصطناعي ببياناتك بأمان عبر بروتوكول (MCP)، مع تحديد صلاحيات دقيقة وسجل كامل للعمليات.",
+  f3b1:"وصول آمن بصلاحيات قراءة وكتابة دقيقة", f3b2:"REST API موثق وواضح", f3b3:"سجل تدقيق كامل لكافة عمليات الوكيل",
+  mvGrid:"جدول", mvCards:"بطاقات", mvBoard:"لوحة", mh1:"العميل / الجهة", mh2:"الحالة", mh3:"المبلغ",
+  r1c:"شركة الأفق للحلول", r2c:"مؤسسة الوادي للتجارة", r3c:"شركة سما الاستشارية", stActive:"نشط", stProg:"قيد العمل", stDone:"مكتمل",
+  r1a:"12,500 ر.س", r2a:"8,200 ر.س", r3a:"21,000 ر.س",
+  exBefore:"ملف Excel", exAfter:"جدول تفاعلي", exOk:"ترميز عربي سليم",
+  mcpCap:"ربط آمن بوكلاء الذكاء الاصطناعي",
+  gridTitle:"أدوات إضافية ضمن المنصة",
+  g1t:"أتمتة العمليات", g1d:"قواعد عمل تلقائية تختصر على فريقك ساعات من الجهد اليدوي.",
+  g2t:"تعاون وتواصل لحظي", g2d:"تعليقات وإشارات وتحديثات فورية لجميع أعضاء الفريق.",
+  g3t:"نماذج استقبال البيانات", g3d:"نماذج عربية متكاملة تُغذي جداولك بالبيانات مباشرة.",
+  g4t:"سجل تدقيق شامل", g4d:"تتبع وتوثيق دقيق لكافة التغييرات: من قام بها، ومتى، وماذا غيّر.",
+  g5t:"تكاملات ورسائل", g5d:"ربط مباشر مع أنظمة الدخول الموحد (SSO) وأدوات العمل اليومية.",
+  g6t:"مرونة على كافة الأجهزة", g6d:"تجربة تصفح سريعة ومتجاوبة بالكامل عبر مختلف الأجهزة.",
+  secKicker:"سيادة البيانات والامتثال", secTitle:"بياناتك ومستنداتك داخل المملكة.. وتحت سيطرتك التامة", secSub:"بُنيت جداول لتلبية متطلبات الجهات الحكومية والشركات الوطنية، وفق أعلى معايير الأمان الوطنية.",
+  s1t:"استضافة محلية بالكامل", s1d:"تشغيل واستضافة سحابية داخل حدود المملكة العربية السعودية.",
+  s2t:"الامتثال لضوابط NDMO", s2d:"تطبيق ضوابط حماية وإدارة البيانات المعمول بها لدى المكتب الوطني لإدارة البيانات.",
+  s3t:"دعم التوافق مع PDPL", s3d:"تمكين منظمتك من استيفاء متطلبات نظام حماية البيانات الشخصية بثقة.",
+  s4t:"تشفير كامل للبيانات", s4d:"AES-256 لتشفير البيانات المخزنة، وTLS 1.3 لتشفير الاتصال.",
+  s5t:"النسخ الاحتياطي والاسترجاع", s5d:"نسخ دورية تلقائية مع خطط استعادة سريعة ومجربة.",
+  s6t:"إدارة الصلاحيات والسجلات", s6d:"تحكم دقيق بمستويات الوصول وسجل شامل لكل نشاط.",
+  stepsKicker:"خطوات البدء", stepsTitle:"ثلاث خطوات ميسرة تفصلك عن تنظيم أعمالك",
+  step1t:"أنشئ مساحة عملك", step1d:"سجّل ببريدك العملي وابدأ من صفحة فارغة أو اختر من القوالب الجاهزة.",
+  step2t:"استورد ملفات Excel", step2d:"ارفع ملفاتك الحالية وستتحول إلى جداول تفاعلية مرتبطة فوراً.",
+  step3t:"شارِك فريقك وانطلق", step3d:"حدد الأدوار والصلاحيات لكل عضو وابدأوا العمل معاً في بيئة موحدة.",
+  priceKicker:"الأسعار والباقات", priceTitle:"أسعار واضحة ومناسبة بدون مفاجآت", priceSub:"أنشئ حسابك وابدأ التجربة المجانية لمدة ١٤ يوماً، ثم اختر الباقة المناسبة.",
+  plan1:"الباقة الاحترافية", plan1Per:"ر.س / مستخدم / شهرياً", plan1Note:"تشمل ١٤ يوماً تجربة مجانية بالكامل",
+  p1f1:"كافة مزايا وإمكانيات المنصة الأساسية", p1f2:"استيراد ملفات Excel بالعربية دون مشاكل", p1f3:"لوحات مؤشرات وأتمتة للعمليات", p1f4:"دعم بروتوكولات MCP وREST API", p1f5:"دعم فني متكامل عبر البريد", plan1Cta:"ابدأ التجربة المجانية",
+  plan2:"الجهات والشركات الكبرى", plan2Price:"باقات مخصصة", plan2Note:"حلول وباقات متكاملة تكتفي باحتياجات القطاع الحكومي والشركات", govBadge:"للجهات الحكومية والشركات الكبرى",
+  p2f1:"كافة مزايا الباقة الاحترافية", p2f2:"الدخول الموحد (SSO) وسجلات تدقيق موسعة", p2f3:"مدير حساب مخصص وتدريب شامل للفريق", p2f4:"اتفاقيات مستوى الخدمة والضمان (SLA)", p2f5:"خيارات استضافة خاصة ونطاقات مخصصة",
+  plan2Cta:"تواصل مع المبيعات", plan2Cta2:"احجز عرضاً توضيحياً",
+  faqKicker:"الأسئلة الشائعة", faqTitle:"إجابات عن أكثر الاستفسارات شيوعاً",
+  q1:"وين تتخزّن البيانات والمستندات؟", a1:"جميع بياناتك تُستضاف في مراكز بيانات آمنة داخل المملكة العربية السعودية ولا تغادرها إطلاقاً، بما يحقق متطلبات سيادة البيانات وإقامتها الوطنية.",
+  q2:"هل المنصة متوافقة مع الأنظمة السعودية؟", a2:"نعم، منصة جداول مصممة وفق معايير المكتب الوطني لإدارة البيانات (NDMO) وتدعم امتثالكم التام لنظام حماية البيانات الشخصية (PDPL).",
+  q3:"اقدر انقل ملفات Excel الحالية بسهولة؟", a3:"بالتأكيد! تقدر ترفع ملفات xlsx أو csv وستتحول كل ورقة عمل إلى جدول تفاعلي منظم مع الحفاظ التام على الكلمات العربية والاتجاه (RTL).",
+  q4:"وش المقصود بدعم بروتوكول MCP؟", a4:"يتيح لك بروتوكول MCP ربط مساعدات الذكاء الاصطناعي ببياناتك بآمان وفق صلاحيات محددة وسجل تدقيق كامل لكافة الأنشطة.",
+  q5:"كيف تدار التجربة المجانية؟", a5:"تحصل على تجربة مجانية لمدة ١٤ يوماً بكامل المزايا وبدون الحاجة لبطاقة ائتمانية، ويمكنك بعد ذلك الاشتراك بـ 39 ر.س شهرياً لكل مستخدم.",
+  q6:"هل تتوفر حلول مخصصة للجهات الحكومية والشركات؟", a6:"نعم، نوفر باقات مخصصة تشمل الدخول الموحد SSO، اتفاقيات SLA، ومدير حساب مخصص — يمكنك التواصل مباشرة مع فريق المبيعات.",
+  ctaTitle:"جاهز لنقل إدارة أعمالك إلى بيئة سحابية سعودية؟", ctaSub:"أنشئ مساحة عملك الحين، أو تحدث مع فريقنا لتنسيق عرض توضيحي يناسب منظمتك.",
+  ctaBtn1:"أنشئ مساحة عملك الحين", ctaBtn2:"احجز عرضاً توضيحياً",
+  footerTag:"المنصة السعودية لإدارة البيانات والعمليات — عربية بالكامل ومستضافة داخل المملكة.",
+  footerProduct:"المنتج", footerCompany:"الشركة", footerCompliance:"الأمان والامتثال", footerContact:"تواصل معنا", footerSales:"المبيعات",
+  fc1:"استضافة داخل المملكة 100%", fc2:"ضوابط معايير NDMO", fc3:"امتثال نظام PDPL",
+  footerRights:"© 2026 جداول. جميع الحقوق محفوظة.", madeIn:"صُنع بفخر بأيدٍ سعودية 🇸🇦"
+},
+en: {
+  docTitle:"Jadawil — The Saudi platform for data & operations",
+  docDesc:"Jadawil: a Saudi cloud alternative to Airtable — databases and dashboards with full Arabic RTL support, hosted in the Kingdom and aligned with NDMO standards.",
+  brandLatin:"Jadawil", navFeatures:"Features", navSecurity:"Security", navPricing:"Pricing", navFaq:"FAQ", navLogin:"Sign in", navCta:"Start free",
+  heroBadge:"Hosted in Saudi Arabia · NDMO-aligned",
+  heroTitle:"Run your organization your way — on a trusted Saudi cloud",
+  heroSub:"Jadawil is a flexible cloud platform: databases, dashboards and automations with full Arabic RTL support — while your data stays inside the Kingdom.",
+  heroCta1:"Start free trial", heroCta2:"Book a demo",
+  heroNote:"14 days free · No credit card · Setup in minutes",
+  mkWorkspace:"Organization workspace", mkAdd:"Add new…", mkHome:"Home", mkDb1:"Customers database", mkDb2:"Project management", mkDash:"Reports dashboard",
+  mkOverview:"Overview", mkMeta1:"Database · 3 tables · 12 rows", mkMeta2:"Database · 4 tables · 24 columns", mkMeta3:"Dashboard",
+  mkStat1:"Databases", mkStat2:"Tables", mkStat3:"Rows", mkStat4:"Members",
+  t1t:"In-Kingdom hosting", t1d:"Your data is stored in Saudi data centers and never leaves.",
+  t2t:"NDMO alignment", t2d:"Data management controls per the National Data Management Office.",
+  t3t:"End-to-end encryption", t3d:"TLS 1.3 in transit and AES-256 at rest.",
+  t4t:"Daily backups", t4d:"Reliable recovery with clear restore points.",
+  featKicker:"Features", featTitle:"Everything a modern organization needs", featSub:"Built as your local alternative to global tools — full flexibility, Saudi compliance.",
+  f1t:"Flexible databases & tables", f1d:"Build workspaces the way your team works: linked tables, multiple views and live dashboards — no code required.",
+  f1b1:"Linked tables & smart relations", f1b2:"Views: grid, cards, timeline", f1b3:"Live dashboards & KPIs", f1b4:"Granular roles & permissions",
+  f2t:"Arabic-ready Excel import", f2d:"Upload xlsx and csv files as-is: perfect Arabic encoding, RTL columns, and instant conversion of sheets into ready tables.",
+  f2b1:"Full Arabic encoding & RTL support", f2b2:"Every sheet becomes its own table", f2b3:"Numbers, dates and text formats preserved",
+  f3t:"MCP support for AI agents", f3d:"Securely connect AI assistants to your data via the Model Context Protocol (MCP), with fine-grained permissions and a full audit log.",
+  f3b1:"Secure access with adjustable read/write scopes", f3b2:"Open API with clear documentation", f3b3:"Audit log for every agent action",
+  mvGrid:"Grid", mvCards:"Cards", mvBoard:"Board", mh1:"Client", mh2:"Status", mh3:"Amount",
+  r1c:"Ofoq Co.", r2c:"Alwadi Est.", r3c:"Sama Co.", stActive:"Active", stProg:"In progress", stDone:"Done",
+  r1a:"SAR 12,500", r2a:"SAR 8,200", r3a:"SAR 21,000",
+  exBefore:"Excel file", exAfter:"Ready table", exOk:"Perfect Arabic encoding",
+  mcpCap:"Secure AI-agent connection",
+  gridTitle:"Also included",
+  g1t:"Automations", g1d:"Automatic rules that save hours of manual work.",
+  g2t:"Real-time collaboration", g2d:"Comments, mentions and instant updates.",
+  g3t:"Arabic forms", g3d:"RTL forms that feed your tables directly.",
+  g4t:"Full audit log", g4d:"Track every change: who, when, what.",
+  g5t:"Integrations", g5d:"SSO and popular business tools.",
+  g6t:"Works on any device", g6d:"Fast, fully responsive web app.",
+  secKicker:"Security & compliance", secTitle:"Your data, in the Kingdom, under your control", secSub:"Built to meet the requirements of government entities and large enterprises, in line with national compliance frameworks.",
+  s1t:"Full data residency", s1d:"Hosted and operated inside Saudi Arabia.",
+  s2t:"NDMO standards", s2d:"Data protection & management controls per the National Data Management Office.",
+  s3t:"PDPL compliance support", s3d:"Helps you meet the Personal Data Protection Law requirements.",
+  s4t:"Encryption everywhere", s4d:"AES-256 at rest, TLS 1.3 in transit.",
+  s5t:"Backup & recovery", s5d:"Daily backups with clear recovery plans.",
+  s6t:"Permissions & audit logs", s6d:"Granular control and a complete log of every action.",
+  stepsKicker:"Get started in minutes", stepsTitle:"Three steps to an organized team",
+  step1t:"Create your workspace", step1d:"Sign up with your work email and start from a template or a blank page.",
+  step2t:"Import your Excel files", step2d:"Upload existing files; they become linked tables instantly.",
+  step3t:"Invite your team", step3d:"Assign roles and permissions and work together in real time.",
+  priceKicker:"Pricing", priceTitle:"Clear pricing, no surprises", priceSub:"Start free for 14 days, then pick what fits.",
+  plan1:"Professional", plan1Per:"SAR / user / month", plan1Note:"Includes a 14-day free trial",
+  p1f1:"All core platform features", p1f2:"Arabic Excel import", p1f3:"Dashboards & automations", p1f4:"MCP & API access", p1f5:"Email support", plan1Cta:"Start free trial",
+  plan2:"Government & Enterprise", plan2Price:"Custom", plan2Note:"Tailored packages for government entities and large enterprises", govBadge:"For government & enterprises",
+  p2f1:"Everything in Professional", p2f2:"SSO & extended audit logs", p2f3:"Dedicated account manager & team training", p2f4:"Service-level agreements (SLA)", p2f5:"Private deployment options",
+  plan2Cta:"Contact sales", plan2Cta2:"Book a demo",
+  faqKicker:"FAQ", faqTitle:"Everything on your mind",
+  q1:"Where is my data hosted?", a1:"All data is hosted in data centers inside Saudi Arabia and never leaves, meeting national data-residency requirements.",
+  q2:"Is Jadawil compliant with Saudi requirements?", a2:"Yes. The platform is built per the National Data Management Office (NDMO) standards and supports your compliance with the Personal Data Protection Law (PDPL).",
+  q3:"Can I move my files from Excel?", a3:"Absolutely. Upload xlsx or csv files and sheets are automatically converted into tables with full Arabic encoding and RTL support.",
+  q4:"What does MCP support mean?", a4:"Jadawil lets AI agents connect to your data through the Model Context Protocol (MCP) with defined scopes and an audit log for every action.",
+  q5:"How does the free trial work?", a5:"You get 14 days with all features, no credit card required. Then it's SAR 39 per user per month.",
+  q6:"Is there a plan for government entities?", a6:"Yes. Tailored packages include SSO, SLAs and a dedicated account manager — contact our sales team.",
+  ctaTitle:"Ready to move your organization to a Saudi platform?", ctaSub:"Start your free trial today, or talk to our team for a tailored demo.",
+  ctaBtn1:"Start free trial", ctaBtn2:"Book a demo",
+  footerTag:"A Saudi platform for data & operations — global flexibility, local compliance.",
+  footerProduct:"Product", footerCompany:"Company", footerCompliance:"Compliance", footerContact:"Contact us", footerSales:"Sales",
+  fc1:"In-Kingdom hosting", fc2:"NDMO standards", fc3:"PDPL compliance support",
+  footerRights:"© 2025 Jadawil. All rights reserved.", madeIn:"Proudly made in Saudi Arabia 🇸🇦"
+}};
+
+let lang = "ar";
+function applyLang(l){
+  lang = l;
+  const d = I18N[l];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.getAttribute("data-i18n");
+    if(d[k] !== undefined) el.textContent = d[k];
+  });
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+  document.title = d.docTitle;
+  document.querySelector('meta[name="description"]').content = d.docDesc;
+  document.getElementById("langToggle").textContent = l === "ar" ? "EN" : "عربي";
+}
+document.getElementById("langToggle").addEventListener("click", ()=> applyLang(lang === "ar" ? "en" : "ar"));
+applyLang("ar");
+
+/* navbar shadow */
+const nav = document.getElementById("nav");
+addEventListener("scroll", ()=> nav.classList.toggle("scrolled", scrollY > 8), {passive:true});
+
+/* subtle reveal on scroll */
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }), {threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
