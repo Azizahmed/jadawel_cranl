@@ -12,7 +12,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 #
-# Copyright (c) 2019-present Jadawel B.V.
+# Copyright (c) 2019-present Baserow B.V.
 #    Modifications licensed according to the LICENSE file in the root of this
 #    repository.
 #
