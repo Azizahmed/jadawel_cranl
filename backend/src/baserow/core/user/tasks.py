@@ -8,7 +8,11 @@ from baserow.config.celery import app
 User = get_user_model()
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.core.user.tasks.check_pending_account_deletion",
+    bind=True,
+    queue="export",
+)
 def check_pending_account_deletion(self):
     """
     Periodic tasks that delete pending deletion user account that has overcome the
@@ -20,7 +24,9 @@ def check_pending_account_deletion(self):
     UserHandler().delete_expired_users_and_related_workspaces_if_last_admin()
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.core.user.tasks.flush_expired_tokens", bind=True, queue="export"
+)
 def flush_expired_tokens(self):
     """
     Flushes the expired blacklisted refresh tokens.
@@ -33,7 +39,9 @@ def flush_expired_tokens(self):
     ).delete()
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.core.user.tasks.clean_up_user_log_entry", bind=True, queue="export"
+)
 def clean_up_user_log_entry(self):
     """
     Execute job cleanup for UserLogEntry.

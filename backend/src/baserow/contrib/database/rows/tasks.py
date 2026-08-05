@@ -5,7 +5,11 @@ from django.conf import settings
 from baserow.config.celery import app
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.contrib.database.rows.tasks.clean_up_row_history_entries",
+    bind=True,
+    queue="export",
+)
 def clean_up_row_history_entries(self):
     """
     Execute job cleanup for row history entries.

@@ -23,6 +23,7 @@ def get_auto_index_cache_key(view_id):
 
 
 @app.task(
+    name="baserow.contrib.database.views.tasks.update_view_index",
     base=Singleton,
     queue="export",
     lock_expiry=settings.AUTO_INDEX_LOCK_EXPIRY,
@@ -62,7 +63,10 @@ def _set_pending_view_index_update(view_id: int):
     )
 
 
-@app.task(queue="export")
+@app.task(
+    name="baserow.contrib.database.views.tasks._check_for_pending_view_index_updates",
+    queue="export",
+)
 def _check_for_pending_view_index_updates(view_id):
     """
     Checks if there are any pending view index updates and schedules them.
@@ -111,7 +115,10 @@ def schedule_view_index_update(view_id: int):
     transaction.on_commit(lambda: _schedule_view_index_update(view_id))
 
 
-@app.task(queue="export")
+@app.task(
+    name="baserow.contrib.database.views.tasks.periodic_check_for_views_with_time_sensitive_filters",
+    queue="export",
+)
 def periodic_check_for_views_with_time_sensitive_filters():
     """
     Periodically checks for views that have time-sensitive filters. If a view has a

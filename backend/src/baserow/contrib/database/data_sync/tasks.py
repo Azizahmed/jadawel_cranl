@@ -20,16 +20,28 @@ def call_strategy_method(self, method_name, **kwargs):
     getattr(two_way_sync_type, method_name)(**kwargs)
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.contrib.database.data_sync.tasks.two_way_sync_row_created",
+    bind=True,
+    queue="export",
+)
 def two_way_sync_row_created(self, **kwargs):
     call_strategy_method(self, "rows_created", **kwargs)
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.contrib.database.data_sync.tasks.two_way_sync_row_updated",
+    bind=True,
+    queue="export",
+)
 def two_way_sync_row_updated(self, **kwargs):
     call_strategy_method(self, "rows_updated", **kwargs)
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.contrib.database.data_sync.tasks.two_way_sync_row_deleted",
+    bind=True,
+    queue="export",
+)
 def two_way_sync_row_deleted(self, **kwargs):
     call_strategy_method(self, "rows_deleted", **kwargs)

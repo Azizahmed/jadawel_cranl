@@ -6,7 +6,11 @@ from baserow.config.celery import app
 from baserow.core.db import atomic_with_retry_on_deadlock
 
 
-@app.task(bind=True, queue="automation_workflow")
+@app.task(
+    name="baserow.contrib.automation.nodes.tasks.dispatch_node_celery_task",
+    bind=True,
+    queue="automation_workflow",
+)
 def dispatch_node_celery_task(
     self,
     node_id: int,

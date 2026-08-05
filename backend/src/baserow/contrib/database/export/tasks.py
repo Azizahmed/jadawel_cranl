@@ -12,6 +12,7 @@ EXPORT_TIME_LIMIT = EXPORT_SOFT_TIME_LIMIT + 60
 
 # noinspection PyUnusedLocal
 @app.task(
+    name="baserow.contrib.database.export.tasks.run_export_job",
     bind=True,
     soft_time_limit=EXPORT_SOFT_TIME_LIMIT,
     time_limit=EXPORT_TIME_LIMIT,
@@ -34,6 +35,7 @@ def run_export_job(self, job_id):
 
 # noinspection PyUnusedLocal
 @app.task(
+    name="baserow.contrib.database.export.tasks.clean_up_old_jobs",
     bind=True,
 )
 def clean_up_old_jobs(self):

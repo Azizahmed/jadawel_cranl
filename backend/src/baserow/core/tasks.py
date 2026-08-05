@@ -17,6 +17,7 @@ from .user.tasks import check_pending_account_deletion
 
 
 @app.task(
+    name="baserow.core.tasks.sync_templates_task",
     base=Singleton,
     raise_on_duplicate=False,
     bind=True,

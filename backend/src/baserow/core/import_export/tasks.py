@@ -23,7 +23,11 @@ DELETE_MARKED_IMPORT_EXPORT_RESOURCES_TIME_LIMIT = (
 )
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.core.import_export.tasks.mark_import_export_resources_for_deletion",
+    bind=True,
+    queue="export",
+)
 def mark_import_export_resources_for_deletion(
     self,
     older_than_days: int = settings.BASEROW_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS,
@@ -44,6 +48,7 @@ def mark_import_export_resources_for_deletion(
 
 
 @app.task(
+    name="baserow.core.import_export.tasks.delete_marked_import_export_resources",
     base=Singleton,
     bind=True,
     queue="export",

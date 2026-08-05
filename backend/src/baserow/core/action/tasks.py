@@ -8,7 +8,9 @@ from baserow.config.celery import app
 from baserow.core.action.handler import ActionHandler
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.core.action.tasks.cleanup_old_actions", bind=True, queue="export"
+)
 def cleanup_old_actions(self):
     ActionHandler.clean_up_old_undoable_actions()
 

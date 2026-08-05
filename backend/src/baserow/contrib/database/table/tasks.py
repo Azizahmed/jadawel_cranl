@@ -95,7 +95,10 @@ def unsubscribe_subject_from_tables_currently_subscribed_to(
         )
 
 
-@app.task(bind=True)
+@app.task(
+    name="baserow.contrib.database.table.tasks.unsubscribe_user_from_tables_when_removed_from_workspace",
+    bind=True,
+)
 def unsubscribe_user_from_tables_when_removed_from_workspace(
     self,
     user_id: int,
@@ -118,7 +121,11 @@ def unsubscribe_user_from_tables_when_removed_from_workspace(
     )
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.contrib.database.table.tasks.setup_created_by_and_last_modified_by_column",
+    bind=True,
+    queue="export",
+)
 def setup_created_by_and_last_modified_by_column(self, table_id: int):
     from baserow.contrib.database.table.handler import TableHandler
 
@@ -127,7 +134,11 @@ def setup_created_by_and_last_modified_by_column(self, table_id: int):
         TableHandler().create_created_by_and_last_modified_by_fields(table)
 
 
-@app.task(bind=True, queue="export")
+@app.task(
+    name="baserow.contrib.database.table.tasks.setup_m2m_field_indexes_if_not_exist",
+    bind=True,
+    queue="export",
+)
 def setup_m2m_field_indexes_if_not_exist(self, table_id: int):
     from baserow.contrib.database.db.schema import safe_django_schema_editor
     from baserow.contrib.database.table.handler import TableHandler
@@ -146,7 +157,7 @@ def setup_m2m_field_indexes_if_not_exist(self, table_id: int):
         table.save(update_fields=["missing_m2m_indexes_added"])
 
 
-@app.task(bind=True)
+@app.task(name="baserow.contrib.database.table.tasks.update_table_usage", bind=True)
 def update_table_usage(self, table_id: int, row_count: int = 0):
     from baserow.contrib.database.table.handler import TableUsageHandler
 
@@ -155,7 +166,10 @@ def update_table_usage(self, table_id: int, row_count: int = 0):
     table_usage_updated.send(sender=self, table_id=table_id)
 
 
-@app.task(bind=True)
+@app.task(
+    name="baserow.contrib.database.table.tasks.create_tables_usage_for_new_database",
+    bind=True,
+)
 def create_tables_usage_for_new_database(self, database_id: int):
     from baserow.contrib.database.table.handler import TableUsageHandler
 

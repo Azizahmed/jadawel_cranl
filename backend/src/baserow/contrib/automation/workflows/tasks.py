@@ -16,7 +16,10 @@ from baserow.contrib.automation.workflows.signals import (
 from baserow.core.db import atomic_with_retry_on_deadlock
 
 
-@app.task(queue="automation_workflow")
+@app.task(
+    name="baserow.contrib.automation.workflows.tasks.start_workflow_celery_task",
+    queue="automation_workflow",
+)
 def start_workflow_celery_task(
     workflow_id: int,
     history_id: int,
@@ -41,7 +44,9 @@ def start_workflow_celery_task(
         result.delay()
 
 
-@app.task
+@app.task(
+    name="baserow.contrib.automation.workflows.tasks.handle_workflow_dispatch_done"
+)
 def handle_workflow_dispatch_done(
     history_id: int,
     simulate_until_node_id: Optional[int] = None,
@@ -78,7 +83,10 @@ def handle_workflow_dispatch_done(
         )
 
 
-@app.task(queue="automation_workflow")
+@app.task(
+    name="baserow.contrib.automation.workflows.tasks.automation_periodic_cleanup",
+    queue="automation_workflow",
+)
 def automation_periodic_cleanup():
     from baserow.contrib.automation.workflows.handler import AutomationWorkflowHandler
 

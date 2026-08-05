@@ -21,7 +21,10 @@ def _get_singleton_autoreschedule_flag(table_id: int) -> SingletonAutoReschedule
     return SingletonAutoRescheduleFlag(f"database_search_data_lock_{table_id}")
 
 
-@app.task(queue="export")
+@app.task(
+    name="baserow.contrib.database.search.tasks.schedule_update_search_data",
+    queue="export",
+)
 def schedule_update_search_data(
     table_id: int,
     field_ids: Optional[List[int]] = None,
@@ -74,6 +77,7 @@ def schedule_update_search_data(
 
 
 @app.task(
+    name="baserow.contrib.database.search.tasks.update_search_data",
     queue="export",
     base=Singleton,
     unique_on="table_id",
@@ -132,6 +136,7 @@ def update_search_data(table_id: int):
 
 
 @app.task(
+    name="baserow.contrib.database.search.tasks.periodic_check_pending_search_data",
     queue="export",
     base=Singleton,
     raise_on_duplicate=False,
