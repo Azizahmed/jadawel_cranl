@@ -20,11 +20,11 @@ ENABLED_TOOL_NAMES = {
     "create_rows",
     "update_rows",
     "delete_rows",
+    "create_table",
 }
 
 DISABLED_TOOL_NAMES = {
     "create_database",
-    "create_table",
     "update_table",
     "delete_table",
     "create_fields",

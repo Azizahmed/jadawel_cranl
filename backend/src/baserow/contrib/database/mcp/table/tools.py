@@ -73,7 +73,6 @@ class CreateTableMcpTool(MCPTool):
     """
 
     type = "create_table"
-    enabled = False
     input_schema = CreateTableInput
 
     def _sync_call(self, endpoint: MCPEndpoint, args: CreateTableInput) -> dict:
