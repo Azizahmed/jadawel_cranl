@@ -17,30 +17,30 @@ from arabase.integrations.local_baserow.models import (
     LocalBaserowTableServiceAggregationSortBy,
     series_key,
 )
-from baserow.contrib.database.fields.exceptions import IncompatibleField
-from baserow.contrib.database.fields.handler import FieldHandler
-from baserow.contrib.database.fields.registries import (
+from jadawel.contrib.database.fields.exceptions import IncompatibleField
+from jadawel.contrib.database.fields.handler import FieldHandler
+from jadawel.contrib.database.fields.registries import (
     field_aggregation_registry,
     field_type_registry,
 )
-from baserow.contrib.database.views.exceptions import AggregationTypeDoesNotExist
-from baserow.contrib.database.views.models import SORT_ORDER_ASC
-from baserow.contrib.database.views.view_aggregations import (
+from jadawel.contrib.database.views.exceptions import AggregationTypeDoesNotExist
+from jadawel.contrib.database.views.models import SORT_ORDER_ASC
+from jadawel.contrib.database.views.view_aggregations import (
     DistributionViewAggregationType,
 )
-from baserow.contrib.integrations.local_baserow.mixins import (
+from jadawel.contrib.integrations.local_baserow.mixins import (
     LocalBaserowTableServiceFilterableMixin,
     LocalBaserowTableServiceSearchableMixin,
 )
-from baserow.contrib.integrations.local_baserow.service_types import (
+from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowViewServiceType,
 )
-from baserow.core.services.dispatch_context import DispatchContext
-from baserow.core.services.exceptions import (
+from jadawel.core.services.dispatch_context import DispatchContext
+from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
 )
-from baserow.core.services.registries import DispatchTypes
-from baserow.core.services.types import DispatchResult, ServiceSubClass
+from jadawel.core.services.registries import DispatchTypes
+from jadawel.core.services.types import DispatchResult, ServiceSubClass
 
 MAX_AGGREGATION_SERIES = 5
 """How many series the API accepts on one service. The frontend offers fewer;
@@ -550,7 +550,7 @@ class LocalBaserowGroupedAggregateRowsUserServiceType(
         if allowed_fields is not None and "result" not in allowed_fields:
             return {}
 
-        from baserow.contrib.database.api.fields.serializers import FieldSerializer
+        from jadawel.contrib.database.api.fields.serializers import FieldSerializer
 
         def serialize(field):
             return field_type_registry.get_serializer(field, FieldSerializer).data

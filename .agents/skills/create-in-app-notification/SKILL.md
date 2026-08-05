@@ -22,12 +22,12 @@ Then inspect the closest example before editing.
 
 Useful starting points:
 
-- Core notification types: `backend/src/baserow/core/notification_types.py`
-- Database notification types: `backend/src/baserow/contrib/database/fields/notification_types.py`
+- Core notification types: `backend/src/jadawel/core/notification_types.py`
+- Database notification types: `backend/src/jadawel/contrib/database/fields/notification_types.py`
 - Premium notification types: `premium/backend/src/baserow_premium/row_comments/notification_types.py`
 - Enterprise notification types: `enterprise/backend/src/baserow_enterprise/data_scanner/notification_types.py`
-- Backend notification APIs: `backend/src/baserow/core/notifications/handler.py`
-- Backend notification base classes: `backend/src/baserow/core/notifications/registries.py`
+- Backend notification APIs: `backend/src/jadawel/core/notifications/handler.py`
+- Backend notification base classes: `backend/src/jadawel/core/notifications/registries.py`
 - Frontend base notification type: `web-frontend/modules/core/notificationTypes.js`
 
 ## What A Complete Notification Usually Needs
@@ -55,8 +55,8 @@ Follow the existing backend shape:
 
 Common backend registration points:
 
-- `backend/src/baserow/core/apps.py`
-- `backend/src/baserow/contrib/database/apps.py`
+- `backend/src/jadawel/core/apps.py`
+- `backend/src/jadawel/contrib/database/apps.py`
 - `premium/backend/src/baserow_premium/apps.py`
 - `enterprise/backend/src/baserow_enterprise/apps.py`
 

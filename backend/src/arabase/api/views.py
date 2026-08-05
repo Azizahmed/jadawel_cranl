@@ -7,12 +7,12 @@ from rest_framework.views import APIView
 
 from arabase.api.activity import DEFAULT_DAYS, MAX_DAYS, get_workspace_activity
 from arabase.api.database_stats import get_database_stats
-from baserow.api.decorators import map_exceptions
-from baserow.api.errors import ERROR_GROUP_DOES_NOT_EXIST, ERROR_USER_NOT_IN_GROUP
-from baserow.api.schemas import get_error_schema
-from baserow.contrib.database.models import Database
-from baserow.core.exceptions import UserNotInWorkspace, WorkspaceDoesNotExist
-from baserow.core.service import CoreService
+from jadawel.api.decorators import map_exceptions
+from jadawel.api.errors import ERROR_GROUP_DOES_NOT_EXIST, ERROR_USER_NOT_IN_GROUP
+from jadawel.api.schemas import get_error_schema
+from jadawel.contrib.database.models import Database
+from jadawel.core.exceptions import UserNotInWorkspace, WorkspaceDoesNotExist
+from jadawel.core.service import CoreService
 
 
 class WorkspaceDatabaseStatsView(APIView):

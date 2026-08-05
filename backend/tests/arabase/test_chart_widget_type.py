@@ -8,11 +8,11 @@ import pytest
 from arabase.dashboard.widgets.models import ChartWidget
 from arabase.dashboard.widgets.widget_types import ChartWidgetType
 from arabase.integrations.local_baserow.models import LocalBaserowGroupedAggregateRows
-from baserow.contrib.dashboard.data_sources.models import DashboardDataSource
-from baserow.contrib.dashboard.data_sources.service import DashboardDataSourceService
-from baserow.contrib.dashboard.widgets.service import WidgetService
-from baserow.contrib.dashboard.widgets.trash_types import WidgetTrashableItemType
-from baserow.core.trash.handler import TrashHandler
+from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
+from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
+from jadawel.contrib.dashboard.widgets.service import WidgetService
+from jadawel.contrib.dashboard.widgets.trash_types import WidgetTrashableItemType
+from jadawel.core.trash.handler import TrashHandler
 
 
 def create_chart(data_fixture, user=None, **kwargs):

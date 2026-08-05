@@ -3,11 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-# NOTE: the distribution name stays "baserow" because it is load-bearing. The console
-# script below (`baserow = "baserow.manage:main"`), the wheel package path
-# (`src/baserow`), the `baserow.*` import namespace and the recorded package name in
-# `uv.lock` all depend on it. The product is branded "Jadawel" on user-facing surfaces.
-name = "baserow"
+name = "jadawel"
 authors = [{ name = "Abdulaziz", email = "gotoaziz100@gmail.com" }]
 description = """Jadawel is an Arabic-first, RTL-native online spreadsheet-database. \
                     Create a relational database without any technical expertise, \
@@ -111,7 +107,7 @@ Repository = "https://github.com/Azizahmed/Jadawel"
 "Bug Tracker" = "https://github.com/Azizahmed/Jadawel/issues"
 
 [project.scripts]
-baserow = "baserow.manage:main"
+jadawel = "jadawel.manage:main"
 
 [dependency-groups]
 dev = [
@@ -162,11 +158,11 @@ changelog = [
 allow-direct-references = true
 
 [tool.hatch.version]
-path = "src/baserow/version.py"
+path = "src/jadawel/version.py"
 pattern = "VERSION = \"(?P<version>[^\"]+)\""
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/baserow"]
+packages = ["src/jadawel"]
 
 [tool.ruff]
 target-version = "py311"
@@ -196,11 +192,11 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*" = ["S101", "S105", "S106", "S608", "F841"]
 "../**/tests/**/*" = ["S101", "S105", "S106", "S608", "F841"]
-"src/baserow/test_utils/**/*" = ["S101", "S105", "S106", "S608", "F841"]
-"src/baserow/config/settings/local.py" = ["S105"]
+"src/jadawel/test_utils/**/*" = ["S101", "S105", "S106", "S608", "F841"]
+"src/jadawel/config/settings/local.py" = ["S105"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["baserow", "arabase"]
+known-first-party = ["jadawel", "arabase"]
 section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
 
 [tool.ruff.lint.isort.sections]
@@ -211,7 +207,7 @@ package = true
 environments = ["sys_platform == 'linux'", "sys_platform == 'darwin'"]
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "baserow.config.settings.test"
+DJANGO_SETTINGS_MODULE = "jadawel.config.settings.test"
 python_files = ["test_*.py", "*_test.py"]
 pythonpath = [
     "tests",

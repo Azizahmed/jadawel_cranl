@@ -9,16 +9,16 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
 from arabase.integrations.local_baserow.models import LocalBaserowUpcomingRows
-from baserow.contrib.database.fields.handler import FieldHandler
-from baserow.contrib.database.fields.registries import field_type_registry
-from baserow.contrib.integrations.local_baserow.service_types import (
+from jadawel.contrib.database.fields.handler import FieldHandler
+from jadawel.contrib.database.fields.registries import field_type_registry
+from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowListRowsUserServiceType,
 )
-from baserow.core.services.dispatch_context import DispatchContext
-from baserow.core.services.exceptions import (
+from jadawel.core.services.dispatch_context import DispatchContext
+from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
 )
-from baserow.core.services.types import ServiceSubClass
+from jadawel.core.services.types import ServiceSubClass
 
 MAX_DAYS_AHEAD = 365
 """A window wider than a year stops being an agenda, and the row limit would

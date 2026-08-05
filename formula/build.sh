@@ -64,7 +64,7 @@ mkdir -p $FRONTEND_OUTPUT_DIR
 rm -f "$FRONTEND_OUTPUT_DIR"BaserowFormula*
 cp out/frontend_parser/* $FRONTEND_OUTPUT_DIR
 
-BACKEND_OUTPUT_DIR=./../backend/src/baserow/core/formula/parser/generated/
+BACKEND_OUTPUT_DIR=./../backend/src/jadawel/core/formula/parser/generated/
 mkdir -p $BACKEND_OUTPUT_DIR
 rm -f "$BACKEND_OUTPUT_DIR"BaserowFormula*
 cp out/backend_parser/* $BACKEND_OUTPUT_DIR

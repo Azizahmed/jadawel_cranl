@@ -144,14 +144,14 @@ one too. The two are separable, and want opposite values here:
 | `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Sync runs in celery *after* startup |
 
 Fix was to set the trigger to `true` and Reload. The task routes to the `export`
-queue (`backend/src/baserow/core/tasks.py:23`), which under `BASEROW_RUN_MINIMAL`
+queue (`backend/src/jadawel/core/tasks.py:23`), which under `BASEROW_RUN_MINIMAL`
 is served by the combined worker (`docker-entrypoint.sh:373-393`) — so it is
 picked up rather than sitting unrouted. It took **13m15s** for 157 templates
 while the app kept serving traffic normally.
 
 156 of 157 imported. `event-staffing` failed and was skipped without aborting the
 rest, which is the fork's patch to `CoreHandler.sync_templates` working as
-designed (`PATCHES.md`, `backend/src/baserow/core/handler.py:1880-1940`).
+designed (`PATCHES.md`, `backend/src/jadawel/core/handler.py:1880-1940`).
 
 The `view type 'kanban'/'calendar'/'timeline' is not available on this instance`
 warnings during the sync are expected and not CranL-specific: those view types
@@ -339,7 +339,7 @@ tolerates it, but it is worth trimming next time the variable is touched.
   signup API, so a CLI-made account leaves it set and `/login` then redirects to
   `/signup` permanently, with no way in through the UI.
 - pgvector is optional — `is_pgvector_enabled()` in
-  `backend/src/baserow/core/pgvector.py` feature-detects it, and its absence
+  `backend/src/jadawel/core/pgvector.py` feature-detects it, and its absence
   just disables embedding fields.
 - Supabase would work as the database (it is Postgres) but adds nothing over
   `jadawel-postgres`, and its PostgREST auto-exposes the `public` schema, where

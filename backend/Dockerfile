@@ -177,7 +177,7 @@ ENV DOCKER_USER=baserow_docker_user \
     UV_CACHE_DIR=/tmp/baserow_uv_cache \
     PATH="/baserow/venv/bin:$PATH" \
     PYTHONPATH="/baserow/backend/src:/baserow/backend/tests" \
-    DJANGO_SETTINGS_MODULE='baserow.config.settings.test'
+    DJANGO_SETTINGS_MODULE='jadawel.config.settings.test'
 
 RUN groupadd --system --gid $GID ${DOCKER_USER} && \
       useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
@@ -247,7 +247,7 @@ ENV DOCKER_USER=baserow_docker_user \
     PYTHONUNBUFFERED=1 \
     PATH=/baserow/venv/bin:$PATH \
     PYTHONPATH=/baserow/backend/src:/baserow/backend/tests \
-    DJANGO_SETTINGS_MODULE=baserow.config.settings.dev
+    DJANGO_SETTINGS_MODULE=jadawel.config.settings.dev
 
 RUN getent group $GID || groupadd --system --gid $GID ${DOCKER_USER} && \
     useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
@@ -281,7 +281,7 @@ RUN echo "set -g default-command \"\${SHELL}\"" > /baserow/.tmux.conf && \
     printf '%s\n' \
     '# Aliases' \
     'alias j="just"' \
-    'alias m="python /baserow/backend/src/baserow/manage.py"' \
+    'alias m="python /baserow/backend/src/jadawel/manage.py"' \
     'alias pytest="python -m pytest"' \
     '' \
     '# Show a helpful message' \
@@ -316,7 +316,7 @@ ENV POSTGRES_VERSION=15 \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
     PYTHONPATH="/baserow/backend/src" \
-    DJANGO_SETTINGS_MODULE='baserow.config.settings.base'
+    DJANGO_SETTINGS_MODULE='jadawel.config.settings.base'
 
 # Runtime dependencies only
 RUN apt-get update && \

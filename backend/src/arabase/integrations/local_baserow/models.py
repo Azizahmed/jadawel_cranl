@@ -1,12 +1,12 @@
 from django.db import models
 
-from baserow.contrib.database.views.models import SORT_ORDER_CHOICES, SORT_ORDER_DESC
-from baserow.contrib.integrations.local_baserow.models import (
+from jadawel.contrib.database.views.models import SORT_ORDER_CHOICES, SORT_ORDER_DESC
+from jadawel.contrib.integrations.local_baserow.models import (
     LocalBaserowFilterableServiceMixin,
     LocalBaserowFilterableSortableMixin,
     LocalBaserowViewService,
 )
-from baserow.core.services.models import SearchableServiceMixin
+from jadawel.core.services.models import SearchableServiceMixin
 
 SORT_ON_SERIES = "SERIES"
 SORT_ON_GROUP_BY = "GROUP_BY"

@@ -4,7 +4,7 @@ set -Eeo pipefail
 # This script waits 60 seconds by default for the backend and web-frontend services
 # to become healthy.
 
-# Keep in sync with src/baserow/config/settings/base.py:594
+# Keep in sync with src/jadawel/config/settings/base.py:594
 DEFAULT_APPLICATION_TEMPLATES=("project-tracker" "ab_ivory_theme")
 
 baserow_ready() {

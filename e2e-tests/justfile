@@ -167,7 +167,7 @@ up: _ensure-images
             -e DATABASE_PASSWORD=baserow \
             -e REDIS_URL=redis://e2e-redis:6379 \
             -e SECRET_KEY=test \
-            -e DJANGO_SETTINGS_MODULE=baserow.config.settings.e2e \
+            -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.e2e \
             -e MIGRATE_ON_STARTUP=true \
             -e FEATURE_FLAGS="*" \
             -e PRIVATE_BACKEND_URL=http://e2e-backend:8000 \
@@ -186,7 +186,7 @@ up: _ensure-images
             -e DATABASE_PASSWORD=baserow \
             -e REDIS_URL=redis://e2e-redis:6379 \
             -e SECRET_KEY=test \
-            -e DJANGO_SETTINGS_MODULE=baserow.config.settings.e2e \
+            -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.e2e \
             -e FEATURE_FLAGS="*" \
             -e BASEROW_RUN_MINIMAL=yes \
             -e BASEROW_AMOUNT_OF_WORKERS=1 \
@@ -341,8 +341,8 @@ db-dump:
         -e DATABASE_PASSWORD=baserow \
         -e REDIS_URL=redis://e2e-dump-redis:6379 \
         -e SECRET_KEY=dump-generation \
-        -e DJANGO_SETTINGS_MODULE=baserow.config.settings.test \
-        {{ backend_image }} bash -c "python /baserow/backend/src/baserow/manage.py migrate --noinput"
+        -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.test \
+        {{ backend_image }} bash -c "python /baserow/backend/src/jadawel/manage.py migrate --noinput"
 
     # Create the dump
     echo "Creating database dump..."

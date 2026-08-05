@@ -13,7 +13,7 @@ web-frontend/reports/
 **/*.pyc
 **/*.pyo
 backend/reports/
-backend/src/baserow.egg-info
+backend/src/jadawel.egg-info
 backend/media/
 
 *.iml

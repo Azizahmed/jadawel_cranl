@@ -14,7 +14,7 @@ Keep the change simple and explicit. Do not add abstractions for this.
 
 When adding a new setting, usually check these files:
 
-- `backend/src/baserow/config/settings/base.py`
+- `backend/src/jadawel/config/settings/base.py`
 - `docker-compose.yml`
 - `docker-compose.no-caddy.yml`
 - `web-frontend/env-remap.mjs`
@@ -24,7 +24,7 @@ When adding a new setting, usually check these files:
 
 ## Workflow
 
-1. Add the Django setting in `backend/src/baserow/config/settings/base.py` near the closest related setting.
+1. Add the Django setting in `backend/src/jadawel/config/settings/base.py` near the closest related setting.
 
 Example:
 

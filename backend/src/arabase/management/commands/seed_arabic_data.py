@@ -30,34 +30,101 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from baserow.contrib.database.application_types import DatabaseApplicationType
-from baserow.contrib.database.search.handler import SearchHandler
-from baserow.contrib.database.table.handler import TableHandler
-from baserow.core.handler import CoreHandler
+from jadawel.contrib.database.application_types import DatabaseApplicationType
+from jadawel.contrib.database.search.handler import SearchHandler
+from jadawel.contrib.database.table.handler import TableHandler
+from jadawel.core.handler import CoreHandler
 
 User = get_user_model()
 
 # --- Arabic data pools ------------------------------------------------------
 
 MALE_FIRST = [
-    "محمد", "أحمد", "عبدالله", "عبدالعزيز", "خالد", "سعود", "فهد", "سلطان",
-    "ناصر", "بندر", "تركي", "فيصل", "عمر", "يوسف", "إبراهيم", "سعد", "ماجد",
-    "طلال", "وليد", "زياد", "رائد", "مشعل", "نايف", "عبدالرحمن",
+    "محمد",
+    "أحمد",
+    "عبدالله",
+    "عبدالعزيز",
+    "خالد",
+    "سعود",
+    "فهد",
+    "سلطان",
+    "ناصر",
+    "بندر",
+    "تركي",
+    "فيصل",
+    "عمر",
+    "يوسف",
+    "إبراهيم",
+    "سعد",
+    "ماجد",
+    "طلال",
+    "وليد",
+    "زياد",
+    "رائد",
+    "مشعل",
+    "نايف",
+    "عبدالرحمن",
 ]
 FEMALE_FIRST = [
-    "نورة", "سارة", "فاطمة", "عائشة", "منى", "هيا", "لمياء", "ريم", "أمل",
-    "جواهر", "مها", "دلال", "شهد", "لطيفة", "حصة", "العنود", "غادة", "رنا",
-    "وفاء", "أسماء", "هند", "بشرى",
+    "نورة",
+    "سارة",
+    "فاطمة",
+    "عائشة",
+    "منى",
+    "هيا",
+    "لمياء",
+    "ريم",
+    "أمل",
+    "جواهر",
+    "مها",
+    "دلال",
+    "شهد",
+    "لطيفة",
+    "حصة",
+    "العنود",
+    "غادة",
+    "رنا",
+    "وفاء",
+    "أسماء",
+    "هند",
+    "بشرى",
 ]
 FAMILY = [
-    "القحطاني", "الغامدي", "الشمري", "العتيبي", "الدوسري", "الحربي", "المطيري",
-    "الزهراني", "الشهري", "البقمي", "السبيعي", "العنزي", "الرشيدي", "الخالدي",
-    "المالكي", "الجهني", "السلمي", "العمري", "الأحمدي", "الفيفي", "البلوي",
+    "القحطاني",
+    "الغامدي",
+    "الشمري",
+    "العتيبي",
+    "الدوسري",
+    "الحربي",
+    "المطيري",
+    "الزهراني",
+    "الشهري",
+    "البقمي",
+    "السبيعي",
+    "العنزي",
+    "الرشيدي",
+    "الخالدي",
+    "المالكي",
+    "الجهني",
+    "السلمي",
+    "العمري",
+    "الأحمدي",
+    "الفيفي",
+    "البلوي",
 ]
 DEPARTMENTS = [
-    "الموارد البشرية", "المالية", "تقنية المعلومات", "المبيعات", "التسويق",
-    "العمليات", "المشتريات", "الشؤون القانونية", "خدمة العملاء", "الإنتاج",
-    "الجودة", "الأمن والسلامة",
+    "الموارد البشرية",
+    "المالية",
+    "تقنية المعلومات",
+    "المبيعات",
+    "التسويق",
+    "العمليات",
+    "المشتريات",
+    "الشؤون القانونية",
+    "خدمة العملاء",
+    "الإنتاج",
+    "الجودة",
+    "الأمن والسلامة",
 ]
 # Notes deliberately mix an Arabic sentence with Latin codes/digits to stress bidi.
 NOTE_TEMPLATES = [
@@ -105,7 +172,12 @@ def gregorian_to_hijri(g: date):
     n = (l - 1) // 10631
     l = l - 10631 * n + 354
     j = ((10985 - l) // 5316) * ((50 * l) // 17719) + (l // 5670) * ((43 * l) // 15238)
-    l = l - ((30 - j) // 15) * ((17719 * j) // 50) - (j // 16) * ((15238 * j) // 43) + 29
+    l = (
+        l
+        - ((30 - j) // 15) * ((17719 * j) // 50)
+        - (j // 16) * ((15238 * j) // 43)
+        + 29
+    )
     im = (24 * l) // 709
     id_ = l - (709 * im) // 24
     iy = 30 * n + j - 30
@@ -140,9 +212,11 @@ class Command(BaseCommand):
         user = self._resolve_user(options["user_email"])
 
         self.stdout.write(f"Owner: {user.email}")
-        workspace = CoreHandler().create_workspace(
-            user, name=options["workspace_name"]
-        ).workspace
+        workspace = (
+            CoreHandler()
+            .create_workspace(user, name=options["workspace_name"])
+            .workspace
+        )
         database = CoreHandler().create_application(
             user,
             workspace,
@@ -154,7 +228,11 @@ class Command(BaseCommand):
             ("الاسم", "text", {}),
             ("رقم الإقامة", "text", {}),
             ("القسم", "text", {}),
-            ("تاريخ التعيين", "date", {"date_format": "ISO", "date_include_time": False}),
+            (
+                "تاريخ التعيين",
+                "date",
+                {"date_format": "ISO", "date_include_time": False},
+            ),
             ("التاريخ الهجري", "text", {}),
             ("ملاحظات", "long_text", {}),
         ]
@@ -166,7 +244,9 @@ class Command(BaseCommand):
         )
 
         model = table.get_model()
-        attr = {fo["field"].name: f"field_{fid}" for fid, fo in model._field_objects.items()}
+        attr = {
+            fo["field"].name: f"field_{fid}" for fid, fo in model._field_objects.items()
+        }
 
         set_owner = {}
         if hasattr(model, "created_by_id"):

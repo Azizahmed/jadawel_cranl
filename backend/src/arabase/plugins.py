@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from baserow.core.registries import Plugin
+from jadawel.core.registries import Plugin
 
 
 class ArabasePlugin(Plugin):

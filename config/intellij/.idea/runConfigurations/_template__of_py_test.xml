@@ -6,7 +6,7 @@
     <envs>
       <env name="DATABASE_HOST" value="localhost" />
       <env name="DATABASE_PORT" value="5430" />
-      <env name="DJANGO_SETTINGS_MODULE" value="baserow.config.settings.test" />
+      <env name="DJANGO_SETTINGS_MODULE" value="jadawel.config.settings.test" />
     </envs>
     <option name="SDK_HOME" value="" />
     <option name="WORKING_DIRECTORY" value="" />

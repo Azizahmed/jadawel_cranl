@@ -116,7 +116,9 @@ def test_endpoint_returns_series_for_a_member(api_client, data_fixture):
     table.get_model().objects.create()
 
     response = api_client.get(
-        reverse("api:arabase.api:workspace_activity", kwargs={"workspace_id": workspace.id}),
+        reverse(
+            "api:arabase.api:workspace_activity", kwargs={"workspace_id": workspace.id}
+        ),
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
 
@@ -132,7 +134,9 @@ def test_endpoint_clamps_a_malformed_days_parameter(api_client, data_fixture):
     workspace = data_fixture.create_workspace(user=user)
 
     response = api_client.get(
-        reverse("api:arabase.api:workspace_activity", kwargs={"workspace_id": workspace.id})
+        reverse(
+            "api:arabase.api:workspace_activity", kwargs={"workspace_id": workspace.id}
+        )
         + "?days=not-a-number",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )

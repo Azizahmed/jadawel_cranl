@@ -10,7 +10,7 @@ from django.test.testcases import TransactionTestCase
 import pytest
 
 # noinspection PyUnresolvedReferences
-from baserow.test_utils.pytest_conftest import *  # noqa: F403, F401
+from jadawel.test_utils.pytest_conftest import *  # noqa: F403, F401
 
 
 def _fixture_teardown(self):

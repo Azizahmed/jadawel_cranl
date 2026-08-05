@@ -14,7 +14,7 @@ the procedure and `cranl_fix.md` the environment set that actually boots.
 ## Layout
 
 ```
-backend/         Django project — src/baserow (upstream), src/arabase (fork), tests/
+backend/         Django project — src/jadawel (upstream), src/arabase (fork), tests/
 web-frontend/    Nuxt 3 app — modules/{core,database,dashboard,…}, modules/arabase (fork)
 website/         Static marketing pages
 e2e-tests/       Playwright suites
@@ -67,7 +67,7 @@ Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
   logged in `PATCHES.md` with its reason and merge risk. Files you create under
   `arabase/`, `docs/` or `.github/` are additive and stay out of that log.
 - The `baserow` name is load-bearing. The Python distribution, the `baserow.*` import
-  namespace, `src/baserow`, `uv.lock`, and the `baserow` container, service and volume
+  namespace, `src/jadawel`, `uv.lock`, and the `baserow` container, service and volume
   names all depend on it. Rebrand user-facing surfaces to Jadawel / جداول only.
 
 ## Coding style

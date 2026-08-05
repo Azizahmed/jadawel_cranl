@@ -25,8 +25,8 @@ from datetime import timedelta
 from django.db import connection
 from django.utils import timezone
 
-from baserow.contrib.database.table.constants import USER_TABLE_DATABASE_NAME_PREFIX
-from baserow.contrib.database.table.models import Table
+from jadawel.contrib.database.table.constants import USER_TABLE_DATABASE_NAME_PREFIX
+from jadawel.contrib.database.table.models import Table
 
 # Matches `database_stats.MAX_TABLES_FOR_EXACT_COUNTS`. Kept as its own constant
 # because the two queries are not the same cost — this one groups as well as
@@ -44,9 +44,9 @@ def _table_ids_for_databases(database_ids):
         return []
 
     return list(
-        Table.objects.filter(
-            database_id__in=database_ids, trashed=False
-        ).values_list("id", flat=True)
+        Table.objects.filter(database_id__in=database_ids, trashed=False).values_list(
+            "id", flat=True
+        )
     )
 
 

@@ -23,23 +23,23 @@ from arabase.integrations.local_baserow.models import LocalBaserowUpcomingRows
 from arabase.integrations.local_baserow.upcoming_rows import (
     LocalBaserowUpcomingRowsUserServiceType,
 )
-from baserow.contrib.dashboard.data_sources.dispatch_context import (
+from jadawel.contrib.dashboard.data_sources.dispatch_context import (
     DashboardDispatchContext,
 )
-from baserow.contrib.dashboard.data_sources.models import DashboardDataSource
-from baserow.contrib.dashboard.data_sources.service import DashboardDataSourceService
-from baserow.contrib.dashboard.widgets.service import WidgetService
-from baserow.contrib.dashboard.widgets.trash_types import WidgetTrashableItemType
-from baserow.contrib.database.rows.handler import RowHandler
-from baserow.contrib.integrations.local_baserow.models import (
+from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
+from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
+from jadawel.contrib.dashboard.widgets.service import WidgetService
+from jadawel.contrib.dashboard.widgets.trash_types import WidgetTrashableItemType
+from jadawel.contrib.database.rows.handler import RowHandler
+from jadawel.contrib.integrations.local_baserow.models import (
     LocalBaserowAggregateRows,
     LocalBaserowListRows,
 )
-from baserow.core.services.exceptions import (
+from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
 )
-from baserow.core.services.registries import service_type_registry
-from baserow.core.trash.handler import TrashHandler
+from jadawel.core.services.registries import service_type_registry
+from jadawel.core.trash.handler import TrashHandler
 
 
 @pytest.fixture

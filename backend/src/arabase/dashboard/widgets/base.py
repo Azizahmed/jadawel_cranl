@@ -2,12 +2,12 @@ from typing import Any
 
 from rest_framework import serializers
 
-from baserow.contrib.dashboard.data_sources.handler import DashboardDataSourceHandler
-from baserow.contrib.dashboard.data_sources.models import DashboardDataSource
-from baserow.contrib.dashboard.types import WidgetDict
-from baserow.contrib.dashboard.widgets.models import Widget
-from baserow.contrib.dashboard.widgets.registries import WidgetType
-from baserow.core.services.registries import service_type_registry
+from jadawel.contrib.dashboard.data_sources.handler import DashboardDataSourceHandler
+from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
+from jadawel.contrib.dashboard.types import WidgetDict
+from jadawel.contrib.dashboard.widgets.models import Widget
+from jadawel.contrib.dashboard.widgets.registries import WidgetType
+from jadawel.core.services.registries import service_type_registry
 
 
 class DataSourceBackedWidgetType(WidgetType):

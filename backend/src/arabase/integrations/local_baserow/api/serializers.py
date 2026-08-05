@@ -7,7 +7,7 @@ from arabase.integrations.local_baserow.models import (
     LocalBaserowTableServiceAggregationSeries,
     LocalBaserowTableServiceAggregationSortBy,
 )
-from baserow.contrib.database.views.models import SORT_ORDER_CHOICES, SORT_ORDER_DESC
+from jadawel.contrib.database.views.models import SORT_ORDER_CHOICES, SORT_ORDER_DESC
 
 
 class LocalBaserowTableServiceAggregationSeriesSerializer(serializers.ModelSerializer):

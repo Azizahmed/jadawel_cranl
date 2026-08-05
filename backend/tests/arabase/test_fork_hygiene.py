@@ -7,8 +7,9 @@ leaks back into the build (e.g. via an upstream merge), and confirm our additive
 
 import importlib
 
-import pytest
 from django.conf import settings
+
+import pytest
 
 
 def test_arabase_app_is_installed():

@@ -1,6 +1,6 @@
 from django.db import models
 
-from baserow.contrib.dashboard.widgets.models import Widget
+from jadawel.contrib.dashboard.widgets.models import Widget
 
 CHART_TYPE_BAR = "bar"
 CHART_TYPE_LINE = "line"

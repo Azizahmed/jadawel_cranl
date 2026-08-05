@@ -72,7 +72,7 @@ ENV POSTGRES_LOCATION=/etc/postgresql/15/main \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
     PYTHONPATH="/baserow/backend/src" \
-    DJANGO_SETTINGS_MODULE='baserow.config.settings.base' \
+    DJANGO_SETTINGS_MODULE='jadawel.config.settings.base' \
     NODE_OPTIONS="--max-old-space-size=4096" \
     NODE_ENV=production
 

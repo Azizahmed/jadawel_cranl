@@ -6,7 +6,7 @@ class ArabaseConfig(AppConfig):
 
     ``ready()`` is the single place where we hook into Baserow's registries
     (field types, view types, actions, plugins, permission managers, ...).
-    Always prefer a registry hook here over editing a core ``baserow.*`` file;
+    Always prefer a registry hook here over editing a core ``jadawel.*`` file;
     if a core edit is truly unavoidable, log it in ``PATCHES.md``.
     """
 
@@ -16,14 +16,14 @@ class ArabaseConfig(AppConfig):
     def ready(self):
         # Registry registrations land here as each phase is implemented, e.g.:
         #
-        #     from baserow.contrib.database.fields.registries import field_type_registry
+        #     from jadawel.contrib.database.fields.registries import field_type_registry
         #     from arabase.fields.hijri import HijriDateFieldType
         #     field_type_registry.register(HijriDateFieldType())
         #
         # Keep imports inside ready() (not at module top) so Django app loading
         # order is respected.
         from arabase.plugins import ArabasePlugin
-        from baserow.core.registries import plugin_registry
+        from jadawel.core.registries import plugin_registry
 
         plugin_registry.register(ArabasePlugin())
 
@@ -33,7 +33,7 @@ class ArabaseConfig(AppConfig):
         from arabase.integrations.local_baserow.upcoming_rows import (
             LocalBaserowUpcomingRowsUserServiceType,
         )
-        from baserow.core.services.registries import service_type_registry
+        from jadawel.core.services.registries import service_type_registry
 
         service_type_registry.register(
             LocalBaserowGroupedAggregateRowsUserServiceType()
@@ -46,7 +46,7 @@ class ArabaseConfig(AppConfig):
             RecordsListWidgetType,
             UpcomingDatesWidgetType,
         )
-        from baserow.contrib.dashboard.widgets.registries import widget_type_registry
+        from jadawel.contrib.dashboard.widgets.registries import widget_type_registry
 
         widget_type_registry.register(ChartWidgetType())
         widget_type_registry.register(RecordsListWidgetType())

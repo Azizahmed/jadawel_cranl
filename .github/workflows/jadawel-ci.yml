@@ -50,7 +50,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     env:
-      DJANGO_SETTINGS_MODULE: baserow.config.settings.test
+      DJANGO_SETTINGS_MODULE: jadawel.config.settings.test
       DATABASE_HOST: localhost
       DATABASE_PORT: "5432"
       DATABASE_NAME: baserow
@@ -68,7 +68,7 @@ jobs:
         run: uv sync --frozen
       - name: Django system check
         working-directory: backend
-        run: uv run python src/baserow/manage.py check
+        run: uv run python src/jadawel/manage.py check
       - name: Fork-hygiene tests (premium/enterprise must stay gone)
         working-directory: backend
         run: uv run pytest tests/arabase -q

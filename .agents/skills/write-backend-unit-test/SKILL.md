@@ -35,12 +35,12 @@ Current backend tests use:
 - `pytest-django`
 - Django `reverse`
 - DRF `APIClient` from the shared `api_client` fixture
-- Shared fixtures from `backend/src/baserow/test_utils/pytest_conftest.py`
+- Shared fixtures from `backend/src/jadawel/test_utils/pytest_conftest.py`
 - Repo fixture builders such as `data_fixture`, `premium_data_fixture`, and `enterprise_data_fixture`
 
 Important local files:
 
-- `backend/src/baserow/test_utils/pytest_conftest.py`
+- `backend/src/jadawel/test_utils/pytest_conftest.py`
 - `premium/backend/tests/baserow_premium_tests/conftest.py`
 - `enterprise/backend/tests/baserow_enterprise_tests/conftest.py`
 
@@ -59,8 +59,8 @@ For core business logic, keep the test direct:
 
 Good examples:
 
-- `backend/tests/baserow/core/test_core_handler.py`
-- `backend/tests/baserow/core/service/test_service_handler.py`
+- `backend/tests/jadawel/core/test_core_handler.py`
+- `backend/tests/jadawel/core/service/test_service_handler.py`
 - `enterprise/backend/tests/baserow_enterprise_tests/teams/test_team_handler.py`
 
 Use `pytest.raises(...)` for error paths. Prefer asserting the specific domain exception over broad response or string checks when testing non-API code.
@@ -77,8 +77,8 @@ For API endpoints, match the common DRF style:
 
 Good examples:
 
-- `backend/tests/baserow/api/groups/test_workspace_views.py`
-- `backend/tests/baserow/contrib/database/api/rows/test_row_views.py`
+- `backend/tests/jadawel/api/groups/test_workspace_views.py`
+- `backend/tests/jadawel/contrib/database/api/rows/test_row_views.py`
 - `premium/backend/tests/baserow_premium_tests/api/license/test_premium_license_views.py`
 
 Prefer focused payload assertions. Only construct a large expected JSON object when the endpoint response shape is the behavior being tested.
@@ -93,7 +93,7 @@ When the important behavior is that a signal or side effect fires:
 
 Good examples:
 
-- `backend/tests/baserow/core/test_core_handler.py`
+- `backend/tests/jadawel/core/test_core_handler.py`
 - `enterprise/backend/tests/baserow_enterprise_tests/teams/test_team_receivers.py`
 
 The shared test setup already defers many heavy async tasks. Do not add extra mocking for those unless the test specifically needs to assert the call.
@@ -108,7 +108,7 @@ Use the repo helpers already in use nearby:
 
 Good examples:
 
-- `backend/tests/baserow/config/test_read_replica_router.py`
+- `backend/tests/jadawel/config/test_read_replica_router.py`
 - `premium/backend/tests/baserow_premium_tests/api/license/test_premium_license_views.py`
 - `enterprise/backend/tests/baserow_enterprise_tests/sso/test_auth_provider_handler.py`
 
@@ -129,7 +129,7 @@ If you need premium or enterprise-only entities, start by checking the correspon
 
 Follow the existing test tree:
 
-- Core: `backend/tests/baserow/**`
+- Core: `backend/tests/jadawel/**`
 - Premium: `premium/backend/tests/baserow_premium_tests/**`
 - Enterprise: `enterprise/backend/tests/baserow_enterprise_tests/**`
 
@@ -141,8 +141,8 @@ Run the narrowest relevant test command first.
 
 Examples:
 
-- `just b test backend/tests/baserow/core/test_core_handler.py`
-- `just b test backend/tests/baserow/api/groups/test_workspace_views.py`
+- `just b test backend/tests/jadawel/core/test_core_handler.py`
+- `just b test backend/tests/jadawel/api/groups/test_workspace_views.py`
 - `just b test premium/backend/tests/baserow_premium_tests/api/license/test_premium_license_views.py`
 - `just b test enterprise/backend/tests/baserow_enterprise_tests/teams/test_team_handler.py`
 

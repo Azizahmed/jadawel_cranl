@@ -15,7 +15,7 @@ Use this skill to investigate a slow endpoint or a potential bottleneck. Django 
 
 ## Connecting to the Database
 
-Read the `DATABASES` setting in `backend/src/baserow/config/settings/base.py` (and `dev.py` which imports it) to find the connection credentials. Env vars may override the defaults.
+Read the `DATABASES` setting in `backend/src/jadawel/config/settings/base.py` (and `dev.py` which imports it) to find the connection credentials. Env vars may override the defaults.
 
 The database usually runs in a Docker container. Try `docker exec` first:
 
@@ -161,7 +161,7 @@ EXPLAIN ANALYZE <paste query from silk_sqlquery here>;
 
 ### Step 6: Read Stack Traces
 
-Stack traces are stored reversed: the **top** is ORM/Silk internals, the **middle** contains Baserow application frames (paths containing `baserow/src/baserow/`), and the **bottom** is Django server/threading boilerplate. Scan for the Baserow frames in the middle — those are the ones that matter.
+Stack traces are stored reversed: the **top** is ORM/Silk internals, the **middle** contains Baserow application frames (paths containing `baserow/src/jadawel/`), and the **bottom** is Django server/threading boilerplate. Scan for the Baserow frames in the middle — those are the ones that matter.
 
 ```sql
 SELECT traceback FROM silk_sqlquery WHERE id = <query_id>;

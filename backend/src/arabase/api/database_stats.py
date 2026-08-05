@@ -26,8 +26,8 @@ whether the row numbers are exact, rather than silently returning a wrong total.
 from django.db import connection
 from django.db.models import Count, Q
 
-from baserow.contrib.database.table.constants import USER_TABLE_DATABASE_NAME_PREFIX
-from baserow.contrib.database.table.models import Table
+from jadawel.contrib.database.table.constants import USER_TABLE_DATABASE_NAME_PREFIX
+from jadawel.contrib.database.table.models import Table
 
 # Above this many tables in a single workspace the UNION ALL stops being a cheap
 # query. Callers get `rows_exact: false` and no row numbers rather than a slow

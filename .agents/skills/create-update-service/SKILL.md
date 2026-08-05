@@ -25,11 +25,11 @@ Then inspect the closest existing example with `rg` before changing files.
 
 Useful starting points:
 
-- Backend registrations: `backend/src/baserow/contrib/integrations/apps.py`
+- Backend registrations: `backend/src/jadawel/contrib/integrations/apps.py`
 - Frontend registrations: `web-frontend/modules/integrations/plugin.js`
-- Core backend service examples: `backend/src/baserow/contrib/integrations/core/service_types.py`
+- Core backend service examples: `backend/src/jadawel/contrib/integrations/core/service_types.py`
 - Core frontend service examples: `web-frontend/modules/integrations/core/serviceTypes.js`
-- Backend integration example: `backend/src/baserow/contrib/integrations/core/integration_types.py`
+- Backend integration example: `backend/src/jadawel/contrib/integrations/core/integration_types.py`
 - Frontend integration example: `web-frontend/modules/integrations/core/integrationTypes.js`
 
 ## Backend Checklist
@@ -40,23 +40,23 @@ For a new or updated service type, check these areas:
 2. The `ServiceType` subclass exposes the right `type`, `model_class`, `dispatch_types`, `allowed_fields`, and serializer configuration.
 3. Related nested objects are handled in `after_create`, update helpers, or custom methods when needed.
 4. Context/schema methods are implemented if the service emits data for downstream nodes.
-5. The service is registered in `backend/src/baserow/contrib/integrations/apps.py`.
+5. The service is registered in `backend/src/jadawel/contrib/integrations/apps.py`.
 6. A migration is added if models changed.
 
 For a new or updated integration type, check these areas:
 
 1. The `IntegrationType` subclass defines `type`, `model_class`, serializer field names, allowed fields, and sensitive fields when relevant.
 2. Any integration-specific context data or permissions behavior is preserved.
-3. The integration is registered in `backend/src/baserow/contrib/integrations/apps.py`.
+3. The integration is registered in `backend/src/jadawel/contrib/integrations/apps.py`.
 4. A migration is added if models changed.
 
 Common backend files to inspect:
 
-- `backend/src/baserow/contrib/integrations/*/models.py`
-- `backend/src/baserow/contrib/integrations/*/service_types.py`
-- `backend/src/baserow/contrib/integrations/*/integration_types.py`
-- `backend/src/baserow/contrib/integrations/api/**`
-- `backend/src/baserow/contrib/integrations/migrations/**`
+- `backend/src/jadawel/contrib/integrations/*/models.py`
+- `backend/src/jadawel/contrib/integrations/*/service_types.py`
+- `backend/src/jadawel/contrib/integrations/*/integration_types.py`
+- `backend/src/jadawel/contrib/integrations/api/**`
+- `backend/src/jadawel/contrib/integrations/migrations/**`
 
 ## Frontend Checklist
 
@@ -84,7 +84,7 @@ Common frontend files to inspect:
    `ACTION`, `DATA`, or trigger behavior.
 2. Add or update the backend model if the service needs persisted fields.
 3. Implement or extend the backend `ServiceType` subclass.
-4. Register the service in `backend/src/baserow/contrib/integrations/apps.py`.
+4. Register the service in `backend/src/jadawel/contrib/integrations/apps.py`.
 5. Implement the frontend service type class and form component.
 6. Register the service in `web-frontend/modules/integrations/plugin.js`.
 7. Add translations and tests.
@@ -94,7 +94,7 @@ Common frontend files to inspect:
 1. Start from the closest existing integration type with similar auth or configuration needs.
 2. Add or update the backend model if required.
 3. Implement or extend the backend `IntegrationType` subclass.
-4. Register the integration in `backend/src/baserow/contrib/integrations/apps.py`.
+4. Register the integration in `backend/src/jadawel/contrib/integrations/apps.py`.
 5. Implement the frontend integration type class and form component.
 6. Register the integration in `web-frontend/modules/integrations/plugin.js`.
 7. Add translations and tests.
@@ -113,7 +113,7 @@ Run the narrowest relevant tests first or create one if none exists.
 
 Backend examples:
 
-- Integration and Service tests in `backend/tests/baserow/api/integrations/**`
+- Integration and Service tests in `backend/tests/jadawel/api/integrations/**`
 
 Frontend examples:
 
@@ -131,9 +131,9 @@ Minimum validation before finishing:
 
 Use these searches to move quickly:
 
-- `rg -n "class .*ServiceType" backend/src/baserow/contrib/integrations`
-- `rg -n "class .*IntegrationType" backend/src/baserow/contrib/integrations`
-- `rg -n "register\\(" backend/src/baserow/contrib/integrations/apps.py web-frontend/modules/integrations/plugin.js`
+- `rg -n "class .*ServiceType" backend/src/jadawel/contrib/integrations`
+- `rg -n "class .*IntegrationType" backend/src/jadawel/contrib/integrations`
+- `rg -n "register\\(" backend/src/jadawel/contrib/integrations/apps.py web-frontend/modules/integrations/plugin.js`
 - `rg -n "getType\\(\\)" web-frontend/modules/integrations`
 - `rg -n "\"serviceType\\.|integrationType\\.\"" web-frontend/modules/integrations/locales/en.json`
 

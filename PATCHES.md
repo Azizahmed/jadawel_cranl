@@ -23,7 +23,7 @@ references and one runtime dependency on a setting the enterprise plugin used to
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/baserow/config/settings/base.py` | Force `BASEROW_OSS_ONLY = True` and `BASEROW_BUILT_IN_PLUGINS = []`; removed `baserow_premium_*`/`baserow_enterprise_*` table names from the CACHALOT lists; added a default for `BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES` | Stop loading the deleted plugins; keep cache config referencing only existing tables; provide the setting core still reads (see below) | high |
+| `backend/src/jadawel/config/settings/base.py` | Force `BASEROW_OSS_ONLY = True` and `BASEROW_BUILT_IN_PLUGINS = []`; removed `baserow_premium_*`/`baserow_enterprise_*` table names from the CACHALOT lists; added a default for `BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES` | Stop loading the deleted plugins; keep cache config referencing only existing tables; provide the setting core still reads (see below) | high |
 | `backend/pyproject.toml` | Removed `[tool.uv.workspace] members` (premium/enterprise backends), their pytest `pythonpath` entries; set isort `known-first-party = ["baserow", "arabase"]` | Workspace members no longer exist | med |
 | `backend/uv.lock` | Regenerated with `uv lock` — dropped `baserow-premium` and `baserow-enterprise` | Keep lock consistent with pyproject so `uv sync --frozen` works | med |
 | `backend/Dockerfile` | Removed all premium/enterprise `COPY`/`--mount`/`PYTHONPATH`/`mkdir` refs across builder-prod-base, builder-ci, builder-prod, ci, dev, local stages | Those paths/files no longer exist; build would fail | high |
@@ -39,13 +39,13 @@ references and one runtime dependency on a setting the enterprise plugin used to
 | `config/vscode/.vscode/launch.json`, `settings.json` | Removed premium/enterprise test paths and mypy/analysis extra paths | Dev-editor convenience only | low |
 
 ### Known remaining upstream references (intentionally left)
-- `backend/src/baserow/core/generative_ai/generative_ai_model_types.py` and
+- `backend/src/jadawel/core/generative_ai/generative_ai_model_types.py` and
   `.../registries.py` import `baserow_premium.fields.ai_file.AIFile` **only under
   `if TYPE_CHECKING:`**. These are never evaluated at runtime and copy no proprietary
   code (name reference only). Left untouched to minimise core-file churn; will be
   revisited if/when we run `mypy` in CI. **Do not** re-add the `baserow_premium` package.
-- `.github/dependabot.yml`, `backend/src/baserow/test_utils/pytest_conftest.py`,
-  `backend/src/baserow/contrib/database/mcp/services.py`: comment-only mentions. Harmless.
+- `.github/dependabot.yml`, `backend/src/jadawel/test_utils/pytest_conftest.py`,
+  `backend/src/jadawel/contrib/database/mcp/services.py`: comment-only mentions. Harmless.
 
 ## Phase 0 — Register the `arabase` app / module (2026-07-03)
 
@@ -55,7 +55,7 @@ two core files below are edited only to *register* that additive code:
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/baserow/config/settings/base.py` | Appended `"arabase"` to `INSTALLED_APPS` | Load our Django app | med |
+| `backend/src/jadawel/config/settings/base.py` | Appended `"arabase"` to `INSTALLED_APPS` | Load our Django app | med |
 | `web-frontend/config/nuxt.config.base.ts` | Appended `./modules/arabase/module.js` to `baseModules` | Load our Nuxt module | med |
 
 ## Phase 0 — CI (2026-07-03)
@@ -109,8 +109,8 @@ env-configurable so new installs come up Arabic-first.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/baserow/config/settings/base.py` | `LANGUAGE_CODE = os.getenv("BASEROW_DEFAULT_LOCALE", "ar")`; prepended `("ar", "Arabic")` to `LANGUAGES` | Make Arabic selectable + the env-configurable default; new-user creation reads `settings.LANGUAGE_CODE` live (see `core.user.handler`) so `BASEROW_DEFAULT_LOCALE` is honoured per deploy | med |
-| `backend/src/baserow/core/migrations/0115_jadawel_add_arabic_language.py` | **New** AlterField migration for `userprofile.language` (adds `ar` to choices, default `ar`) | Django requires the migration to live in the model's app (`core`); it's a no-op choices/default change, no data impact | low |
+| `backend/src/jadawel/config/settings/base.py` | `LANGUAGE_CODE = os.getenv("BASEROW_DEFAULT_LOCALE", "ar")`; prepended `("ar", "Arabic")` to `LANGUAGES` | Make Arabic selectable + the env-configurable default; new-user creation reads `settings.LANGUAGE_CODE` live (see `core.user.handler`) so `BASEROW_DEFAULT_LOCALE` is honoured per deploy | med |
+| `backend/src/jadawel/core/migrations/0115_jadawel_add_arabic_language.py` | **New** AlterField migration for `userprofile.language` (adds `ar` to choices, default `ar`) | Django requires the migration to live in the model's app (`core`); it's a no-op choices/default change, no data impact | low |
 | `web-frontend/config/locales.js` | Added `{ code: 'ar', name: 'العربية', file: 'ar.json', dir: 'rtl' }` (first entry) | Activate the `ar` locale across all module langDirs; `dir: 'rtl'` is the source of truth for direction | med |
 | `web-frontend/config/nuxt.config.base.ts` | `defaultLocale` now `process.env.NUXT_DEFAULT_LOCALE || 'ar'` | Arabic-first frontend default, env-overridable to match the backend | med |
 
@@ -187,7 +187,7 @@ all apps.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/baserow/contrib/database/migrations/0209_alter_formview_mode.py` | New no-op `AlterField` re-freezing `FormView.mode` choices to `[("form","form")]` | Match the OSS-only form-mode registry after the premium strip; unblock `makemigrations --check` in CI | low |
+| `backend/src/jadawel/contrib/database/migrations/0209_alter_formview_mode.py` | New no-op `AlterField` re-freezing `FormView.mode` choices to `[("form","form")]` | Match the OSS-only form-mode registry after the premium strip; unblock `makemigrations --check` in CI | low |
 
 > Merge-risk note: only risk is a migration-number collision if a future upstream merge
 > also introduces a `0209_*` leaf on `database`; resolve with a standard merge migration.
@@ -292,12 +292,12 @@ No proprietary code was copied or reimplemented to fix this.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/baserow/contrib/database/application_types.py` | `_import_table_views`: catch `ViewTypeDoesNotExist`, log and skip the view instead of aborting the application import | An export made where kanban/calendar/timeline exist must still import here | medium — small block inside an upstream loop |
-| `backend/src/baserow/contrib/database/application_types.py` | `_import_field_rules`: catch `InstanceTypeDoesNotExist`, log and skip the rule (reads `type` before `import_rule` pops it) | Same, for the proprietary `date_dependency` rule | low |
-| `backend/src/baserow/core/handler.py` | `sync_templates`: wrap the per-template `_sync_template` call in try/except, collect failures, log a summary at the end | One unimportable template must not abort the sync of the other 154; each template already has its own atomic block so the rollback is clean | medium — upstream occasionally edits this loop |
-| `backend/src/baserow/contrib/builder/application_types.py` | `import_user_sources_serialized`: catch `InstanceTypeDoesNotExist`, log and skip the user source | `user_source_type_registry` is empty (`local_baserow` was enterprise); without this the builder app and its databases are lost | low |
-| `backend/src/baserow/contrib/builder/pages/handler.py` | `import_elements`: drop elements whose type is unregistered, plus their descendants, before the priority sort | The sort key itself resolves every type through the registry, so an unknown type raised *before* the import loop. Descendants are removed to a fixed point because parents are not guaranteed to be serialized first | medium |
-| `backend/src/baserow/contrib/builder/pages/handler.py` | `import_workflow_actions`: skip actions whose `element_id` is absent from `id_mapping` | An action bound to a skipped element raised `KeyError` and aborted the page | low |
+| `backend/src/jadawel/contrib/database/application_types.py` | `_import_table_views`: catch `ViewTypeDoesNotExist`, log and skip the view instead of aborting the application import | An export made where kanban/calendar/timeline exist must still import here | medium — small block inside an upstream loop |
+| `backend/src/jadawel/contrib/database/application_types.py` | `_import_field_rules`: catch `InstanceTypeDoesNotExist`, log and skip the rule (reads `type` before `import_rule` pops it) | Same, for the proprietary `date_dependency` rule | low |
+| `backend/src/jadawel/core/handler.py` | `sync_templates`: wrap the per-template `_sync_template` call in try/except, collect failures, log a summary at the end | One unimportable template must not abort the sync of the other 154; each template already has its own atomic block so the rollback is clean | medium — upstream occasionally edits this loop |
+| `backend/src/jadawel/contrib/builder/application_types.py` | `import_user_sources_serialized`: catch `InstanceTypeDoesNotExist`, log and skip the user source | `user_source_type_registry` is empty (`local_baserow` was enterprise); without this the builder app and its databases are lost | low |
+| `backend/src/jadawel/contrib/builder/pages/handler.py` | `import_elements`: drop elements whose type is unregistered, plus their descendants, before the priority sort | The sort key itself resolves every type through the registry, so an unknown type raised *before* the import loop. Descendants are removed to a fixed point because parents are not guaranteed to be serialized first | medium |
+| `backend/src/jadawel/contrib/builder/pages/handler.py` | `import_workflow_actions`: skip actions whose `element_id` is absent from `id_mapping` | An action bound to a skipped element raised `KeyError` and aborted the page | low |
 
 Chain of missing types encountered, in the order they surfaced: `view_type`
 (timeline/kanban/calendar) → `field_rules` (date_dependency) → `user_source`
@@ -372,8 +372,8 @@ and English; locale parity stays 3469/3469 with strict mode clean.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `web-frontend/config/locales.js` | Keep `ar` + `en` | Single source of truth for the frontend language list | low |
-| `backend/src/baserow/config/settings/base.py` | `LANGUAGES` → `ar`, `en` | Drives `UserProfile.language` choices and API validation | low |
-| `backend/src/baserow/core/migrations/0116_jadawel_arabic_english_only.py` | New: alter choices + normalise stranded users | Model change; orphaned rows would request an unresolvable locale | low |
+| `backend/src/jadawel/config/settings/base.py` | `LANGUAGES` → `ar`, `en` | Drives `UserProfile.language` choices and API validation | low |
+| `backend/src/jadawel/core/migrations/0116_jadawel_arabic_english_only.py` | New: alter choices + normalise stranded users | Model change; orphaned rows would request an unresolvable locale | low |
 | `web-frontend/modules/builder/plugin.js` | Remove 7 unused locale imports | Dead imports that broke the build once the files were gone | low |
 | 113 × `web-frontend/**/locales/*.json`, 53 × `backend/**/locale/<lang>/` | Deleted | Unshipped languages | low |
 
@@ -526,8 +526,8 @@ admin area, which are different things that happened to share a translation.
 | `web-frontend/locales/ar.json` | `applicationType.dashboard{,s,DefaultName}` → "لوحة البيانات"; `common.summarize` → "تحليل"; `viewType.grid` → "جدول" | Product terminology; `common.summarize` is the grid footer aggregation row | low |
 | `web-frontend/modules/core/locales/ar.json` | `createApplicationContext.fromTemplate` → "القوالب الجاهزة" | Reads as a destination, not a preposition | low |
 | `web-frontend/modules/database/locales/ar.json` | `databaseDashboardResourceLinks.title` → "API"; `viewGroupBy.groupBy` + `viewGroupByContext.{groupBy,noGroupByTitle}` → "مجموعة" | "API" is the term users actually search for; "تجميع" collided with the rollup field type | low |
-| `backend/src/baserow/contrib/database/locale/ar/LC_MESSAGES/django.{po,mo}` | New: first Arabic backend catalogue; translates `"Grid"` → "جدول" | The view name is picked in the backend under `translation.override`; untranslated entries still fall back to English | low |
-| `backend/src/baserow/contrib/database/migrations/0210_jadawel_rename_default_grid_views.py` | New: rename views named exactly `"Grid"` → `"جدول"`, reversible | The catalogue fixes new tables only; existing rows hold the untranslated literal | low |
+| `backend/src/jadawel/contrib/database/locale/ar/LC_MESSAGES/django.{po,mo}` | New: first Arabic backend catalogue; translates `"Grid"` → "جدول" | The view name is picked in the backend under `translation.override`; untranslated entries still fall back to English | low |
+| `backend/src/jadawel/contrib/database/migrations/0210_jadawel_rename_default_grid_views.py` | New: rename views named exactly `"Grid"` → `"جدول"`, reversible | The catalogue fixes new tables only; existing rows hold the untranslated literal | low |
 
 ### Known limitation
 `fieldType.rollup` is still "تجميع". It is a different concept (the rollup field type) that
@@ -820,7 +820,7 @@ itself. The four core-file edits below are registration and tooling only.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/baserow/config/settings/base.py` | Appended `ARABASE_CHART_MAX_BUCKETS` (default 100) under a "JADAWEL FORK SETTINGS" heading at the end of the file | A chart grouped by a high-cardinality field would otherwise ask the browser for one category per row | low |
+| `backend/src/jadawel/config/settings/base.py` | Appended `ARABASE_CHART_MAX_BUCKETS` (default 100) under a "JADAWEL FORK SETTINGS" heading at the end of the file | A chart grouped by a high-cardinality field would otherwise ask the browser for one category per row | low |
 | `web-frontend/modules/arabase/module.js` | Registers `./registryPlugin.js`, the `./locales` langDir, and `./assets/scss/dashboard_chart_widget.scss` | Fork-owned file; the widget needs registry entries, its own strings, and styles | none |
 | `web-frontend/scripts/check-locale-parity.mjs` | Added `modules/arabase/locales` to `localeDirectories` | The strict CI gate must cover the fork's own strings, which are deliberately *not* added to upstream modules' locale files | low |
 | `backend/src/arabase/apps.py` | Registers the service type and widget type in `ready()` | Fork-owned file | none |

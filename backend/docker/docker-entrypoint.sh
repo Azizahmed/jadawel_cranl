@@ -201,8 +201,8 @@ run_setup_commands_if_configured(){
     else
       migration_command="locked_migrate"
     fi
-    echo "python /baserow/backend/src/baserow/manage.py $migration_command"
-    OTEL_SERVICE_NAME=backend-migrate python /baserow/backend/src/baserow/manage.py "$migration_command"
+    echo "python /baserow/backend/src/jadawel/manage.py $migration_command"
+    OTEL_SERVICE_NAME=backend-migrate python /baserow/backend/src/jadawel/manage.py "$migration_command"
   fi
 }
 
@@ -216,7 +216,7 @@ start_celery_worker(){
   if [[ -n "$BASEROW_AMOUNT_OF_WORKERS" ]]; then
     EXTRA_CELERY_ARGS+=(--concurrency "$BASEROW_AMOUNT_OF_WORKERS")
   fi
-  exec celery -A baserow worker "${EXTRA_CELERY_ARGS[@]}" -l INFO "$@"
+  exec celery -A jadawel worker "${EXTRA_CELERY_ARGS[@]}" -l INFO "$@"
 }
 
 # Lets devs attach to this container running the passed command, press ctrl-c and only
@@ -238,9 +238,9 @@ run_backend_server(){
   fi
 
   if [[ "$1" = "wsgi" ]]; then
-    STARTUP_ARGS=(baserow.config.wsgi:application)
+    STARTUP_ARGS=(jadawel.config.wsgi:application)
   elif [[ "$1" = "asgi" ]]; then
-    STARTUP_ARGS=(-k uvicorn.workers.UvicornWorker baserow.config.asgi:application)
+    STARTUP_ARGS=(-k uvicorn.workers.UvicornWorker jadawel.config.asgi:application)
   else
     echo -e "\e[31mUnknown run_backend_server argument $1 \e[0m" >&2
     exit 1
@@ -303,14 +303,14 @@ case "$1" in
         echo "Running Development Server on 0.0.0.0:${BASEROW_BACKEND_PORT}"
         echo "Press CTRL-p CTRL-q to close this session without stopping the container."
         export OTEL_SERVICE_NAME=backend-dev
-        attachable_exec python /baserow/backend/src/baserow/manage.py runserver "${BASEROW_BACKEND_BIND_ADDRESS:-0.0.0.0}:${BASEROW_BACKEND_PORT}"
+        attachable_exec python /baserow/backend/src/jadawel/manage.py runserver "${BASEROW_BACKEND_BIND_ADDRESS:-0.0.0.0}:${BASEROW_BACKEND_PORT}"
     ;;
     django-dev-no-attach)
         wait_for_postgres
         run_setup_commands_if_configured
         echo "Running Development Server on 0.0.0.0:${BASEROW_BACKEND_PORT}"
         export OTEL_SERVICE_NAME=backend-dev
-        python /baserow/backend/src/baserow/manage.py runserver "${BASEROW_BACKEND_BIND_ADDRESS:-0.0.0.0}:${BASEROW_BACKEND_PORT}"
+        python /baserow/backend/src/jadawel/manage.py runserver "${BASEROW_BACKEND_BIND_ADDRESS:-0.0.0.0}:${BASEROW_BACKEND_PORT}"
     ;;
     gunicorn)
       export OTEL_SERVICE_NAME="backend-asgi"
@@ -336,20 +336,20 @@ case "$1" in
     ;;
     manage)
         export OTEL_SERVICE_NAME=backend-manage
-        exec python3 /baserow/backend/src/baserow/manage.py "${@:2}"
+        exec python3 /baserow/backend/src/jadawel/manage.py "${@:2}"
     ;;
     python)
         exec python3 "${@:2}"
     ;;
     setup)
-      echo "python3 /baserow/backend/src/baserow/manage.py migrate"
-      OTEL_SERVICE_NAME=backend-migrate DONT_UPDATE_FORMULAS_AFTER_MIGRATION=yes python3 /baserow/backend/src/baserow/manage.py migrate
-      echo "python3 /baserow/backend/src/baserow/manage.py update_formulas"
-      OTEL_SERVICE_NAME=backend-update-formulas python3 /baserow/backend/src/baserow/manage.py update_formulas
+      echo "python3 /baserow/backend/src/jadawel/manage.py migrate"
+      OTEL_SERVICE_NAME=backend-migrate DONT_UPDATE_FORMULAS_AFTER_MIGRATION=yes python3 /baserow/backend/src/jadawel/manage.py migrate
+      echo "python3 /baserow/backend/src/jadawel/manage.py update_formulas"
+      OTEL_SERVICE_NAME=backend-update-formulas python3 /baserow/backend/src/jadawel/manage.py update_formulas
     ;;
     shell)
         export OTEL_SERVICE_NAME=backend-shell
-        exec python3 /baserow/backend/src/baserow/manage.py shell
+        exec python3 /baserow/backend/src/jadawel/manage.py shell
     ;;
     lint-shell)
         attachable_exec just lint
@@ -381,7 +381,7 @@ case "$1" in
     ;;
     celery-worker-healthcheck)
       echo "Running celery worker healthcheck..."
-      exec celery -A baserow inspect ping -d "default-worker@$HOSTNAME" -t 10 "${@:2}"
+      exec celery -A jadawel inspect ping -d "default-worker@$HOSTNAME" -t 10 "${@:2}"
     ;;
     celery-exportworker)
       if [[ -n "${BASEROW_RUN_MINIMAL}" && $BASEROW_AMOUNT_OF_WORKERS == "1" ]]; then
@@ -395,7 +395,7 @@ case "$1" in
     ;;
     celery-exportworker-healthcheck)
       echo "Running celery export worker healthcheck..."
-      exec celery -A baserow inspect ping -d "export-worker@$HOSTNAME" -t 10 "${@:2}"
+      exec celery -A jadawel inspect ping -d "export-worker@$HOSTNAME" -t 10 "${@:2}"
     ;;
     celery-beat)
       # Delay the beat startup as there seems to be bug where the other celery workers
@@ -405,14 +405,14 @@ case "$1" in
            "startup errors."
       sleep "$BASEROW_CELERY_BEAT_STARTUP_DELAY"
       export OTEL_SERVICE_NAME="celery-beat"
-      exec celery -A baserow beat  --pidfile=/tmp/celerybeat.pid -l "${BASEROW_CELERY_BEAT_DEBUG_LEVEL}" -S redbeat.RedBeatScheduler "${@:2}"
+      exec celery -A jadawel beat  --pidfile=/tmp/celerybeat.pid -l "${BASEROW_CELERY_BEAT_DEBUG_LEVEL}" -S redbeat.RedBeatScheduler "${@:2}"
     ;;
     celery-beat-healthcheck)
       echo "Running celery beat healthcheck..."
       exec test -f /tmp/celerybeat.pid && kill -0 $(cat /tmp/celerybeat.pid) || exit 1
     ;;
     celery-flower)
-      exec celery -A baserow flower "$@"
+      exec celery -A jadawel flower "$@"
     ;;
     watch-py)
         # Ensure we watch all possible python source code locations for changes.
@@ -435,7 +435,7 @@ case "$1" in
           cd "$DATA_DIR"/backups || true
         fi
         export PGPASSWORD=$DATABASE_PASSWORD
-        exec python3 /baserow/backend/src/baserow/manage.py backup_baserow \
+        exec python3 /baserow/backend/src/jadawel/manage.py backup_baserow \
             -h "$DATABASE_HOST" \
             -d "$DATABASE_NAME" \
             -U "$DATABASE_USER" \
@@ -453,7 +453,7 @@ case "$1" in
           cd "$DATA_DIR"/backups || true
         fi
         export PGPASSWORD=$DATABASE_PASSWORD
-        exec python3 /baserow/backend/src/baserow/manage.py restore_baserow \
+        exec python3 /baserow/backend/src/jadawel/manage.py restore_baserow \
             -h "$DATABASE_HOST" \
             -d "$DATABASE_NAME" \
             -U "$DATABASE_USER" \

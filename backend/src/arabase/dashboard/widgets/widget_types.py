@@ -18,8 +18,8 @@ from arabase.integrations.local_baserow.service_types import (
 from arabase.integrations.local_baserow.upcoming_rows import (
     LocalBaserowUpcomingRowsUserServiceType,
 )
-from baserow.contrib.dashboard.widgets.registries import WidgetType
-from baserow.contrib.integrations.local_baserow.service_types import (
+from jadawel.contrib.dashboard.widgets.registries import WidgetType
+from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowAggregateRowsUserServiceType,
     LocalBaserowListRowsUserServiceType,
 )

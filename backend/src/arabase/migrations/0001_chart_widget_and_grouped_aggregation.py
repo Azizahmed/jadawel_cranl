@@ -1,7 +1,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import baserow.core.formula.field
+import jadawel.core.formula.field
 
 
 class Migration(migrations.Migration):
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "search_query",
-                    baserow.core.formula.field.FormulaField(
+                    jadawel.core.formula.field.FormulaField(
                         help_text="The query to apply to the service to narrow "
                         "the results down."
                     ),

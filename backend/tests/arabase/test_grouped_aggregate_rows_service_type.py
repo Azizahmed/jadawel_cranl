@@ -15,17 +15,17 @@ from arabase.integrations.local_baserow.models import (
 from arabase.integrations.local_baserow.service_types import (
     LocalBaserowGroupedAggregateRowsUserServiceType,
 )
-from baserow.contrib.dashboard.data_sources.dispatch_context import (
+from jadawel.contrib.dashboard.data_sources.dispatch_context import (
     DashboardDispatchContext,
 )
-from baserow.contrib.dashboard.data_sources.models import DashboardDataSource
-from baserow.contrib.dashboard.data_sources.service import DashboardDataSourceService
-from baserow.contrib.dashboard.widgets.service import WidgetService
-from baserow.contrib.database.rows.handler import RowHandler
-from baserow.core.services.exceptions import (
+from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
+from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
+from jadawel.contrib.dashboard.widgets.service import WidgetService
+from jadawel.contrib.database.rows.handler import RowHandler
+from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
 )
-from baserow.core.services.registries import service_type_registry
+from jadawel.core.services.registries import service_type_registry
 
 
 @pytest.fixture

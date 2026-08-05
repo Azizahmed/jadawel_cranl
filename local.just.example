@@ -8,7 +8,7 @@
 
 # Example: Quick test for a specific module
 my-test:
-    just b test tests/baserow/core/
+    just b test tests/jadawel/core/
 
 # Example: Start only what you need (services + backend, no frontend)
 my-dev:

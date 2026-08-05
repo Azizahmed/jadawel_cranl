@@ -5,7 +5,7 @@ set -euo pipefail
 export BASEROW_PUBLIC_URL=$RENDER_EXTERNAL_URL
 export BASEROW_CADDY_ADDRESSES=":$PORT"
 export REDIS_URL=${REDIS_TLS_URL:-$REDIS_URL}
-export DJANGO_SETTINGS_MODULE='baserow.config.settings.heroku'
+export DJANGO_SETTINGS_MODULE='jadawel.config.settings.heroku'
 export BASEROW_RUN_MINIMAL=yes
 export DISABLE_EMBEDDED_PSQL=yes
 export DISABLE_EMBEDDED_REDIS=yes
