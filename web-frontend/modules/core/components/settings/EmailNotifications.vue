@@ -35,10 +35,10 @@
 import { useVuelidate } from '@vuelidate/core'
 import { mapGetters } from 'vuex'
 import { required, helpers } from '@vuelidate/validators'
-import { EMAIL_NOTIFICATIONS_FREQUENCY_OPTIONS } from '@baserow/modules/core/enums'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { EMAIL_NOTIFICATIONS_FREQUENCY_OPTIONS } from '@jadawel/modules/core/enums'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'EmailNotifications',

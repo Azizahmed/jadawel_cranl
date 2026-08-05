@@ -1,9 +1,9 @@
 import thenBy from 'thenby'
 import BigNumber from 'bignumber.js'
-import { escapeRegExp, isSecureURL } from '@baserow/modules/core/utils/string'
-import { SearchMode } from '@baserow/modules/database/utils/search'
-import { convertStringToMatchBackendTsvectorData } from '@baserow/modules/database/search/regexes'
-import { DEFAULT_SORT_TYPE_KEY } from '@baserow/modules/database/constants'
+import { escapeRegExp, isSecureURL } from '@jadawel/modules/core/utils/string'
+import { SearchMode } from '@jadawel/modules/database/utils/search'
+import { convertStringToMatchBackendTsvectorData } from '@jadawel/modules/database/search/regexes'
+import { DEFAULT_SORT_TYPE_KEY } from '@jadawel/modules/database/constants'
 
 export const maxPossibleOrderValue = 32767
 export const DEFAULT_VIEW_ID_COOKIE_NAME = 'defaultViewId'
@@ -740,7 +740,7 @@ export function saveDefaultViewIdInCookie(
   const cookieValue = useCookie(cookieName, {
     path: '/',
     maxAge: 60 * 60 * 24 * 365, // 1 year
-    sameSite: config.public.baserowFrontendSameSiteCookie,
+    sameSite: config.public.jadawelFrontendSameSiteCookie,
     secure,
     default: () => {
       return ''

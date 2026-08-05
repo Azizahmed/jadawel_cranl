@@ -213,14 +213,14 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import themeConfigBlock from '@baserow/modules/builder/mixins/themeConfigBlock'
-import ThemeConfigBlockSection from '@baserow/modules/builder/components/theme/ThemeConfigBlockSection'
-import ResetButton from '@baserow/modules/builder/components/theme/ResetButton'
-import HorizontalAlignmentsSelector from '@baserow/modules/builder/components/HorizontalAlignmentsSelector'
-import FontFamilySelector from '@baserow/modules/builder/components/FontFamilySelector'
-import FontWeightSelector from '@baserow/modules/builder/components/FontWeightSelector'
-import PixelValueSelector from '@baserow/modules/builder/components/PixelValueSelector'
-import TextDecorationSelector from '@baserow/modules/builder/components/TextDecorationSelector'
+import themeConfigBlock from '@jadawel/modules/builder/mixins/themeConfigBlock'
+import ThemeConfigBlockSection from '@jadawel/modules/builder/components/theme/ThemeConfigBlockSection'
+import ResetButton from '@jadawel/modules/builder/components/theme/ResetButton'
+import HorizontalAlignmentsSelector from '@jadawel/modules/builder/components/HorizontalAlignmentsSelector'
+import FontFamilySelector from '@jadawel/modules/builder/components/FontFamilySelector'
+import FontWeightSelector from '@jadawel/modules/builder/components/FontWeightSelector'
+import PixelValueSelector from '@jadawel/modules/builder/components/PixelValueSelector'
+import TextDecorationSelector from '@jadawel/modules/builder/components/TextDecorationSelector'
 import {
   required,
   integer,
@@ -228,7 +228,7 @@ import {
   maxValue,
   helpers,
 } from '@vuelidate/validators'
-import { DEFAULT_FONT_SIZE_PX } from '@baserow/modules/builder/defaultStyles'
+import { DEFAULT_FONT_SIZE_PX } from '@jadawel/modules/builder/defaultStyles'
 
 const minMax = {
   link_font_size: {

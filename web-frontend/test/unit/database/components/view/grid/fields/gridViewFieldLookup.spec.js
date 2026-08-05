@@ -1,5 +1,5 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import FunctionalFormulaURLArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaURLArrayItem.vue'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import FunctionalFormulaURLArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaURLArrayItem.vue'
 
 describe('GridViewFieldLookup component', () => {
   let testApp = null

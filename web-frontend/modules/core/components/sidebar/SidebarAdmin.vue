@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import SidebarAdminItem from '@baserow/modules/core/components/sidebar/SidebarAdminItem.vue'
+import SidebarAdminItem from '@jadawel/modules/core/components/sidebar/SidebarAdminItem.vue'
 
 export default {
   name: 'SidebarAdmin',

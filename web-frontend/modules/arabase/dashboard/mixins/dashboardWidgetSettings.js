@@ -1,5 +1,5 @@
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import error from '@baserow/modules/core/mixins/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import error from '@jadawel/modules/core/mixins/error'
 
 /**
  * The two writes every widget settings panel makes: one to the widget itself and

@@ -64,11 +64,11 @@
 import {
   shouldDisplayDateSeparator,
   formatDateSeparator,
-} from '@baserow/modules/database/utils/date'
+} from '@jadawel/modules/database/utils/date'
 import { mapGetters } from 'vuex'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import InfiniteScroll from '@baserow/modules/core/components/helpers/InfiniteScroll'
-import RowHistoryEntry from '@baserow/modules/database/components/row/RowHistoryEntry.vue'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import InfiniteScroll from '@jadawel/modules/core/components/helpers/InfiniteScroll'
+import RowHistoryEntry from '@jadawel/modules/database/components/row/RowHistoryEntry.vue'
 
 export default {
   name: 'RowHistorySidebar',

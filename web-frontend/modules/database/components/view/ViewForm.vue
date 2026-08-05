@@ -65,8 +65,8 @@
 import { useVuelidate } from '@vuelidate/core'
 import { reactive } from 'vue'
 import { required } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
-import Radio from '@baserow/modules/core/components/Radio'
+import form from '@jadawel/modules/core/mixins/form'
+import Radio from '@jadawel/modules/core/components/Radio'
 
 export default {
   name: 'ViewForm',

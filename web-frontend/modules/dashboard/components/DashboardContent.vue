@@ -42,12 +42,12 @@
 </template>
 
 <script>
-import EmptyDashboard from '@baserow/modules/dashboard/components/EmptyDashboard'
-import CreateWidgetButton from '@baserow/modules/dashboard/components/CreateWidgetButton'
-import DashboardSidebar from '@baserow/modules/dashboard/components/DashboardSidebar'
-import DashboardContentHeader from '@baserow/modules/dashboard/components/DashboardContentHeader'
-import WidgetBoard from '@baserow/modules/dashboard/components/WidgetBoard'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import EmptyDashboard from '@jadawel/modules/dashboard/components/EmptyDashboard'
+import CreateWidgetButton from '@jadawel/modules/dashboard/components/CreateWidgetButton'
+import DashboardSidebar from '@jadawel/modules/dashboard/components/DashboardSidebar'
+import DashboardContentHeader from '@jadawel/modules/dashboard/components/DashboardContentHeader'
+import WidgetBoard from '@jadawel/modules/dashboard/components/WidgetBoard'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'DashboardContent',

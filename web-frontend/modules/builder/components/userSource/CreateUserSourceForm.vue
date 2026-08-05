@@ -60,10 +60,10 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import form from '@baserow/modules/core/mixins/form'
-import IntegrationDropdown from '@baserow/modules/core/components/integrations/IntegrationDropdown'
+import form from '@jadawel/modules/core/mixins/form'
+import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown'
 import { required, maxLength, helpers } from '@vuelidate/validators'
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'CreateUserSourceForm',

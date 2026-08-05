@@ -1,16 +1,16 @@
 import { createStore } from 'vuex'
 
-import tableStore from '@baserow/modules/database/store/table'
-import viewStore from '@baserow/modules/database/store/view'
-import fieldStore from '@baserow/modules/database/store/field'
-import gridStore from '@baserow/modules/database/store/view/grid'
-import galleryStore from '@baserow/modules/database/store/view/gallery'
-import formStore from '@baserow/modules/database/store/view/form'
-import rowModal from '@baserow/modules/database/store/rowModal'
-import publicStore from '@baserow/modules/database/store/view/public'
-import rowModalNavigationStore from '@baserow/modules/database/store/rowModalNavigation'
-import rowHistoryStore from '@baserow/modules/database/store/rowHistory'
-import fieldRulesStore from '@baserow/modules/database/store/fieldRules'
+import tableStore from '@jadawel/modules/database/store/table'
+import viewStore from '@jadawel/modules/database/store/view'
+import fieldStore from '@jadawel/modules/database/store/field'
+import gridStore from '@jadawel/modules/database/store/view/grid'
+import galleryStore from '@jadawel/modules/database/store/view/gallery'
+import formStore from '@jadawel/modules/database/store/view/form'
+import rowModal from '@jadawel/modules/database/store/rowModal'
+import publicStore from '@jadawel/modules/database/store/view/public'
+import rowModalNavigationStore from '@jadawel/modules/database/store/rowModalNavigation'
+import rowHistoryStore from '@jadawel/modules/database/store/rowHistory'
+import fieldRulesStore from '@jadawel/modules/database/store/fieldRules'
 
 /*
   store.registerModule('table', tableStore)

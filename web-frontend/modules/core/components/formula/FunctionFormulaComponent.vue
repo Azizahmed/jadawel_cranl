@@ -11,7 +11,7 @@
 <script>
 import { NodeViewWrapper } from '@tiptap/vue-3'
 
-import formulaComponent from '@baserow/modules/core/mixins/formulaComponent'
+import formulaComponent from '@jadawel/modules/core/mixins/formulaComponent'
 
 export default {
   name: 'FunctionFormulaComponent',

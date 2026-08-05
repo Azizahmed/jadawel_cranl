@@ -1,6 +1,6 @@
-import RuntimeFormulaContext from '@baserow/modules/core/runtimeFormulaContext'
-import { resolveFormula } from '@baserow/modules/core/formula'
-import applicationContextMixin from '@baserow/modules/builder/mixins/applicationContext'
+import RuntimeFormulaContext from '@jadawel/modules/core/runtimeFormulaContext'
+import { resolveFormula } from '@jadawel/modules/core/formula'
+import applicationContextMixin from '@jadawel/modules/builder/mixins/applicationContext'
 
 export default {
   mixins: [applicationContextMixin],

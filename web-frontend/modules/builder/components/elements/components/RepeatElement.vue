@@ -126,15 +126,15 @@
 </template>
 
 <script>
-import AddElementZone from '@baserow/modules/builder/components/elements/AddElementZone'
-import AddElementModal from '@baserow/modules/builder/components/elements/AddElementModal'
-import ElementPreview from '@baserow/modules/builder/components/elements/ElementPreview'
-import PageElement from '@baserow/modules/builder/components/page/PageElement'
-import { ensureString } from '@baserow/modules/core/utils/validator'
-import { RepeatElementType } from '@baserow/modules/builder/elementTypes'
-import CollectionElementHeader from '@baserow/modules/builder/components/elements/components/CollectionElementHeader'
-import { ORIENTATIONS } from '@baserow/modules/builder/enums'
-import { useCollectionElement } from '@baserow/modules/builder/composables/useCollectionElement'
+import AddElementZone from '@jadawel/modules/builder/components/elements/AddElementZone'
+import AddElementModal from '@jadawel/modules/builder/components/elements/AddElementModal'
+import ElementPreview from '@jadawel/modules/builder/components/elements/ElementPreview'
+import PageElement from '@jadawel/modules/builder/components/page/PageElement'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
+import { RepeatElementType } from '@jadawel/modules/builder/elementTypes'
+import CollectionElementHeader from '@jadawel/modules/builder/components/elements/components/CollectionElementHeader'
+import { ORIENTATIONS } from '@jadawel/modules/builder/enums'
+import { useCollectionElement } from '@jadawel/modules/builder/composables/useCollectionElement'
 
 export default {
   name: 'RepeatElement',

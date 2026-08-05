@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import gridFieldInput from '@baserow/modules/database/mixins/gridFieldInput'
-import { ensureUrlProtocol } from '@baserow/modules/core/utils/url'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import gridFieldInput from '@jadawel/modules/database/mixins/gridFieldInput'
+import { ensureUrlProtocol } from '@jadawel/modules/core/utils/url'
 
 export default {
   mixins: [gridField, gridFieldInput],

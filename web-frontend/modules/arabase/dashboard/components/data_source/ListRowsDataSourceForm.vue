@@ -41,8 +41,8 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required, integer, minValue, maxValue } from '@vuelidate/validators'
-import dashboardTableSourceForm from '@baserow/modules/arabase/dashboard/mixins/dashboardTableSourceForm'
-import TableViewFormGroups from '@baserow/modules/arabase/dashboard/components/data_source/TableViewFormGroups'
+import dashboardTableSourceForm from '@jadawel/modules/arabase/dashboard/mixins/dashboardTableSourceForm'
+import TableViewFormGroups from '@jadawel/modules/arabase/dashboard/components/data_source/TableViewFormGroups'
 
 // A dashboard widget is a glance, not a table view. Twenty rows is already more
 // than fits without scrolling on most boards.

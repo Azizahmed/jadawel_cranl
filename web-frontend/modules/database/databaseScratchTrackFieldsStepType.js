@@ -1,4 +1,4 @@
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 import {
   BooleanFieldType,
   DateFieldType,
@@ -10,8 +10,8 @@ import {
   RatingFieldType,
   SingleSelectFieldType,
   URLFieldType,
-} from '@baserow/modules/database/fieldTypes'
-import { Registerable } from '@baserow/modules/core/registry'
+} from '@jadawel/modules/database/fieldTypes'
+import { Registerable } from '@jadawel/modules/core/registry'
 
 export const fieldHandlerRegistry = {
   [SingleSelectFieldType.getType()]: function (field, response) {

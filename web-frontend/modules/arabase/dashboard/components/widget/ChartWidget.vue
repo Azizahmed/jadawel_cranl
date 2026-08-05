@@ -70,9 +70,9 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js'
-import colorStyles from '@baserow/modules/core/assets/scss/colors.module.scss'
-import { getBaseColors } from '@baserow/modules/core/utils/colors'
-import WidgetContextMenu from '@baserow/modules/dashboard/components/widget/WidgetContextMenu'
+import colorStyles from '@jadawel/modules/core/assets/scss/colors.module.scss'
+import { getBaseColors } from '@jadawel/modules/core/utils/colors'
+import WidgetContextMenu from '@jadawel/modules/dashboard/components/widget/WidgetContextMenu'
 
 Chart.register(
   ArcElement,

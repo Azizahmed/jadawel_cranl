@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import LinkNavigationSelectionForm from '@baserow/modules/builder/components/elements/components/forms/general/LinkNavigationSelectionForm'
-import form from '@baserow/modules/core/mixins/form'
+import LinkNavigationSelectionForm from '@jadawel/modules/builder/components/elements/components/forms/general/LinkNavigationSelectionForm'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'OpenPageWorkflowActionForm',

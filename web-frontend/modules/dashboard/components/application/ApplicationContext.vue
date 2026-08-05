@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import ApplicationContext from '@baserow/modules/core/components/application/ApplicationContext.vue'
-import applicationContext from '@baserow/modules/core/mixins/applicationContext'
+import ApplicationContext from '@jadawel/modules/core/components/application/ApplicationContext.vue'
+import applicationContext from '@jadawel/modules/core/mixins/applicationContext'
 
 export default {
   components: {

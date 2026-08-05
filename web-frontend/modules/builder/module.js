@@ -11,7 +11,7 @@ import { locales } from '../../config/locales.js'
 
 export default defineNuxtModule({
   meta: {
-    name: '@baserow/builder',
+    name: '@jadawel/builder',
     configKey: 'builder',
     compatibility: {
       nuxt: '^3.0.0',

@@ -54,10 +54,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import SidebarItem from '@baserow/modules/database/components/sidebar/SidebarItem'
-import SidebarApplication from '@baserow/modules/core/components/sidebar/SidebarApplication'
-import CreateTableModal from '@baserow/modules/database/components/table/CreateTableModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import SidebarItem from '@jadawel/modules/database/components/sidebar/SidebarItem'
+import SidebarApplication from '@jadawel/modules/core/components/sidebar/SidebarApplication'
+import CreateTableModal from '@jadawel/modules/database/components/table/CreateTableModal'
 
 export default {
   name: 'DBSidebar',

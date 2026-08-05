@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
+import gridField from '@jadawel/modules/database/mixins/gridField'
 
 export default {
   mixins: [gridField],

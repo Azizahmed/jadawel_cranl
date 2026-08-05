@@ -15,16 +15,16 @@
 </template>
 
 <script>
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import RowEditModal from '@baserow/modules/database/components/row/RowEditModal'
-import FieldService from '@baserow/modules/database/services/field'
-import RowService from '@baserow/modules/database/services/row'
-import { populateField } from '@baserow/modules/database/store/field'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import RowEditModal from '@jadawel/modules/database/components/row/RowEditModal'
+import FieldService from '@jadawel/modules/database/services/field'
+import RowService from '@jadawel/modules/database/services/row'
+import { populateField } from '@jadawel/modules/database/store/field'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 import {
   extractRowReadOnlyValues,
   prepareNewOldAndUpdateRequestValues,
-} from '@baserow/modules/database/utils/row'
+} from '@jadawel/modules/database/utils/row'
 
 /**
  * This component can open the row edit modal having the fields of that table in the

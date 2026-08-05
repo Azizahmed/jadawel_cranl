@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import AutomationWorkflowSettingsForm from '@baserow/modules/automation/components/workflow/settings/AutomationWorkflowSettingsForm'
+import modal from '@jadawel/modules/core/mixins/modal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import AutomationWorkflowSettingsForm from '@jadawel/modules/automation/components/workflow/settings/AutomationWorkflowSettingsForm'
 
 export default {
   name: 'CreateAutomationWorkflowModal',

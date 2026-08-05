@@ -1,13 +1,13 @@
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 import {
   setWorkspaceCookie,
   unsetWorkspaceCookie,
-} from '@baserow/modules/core/utils/workspace'
-import { CORE_ACTION_SCOPES } from '@baserow/modules/core/utils/undoRedoConstants'
-import PermissionsService from '@baserow/modules/core/services/permissions'
-import RolesService from '@baserow/modules/core/services/roles'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+} from '@jadawel/modules/core/utils/workspace'
+import { CORE_ACTION_SCOPES } from '@jadawel/modules/core/utils/undoRedoConstants'
+import PermissionsService from '@jadawel/modules/core/services/permissions'
+import RolesService from '@jadawel/modules/core/services/roles'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick } from '#imports'
 
 export function populateWorkspace(workspace) {

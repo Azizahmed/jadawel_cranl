@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import formElement from '@baserow/modules/builder/mixins/formElement'
-import { ensureString } from '@baserow/modules/core/utils/validator'
+import formElement from '@jadawel/modules/builder/mixins/formElement'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
 
 export default {
   name: 'CheckboxElement',

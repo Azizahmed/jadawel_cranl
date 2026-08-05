@@ -1,8 +1,8 @@
 // plugins/baserow.js
 import { defineNuxtPlugin } from '#app'
 
-import { Registry } from '@baserow/modules/core/registry'
-import { PasswordAuthProviderType } from '@baserow/modules/core/authProviderTypes'
+import { Registry } from '@jadawel/modules/core/registry'
+import { PasswordAuthProviderType } from '@jadawel/modules/core/authProviderTypes'
 import {
   CreateSnapshotJobType,
   DuplicateApplicationJobType,
@@ -10,7 +10,7 @@ import {
   ImportApplicationsJobType,
   InstallTemplateJobType,
   RestoreSnapshotJobType,
-} from '@baserow/modules/core/jobTypes'
+} from '@jadawel/modules/core/jobTypes'
 
 import {
   AccountSettingsType,
@@ -20,26 +20,26 @@ import {
   MCPEndpointSettingsType,
   DeleteAccountSettingsType,
   TwoFactorAuthSettingsType,
-} from '@baserow/modules/core/settingsTypes'
-import { GenerativeAIWorkspaceSettingsType } from '@baserow/modules/core/workspaceSettingsTypes'
+} from '@jadawel/modules/core/settingsTypes'
+import { GenerativeAIWorkspaceSettingsType } from '@jadawel/modules/core/workspaceSettingsTypes'
 import {
   OpenAIModelType,
   OllamaModelType,
   AnthropicModelType,
   MistralModelType,
   OpenRouterModelType,
-} from '@baserow/modules/core/generativeAIModelTypes'
+} from '@jadawel/modules/core/generativeAIModelTypes'
 import {
   UploadFileUserFileUploadType,
   UploadViaURLUserFileUploadType,
-} from '@baserow/modules/core/userFileUploadTypes'
+} from '@jadawel/modules/core/userFileUploadTypes'
 import {
   DashboardAdminType,
   UsersAdminType,
   WorkspacesAdminType,
   HealthCheckAdminType,
   SettingsAdminType,
-} from '@baserow/modules/core/adminTypes'
+} from '@jadawel/modules/core/adminTypes'
 
 import {
   BasicPermissionManagerType,
@@ -48,24 +48,24 @@ import {
   WorkspaceMemberPermissionManagerType,
   StaffOnlySettingOperationPermissionManagerType,
   AllowIfTemplateOperationPermissionManagerType,
-} from '@baserow/modules/core/permissionManagerTypes'
+} from '@jadawel/modules/core/permissionManagerTypes'
 
 import {
   MembersWorkspaceSettingsPageType,
   InvitesWorkspaceSettingsPageType,
-} from '@baserow/modules/core/workspaceSettingsPageTypes'
+} from '@jadawel/modules/core/workspaceSettingsPageTypes'
 import {
   WorkspaceInvitationCreatedNotificationType,
   WorkspaceInvitationAcceptedNotificationType,
   WorkspaceInvitationRejectedNotificationType,
   BaserowVersionUpgradeNotificationType,
-} from '@baserow/modules/core/notificationTypes'
-import { MoreOnboardingType } from '@baserow/modules/core/onboardingTypes'
-import { SidebarGuidedTourType } from '@baserow/modules/core/guidedTourTypes'
-import { TOTPAuthType } from '@baserow/modules/core/twoFactorAuthTypes'
-import { CloudflareTurnstileCaptchaProviderType } from '@baserow/modules/core/captchaProviderTypes'
+} from '@jadawel/modules/core/notificationTypes'
+import { MoreOnboardingType } from '@jadawel/modules/core/onboardingTypes'
+import { SidebarGuidedTourType } from '@jadawel/modules/core/guidedTourTypes'
+import { TOTPAuthType } from '@jadawel/modules/core/twoFactorAuthTypes'
+import { CloudflareTurnstileCaptchaProviderType } from '@jadawel/modules/core/captchaProviderTypes'
 
-import { DefaultErrorPageType } from '@baserow/modules/core/errorPageTypes'
+import { DefaultErrorPageType } from '@jadawel/modules/core/errorPageTypes'
 
 import {
   RuntimeAdd,
@@ -115,12 +115,12 @@ import {
   RuntimeAvg,
   RuntimeAt,
   RuntimeToArray,
-} from '@baserow/modules/core/runtimeFormulaTypes'
+} from '@jadawel/modules/core/runtimeFormulaTypes'
 
 import {
   AdminRoleType,
   MemberRoleType,
-} from '@baserow/modules/database/roleTypes'
+} from '@jadawel/modules/database/roleTypes'
 
 export default defineNuxtPlugin({
   name: 'core',

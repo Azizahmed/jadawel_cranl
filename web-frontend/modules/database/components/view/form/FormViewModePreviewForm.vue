@@ -148,11 +148,11 @@
 </template>
 
 <script>
-import FormViewField from '@baserow/modules/database/components/view/form/FormViewField'
-import FormViewImageUpload from '@baserow/modules/database/components/view/form/FormViewImageUpload'
-import formViewHelpers from '@baserow/modules/database/mixins/formViewHelpers'
-import FormViewPoweredBy from '@baserow/modules/database/components/view/form/FormViewPoweredBy'
-import FormViewMetaControls from '@baserow/modules/database/components/view/form/FormViewMetaControls'
+import FormViewField from '@jadawel/modules/database/components/view/form/FormViewField'
+import FormViewImageUpload from '@jadawel/modules/database/components/view/form/FormViewImageUpload'
+import formViewHelpers from '@jadawel/modules/database/mixins/formViewHelpers'
+import FormViewPoweredBy from '@jadawel/modules/database/components/view/form/FormViewPoweredBy'
+import FormViewMetaControls from '@jadawel/modules/database/components/view/form/FormViewMetaControls'
 
 export default {
   name: 'FormViewModePreviewForm',

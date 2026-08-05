@@ -21,16 +21,16 @@
 </template>
 
 <script>
-import UserAdminService from '@baserow/modules/core/services/admin/users'
-import UsernameField from '@baserow/modules/core/components/admin/users/fields/UsernameField'
-import UserWorkspacesField from '@baserow/modules/core/components/admin/users/fields/UserWorkspacesField'
-import CrudTable from '@baserow/modules/core/components/crudTable/CrudTable'
-import SimpleField from '@baserow/modules/core/components/crudTable/fields/SimpleField'
-import LocalDateField from '@baserow/modules/core/components/crudTable/fields/LocalDateField'
-import ActiveField from '@baserow/modules/core/components/admin/users/fields/ActiveField'
-import MoreField from '@baserow/modules/core/components/crudTable/fields/MoreField'
-import EditUserContext from '@baserow/modules/core/components/admin/users/contexts/EditUserContext'
-import CrudTableColumn from '@baserow/modules/core/crudTable/crudTableColumn'
+import UserAdminService from '@jadawel/modules/core/services/admin/users'
+import UsernameField from '@jadawel/modules/core/components/admin/users/fields/UsernameField'
+import UserWorkspacesField from '@jadawel/modules/core/components/admin/users/fields/UserWorkspacesField'
+import CrudTable from '@jadawel/modules/core/components/crudTable/CrudTable'
+import SimpleField from '@jadawel/modules/core/components/crudTable/fields/SimpleField'
+import LocalDateField from '@jadawel/modules/core/components/crudTable/fields/LocalDateField'
+import ActiveField from '@jadawel/modules/core/components/admin/users/fields/ActiveField'
+import MoreField from '@jadawel/modules/core/components/crudTable/fields/MoreField'
+import EditUserContext from '@jadawel/modules/core/components/admin/users/contexts/EditUserContext'
+import CrudTableColumn from '@jadawel/modules/core/crudTable/crudTableColumn'
 
 export default {
   name: 'UsersAdminTable',

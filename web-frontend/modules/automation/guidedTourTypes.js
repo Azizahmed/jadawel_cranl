@@ -1,7 +1,7 @@
 import {
   GuidedTourStep,
   GuidedTourType,
-} from '@baserow/modules/core/guidedTourTypes'
+} from '@jadawel/modules/core/guidedTourTypes'
 
 class WelcomeGuidedTourStep extends GuidedTourStep {
   get title() {

@@ -22,12 +22,12 @@ import { useRoute } from 'vue-router'
 import { useAsyncData, useNuxtApp, useState } from '#app'
 import { useHead } from '#imports'
 
-import Toasts from '@baserow/modules/core/components/toasts/Toasts'
-import Table from '@baserow/modules/database/components/table/Table'
-import ViewService from '@baserow/modules/database/services/view'
-import { PUBLIC_PLACEHOLDER_ENTITY_ID } from '@baserow/modules/database/utils/constants'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import { keyboardShortcutsToPriorityEventBus } from '@baserow/modules/core/utils/events'
+import Toasts from '@jadawel/modules/core/components/toasts/Toasts'
+import Table from '@jadawel/modules/database/components/table/Table'
+import ViewService from '@jadawel/modules/database/services/view'
+import { PUBLIC_PLACEHOLDER_ENTITY_ID } from '@jadawel/modules/database/utils/constants'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import { keyboardShortcutsToPriorityEventBus } from '@jadawel/modules/core/utils/events'
 
 definePageMeta({
   middleware: ['settings'],

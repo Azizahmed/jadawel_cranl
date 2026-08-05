@@ -1,4 +1,4 @@
-import UserService from '@baserow/modules/core/services/admin/users'
+import UserService from '@jadawel/modules/core/services/admin/users'
 
 /**
  * We only want to allow impersonation when a page loads for the first time because

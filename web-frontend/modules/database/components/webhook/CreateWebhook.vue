@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import error from '@baserow/modules/core/mixins/error'
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import WebhookForm from '@baserow/modules/database/components/webhook/WebhookForm'
-import WebhookService from '@baserow/modules/database/services/webhook'
+import error from '@jadawel/modules/core/mixins/error'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import WebhookForm from '@jadawel/modules/database/components/webhook/WebhookForm'
+import WebhookService from '@jadawel/modules/database/services/webhook'
 
 export default {
   name: 'CreateWebhook',

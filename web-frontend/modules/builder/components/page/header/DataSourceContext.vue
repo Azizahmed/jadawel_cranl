@@ -121,12 +121,12 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import DataSourceCreateEditModal from '@baserow/modules/builder/components/dataSource/DataSourceCreateEditModal'
-import DataSourceItem from '@baserow/modules/builder/components/dataSource/DataSourceItem'
+import context from '@jadawel/modules/core/mixins/context'
+import DataSourceCreateEditModal from '@jadawel/modules/builder/components/dataSource/DataSourceCreateEditModal'
+import DataSourceItem from '@jadawel/modules/builder/components/dataSource/DataSourceItem'
 import { mapActions } from 'vuex'
-import { ELEMENT_EVENTS } from '@baserow/modules/builder/enums'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { ELEMENT_EVENTS } from '@jadawel/modules/builder/enums'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'DataSourceContext',

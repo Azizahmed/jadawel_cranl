@@ -32,8 +32,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import gridViewHelpers from '@baserow/modules/database/mixins/gridViewHelpers'
-import GridViewGroup from '@baserow/modules/database/components/view/grid/GridViewGroup'
+import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
+import GridViewGroup from '@jadawel/modules/database/components/view/grid/GridViewGroup'
 
 export default {
   name: 'GridViewGroups',

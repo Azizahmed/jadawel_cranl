@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import TemplateService from '@baserow/modules/core/services/template'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import TemplateService from '@jadawel/modules/core/services/template'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
-import TemplateHeader from '@baserow/modules/core/components/template/TemplateHeader'
-import TemplateCategories from '@baserow/modules/core/components/template/TemplateCategories'
-import TemplatePreview from '@baserow/modules/core/components/template/TemplatePreview'
+import TemplateHeader from '@jadawel/modules/core/components/template/TemplateHeader'
+import TemplateCategories from '@jadawel/modules/core/components/template/TemplateCategories'
+import TemplatePreview from '@jadawel/modules/core/components/template/TemplatePreview'
 
 export default {
   name: 'TemplateModal',

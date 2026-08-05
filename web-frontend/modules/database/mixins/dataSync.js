@@ -1,7 +1,7 @@
-import DataSyncService from '@baserow/modules/database/services/dataSync'
-import error from '@baserow/modules/core/mixins/error'
-import jobProgress from '@baserow/modules/core/mixins/jobProgress'
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
+import DataSyncService from '@jadawel/modules/database/services/dataSync'
+import error from '@jadawel/modules/core/mixins/error'
+import jobProgress from '@jadawel/modules/core/mixins/jobProgress'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
 
 export default {
   mixins: [error, jobProgress],

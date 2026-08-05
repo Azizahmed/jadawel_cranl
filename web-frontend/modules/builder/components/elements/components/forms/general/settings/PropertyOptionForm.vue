@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import BaserowTable from '@baserow/modules/builder/components/elements/components/BaserowTable'
-import form from '@baserow/modules/core/mixins/form'
+import BaserowTable from '@jadawel/modules/builder/components/elements/components/BaserowTable'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'PropertyOptionForm',

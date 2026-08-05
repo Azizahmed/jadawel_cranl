@@ -2,8 +2,8 @@ import {
   prepareRowForRequest,
   prepareNewOldAndUpdateRequestValues,
   extractRowReadOnlyValues,
-} from '@baserow/modules/database/utils/row'
-import { TestApp } from '@baserow/test/helpers/testApp'
+} from '@jadawel/modules/database/utils/row'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('Row utilities', () => {
   let testApp = null

@@ -1,4 +1,4 @@
-import tableFields from '@baserow/modules/database/mixins/tableFields'
+import tableFields from '@jadawel/modules/database/mixins/tableFields'
 
 export default {
   mixins: [tableFields],

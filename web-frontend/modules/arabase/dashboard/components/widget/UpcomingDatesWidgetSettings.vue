@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import DisplayedFieldsFormGroup from '@baserow/modules/arabase/dashboard/components/data_source/DisplayedFieldsFormGroup'
-import UpcomingRowsDataSourceForm from '@baserow/modules/arabase/dashboard/components/data_source/UpcomingRowsDataSourceForm'
-import dashboardWidgetSettings from '@baserow/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
-import tableFields from '@baserow/modules/database/mixins/tableFields'
+import DisplayedFieldsFormGroup from '@jadawel/modules/arabase/dashboard/components/data_source/DisplayedFieldsFormGroup'
+import UpcomingRowsDataSourceForm from '@jadawel/modules/arabase/dashboard/components/data_source/UpcomingRowsDataSourceForm'
+import dashboardWidgetSettings from '@jadawel/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
+import tableFields from '@jadawel/modules/database/mixins/tableFields'
 
 export default {
   name: 'UpcomingDatesWidgetSettings',

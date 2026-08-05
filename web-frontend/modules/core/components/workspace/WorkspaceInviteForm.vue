@@ -87,7 +87,7 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers } from '@vuelidate/validators'
 
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'WorkspaceInviteForm',

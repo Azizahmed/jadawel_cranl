@@ -1,6 +1,6 @@
-import { getPrimaryOrFirstField } from '@baserow/modules/database/utils/field'
+import { getPrimaryOrFirstField } from '@jadawel/modules/database/utils/field'
 import BigNumber from 'bignumber.js'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
 
 export default {
   emits: ['update'],

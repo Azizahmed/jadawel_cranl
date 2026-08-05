@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import { colors as colorList } from '@baserow/modules/core/utils/colors'
+import context from '@jadawel/modules/core/mixins/context'
+import { colors as colorList } from '@jadawel/modules/core/utils/colors'
 
 const defaultColors = [
   colorList.slice(0, 10),

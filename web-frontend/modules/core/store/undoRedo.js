@@ -1,8 +1,8 @@
-import UndoRedoService from '@baserow/modules/core/services/undoRedo'
+import UndoRedoService from '@jadawel/modules/core/services/undoRedo'
 import {
   UNDO_REDO_RESULT_CODES,
   UNDO_REDO_STATES,
-} from '@baserow/modules/core/utils/undoRedoConstants'
+} from '@jadawel/modules/core/utils/undoRedoConstants'
 
 export const state = () => ({
   undoing: false,

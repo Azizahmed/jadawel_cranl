@@ -125,14 +125,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import ElementPreview from '@baserow/modules/builder/components/elements/ElementPreview'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import PreviewNavigationBar from '@baserow/modules/builder/components/page/PreviewNavigationBar'
-import { DIRECTIONS, PAGE_PLACES } from '@baserow/modules/builder/enums'
-import AddElementModal from '@baserow/modules/builder/components/elements/AddElementModal.vue'
-import ThemeProvider from '@baserow/modules/builder/components/theme/ThemeProvider.vue'
-import BuilderToasts from '@baserow/modules/builder/components/BuilderToasts'
-import AddElementZone from '@baserow/modules/builder/components/elements/AddElementZone'
+import ElementPreview from '@jadawel/modules/builder/components/elements/ElementPreview'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import PreviewNavigationBar from '@jadawel/modules/builder/components/page/PreviewNavigationBar'
+import { DIRECTIONS, PAGE_PLACES } from '@jadawel/modules/builder/enums'
+import AddElementModal from '@jadawel/modules/builder/components/elements/AddElementModal.vue'
+import ThemeProvider from '@jadawel/modules/builder/components/theme/ThemeProvider.vue'
+import BuilderToasts from '@jadawel/modules/builder/components/BuilderToasts'
+import AddElementZone from '@jadawel/modules/builder/components/elements/AddElementZone'
 
 export default {
   name: 'PagePreview',

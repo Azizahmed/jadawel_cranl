@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import ViewFilter from '@baserow/modules/database/components/view/ViewFilter'
-import ViewSort from '@baserow/modules/database/components/view/ViewSort'
-import ViewSearch from '@baserow/modules/database/components/view/ViewSearch'
-import { getFilters, getOrderBy } from '@baserow/modules/database/utils/view'
-import { GridViewType } from '@baserow/modules/database/viewTypes.js'
-import { CollaborativeViewOwnershipType } from '@baserow/modules/database/viewOwnershipTypes.js'
+import ViewFilter from '@jadawel/modules/database/components/view/ViewFilter'
+import ViewSort from '@jadawel/modules/database/components/view/ViewSort'
+import ViewSearch from '@jadawel/modules/database/components/view/ViewSearch'
+import { getFilters, getOrderBy } from '@jadawel/modules/database/utils/view'
+import { GridViewType } from '@jadawel/modules/database/viewTypes.js'
+import { CollaborativeViewOwnershipType } from '@jadawel/modules/database/viewOwnershipTypes.js'
 
 export default {
   components: { ViewSearch, ViewSort, ViewFilter },

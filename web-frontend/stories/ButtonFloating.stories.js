@@ -1,4 +1,4 @@
-import ButtonFloating from '@baserow/modules/core/components/ButtonFloating'
+import ButtonFloating from '@jadawel/modules/core/components/ButtonFloating'
 
 export default {
   title: 'Jadawel/Buttons/ButtonFloating',

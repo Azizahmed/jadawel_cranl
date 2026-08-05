@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import ElementsList from '@baserow/modules/builder/components/elements/ElementsList'
-import AddElementButton from '@baserow/modules/builder/components/elements/AddElementButton'
-import AddElementModal from '@baserow/modules/builder/components/elements/AddElementModal'
+import context from '@jadawel/modules/core/mixins/context'
+import ElementsList from '@jadawel/modules/builder/components/elements/ElementsList'
+import AddElementButton from '@jadawel/modules/builder/components/elements/AddElementButton'
+import AddElementModal from '@jadawel/modules/builder/components/elements/AddElementModal'
 import { mapActions } from 'vuex'
-import { isSubstringOfStrings } from '@baserow/modules/core/utils/string'
-import { PAGE_PLACES } from '@baserow/modules/builder/enums'
+import { isSubstringOfStrings } from '@jadawel/modules/core/utils/string'
+import { PAGE_PLACES } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'ElementsContext',

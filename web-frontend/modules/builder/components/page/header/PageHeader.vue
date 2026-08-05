@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import DeviceSelector from '@baserow/modules/builder/components/page/header/DeviceSelector'
-import PageHeaderMenuItems from '@baserow/modules/builder/components/page/header/PageHeaderMenuItems'
-import PageActions from '@baserow/modules/builder/components/page/header/PageActions'
+import DeviceSelector from '@jadawel/modules/builder/components/page/header/DeviceSelector'
+import PageHeaderMenuItems from '@jadawel/modules/builder/components/page/header/PageHeaderMenuItems'
+import PageActions from '@jadawel/modules/builder/components/page/header/PageActions'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {

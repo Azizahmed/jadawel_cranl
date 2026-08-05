@@ -54,13 +54,13 @@
 </template>
 
 <script setup>
-import moment from '@baserow/modules/core/moment'
-import { getUserTimeZone } from '@baserow/modules/core/utils/date'
+import moment from '@jadawel/modules/core/moment'
+import { getUserTimeZone } from '@jadawel/modules/core/utils/date'
 
-import historySuccessIcon from '@baserow/modules/core/assets/images/history-success.svg?url'
-import historyFailedIcon from '@baserow/modules/core/assets/images/history-failed.svg?url'
-import historyDisabledIcon from '@baserow/modules/core/assets/images/history-disabled.svg?url'
-import NodeHistory from '@baserow/modules/automation/components/workflow/sidePanels/NodeHistory.vue'
+import historySuccessIcon from '@jadawel/modules/core/assets/images/history-success.svg?url'
+import historyFailedIcon from '@jadawel/modules/core/assets/images/history-failed.svg?url'
+import historyDisabledIcon from '@jadawel/modules/core/assets/images/history-disabled.svg?url'
+import NodeHistory from '@jadawel/modules/automation/components/workflow/sidePanels/NodeHistory.vue'
 
 const app = useNuxtApp()
 

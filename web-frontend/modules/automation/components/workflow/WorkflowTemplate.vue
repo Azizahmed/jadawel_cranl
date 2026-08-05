@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import AutomationWorkflowContent from '@baserow/modules/automation/components/AutomationWorkflowContent'
-import PageSkeleton from '@baserow/modules/core/components/template/PageSkeleton'
-import { AutomationApplicationType } from '@baserow/modules/automation/applicationTypes'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import AutomationWorkflowContent from '@jadawel/modules/automation/components/AutomationWorkflowContent'
+import PageSkeleton from '@jadawel/modules/core/components/template/PageSkeleton'
+import { AutomationApplicationType } from '@jadawel/modules/automation/applicationTypes'
 
 export default {
   name: 'WorkflowTemplate',

@@ -1,5 +1,5 @@
-import { sortNumbersAndUuid1Asc } from '@baserow/modules/core/utils/sort'
-//import { uuid as uuidv1 } from '@baserow/modules/core/utils/string'
+import { sortNumbersAndUuid1Asc } from '@jadawel/modules/core/utils/sort'
+//import { uuid as uuidv1 } from '@jadawel/modules/core/utils/string'
 
 import { monotonicFactory } from 'ulid'
 

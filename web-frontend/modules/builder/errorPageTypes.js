@@ -1,5 +1,5 @@
-import { ErrorPageType } from '@baserow/modules/core/errorPageTypes'
-import PublicSiteErrorPage from '@baserow/modules/builder/components/PublicSiteErrorPage'
+import { ErrorPageType } from '@jadawel/modules/core/errorPageTypes'
+import PublicSiteErrorPage from '@jadawel/modules/builder/components/PublicSiteErrorPage'
 
 export class PublicSiteErrorPageType extends ErrorPageType {
   getComponent() {

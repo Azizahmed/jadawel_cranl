@@ -1,8 +1,8 @@
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import ApplicationService from '@baserow/modules/core/services/application'
-import { clone } from '@baserow/modules/core/utils/object'
-import { CORE_ACTION_SCOPES } from '@baserow/modules/core/utils/undoRedoConstants'
-import { generateHash } from '@baserow/modules/core/utils/hashing'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import ApplicationService from '@jadawel/modules/core/services/application'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { CORE_ACTION_SCOPES } from '@jadawel/modules/core/utils/undoRedoConstants'
+import { generateHash } from '@jadawel/modules/core/utils/hashing'
 
 export function populateApplication(application, registry) {
   const type = registry.get('application', application.type)

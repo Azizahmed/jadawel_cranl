@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
+import modal from '@jadawel/modules/core/mixins/modal'
 
-import ConfigureDataSyncVisibleFields from '@baserow/modules/database/components/dataSync/ConfigureDataSyncVisibleFields'
-import ConfigureDataSyncSettings from '@baserow/modules/database/components/dataSync/ConfigureDataSyncSettings'
+import ConfigureDataSyncVisibleFields from '@jadawel/modules/database/components/dataSync/ConfigureDataSyncVisibleFields'
+import ConfigureDataSyncSettings from '@jadawel/modules/database/components/dataSync/ConfigureDataSyncSettings'
 
 export default {
   name: 'ConfigureDataSyncModal',

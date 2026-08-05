@@ -62,11 +62,11 @@ import { useI18n } from 'vue-i18n'
 import { useVuelidate } from '@vuelidate/core'
 import { maxLength, required, helpers } from '@vuelidate/validators'
 import debounce from 'lodash/debounce'
-import { useForm } from '@baserow/modules/core/composables/useForm'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import MemberAssignmentModal from '@baserow/modules/core/components/workspace/MemberAssignmentModal'
-import { clone } from '@baserow/modules/core/utils/object'
+import { useForm } from '@jadawel/modules/core/composables/useForm'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import MemberAssignmentModal from '@jadawel/modules/core/components/workspace/MemberAssignmentModal'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 defineOptions({
   name: 'WorkflowGeneralSettings',

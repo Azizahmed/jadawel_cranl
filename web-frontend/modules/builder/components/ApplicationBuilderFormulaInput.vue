@@ -14,11 +14,11 @@
 </template>
 
 <script setup>
-import FormulaInputField from '@baserow/modules/core/components/formula/FormulaInputField'
-import { DataSourceDataProviderType } from '@baserow/modules/builder/dataProviderTypes'
-import { buildFormulaFunctionNodes } from '@baserow/modules/core/formula'
-import { getDataNodesFromDataProvider } from '@baserow/modules/core/utils/dataProviders'
-import { useApplicationContext } from '@baserow/modules/builder/mixins/useApplicationContext'
+import FormulaInputField from '@jadawel/modules/core/components/formula/FormulaInputField'
+import { DataSourceDataProviderType } from '@jadawel/modules/builder/dataProviderTypes'
+import { buildFormulaFunctionNodes } from '@jadawel/modules/core/formula'
+import { getDataNodesFromDataProvider } from '@jadawel/modules/core/utils/dataProviders'
+import { useApplicationContext } from '@jadawel/modules/builder/mixins/useApplicationContext'
 
 const props = defineProps({
   value: {

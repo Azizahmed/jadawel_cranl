@@ -3,18 +3,18 @@ import {
   DataSourceServiceTypeMixin,
   WorkflowActionServiceTypeMixin,
   TriggerServiceTypeMixin,
-} from '@baserow/modules/core/serviceTypes'
-import { LocalBaserowIntegrationType } from '@baserow/modules/integrations/localBaserow/integrationTypes'
-import LocalBaserowUpsertRowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowUpsertRowServiceForm'
-import LocalBaserowUpdateRowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowUpdateRowServiceForm'
-import LocalBaserowDeleteRowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowDeleteRowServiceForm'
-import { uuid } from '@baserow/modules/core/utils/string'
-import LocalBaserowAdhocHeader from '@baserow/modules/integrations/localBaserow/components/integrations/LocalBaserowAdhocHeader'
-import { DistributionViewAggregationType } from '@baserow/modules/database/viewAggregationTypes'
-import LocalBaserowSignalTriggerServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowSignalTriggerServiceForm'
-import LocalBaserowGetRowForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowGetRowForm'
-import LocalBaserowListRowsForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowListRowsForm'
-import LocalBaserowAggregateRowsForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowAggregateRowsForm'
+} from '@jadawel/modules/core/serviceTypes'
+import { LocalBaserowIntegrationType } from '@jadawel/modules/integrations/localBaserow/integrationTypes'
+import LocalBaserowUpsertRowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowUpsertRowServiceForm'
+import LocalBaserowUpdateRowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowUpdateRowServiceForm'
+import LocalBaserowDeleteRowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowDeleteRowServiceForm'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import LocalBaserowAdhocHeader from '@jadawel/modules/integrations/localBaserow/components/integrations/LocalBaserowAdhocHeader'
+import { DistributionViewAggregationType } from '@jadawel/modules/database/viewAggregationTypes'
+import LocalBaserowSignalTriggerServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowSignalTriggerServiceForm'
+import LocalBaserowGetRowForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowGetRowForm'
+import LocalBaserowListRowsForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowListRowsForm'
+import LocalBaserowAggregateRowsForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowAggregateRowsForm'
 
 export class LocalBaserowTableServiceType extends ServiceType {
   get integrationType() {

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { formatRecordValue } from '@baserow/modules/arabase/dashboard/recordValues'
+import { formatRecordValue } from '@jadawel/modules/arabase/dashboard/recordValues'
 
 export default {
   name: 'RecordRows',

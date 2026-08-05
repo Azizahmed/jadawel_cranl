@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import RichTextEditor from '@baserow/modules/core/components/editor/RichTextEditor.vue'
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import rowEditFieldInput from '@baserow/modules/database/mixins/rowEditFieldInput'
+import RichTextEditor from '@jadawel/modules/core/components/editor/RichTextEditor.vue'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import rowEditFieldInput from '@jadawel/modules/database/mixins/rowEditFieldInput'
 
 export default {
   components: { RichTextEditor },

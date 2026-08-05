@@ -1,5 +1,5 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import CloudflareTurnstileWidget from '@baserow/modules/core/components/auth/CloudflareTurnstileWidget'
+import { Registerable } from '@jadawel/modules/core/registry'
+import CloudflareTurnstileWidget from '@jadawel/modules/core/components/auth/CloudflareTurnstileWidget'
 
 /**
  * A captcha provider type defines how a specific captcha service is rendered

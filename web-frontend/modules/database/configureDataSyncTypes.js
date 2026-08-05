@@ -1,6 +1,6 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import ConfigureDataSyncVisibleFields from '@baserow/modules/database/components/dataSync/ConfigureDataSyncVisibleFields'
-import ConfigureDataSyncSettings from '@baserow/modules/database/components/dataSync/ConfigureDataSyncSettings'
+import { Registerable } from '@jadawel/modules/core/registry'
+import ConfigureDataSyncVisibleFields from '@jadawel/modules/database/components/dataSync/ConfigureDataSyncVisibleFields'
+import ConfigureDataSyncSettings from '@jadawel/modules/database/components/dataSync/ConfigureDataSyncSettings'
 
 export class ConfigureDataSyncType extends Registerable {
   get name() {

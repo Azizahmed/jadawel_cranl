@@ -1,4 +1,4 @@
-import { ApplicationSearchType } from '@baserow/modules/core/search/types/base'
+import { ApplicationSearchType } from '@jadawel/modules/core/search/types/base'
 
 export class AutomationSearchType extends ApplicationSearchType {
   constructor(context = {}) {

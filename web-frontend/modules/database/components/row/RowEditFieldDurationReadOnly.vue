@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import durationField from '@baserow/modules/database/mixins/durationField'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import durationField from '@jadawel/modules/database/mixins/durationField'
 
 export default {
   mixins: [rowEditField, durationField],

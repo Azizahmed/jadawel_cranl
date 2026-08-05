@@ -1,4 +1,4 @@
-import { generateUUID } from '@baserow/modules/core/utils/string'
+import { generateUUID } from '@jadawel/modules/core/utils/string'
 
 export const createNewUndoRedoActionGroupId = () => {
   return generateUUID()

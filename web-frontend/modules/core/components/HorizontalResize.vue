@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { isRtlElement } from '@baserow/modules/core/utils/dom'
+import { isRtlElement } from '@jadawel/modules/core/utils/dom'
 
 export default {
   name: 'HorizontalResize',

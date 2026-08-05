@@ -1,9 +1,9 @@
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import form from '@baserow/modules/core/mixins/form'
-import FieldSelectOptions from '@baserow/modules/database/components/field/FieldSelectOptions'
-import FieldService from '@baserow/modules/database/services/field'
-import { randomColor } from '@baserow/modules/core/utils/colors'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import form from '@jadawel/modules/core/mixins/form'
+import FieldSelectOptions from '@jadawel/modules/database/components/field/FieldSelectOptions'
+import FieldService from '@jadawel/modules/database/services/field'
+import { randomColor } from '@jadawel/modules/core/utils/colors'
 
 export default {
   mixins: [form, fieldSubForm],
@@ -52,7 +52,7 @@ export default {
       try {
         const { data } = await FieldService(this.$client).getUniqueRowValues(
           this.defaultValues.id,
-          this.$config.public.baserowUniqueRowValuesSizeLimit,
+          this.$config.public.jadawelUniqueRowValuesSizeLimit,
           splitCommaSeparated
         )
         for (const value of data.values) {

@@ -1,4 +1,4 @@
-import { WorkflowDisabledNotificationType } from '@baserow/modules/automation/notificationTypes'
+import { WorkflowDisabledNotificationType } from '@jadawel/modules/automation/notificationTypes'
 
 describe('WorkflowDisabledNotificationType', () => {
   test('resolves the workflow route from notification data', () => {

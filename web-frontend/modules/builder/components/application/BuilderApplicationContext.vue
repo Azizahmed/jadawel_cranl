@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import BuilderSettingsModal from '@baserow/modules/builder/components/settings/BuilderSettingsModal'
-import ApplicationContext from '@baserow/modules/core/components/application/ApplicationContext.vue'
-import applicationContext from '@baserow/modules/core/mixins/applicationContext'
+import BuilderSettingsModal from '@jadawel/modules/builder/components/settings/BuilderSettingsModal'
+import ApplicationContext from '@jadawel/modules/core/components/application/ApplicationContext.vue'
+import applicationContext from '@jadawel/modules/core/mixins/applicationContext'
 
 export default {
   components: {

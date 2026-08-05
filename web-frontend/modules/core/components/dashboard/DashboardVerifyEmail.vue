@@ -17,8 +17,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { EMAIL_VERIFICATION_OPTIONS } from '@baserow/modules/core/enums'
-import resendEmailVerification from '@baserow/modules/core/mixins/resendEmailVerification'
+import { EMAIL_VERIFICATION_OPTIONS } from '@jadawel/modules/core/enums'
+import resendEmailVerification from '@jadawel/modules/core/mixins/resendEmailVerification'
 
 export default {
   name: 'DashboardVerifyEmail',

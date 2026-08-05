@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Avatar from '@baserow/modules/core/components/Avatar'
+import Avatar from '@jadawel/modules/core/components/Avatar'
 export default {
   name: 'BadgeCollaborator',
   components: {

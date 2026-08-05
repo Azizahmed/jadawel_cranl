@@ -3,7 +3,7 @@ import {
   isPromise,
   mappingToStringifiedJSONLines,
   getValueAtPath,
-} from '@baserow/modules/core/utils/object'
+} from '@jadawel/modules/core/utils/object'
 
 describe('test utils object', () => {
   test('clone', () => {

@@ -188,12 +188,12 @@
 </template>
 
 <script>
-import { isElement, onClickOutside } from '@baserow/modules/core/utils/dom'
-import { clone } from '@baserow/modules/core/utils/object'
-import { DEFAULT_FORM_VIEW_FIELD_COMPONENT_KEY } from '@baserow/modules/database/constants'
-import FieldContext from '@baserow/modules/database/components/field/FieldContext'
-import ViewFieldConditionsForm from '@baserow/modules/database/components/view/ViewFieldConditionsForm'
-import { createFiltersTree } from '@baserow/modules/database/utils/view'
+import { isElement, onClickOutside } from '@jadawel/modules/core/utils/dom'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { DEFAULT_FORM_VIEW_FIELD_COMPONENT_KEY } from '@jadawel/modules/database/constants'
+import FieldContext from '@jadawel/modules/database/components/field/FieldContext'
+import ViewFieldConditionsForm from '@jadawel/modules/database/components/view/ViewFieldConditionsForm'
+import { createFiltersTree } from '@jadawel/modules/database/utils/view'
 
 export default {
   name: 'FormViewField',

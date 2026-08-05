@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import WebhookService from '@baserow/modules/database/services/webhook'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import WebhookService from '@jadawel/modules/database/services/webhook'
 
 export default {
   name: 'DeleteViewModal',

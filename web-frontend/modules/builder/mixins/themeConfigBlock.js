@@ -1,6 +1,6 @@
-import { ThemeConfigBlockType } from '@baserow/modules/builder/themeConfigBlockTypes'
-import form from '@baserow/modules/core/mixins/form'
-import { clone } from '@baserow/modules/core/utils/object'
+import { ThemeConfigBlockType } from '@jadawel/modules/builder/themeConfigBlockTypes'
+import form from '@jadawel/modules/core/mixins/form'
+import { clone } from '@jadawel/modules/core/utils/object'
 import _ from 'lodash'
 
 export default {

@@ -1,5 +1,5 @@
-import SettingsService from '@baserow/modules/core/services/settings'
-import { clone } from '@baserow/modules/core/utils/object'
+import SettingsService from '@jadawel/modules/core/services/settings'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 export const state = () => ({
   loaded: false,

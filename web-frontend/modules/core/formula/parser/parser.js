@@ -1,7 +1,7 @@
 import antlr4 from 'antlr4'
-import BaserowFormulaLexer from '@baserow/modules/core/formula/parser/generated/BaserowFormulaLexer'
-import BaserowFormula from '@baserow/modules/core/formula/parser/generated/BaserowFormula'
-import { BaserowFormulaParserError } from '@baserow/modules/core/formula/parser/errors'
+import BaserowFormulaLexer from '@jadawel/modules/core/formula/parser/generated/BaserowFormulaLexer'
+import BaserowFormula from '@jadawel/modules/core/formula/parser/generated/BaserowFormula'
+import { BaserowFormulaParserError } from '@jadawel/modules/core/formula/parser/errors'
 
 /**
  * Attempts to parse an input string into a Jadawel Formula. If it fails a

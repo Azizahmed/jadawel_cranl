@@ -1,4 +1,4 @@
-import { clone } from '@baserow/modules/core/utils/object'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 export default {
   props: {

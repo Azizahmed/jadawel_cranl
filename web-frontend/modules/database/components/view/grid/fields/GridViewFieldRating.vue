@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import Rating from '@baserow/modules/database/components/Rating'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import Rating from '@jadawel/modules/database/components/Rating'
 
 export default {
   components: { Rating },

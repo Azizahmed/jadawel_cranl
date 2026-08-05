@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { hasRealNodes } from '@baserow/modules/core/utils/dom.js'
+import { hasRealNodes } from '@jadawel/modules/core/utils/dom.js'
 
 export default {
   name: 'Button',

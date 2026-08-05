@@ -1,7 +1,7 @@
 /* stylelint-disable scss/operator-no-unspaced */
 @mixin baserow-icon($name) {
   &::before {
-    mask-image: url('@baserow/modules/core/assets/icons/' + $name + '.svg');
+    mask-image: url('@jadawel/modules/core/assets/icons/' + $name + '.svg');
   }
 }
 

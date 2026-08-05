@@ -193,21 +193,21 @@
 </template>
 
 <script>
-import { clone } from '@baserow/modules/core/utils/object'
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import jobProgress from '@baserow/modules/core/mixins/jobProgress'
-import TableService from '@baserow/modules/database/services/table'
+import { clone } from '@jadawel/modules/core/utils/object'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import jobProgress from '@jadawel/modules/core/mixins/jobProgress'
+import TableService from '@jadawel/modules/database/services/table'
 import {
   uuid,
   getNextAvailableNameInSequence,
-} from '@baserow/modules/core/utils/string'
-import SimpleGrid from '@baserow/modules/database/components/view/grid/SimpleGrid'
+} from '@jadawel/modules/core/utils/string'
+import SimpleGrid from '@jadawel/modules/database/components/view/grid/SimpleGrid'
 import _ from 'lodash'
 
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import ImportErrorReport from '@baserow/modules/database/components/table/ImportErrorReport.vue'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import ImportErrorReport from '@jadawel/modules/database/components/table/ImportErrorReport.vue'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

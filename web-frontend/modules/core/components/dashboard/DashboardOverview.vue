@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import DashboardBarChart from '@baserow/modules/core/components/dashboard/DashboardBarChart'
-import DashboardAreaChart from '@baserow/modules/core/components/dashboard/DashboardAreaChart'
+import DashboardBarChart from '@jadawel/modules/core/components/dashboard/DashboardBarChart'
+import DashboardAreaChart from '@jadawel/modules/core/components/dashboard/DashboardAreaChart'
 
 // Beyond this the chart is a wall of near-identical bars that answers nothing.
 // The remainder is folded into one row rather than dropped, so the totals in the

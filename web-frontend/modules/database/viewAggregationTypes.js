@@ -1,7 +1,7 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import GenericViewAggregation from '@baserow/modules/database/components/aggregation/GenericViewAggregation'
-import DistributionAggregation from '@baserow/modules/database/components/aggregation/DistributionAggregation'
-import { FormulaFieldType } from '@baserow/modules/database/fieldTypes'
+import { Registerable } from '@jadawel/modules/core/registry'
+import GenericViewAggregation from '@jadawel/modules/database/components/aggregation/GenericViewAggregation'
+import DistributionAggregation from '@jadawel/modules/database/components/aggregation/DistributionAggregation'
+import { FormulaFieldType } from '@jadawel/modules/database/fieldTypes'
 
 export class ViewAggregationType extends Registerable {
   /**

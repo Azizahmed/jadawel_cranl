@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import Login from '@baserow/modules/core/components/auth/Login'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import Login from '@jadawel/modules/core/components/auth/Login'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 
 definePageMeta({
   name: 'login',

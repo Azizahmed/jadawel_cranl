@@ -46,7 +46,7 @@ import {
   RuntimeAvg,
   RuntimeAt,
   RuntimeToArray,
-} from '@baserow/modules/core/runtimeFormulaTypes'
+} from '@jadawel/modules/core/runtimeFormulaTypes'
 import { expect } from 'vitest'
 
 /** Tests for the RuntimeConcat class. */

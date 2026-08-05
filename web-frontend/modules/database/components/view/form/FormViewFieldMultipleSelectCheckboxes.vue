@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import multipleSelectField from '@baserow/modules/database/mixins/multipleSelectField'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import multipleSelectField from '@jadawel/modules/database/mixins/multipleSelectField'
 
 export default {
   name: 'FormViewFieldMultipleSelectCheckboxes',

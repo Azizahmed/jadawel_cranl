@@ -1,7 +1,7 @@
 import {
   mirrorInlineRect,
   toInlineArrowKey,
-} from '@baserow/modules/database/utils/gridViewKeyboard'
+} from '@jadawel/modules/database/utils/gridViewKeyboard'
 
 describe('grid view keyboard navigation', () => {
   test('leaves the arrow keys alone in LTR', () => {

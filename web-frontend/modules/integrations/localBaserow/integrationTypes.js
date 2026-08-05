@@ -1,6 +1,6 @@
-import { IntegrationType } from '@baserow/modules/core/integrationTypes'
-import LocalBaserowForm from '@baserow/modules/integrations/localBaserow/components/integrations/LocalBaserowForm'
-import localBaserowIntegration from '@baserow/modules/integrations/localBaserow/assets/images/localBaserowIntegration.svg?url'
+import { IntegrationType } from '@jadawel/modules/core/integrationTypes'
+import LocalBaserowForm from '@jadawel/modules/integrations/localBaserow/components/integrations/LocalBaserowForm'
+import localBaserowIntegration from '@jadawel/modules/integrations/localBaserow/assets/images/localBaserowIntegration.svg?url'
 
 export class LocalBaserowIntegrationType extends IntegrationType {
   static getType() {

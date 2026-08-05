@@ -65,12 +65,12 @@
 </template>
 
 <script>
-import RuntimeFormulaContext from '@baserow/modules/core/runtimeFormulaContext'
-import { uuid } from '@baserow/modules/core/utils/string'
-import BaserowTable from '@baserow/modules/builder/components/elements/components/BaserowTable'
-import { ensureString } from '@baserow/modules/core/utils/validator'
-import CollectionElementHeader from '@baserow/modules/builder/components/elements/components/CollectionElementHeader'
-import { useCollectionElement } from '@baserow/modules/builder/composables/useCollectionElement'
+import RuntimeFormulaContext from '@jadawel/modules/core/runtimeFormulaContext'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import BaserowTable from '@jadawel/modules/builder/components/elements/components/BaserowTable'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
+import CollectionElementHeader from '@jadawel/modules/builder/components/elements/components/CollectionElementHeader'
+import { useCollectionElement } from '@jadawel/modules/builder/composables/useCollectionElement'
 
 export default {
   name: 'TableElement',

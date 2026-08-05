@@ -1,5 +1,5 @@
-import FormGroup from '@baserow/modules/core/components/FormGroup'
-import FormInput from '@baserow/modules/core/components/FormInput'
+import FormGroup from '@jadawel/modules/core/components/FormGroup'
+import FormInput from '@jadawel/modules/core/components/FormInput'
 
 export default {
   title: 'Jadawel/Form Elements/FormGroup',

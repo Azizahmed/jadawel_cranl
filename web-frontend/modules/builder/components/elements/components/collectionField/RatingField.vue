@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Rating from '@baserow/modules/database/components/Rating'
-import collectionField from '@baserow/modules/builder/mixins/collectionField'
+import Rating from '@jadawel/modules/database/components/Rating'
+import collectionField from '@jadawel/modules/builder/mixins/collectionField'
 
 export default {
   name: 'RatingField',

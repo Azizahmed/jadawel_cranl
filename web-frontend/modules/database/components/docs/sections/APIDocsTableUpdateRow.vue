@@ -142,9 +142,9 @@
 </template>
 
 <script>
-import APIDocsExample from '@baserow/modules/database/components/docs/APIDocsExample'
-import APIDocsParameter from '@baserow/modules/database/components/docs/APIDocsParameter'
-import APIDocsParentParameter from '@baserow/modules/database/components/docs/APIDocsParentParameter'
+import APIDocsExample from '@jadawel/modules/database/components/docs/APIDocsExample'
+import APIDocsParameter from '@jadawel/modules/database/components/docs/APIDocsParameter'
+import APIDocsParentParameter from '@jadawel/modules/database/components/docs/APIDocsParentParameter'
 
 export default {
   name: 'APIDocsTableUpdateRow',

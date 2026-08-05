@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import collectionFieldForm from '@baserow/modules/builder/mixins/collectionFieldForm'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import RatingFormFields from '@baserow/modules/builder/components/elements/components/forms/RatingFormFields'
+import collectionFieldForm from '@jadawel/modules/builder/mixins/collectionFieldForm'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import RatingFormFields from '@jadawel/modules/builder/components/elements/components/forms/RatingFormFields'
 
 export default {
   name: 'RatingFieldForm',

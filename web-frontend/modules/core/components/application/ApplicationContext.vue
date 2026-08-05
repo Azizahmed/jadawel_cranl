@@ -124,11 +124,11 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import TrashModal from '@baserow/modules/core/components/trash/TrashModal'
-import SnapshotsModal from '@baserow/modules/core/components/snapshots/SnapshotsModal'
-import SidebarDuplicateApplicationContextItem from '@baserow/modules/core/components/sidebar/SidebarDuplicateApplicationContextItem.vue'
-import applicationContext from '@baserow/modules/core/mixins/applicationContext'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import TrashModal from '@jadawel/modules/core/components/trash/TrashModal'
+import SnapshotsModal from '@jadawel/modules/core/components/snapshots/SnapshotsModal'
+import SidebarDuplicateApplicationContextItem from '@jadawel/modules/core/components/sidebar/SidebarDuplicateApplicationContextItem.vue'
+import applicationContext from '@jadawel/modules/core/mixins/applicationContext'
 
 export default {
   components: {

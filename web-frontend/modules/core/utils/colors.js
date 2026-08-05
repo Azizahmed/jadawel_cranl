@@ -1,4 +1,4 @@
-import stylesModule from '@baserow/modules/core/assets/scss/colors.module.scss'
+import stylesModule from '@jadawel/modules/core/assets/scss/colors.module.scss'
 
 const styles = { ...stylesModule }
 

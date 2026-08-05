@@ -1,8 +1,8 @@
 import {
   LocalBaserowListRowsServiceType,
   LocalBaserowTableServiceType,
-} from '@baserow/modules/integrations/localBaserow/serviceTypes'
-import { DistributionViewAggregationType } from '@baserow/modules/database/viewAggregationTypes'
+} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+import { DistributionViewAggregationType } from '@jadawel/modules/database/viewAggregationTypes'
 
 /**
  * The frontend half of `arabase`'s grouped aggregation service.

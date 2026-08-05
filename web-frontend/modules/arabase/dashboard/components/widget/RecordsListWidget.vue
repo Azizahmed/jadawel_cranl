@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import RecordRows from '@baserow/modules/arabase/dashboard/components/widget/RecordRows'
-import { resolveDisplayedFields } from '@baserow/modules/arabase/dashboard/recordValues'
-import WidgetContextMenu from '@baserow/modules/dashboard/components/widget/WidgetContextMenu'
+import RecordRows from '@jadawel/modules/arabase/dashboard/components/widget/RecordRows'
+import { resolveDisplayedFields } from '@jadawel/modules/arabase/dashboard/recordValues'
+import WidgetContextMenu from '@jadawel/modules/dashboard/components/widget/WidgetContextMenu'
 
 export default {
   name: 'RecordsListWidget',

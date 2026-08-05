@@ -1,4 +1,4 @@
-import { prepareDispatchParams } from '@baserow/modules/builder/utils/params'
+import { prepareDispatchParams } from '@jadawel/modules/builder/utils/params'
 
 export default (client) => {
   return {

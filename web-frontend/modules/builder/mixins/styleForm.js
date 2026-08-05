@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import form from '@baserow/modules/core/mixins/form'
-import { ThemeConfigBlockType } from '@baserow/modules/builder/themeConfigBlockTypes'
+import form from '@jadawel/modules/core/mixins/form'
+import { ThemeConfigBlockType } from '@jadawel/modules/builder/themeConfigBlockTypes'
 
 const borderNames = ['top', 'bottom', 'left', 'right']
 

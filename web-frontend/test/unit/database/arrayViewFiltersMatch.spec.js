@@ -1,4 +1,4 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 import {
   HasValueEqualViewFilterType,
   HasNotValueEqualViewFilterType,
@@ -27,15 +27,15 @@ import {
   HasDateWithinViewFilterType,
   HasValueLowerThanViewFilterType,
   HasNotValueLowerThanViewFilterType,
-} from '@baserow/modules/database/arrayViewFilters'
+} from '@jadawel/modules/database/arrayViewFilters'
 import {
   FormulaFieldType,
   LookupFieldType,
-} from '@baserow/modules/database/fieldTypes'
+} from '@jadawel/modules/database/fieldTypes'
 import {
   EmptyViewFilterType,
   NotEmptyViewFilterType,
-} from '@baserow/modules/database/viewFilters'
+} from '@jadawel/modules/database/viewFilters'
 import {
   dateBeforeCases,
   dateEqualCases,

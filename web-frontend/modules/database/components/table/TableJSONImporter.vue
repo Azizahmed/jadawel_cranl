@@ -93,9 +93,9 @@ import { required, helpers } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { useRuntimeConfig } from '#imports'
 
-import form from '@baserow/modules/core/mixins/form'
-import CharsetDropdown from '@baserow/modules/core/components/helpers/CharsetDropdown'
-import importer from '@baserow/modules/database/mixins/importer'
+import form from '@jadawel/modules/core/mixins/form'
+import CharsetDropdown from '@jadawel/modules/core/components/helpers/CharsetDropdown'
+import importer from '@jadawel/modules/database/mixins/importer'
 
 export default {
   name: 'TableJSONImporter',
@@ -149,7 +149,7 @@ export default {
       const file = event.target.files[0]
 
       const maxSize =
-        parseInt(this.config.public.baserowMaxImportFileSizeMb, 10) *
+        parseInt(this.config.public.jadawelMaxImportFileSizeMb, 10) *
         1024 *
         1024
 
@@ -157,7 +157,7 @@ export default {
         this.values.filename = ''
         this.handleImporterError(
           this.$t('tableJSONImporter.limitFileSize', {
-            limit: this.config.public.baserowMaxImportFileSizeMb,
+            limit: this.config.public.jadawelMaxImportFileSizeMb,
           })
         )
       } else {

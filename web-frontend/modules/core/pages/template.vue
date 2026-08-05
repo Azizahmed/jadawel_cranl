@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import TemplatePreview from '@baserow/modules/core/components/template/TemplatePreview'
-import TemplateService from '@baserow/modules/core/services/template'
+import TemplatePreview from '@jadawel/modules/core/components/template/TemplatePreview'
+import TemplateService from '@jadawel/modules/core/services/template'
 
 export default {
   name: 'Template',

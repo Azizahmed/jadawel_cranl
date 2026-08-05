@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import FieldMappingContext from '@baserow/modules/integrations/localBaserow/components/services/FieldMappingContext'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import InViewport from '@baserow/modules/core/components/InViewport'
+import FieldMappingContext from '@jadawel/modules/integrations/localBaserow/components/services/FieldMappingContext'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import InViewport from '@jadawel/modules/core/components/InViewport'
 
 export default {
   name: 'FieldMappingForm',

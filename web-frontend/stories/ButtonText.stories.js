@@ -1,4 +1,4 @@
-import ButtonText from '@baserow/modules/core/components/ButtonText'
+import ButtonText from '@jadawel/modules/core/components/ButtonText'
 
 export default {
   title: 'Jadawel/Buttons/ButtonText',

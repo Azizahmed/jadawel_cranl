@@ -86,11 +86,11 @@
 </template>
 
 <script>
-import ViewFieldConditionsForm from '@baserow/modules/database/components/view/ViewFieldConditionsForm.vue'
-import { hasCompatibleFilterTypes } from '@baserow/modules/database/utils/field'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import ViewFieldConditionsForm from '@jadawel/modules/database/components/view/ViewFieldConditionsForm.vue'
+import { hasCompatibleFilterTypes } from '@jadawel/modules/database/utils/field'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 import { ulid } from 'ulid'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
 
 export default {
   name: 'LocalBaserowTableServiceConditionalForm',

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { VERTICAL_ALIGNMENTS } from '@baserow/modules/builder/enums'
+import { VERTICAL_ALIGNMENTS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'VerticalAlignmentSelector',

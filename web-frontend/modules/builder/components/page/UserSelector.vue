@@ -31,8 +31,8 @@
 <script>
 import { mapActions } from 'vuex'
 
-import UserSourceUsersContext from '@baserow/modules/builder/components/page/UserSourceUsersContext'
-import { DEFAULT_USER_ROLE_PREFIX } from '@baserow/modules/builder/constants'
+import UserSourceUsersContext from '@jadawel/modules/builder/components/page/UserSourceUsersContext'
+import { DEFAULT_USER_ROLE_PREFIX } from '@jadawel/modules/builder/constants'
 
 export default {
   components: { UserSourceUsersContext },

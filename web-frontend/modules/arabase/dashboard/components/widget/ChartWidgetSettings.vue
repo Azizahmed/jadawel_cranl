@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import GroupedAggregateRowsDataSourceForm from '@baserow/modules/arabase/dashboard/components/data_source/GroupedAggregateRowsDataSourceForm'
-import error from '@baserow/modules/core/mixins/error'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import GroupedAggregateRowsDataSourceForm from '@jadawel/modules/arabase/dashboard/components/data_source/GroupedAggregateRowsDataSourceForm'
+import error from '@jadawel/modules/core/mixins/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'ChartWidgetSettings',

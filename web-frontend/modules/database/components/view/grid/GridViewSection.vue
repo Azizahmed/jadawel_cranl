@@ -166,15 +166,15 @@
 <script>
 import debounce from 'lodash/debounce'
 
-import GridViewHead from '@baserow/modules/database/components/view/grid/GridViewHead'
-import GridViewPlaceholder from '@baserow/modules/database/components/view/grid/GridViewPlaceholder'
-import GridViewGroups from '@baserow/modules/database/components/view/grid/GridViewGroups'
-import GridViewRows from '@baserow/modules/database/components/view/grid/GridViewRows'
-import GridViewRowAdd from '@baserow/modules/database/components/view/grid/GridViewRowAdd'
-import gridViewHelpers from '@baserow/modules/database/mixins/gridViewHelpers'
-import GridViewFieldFooter from '@baserow/modules/database/components/view/grid/GridViewFieldFooter'
-import HorizontalResize from '@baserow/modules/core/components/HorizontalResize'
-import { fieldValuesAreEqualInObjects } from '@baserow/modules/database/utils/groupBy'
+import GridViewHead from '@jadawel/modules/database/components/view/grid/GridViewHead'
+import GridViewPlaceholder from '@jadawel/modules/database/components/view/grid/GridViewPlaceholder'
+import GridViewGroups from '@jadawel/modules/database/components/view/grid/GridViewGroups'
+import GridViewRows from '@jadawel/modules/database/components/view/grid/GridViewRows'
+import GridViewRowAdd from '@jadawel/modules/database/components/view/grid/GridViewRowAdd'
+import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
+import GridViewFieldFooter from '@jadawel/modules/database/components/view/grid/GridViewFieldFooter'
+import HorizontalResize from '@jadawel/modules/core/components/HorizontalResize'
+import { fieldValuesAreEqualInObjects } from '@jadawel/modules/database/utils/groupBy'
 
 export default {
   name: 'GridViewSection',

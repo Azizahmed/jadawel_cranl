@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ApplicationService from '@baserow/modules/core/services/application'
-import { populateApplication } from '@baserow/modules/core/store/application'
-import TemplateSidebar from '@baserow/modules/core/components/template/TemplateSidebar'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ApplicationService from '@jadawel/modules/core/services/application'
+import { populateApplication } from '@jadawel/modules/core/store/application'
+import TemplateSidebar from '@jadawel/modules/core/components/template/TemplateSidebar'
 
 export default {
   name: 'TemplatePreview',

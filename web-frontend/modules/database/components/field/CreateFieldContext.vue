@@ -50,10 +50,10 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import FieldForm from '@baserow/modules/database/components/field/FieldForm'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { createNewUndoRedoActionGroupId } from '@baserow/modules/database/utils/action'
+import context from '@jadawel/modules/core/mixins/context'
+import FieldForm from '@jadawel/modules/database/components/field/FieldForm'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { createNewUndoRedoActionGroupId } from '@jadawel/modules/database/utils/action'
 
 export default {
   name: 'CreateFieldContext',

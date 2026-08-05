@@ -5,8 +5,8 @@ import {
   ensureObject,
   ensureBoolean,
   ensureArray,
-} from '@baserow/modules/core/utils/validator'
-import moment from '@baserow/modules/core/moment'
+} from '@jadawel/modules/core/utils/validator'
+import moment from '@jadawel/modules/core/moment'
 
 export class BaserowRuntimeFormulaArgumentType {
   constructor({ optional = false } = {}) {

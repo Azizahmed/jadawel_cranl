@@ -33,9 +33,9 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import modal from '@baserow/modules/core/mixins/modal'
+import modal from '@jadawel/modules/core/mixins/modal'
 
-import PasswordSettings from '@baserow/modules/core/components/settings/PasswordSettings'
+import PasswordSettings from '@jadawel/modules/core/components/settings/PasswordSettings'
 
 export default {
   name: 'SettingsModal',

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'EditableViewName',

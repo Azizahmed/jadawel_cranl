@@ -92,9 +92,9 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 import { mapGetters } from 'vuex'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

@@ -66,12 +66,12 @@
 <script>
 import _ from 'lodash'
 
-import { clone } from '@baserow/modules/core/utils/object'
-import { clamp } from '@baserow/modules/core/utils/number'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { clamp } from '@jadawel/modules/core/utils/number'
 import {
   conversionsMap,
   isValidHexColor,
-} from '@baserow/modules/core/utils/colors'
+} from '@jadawel/modules/core/utils/colors'
 
 export const MOVE_EVENT = {
   COLOR: 'color',

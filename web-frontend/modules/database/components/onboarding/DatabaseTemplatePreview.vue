@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import TemplatePreview from '@baserow/modules/core/components/template/TemplatePreview'
-import { DatabaseOnboardingType } from '@baserow/modules/database/onboardingTypes'
+import TemplatePreview from '@jadawel/modules/core/components/template/TemplatePreview'
+import { DatabaseOnboardingType } from '@jadawel/modules/database/onboardingTypes'
 
 export default {
   name: 'DatabaseTemplatePreview',

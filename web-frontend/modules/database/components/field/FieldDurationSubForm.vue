@@ -23,9 +23,9 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { DURATION_FORMATS } from '@baserow/modules/database/utils/duration'
-import form from '@baserow/modules/core/mixins/form'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
+import { DURATION_FORMATS } from '@jadawel/modules/database/utils/duration'
+import form from '@jadawel/modules/core/mixins/form'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
 
 export default {
   name: 'FieldDurationSubForm',

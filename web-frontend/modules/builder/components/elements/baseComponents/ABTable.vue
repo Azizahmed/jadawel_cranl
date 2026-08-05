@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { ORIENTATIONS } from '@baserow/modules/builder/enums'
-import BaserowTable from '@baserow/modules/builder/components/elements/components/BaserowTable'
+import { ORIENTATIONS } from '@jadawel/modules/builder/enums'
+import BaserowTable from '@jadawel/modules/builder/components/elements/components/BaserowTable'
 
 export default {
   name: 'ABTable',

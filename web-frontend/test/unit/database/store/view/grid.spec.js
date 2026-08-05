@@ -1,10 +1,10 @@
-import gridStore from '@baserow/modules/database/store/view/grid'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import gridStore from '@jadawel/modules/database/store/view/grid'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 import {
   EqualViewFilterType,
   ContainsViewFilterType,
-} from '@baserow/modules/database/viewFilters'
-import { clone } from '@baserow/modules/core/utils/object'
+} from '@jadawel/modules/database/viewFilters'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 import { createStore } from 'vuex'
 

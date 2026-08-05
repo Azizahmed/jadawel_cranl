@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import { WEBHOOK_EXCLUDE_METHOD_OPTIONS } from '@baserow/modules/integrations/core/enums'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
+import form from '@jadawel/modules/core/mixins/form'
+import { WEBHOOK_EXCLUDE_METHOD_OPTIONS } from '@jadawel/modules/integrations/core/enums'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
 
 export default {
   name: 'CoreHTTPTriggerServiceForm',

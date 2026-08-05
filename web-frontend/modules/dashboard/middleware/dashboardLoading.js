@@ -1,4 +1,4 @@
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
 
 /**
  * Middleware that changes the dashboard loading state to true before the route

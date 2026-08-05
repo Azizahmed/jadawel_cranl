@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import application from '@baserow/modules/core/mixins/application'
-import { getHumanPeriodAgoCount } from '@baserow/modules/core/utils/date'
-import { pluralKeys } from '@baserow/modules/core/utils/plural'
+import application from '@jadawel/modules/core/mixins/application'
+import { getHumanPeriodAgoCount } from '@jadawel/modules/core/utils/date'
+import { pluralKeys } from '@jadawel/modules/core/utils/plural'
 
 export default {
   mixins: [application],

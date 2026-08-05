@@ -38,10 +38,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import error from '@baserow/modules/core/mixins/error'
-import DomainCard from '@baserow/modules/builder/components/domain/DomainCard'
-import DomainForm from '@baserow/modules/builder/components/domain/DomainForm'
-import builderSetting from '@baserow/modules/builder/components/settings/mixins/builderSetting'
+import error from '@jadawel/modules/core/mixins/error'
+import DomainCard from '@jadawel/modules/builder/components/domain/DomainCard'
+import DomainForm from '@jadawel/modules/builder/components/domain/DomainForm'
+import builderSetting from '@jadawel/modules/builder/components/settings/mixins/builderSetting'
 
 export default {
   name: 'DomainsSettings',

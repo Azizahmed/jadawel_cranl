@@ -167,11 +167,11 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import themeConfigBlock from '@baserow/modules/builder/mixins/themeConfigBlock'
-import ThemeConfigBlockSection from '@baserow/modules/builder/components/theme/ThemeConfigBlockSection'
-import ResetButton from '@baserow/modules/builder/components/theme/ResetButton'
-import HorizontalAlignmentsSelector from '@baserow/modules/builder/components/HorizontalAlignmentsSelector'
-import { IMAGE_SOURCE_TYPES } from '@baserow/modules/builder/enums'
+import themeConfigBlock from '@jadawel/modules/builder/mixins/themeConfigBlock'
+import ThemeConfigBlockSection from '@jadawel/modules/builder/components/theme/ThemeConfigBlockSection'
+import ResetButton from '@jadawel/modules/builder/components/theme/ResetButton'
+import HorizontalAlignmentsSelector from '@jadawel/modules/builder/components/HorizontalAlignmentsSelector'
+import { IMAGE_SOURCE_TYPES } from '@jadawel/modules/builder/enums'
 import {
   integer,
   maxValue,

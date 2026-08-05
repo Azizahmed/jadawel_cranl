@@ -111,12 +111,12 @@
 
 <script>
 import { mapActions } from 'vuex'
-import error from '@baserow/modules/core/mixins/error'
-import { clone } from '@baserow/modules/core/utils/object'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import CreateUserSourceForm from '@baserow/modules/builder/components/userSource/CreateUserSourceForm'
-import UpdateUserSourceForm from '@baserow/modules/builder/components/userSource/UpdateUserSourceForm'
-import builderSetting from '@baserow/modules/builder/components/settings/mixins/builderSetting'
+import error from '@jadawel/modules/core/mixins/error'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import CreateUserSourceForm from '@jadawel/modules/builder/components/userSource/CreateUserSourceForm'
+import UpdateUserSourceForm from '@jadawel/modules/builder/components/userSource/UpdateUserSourceForm'
+import builderSetting from '@jadawel/modules/builder/components/settings/mixins/builderSetting'
 
 export default {
   name: 'UserSourceSettings',

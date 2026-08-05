@@ -47,9 +47,9 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ViewFieldsContext from '@baserow/modules/database/components/view/ViewFieldsContext'
-import ViewSearch from '@baserow/modules/database/components/view/ViewSearch'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ViewFieldsContext from '@jadawel/modules/database/components/view/ViewFieldsContext'
+import ViewSearch from '@jadawel/modules/database/components/view/ViewSearch'
 
 export default {
   name: 'GalleryViewHeader',

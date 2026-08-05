@@ -1,11 +1,11 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import { createFile } from '@baserow/test/fixtures/fields'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import { createFile } from '@jadawel/test/fixtures/fields'
 import {
   EqualViewFilterType,
   FilenameContainsViewFilterType,
   UserIsFilterType,
   UserIsNotFilterType,
-} from '@baserow/modules/database/viewFilters'
+} from '@jadawel/modules/database/viewFilters'
 
 describe('View Filter Tests', () => {
   let testApp = null

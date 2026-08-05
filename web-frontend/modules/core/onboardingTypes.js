@@ -1,7 +1,7 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 
-import UserPreview from '@baserow/modules/core/components/onboarding/UserPreview'
-import MoreStep from '@baserow/modules/core/components/onboarding/MoreStep'
+import UserPreview from '@jadawel/modules/core/components/onboarding/UserPreview'
+import MoreStep from '@jadawel/modules/core/components/onboarding/MoreStep'
 
 export class OnboardingType extends Registerable {
   /**

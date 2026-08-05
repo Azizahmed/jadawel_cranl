@@ -1,7 +1,7 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 import { firstBy } from 'thenby'
-import workspaceStore from '@baserow/modules/core/store/workspace'
-import { LastModifiedByFieldType } from '@baserow/modules/database/fieldTypes'
+import workspaceStore from '@jadawel/modules/core/store/workspace'
+import { LastModifiedByFieldType } from '@jadawel/modules/database/fieldTypes'
 
 const tableRows = [
   {

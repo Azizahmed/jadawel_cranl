@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import elementSidePanel from '@baserow/modules/builder/mixins/elementSidePanel'
+import elementSidePanel from '@jadawel/modules/builder/mixins/elementSidePanel'
 export default {
   name: 'StyleSidePanel',
   mixins: [elementSidePanel],

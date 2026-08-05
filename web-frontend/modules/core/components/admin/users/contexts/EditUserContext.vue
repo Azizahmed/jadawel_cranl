@@ -91,12 +91,12 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import context from '@baserow/modules/core/mixins/context'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ChangePasswordModal from '@baserow/modules/core/components/admin/users/modals/ChangeUserPasswordModal'
-import DeleteUserModal from '@baserow/modules/core/components/admin/users/modals/DeleteUserModal'
-import EditUserModal from '@baserow/modules/core/components/admin/users/modals/EditUserModal'
-import UserAdminService from '@baserow/modules/core/services/admin/users'
+import context from '@jadawel/modules/core/mixins/context'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ChangePasswordModal from '@jadawel/modules/core/components/admin/users/modals/ChangeUserPasswordModal'
+import DeleteUserModal from '@jadawel/modules/core/components/admin/users/modals/DeleteUserModal'
+import EditUserModal from '@jadawel/modules/core/components/admin/users/modals/EditUserModal'
+import UserAdminService from '@jadawel/modules/core/services/admin/users'
 
 export default {
   name: 'EditUserContext',

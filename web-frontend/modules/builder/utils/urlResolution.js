@@ -2,8 +2,8 @@ import { compile } from 'path-to-regexp'
 import {
   ALLOWED_LINK_PROTOCOLS,
   PAGE_PARAM_TYPE_VALIDATION_FUNCTIONS,
-} from '@baserow/modules/builder/enums'
-import { ensureString } from '@baserow/modules/core/utils/validator'
+} from '@jadawel/modules/builder/enums'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
 
 /**
  * Responsible for generating the data necessary to resolve an application builder

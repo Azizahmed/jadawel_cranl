@@ -191,7 +191,7 @@
 <script setup>
 import { ref } from 'vue'
 
-import SampleDataModal from '@baserow/modules/automation/components/sidebar/SampleDataModal'
+import SampleDataModal from '@jadawel/modules/automation/components/sidebar/SampleDataModal'
 
 const app = useNuxtApp()
 

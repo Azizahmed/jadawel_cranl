@@ -82,10 +82,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import ViewService from '@baserow/modules/database/services/view'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import ViewService from '@jadawel/modules/database/services/view'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'DefaultValuesModal',

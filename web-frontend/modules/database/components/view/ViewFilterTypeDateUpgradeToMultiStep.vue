@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import filterTypeDateInput from '@baserow/modules/database/mixins/filterTypeDateInput'
+import filterTypeDateInput from '@jadawel/modules/database/mixins/filterTypeDateInput'
 
 export default {
   name: 'ViewFilterTypeDateUpgradeToMultiStep',

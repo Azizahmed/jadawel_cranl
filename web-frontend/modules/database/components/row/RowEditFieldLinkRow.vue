@@ -80,13 +80,13 @@
 </template>
 
 <script>
-import { getPersistentFieldOptionsKey } from '@baserow/modules/database/utils/field'
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import arrayLoading from '@baserow/modules/database/mixins/arrayLoading'
-import linkRowField from '@baserow/modules/database/mixins/linkRowField'
-import SelectRowModal from '@baserow/modules/database/components/row/SelectRowModal'
-import ForeignRowEditModal from '@baserow/modules/database/components/row/ForeignRowEditModal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { getPersistentFieldOptionsKey } from '@jadawel/modules/database/utils/field'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import arrayLoading from '@jadawel/modules/database/mixins/arrayLoading'
+import linkRowField from '@jadawel/modules/database/mixins/linkRowField'
+import SelectRowModal from '@jadawel/modules/database/components/row/SelectRowModal'
+import ForeignRowEditModal from '@jadawel/modules/database/components/row/ForeignRowEditModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   components: { SelectRowModal, ForeignRowEditModal },

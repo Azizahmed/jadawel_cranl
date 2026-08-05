@@ -42,13 +42,13 @@
 import { useStore } from 'vuex'
 import useVuelidate from '@vuelidate/core'
 import { reactive, ref } from 'vue'
-import ReadOnlyForm from '@baserow/modules/core/components/ReadOnlyForm'
-import AutomationBuilderFormulaInput from '@baserow/modules/automation/components/AutomationBuilderFormulaInput'
-import SimulateDispatchNodeForm from '@baserow/modules/automation/components/form/SimulateDispatchNodeForm'
-import { DATA_PROVIDERS_ALLOWED_NODE_ACTIONS } from '@baserow/modules/automation/enums'
+import ReadOnlyForm from '@jadawel/modules/core/components/ReadOnlyForm'
+import AutomationBuilderFormulaInput from '@jadawel/modules/automation/components/AutomationBuilderFormulaInput'
+import SimulateDispatchNodeForm from '@jadawel/modules/automation/components/form/SimulateDispatchNodeForm'
+import { DATA_PROVIDERS_ALLOWED_NODE_ACTIONS } from '@jadawel/modules/automation/enums'
 import _ from 'lodash'
 import { helpers, maxLength } from '@vuelidate/validators'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 const store = useStore()
 

@@ -59,11 +59,11 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 import { ulid } from 'ulid'
-import ViewFieldConditionsForm from '@baserow/modules/database/components/view/ViewFieldConditionsForm'
-import { hasCompatibleFilterTypes } from '@baserow/modules/database/utils/field'
-import viewFilterTypes from '@baserow/modules/database/mixins/viewFilterTypes'
+import ViewFieldConditionsForm from '@jadawel/modules/database/components/view/ViewFieldConditionsForm'
+import { hasCompatibleFilterTypes } from '@jadawel/modules/database/utils/field'
+import viewFilterTypes from '@jadawel/modules/database/mixins/viewFilterTypes'
 
 export default {
   name: 'ViewFilterForm',

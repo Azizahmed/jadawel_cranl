@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
 
 export default {
   name: 'RowEditFieldFormViewEditRowLink',

@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import TableService from '@baserow/modules/database/services/table'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import { DATABASE_ACTION_SCOPES } from '@baserow/modules/database/utils/undoRedoConstants'
-import { generateHash } from '@baserow/modules/core/utils/hashing'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import TableService from '@jadawel/modules/database/services/table'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import { DATABASE_ACTION_SCOPES } from '@jadawel/modules/database/utils/undoRedoConstants'
+import { generateHash } from '@jadawel/modules/core/utils/hashing'
 
 export function populateTable(table) {
   return {

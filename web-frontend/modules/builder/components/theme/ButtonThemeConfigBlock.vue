@@ -385,16 +385,16 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import themeConfigBlock from '@baserow/modules/builder/mixins/themeConfigBlock'
-import ThemeConfigBlockSection from '@baserow/modules/builder/components/theme/ThemeConfigBlockSection'
-import ResetButton from '@baserow/modules/builder/components/theme/ResetButton'
-import HorizontalAlignmentsSelector from '@baserow/modules/builder/components/HorizontalAlignmentsSelector'
-import WidthSelector from '@baserow/modules/builder/components/WidthSelector'
-import FontFamilySelector from '@baserow/modules/builder/components/FontFamilySelector'
-import FontWeightSelector from '@baserow/modules/builder/components/FontWeightSelector'
-import PixelValueSelector from '@baserow/modules/builder/components/PixelValueSelector'
-import PaddingSelector from '@baserow/modules/builder/components/PaddingSelector'
-import { DEFAULT_FONT_SIZE_PX } from '@baserow/modules/builder/defaultStyles'
+import themeConfigBlock from '@jadawel/modules/builder/mixins/themeConfigBlock'
+import ThemeConfigBlockSection from '@jadawel/modules/builder/components/theme/ThemeConfigBlockSection'
+import ResetButton from '@jadawel/modules/builder/components/theme/ResetButton'
+import HorizontalAlignmentsSelector from '@jadawel/modules/builder/components/HorizontalAlignmentsSelector'
+import WidthSelector from '@jadawel/modules/builder/components/WidthSelector'
+import FontFamilySelector from '@jadawel/modules/builder/components/FontFamilySelector'
+import FontWeightSelector from '@jadawel/modules/builder/components/FontWeightSelector'
+import PixelValueSelector from '@jadawel/modules/builder/components/PixelValueSelector'
+import PaddingSelector from '@jadawel/modules/builder/components/PaddingSelector'
+import { DEFAULT_FONT_SIZE_PX } from '@jadawel/modules/builder/defaultStyles'
 import {
   required,
   integer,

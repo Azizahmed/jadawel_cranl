@@ -1,4 +1,4 @@
-import FormTextarea from '@baserow/modules/core/components/FormTextarea'
+import FormTextarea from '@jadawel/modules/core/components/FormTextarea'
 
 export default {
   title: 'Jadawel/Form Elements/Textarea',

@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 import {
   filterVisibleFieldsFunction,
   sortFieldsByOrderAndIdFunction,
-} from '@baserow/modules/database/utils/view'
-import { getInlinePointerPosition } from '@baserow/modules/database/utils/gridViewDrag'
+} from '@jadawel/modules/database/utils/view'
+import { getInlinePointerPosition } from '@jadawel/modules/database/utils/gridViewDrag'
 
 const MAX_FROZEN_COLUMNS = 4
 const HANDLE_PADDING = 20

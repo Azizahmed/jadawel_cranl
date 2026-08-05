@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import WebhookModal from '@baserow/modules/database/components/webhook/WebhookModal'
+import WebhookModal from '@jadawel/modules/database/components/webhook/WebhookModal'
 
 export default {
   components: { WebhookModal },

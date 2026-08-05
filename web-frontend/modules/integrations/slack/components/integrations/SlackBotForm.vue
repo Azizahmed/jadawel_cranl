@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 

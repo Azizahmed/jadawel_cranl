@@ -2,13 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@baserow/*": ["./*"]
+      "@jadawel/*": ["./*"]
     }
   },
   "resolve": {
     "extensions": [".js", ".vue", ".json"],
     "alias": {
-      "@baserow": "."
+      "@jadawel": "."
     }
   },
   "exclude": ["node_modules", ".nuxt"]

@@ -1,4 +1,4 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 
 /**
  * The name plugin might be a bit confusing because you also have Nuxt plugins, but

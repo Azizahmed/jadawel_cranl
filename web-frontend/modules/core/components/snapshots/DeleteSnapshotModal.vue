@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import Modal from '@baserow/modules/core/components/Modal'
-import SnapshotsService from '@baserow/modules/core/services/snapshots'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import Modal from '@jadawel/modules/core/components/Modal'
+import SnapshotsService from '@jadawel/modules/core/services/snapshots'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   components: {

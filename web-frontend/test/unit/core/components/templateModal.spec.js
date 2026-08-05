@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { shallowMount } from '@vue/test-utils'
 
-import TemplateModal from '@baserow/modules/core/components/template/TemplateModal'
+import TemplateModal from '@jadawel/modules/core/components/template/TemplateModal'
 
 describe('TemplateModal', () => {
   const mountComponent = () => {

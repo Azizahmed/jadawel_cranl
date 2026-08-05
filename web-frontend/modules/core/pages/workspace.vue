@@ -96,9 +96,9 @@
           </ul>
           <div v-else class="dashboard__no-application">
             <img
-              src="@baserow/modules/core/assets/images/empty_workspace_illustration.png"
+              src="@jadawel/modules/core/assets/images/empty_workspace_illustration.png"
               srcset="
-                @baserow/modules/core/assets/images/empty_workspace_illustration@2x.png 2x
+                @jadawel/modules/core/assets/images/empty_workspace_illustration@2x.png 2x
               "
             />
             <h4>{{ $t('dashboard.emptyWorkspace') }}</h4>
@@ -210,17 +210,17 @@ import { ref, computed, unref, watchEffect } from 'vue'
 import { useRoute, useRouter, useNuxtApp, createError } from '#app'
 import { useHead, useAsyncData } from '#imports'
 
-import WorkspaceContext from '@baserow/modules/core/components/workspace/WorkspaceContext'
-import CreateApplicationContext from '@baserow/modules/core/components/application/CreateApplicationContext'
-import DashboardApplication from '@baserow/modules/core/components/dashboard/DashboardApplication'
-import WorkspaceInvitation from '@baserow/modules/core/components/workspace/WorkspaceInvitation'
-import editWorkspace from '@baserow/modules/core/mixins/editWorkspace'
-import DashboardVerifyEmail from '@baserow/modules/core/components/dashboard/DashboardVerifyEmail'
-import DashboardOverview from '@baserow/modules/core/components/dashboard/DashboardOverview'
-import DashboardTemplateCard from '@baserow/modules/core/components/dashboard/DashboardTemplateCard'
-import TemplateModal from '@baserow/modules/core/components/template/TemplateModal'
-import DatabaseStatsService from '@baserow/modules/arabase/services/databaseStats'
-import WorkspaceActivityService from '@baserow/modules/arabase/services/workspaceActivity'
+import WorkspaceContext from '@jadawel/modules/core/components/workspace/WorkspaceContext'
+import CreateApplicationContext from '@jadawel/modules/core/components/application/CreateApplicationContext'
+import DashboardApplication from '@jadawel/modules/core/components/dashboard/DashboardApplication'
+import WorkspaceInvitation from '@jadawel/modules/core/components/workspace/WorkspaceInvitation'
+import editWorkspace from '@jadawel/modules/core/mixins/editWorkspace'
+import DashboardVerifyEmail from '@jadawel/modules/core/components/dashboard/DashboardVerifyEmail'
+import DashboardOverview from '@jadawel/modules/core/components/dashboard/DashboardOverview'
+import DashboardTemplateCard from '@jadawel/modules/core/components/dashboard/DashboardTemplateCard'
+import TemplateModal from '@jadawel/modules/core/components/template/TemplateModal'
+import DatabaseStatsService from '@jadawel/modules/arabase/services/databaseStats'
+import WorkspaceActivityService from '@jadawel/modules/arabase/services/workspaceActivity'
 
 definePageMeta({
   layout: 'app',

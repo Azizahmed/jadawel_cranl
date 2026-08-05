@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import { mimetype2icon } from '@baserow/modules/core/utils/fileTypeToIcon'
-import SingleFileArrayModal from '@baserow/modules/database/components/view/grid/fields/SingleFileArrayModal'
-import gridField from '@baserow/modules/database/mixins/gridField'
+import { mimetype2icon } from '@jadawel/modules/core/utils/fileTypeToIcon'
+import SingleFileArrayModal from '@jadawel/modules/database/components/view/grid/fields/SingleFileArrayModal'
+import gridField from '@jadawel/modules/database/mixins/gridField'
 
 export default {
   name: 'GridViewSingleFile',

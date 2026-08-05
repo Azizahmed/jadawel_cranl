@@ -1,5 +1,5 @@
-import Paginator from '@baserow/modules/core/components/Paginator.vue'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import Paginator from '@jadawel/modules/core/components/Paginator.vue'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('Paginator.vue', () => {
   let testApp = null

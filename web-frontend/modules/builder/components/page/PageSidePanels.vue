@@ -38,7 +38,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import EmptySidePanelState from '@baserow/modules/builder/components/page/sidePanels/EmptySidePanelState'
+import EmptySidePanelState from '@jadawel/modules/builder/components/page/sidePanels/EmptySidePanelState'
 
 export default {
   name: 'PageSidePanels',

@@ -124,12 +124,12 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import IntegrationDropdown from '@baserow/modules/core/components/integrations/IntegrationDropdown'
-import Checkbox from '@baserow/modules/core/components/Checkbox'
-import { SMTPIntegrationType } from '@baserow/modules/integrations/core/integrationTypes'
-import { BASEROW_FORMULA_MODES } from '@baserow/modules/core/formula/constants'
+import form from '@jadawel/modules/core/mixins/form'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown'
+import Checkbox from '@jadawel/modules/core/components/Checkbox'
+import { SMTPIntegrationType } from '@jadawel/modules/integrations/core/integrationTypes'
+import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'CoreSMTPEmailServiceForm',

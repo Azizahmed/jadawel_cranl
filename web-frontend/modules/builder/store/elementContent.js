@@ -1,6 +1,6 @@
-import DataSourceService from '@baserow/modules/builder/services/dataSource'
-import PublishedBuilderService from '@baserow/modules/builder/services/publishedBuilder'
-import { rangeDiff } from '@baserow/modules/core/utils/range'
+import DataSourceService from '@jadawel/modules/builder/services/dataSource'
+import PublishedBuilderService from '@jadawel/modules/builder/services/publishedBuilder'
+import { rangeDiff } from '@jadawel/modules/core/utils/range'
 import axios from 'axios'
 
 const state = {}

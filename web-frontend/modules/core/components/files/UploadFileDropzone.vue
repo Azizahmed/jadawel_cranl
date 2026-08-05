@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { getFilesFromEvent } from '@baserow/modules/core/utils/file'
+import { getFilesFromEvent } from '@jadawel/modules/core/utils/file'
 
 export default {
   name: 'UploadFileDropzone',

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
+import form from '@jadawel/modules/core/mixins/form'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
 import { useVuelidate } from '@vuelidate/core'
 
 export default {

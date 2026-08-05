@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import EnableWithQRCode from '@baserow/modules/core/components/settings/twoFactorAuth/EnableWithQRCode'
-import SaveBackupCode from '@baserow/modules/core/components/settings/twoFactorAuth/SaveBackupCode'
+import EnableWithQRCode from '@jadawel/modules/core/components/settings/twoFactorAuth/EnableWithQRCode'
+import SaveBackupCode from '@jadawel/modules/core/components/settings/twoFactorAuth/SaveBackupCode'
 
 export default {
   name: 'EnableTOTP',

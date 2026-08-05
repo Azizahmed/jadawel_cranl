@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import Rating from '@baserow/modules/database/components/Rating'
-import formElement from '@baserow/modules/builder/mixins/formElement'
-import { ensureString } from '@baserow/modules/core/utils/validator'
+import Rating from '@jadawel/modules/database/components/Rating'
+import formElement from '@jadawel/modules/builder/mixins/formElement'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 

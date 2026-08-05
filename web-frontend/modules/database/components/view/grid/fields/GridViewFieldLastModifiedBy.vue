@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import collaboratorName from '@baserow/modules/database/mixins/collaboratorName'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import collaboratorName from '@jadawel/modules/database/mixins/collaboratorName'
 
 export default {
   mixins: [gridField, collaboratorName],

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { showError, useRuntimeConfig } from '#imports'
 
-import { upperCaseFirst } from '@baserow/modules/core/utils/string'
-import { makeRefreshAuthInterceptor } from '@baserow/modules/core/plugins/clientAuthRefresh'
+import { upperCaseFirst } from '@jadawel/modules/core/utils/string'
+import { makeRefreshAuthInterceptor } from '@jadawel/modules/core/plugins/clientAuthRefresh'
 
 export class ResponseErrorMessage {
   constructor(title, message) {

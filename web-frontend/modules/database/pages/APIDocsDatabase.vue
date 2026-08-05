@@ -153,39 +153,39 @@
 </template>
 
 <script setup>
-import { isElement } from '@baserow/modules/core/utils/dom'
-import APIDocsSelectDatabase from '@baserow/modules/database/components/docs/APIDocsSelectDatabase'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import FieldService from '@baserow/modules/database/services/field'
+import { isElement } from '@jadawel/modules/core/utils/dom'
+import APIDocsSelectDatabase from '@jadawel/modules/database/components/docs/APIDocsSelectDatabase'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import FieldService from '@jadawel/modules/database/services/field'
 
 // All sections
-import APIDocsIntro from '@baserow/modules/database/components/docs/sections/APIDocsIntro'
-import APIDocsAuth from '@baserow/modules/database/components/docs/sections/APIDocsAuth'
-import APIDocsTableFields from '@baserow/modules/database/components/docs/sections/APIDocsTableFields'
-import APIDocsTableListFields from '@baserow/modules/database/components/docs/sections/APIDocsTableListFields'
-import APIDocsTableListRows from '@baserow/modules/database/components/docs/sections/APIDocsTableListRows'
-import APIDocsTableGetRow from '@baserow/modules/database/components/docs/sections/APIDocsTableGetRow'
-import APIDocsTableCreateRow from '@baserow/modules/database/components/docs/sections/APIDocsTableCreateRow'
-import APIDocsTableUpdateRow from '@baserow/modules/database/components/docs/sections/APIDocsTableUpdateRow'
-import APIDocsTableMoveRow from '@baserow/modules/database/components/docs/sections/APIDocsTableMoveRow'
-import APIDocsTableDeleteRow from '@baserow/modules/database/components/docs/sections/APIDocsTableDeleteRow'
-import APIDocsUploadFile from '@baserow/modules/database/components/docs/sections/APIDocsUploadFile'
-import APIDocsUploadFileViaURL from '@baserow/modules/database/components/docs/sections/APIDocsUploadFileViaURL'
-import APIDocsListTables from '@baserow/modules/database/components/docs/sections/APIDocsListTables'
-import APIDocsFilters from '@baserow/modules/database/components/docs/sections/APIDocsFilters'
-import APIDocsErrors from '@baserow/modules/database/components/docs/sections/APIDocsErrors'
-import APIDocsMenu from '@baserow/modules/database/components/docs/sections/APIDocsMenu'
-import APIDocsTablePasswordFieldAuthentication from '@baserow/modules/database/components/docs/sections/APIDocsPasswordFieldAuthentication.vue'
+import APIDocsIntro from '@jadawel/modules/database/components/docs/sections/APIDocsIntro'
+import APIDocsAuth from '@jadawel/modules/database/components/docs/sections/APIDocsAuth'
+import APIDocsTableFields from '@jadawel/modules/database/components/docs/sections/APIDocsTableFields'
+import APIDocsTableListFields from '@jadawel/modules/database/components/docs/sections/APIDocsTableListFields'
+import APIDocsTableListRows from '@jadawel/modules/database/components/docs/sections/APIDocsTableListRows'
+import APIDocsTableGetRow from '@jadawel/modules/database/components/docs/sections/APIDocsTableGetRow'
+import APIDocsTableCreateRow from '@jadawel/modules/database/components/docs/sections/APIDocsTableCreateRow'
+import APIDocsTableUpdateRow from '@jadawel/modules/database/components/docs/sections/APIDocsTableUpdateRow'
+import APIDocsTableMoveRow from '@jadawel/modules/database/components/docs/sections/APIDocsTableMoveRow'
+import APIDocsTableDeleteRow from '@jadawel/modules/database/components/docs/sections/APIDocsTableDeleteRow'
+import APIDocsUploadFile from '@jadawel/modules/database/components/docs/sections/APIDocsUploadFile'
+import APIDocsUploadFileViaURL from '@jadawel/modules/database/components/docs/sections/APIDocsUploadFileViaURL'
+import APIDocsListTables from '@jadawel/modules/database/components/docs/sections/APIDocsListTables'
+import APIDocsFilters from '@jadawel/modules/database/components/docs/sections/APIDocsFilters'
+import APIDocsErrors from '@jadawel/modules/database/components/docs/sections/APIDocsErrors'
+import APIDocsMenu from '@jadawel/modules/database/components/docs/sections/APIDocsMenu'
+import APIDocsTablePasswordFieldAuthentication from '@jadawel/modules/database/components/docs/sections/APIDocsPasswordFieldAuthentication.vue'
 
 // Re-use the FileFieldType docs response example.
 import {
   FileFieldType,
   PasswordFieldType,
-} from '@baserow/modules/database/fieldTypes'
+} from '@jadawel/modules/database/fieldTypes'
 
 import { computed, onMounted, onBeforeUnmount, useTemplateRef } from 'vue'
 import { useHead } from '#imports'
-import SettingsModal from '@baserow/modules/core/components/settings/SettingsModal'
+import SettingsModal from '@jadawel/modules/core/components/settings/SettingsModal'
 
 import { useRoute, useRouter } from 'vue-router'
 

@@ -22,7 +22,7 @@ const require = createRequire(import.meta.url)
 export default defineNuxtModule({
   meta: {
     // Usually the npm package name of your module
-    name: '@baserow/core',
+    name: '@jadawel/core',
     // The key in `nuxt.config` that holds your module options
     configKey: 'core',
     // Compatibility constraints
@@ -43,7 +43,7 @@ export default defineNuxtModule({
     nuxt.options.app.head = _.merge({}, head, nuxt.options.app.head)
 
     // Alias
-    nuxt.options.alias['@baserow'] = resolve('../../')
+    nuxt.options.alias['@jadawel'] = resolve('../../')
 
     // Add routes
     extendPages((pages) => {
@@ -60,29 +60,29 @@ export default defineNuxtModule({
         buildDate: new Date().toISOString(),
         gitCommit: process.env.GITHUB_SHA?.slice(0, 7),
         downloadFileViaXhr: '0',
-        baserowDisablePublicUrlCheck: false,
+        jadawelDisablePublicUrlCheck: false,
         publicBackendUrl: 'http://localhost:8000',
         publicWebFrontendUrl: 'http://localhost:3000',
         initialTableDataLimit: null,
         hoursUntilTrashPermanentlyDeleted: 24 * 3,
         disableAnonymousPublicViewWsConnections: '',
-        baserowMaxImportFileSizeMb: 512,
+        jadawelMaxImportFileSizeMb: 512,
         featureFlags: '',
-        baserowDisableGoogleDocsFilePreview: '',
-        baserowMaxSnapshotsPerGroup: -1,
-        baserowFrontendSameSiteCookie: 'lax',
-        baserowFrontendJobsPollingTimeoutMs: 2000,
+        jadawelDisableGoogleDocsFilePreview: '',
+        jadawelMaxSnapshotsPerGroup: -1,
+        jadawelFrontendSameSiteCookie: 'lax',
+        jadawelFrontendJobsPollingTimeoutMs: 2000,
         posthogProjectApiKey: '',
         posthogHost: '',
-        baserowEmbeddedShareUrl: 'http://localhost:3000',
-        baserowUsePgFulltextSearch: 'true',
+        jadawelEmbeddedShareUrl: 'http://localhost:3000',
+        jadawelUsePgFulltextSearch: 'true',
         integrationLocalBaserowPageSizeLimit: 200,
         extraPublicWebFrontendHostnames: [],
-        baserowBuilderDomains: [],
-        baserowRowPageSizeLimit: 200,
-        baserowUniqueRowValuesSizeLimit: 100,
-        baserowDisableSupport: '',
-        baserowIntegrationsPeriodicMinuteMin: '1',
+        jadawelBuilderDomains: [],
+        jadawelRowPageSizeLimit: 200,
+        jadawelUniqueRowValuesSizeLimit: 100,
+        jadawelDisableSupport: '',
+        jadawelIntegrationsPeriodicMinuteMin: '1',
         mediaUrl: 'http://localhost:4000/media/',
         sentryDsn: '',
         sentryEnvironment: '',

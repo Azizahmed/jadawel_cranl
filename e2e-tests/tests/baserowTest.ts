@@ -39,7 +39,7 @@ export const test = base.extend<BaserowFixtures>({
 
     await page.evaluate(() => {
       // Prevent the AI panel to automatically open in all tests
-      localStorage.setItem("baserow.rightSidebarOpen", "false");
+      localStorage.setItem("jadawel.rightSidebarOpen", "false");
     });
 
     // Use the fixture value in the test.

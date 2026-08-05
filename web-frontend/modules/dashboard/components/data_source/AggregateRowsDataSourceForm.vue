@@ -121,9 +121,9 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 import { required } from '@vuelidate/validators'
-import tableFields from '@baserow/modules/database/mixins/tableFields'
+import tableFields from '@jadawel/modules/database/mixins/tableFields'
 
 const includes = (array) => (value) => {
   return array.includes(value)

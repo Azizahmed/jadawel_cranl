@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import error from '@baserow/modules/core/mixins/error'
-import BuilderGeneralSettingsForm from '@baserow/modules/builder/components/form/BuilderGeneralSettingsForm'
-import { isSubObject } from '@baserow/modules/core/utils/object'
+import error from '@jadawel/modules/core/mixins/error'
+import BuilderGeneralSettingsForm from '@jadawel/modules/builder/components/form/BuilderGeneralSettingsForm'
+import { isSubObject } from '@jadawel/modules/core/utils/object'
 
 export default {
   name: 'GeneralSettings',

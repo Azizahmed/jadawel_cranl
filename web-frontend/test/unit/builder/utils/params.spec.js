@@ -1,4 +1,4 @@
-import { pathParametersInError } from '@baserow/modules/builder/utils/params'
+import { pathParametersInError } from '@jadawel/modules/builder/utils/params'
 
 describe('Builder parameter util tests', () => {
   describe('pathParametersInError', () => {

@@ -1,6 +1,6 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-import ProgressWidget from '@baserow/modules/arabase/dashboard/components/widget/ProgressWidget'
+import ProgressWidget from '@jadawel/modules/arabase/dashboard/components/widget/ProgressWidget'
 
 describe('ProgressWidget', () => {
   const dashboard = { id: 1, workspace: { id: 1 } }

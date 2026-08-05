@@ -1,8 +1,8 @@
-import addPublicAuthTokenHeader from '@baserow/modules/database/utils/publicView'
+import addPublicAuthTokenHeader from '@jadawel/modules/database/utils/publicView'
 import {
   LINKED_ITEMS_DEFAULT_LOAD_COUNT,
   LINKED_ITEMS_LOAD_ALL,
-} from '@baserow/modules/database/constants'
+} from '@jadawel/modules/database/constants'
 
 export default (client) => {
   return {

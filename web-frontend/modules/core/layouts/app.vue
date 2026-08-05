@@ -74,19 +74,19 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
-import Toasts from '@baserow/modules/core/components/toasts/Toasts.vue'
-import Sidebar from '@baserow/modules/core/components/sidebar/Sidebar.vue'
-import RightSidebar from '@baserow/modules/core/components/sidebar/RightSidebar.vue'
-import HorizontalResize from '@baserow/modules/core/components/HorizontalResize.vue'
-import GuidedTour from '@baserow/modules/core/components/guidedTour/GuidedTour.vue'
-import WorkspaceSearchModal from '@baserow/modules/core/components/workspace/WorkspaceSearchModal.vue'
-import AppUtilities from '@baserow/modules/core/components/AppUtilities.vue'
-import { CORE_ACTION_SCOPES } from '@baserow/modules/core/utils/undoRedoConstants'
+import Toasts from '@jadawel/modules/core/components/toasts/Toasts.vue'
+import Sidebar from '@jadawel/modules/core/components/sidebar/Sidebar.vue'
+import RightSidebar from '@jadawel/modules/core/components/sidebar/RightSidebar.vue'
+import HorizontalResize from '@jadawel/modules/core/components/HorizontalResize.vue'
+import GuidedTour from '@jadawel/modules/core/components/guidedTour/GuidedTour.vue'
+import WorkspaceSearchModal from '@jadawel/modules/core/components/workspace/WorkspaceSearchModal.vue'
+import AppUtilities from '@jadawel/modules/core/components/AppUtilities.vue'
+import { CORE_ACTION_SCOPES } from '@jadawel/modules/core/utils/undoRedoConstants'
 import {
   isOsSpecificModifierPressed,
   keyboardShortcutsToPriorityEventBus,
-} from '@baserow/modules/core/utils/events'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+} from '@jadawel/modules/core/utils/events'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 const store = useStore()
 const { $registry, $priorityBus, $realtime, $bus } = useNuxtApp()
@@ -129,7 +129,7 @@ function resizeCol3(v) {
 
 function toggleRightSidebar(value = !col3Visible.value) {
   col3Visible.value = value
-  localStorage.setItem('baserow.rightSidebarOpen', col3Visible.value)
+  localStorage.setItem('jadawel.rightSidebarOpen', col3Visible.value)
 }
 
 function keyDown(event) {

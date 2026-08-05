@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
+import form from '@jadawel/modules/core/mixins/form'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'PageSettingsQueryParamsFormElement',

@@ -52,12 +52,12 @@
 </template>
 
 <script>
-import DataSourceForm from '@baserow/modules/builder/components/dataSource/DataSourceForm'
+import DataSourceForm from '@jadawel/modules/builder/components/dataSource/DataSourceForm'
 import { mapActions } from 'vuex'
 import _ from 'lodash'
-import error from '@baserow/modules/core/mixins/error'
-import modal from '@baserow/modules/core/mixins/modal'
-import { ELEMENT_EVENTS } from '@baserow/modules/builder/enums'
+import error from '@jadawel/modules/core/mixins/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import { ELEMENT_EVENTS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'DataSourceCreateEditModal',

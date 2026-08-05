@@ -1,6 +1,6 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import UploadFileUserFileUpload from '@baserow/modules/core/components/files/UploadFileUserFileUpload'
-import UploadViaURLUserFileUpload from '@baserow/modules/core/components/files/UploadViaURLUserFileUpload'
+import { Registerable } from '@jadawel/modules/core/registry'
+import UploadFileUserFileUpload from '@jadawel/modules/core/components/files/UploadFileUserFileUpload'
+import UploadViaURLUserFileUpload from '@jadawel/modules/core/components/files/UploadViaURLUserFileUpload'
 
 /**
  * Upload file types will be added to the user files modal. Each upload should be able

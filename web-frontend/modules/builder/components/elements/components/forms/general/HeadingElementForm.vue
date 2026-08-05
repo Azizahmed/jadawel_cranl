@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import elementForm from '@baserow/modules/builder/mixins/elementForm'
-import CustomStyleButton from '@baserow/modules/builder/components/elements/components/forms/style/CustomStyleButton'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import elementForm from '@jadawel/modules/builder/mixins/elementForm'
+import CustomStyleButton from '@jadawel/modules/builder/components/elements/components/forms/style/CustomStyleButton'
 
 export default {
   name: 'HeaderElementForm',

@@ -4,7 +4,7 @@
 import {
   RESERVED_BASEROW_FIELD_NAMES,
   MAX_FIELD_NAME_LENGTH,
-} from '@baserow/modules/database/utils/constants'
+} from '@jadawel/modules/database/utils/constants'
 
 const IMPORT_PREVIEW_MAX_ROW_COUNT = 6
 

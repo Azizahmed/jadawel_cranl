@@ -129,7 +129,7 @@
 
 <script>
 import { BubbleMenu } from '@tiptap/vue-3/menus'
-import { isElement } from '@baserow/modules/core/utils/dom'
+import { isElement } from '@jadawel/modules/core/utils/dom'
 
 export default {
   name: 'RichTextEditorBubbleMenu',

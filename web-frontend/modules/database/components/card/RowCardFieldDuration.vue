@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import durationField from '@baserow/modules/database/mixins/durationField'
+import durationField from '@jadawel/modules/database/mixins/durationField'
 
 export default {
   height: 16,

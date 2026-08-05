@@ -102,12 +102,12 @@
 </template>
 
 <script>
-import TableForm from '@baserow/modules/database/components/table/TableForm'
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
-import DataSyncService from '@baserow/modules/database/services/dataSync'
-import { clone } from '@baserow/modules/core/utils/object'
-import dataSync from '@baserow/modules/database/mixins/dataSync'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import TableForm from '@jadawel/modules/database/components/table/TableForm'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
+import DataSyncService from '@jadawel/modules/database/services/dataSync'
+import { clone } from '@jadawel/modules/core/utils/object'
+import dataSync from '@jadawel/modules/database/mixins/dataSync'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

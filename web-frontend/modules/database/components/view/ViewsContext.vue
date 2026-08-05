@@ -84,12 +84,12 @@
 <script>
 import { mapState } from 'vuex'
 
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { escapeRegExp } from '@baserow/modules/core/utils/string'
-import context from '@baserow/modules/core/mixins/context'
-import dropdownHelpers from '@baserow/modules/core/mixins/dropdownHelpers'
-import ViewsContextItem from '@baserow/modules/database/components/view/ViewsContextItem'
-import CreateViewLink from '@baserow/modules/database/components/view/CreateViewLink'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { escapeRegExp } from '@jadawel/modules/core/utils/string'
+import context from '@jadawel/modules/core/mixins/context'
+import dropdownHelpers from '@jadawel/modules/core/mixins/dropdownHelpers'
+import ViewsContextItem from '@jadawel/modules/database/components/view/ViewsContextItem'
+import CreateViewLink from '@jadawel/modules/database/components/view/CreateViewLink'
 
 export default {
   name: 'ViewsContext',

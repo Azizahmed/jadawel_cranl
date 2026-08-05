@@ -1,4 +1,4 @@
-import { uuid } from '@baserow/modules/core/utils/string'
+import { uuid } from '@jadawel/modules/core/utils/string'
 
 export class Task {
   constructor(uid, func) {

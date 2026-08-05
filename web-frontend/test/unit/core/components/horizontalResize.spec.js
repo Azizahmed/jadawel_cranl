@@ -1,5 +1,5 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import HorizontalResize from '@baserow/modules/core/components/HorizontalResize.vue'
+import HorizontalResize from '@jadawel/modules/core/components/HorizontalResize.vue'
 
 describe('HorizontalResize', () => {
   const mountComponent = ({ props = {} }) => {

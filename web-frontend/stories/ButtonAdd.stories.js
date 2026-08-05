@@ -1,4 +1,4 @@
-import ButtonAdd from '@baserow/modules/core/components/ButtonAdd'
+import ButtonAdd from '@jadawel/modules/core/components/ButtonAdd'
 
 export default {
   title: 'Jadawel/Buttons/ButtonAdd',

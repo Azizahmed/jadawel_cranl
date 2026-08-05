@@ -1,11 +1,11 @@
 import {
   VALID_FORMULA_VALIDATION_TESTS,
   INVALID_FORMULA_VALIDATION_TESTS,
-} from '@baserow_test_cases/formula_visitor_cases'
-import { TestApp } from '@baserow/test/helpers/testApp'
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
-import { isFormulaValid } from '@baserow/modules/core/formula'
-import { RuntimeFunctionCollection } from '@baserow/modules/core/functionCollection'
+} from '@jadawel_test_cases/formula_visitor_cases'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
+import { isFormulaValid } from '@jadawel/modules/core/formula'
+import { RuntimeFunctionCollection } from '@jadawel/modules/core/functionCollection'
 
 class TestDataProviderType extends DataProviderType {
   static getType() {

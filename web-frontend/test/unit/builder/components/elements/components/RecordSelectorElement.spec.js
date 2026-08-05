@@ -1,11 +1,11 @@
-import { MockServer } from '@baserow/test/fixtures/mockServer'
+import { MockServer } from '@jadawel/test/fixtures/mockServer'
 import MockAdapter from 'axios-mock-adapter'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
-import RecordSelectorElement from '@baserow/modules/builder/components/elements/components/RecordSelectorElement.vue'
+import RecordSelectorElement from '@jadawel/modules/builder/components/elements/components/RecordSelectorElement.vue'
 import flushPromises from 'flush-promises'
 
 // Ignore `notifyIf` and `notifyIf404` function calls
-vi.mock('@baserow/modules/core/utils/error.js')
+vi.mock('@jadawel/modules/core/utils/error.js')
 
 describe('RecordSelectorElement', () => {
   let testApp = null

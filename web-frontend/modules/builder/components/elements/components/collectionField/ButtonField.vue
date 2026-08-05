@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import collectionField from '@baserow/modules/builder/mixins/collectionField'
+import collectionField from '@jadawel/modules/builder/mixins/collectionField'
 
 export default {
   name: 'ButtonField',

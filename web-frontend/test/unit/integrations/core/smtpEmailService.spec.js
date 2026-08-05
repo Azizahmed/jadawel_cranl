@@ -2,7 +2,7 @@ import { defineComponent, nextTick } from 'vue'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { vi } from 'vitest'
 
-import CoreSMTPEmailServiceForm from '@baserow/modules/integrations/core/components/services/CoreSMTPEmailServiceForm'
+import CoreSMTPEmailServiceForm from '@jadawel/modules/integrations/core/components/services/CoreSMTPEmailServiceForm'
 import { flushPromises } from '@vue/test-utils'
 
 const FormGroupStub = defineComponent({

@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import dataSync from '@baserow/modules/database/mixins/dataSync'
-import DataSyncService from '@baserow/modules/database/services/dataSync'
-import TableForm from '@baserow/modules/database/components/table/TableForm.vue'
+import dataSync from '@jadawel/modules/database/mixins/dataSync'
+import DataSyncService from '@jadawel/modules/database/services/dataSync'
+import TableForm from '@jadawel/modules/database/components/table/TableForm.vue'
 
 export default {
   name: 'ConfigureDataSyncSettings',

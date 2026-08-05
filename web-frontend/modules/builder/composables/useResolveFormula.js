@@ -1,8 +1,8 @@
 // composables/useResolveFormula.js
 import { computed, unref } from 'vue'
 import { useNuxtApp } from '#app'
-import RuntimeFormulaContext from '@baserow/modules/core/runtimeFormulaContext'
-import { resolveFormula as coreResolveFormula } from '@baserow/modules/core/formula'
+import RuntimeFormulaContext from '@jadawel/modules/core/runtimeFormulaContext'
+import { resolveFormula as coreResolveFormula } from '@jadawel/modules/core/formula'
 
 /**
  * Composable replacement for the resolveFormula mixin.

@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

@@ -1,6 +1,6 @@
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
+import form from '@jadawel/modules/core/mixins/form'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
 
 export default {
   name: 'FieldAutonumberSubForm',

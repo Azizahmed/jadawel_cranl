@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Chips from '@baserow/modules/core/components/Chips'
+import Chips from '@jadawel/modules/core/components/Chips'
 
 describe('Chips.vue', () => {
   it('renders correctly when active', () => {

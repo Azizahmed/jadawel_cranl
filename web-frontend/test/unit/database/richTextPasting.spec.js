@@ -1,5 +1,5 @@
-import { MultipleSelectFieldType } from '@baserow/modules/database/fieldTypes'
-import papa from '@baserow/modules/core/plugins/papa'
+import { MultipleSelectFieldType } from '@jadawel/modules/database/fieldTypes'
+import papa from '@jadawel/modules/core/plugins/papa'
 
 const richTextValuesForPasting = [
   {

@@ -76,13 +76,13 @@
 </template>
 
 <script>
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 import {
   getDateMomentFormat,
   getDateHumanReadableFormat,
-} from '@baserow/modules/database/utils/date'
-import filterTypeMultiStepDateInput from '@baserow/modules/database/mixins/filterTypeMultiStepDateInput'
-import { useDatePickerLanguage } from '@baserow/modules/core/composables/useDatePickerLanguage'
+} from '@jadawel/modules/database/utils/date'
+import filterTypeMultiStepDateInput from '@jadawel/modules/database/mixins/filterTypeMultiStepDateInput'
+import { useDatePickerLanguage } from '@jadawel/modules/core/composables/useDatePickerLanguage'
 
 export default {
   name: 'ViewFilterTypeMultiStepDate',

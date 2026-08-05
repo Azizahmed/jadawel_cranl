@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import Table from '@baserow/modules/database/components/table/Table'
+import Table from '@jadawel/modules/database/components/table/Table'
 
-import FieldService from '@baserow/modules/database/services/field'
-import { populateField } from '@baserow/modules/database/store/field'
-import ViewService from '@baserow/modules/database/services/view'
-import { populateView } from '@baserow/modules/database/store/view'
+import FieldService from '@jadawel/modules/database/services/field'
+import { populateField } from '@jadawel/modules/database/store/field'
+import ViewService from '@jadawel/modules/database/services/view'
+import { populateView } from '@jadawel/modules/database/store/view'
 import { Mutex } from 'async-mutex'
 
 export default {

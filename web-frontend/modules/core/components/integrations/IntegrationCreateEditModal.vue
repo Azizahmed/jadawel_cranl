@@ -41,10 +41,10 @@
 
 <script>
 import { mapActions } from 'vuex'
-import error from '@baserow/modules/core/mixins/error'
-import modal from '@baserow/modules/core/mixins/modal'
-import IntegrationEditForm from '@baserow/modules/core/components/integrations/IntegrationEditForm'
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
+import error from '@jadawel/modules/core/mixins/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import IntegrationEditForm from '@jadawel/modules/core/components/integrations/IntegrationEditForm'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
 
 export default {
   components: { IntegrationEditForm },

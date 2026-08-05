@@ -73,11 +73,11 @@
 import { useVuelidate } from '@vuelidate/core'
 import { sameAs, required, helpers } from '@vuelidate/validators'
 
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import error from '@baserow/modules/core/mixins/error'
-import AuthService from '@baserow/modules/core/services/auth'
-import PasswordInput from '@baserow/modules/core/components/helpers/PasswordInput'
-import { passwordValidation } from '@baserow/modules/core/validators'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import AuthService from '@jadawel/modules/core/services/auth'
+import PasswordInput from '@jadawel/modules/core/components/helpers/PasswordInput'
+import { passwordValidation } from '@jadawel/modules/core/validators'
 
 export default {
   components: { PasswordInput },

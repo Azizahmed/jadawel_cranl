@@ -124,7 +124,7 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { between, required, integer, helpers } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'CorePeriodicServiceForm',
@@ -165,7 +165,7 @@ export default {
       return this.values.interval === 'MINUTE'
     },
     minimumMinuteFrequency() {
-      return this.$config.public.baserowIntegrationsPeriodicMinuteMin
+      return this.$config.public.jadawelIntegrationsPeriodicMinuteMin
     },
     showHourField() {
       return ['DAY', 'WEEK', 'MONTH'].includes(this.values.interval)

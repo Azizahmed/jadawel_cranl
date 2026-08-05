@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import ApplicationContext from '@baserow/modules/core/components/application/ApplicationContext.vue'
-import ExportWorkspaceModal from '@baserow/modules/core/components/export/ExportWorkspaceModal'
-import applicationContext from '@baserow/modules/core/mixins/applicationContext'
+import ApplicationContext from '@jadawel/modules/core/components/application/ApplicationContext.vue'
+import ExportWorkspaceModal from '@jadawel/modules/core/components/export/ExportWorkspaceModal'
+import applicationContext from '@jadawel/modules/core/mixins/applicationContext'
 
 export default {
   components: {

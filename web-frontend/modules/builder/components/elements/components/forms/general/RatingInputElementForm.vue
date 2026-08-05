@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import elementForm from '@baserow/modules/builder/mixins/elementForm'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import Checkbox from '@baserow/modules/core/components/Checkbox'
-import RatingFormFields from '@baserow/modules/builder/components/elements/components/forms/RatingFormFields.vue'
+import elementForm from '@jadawel/modules/builder/mixins/elementForm'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import Checkbox from '@jadawel/modules/core/components/Checkbox'
+import RatingFormFields from '@jadawel/modules/builder/components/elements/components/forms/RatingFormFields.vue'
 
 export default {
   name: 'RatingInputElementForm',

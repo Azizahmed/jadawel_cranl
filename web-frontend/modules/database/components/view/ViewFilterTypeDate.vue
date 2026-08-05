@@ -37,13 +37,13 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 import {
   getDateMomentFormat,
   getDateHumanReadableFormat,
-} from '@baserow/modules/database/utils/date'
-import filterTypeDateInput from '@baserow/modules/database/mixins/filterTypeDateInput'
-import { useDatePickerLanguage } from '@baserow/modules/core/composables/useDatePickerLanguage'
+} from '@jadawel/modules/database/utils/date'
+import filterTypeDateInput from '@jadawel/modules/database/mixins/filterTypeDateInput'
+import { useDatePickerLanguage } from '@jadawel/modules/core/composables/useDatePickerLanguage'
 
 export default {
   name: 'ViewFilterTypeDate',

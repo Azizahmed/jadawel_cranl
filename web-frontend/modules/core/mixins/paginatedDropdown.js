@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce'
 
-import dropdown from '@baserow/modules/core/mixins/dropdown'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import dropdown from '@jadawel/modules/core/mixins/dropdown'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'paginatedDropdown',

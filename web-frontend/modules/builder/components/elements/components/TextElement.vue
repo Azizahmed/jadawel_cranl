@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import element from '@baserow/modules/builder/mixins/element'
-import { generateHash } from '@baserow/modules/core/utils/hashing'
-import { ensureString } from '@baserow/modules/core/utils/validator'
-import { TEXT_FORMAT_TYPES } from '@baserow/modules/builder/enums'
-import { prefixInternalResolvedUrl } from '@baserow/modules/builder/utils/urlResolution'
+import element from '@jadawel/modules/builder/mixins/element'
+import { generateHash } from '@jadawel/modules/core/utils/hashing'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
+import { TEXT_FORMAT_TYPES } from '@jadawel/modules/builder/enums'
+import { prefixInternalResolvedUrl } from '@jadawel/modules/builder/utils/urlResolution'
 
 /**
  * @typedef Text

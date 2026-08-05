@@ -128,12 +128,12 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { logoutAndRedirectToLogin } from '@baserow/modules/core/utils/auth'
-import context from '@baserow/modules/core/mixins/context'
-import SettingsModal from '@baserow/modules/core/components/settings/SettingsModal'
-import CreateWorkspaceModal from '@baserow/modules/core/components/workspace/CreateWorkspaceModal'
-import { escapeRegExp } from '@baserow/modules/core/utils/string'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { logoutAndRedirectToLogin } from '@jadawel/modules/core/utils/auth'
+import context from '@jadawel/modules/core/mixins/context'
+import SettingsModal from '@jadawel/modules/core/components/settings/SettingsModal'
+import CreateWorkspaceModal from '@jadawel/modules/core/components/workspace/CreateWorkspaceModal'
+import { escapeRegExp } from '@jadawel/modules/core/utils/string'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

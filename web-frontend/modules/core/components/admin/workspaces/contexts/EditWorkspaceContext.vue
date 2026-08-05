@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import DeleteWorkspaceModal from '@baserow/modules/core/components/admin/workspaces/modals/DeleteWorkspaceModal'
+import context from '@jadawel/modules/core/mixins/context'
+import DeleteWorkspaceModal from '@jadawel/modules/core/components/admin/workspaces/modals/DeleteWorkspaceModal'
 
 export default {
   name: 'EditWorkspaceContext',

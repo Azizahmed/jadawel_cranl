@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import error from '@baserow/modules/core/mixins/error'
-import modal from '@baserow/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import modal from '@jadawel/modules/core/mixins/modal'
 
 export default {
   name: 'ChangePrimaryFieldModal',

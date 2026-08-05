@@ -1,4 +1,4 @@
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   mixins: [form],

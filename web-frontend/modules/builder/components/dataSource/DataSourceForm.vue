@@ -75,12 +75,12 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import IntegrationDropdown from '@baserow/modules/core/components/integrations/IntegrationDropdown'
-import form from '@baserow/modules/core/mixins/form'
-import applicationContext from '@baserow/modules/builder/mixins/applicationContext'
+import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown'
+import form from '@jadawel/modules/core/mixins/form'
+import applicationContext from '@jadawel/modules/builder/mixins/applicationContext'
 import { required, maxLength, helpers } from '@vuelidate/validators'
-import { DATA_PROVIDERS_ALLOWED_DATA_SOURCES } from '@baserow/modules/builder/enums'
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
+import { DATA_PROVIDERS_ALLOWED_DATA_SOURCES } from '@jadawel/modules/builder/enums'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'DataSourceForm',

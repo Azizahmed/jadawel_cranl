@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import APIDocsExample from '@baserow/modules/database/components/docs/APIDocsExample'
-import APIDocsParameter from '@baserow/modules/database/components/docs/APIDocsParameter'
+import APIDocsExample from '@jadawel/modules/database/components/docs/APIDocsExample'
+import APIDocsParameter from '@jadawel/modules/database/components/docs/APIDocsParameter'
 
 export default {
   name: 'APIDocsTableMoveRow',

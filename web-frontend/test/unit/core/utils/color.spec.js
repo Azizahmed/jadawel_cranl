@@ -1,7 +1,7 @@
 import {
   resolveColor,
   colorRecommendation,
-} from '@baserow/modules/core/utils/colors'
+} from '@jadawel/modules/core/utils/colors'
 
 describe('colorUtils', () => {
   test('resolve', () => {

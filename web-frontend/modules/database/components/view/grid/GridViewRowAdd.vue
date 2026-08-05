@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import gridViewHelpers from '@baserow/modules/database/mixins/gridViewHelpers'
+import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
 
 export default {
   name: 'GridViewRowAdd',

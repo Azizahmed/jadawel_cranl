@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
-import FieldSelectThroughFieldSubForm from '@baserow/modules/database/components/field/FieldSelectThroughFieldSubForm'
+import form from '@jadawel/modules/core/mixins/form'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
+import FieldSelectThroughFieldSubForm from '@jadawel/modules/database/components/field/FieldSelectThroughFieldSubForm'
 
 export default {
   name: 'FieldCountSubForm',

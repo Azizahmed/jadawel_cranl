@@ -98,15 +98,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import jobProgress from '@baserow/modules/core/mixins/jobProgress'
-import PublishedDomainService from '@baserow/modules/builder/services/publishedBuilder'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
-import LastPublishedDomainDate from '@baserow/modules/builder/components/domain/LastPublishedDomainDate'
-import BuilderSettingsModal from '@baserow/modules/builder/components/settings/BuilderSettingsModal'
-import { DomainsBuilderSettingsType } from '@baserow/modules/builder/builderSettingTypes'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import jobProgress from '@jadawel/modules/core/mixins/jobProgress'
+import PublishedDomainService from '@jadawel/modules/builder/services/publishedBuilder'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
+import LastPublishedDomainDate from '@jadawel/modules/builder/components/domain/LastPublishedDomainDate'
+import BuilderSettingsModal from '@jadawel/modules/builder/components/settings/BuilderSettingsModal'
+import { DomainsBuilderSettingsType } from '@jadawel/modules/builder/builderSettingTypes'
 
 export default {
   name: 'PublishActionModal',

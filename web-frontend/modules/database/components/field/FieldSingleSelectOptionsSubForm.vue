@@ -47,7 +47,7 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import fieldOptionsSubForm from '@baserow/modules/database/mixins/fieldOptionsSubForm'
+import fieldOptionsSubForm from '@jadawel/modules/database/mixins/fieldOptionsSubForm'
 
 export default {
   name: 'FieldSingleSelectOptionsSubForm',

@@ -1,5 +1,5 @@
-import { isSecureURL } from '@baserow/modules/core/utils/string'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { isSecureURL } from '@jadawel/modules/core/utils/string'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import jwtDecode from 'jwt-decode'
 import tldjs from 'tldjs'
 import { useCookie, useRuntimeConfig, nextTick } from '#imports'
@@ -23,7 +23,7 @@ export const setToken = (
       path: '/',
       maxAge: refreshTokenMaxAge,
       sameSite:
-        configuration.sameSite || config.public.baserowFrontendSameSiteCookie,
+        configuration.sameSite || config.public.jadawelFrontendSameSiteCookie,
       secure,
     })
     cookie.value = token
@@ -67,7 +67,7 @@ export const setUserSessionCookie = (
       path: '/',
       maxAge: refreshTokenMaxAge,
       sameSite:
-        configuration.sameSite || config.public.baserowFrontendSameSiteCookie,
+        configuration.sameSite || config.public.jadawelFrontendSameSiteCookie,
       secure,
       domain: topLevelDomain,
     })

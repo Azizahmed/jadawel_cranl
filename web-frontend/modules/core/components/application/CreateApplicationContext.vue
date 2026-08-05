@@ -99,11 +99,11 @@
 </template>
 
 <script>
-import CreateApplicationModal from '@baserow/modules/core/components/application/CreateApplicationModal'
-import TemplateModal from '@baserow/modules/core/components/template/TemplateModal'
-import ImportWorkspaceModal from '@baserow/modules/core/components/import/ImportWorkspaceModal.vue'
-import context from '@baserow/modules/core/mixins/context'
-import DevelopmentBadge from '@baserow/modules/core/components/DevelopmentBadge'
+import CreateApplicationModal from '@jadawel/modules/core/components/application/CreateApplicationModal'
+import TemplateModal from '@jadawel/modules/core/components/template/TemplateModal'
+import ImportWorkspaceModal from '@jadawel/modules/core/components/import/ImportWorkspaceModal.vue'
+import context from '@jadawel/modules/core/mixins/context'
+import DevelopmentBadge from '@jadawel/modules/core/components/DevelopmentBadge'
 
 export default {
   name: 'CreateApplicationContext',

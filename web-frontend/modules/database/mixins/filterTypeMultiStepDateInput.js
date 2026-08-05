@@ -1,9 +1,9 @@
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 import {
   splitMultiStepDateValue,
   DATE_FILTER_VALUE_SEPARATOR,
-} from '@baserow/modules/database/utils/date'
-import filterTypeInput from '@baserow/modules/database/mixins/filterTypeInput'
+} from '@jadawel/modules/database/utils/date'
+import filterTypeInput from '@jadawel/modules/database/mixins/filterTypeInput'
 
 export default {
   mixins: [filterTypeInput],

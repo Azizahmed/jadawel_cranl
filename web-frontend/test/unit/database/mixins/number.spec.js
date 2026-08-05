@@ -1,7 +1,7 @@
 import {
   formatNumberValue,
   parseNumberValue,
-} from '@baserow/modules/database/utils/number'
+} from '@jadawel/modules/database/utils/number'
 
 describe('test number formatting and parsing', () => {
   const baseField = {

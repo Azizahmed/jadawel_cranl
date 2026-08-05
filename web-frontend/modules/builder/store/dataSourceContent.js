@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import DataSourceService from '@baserow/modules/builder/services/dataSource'
-import PublishedBuilderService from '@baserow/modules/builder/services/publishedBuilder'
+import DataSourceService from '@jadawel/modules/builder/services/dataSource'
+import PublishedBuilderService from '@jadawel/modules/builder/services/publishedBuilder'
 
 const state = {}
 

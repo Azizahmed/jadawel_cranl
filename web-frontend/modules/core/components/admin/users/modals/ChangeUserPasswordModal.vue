@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import UserAdminService from '@baserow/modules/core/services/admin/users'
-import ChangePasswordForm from '@baserow/modules/core/components/admin/users/forms/ChangePasswordForm'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import UserAdminService from '@jadawel/modules/core/services/admin/users'
+import ChangePasswordForm from '@jadawel/modules/core/components/admin/users/forms/ChangePasswordForm'
 
 export default {
   name: 'ChangePasswordModal',

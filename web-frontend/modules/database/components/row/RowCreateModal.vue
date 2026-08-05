@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
 import RowEditModalFieldsList from './RowEditModalFieldsList.vue'
 import RowEditModalHiddenFieldsSection from './RowEditModalHiddenFieldsSection.vue'
-import { getPrimaryOrFirstField } from '@baserow/modules/database/utils/field'
+import { getPrimaryOrFirstField } from '@jadawel/modules/database/utils/field'
 
 export default {
   name: 'RowCreateModal',

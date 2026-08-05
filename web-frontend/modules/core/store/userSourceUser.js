@@ -1,12 +1,12 @@
 import jwtDecode from 'jwt-decode'
 
-import UserSourceService from '@baserow/modules/core/services/userSource'
+import UserSourceService from '@jadawel/modules/core/services/userSource'
 
 import {
   setToken,
   unsetToken,
   userSourceCookieTokenName,
-} from '@baserow/modules/core/utils/auth'
+} from '@jadawel/modules/core/utils/auth'
 
 export const state = () => ({
   // The currentApplication is used in the clientHandler because we have no way to know

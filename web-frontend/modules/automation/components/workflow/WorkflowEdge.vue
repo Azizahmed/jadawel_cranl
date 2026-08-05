@@ -57,9 +57,9 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import WorkflowNode from '@baserow/modules/automation/components/workflow/WorkflowNode'
+import WorkflowNode from '@jadawel/modules/automation/components/workflow/WorkflowNode'
 
-import WorkflowAddBtnNode from '@baserow/modules/automation/components/workflow/WorkflowAddBtnNode'
+import WorkflowAddBtnNode from '@jadawel/modules/automation/components/workflow/WorkflowAddBtnNode'
 
 const props = defineProps({
   node: {

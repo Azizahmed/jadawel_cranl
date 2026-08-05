@@ -63,8 +63,8 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { uuid } from '@baserow/modules/core/utils/string'
-import SimpleGrid from '@baserow/modules/database/components/view/grid/SimpleGrid'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import SimpleGrid from '@jadawel/modules/database/components/view/grid/SimpleGrid'
 
 export default {
   name: 'DatabaseImportStep',

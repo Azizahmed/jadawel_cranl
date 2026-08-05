@@ -1,5 +1,5 @@
-import FieldService from '@baserow/modules/database/services/field'
-import { clone } from '@baserow/modules/core/utils/object'
+import FieldService from '@jadawel/modules/database/services/field'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 export function populateField(field, registry) {
   const type = registry.get('field', field.type)

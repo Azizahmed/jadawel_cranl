@@ -2,13 +2,13 @@ import { defineNuxtPlugin } from '#app'
 import {
   GeneralAutomationSettingsType,
   IntegrationsAutomationSettingsType,
-} from '@baserow/modules/automation/automationSettingTypes'
+} from '@jadawel/modules/automation/automationSettingTypes'
 
-import { AutomationApplicationType } from '@baserow/modules/automation/applicationTypes'
-import automationApplicationStore from '@baserow/modules/automation/store/automationApplication'
-import automationWorkflowStore from '@baserow/modules/automation/store/automationWorkflow'
-import automationWorkflowNodeStore from '@baserow/modules/automation/store/automationWorkflowNode'
-import automationHistoryStore from '@baserow/modules/automation/store/automationHistory'
+import { AutomationApplicationType } from '@jadawel/modules/automation/applicationTypes'
+import automationApplicationStore from '@jadawel/modules/automation/store/automationApplication'
+import automationWorkflowStore from '@jadawel/modules/automation/store/automationWorkflow'
+import automationWorkflowNodeStore from '@jadawel/modules/automation/store/automationWorkflowNode'
+import automationHistoryStore from '@jadawel/modules/automation/store/automationHistory'
 import {
   LocalBaserowCreateRowActionNodeType,
   LocalBaserowUpdateRowActionNodeType,
@@ -27,23 +27,23 @@ import {
   CorePeriodicTriggerNodeType,
   AIAgentActionNodeType,
   SlackWriteMessageNodeType,
-} from '@baserow/modules/automation/nodeTypes'
+} from '@jadawel/modules/automation/nodeTypes'
 import {
   DuplicateAutomationWorkflowJobType,
   PublishAutomationWorkflowJobType,
-} from '@baserow/modules/automation/jobTypes'
-import { WorkflowDisabledNotificationType } from '@baserow/modules/automation/notificationTypes.jsx'
+} from '@jadawel/modules/automation/jobTypes'
+import { WorkflowDisabledNotificationType } from '@jadawel/modules/automation/notificationTypes.jsx'
 import {
   HistoryEditorSidePanelType,
   NodeEditorSidePanelType,
-} from '@baserow/modules/automation/editorSidePanelTypes'
-import { AutomationSearchType } from '@baserow/modules/automation/searchTypes'
-import { searchTypeRegistry } from '@baserow/modules/core/search/types/registry'
-import { AutomationGuidedTourType } from '@baserow/modules/automation/guidedTourTypes'
+} from '@jadawel/modules/automation/editorSidePanelTypes'
+import { AutomationSearchType } from '@jadawel/modules/automation/searchTypes'
+import { searchTypeRegistry } from '@jadawel/modules/core/search/types/registry'
+import { AutomationGuidedTourType } from '@jadawel/modules/automation/guidedTourTypes'
 import {
   PreviousNodeDataProviderType,
   CurrentIterationDataProviderType,
-} from '@baserow/modules/automation/dataProviderTypes'
+} from '@jadawel/modules/automation/dataProviderTypes'
 
 export default defineNuxtPlugin({
   name: 'automation',

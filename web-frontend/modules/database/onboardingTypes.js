@@ -1,15 +1,15 @@
-import { OnboardingType } from '@baserow/modules/core/onboardingTypes'
+import { OnboardingType } from '@jadawel/modules/core/onboardingTypes'
 
-import DatabaseStep from '@baserow/modules/database/components/onboarding/DatabaseStep'
-import DatabaseScratchTrackStep from '@baserow/modules/database/components/onboarding/DatabaseScratchTrackStep'
-import DatabaseImportStep from '@baserow/modules/database/components/onboarding/DatabaseImportStep'
-import DatabaseAppLayoutPreview from '@baserow/modules/database/components/onboarding/DatabaseAppLayoutPreview'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import ApplicationService from '@baserow/modules/core/services/application'
-import TableService from '@baserow/modules/database/services/table'
-import FieldService from '@baserow/modules/database/services/field'
-import RowService from '@baserow/modules/database/services/row'
-import DatabaseScratchTrackFieldsStep from '@baserow/modules/database/components/onboarding/DatabaseScratchTrackFieldsStep'
+import DatabaseStep from '@jadawel/modules/database/components/onboarding/DatabaseStep'
+import DatabaseScratchTrackStep from '@jadawel/modules/database/components/onboarding/DatabaseScratchTrackStep'
+import DatabaseImportStep from '@jadawel/modules/database/components/onboarding/DatabaseImportStep'
+import DatabaseAppLayoutPreview from '@jadawel/modules/database/components/onboarding/DatabaseAppLayoutPreview'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import ApplicationService from '@jadawel/modules/core/services/application'
+import TableService from '@jadawel/modules/database/services/table'
+import FieldService from '@jadawel/modules/database/services/field'
+import RowService from '@jadawel/modules/database/services/row'
+import DatabaseScratchTrackFieldsStep from '@jadawel/modules/database/components/onboarding/DatabaseScratchTrackFieldsStep'
 
 const databaseTypeCondition = (data, type) => {
   const dependingType = DatabaseOnboardingType.getType()

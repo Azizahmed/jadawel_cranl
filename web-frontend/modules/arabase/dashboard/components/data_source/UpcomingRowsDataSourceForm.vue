@@ -98,8 +98,8 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required, integer, minValue, maxValue } from '@vuelidate/validators'
-import dashboardTableSourceForm from '@baserow/modules/arabase/dashboard/mixins/dashboardTableSourceForm'
-import TableViewFormGroups from '@baserow/modules/arabase/dashboard/components/data_source/TableViewFormGroups'
+import dashboardTableSourceForm from '@jadawel/modules/arabase/dashboard/mixins/dashboardTableSourceForm'
+import TableViewFormGroups from '@jadawel/modules/arabase/dashboard/components/data_source/TableViewFormGroups'
 
 const MAX_ROW_COUNT = 20
 

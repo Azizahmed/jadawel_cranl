@@ -88,16 +88,16 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { getPersistentFieldOptionsKey } from '@baserow/modules/database/utils/field'
-import { isElement } from '@baserow/modules/core/utils/dom'
-import gridField from '@baserow/modules/database/mixins/gridField'
-import linkRowField from '@baserow/modules/database/mixins/linkRowField'
-import arrayLoading from '@baserow/modules/database/mixins/arrayLoading'
-import SelectRowModal from '@baserow/modules/database/components/row/SelectRowModal'
-import ForeignRowEditModal from '@baserow/modules/database/components/row/ForeignRowEditModal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import { isPrintableUnicodeCharacterKeyPress } from '@baserow/modules/core/utils/events'
+import { getPersistentFieldOptionsKey } from '@jadawel/modules/database/utils/field'
+import { isElement } from '@jadawel/modules/core/utils/dom'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import linkRowField from '@jadawel/modules/database/mixins/linkRowField'
+import arrayLoading from '@jadawel/modules/database/mixins/arrayLoading'
+import SelectRowModal from '@jadawel/modules/database/components/row/SelectRowModal'
+import ForeignRowEditModal from '@jadawel/modules/database/components/row/ForeignRowEditModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import { isPrintableUnicodeCharacterKeyPress } from '@jadawel/modules/core/utils/events'
 
 export default {
   name: 'GridViewFieldLinkRow',

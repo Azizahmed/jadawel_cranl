@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import modal from '@jadawel/modules/core/mixins/modal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'SampleDataModal',

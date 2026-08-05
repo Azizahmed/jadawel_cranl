@@ -10,7 +10,7 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import { generateHash } from '@baserow/modules/core/utils/hashing'
+import { generateHash } from '@jadawel/modules/core/utils/hashing'
 import MarkdownIt from 'markdown-it'
 
 defineEmits(['click'])

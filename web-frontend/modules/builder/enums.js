@@ -4,7 +4,7 @@ import {
   ensurePositiveInteger,
   ensureArray,
   ensureNumeric,
-} from '@baserow/modules/core/utils/validator'
+} from '@jadawel/modules/core/utils/validator'
 import {
   DataSourceDataProviderType,
   DataSourceContextDataProviderType,
@@ -13,7 +13,7 @@ import {
   FormDataProviderType,
   PreviousActionDataProviderType,
   UserDataProviderType,
-} from '@baserow/modules/builder/dataProviderTypes'
+} from '@jadawel/modules/builder/dataProviderTypes'
 
 export const DIRECTIONS = {
   BEFORE: 'before',

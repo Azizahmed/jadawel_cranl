@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
 
 export default {
   name: 'APIDocsSelectDatabaseWorkspace',

@@ -1,4 +1,4 @@
-import PublishedBuilderService from '@baserow/modules/builder/services/publishedBuilder'
+import PublishedBuilderService from '@jadawel/modules/builder/services/publishedBuilder'
 
 const state = {}
 

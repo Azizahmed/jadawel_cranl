@@ -1,4 +1,4 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 
 export class ServiceType extends Registerable {
   get name() {

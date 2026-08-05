@@ -2,8 +2,8 @@ import {
   isDomElement,
   isElement,
   onClickOutside,
-} from '@baserow/modules/core/utils/dom'
-import { clone } from '@baserow/modules/core/utils/object'
+} from '@jadawel/modules/core/utils/dom'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 import dropdownHelpers from './dropdownHelpers'
 import _ from 'lodash'

@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import error from '@baserow/modules/core/mixins/error'
-import jobProgress from '@baserow/modules/core/mixins/jobProgress'
-import AirtableService from '@baserow/modules/database/services/airtable'
-import AirtableImportForm from '@baserow/modules/database/components/airtable/AirtableImportForm'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import jobProgress from '@jadawel/modules/core/mixins/jobProgress'
+import AirtableService from '@jadawel/modules/database/services/airtable'
+import AirtableImportForm from '@jadawel/modules/database/components/airtable/AirtableImportForm'
 
 export default {
   name: 'ImportFromAirtable',

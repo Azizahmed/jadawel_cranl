@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import error from '@baserow/modules/core/mixins/error'
-import PageSettingsForm from '@baserow/modules/builder/components/page/settings/PageSettingsForm'
+import error from '@jadawel/modules/core/mixins/error'
+import PageSettingsForm from '@jadawel/modules/builder/components/page/settings/PageSettingsForm'
 import { mapActions } from 'vuex'
-import { defaultValueForParameterType } from '@baserow/modules/builder/utils/params'
+import { defaultValueForParameterType } from '@jadawel/modules/builder/utils/params'
 
 export default {
   name: 'PageSettings',

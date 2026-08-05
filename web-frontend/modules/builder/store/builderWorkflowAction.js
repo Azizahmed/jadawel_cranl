@@ -1,5 +1,5 @@
-import WorkflowActionService from '@baserow/modules/builder/services/workflowAction'
-import PublishedBuilderService from '@baserow/modules/builder/services/publishedBuilder'
+import WorkflowActionService from '@jadawel/modules/builder/services/workflowAction'
+import PublishedBuilderService from '@jadawel/modules/builder/services/publishedBuilder'
 import _ from 'lodash'
 
 const updateContext = {

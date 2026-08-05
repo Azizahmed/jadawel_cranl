@@ -39,11 +39,11 @@
 </template>
 
 <script>
-import { maxPossibleOrderValue } from '@baserow/modules/database/utils/view'
-import formViewHelpers from '@baserow/modules/database/mixins/formViewHelpers'
-import FormViewSidebar from '@baserow/modules/database/components/view/form/FormViewSidebar'
-import FormViewPreview from '@baserow/modules/database/components/view/form/FormViewPreview'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { maxPossibleOrderValue } from '@jadawel/modules/database/utils/view'
+import formViewHelpers from '@jadawel/modules/database/mixins/formViewHelpers'
+import FormViewSidebar from '@jadawel/modules/database/components/view/form/FormViewSidebar'
+import FormViewPreview from '@jadawel/modules/database/components/view/form/FormViewPreview'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'FormView',

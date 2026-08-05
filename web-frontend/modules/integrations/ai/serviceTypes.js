@@ -1,9 +1,9 @@
 import {
   ServiceType,
   WorkflowActionServiceTypeMixin,
-} from '@baserow/modules/core/serviceTypes'
-import { AIIntegrationType } from '@baserow/modules/integrations/ai/integrationTypes'
-import AIAgentServiceForm from '@baserow/modules/integrations/ai/components/services/AIAgentServiceForm'
+} from '@jadawel/modules/core/serviceTypes'
+import { AIIntegrationType } from '@jadawel/modules/integrations/ai/integrationTypes'
+import AIAgentServiceForm from '@jadawel/modules/integrations/ai/components/services/AIAgentServiceForm'
 
 export class AIAgentServiceType extends WorkflowActionServiceTypeMixin(
   ServiceType

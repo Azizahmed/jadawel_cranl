@@ -1,4 +1,4 @@
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
 
 export class FieldsDataProviderType extends DataProviderType {
   static getType() {

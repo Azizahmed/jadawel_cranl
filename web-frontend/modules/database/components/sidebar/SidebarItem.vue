@@ -208,14 +208,14 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { getHumanPeriodAgoCount } from '@baserow/modules/core/utils/date'
-import ExportTableModal from '@baserow/modules/database/components/export/ExportTableModal'
-import WebhookModal from '@baserow/modules/database/components/webhook/WebhookModal'
-import SidebarDuplicateTableContextItem from '@baserow/modules/database/components/sidebar/table/SidebarDuplicateTableContextItem'
-import SyncTableModal from '@baserow/modules/database/components/dataSync/SyncTableModal'
-import ConfigureDataSyncModal from '@baserow/modules/database/components/dataSync/ConfigureDataSyncModal.vue'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { getHumanPeriodAgoCount } from '@jadawel/modules/core/utils/date'
+import ExportTableModal from '@jadawel/modules/database/components/export/ExportTableModal'
+import WebhookModal from '@jadawel/modules/database/components/webhook/WebhookModal'
+import SidebarDuplicateTableContextItem from '@jadawel/modules/database/components/sidebar/table/SidebarDuplicateTableContextItem'
+import SyncTableModal from '@jadawel/modules/database/components/dataSync/SyncTableModal'
+import ConfigureDataSyncModal from '@jadawel/modules/database/components/dataSync/ConfigureDataSyncModal.vue'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

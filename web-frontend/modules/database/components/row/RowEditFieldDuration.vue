@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import rowEditFieldInput from '@baserow/modules/database/mixins/rowEditFieldInput'
-import durationField from '@baserow/modules/database/mixins/durationField'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import rowEditFieldInput from '@jadawel/modules/database/mixins/rowEditFieldInput'
+import durationField from '@jadawel/modules/database/mixins/durationField'
 
 export default {
   mixins: [rowEditField, rowEditFieldInput, durationField],

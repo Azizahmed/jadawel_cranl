@@ -1,4 +1,4 @@
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 import {
   getCellTimezoneAbbr,
   getDateHumanReadableFormat,
@@ -6,7 +6,7 @@ import {
   getFieldTimezone,
   getTimeHumanReadableFormat,
   getTimeMomentFormat,
-} from '@baserow/modules/database/utils/date'
+} from '@jadawel/modules/database/utils/date'
 
 const DATE_PICKER_FORMAT = 'YYYY-MM-DD'
 

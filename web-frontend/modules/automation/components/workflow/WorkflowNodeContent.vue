@@ -117,9 +117,9 @@
 import { useStore } from 'vuex'
 import { ref } from 'vue'
 import { useVueFlow } from '@vue-flow/core'
-import WorkflowNodeContext from '@baserow/modules/automation/components/workflow/WorkflowNodeContext'
+import WorkflowNodeContext from '@jadawel/modules/automation/components/workflow/WorkflowNodeContext'
 import flushPromises from 'flush-promises'
-import NodeGraphHandler from '@baserow/modules/automation/utils/nodeGraphHandler'
+import NodeGraphHandler from '@jadawel/modules/automation/utils/nodeGraphHandler'
 
 const { onMove } = useVueFlow()
 const props = defineProps({

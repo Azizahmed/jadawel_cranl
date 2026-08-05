@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { DIRECTIONS } from '@baserow/modules/builder/enums'
+import { DIRECTIONS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'ElementMenu',

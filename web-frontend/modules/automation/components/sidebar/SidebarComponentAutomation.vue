@@ -55,12 +55,12 @@
 </template>
 
 <script>
-import SidebarApplication from '@baserow/modules/core/components/sidebar/SidebarApplication'
-import SidebarItemAutomation from '@baserow/modules/automation/components/sidebar/SidebarItemAutomation'
-import CreateAutomationWorkflowModal from '@baserow/modules/automation/components/workflow/CreateAutomationWorkflowModal'
+import SidebarApplication from '@jadawel/modules/core/components/sidebar/SidebarApplication'
+import SidebarItemAutomation from '@jadawel/modules/automation/components/sidebar/SidebarItemAutomation'
+import CreateAutomationWorkflowModal from '@jadawel/modules/automation/components/workflow/CreateAutomationWorkflowModal'
 
 import { mapGetters } from 'vuex'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'SidebarComponentAutomation',

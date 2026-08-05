@@ -44,11 +44,11 @@
 </template>
 
 <script>
-import collectionFieldForm from '@baserow/modules/builder/mixins/collectionFieldForm'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import CustomStyleButton from '@baserow/modules/builder/components/elements/components/forms/style/CustomStyleButton'
-import LinkNavigationSelectionForm from '@baserow/modules/builder/components/elements/components/forms/general/LinkNavigationSelectionForm'
-import { LINK_VARIANTS } from '@baserow/modules/builder/enums'
+import collectionFieldForm from '@jadawel/modules/builder/mixins/collectionFieldForm'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import CustomStyleButton from '@jadawel/modules/builder/components/elements/components/forms/style/CustomStyleButton'
+import LinkNavigationSelectionForm from '@jadawel/modules/builder/components/elements/components/forms/general/LinkNavigationSelectionForm'
+import { LINK_VARIANTS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'LinkField',

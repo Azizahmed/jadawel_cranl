@@ -65,20 +65,20 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { maxLength, required, helpers } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
-import PageSettingsPathParamsFormElement from '@baserow/modules/builder/components/page/settings/PageSettingsPathParamsFormElement'
-import PageSettingsQueryParamsFormElement from '@baserow/modules/builder/components/page/settings/PageSettingsQueryParamsFormElement'
+import form from '@jadawel/modules/core/mixins/form'
+import PageSettingsPathParamsFormElement from '@jadawel/modules/builder/components/page/settings/PageSettingsPathParamsFormElement'
+import PageSettingsQueryParamsFormElement from '@jadawel/modules/builder/components/page/settings/PageSettingsQueryParamsFormElement'
 import {
   getPathParams,
   PATH_PARAM_REGEX,
   ILLEGAL_PATH_SAMPLE_CHARACTER,
   VALID_PATH_CHARACTERS,
-} from '@baserow/modules/builder/utils/path'
-import { QUERY_PARAM_REGEX } from '@baserow/modules/builder/utils/params'
+} from '@jadawel/modules/builder/utils/path'
+import { QUERY_PARAM_REGEX } from '@jadawel/modules/builder/utils/params'
 import {
   getNextAvailableNameInSequence,
   slugify,
-} from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'PageSettingsForm',

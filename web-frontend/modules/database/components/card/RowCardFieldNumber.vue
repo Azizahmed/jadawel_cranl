@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import numberField from '@baserow/modules/database/mixins/numberField'
-import { formatDecimalNumber } from '@baserow/modules/database/utils/number'
+import numberField from '@jadawel/modules/database/mixins/numberField'
+import { formatDecimalNumber } from '@jadawel/modules/database/utils/number'
 
 export default {
   name: 'RowCardFieldNumber',

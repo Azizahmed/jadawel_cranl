@@ -1,10 +1,10 @@
-import parseBaserowFormula from '@baserow/modules/core/formula/parser/parser'
-import BaserowFormulaExecutionVisitor from '@baserow/modules/core/formula/parser/formulaExecutionVisitor.js'
+import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
+import BaserowFormulaExecutionVisitor from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
 import {
   VALID_FORMULA_EXECUTION_TESTS,
   INVALID_FORMULA_EXECUTION_TESTS,
-} from '@baserow_test_cases/formula_visitor_cases'
-import { TestApp } from '@baserow/test/helpers/testApp'
+} from '@jadawel_test_cases/formula_visitor_cases'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('BaserowFormulaExecutionVisitor', () => {
   let testApp = null

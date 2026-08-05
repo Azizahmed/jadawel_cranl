@@ -1,4 +1,4 @@
-import importer from '@baserow/modules/database/mixins/importer'
+import importer from '@jadawel/modules/database/mixins/importer'
 
 describe('test file importer', () => {
   test('field name id is invalid as is reserved by baserow', () => {

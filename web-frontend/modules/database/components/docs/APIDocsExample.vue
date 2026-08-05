@@ -145,8 +145,8 @@
 </template>
 
 <script>
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
-import { mappingToStringifiedJSONLines } from '@baserow/modules/core/utils/object'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
+import { mappingToStringifiedJSONLines } from '@jadawel/modules/core/utils/object'
 
 export default {
   name: 'APIDocsExample',

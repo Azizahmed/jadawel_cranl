@@ -5,7 +5,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { locales } from './locales.js'
 import pkg from '../package.json'
 
-function baserowModuleConfig() {
+function jadawelModuleConfig() {
   const additionalModulesCsv = process.env.ADDITIONAL_MODULES
   const additionalModules = additionalModulesCsv
     ? additionalModulesCsv
@@ -40,12 +40,12 @@ function baserowModuleConfig() {
   }
 }
 
-const baserow = baserowModuleConfig()
+const baserow = jadawelModuleConfig()
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   alias: {
-    '@baserow': '',
+    '@jadawel': '',
   },
   css: [],
   runtimeConfig: {

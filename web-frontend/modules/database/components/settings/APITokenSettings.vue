@@ -61,10 +61,10 @@
 </template>
 
 <script>
-import error from '@baserow/modules/core/mixins/error'
-import APIToken from '@baserow/modules/database/components/settings/APIToken'
-import APITokenForm from '@baserow/modules/database/components/settings/APITokenForm'
-import TokenService from '@baserow/modules/database/services/token'
+import error from '@jadawel/modules/core/mixins/error'
+import APIToken from '@jadawel/modules/database/components/settings/APIToken'
+import APITokenForm from '@jadawel/modules/database/components/settings/APITokenForm'
+import TokenService from '@jadawel/modules/database/services/token'
 
 export default {
   name: 'APITokenSettings',

@@ -1,8 +1,8 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import { RuntimeFunctionCollection } from '@baserow/modules/core/functionCollection'
-import { ToTipTapVisitor } from '@baserow/modules/core/formula/tiptap/toTipTapVisitor'
-import parseBaserowFormula from '@baserow/modules/core/formula/parser/parser'
-import testCases from '@baserow_test_cases/tip_tap_visitor_cases.json'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import { RuntimeFunctionCollection } from '@jadawel/modules/core/functionCollection'
+import { ToTipTapVisitor } from '@jadawel/modules/core/formula/tiptap/toTipTapVisitor'
+import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
+import testCases from '@jadawel_test_cases/tip_tap_visitor_cases.json'
 
 describe('toTipTapVisitor', () => {
   let testApp = null

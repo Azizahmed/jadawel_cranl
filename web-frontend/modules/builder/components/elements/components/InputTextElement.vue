@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import formElement from '@baserow/modules/builder/mixins/formElement'
+import formElement from '@jadawel/modules/builder/mixins/formElement'
 import {
   ensureNumeric,
   ensureString,
-} from '@baserow/modules/core/utils/validator'
-import { parseLocalizedNumber } from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/validator'
+import { parseLocalizedNumber } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'InputTextElement',

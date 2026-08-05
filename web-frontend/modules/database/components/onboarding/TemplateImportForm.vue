@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import TemplateService from '@baserow/modules/core/services/template'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { escapeRegExp } from '@baserow/modules/core/utils/string'
+import TemplateService from '@jadawel/modules/core/services/template'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { escapeRegExp } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'TemplateImportForm',

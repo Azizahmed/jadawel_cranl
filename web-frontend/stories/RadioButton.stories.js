@@ -1,4 +1,4 @@
-import RadioButton from '@baserow/modules/core/components/RadioButton'
+import RadioButton from '@jadawel/modules/core/components/RadioButton'
 import { ref } from 'vue'
 
 export default {

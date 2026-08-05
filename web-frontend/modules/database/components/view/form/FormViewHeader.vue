@@ -47,8 +47,8 @@
 <script>
 import { mapState } from 'vuex'
 
-import formViewHelpers from '@baserow/modules/database/mixins/formViewHelpers'
-import FormViewModeContext from '@baserow/modules/database/components/view/form/FormViewModeContext'
+import formViewHelpers from '@jadawel/modules/database/mixins/formViewHelpers'
+import FormViewModeContext from '@jadawel/modules/database/components/view/form/FormViewModeContext'
 
 export default {
   name: 'FormViewHeader',

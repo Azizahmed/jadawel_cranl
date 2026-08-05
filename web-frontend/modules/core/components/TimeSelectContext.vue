@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import moment from '@baserow/modules/core/moment'
-import context from '@baserow/modules/core/mixins/context'
+import moment from '@jadawel/modules/core/moment'
+import context from '@jadawel/modules/core/mixins/context'
 
 export default {
   name: 'TimeSelectContext',

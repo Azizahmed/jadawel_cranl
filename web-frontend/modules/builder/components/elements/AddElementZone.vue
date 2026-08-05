@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { useDropElementTarget } from '@baserow/modules/builder/composables/useDropElementTarget'
+import { useDropElementTarget } from '@jadawel/modules/builder/composables/useDropElementTarget'
 
 export default {
   name: 'AddElementZone',

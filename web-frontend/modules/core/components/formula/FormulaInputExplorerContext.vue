@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import NodeExplorer from '@baserow/modules/core/components/nodeExplorer/NodeExplorer'
-import { BASEROW_FORMULA_MODES } from '@baserow/modules/core/formula/constants'
+import context from '@jadawel/modules/core/mixins/context'
+import NodeExplorer from '@jadawel/modules/core/components/nodeExplorer/NodeExplorer'
+import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'FormulaInputExplorerContext',

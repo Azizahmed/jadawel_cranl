@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import FunctionalFormulaArrayItems from '@baserow/modules/database/components/formula/array/FunctionalFormulaArrayItems'
-import arrayLoading from '@baserow/modules/database/mixins/arrayLoading'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import FunctionalFormulaArrayItems from '@jadawel/modules/database/components/formula/array/FunctionalFormulaArrayItems'
+import arrayLoading from '@jadawel/modules/database/mixins/arrayLoading'
 
 export default {
   name: 'RowEditFieldArray',

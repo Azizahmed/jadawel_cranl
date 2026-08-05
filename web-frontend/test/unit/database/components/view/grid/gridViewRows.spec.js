@@ -1,5 +1,5 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import GridViewRows from '@baserow/modules/database/components/view/grid/GridViewRows'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import GridViewRows from '@jadawel/modules/database/components/view/grid/GridViewRows'
 
 describe('GridViewRows component', () => {
   let testApp = null

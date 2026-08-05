@@ -2,10 +2,10 @@ import {
   getElementFromRef,
   isRtlElement,
   onClickOutside,
-} from '@baserow/modules/core/utils/dom'
-import { toInlineArrowKey } from '@baserow/modules/database/utils/gridViewKeyboard'
-import baseField from '@baserow/modules/database/mixins/baseField'
-import copyPasteHelper from '@baserow/modules/database/mixins/copyPasteHelper'
+} from '@jadawel/modules/core/utils/dom'
+import { toInlineArrowKey } from '@jadawel/modules/database/utils/gridViewKeyboard'
+import baseField from '@jadawel/modules/database/mixins/baseField'
+import copyPasteHelper from '@jadawel/modules/database/mixins/copyPasteHelper'
 
 /**
  * A mixin that can be used by a field grid component. It introduces the props that

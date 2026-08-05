@@ -1,9 +1,9 @@
 import {
   getPrimaryOrFirstField,
   hasCompatibleFilterTypes,
-} from '@baserow/modules/database/utils/field'
-import { EqualViewFilterType } from '@baserow/modules/database/viewFilters'
-import { TestApp } from '@baserow/test/helpers/testApp'
+} from '@jadawel/modules/database/utils/field'
+import { EqualViewFilterType } from '@jadawel/modules/database/viewFilters'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('test field utils', () => {
   let testApp = null

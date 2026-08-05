@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import RowEditFieldMultipleSelect from '@baserow/modules/database/components/row/RowEditFieldMultipleSelect'
-import baseField from '@baserow/modules/database/mixins/baseField'
+import RowEditFieldMultipleSelect from '@jadawel/modules/database/components/row/RowEditFieldMultipleSelect'
+import baseField from '@jadawel/modules/database/mixins/baseField'
 
 export default {
   name: 'RowEditFieldMultipleSelectReadOnly',

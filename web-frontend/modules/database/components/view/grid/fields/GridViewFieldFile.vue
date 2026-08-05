@@ -73,15 +73,15 @@
 </template>
 
 <script>
-import { uuid } from '@baserow/modules/core/utils/string'
-import { isElement } from '@baserow/modules/core/utils/dom'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import UserFilesModal from '@baserow/modules/core/components/files/UserFilesModal'
-import { UploadFileUserFileUploadType } from '@baserow/modules/core/userFileUploadTypes'
-import UserFileService from '@baserow/modules/core/services/userFile'
-import FileFieldModal from '@baserow/modules/database/components/field/FileFieldModal'
-import gridField from '@baserow/modules/database/mixins/gridField'
-import fileField from '@baserow/modules/database/mixins/fileField'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import { isElement } from '@jadawel/modules/core/utils/dom'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import UserFilesModal from '@jadawel/modules/core/components/files/UserFilesModal'
+import { UploadFileUserFileUploadType } from '@jadawel/modules/core/userFileUploadTypes'
+import UserFileService from '@jadawel/modules/core/services/userFile'
+import FileFieldModal from '@jadawel/modules/database/components/field/FileFieldModal'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import fileField from '@jadawel/modules/database/mixins/fileField'
 
 export default {
   name: 'GridViewFieldFile',

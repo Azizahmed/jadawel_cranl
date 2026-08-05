@@ -1,7 +1,7 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-import RecordsListWidget from '@baserow/modules/arabase/dashboard/components/widget/RecordsListWidget'
-import UpcomingDatesWidget from '@baserow/modules/arabase/dashboard/components/widget/UpcomingDatesWidget'
+import RecordsListWidget from '@jadawel/modules/arabase/dashboard/components/widget/RecordsListWidget'
+import UpcomingDatesWidget from '@jadawel/modules/arabase/dashboard/components/widget/UpcomingDatesWidget'
 
 const SCHEMA = {
   items: {

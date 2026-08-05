@@ -1,17 +1,17 @@
 import { defineNuxtPlugin } from '#app'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
 import {
   DuplicateTableJobType,
   SyncDataSyncTableJobType,
   FileImportJobType,
   DuplicateFieldJobType,
   AirtableJobType,
-} from '@baserow/modules/database/jobTypes'
+} from '@jadawel/modules/database/jobTypes'
 import {
   GridViewType,
   GalleryViewType,
   FormViewType,
-} from '@baserow/modules/database/viewTypes'
+} from '@jadawel/modules/database/viewTypes'
 import {
   TextFieldType,
   LongTextFieldType,
@@ -40,7 +40,7 @@ import {
   AutonumberFieldType,
   PasswordFieldType,
   FormViewEditRowFieldType,
-} from '@baserow/modules/database/fieldTypes'
+} from '@jadawel/modules/database/fieldTypes'
 import {
   EqualViewFilterType,
   NotEqualViewFilterType,
@@ -102,7 +102,7 @@ import {
   DateAfterViewFilterType,
   DateAfterOrEqualViewFilterType,
   DateEqualsDayOfMonthViewFilterType,
-} from '@baserow/modules/database/viewFilters'
+} from '@jadawel/modules/database/viewFilters'
 import {
   HasValueEqualViewFilterType,
   HasEmptyValueViewFilterType,
@@ -136,17 +136,17 @@ import {
   HasNotDateOnOrAfterViewFilterType,
   HasDateWithinViewFilterType,
   HasNotDateWithinViewFilterType,
-} from '@baserow/modules/database/arrayViewFilters'
+} from '@jadawel/modules/database/arrayViewFilters'
 import {
   CSVImporterType,
   PasteImporterType,
   XMLImporterType,
   JSONImporterType,
-} from '@baserow/modules/database/importerTypes'
+} from '@jadawel/modules/database/importerTypes'
 import {
   ICalCalendarDataSyncType,
   PostgreSQLDataSyncType,
-} from '@baserow/modules/database/dataSyncTypes'
+} from '@jadawel/modules/database/dataSyncTypes'
 import {
   RowsCreatedWebhookEventType,
   RowsUpdatedWebhookEventType,
@@ -157,24 +157,24 @@ import {
   ViewCreatedWebhookEventType,
   ViewUpdatedWebhookEventType,
   ViewDeletedWebhookEventType,
-} from '@baserow/modules/database/webhookEventTypes'
+} from '@jadawel/modules/database/webhookEventTypes'
 import {
   ImageFilePreview,
   AudioFilePreview,
   VideoFilePreview,
   PDFBrowserFilePreview,
   GoogleDocFilePreview,
-} from '@baserow/modules/database/filePreviewTypes'
+} from '@jadawel/modules/database/filePreviewTypes'
 
 import {
   TextTypeUniqueWithEmptyConstraintType,
   RatingTypeUniqueWithEmptyConstraintType,
   GenericUniqueWithEmptyConstraintType,
-} from '@baserow/modules/database/fieldConstraintTypes'
+} from '@jadawel/modules/database/fieldConstraintTypes'
 
-import { APITokenSettingsType } from '@baserow/modules/database/settingsTypes'
+import { APITokenSettingsType } from '@jadawel/modules/database/settingsTypes'
 
-import { CSVTableExporterType } from '@baserow/modules/database/exporterTypes'
+import { CSVTableExporterType } from '@jadawel/modules/database/exporterTypes'
 import {
   BaserowAdd,
   BaserowAnd,
@@ -277,7 +277,7 @@ import {
   BaserowArraySlice,
   BaserowFirst,
   BaserowLast,
-} from '@baserow/modules/database/formula/functions'
+} from '@jadawel/modules/database/formula/functions'
 import {
   BaserowFormulaArrayType,
   BaserowFormulaBooleanType,
@@ -296,7 +296,7 @@ import {
   BaserowFormulaTextType,
   BaserowFormulaFileType,
   BaserowFormulaURLType,
-} from '@baserow/modules/database/formula/formulaTypes'
+} from '@jadawel/modules/database/formula/formulaTypes'
 import {
   CountViewAggregationType,
   EmptyCountViewAggregationType,
@@ -318,33 +318,33 @@ import {
   VarianceViewAggregationType,
   MedianViewAggregationType,
   DistributionViewAggregationType,
-} from '@baserow/modules/database/viewAggregationTypes'
-import { FormViewFormModeType } from '@baserow/modules/database/formViewModeTypes'
-import { CollaborativeViewOwnershipType } from '@baserow/modules/database/viewOwnershipTypes'
-import { DatabasePlugin } from '@baserow/modules/database/plugins'
+} from '@jadawel/modules/database/viewAggregationTypes'
+import { FormViewFormModeType } from '@jadawel/modules/database/formViewModeTypes'
+import { CollaborativeViewOwnershipType } from '@jadawel/modules/database/viewOwnershipTypes'
+import { DatabasePlugin } from '@jadawel/modules/database/plugins'
 import {
   CollaboratorAddedToRowNotificationType,
   FormSubmittedNotificationType,
   UserMentionInRichTextFieldNotificationType,
   WebhookDeactivatedNotificationType,
   WebhookPayloadTooLargedNotificationType,
-} from '@baserow/modules/database/notificationTypes'
-import { HistoryRowModalSidebarType } from '@baserow/modules/database/rowModalSidebarTypes'
-import { FieldsDataProviderType } from '@baserow/modules/database/dataProviderTypes'
+} from '@jadawel/modules/database/notificationTypes'
+import { HistoryRowModalSidebarType } from '@jadawel/modules/database/rowModalSidebarTypes'
+import { FieldsDataProviderType } from '@jadawel/modules/database/dataProviderTypes'
 
 import {
   DatabaseOnboardingType,
   DatabaseScratchTrackOnboardingType,
   DatabaseImportOnboardingType,
   DatabaseScratchTrackFieldsOnboardingType,
-} from '@baserow/modules/database/onboardingTypes'
+} from '@jadawel/modules/database/onboardingTypes'
 
 import {
   ScratchDatabaseOnboardingStepType,
   ImportDatabaseOnboardingStepType,
   AirtableDatabaseOnboardingStepType,
   TemplateDatabaseOnboardingStepType,
-} from '@baserow/modules/database/databaseOnboardingStepTypes'
+} from '@jadawel/modules/database/databaseOnboardingStepTypes'
 
 import {
   DatabaseScratchTrackCampaignFieldsOnboardingType,
@@ -352,19 +352,19 @@ import {
   DatabaseScratchTrackProjectFieldsOnboardingType,
   DatabaseScratchTrackTaskFieldsOnboardingType,
   DatabaseScratchTrackTeamFieldsOnboardingType,
-} from '@baserow/modules/database/databaseScratchTrackFieldsStepType'
+} from '@jadawel/modules/database/databaseScratchTrackFieldsStepType'
 import {
   SyncedFieldsConfigureDataSyncType,
   SettingsConfigureDataSyncType,
-} from '@baserow/modules/database/configureDataSyncTypes'
-import { DatabaseGuidedTourType } from '@baserow/modules/database/guidedTourTypes'
+} from '@jadawel/modules/database/configureDataSyncTypes'
+import { DatabaseGuidedTourType } from '@jadawel/modules/database/guidedTourTypes'
 import {
   DatabaseSearchType,
   DatabaseTableSearchType,
   DatabaseFieldSearchType,
   DatabaseRowSearchType,
-} from '@baserow/modules/database/searchTypes'
-import { searchTypeRegistry } from '@baserow/modules/core/search/types/registry'
+} from '@jadawel/modules/database/searchTypes'
+import { searchTypeRegistry } from '@jadawel/modules/core/search/types/registry'
 
 export default defineNuxtPlugin({
   name: 'database',

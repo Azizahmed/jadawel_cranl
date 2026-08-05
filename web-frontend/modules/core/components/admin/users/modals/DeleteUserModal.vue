@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import UserAdminService from '@baserow/modules/core/services/admin/users'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import UserAdminService from '@jadawel/modules/core/services/admin/users'
 
 export default {
   name: 'DeleteUserModal',

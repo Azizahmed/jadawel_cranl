@@ -186,8 +186,8 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
-import tableFields from '@baserow/modules/database/mixins/tableFields'
+import form from '@jadawel/modules/core/mixins/form'
+import tableFields from '@jadawel/modules/database/mixins/tableFields'
 
 // The backend accepts more; three is what fits the settings panel and stays
 // readable in one chart.

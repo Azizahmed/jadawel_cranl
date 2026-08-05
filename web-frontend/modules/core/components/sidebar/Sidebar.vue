@@ -87,12 +87,12 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import SidebarUserContext from '@baserow/modules/core/components/sidebar/SidebarUserContext'
-import SidebarWithWorkspace from '@baserow/modules/core/components/sidebar/SidebarWithWorkspace'
-import SidebarWithoutWorkspace from '@baserow/modules/core/components/sidebar/SidebarWithoutWorkspace'
-import SidebarAdmin from '@baserow/modules/core/components/sidebar/SidebarAdmin'
-import SidebarFoot from '@baserow/modules/core/components/sidebar/SidebarFoot'
-import SidebarMenu from '@baserow/modules/core/components/sidebar/SidebarMenu'
+import SidebarUserContext from '@jadawel/modules/core/components/sidebar/SidebarUserContext'
+import SidebarWithWorkspace from '@jadawel/modules/core/components/sidebar/SidebarWithWorkspace'
+import SidebarWithoutWorkspace from '@jadawel/modules/core/components/sidebar/SidebarWithoutWorkspace'
+import SidebarAdmin from '@jadawel/modules/core/components/sidebar/SidebarAdmin'
+import SidebarFoot from '@jadawel/modules/core/components/sidebar/SidebarFoot'
+import SidebarMenu from '@jadawel/modules/core/components/sidebar/SidebarMenu'
 import SidebarAdminItem from './SidebarAdminItem.vue'
 
 export default {

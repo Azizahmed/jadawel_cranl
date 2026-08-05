@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import SidebarDuplicateApplicationContextItem from '@baserow/modules/core/components/sidebar/SidebarDuplicateApplicationContextItem.vue'
-import TrashModal from '@baserow/modules/core/components/trash/TrashModal'
-import SnapshotsModal from '@baserow/modules/core/components/snapshots/SnapshotsModal'
-import application from '@baserow/modules/core/mixins/application'
+import SidebarDuplicateApplicationContextItem from '@jadawel/modules/core/components/sidebar/SidebarDuplicateApplicationContextItem.vue'
+import TrashModal from '@jadawel/modules/core/components/trash/TrashModal'
+import SnapshotsModal from '@jadawel/modules/core/components/snapshots/SnapshotsModal'
+import application from '@jadawel/modules/core/mixins/application'
 
 export default {
   name: 'SidebarApplication',

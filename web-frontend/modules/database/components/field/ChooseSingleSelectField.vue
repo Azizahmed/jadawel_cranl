@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import { SingleSelectFieldType } from '@baserow/modules/database/fieldTypes'
-import CreateFieldContext from '@baserow/modules/database/components/field/CreateFieldContext'
+import { SingleSelectFieldType } from '@jadawel/modules/database/fieldTypes'
+import CreateFieldContext from '@jadawel/modules/database/components/field/CreateFieldContext'
 
 export default {
   name: 'ChooseSingleSelectField',

@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import dropdown from '@baserow/modules/core/mixins/dropdown'
+import dropdown from '@jadawel/modules/core/mixins/dropdown'
 
 export default {
   name: 'Dropdown',

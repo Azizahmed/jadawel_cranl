@@ -1,7 +1,7 @@
 import {
   formatRecordValue,
   resolveDisplayedFields,
-} from '@baserow/modules/arabase/dashboard/recordValues'
+} from '@jadawel/modules/arabase/dashboard/recordValues'
 
 describe('formatRecordValue', () => {
   test('empty values render as nothing rather than "null"', () => {

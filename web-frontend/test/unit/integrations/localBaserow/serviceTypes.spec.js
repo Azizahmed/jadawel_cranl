@@ -4,8 +4,8 @@ import {
   LocalBaserowTableServiceType,
   LocalBaserowCreateRowWorkflowServiceType,
   LocalBaserowDeleteRowWorkflowServiceType,
-} from '@baserow/modules/integrations/localBaserow/serviceTypes'
-import { TestApp } from '@baserow/test/helpers/testApp'
+} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('Local baserow service types', () => {
   let testApp = null

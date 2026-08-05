@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import RowEditFieldSingleSelect from '@baserow/modules/database/components/row/RowEditFieldSingleSelect'
-import baseField from '@baserow/modules/database/mixins/baseField'
+import RowEditFieldSingleSelect from '@jadawel/modules/database/components/row/RowEditFieldSingleSelect'
+import baseField from '@jadawel/modules/database/mixins/baseField'
 
 export default {
   name: 'RowEditFieldSingleSelectReadOnly',

@@ -1,4 +1,4 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 describe('Formula Functions Test', () => {
   let testApp = null
   beforeEach(() => {

@@ -49,10 +49,10 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import collaboratorField from '@baserow/modules/database/mixins/collaboratorField'
-import FieldCollaboratorDropdown from '@baserow/modules/database/components/field/FieldCollaboratorDropdown'
-import collaboratorName from '@baserow/modules/database/mixins/collaboratorName'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import collaboratorField from '@jadawel/modules/database/mixins/collaboratorField'
+import FieldCollaboratorDropdown from '@jadawel/modules/database/components/field/FieldCollaboratorDropdown'
+import collaboratorName from '@jadawel/modules/database/mixins/collaboratorName'
 
 export default {
   components: { FieldCollaboratorDropdown },

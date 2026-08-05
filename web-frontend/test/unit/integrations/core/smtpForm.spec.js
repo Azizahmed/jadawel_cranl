@@ -1,7 +1,7 @@
 import flushPromises from 'flush-promises'
 
-import SMTPForm from '@baserow/modules/integrations/core/components/integrations/SMTPForm'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import SMTPForm from '@jadawel/modules/integrations/core/components/integrations/SMTPForm'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('SMTP integration form', () => {
   let testApp = null

@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import undoRedo from '@baserow/modules/core/mixins/undoRedo'
-import BrandLogo from '@baserow/modules/core/components/BrandLogo'
+import undoRedo from '@jadawel/modules/core/mixins/undoRedo'
+import BrandLogo from '@jadawel/modules/core/components/BrandLogo'
 
 export default {
   name: 'SidebarFoot',

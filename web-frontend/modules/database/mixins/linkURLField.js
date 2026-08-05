@@ -1,5 +1,5 @@
-import { isValidURL } from '@baserow/modules/core/utils/string'
-import { ensureUrlProtocol } from '@baserow/modules/core/utils/url'
+import { isValidURL } from '@jadawel/modules/core/utils/string'
+import { ensureUrlProtocol } from '@jadawel/modules/core/utils/url'
 
 export default {
   methods: {

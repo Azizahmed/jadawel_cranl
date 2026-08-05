@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FieldMappingForm from '@baserow/modules/integrations/localBaserow/components/services/FieldMappingForm'
+import FieldMappingForm from '@jadawel/modules/integrations/localBaserow/components/services/FieldMappingForm'
 
 export default {
   name: 'FieldMappingsForm',

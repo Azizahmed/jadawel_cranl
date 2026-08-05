@@ -83,10 +83,10 @@
 </template>
 
 <script>
-import formElementForm from '@baserow/modules/builder/mixins/formElementForm'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput.vue'
-import CustomStyleButton from '@baserow/modules/builder/components/elements/components/forms/style/CustomStyleButton'
-import { DATE_FORMATS, TIME_FORMATS } from '@baserow/modules/builder/enums'
+import formElementForm from '@jadawel/modules/builder/mixins/formElementForm'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput.vue'
+import CustomStyleButton from '@jadawel/modules/builder/components/elements/components/forms/style/CustomStyleButton'
+import { DATE_FORMATS, TIME_FORMATS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'DateTimePickerElementForm',

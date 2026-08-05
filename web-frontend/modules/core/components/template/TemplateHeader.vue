@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import TemplateService from '@baserow/modules/core/services/template'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import TemplateService from '@jadawel/modules/core/services/template'
 
 export default {
   name: 'TemplateHeader',

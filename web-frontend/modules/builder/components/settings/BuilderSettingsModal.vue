@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-//import { BuilderApplicationType } from '@baserow/modules/builder/applicationTypes'
+import modal from '@jadawel/modules/core/mixins/modal'
+//import { BuilderApplicationType } from '@jadawel/modules/builder/applicationTypes'
 
 export default {
   name: 'BuilderSettingsModal',

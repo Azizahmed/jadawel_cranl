@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import RowEditModalField from '@baserow/modules/database/components/row/RowEditModalField'
+import RowEditModalField from '@jadawel/modules/database/components/row/RowEditModalField'
 
 export default {
   name: 'RowEditModalFieldsList',

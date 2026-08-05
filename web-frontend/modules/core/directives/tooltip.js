@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { onClickOutside } from '@baserow/modules/core/utils/dom'
+import { onClickOutside } from '@jadawel/modules/core/utils/dom'
 
 /**
  * helper function to extract options from element

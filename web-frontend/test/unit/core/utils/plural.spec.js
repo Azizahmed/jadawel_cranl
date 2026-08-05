@@ -1,4 +1,4 @@
-import { pluralCategory, pluralKeys } from '@baserow/modules/core/utils/plural'
+import { pluralCategory, pluralKeys } from '@jadawel/modules/core/utils/plural'
 
 describe('plural category selection', () => {
   test('picks the six Arabic CLDR categories, not the English two', () => {

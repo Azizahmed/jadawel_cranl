@@ -94,8 +94,8 @@
 import { useVuelidate } from '@vuelidate/core'
 import { mapGetters } from 'vuex'
 import { required, decimal, minValue, maxValue } from '@vuelidate/validators'
-import modal from '@baserow/modules/core/mixins/modal'
-import form from '@baserow/modules/core/mixins/form'
+import modal from '@jadawel/modules/core/mixins/modal'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'SelectAIModelForm',

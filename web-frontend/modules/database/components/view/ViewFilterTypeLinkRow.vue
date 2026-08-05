@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import { isInteger } from '@baserow/modules/core/utils/string'
-import { getPersistentFieldOptionsKey } from '@baserow/modules/database/utils/field'
-import PaginatedDropdown from '@baserow/modules/core/components/PaginatedDropdown'
-import SelectRowModal from '@baserow/modules/database/components/row/SelectRowModal'
-import viewFilter from '@baserow/modules/database/mixins/viewFilter'
-import ViewService from '@baserow/modules/database/services/view'
-import RowService from '@baserow/modules/database/services/row'
+import { isInteger } from '@jadawel/modules/core/utils/string'
+import { getPersistentFieldOptionsKey } from '@jadawel/modules/database/utils/field'
+import PaginatedDropdown from '@jadawel/modules/core/components/PaginatedDropdown'
+import SelectRowModal from '@jadawel/modules/database/components/row/SelectRowModal'
+import viewFilter from '@jadawel/modules/database/mixins/viewFilter'
+import ViewService from '@jadawel/modules/database/services/view'
+import RowService from '@jadawel/modules/database/services/row'
 
 export default {
   name: 'ViewFilterTypeLinkRow',

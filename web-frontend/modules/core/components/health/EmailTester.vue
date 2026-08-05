@@ -49,9 +49,9 @@
 import { useVuelidate } from '@vuelidate/core'
 
 import { reactive, getCurrentInstance } from 'vue'
-import error from '@baserow/modules/core/mixins/error'
-import HealthService from '@baserow/modules/core/services/health'
-import form from '@baserow/modules/core/mixins/form'
+import error from '@jadawel/modules/core/mixins/error'
+import HealthService from '@jadawel/modules/core/services/health'
+import form from '@jadawel/modules/core/mixins/form'
 import { required, email, helpers } from '@vuelidate/validators'
 import { mapGetters } from 'vuex'
 export default {

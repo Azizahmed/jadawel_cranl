@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import singleSelectField from '@baserow/modules/database/mixins/singleSelectField'
-import FieldSelectOptionsDropdown from '@baserow/modules/database/components/field/FieldSelectOptionsDropdown'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import singleSelectField from '@jadawel/modules/database/mixins/singleSelectField'
+import FieldSelectOptionsDropdown from '@jadawel/modules/database/components/field/FieldSelectOptionsDropdown'
 
 export default {
   components: { FieldSelectOptionsDropdown },

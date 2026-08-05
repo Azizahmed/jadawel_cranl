@@ -1,4 +1,4 @@
-import RadioGroup from '@baserow/modules/core/components/RadioGroup'
+import RadioGroup from '@jadawel/modules/core/components/RadioGroup'
 
 export default {
   title: 'Jadawel/Form Elements/Radio/RadioGroup',

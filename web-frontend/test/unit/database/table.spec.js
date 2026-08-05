@@ -1,7 +1,7 @@
-import { TestApp, UIHelpers } from '@baserow/test/helpers/testApp'
+import { TestApp, UIHelpers } from '@jadawel/test/helpers/testApp'
 import flushPromises from 'flush-promises'
 
-import Table from '@baserow/modules/database/pages/table'
+import Table from '@jadawel/modules/database/pages/table'
 import { test } from 'vitest'
 
 describe('Table Component Tests', () => {

@@ -35,11 +35,11 @@
   </FieldDurationSubForm>
 </template>
 <script>
-import FieldNumberSubForm from '@baserow/modules/database/components/field/FieldNumberSubForm'
-import FieldDateSubForm from '@baserow/modules/database/components/field/FieldDateSubForm'
-import FieldDurationSubForm from '@baserow/modules/database/components/field/FieldDurationSubForm'
-import form from '@baserow/modules/core/mixins/form'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
+import FieldNumberSubForm from '@jadawel/modules/database/components/field/FieldNumberSubForm'
+import FieldDateSubForm from '@jadawel/modules/database/components/field/FieldDateSubForm'
+import FieldDurationSubForm from '@jadawel/modules/database/components/field/FieldDurationSubForm'
+import form from '@jadawel/modules/core/mixins/form'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
 
 export default {
   name: 'FormulaTypeSubForms',

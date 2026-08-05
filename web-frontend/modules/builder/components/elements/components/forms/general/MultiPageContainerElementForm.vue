@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import elementForm from '@baserow/modules/builder/mixins/elementForm'
-import { SHARE_TYPES } from '@baserow/modules/builder/enums'
+import elementForm from '@jadawel/modules/builder/mixins/elementForm'
+import { SHARE_TYPES } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'MultiPageContainerElementForm',

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import fieldOptionsSubForm from '@baserow/modules/database/mixins/fieldOptionsSubForm'
+import fieldOptionsSubForm from '@jadawel/modules/database/mixins/fieldOptionsSubForm'
 
 export default {
   name: 'FieldSelectOptionsSubForm',

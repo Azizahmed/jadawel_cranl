@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import Table from '@baserow/modules/database/components/table/Table'
-import { populateView } from '@baserow/modules/database/store/view'
-import { GridViewType } from '@baserow/modules/database/viewTypes'
-import { CollaborativeViewOwnershipType } from '@baserow/modules/database/viewOwnershipTypes'
-import { populateField } from '@baserow/modules/database/store/field'
-import { TextFieldType } from '@baserow/modules/database/fieldTypes'
-import { populateRow } from '@baserow/modules/database/store/view/grid'
+import Table from '@jadawel/modules/database/components/table/Table'
+import { populateView } from '@jadawel/modules/database/store/view'
+import { GridViewType } from '@jadawel/modules/database/viewTypes'
+import { CollaborativeViewOwnershipType } from '@jadawel/modules/database/viewOwnershipTypes'
+import { populateField } from '@jadawel/modules/database/store/field'
+import { TextFieldType } from '@jadawel/modules/database/fieldTypes'
+import { populateRow } from '@jadawel/modules/database/store/view/grid'
 
 export default {
   name: 'DatabaseTablePreview',

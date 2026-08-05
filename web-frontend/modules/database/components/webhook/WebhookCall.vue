@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 
 export default {
   name: 'WebhookCalls',

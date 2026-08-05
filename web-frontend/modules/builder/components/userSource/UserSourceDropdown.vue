@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import BuilderSettingsModal from '@baserow/modules/builder/components/settings/BuilderSettingsModal'
-import { UserSourcesBuilderSettingsType } from '@baserow/modules/builder/builderSettingTypes'
+import BuilderSettingsModal from '@jadawel/modules/builder/components/settings/BuilderSettingsModal'
+import { UserSourcesBuilderSettingsType } from '@jadawel/modules/builder/builderSettingTypes'
 
 export default {
   name: 'UserSourceDropdown',

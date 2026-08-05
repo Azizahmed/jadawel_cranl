@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import NodeExplorerTab from '@baserow/modules/core/components/nodeExplorer/NodeExplorerTab'
+import NodeExplorerTab from '@jadawel/modules/core/components/nodeExplorer/NodeExplorerTab'
 
 import _ from 'lodash'
-import { BASEROW_FORMULA_MODES } from '@baserow/modules/core/formula/constants'
+import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'NodeExplorer',

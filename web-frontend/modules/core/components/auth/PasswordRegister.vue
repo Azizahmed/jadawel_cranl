@@ -120,11 +120,11 @@
 import { useVuelidate } from '@vuelidate/core'
 import { reactive, computed } from 'vue'
 import { email, maxLength, minLength, required } from '@vuelidate/validators'
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import error from '@baserow/modules/core/mixins/error'
-import PasswordInput from '@baserow/modules/core/components/helpers/PasswordInput'
-import CaptchaWidget from '@baserow/modules/core/components/auth/CaptchaWidget'
-import { passwordValidation } from '@baserow/modules/core/validators'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import PasswordInput from '@jadawel/modules/core/components/helpers/PasswordInput'
+import CaptchaWidget from '@jadawel/modules/core/components/auth/CaptchaWidget'
+import { passwordValidation } from '@jadawel/modules/core/validators'
 
 export default {
   name: 'PasswordRegister',

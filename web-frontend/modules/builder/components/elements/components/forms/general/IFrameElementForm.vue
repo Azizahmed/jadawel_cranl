@@ -60,9 +60,9 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import elementForm from '@baserow/modules/builder/mixins/elementForm'
-import { IFRAME_SOURCE_TYPES } from '@baserow/modules/builder/enums'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput.vue'
+import elementForm from '@jadawel/modules/builder/mixins/elementForm'
+import { IFRAME_SOURCE_TYPES } from '@jadawel/modules/builder/enums'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput.vue'
 import {
   required,
   integer,

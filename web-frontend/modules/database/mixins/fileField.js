@@ -1,4 +1,4 @@
-import { mimetype2icon } from '@baserow/modules/core/utils/fileTypeToIcon'
+import { mimetype2icon } from '@jadawel/modules/core/utils/fileTypeToIcon'
 
 export default {
   emits: ['update'],

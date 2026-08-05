@@ -91,8 +91,8 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import error from '@baserow/modules/core/mixins/error'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import error from '@jadawel/modules/core/mixins/error'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 
 export default {
   mixins: [error],

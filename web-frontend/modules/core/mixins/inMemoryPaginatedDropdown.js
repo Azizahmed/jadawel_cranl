@@ -1,5 +1,5 @@
-import paginatedDropdown from '@baserow/modules/core/mixins/paginatedDropdown'
-import dropdown from '@baserow/modules/core/mixins/dropdown'
+import paginatedDropdown from '@jadawel/modules/core/mixins/paginatedDropdown'
+import dropdown from '@jadawel/modules/core/mixins/dropdown'
 
 export default {
   name: 'inMemoryPaginatedDropdown',

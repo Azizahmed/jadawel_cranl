@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import MemberAssignmentModalFooter from '@baserow/modules/core/components/workspace/MemberAssignmentModalFooter'
+import MemberAssignmentModalFooter from '@jadawel/modules/core/components/workspace/MemberAssignmentModalFooter'
 export default {
   name: 'MemberSelectionList',
   components: { MemberAssignmentModalFooter },

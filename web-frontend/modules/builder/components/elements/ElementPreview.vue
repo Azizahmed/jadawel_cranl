@@ -74,16 +74,16 @@
 <script>
 import { computed, inject } from 'vue'
 import { useStore, mapActions, mapGetters } from 'vuex'
-import ElementMenu from '@baserow/modules/builder/components/elements/ElementMenu'
-import InsertElementButton from '@baserow/modules/builder/components/elements/InsertElementButton'
-import PageElement from '@baserow/modules/builder/components/page/PageElement'
-import { DIRECTIONS } from '@baserow/modules/builder/enums'
-import AddElementModal from '@baserow/modules/builder/components/elements/AddElementModal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { checkIntermediateElements } from '@baserow/modules/core/utils/dom'
-import applicationContextMixin from '@baserow/modules/builder/mixins/applicationContext'
-import { useElementDraggable } from '@baserow/modules/builder/composables/useElementDraggable'
-import { useDropElementTarget } from '@baserow/modules/builder/composables/useDropElementTarget'
+import ElementMenu from '@jadawel/modules/builder/components/elements/ElementMenu'
+import InsertElementButton from '@jadawel/modules/builder/components/elements/InsertElementButton'
+import PageElement from '@jadawel/modules/builder/components/page/PageElement'
+import { DIRECTIONS } from '@jadawel/modules/builder/enums'
+import AddElementModal from '@jadawel/modules/builder/components/elements/AddElementModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { checkIntermediateElements } from '@jadawel/modules/core/utils/dom'
+import applicationContextMixin from '@jadawel/modules/builder/mixins/applicationContext'
+import { useElementDraggable } from '@jadawel/modules/builder/composables/useElementDraggable'
+import { useDropElementTarget } from '@jadawel/modules/builder/composables/useDropElementTarget'
 
 export default {
   name: 'ElementPreview',

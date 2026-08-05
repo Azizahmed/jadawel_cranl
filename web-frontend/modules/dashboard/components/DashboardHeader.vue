@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import DashboardHeaderMenuItems from '@baserow/modules/dashboard/components/DashboardHeaderMenuItems'
+import DashboardHeaderMenuItems from '@jadawel/modules/dashboard/components/DashboardHeaderMenuItems'
 
 export default {
   name: 'DashboardHeader',

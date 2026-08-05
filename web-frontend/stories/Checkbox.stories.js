@@ -1,4 +1,4 @@
-import Checkbox from '@baserow/modules/core/components/Checkbox'
+import Checkbox from '@jadawel/modules/core/components/Checkbox'
 import { ref } from 'vue'
 
 export default {

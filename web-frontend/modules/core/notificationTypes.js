@@ -1,11 +1,11 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import NotificationSenderInitialsIcon from '@baserow/modules/core/components/notifications/NotificationSenderInitialsIcon'
-import WorkspaceInvitationCreatedNotification from '@baserow/modules/core/components/notifications/WorkspaceInvitationCreatedNotification'
-import WorkspaceInvitationAcceptedNotification from '@baserow/modules/core/components/notifications/WorkspaceInvitationAcceptedNotification'
-import WorkspaceInvitationRejectedNotification from '@baserow/modules/core/components/notifications/WorkspaceInvitationRejectedNotification'
-import BaserowVersionUpgradeNotification from '@baserow/modules/core/components/notifications/BaserowVersionUpgradeNotification'
-import NotificationImgIcon from '@baserow/modules/core/components/notifications/NotificationImgIcon'
-import BaserowIcon from '@baserow/modules/core/static/img/logoOnly.svg?url'
+import { Registerable } from '@jadawel/modules/core/registry'
+import NotificationSenderInitialsIcon from '@jadawel/modules/core/components/notifications/NotificationSenderInitialsIcon'
+import WorkspaceInvitationCreatedNotification from '@jadawel/modules/core/components/notifications/WorkspaceInvitationCreatedNotification'
+import WorkspaceInvitationAcceptedNotification from '@jadawel/modules/core/components/notifications/WorkspaceInvitationAcceptedNotification'
+import WorkspaceInvitationRejectedNotification from '@jadawel/modules/core/components/notifications/WorkspaceInvitationRejectedNotification'
+import BaserowVersionUpgradeNotification from '@jadawel/modules/core/components/notifications/BaserowVersionUpgradeNotification'
+import NotificationImgIcon from '@jadawel/modules/core/components/notifications/NotificationImgIcon'
+import BaserowIcon from '@jadawel/modules/core/static/img/logoOnly.svg?url'
 
 export class NotificationType extends Registerable {
   getIconComponent() {

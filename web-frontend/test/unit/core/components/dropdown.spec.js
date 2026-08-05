@@ -1,5 +1,5 @@
-import Dropdown from '@baserow/modules/core/components/Dropdown'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import Dropdown from '@jadawel/modules/core/components/Dropdown'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('Dropdown component', () => {
   let testApp = null

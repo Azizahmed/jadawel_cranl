@@ -1,5 +1,5 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import DefaultErrorPage from '@baserow/modules/core/components/DefaultErrorPage'
+import { Registerable } from '@jadawel/modules/core/registry'
+import DefaultErrorPage from '@jadawel/modules/core/components/DefaultErrorPage'
 
 /**
  * This type allow plugins to register a custom error page.

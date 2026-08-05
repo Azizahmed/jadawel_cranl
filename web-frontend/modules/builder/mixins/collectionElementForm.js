@@ -1,7 +1,7 @@
 import { mapGetters } from 'vuex'
-import applicationContextMixin from '@baserow/modules/builder/mixins/applicationContext'
-import { CurrentRecordDataProviderType } from '@baserow/modules/builder/dataProviderTypes'
-import elementForm from '@baserow/modules/builder/mixins/elementForm'
+import applicationContextMixin from '@jadawel/modules/builder/mixins/applicationContext'
+import { CurrentRecordDataProviderType } from '@jadawel/modules/builder/dataProviderTypes'
+import elementForm from '@jadawel/modules/builder/mixins/elementForm'
 
 export default {
   mixins: [elementForm, applicationContextMixin],

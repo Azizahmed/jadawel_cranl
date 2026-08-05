@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 
 export default {
   name: 'RemoveFromWorkspaceModal',

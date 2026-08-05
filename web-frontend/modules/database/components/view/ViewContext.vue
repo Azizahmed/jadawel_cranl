@@ -165,13 +165,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import context from '@baserow/modules/core/mixins/context'
-import viewTypeHasExporterTypes from '@baserow/modules/database/utils/viewTypeHasExporterTypes'
-import ImportFileModal from '@baserow/modules/database/components/table/ImportFileModal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ExportTableModal from '@baserow/modules/database/components/export/ExportTableModal'
-import WebhookModal from '@baserow/modules/database/components/webhook/WebhookModal.vue'
-import DefaultValuesModal from '@baserow/modules/database/components/view/DefaultValuesModal.vue'
+import context from '@jadawel/modules/core/mixins/context'
+import viewTypeHasExporterTypes from '@jadawel/modules/database/utils/viewTypeHasExporterTypes'
+import ImportFileModal from '@jadawel/modules/database/components/table/ImportFileModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ExportTableModal from '@jadawel/modules/database/components/export/ExportTableModal'
+import WebhookModal from '@jadawel/modules/database/components/webhook/WebhookModal.vue'
+import DefaultValuesModal from '@jadawel/modules/database/components/view/DefaultValuesModal.vue'
 
 export default {
   name: 'ViewContext',

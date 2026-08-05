@@ -1,4 +1,4 @@
-import UserSourceService from '@baserow/modules/core/services/userSource'
+import UserSourceService from '@jadawel/modules/core/services/userSource'
 import _ from 'lodash'
 
 const state = {}

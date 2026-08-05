@@ -31,13 +31,13 @@
 <script>
 import { mapState } from 'vuex'
 
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import ExporterService from '@baserow/modules/database/services/export'
-import ViewService from '@baserow/modules/database/services/view'
-import { populateView } from '@baserow/modules/database/store/view'
-import ExportTableForm from '@baserow/modules/database/components/export/ExportTableForm'
-import ExportLoadingBar from '@baserow/modules/database/components/export/ExportLoadingBar'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import ExporterService from '@jadawel/modules/database/services/export'
+import ViewService from '@jadawel/modules/database/services/view'
+import { populateView } from '@jadawel/modules/database/store/view'
+import ExportTableForm from '@jadawel/modules/database/components/export/ExportTableForm'
+import ExportLoadingBar from '@jadawel/modules/database/components/export/ExportLoadingBar'
 
 export default {
   name: 'ExportTableModal',

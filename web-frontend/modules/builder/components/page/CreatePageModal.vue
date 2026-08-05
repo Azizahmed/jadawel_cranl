@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import PageSettingsForm from '@baserow/modules/builder/components/page/settings/PageSettingsForm'
+import modal from '@jadawel/modules/core/mixins/modal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import PageSettingsForm from '@jadawel/modules/builder/components/page/settings/PageSettingsForm'
 
 export default {
   name: 'CreatePageModal',

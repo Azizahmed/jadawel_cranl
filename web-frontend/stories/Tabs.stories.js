@@ -1,5 +1,5 @@
-import Tabs from '@baserow/modules/core/components/Tabs'
-import Tab from '@baserow/modules/core/components/Tab'
+import Tabs from '@jadawel/modules/core/components/Tabs'
+import Tab from '@jadawel/modules/core/components/Tab'
 
 export default {
   title: 'Jadawel/Tabs',

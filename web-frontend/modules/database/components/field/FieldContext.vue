@@ -105,10 +105,10 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import UpdateFieldContext from '@baserow/modules/database/components/field/UpdateFieldContext'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ChangePrimaryFieldModal from '@baserow/modules/database/components/field/ChangePrimaryFieldModal'
+import context from '@jadawel/modules/core/mixins/context'
+import UpdateFieldContext from '@jadawel/modules/database/components/field/UpdateFieldContext'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ChangePrimaryFieldModal from '@jadawel/modules/database/components/field/ChangePrimaryFieldModal'
 
 export default {
   name: 'FieldContext',

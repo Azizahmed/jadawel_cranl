@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import element from '@baserow/modules/builder/mixins/element'
-import { IFRAME_SOURCE_TYPES } from '@baserow/modules/builder/enums'
-import { ensureString } from '@baserow/modules/core/utils/validator'
+import element from '@jadawel/modules/builder/mixins/element'
+import { IFRAME_SOURCE_TYPES } from '@jadawel/modules/builder/enums'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
 
 export default {
   name: 'IFrameElement',

@@ -1,10 +1,10 @@
 import { useNuxtApp } from '#app'
-import { uuid } from '@baserow/modules/core/utils/string'
-import AutomationWorkflowNodeService from '@baserow/modules/automation/services/automationWorkflowNode'
-import { NodeEditorSidePanelType } from '@baserow/modules/automation/editorSidePanelTypes'
-import { clone } from '@baserow/modules/core/utils/object'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import AutomationWorkflowNodeService from '@jadawel/modules/automation/services/automationWorkflowNode'
+import { NodeEditorSidePanelType } from '@jadawel/modules/automation/editorSidePanelTypes'
+import { clone } from '@jadawel/modules/core/utils/object'
 
-import NodeGraphHandler from '@baserow/modules/automation/utils/nodeGraphHandler'
+import NodeGraphHandler from '@jadawel/modules/automation/utils/nodeGraphHandler'
 
 const state = {
   selectedNodeId: null,

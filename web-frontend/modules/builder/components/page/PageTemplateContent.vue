@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import PageHeader from '@baserow/modules/builder/components/page/header/PageHeader'
-import PagePreview from '@baserow/modules/builder/components/page/PagePreview'
-import PageSidePanels from '@baserow/modules/builder/components/page/PageSidePanels'
-import ApplicationBuilderFormulaInput from '@baserow/modules/builder/components/ApplicationBuilderFormulaInput'
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
+import PageHeader from '@jadawel/modules/builder/components/page/header/PageHeader'
+import PagePreview from '@jadawel/modules/builder/components/page/PagePreview'
+import PageSidePanels from '@jadawel/modules/builder/components/page/PageSidePanels'
+import ApplicationBuilderFormulaInput from '@jadawel/modules/builder/components/ApplicationBuilderFormulaInput'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
 import _ from 'lodash'
 
 const mode = 'editing'

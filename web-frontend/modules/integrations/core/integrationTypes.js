@@ -1,5 +1,5 @@
-import { IntegrationType } from '@baserow/modules/core/integrationTypes'
-import SMTPForm from '@baserow/modules/integrations/core/components/integrations/SMTPForm'
+import { IntegrationType } from '@jadawel/modules/core/integrationTypes'
+import SMTPForm from '@jadawel/modules/integrations/core/components/integrations/SMTPForm'
 
 export class SMTPIntegrationType extends IntegrationType {
   static getType() {

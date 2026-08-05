@@ -96,19 +96,19 @@
 </template>
 
 <script>
-import elementForm from '@baserow/modules/builder/mixins/elementForm'
+import elementForm from '@jadawel/modules/builder/mixins/elementForm'
 import {
   HORIZONTAL_ALIGNMENTS,
   ORIENTATIONS,
-} from '@baserow/modules/builder/enums'
+} from '@jadawel/modules/builder/enums'
 import {
   getNextAvailableNameInSequence,
   uuid,
-} from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/string'
 import { mapGetters } from 'vuex'
-import MenuElementItemForm from '@baserow/modules/builder/components/elements/components/forms/general/MenuElementItemForm'
-import CustomStyleButton from '@baserow/modules/builder/components/elements/components/forms/style/CustomStyleButton'
-import HorizontalAlignmentsSelector from '@baserow/modules/builder/components/HorizontalAlignmentsSelector'
+import MenuElementItemForm from '@jadawel/modules/builder/components/elements/components/forms/general/MenuElementItemForm'
+import CustomStyleButton from '@jadawel/modules/builder/components/elements/components/forms/style/CustomStyleButton'
+import HorizontalAlignmentsSelector from '@jadawel/modules/builder/components/HorizontalAlignmentsSelector'
 
 export default {
   name: 'MenuElementForm',

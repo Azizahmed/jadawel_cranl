@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { DashboardApplicationType } from '@baserow/modules/dashboard/applicationTypes'
+import { DashboardApplicationType } from '@jadawel/modules/dashboard/applicationTypes'
 
 export default {
   name: 'DashboardTemplateSidebar',

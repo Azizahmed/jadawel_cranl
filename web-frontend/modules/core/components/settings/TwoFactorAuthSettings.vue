@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import TwoFactorAuthEmpty from '@baserow/modules/core/components/settings/twoFactorAuth/TwoFactorAuthEmpty'
-import DisableTwoFactorAuth from '@baserow/modules/core/components/settings/twoFactorAuth/DisableTwoFactorAuth'
-import TwoFactorEnabled from '@baserow/modules/core/components/settings/twoFactorAuth/TwoFactorEnabled'
-import EnableTwoFactorOptions from '@baserow/modules/core/components/settings/twoFactorAuth/EnableTwoFactorOptions'
-import TwoFactorAuthService from '@baserow/modules/core/services/twoFactorAuth'
+import TwoFactorAuthEmpty from '@jadawel/modules/core/components/settings/twoFactorAuth/TwoFactorAuthEmpty'
+import DisableTwoFactorAuth from '@jadawel/modules/core/components/settings/twoFactorAuth/DisableTwoFactorAuth'
+import TwoFactorEnabled from '@jadawel/modules/core/components/settings/twoFactorAuth/TwoFactorEnabled'
+import EnableTwoFactorOptions from '@jadawel/modules/core/components/settings/twoFactorAuth/EnableTwoFactorOptions'
+import TwoFactorAuthService from '@jadawel/modules/core/services/twoFactorAuth'
 
 export default {
   name: 'TwoFactorAuthSettings',

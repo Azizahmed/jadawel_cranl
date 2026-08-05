@@ -83,12 +83,12 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import CreateFieldContext from '@baserow/modules/database/components/field/CreateFieldContext'
-import GridViewFieldType from '@baserow/modules/database/components/view/grid/GridViewFieldType'
-import gridViewHelpers from '@baserow/modules/database/mixins/gridViewHelpers'
-import viewHelpers from '@baserow/modules/database/mixins/viewHelpers'
-import GridViewRowIdentifierDropdown from '@baserow/modules/database/components/view/grid/GridViewRowIdentifierDropdown'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import CreateFieldContext from '@jadawel/modules/database/components/field/CreateFieldContext'
+import GridViewFieldType from '@jadawel/modules/database/components/view/grid/GridViewFieldType'
+import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
+import viewHelpers from '@jadawel/modules/database/mixins/viewHelpers'
+import GridViewRowIdentifierDropdown from '@jadawel/modules/database/components/view/grid/GridViewRowIdentifierDropdown'
 
 export default {
   name: 'GridViewHead',

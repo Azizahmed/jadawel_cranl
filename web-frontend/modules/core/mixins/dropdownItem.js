@@ -1,4 +1,4 @@
-import { escapeRegExp } from '@baserow/modules/core/utils/string'
+import { escapeRegExp } from '@jadawel/modules/core/utils/string'
 
 export default {
   emits: ['click'],

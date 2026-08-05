@@ -2,7 +2,7 @@
 // A standalone stylesheet with its own `@import` of the palette, rather than a
 // partial under core/assets/scss/components: core's `default.scss` aggregates
 // those, and adding fork entries to it conflicts on every upstream merge.
-@import '@baserow/modules/core/assets/scss/colors';
+@import '@jadawel/modules/core/assets/scss/colors';
 
 .dashboard-chart-widget {
   display: flex;

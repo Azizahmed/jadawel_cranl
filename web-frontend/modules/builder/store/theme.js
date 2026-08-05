@@ -1,5 +1,5 @@
-import ThemeService from '@baserow/modules/builder/services/theme'
-import { clone } from '@baserow/modules/core/utils/object'
+import ThemeService from '@jadawel/modules/builder/services/theme'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 const state = {}
 

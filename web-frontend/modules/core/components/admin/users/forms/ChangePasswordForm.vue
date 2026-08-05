@@ -50,10 +50,10 @@
 import { useVuelidate } from '@vuelidate/core'
 import { reactive, computed } from 'vue'
 import { sameAs } from '@vuelidate/validators'
-import PasswordInput from '@baserow/modules/core/components/helpers/PasswordInput'
-import { passwordValidation } from '@baserow/modules/core/validators'
+import PasswordInput from '@jadawel/modules/core/components/helpers/PasswordInput'
+import { passwordValidation } from '@jadawel/modules/core/validators'
 
-import form from '@baserow/modules/core/mixins/form'
+import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'ChangePasswordForm',

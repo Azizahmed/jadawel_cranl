@@ -13,9 +13,9 @@
       <div class="dashboard__wrapper">
         <div class="dashboard__no-application">
           <img
-            src="@baserow/modules/core/assets/images/empty_workspace_illustration.png"
+            src="@jadawel/modules/core/assets/images/empty_workspace_illustration.png"
             srcset="
-              @baserow/modules/core/assets/images/empty_workspace_illustration@2x.png 2x
+              @jadawel/modules/core/assets/images/empty_workspace_illustration@2x.png 2x
             "
           />
 
@@ -47,9 +47,9 @@ import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import { useNuxtApp } from '#imports'
 
-import CreateWorkspaceModal from '@baserow/modules/core/components/workspace/CreateWorkspaceModal'
-import DashboardVerifyEmail from '@baserow/modules/core/components/dashboard/DashboardVerifyEmail'
-import WorkspaceInvitation from '@baserow/modules/core/components/workspace/WorkspaceInvitation'
+import CreateWorkspaceModal from '@jadawel/modules/core/components/workspace/CreateWorkspaceModal'
+import DashboardVerifyEmail from '@jadawel/modules/core/components/dashboard/DashboardVerifyEmail'
+import WorkspaceInvitation from '@jadawel/modules/core/components/workspace/WorkspaceInvitation'
 
 definePageMeta({
   layout: 'app',

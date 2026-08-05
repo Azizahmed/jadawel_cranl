@@ -2,7 +2,7 @@ import {
   getTokenIfEnoughTimeLeft,
   setToken,
   setUserSessionCookie,
-} from '@baserow/modules/core/utils/auth'
+} from '@jadawel/modules/core/utils/auth'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const nuxtApp = useNuxtApp()

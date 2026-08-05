@@ -1,4 +1,4 @@
-import BadgeCollaborator from '@baserow/modules/core/components/BadgeCollaborator'
+import BadgeCollaborator from '@jadawel/modules/core/components/BadgeCollaborator'
 
 export default {
   title: 'Jadawel/BadgeCollaborator',

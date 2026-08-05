@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import DnsStatus from '@baserow/modules/builder/components/domain/DnsStatus'
-import LastPublishedDomainDate from '@baserow/modules/builder/components/domain/LastPublishedDomainDate'
+import DnsStatus from '@jadawel/modules/builder/components/domain/DnsStatus'
+import LastPublishedDomainDate from '@jadawel/modules/builder/components/domain/LastPublishedDomainDate'
 
 export default {
   name: 'DomainCard',

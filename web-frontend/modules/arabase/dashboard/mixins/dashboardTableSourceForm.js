@@ -1,5 +1,5 @@
-import form from '@baserow/modules/core/mixins/form'
-import tableFields from '@baserow/modules/database/mixins/tableFields'
+import form from '@jadawel/modules/core/mixins/form'
+import tableFields from '@jadawel/modules/database/mixins/tableFields'
 
 /**
  * The table/view half of a dashboard data source form.

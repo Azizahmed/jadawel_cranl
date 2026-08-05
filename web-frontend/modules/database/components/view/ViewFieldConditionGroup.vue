@@ -102,8 +102,8 @@
 
 <script>
 import { ulid } from 'ulid'
-import ViewFilterFormOperator from '@baserow/modules/database/components/view/ViewFilterFormOperator'
-import ViewFieldConditionItem from '@baserow/modules/database/components/view/ViewFieldConditionItem'
+import ViewFilterFormOperator from '@jadawel/modules/database/components/view/ViewFilterFormOperator'
+import ViewFieldConditionItem from '@jadawel/modules/database/components/view/ViewFieldConditionItem'
 
 export default {
   name: 'ViewFieldConditionGroup',

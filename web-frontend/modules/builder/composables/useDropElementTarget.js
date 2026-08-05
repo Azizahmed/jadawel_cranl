@@ -1,7 +1,7 @@
 import { computed, inject, ref, unref } from 'vue'
 import { useStore } from 'vuex'
 import { useNuxtApp } from '#app'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export function useDropElementTarget({
   parentElement,

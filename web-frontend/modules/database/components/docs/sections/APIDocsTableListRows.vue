@@ -147,9 +147,9 @@
 </template>
 
 <script>
-import APIDocsExample from '@baserow/modules/database/components/docs/APIDocsExample'
-import APIDocsParameter from '@baserow/modules/database/components/docs/APIDocsParameter'
-import APIDocsFiltersBuilderModal from '@baserow/modules/database/components/docs/APIDocsFiltersBuilderModal.vue'
+import APIDocsExample from '@jadawel/modules/database/components/docs/APIDocsExample'
+import APIDocsParameter from '@jadawel/modules/database/components/docs/APIDocsParameter'
+import APIDocsFiltersBuilderModal from '@jadawel/modules/database/components/docs/APIDocsFiltersBuilderModal.vue'
 
 export default {
   name: 'APIDocsTableListRows',

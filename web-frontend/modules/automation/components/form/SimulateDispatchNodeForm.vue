@@ -79,8 +79,8 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import SampleDataModal from '@baserow/modules/automation/components/sidebar/SampleDataModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import SampleDataModal from '@jadawel/modules/automation/components/sidebar/SampleDataModal'
 
 const { $i18n, $hasPermission, $registry } = useNuxtApp()
 const store = useStore()

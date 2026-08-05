@@ -58,7 +58,7 @@ export default {
   },
   resolve: {
     alias: {
-      '@baserow_test_cases': path.resolve(__dirname, '../tests/cases'),
+      '@jadawel_test_cases': path.resolve(__dirname, '../tests/cases'),
     },
   },
 }

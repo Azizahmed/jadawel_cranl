@@ -1,7 +1,7 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 
-import ICalCalendarDataSync from '@baserow/modules/database/components/dataSync/ICalCalendarDataSync'
-import PostgreSQLDataSync from '@baserow/modules/database/components/dataSync/PostgreSQLDataSync'
+import ICalCalendarDataSync from '@jadawel/modules/database/components/dataSync/ICalCalendarDataSync'
+import PostgreSQLDataSync from '@jadawel/modules/database/components/dataSync/PostgreSQLDataSync'
 
 export class DataSyncType extends Registerable {
   /**

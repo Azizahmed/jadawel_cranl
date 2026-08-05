@@ -28,10 +28,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Highlight from '@baserow/modules/core/components/Highlight'
-import GuidedTourStep from '@baserow/modules/core/components/guidedTour/GuidedTourStep'
-import AuthService from '@baserow/modules/core/services/auth'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import Highlight from '@jadawel/modules/core/components/Highlight'
+import GuidedTourStep from '@jadawel/modules/core/components/guidedTour/GuidedTourStep'
+import AuthService from '@jadawel/modules/core/services/auth'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'GuidedTour',

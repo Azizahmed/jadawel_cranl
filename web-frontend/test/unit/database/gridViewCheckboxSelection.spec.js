@@ -1,9 +1,9 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import GridView from '@baserow/modules/database/components/view/grid/GridView'
-import GridViewRow from '@baserow/modules/database/components/view/grid/GridViewRow'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import GridView from '@jadawel/modules/database/components/view/grid/GridView'
+import GridViewRow from '@jadawel/modules/database/components/view/grid/GridViewRow'
 
 const baseMockConfig = {
-  baserowRowPageSizeLimit: 200,
+  jadawelRowPageSizeLimit: 200,
 }
 
 describe('GridView checkbox selection', () => {
@@ -116,7 +116,7 @@ describe('GridView checkbox selection', () => {
     store.$config = {
       public: {
         ...baseMockConfig,
-        baserowRowPageSizeLimit: limit,
+        jadawelRowPageSizeLimit: limit,
       },
     }
 

@@ -1,6 +1,6 @@
-import { NotificationType } from '@baserow/modules/core/notificationTypes'
-import Icon from '@baserow/modules/core/components/Icon'
-import WorkflowDisabledNotification from '@baserow/modules/automation/components/notifications/WorkflowDisabledNotification'
+import { NotificationType } from '@jadawel/modules/core/notificationTypes'
+import Icon from '@jadawel/modules/core/components/Icon'
+import WorkflowDisabledNotification from '@jadawel/modules/automation/components/notifications/WorkflowDisabledNotification'
 
 export class WorkflowDisabledNotificationType extends NotificationType {
   static getType() {

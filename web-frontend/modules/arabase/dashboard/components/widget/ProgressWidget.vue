@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import WidgetContextMenu from '@baserow/modules/dashboard/components/widget/WidgetContextMenu'
+import WidgetContextMenu from '@jadawel/modules/dashboard/components/widget/WidgetContextMenu'
 
 // r=15.9 in a 42-unit viewBox, so the ring's stroke fits inside without clipping.
 const RING_CIRCUMFERENCE = 2 * Math.PI * 15.9

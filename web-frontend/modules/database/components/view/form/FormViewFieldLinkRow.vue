@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import PaginatedDropdown from '@baserow/modules/core/components/PaginatedDropdown'
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import ViewService from '@baserow/modules/database/services/view'
+import PaginatedDropdown from '@jadawel/modules/core/components/PaginatedDropdown'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import ViewService from '@jadawel/modules/database/services/view'
 
 export default {
   name: 'FormViewFieldLinkRow',

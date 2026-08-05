@@ -1,4 +1,4 @@
-import Badge from '@baserow/modules/core/components/Badge'
+import Badge from '@jadawel/modules/core/components/Badge'
 
 export default {
   title: 'Jadawel/Badges',

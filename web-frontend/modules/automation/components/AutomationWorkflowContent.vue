@@ -41,10 +41,10 @@
 <script setup>
 import { ref, computed, provide } from 'vue'
 
-import AutomationHeader from '@baserow/modules/automation/components/AutomationHeader'
-import WorkflowEditor from '@baserow/modules/automation/components/workflow/WorkflowEditor'
-import EditorSidePanels from '@baserow/modules/automation/components/workflow/EditorSidePanels'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import AutomationHeader from '@jadawel/modules/automation/components/AutomationHeader'
+import WorkflowEditor from '@jadawel/modules/automation/components/workflow/WorkflowEditor'
+import EditorSidePanels from '@jadawel/modules/automation/components/workflow/EditorSidePanels'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 const props = defineProps({
   workspace: {

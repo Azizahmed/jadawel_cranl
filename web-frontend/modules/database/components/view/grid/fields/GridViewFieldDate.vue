@@ -76,12 +76,12 @@
 </template>
 
 <script>
-import TimeSelectContext from '@baserow/modules/core/components/TimeSelectContext'
-import { isElement } from '@baserow/modules/core/utils/dom'
-import gridField from '@baserow/modules/database/mixins/gridField'
-import gridFieldInput from '@baserow/modules/database/mixins/gridFieldInput'
-import dateField from '@baserow/modules/database/mixins/dateField'
-import { useDatePickerLanguage } from '@baserow/modules/core/composables/useDatePickerLanguage'
+import TimeSelectContext from '@jadawel/modules/core/components/TimeSelectContext'
+import { isElement } from '@jadawel/modules/core/utils/dom'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import gridFieldInput from '@jadawel/modules/database/mixins/gridFieldInput'
+import dateField from '@jadawel/modules/database/mixins/dateField'
+import { useDatePickerLanguage } from '@jadawel/modules/core/composables/useDatePickerLanguage'
 
 export default {
   components: { TimeSelectContext },

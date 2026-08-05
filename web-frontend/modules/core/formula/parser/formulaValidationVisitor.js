@@ -1,5 +1,5 @@
-import BaserowFormulaVisitor from '@baserow/modules/core/formula/parser/generated/BaserowFormulaVisitor'
-import { InvalidFormulaType, UnknownOperatorError } from '@baserow/modules/core/formula/parser/errors.js'
+import BaserowFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/BaserowFormulaVisitor'
+import { InvalidFormulaType, UnknownOperatorError } from '@jadawel/modules/core/formula/parser/errors.js'
 
 /**
  * Marker symbol representing a value that will be resolved at execution time.

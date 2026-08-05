@@ -1,5 +1,5 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import RowHistorySidebar from '@baserow/modules/database/components/row/RowHistorySidebar.vue'
+import { Registerable } from '@jadawel/modules/core/registry'
+import RowHistorySidebar from '@jadawel/modules/database/components/row/RowHistorySidebar.vue'
 
 export class RowModalSidebarType extends Registerable {
   /**

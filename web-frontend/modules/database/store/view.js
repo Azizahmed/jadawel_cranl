@@ -1,18 +1,18 @@
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
 import { ulid } from 'ulid'
 import {
   createFiltersTree,
   readDefaultViewIdFromCookie,
   saveDefaultViewIdInCookie,
-} from '@baserow/modules/database/utils/view'
-import ViewService from '@baserow/modules/database/services/view'
-import FilterService from '@baserow/modules/database/services/filter'
-import DecorationService from '@baserow/modules/database/services/decoration'
-import SortService from '@baserow/modules/database/services/sort'
-import GroupByService from '@baserow/modules/database/services/groupBy'
-import { clone } from '@baserow/modules/core/utils/object'
-import { DATABASE_ACTION_SCOPES } from '@baserow/modules/database/utils/undoRedoConstants'
-import { createNewUndoRedoActionGroupId } from '@baserow/modules/database/utils/action'
+} from '@jadawel/modules/database/utils/view'
+import ViewService from '@jadawel/modules/database/services/view'
+import FilterService from '@jadawel/modules/database/services/filter'
+import DecorationService from '@jadawel/modules/database/services/decoration'
+import SortService from '@jadawel/modules/database/services/sort'
+import GroupByService from '@jadawel/modules/database/services/groupBy'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { DATABASE_ACTION_SCOPES } from '@jadawel/modules/database/utils/undoRedoConstants'
+import { createNewUndoRedoActionGroupId } from '@jadawel/modules/database/utils/action'
 
 export function populateFilter(filter) {
   filter._ = {

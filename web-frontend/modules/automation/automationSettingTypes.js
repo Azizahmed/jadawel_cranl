@@ -1,7 +1,7 @@
 import { markRaw } from 'vue'
-import { Registerable } from '@baserow/modules/core/registry'
-import GeneralSettingsComponent from '@baserow/modules/automation/components/settings/GeneralSettings'
-import IntegrationSettingsComponent from '@baserow/modules/automation/components/settings/IntegrationSettings'
+import { Registerable } from '@jadawel/modules/core/registry'
+import GeneralSettingsComponent from '@jadawel/modules/automation/components/settings/GeneralSettings'
+import IntegrationSettingsComponent from '@jadawel/modules/automation/components/settings/IntegrationSettings'
 
 const GeneralSettings = markRaw(GeneralSettingsComponent)
 const IntegrationSettings = markRaw(IntegrationSettingsComponent)

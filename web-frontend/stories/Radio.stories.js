@@ -1,4 +1,4 @@
-import Radio from '@baserow/modules/core/components/Radio'
+import Radio from '@jadawel/modules/core/components/Radio'
 import { ref } from 'vue'
 
 export default {

@@ -37,11 +37,11 @@
 </template>
 
 <script>
-import AddElementZone from '@baserow/modules/builder/components/elements/AddElementZone'
-import containerElement from '@baserow/modules/builder/mixins/containerElement'
-import AddElementModal from '@baserow/modules/builder/components/elements/AddElementModal'
-import ElementPreview from '@baserow/modules/builder/components/elements/ElementPreview'
-import PageElement from '@baserow/modules/builder/components/page/PageElement'
+import AddElementZone from '@jadawel/modules/builder/components/elements/AddElementZone'
+import containerElement from '@jadawel/modules/builder/mixins/containerElement'
+import AddElementModal from '@jadawel/modules/builder/components/elements/AddElementModal'
+import ElementPreview from '@jadawel/modules/builder/components/elements/ElementPreview'
+import PageElement from '@jadawel/modules/builder/components/page/PageElement'
 
 export default {
   name: 'SimpleContainerElement',

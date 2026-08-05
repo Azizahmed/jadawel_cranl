@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import rowEditFieldInput from '@baserow/modules/database/mixins/rowEditFieldInput'
-import linkURLField from '@baserow/modules/database/mixins/linkURLField'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import rowEditFieldInput from '@jadawel/modules/database/mixins/rowEditFieldInput'
+import linkURLField from '@jadawel/modules/database/mixins/linkURLField'
 
 export default {
   mixins: [rowEditField, rowEditFieldInput, linkURLField],

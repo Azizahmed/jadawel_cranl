@@ -183,10 +183,10 @@
 
 <script>
 import { useHead } from '#imports'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
-import ActiveUsers from '@baserow/modules/core/components/admin/dashboard/charts/ActiveUsers'
-import AdminDashboardService from '@baserow/modules/core/services/admin/dashboard'
+import ActiveUsers from '@jadawel/modules/core/components/admin/dashboard/charts/ActiveUsers'
+import AdminDashboardService from '@jadawel/modules/core/services/admin/dashboard'
 
 export default {
   components: { ActiveUsers },

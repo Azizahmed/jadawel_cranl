@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import ImportFromAirtable from '@baserow/modules/database/components/airtable/ImportFromAirtable'
-import BlankDatabaseForm from '@baserow/modules/database/components/form/BlankDatabaseForm'
+import ImportFromAirtable from '@jadawel/modules/database/components/airtable/ImportFromAirtable'
+import BlankDatabaseForm from '@jadawel/modules/database/components/form/BlankDatabaseForm'
 
 export default {
   name: 'DatabaseForm',

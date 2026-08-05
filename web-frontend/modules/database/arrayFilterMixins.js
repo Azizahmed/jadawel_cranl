@@ -7,7 +7,7 @@ import {
   genericHasAllValuesEqualFilter,
   numericHasValueComparableToFilterFunction,
   ComparisonOperator,
-} from '@baserow/modules/database/utils/fieldFilters'
+} from '@jadawel/modules/database/utils/fieldFilters'
 import _ from 'lodash'
 
 export const hasEmptyValueFilterMixin = {
@@ -195,7 +195,7 @@ export const formulaFieldArrayFilterMixin = Object.assign(
  * Mixin for the BaserowFormulaArrayType to proxy all the array filters to the
  * correct sub type.
  */
-export const baserowFormulaArrayTypeFilterMixin = {
+export const jadawelFormulaArrayTypeFilterMixin = {
   getHasEmptyValueFilterFunction(field) {
     const subType = this.getSubType(field)
     return subType.getHasEmptyValueFilterFunction(field)

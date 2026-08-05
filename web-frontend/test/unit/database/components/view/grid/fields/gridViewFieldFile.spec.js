@@ -1,6 +1,6 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import GridViewFieldFile from '@baserow/modules/database/components/view/grid/fields/GridViewFieldFile'
-import UploadFileUserFileUpload from '@baserow/modules/core/components/files/UploadFileUserFileUpload'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import GridViewFieldFile from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldFile'
+import UploadFileUserFileUpload from '@jadawel/modules/core/components/files/UploadFileUserFileUpload'
 
 describe('GridViewFieldFile component', () => {
   let testApp = null

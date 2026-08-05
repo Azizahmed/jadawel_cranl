@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import TableService from '@baserow/modules/database/services/table'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import TableService from '@jadawel/modules/database/services/table'
 
 export default {
   name: 'SidebarDuplicateTableContextItem',

@@ -53,9 +53,9 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
-import ViewService from '@baserow/modules/database/services/view'
+import form from '@jadawel/modules/core/mixins/form'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
+import ViewService from '@jadawel/modules/database/services/view'
 import { notifyIf } from '~/modules/core/utils/error.js'
 
 export default {

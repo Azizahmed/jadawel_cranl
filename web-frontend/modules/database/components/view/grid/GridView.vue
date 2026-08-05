@@ -447,37 +447,37 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import GridViewSection from '@baserow/modules/database/components/view/grid/GridViewSection'
-import HorizontalResize from '@baserow/modules/core/components/HorizontalResize'
-import GridViewFieldDragging from '@baserow/modules/database/components/view/grid/GridViewFieldDragging'
-import GridViewFreezeHandle from '@baserow/modules/database/components/view/grid/GridViewFreezeHandle'
-import GridViewRowDragging from '@baserow/modules/database/components/view/grid/GridViewRowDragging'
-import RowEditModal from '@baserow/modules/database/components/row/RowEditModal'
-import gridViewHelpers from '@baserow/modules/database/mixins/gridViewHelpers'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import GridViewSection from '@jadawel/modules/database/components/view/grid/GridViewSection'
+import HorizontalResize from '@jadawel/modules/core/components/HorizontalResize'
+import GridViewFieldDragging from '@jadawel/modules/database/components/view/grid/GridViewFieldDragging'
+import GridViewFreezeHandle from '@jadawel/modules/database/components/view/grid/GridViewFreezeHandle'
+import GridViewRowDragging from '@jadawel/modules/database/components/view/grid/GridViewRowDragging'
+import RowEditModal from '@jadawel/modules/database/components/row/RowEditModal'
+import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
 import {
   filterHiddenFieldsFunction,
   filterVisibleFieldsFunction,
   sortFieldsByOrderAndIdFunction,
-} from '@baserow/modules/database/utils/view'
-import viewHelpers from '@baserow/modules/database/mixins/viewHelpers'
-import { isElement, isRtlElement } from '@baserow/modules/core/utils/dom'
-import { getInlineScrollOffset } from '@baserow/modules/database/utils/gridViewDrag'
+} from '@jadawel/modules/database/utils/view'
+import viewHelpers from '@jadawel/modules/database/mixins/viewHelpers'
+import { isElement, isRtlElement } from '@jadawel/modules/core/utils/dom'
+import { getInlineScrollOffset } from '@jadawel/modules/database/utils/gridViewDrag'
 import {
   mirrorInlineRect,
   toInlineArrowKey,
-} from '@baserow/modules/database/utils/gridViewKeyboard'
-import viewDecoration from '@baserow/modules/database/mixins/viewDecoration'
-import { populateRow } from '@baserow/modules/database/store/view/grid'
-import { clone } from '@baserow/modules/core/utils/object'
-import copyPasteHelper from '@baserow/modules/database/mixins/copyPasteHelper'
-import GridViewRowsAddContext from '@baserow/modules/database/components/view/grid/fields/GridViewRowsAddContext'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
+} from '@jadawel/modules/database/utils/gridViewKeyboard'
+import viewDecoration from '@jadawel/modules/database/mixins/viewDecoration'
+import { populateRow } from '@jadawel/modules/database/store/view/grid'
+import { clone } from '@jadawel/modules/core/utils/object'
+import copyPasteHelper from '@jadawel/modules/database/mixins/copyPasteHelper'
+import GridViewRowsAddContext from '@jadawel/modules/database/components/view/grid/fields/GridViewRowsAddContext'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
 import {
   GRID_VIEW_SIZE_TO_ROW_HEIGHT_MAPPING,
   GRID_VIEW_MULTI_SELECT_CHECKBOX,
   GRID_VIEW_MULTI_SELECT_AREA,
-} from '@baserow/modules/database/constants'
+} from '@jadawel/modules/database/constants'
 
 export default {
   name: 'GridView',
@@ -892,7 +892,7 @@ export default {
     },
     copyLinkToSelectedRow(event, selectedRow) {
       const url =
-        this.$config.public.baserowEmbeddedShareUrl +
+        this.$config.public.jadawelEmbeddedShareUrl +
         this.$router.resolve({
           name: 'database-table-row',
           params: { ...this.$route.params, rowId: selectedRow.id },
@@ -1724,7 +1724,7 @@ export default {
 
       // The backend will fail hard if it tries to update more rows than the limit, so
       // we're slicing the data here.
-      const pageSizeLimit = this.$config.public.baserowRowPageSizeLimit
+      const pageSizeLimit = this.$config.public.jadawelRowPageSizeLimit
       if (textData.length > pageSizeLimit) {
         this.$store.dispatch('toast/info', {
           title: this.$t('gridView.tooManyItemsTitle'),

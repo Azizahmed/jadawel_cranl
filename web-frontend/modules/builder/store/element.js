@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js'
 
-import ElementService from '@baserow/modules/builder/services/element'
-import PublicBuilderService from '@baserow/modules/builder/services/publishedBuilder'
-import { calculateTempOrder } from '@baserow/modules/core/utils/order'
-import { uuid } from '@baserow/modules/core/utils/string'
+import ElementService from '@jadawel/modules/builder/services/element'
+import PublicBuilderService from '@jadawel/modules/builder/services/publishedBuilder'
+import { calculateTempOrder } from '@jadawel/modules/core/utils/order'
+import { uuid } from '@jadawel/modules/core/utils/string'
 
 const populateElement = (element, registry) => {
   const elementType = registry.get('element', element.type)

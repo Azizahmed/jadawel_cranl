@@ -33,9 +33,9 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import AutomationSettingsModal from '@baserow/modules/automation/components/settings/AutomationSettingsModal'
-import ApplicationContext from '@baserow/modules/core/components/application/ApplicationContext'
-import applicationContext from '@baserow/modules/core/mixins/applicationContext'
+import AutomationSettingsModal from '@jadawel/modules/automation/components/settings/AutomationSettingsModal'
+import ApplicationContext from '@jadawel/modules/core/components/application/ApplicationContext'
+import applicationContext from '@jadawel/modules/core/mixins/applicationContext'
 
 export default defineComponent({
   components: {

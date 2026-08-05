@@ -59,12 +59,12 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-import form from '@baserow/modules/core/mixins/form'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
-import lookupFieldSubForm from '@baserow/modules/database/mixins/lookupFieldSubForm'
-import FormulaTypeSubForms from '@baserow/modules/database/components/formula/FormulaTypeSubForms'
-import FieldSelectThroughFieldSubForm from '@baserow/modules/database/components/field/FieldSelectThroughFieldSubForm'
-import FieldSelectTargetFieldSubForm from '@baserow/modules/database/components/field/FieldSelectTargetFieldSubForm'
+import form from '@jadawel/modules/core/mixins/form'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
+import lookupFieldSubForm from '@jadawel/modules/database/mixins/lookupFieldSubForm'
+import FormulaTypeSubForms from '@jadawel/modules/database/components/formula/FormulaTypeSubForms'
+import FieldSelectThroughFieldSubForm from '@jadawel/modules/database/components/field/FieldSelectThroughFieldSubForm'
+import FieldSelectTargetFieldSubForm from '@jadawel/modules/database/components/field/FieldSelectTargetFieldSubForm'
 
 export default {
   name: 'FieldRollupSubForm',

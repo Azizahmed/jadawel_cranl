@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import Button from '@baserow/modules/core/components/Button'
-import TrashService from '@baserow/modules/core/services/trash'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import Button from '@jadawel/modules/core/components/Button'
+import TrashService from '@jadawel/modules/core/services/trash'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'RestoreToast',

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
+import modal from '@jadawel/modules/core/mixins/modal'
 
 export default {
   name: 'PageSettingsModal',

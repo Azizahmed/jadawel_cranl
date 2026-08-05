@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import PageTemplateContent from '@baserow/modules/builder/components/page/PageTemplateContent'
-import PageSkeleton from '@baserow/modules/core/components/template/PageSkeleton'
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
-import { BuilderApplicationType } from '@baserow/modules/builder/applicationTypes'
-import { clone } from '@baserow/modules/core/utils/object'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import PageTemplateContent from '@jadawel/modules/builder/components/page/PageTemplateContent'
+import PageSkeleton from '@jadawel/modules/core/components/template/PageSkeleton'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
+import { BuilderApplicationType } from '@jadawel/modules/builder/applicationTypes'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 const mode = 'editing'
 

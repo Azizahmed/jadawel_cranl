@@ -109,12 +109,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import moment from '@baserow/modules/core/moment'
-import { isElement, onClickOutside } from '@baserow/modules/core/utils/dom'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import InfiniteScroll from '@baserow/modules/core/components/helpers/InfiniteScroll'
-import ClearAllNotificationsConfirmModal from '@baserow/modules/core/components/modals/ClearAllNotificationsConfirmModal'
-import MoveToBody from '@baserow/modules/core/mixins/moveToBody'
+import moment from '@jadawel/modules/core/moment'
+import { isElement, onClickOutside } from '@jadawel/modules/core/utils/dom'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import InfiniteScroll from '@jadawel/modules/core/components/helpers/InfiniteScroll'
+import ClearAllNotificationsConfirmModal from '@jadawel/modules/core/components/modals/ClearAllNotificationsConfirmModal'
+import MoveToBody from '@jadawel/modules/core/mixins/moveToBody'
 
 export default {
   name: 'NotificationPanel',

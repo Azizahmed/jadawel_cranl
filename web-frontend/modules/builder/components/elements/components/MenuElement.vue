@@ -118,11 +118,11 @@
 </template>
 
 <script>
-import { resolveApplicationRoute } from '@baserow/modules/builder/utils/routing'
-import element from '@baserow/modules/builder/mixins/element'
-import resolveElementUrl from '@baserow/modules/builder/utils/urlResolution'
-import ThemeProvider from '@baserow/modules/builder/components/theme/ThemeProvider'
-import { HORIZONTAL_ALIGNMENTS } from '@baserow/modules/builder/enums'
+import { resolveApplicationRoute } from '@jadawel/modules/builder/utils/routing'
+import element from '@jadawel/modules/builder/mixins/element'
+import resolveElementUrl from '@jadawel/modules/builder/utils/urlResolution'
+import ThemeProvider from '@jadawel/modules/builder/components/theme/ThemeProvider'
+import { HORIZONTAL_ALIGNMENTS } from '@jadawel/modules/builder/enums'
 
 /**
  * CSS classes to force a Link variant to appear as active.

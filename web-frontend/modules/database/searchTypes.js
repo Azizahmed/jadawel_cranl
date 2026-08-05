@@ -1,8 +1,8 @@
 import {
   ApplicationSearchType,
   BaseSearchType,
-} from '@baserow/modules/core/search/types/base'
-import { tableRouteResetViewIfNeeded } from '@baserow/modules/database/utils/routing'
+} from '@jadawel/modules/core/search/types/base'
+import { tableRouteResetViewIfNeeded } from '@jadawel/modules/database/utils/routing'
 
 export class DatabaseSearchType extends ApplicationSearchType {
   constructor(context = {}) {

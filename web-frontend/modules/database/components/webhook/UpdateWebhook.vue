@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import error from '@baserow/modules/core/mixins/error'
-import WebhookForm from '@baserow/modules/database/components/webhook/WebhookForm'
-import DeleteWebhookModal from '@baserow/modules/database/components/webhook/DeleteWebhookModal'
-import WebhookService from '@baserow/modules/database/services/webhook'
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import WebhookForm from '@jadawel/modules/database/components/webhook/WebhookForm'
+import DeleteWebhookModal from '@jadawel/modules/database/components/webhook/DeleteWebhookModal'
+import WebhookService from '@jadawel/modules/database/services/webhook'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
 
 export default {
   name: 'UpdateWebhook',

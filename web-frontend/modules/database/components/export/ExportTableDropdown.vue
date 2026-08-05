@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import Dropdown from '@baserow/modules/core/components/Dropdown'
-import DropdownItem from '@baserow/modules/core/components/DropdownItem'
+import Dropdown from '@jadawel/modules/core/components/Dropdown'
+import DropdownItem from '@jadawel/modules/core/components/DropdownItem'
 
 export default {
   name: 'ExportTableDropdown',

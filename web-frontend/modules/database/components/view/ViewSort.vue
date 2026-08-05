@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ViewSortContext from '@baserow/modules/database/components/view/ViewSortContext'
+import ViewSortContext from '@jadawel/modules/database/components/view/ViewSortContext'
 
 export default {
   name: 'ViewSort',

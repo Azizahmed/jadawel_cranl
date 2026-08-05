@@ -1,4 +1,4 @@
-import Avatar from '@baserow/modules/core/components/Avatar'
+import Avatar from '@jadawel/modules/core/components/Avatar'
 
 export default {
   title: 'Jadawel/Avatar',

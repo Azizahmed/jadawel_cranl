@@ -1,7 +1,7 @@
-import RuntimeFormulaContext from '@baserow/modules/core/runtimeFormulaContext'
-import { resolveFormula } from '@baserow/modules/core/formula'
-import { uuid } from '@baserow/modules/core/utils/string'
-import { handleDispatchError } from '@baserow/modules/builder/utils/error'
+import RuntimeFormulaContext from '@jadawel/modules/core/runtimeFormulaContext'
+import { resolveFormula } from '@jadawel/modules/core/formula'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import { handleDispatchError } from '@jadawel/modules/builder/utils/error'
 
 /**
  * This might look like something that belongs in a registry, but it does not.

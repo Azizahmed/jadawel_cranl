@@ -95,18 +95,18 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import ExportWorkspaceService from '@baserow/modules/core/services/importExportService'
-import job from '@baserow/modules/core/mixins/job'
-import ExportWorkspaceForm from '@baserow/modules/core/components/export/ExportWorkspaceForm'
-import { ExportApplicationsJobType } from '@baserow/modules/core/jobTypes'
-import ExportWorkspaceListItem from '@baserow/modules/core/components/export/ExportWorkspaceListItem.vue'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import ExportWorkspaceService from '@jadawel/modules/core/services/importExportService'
+import job from '@jadawel/modules/core/mixins/job'
+import ExportWorkspaceForm from '@jadawel/modules/core/components/export/ExportWorkspaceForm'
+import { ExportApplicationsJobType } from '@jadawel/modules/core/jobTypes'
+import ExportWorkspaceListItem from '@jadawel/modules/core/components/export/ExportWorkspaceListItem.vue'
 import {
   EXPORT_SERIALIZED_EXPORTING,
   EXPORT_SERIALIZED_EXPORTING_TABLE,
   EXPORT_WORKSPACE_CREATE_ARCHIVE,
-} from '@baserow/modules/core/constants'
+} from '@jadawel/modules/core/constants'
 
 const WORKSPACE_EXPORTS_LIMIT = 5
 

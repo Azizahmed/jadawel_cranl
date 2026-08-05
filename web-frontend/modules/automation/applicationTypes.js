@@ -1,13 +1,13 @@
-import { ApplicationType } from '@baserow/modules/core/applicationTypes'
-import ApplicationContext from '@baserow/modules/automation/components/application/ApplicationContext'
-import AutomationForm from '@baserow/modules/automation/components/form/AutomationForm'
-import SidebarComponentAutomation from '@baserow/modules/automation/components/sidebar/SidebarComponentAutomation'
-import { populateAutomationWorkflow } from '@baserow/modules/automation/store/automationWorkflow'
-import { DEVELOPMENT_STAGES } from '@baserow/modules/core/constants'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { ApplicationType } from '@jadawel/modules/core/applicationTypes'
+import ApplicationContext from '@jadawel/modules/automation/components/application/ApplicationContext'
+import AutomationForm from '@jadawel/modules/automation/components/form/AutomationForm'
+import SidebarComponentAutomation from '@jadawel/modules/automation/components/sidebar/SidebarComponentAutomation'
+import { populateAutomationWorkflow } from '@jadawel/modules/automation/store/automationWorkflow'
+import { DEVELOPMENT_STAGES } from '@jadawel/modules/core/constants'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick } from '#imports'
-import WorkflowTemplate from '@baserow/modules/automation/components/workflow/WorkflowTemplate.vue'
-import WorkflowTemplateSideBar from '@baserow/modules/automation/components/workflow/WorkflowTemplateSideBar.vue'
+import WorkflowTemplate from '@jadawel/modules/automation/components/workflow/WorkflowTemplate.vue'
+import WorkflowTemplateSideBar from '@jadawel/modules/automation/components/workflow/WorkflowTemplateSideBar.vue'
 
 export class AutomationApplicationType extends ApplicationType {
   static getType() {

@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import readOnlyDateField from '@baserow/modules/database/mixins/readOnlyDateField'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import readOnlyDateField from '@jadawel/modules/database/mixins/readOnlyDateField'
 
 export default {
   name: 'GridViewFieldDateReadOnly',

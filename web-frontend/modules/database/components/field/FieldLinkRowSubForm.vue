@@ -74,11 +74,11 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import fieldSubForm from '@baserow/modules/database/mixins/fieldSubForm'
-import ViewService from '@baserow/modules/database/services/view'
-import { CollaborativeViewOwnershipType } from '@baserow/modules/database/viewOwnershipTypes'
+import form from '@jadawel/modules/core/mixins/form'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
+import ViewService from '@jadawel/modules/database/services/view'
+import { CollaborativeViewOwnershipType } from '@jadawel/modules/database/viewOwnershipTypes'
 
 export default {
   name: 'FieldLinkRowSubForm',

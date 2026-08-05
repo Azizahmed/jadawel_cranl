@@ -1,23 +1,23 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import ColorThemeConfigBlock from '@baserow/modules/builder/components/theme/ColorThemeConfigBlock'
-import TypographyThemeConfigBlock from '@baserow/modules/builder/components/theme/TypographyThemeConfigBlock'
-import ButtonThemeConfigBlock from '@baserow/modules/builder/components/theme/ButtonThemeConfigBlock'
-import LinkThemeConfigBlock from '@baserow/modules/builder/components/theme/LinkThemeConfigBlock'
-import ImageThemeConfigBlock from '@baserow/modules/builder/components/theme/ImageThemeConfigBlock'
-import PageThemeConfigBlock from '@baserow/modules/builder/components/theme/PageThemeConfigBlock'
-import InputThemeConfigBlock from '@baserow/modules/builder/components/theme/InputThemeConfigBlock'
-import TableThemeConfigBlock from '@baserow/modules/builder/components/theme/TableThemeConfigBlock'
-import { FONT_WEIGHTS } from '@baserow/modules/builder/fontWeights'
+import { Registerable } from '@jadawel/modules/core/registry'
+import ColorThemeConfigBlock from '@jadawel/modules/builder/components/theme/ColorThemeConfigBlock'
+import TypographyThemeConfigBlock from '@jadawel/modules/builder/components/theme/TypographyThemeConfigBlock'
+import ButtonThemeConfigBlock from '@jadawel/modules/builder/components/theme/ButtonThemeConfigBlock'
+import LinkThemeConfigBlock from '@jadawel/modules/builder/components/theme/LinkThemeConfigBlock'
+import ImageThemeConfigBlock from '@jadawel/modules/builder/components/theme/ImageThemeConfigBlock'
+import PageThemeConfigBlock from '@jadawel/modules/builder/components/theme/PageThemeConfigBlock'
+import InputThemeConfigBlock from '@jadawel/modules/builder/components/theme/InputThemeConfigBlock'
+import TableThemeConfigBlock from '@jadawel/modules/builder/components/theme/TableThemeConfigBlock'
+import { FONT_WEIGHTS } from '@jadawel/modules/builder/fontWeights'
 import {
   resolveColor,
   colorRecommendation,
   colorContrast,
-} from '@baserow/modules/core/utils/colors'
+} from '@jadawel/modules/core/utils/colors'
 import {
   WIDTHS_NEW,
   HORIZONTAL_ALIGNMENTS,
   BACKGROUND_MODES,
-} from '@baserow/modules/builder/enums'
+} from '@jadawel/modules/builder/enums'
 import get from 'lodash/get'
 
 /**

@@ -1,5 +1,5 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import moment from '@baserow/modules/core/moment'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import moment from '@jadawel/modules/core/moment'
 import {
   BooleanViewFilterType,
   DateAfterDaysAgoViewFilterType,
@@ -44,7 +44,7 @@ import {
   NotEmptyViewFilterType,
   SingleSelectIsAnyOfViewFilterType,
   SingleSelectIsNoneOfViewFilterType,
-} from '@baserow/modules/database/viewFilters'
+} from '@jadawel/modules/database/viewFilters'
 import {
   DurationFieldType,
   FormulaFieldType,
@@ -52,7 +52,7 @@ import {
   SingleSelectFieldType,
   MultipleSelectFieldType,
   MultipleCollaboratorsFieldType,
-} from '@baserow/modules/database/fieldTypes'
+} from '@jadawel/modules/database/fieldTypes'
 
 export const dateBeforeCases = [
   {

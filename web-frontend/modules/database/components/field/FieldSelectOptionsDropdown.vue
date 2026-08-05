@@ -105,8 +105,8 @@
 </template>
 
 <script>
-import dropdown from '@baserow/modules/core/mixins/dropdown'
-import FieldSelectOptionsDropdownItem from '@baserow/modules/database/components/field/FieldSelectOptionsDropdownItem'
+import dropdown from '@jadawel/modules/core/mixins/dropdown'
+import FieldSelectOptionsDropdownItem from '@jadawel/modules/database/components/field/FieldSelectOptionsDropdownItem'
 
 export default {
   name: 'FieldSelectOptionsDropdown',

@@ -1,4 +1,4 @@
-import FormInput from '@baserow/modules/core/components/FormInput'
+import FormInput from '@jadawel/modules/core/components/FormInput'
 
 export default {
   title: 'Jadawel/Form Elements/Input',

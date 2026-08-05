@@ -1,25 +1,25 @@
-import { WorkflowActionType } from '@baserow/modules/core/workflowActionTypes'
-import NotificationWorkflowActionForm from '@baserow/modules/builder/components/workflowAction/NotificationWorkflowActionForm.vue'
-import OpenPageWorkflowActionForm from '@baserow/modules/builder/components/workflowAction/OpenPageWorkflowActionForm'
-import WorkflowActionWithService from '@baserow/modules/builder/components/workflowAction/WorkflowActionWithService.vue'
-import RefreshDataSourceWorkflowActionForm from '@baserow/modules/builder/components/workflowAction/RefreshDataSourceWorkflowActionForm.vue'
+import { WorkflowActionType } from '@jadawel/modules/core/workflowActionTypes'
+import NotificationWorkflowActionForm from '@jadawel/modules/builder/components/workflowAction/NotificationWorkflowActionForm.vue'
+import OpenPageWorkflowActionForm from '@jadawel/modules/builder/components/workflowAction/OpenPageWorkflowActionForm'
+import WorkflowActionWithService from '@jadawel/modules/builder/components/workflowAction/WorkflowActionWithService.vue'
+import RefreshDataSourceWorkflowActionForm from '@jadawel/modules/builder/components/workflowAction/RefreshDataSourceWorkflowActionForm.vue'
 import {
   CoreHTTPRequestServiceType,
   CoreSMTPEmailServiceType,
-} from '@baserow/modules/integrations/core/serviceTypes'
+} from '@jadawel/modules/integrations/core/serviceTypes'
 import {
   LocalBaserowCreateRowWorkflowServiceType,
   LocalBaserowUpdateRowWorkflowServiceType,
   LocalBaserowDeleteRowWorkflowServiceType,
-} from '@baserow/modules/integrations/localBaserow/serviceTypes'
-import { AIAgentServiceType } from '@baserow/modules/integrations/ai/serviceTypes'
+} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+import { AIAgentServiceType } from '@jadawel/modules/integrations/ai/serviceTypes'
 
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
-import resolveElementUrl from '@baserow/modules/builder/utils/urlResolution'
-import { ensureString } from '@baserow/modules/core/utils/validator'
-import { pathParametersInError } from '@baserow/modules/builder/utils/params'
-import { handleDispatchError } from '@baserow/modules/builder/utils/error'
-import { SlackWriteMessageServiceType } from '@baserow/modules/integrations/slack/serviceTypes'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
+import resolveElementUrl from '@jadawel/modules/builder/utils/urlResolution'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
+import { pathParametersInError } from '@jadawel/modules/builder/utils/params'
+import { handleDispatchError } from '@jadawel/modules/builder/utils/error'
+import { SlackWriteMessageServiceType } from '@jadawel/modules/integrations/slack/serviceTypes'
 
 export class NotificationWorkflowActionType extends WorkflowActionType {
   static getType() {

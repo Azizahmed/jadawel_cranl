@@ -17,7 +17,7 @@
 import {
   findScrollableParent,
   getCombinedBoundingClientRect,
-} from '@baserow/modules/core/utils/dom'
+} from '@jadawel/modules/core/utils/dom'
 
 export default {
   name: 'Highlight',

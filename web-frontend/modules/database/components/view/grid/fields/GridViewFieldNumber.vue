@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import gridFieldInput from '@baserow/modules/database/mixins/gridFieldInput'
-import numberField from '@baserow/modules/database/mixins/numberField'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import gridFieldInput from '@jadawel/modules/database/mixins/gridFieldInput'
+import numberField from '@jadawel/modules/database/mixins/numberField'
 
 export default {
   mixins: [gridField, gridFieldInput, numberField],

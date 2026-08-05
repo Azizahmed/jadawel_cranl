@@ -25,7 +25,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import BuilderToast from '@baserow/modules/builder/components/BuilderToast'
+import BuilderToast from '@jadawel/modules/builder/components/BuilderToast'
 
 export default {
   name: 'BuilderToasts',

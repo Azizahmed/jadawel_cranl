@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { RATING_STYLES } from '@baserow/modules/core/enums'
+import { RATING_STYLES } from '@jadawel/modules/core/enums'
 
 export default {
   name: 'Rating',

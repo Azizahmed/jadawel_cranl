@@ -1,4 +1,4 @@
-import Toast from '@baserow/modules/core/components/toasts/Toast'
+import Toast from '@jadawel/modules/core/components/toasts/Toast'
 
 export default {
   title: 'Jadawel/Toast',

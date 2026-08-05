@@ -1,18 +1,18 @@
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 import _ from 'lodash'
-import { Registerable } from '@baserow/modules/core/registry'
-import ViewFilterTypeText from '@baserow/modules/database/components/view/ViewFilterTypeText'
-import ViewFilterTypeNumber from '@baserow/modules/database/components/view/ViewFilterTypeNumber'
-import ViewFilterTypeDuration from '@baserow/modules/database/components/view/ViewFilterTypeDuration'
-import ViewFilterTypeRating from '@baserow/modules/database/components/view/ViewFilterTypeRating'
-import ViewFilterTypeSelectOptions from '@baserow/modules/database/components/view/ViewFilterTypeSelectOptions'
-import ViewFilterTypeBoolean from '@baserow/modules/database/components/view/ViewFilterTypeBoolean'
-import ViewFilterTypeDateUpgradeToMultiStep from '@baserow/modules/database/components/view/ViewFilterTypeDateUpgradeToMultiStep'
-import ViewFilterTypeNumberWithTimeZone from '@baserow/modules/database/components/view/ViewFilterTypeNumberWithTimeZone'
-import ViewFilterTypeMultiStepDate from '@baserow/modules/database/components/view/ViewFilterTypeMultiStepDate'
-import ViewFilterTypeLinkRow from '@baserow/modules/database/components/view/ViewFilterTypeLinkRow'
-import ViewFilterTypeMultipleSelectOptions from '@baserow/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
-import { trueValues } from '@baserow/modules/core/utils/constants'
+import { Registerable } from '@jadawel/modules/core/registry'
+import ViewFilterTypeText from '@jadawel/modules/database/components/view/ViewFilterTypeText'
+import ViewFilterTypeNumber from '@jadawel/modules/database/components/view/ViewFilterTypeNumber'
+import ViewFilterTypeDuration from '@jadawel/modules/database/components/view/ViewFilterTypeDuration'
+import ViewFilterTypeRating from '@jadawel/modules/database/components/view/ViewFilterTypeRating'
+import ViewFilterTypeSelectOptions from '@jadawel/modules/database/components/view/ViewFilterTypeSelectOptions'
+import ViewFilterTypeBoolean from '@jadawel/modules/database/components/view/ViewFilterTypeBoolean'
+import ViewFilterTypeDateUpgradeToMultiStep from '@jadawel/modules/database/components/view/ViewFilterTypeDateUpgradeToMultiStep'
+import ViewFilterTypeNumberWithTimeZone from '@jadawel/modules/database/components/view/ViewFilterTypeNumberWithTimeZone'
+import ViewFilterTypeMultiStepDate from '@jadawel/modules/database/components/view/ViewFilterTypeMultiStepDate'
+import ViewFilterTypeLinkRow from '@jadawel/modules/database/components/view/ViewFilterTypeLinkRow'
+import ViewFilterTypeMultipleSelectOptions from '@jadawel/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
+import { trueValues } from '@jadawel/modules/core/utils/constants'
 import {
   splitTimezoneAndFilterValue,
   prepareMultiStepDateValue,
@@ -21,14 +21,14 @@ import {
   DATE_FILTER_OPERATOR_DELTA_MAP,
   DATE_FILTER_OPERATOR_BOUNDS,
   DateFilterOperators,
-} from '@baserow/modules/database/utils/date'
-import { isInteger } from '@baserow/modules/core/utils/string'
-import ViewFilterTypeFileTypeDropdown from '@baserow/modules/database/components/view/ViewFilterTypeFileTypeDropdown'
-import ViewFilterTypeCollaborators from '@baserow/modules/database/components/view/ViewFilterTypeCollaborators'
+} from '@jadawel/modules/database/utils/date'
+import { isInteger } from '@jadawel/modules/core/utils/string'
+import ViewFilterTypeFileTypeDropdown from '@jadawel/modules/database/components/view/ViewFilterTypeFileTypeDropdown'
+import ViewFilterTypeCollaborators from '@jadawel/modules/database/components/view/ViewFilterTypeCollaborators'
 import {
   FormulaFieldType,
   NumberFieldType,
-} from '@baserow/modules/database/fieldTypes'
+} from '@jadawel/modules/database/fieldTypes'
 
 export class ViewFilterType extends Registerable {
   /**

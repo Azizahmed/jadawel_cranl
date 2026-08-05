@@ -1,4 +1,4 @@
-import { FunctionCollection } from '@baserow/modules/core/formula/parser/formulaExecutionVisitor.js'
+import { FunctionCollection } from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
 
 export class RuntimeFunctionCollection extends FunctionCollection {
   constructor($registry) {

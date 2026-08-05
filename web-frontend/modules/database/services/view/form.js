@@ -1,4 +1,4 @@
-import addPublicAuthTokenHeader from '@baserow/modules/database/utils/publicView'
+import addPublicAuthTokenHeader from '@jadawel/modules/database/utils/publicView'
 
 export default (client) => {
   const prepareRequestConfig = ({ publicAuthToken = null }) => {

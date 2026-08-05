@@ -1,5 +1,5 @@
-import { uuid } from '@baserow/modules/core/utils/string'
-import { UNDO_REDO_STATES } from '@baserow/modules/core/utils/undoRedoConstants'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import { UNDO_REDO_STATES } from '@jadawel/modules/core/utils/undoRedoConstants'
 
 export const state = () => ({
   connecting: false,

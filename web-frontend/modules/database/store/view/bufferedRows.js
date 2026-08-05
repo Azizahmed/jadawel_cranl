@@ -1,8 +1,8 @@
 import axios from 'axios'
 import _ from 'lodash'
-import { RefreshCancelledError } from '@baserow/modules/core/errors'
-import { clone } from '@baserow/modules/core/utils/object'
-import { GroupTaskQueue } from '@baserow/modules/core/utils/queue'
+import { RefreshCancelledError } from '@jadawel/modules/core/errors'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { GroupTaskQueue } from '@jadawel/modules/core/utils/queue'
 import {
   calculateSingleRowSearchMatches,
   extractRowMetadata,
@@ -10,18 +10,18 @@ import {
   getOrderBy,
   getRowSortFunction,
   matchSearchFilters,
-} from '@baserow/modules/database/utils/view'
-import ViewService from '@baserow/modules/database/services/view'
-import RowService from '@baserow/modules/database/services/row'
+} from '@jadawel/modules/database/utils/view'
+import ViewService from '@jadawel/modules/database/services/view'
+import RowService from '@jadawel/modules/database/services/row'
 import {
   extractChangedFields,
   getRowMetadata,
   prepareNewOldAndUpdateRequestValues,
   prepareRowForRequest,
   updateRowMetadataType,
-} from '@baserow/modules/database/utils/row'
-import { getDefaultSearchModeFromEnv } from '@baserow/modules/database/utils/search'
-import fieldOptionsStoreFactory from '@baserow/modules/database/store/view/fieldOptions'
+} from '@jadawel/modules/database/utils/row'
+import { getDefaultSearchModeFromEnv } from '@jadawel/modules/database/utils/search'
+import fieldOptionsStoreFactory from '@jadawel/modules/database/store/view/fieldOptions'
 
 /**
  * This view store mixin can be used to efficiently keep and maintain the rows of a

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import elementSidePanel from '@baserow/modules/builder/mixins/elementSidePanel'
-import VisibilityForm from '@baserow/modules/builder/components/elements/components/forms/VisibilityForm'
+import elementSidePanel from '@jadawel/modules/builder/mixins/elementSidePanel'
+import VisibilityForm from '@jadawel/modules/builder/components/elements/components/forms/VisibilityForm'
 export default {
   name: 'VisibilitySidePanel',
   components: { VisibilityForm },

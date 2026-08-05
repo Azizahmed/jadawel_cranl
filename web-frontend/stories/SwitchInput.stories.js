@@ -1,4 +1,4 @@
-import SwitchInput from '@baserow/modules/core/components/SwitchInput'
+import SwitchInput from '@jadawel/modules/core/components/SwitchInput'
 import { ref } from 'vue'
 
 export default {

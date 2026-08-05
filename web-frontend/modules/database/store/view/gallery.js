@@ -1,6 +1,6 @@
-import bufferedRows from '@baserow/modules/database/store/view/bufferedRows'
-import GalleryService from '@baserow/modules/database/services/view/gallery'
-import { getRowMetadata } from '@baserow/modules/database/utils/row'
+import bufferedRows from '@jadawel/modules/database/store/view/bufferedRows'
+import GalleryService from '@jadawel/modules/database/services/view/gallery'
+import { getRowMetadata } from '@jadawel/modules/database/utils/row'
 
 export function populateRow(row, metadata = {}) {
   row._ = {

@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import FunctionalGridViewFieldArray from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldArray'
-import gridField from '@baserow/modules/database/mixins/gridField'
-import { isElement } from '@baserow/modules/core/utils/dom'
-import arrayLoading from '@baserow/modules/database/mixins/arrayLoading'
+import FunctionalGridViewFieldArray from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldArray'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import { isElement } from '@jadawel/modules/core/utils/dom'
+import arrayLoading from '@jadawel/modules/database/mixins/arrayLoading'
 
 export default {
   name: 'GridViewFieldArray',

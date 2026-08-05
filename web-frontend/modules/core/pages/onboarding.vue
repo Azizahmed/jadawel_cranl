@@ -102,13 +102,13 @@
 </template>
 
 <script>
-import CircleProgressBar from '@baserow/modules/core/components/CircleProgressBar.vue'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import Toasts from '@baserow/modules/core/components/toasts/Toasts'
-import AuthService from '@baserow/modules/core/services/auth'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
-import error from '@baserow/modules/core/mixins/error'
-import jobProgress from '@baserow/modules/core/mixins/jobProgress'
+import CircleProgressBar from '@jadawel/modules/core/components/CircleProgressBar.vue'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import Toasts from '@jadawel/modules/core/components/toasts/Toasts'
+import AuthService from '@jadawel/modules/core/services/auth'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
+import error from '@jadawel/modules/core/mixins/error'
+import jobProgress from '@jadawel/modules/core/mixins/jobProgress'
 
 export default {
   components: { Toasts, CircleProgressBar },

@@ -1,4 +1,4 @@
-import SegmentControl from '@baserow/modules/core/components/SegmentControl'
+import SegmentControl from '@jadawel/modules/core/components/SegmentControl'
 
 export default {
   title: 'Jadawel/Form Elements/SegmentControl',

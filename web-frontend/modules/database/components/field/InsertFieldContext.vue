@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import CreateFieldContext from '@baserow/modules/database/components/field/CreateFieldContext'
+import CreateFieldContext from '@jadawel/modules/database/components/field/CreateFieldContext'
 
 export default {
   name: 'InsertFieldContext',

@@ -6,7 +6,7 @@ import {
   RecordSelectorElementType,
   RatingInputElementType,
   RatingElementType,
-} from '@baserow/modules/builder/elementTypes'
+} from '@jadawel/modules/builder/elementTypes'
 import {
   VISIBILITY_NOT_LOGGED,
   VISIBILITY_LOGGED_IN,
@@ -14,12 +14,12 @@ import {
   ROLE_TYPE_DISALLOW_EXCEPT,
   VISIBILITY_ALL,
   ROLE_TYPE_ALLOW_ALL,
-} from '@baserow/modules/builder/constants'
+} from '@jadawel/modules/builder/constants'
 import {
   CHOICE_OPTION_TYPES,
   IFRAME_SOURCE_TYPES,
   IMAGE_SOURCE_TYPES,
-} from '@baserow/modules/builder/enums'
+} from '@jadawel/modules/builder/enums'
 
 describe('elementTypes tests', () => {
   const testApp = useNuxtApp()

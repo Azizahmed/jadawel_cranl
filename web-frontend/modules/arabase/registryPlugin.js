@@ -3,11 +3,11 @@ import {
   ProgressWidgetType,
   RecordsListWidgetType,
   UpcomingDatesWidgetType,
-} from '@baserow/modules/arabase/dashboard/widgetTypes'
+} from '@jadawel/modules/arabase/dashboard/widgetTypes'
 import {
   LocalBaserowGroupedAggregateRowsServiceType,
   LocalBaserowUpcomingRowsServiceType,
-} from '@baserow/modules/arabase/integrations/serviceTypes'
+} from '@jadawel/modules/arabase/integrations/serviceTypes'
 
 /**
  * Registry registrations for the fork's own types.

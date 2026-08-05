@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import SettingsModal from '@baserow/modules/core/components/settings/SettingsModal'
-import APIDocsExample from '@baserow/modules/database/components/docs/APIDocsExample'
+import SettingsModal from '@jadawel/modules/core/components/settings/SettingsModal'
+import APIDocsExample from '@jadawel/modules/database/components/docs/APIDocsExample'
 
 export default {
   name: 'APIDocsAuth',

@@ -1962,12 +1962,12 @@
 </template>
 
 <script>
-import Toasts from '@baserow/modules/core/components/toasts/Toasts'
-import BaserowIcon from '@baserow/modules/core/static/img/logoOnly.svg?url'
-import ColorPickerContext from '@baserow/modules/core/components/ColorPickerContext.vue'
-import ColorPicker from '@baserow/modules/core/components/ColorPicker.vue'
-import Paginator from '@baserow/modules/core/components/Paginator.vue'
-import { resolveColor } from '@baserow/modules/core/utils/colors'
+import Toasts from '@jadawel/modules/core/components/toasts/Toasts'
+import BaserowIcon from '@jadawel/modules/core/static/img/logoOnly.svg?url'
+import ColorPickerContext from '@jadawel/modules/core/components/ColorPickerContext.vue'
+import ColorPicker from '@jadawel/modules/core/components/ColorPicker.vue'
+import Paginator from '@jadawel/modules/core/components/Paginator.vue'
+import { resolveColor } from '@jadawel/modules/core/utils/colors'
 
 export default {
   components: {

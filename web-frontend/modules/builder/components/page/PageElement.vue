@@ -24,16 +24,16 @@
 </template>
 
 <script>
-import { resolveColor, colorContrast } from '@baserow/modules/core/utils/colors'
-import { ThemeConfigBlockType } from '@baserow/modules/builder/themeConfigBlockTypes'
+import { resolveColor, colorContrast } from '@jadawel/modules/core/utils/colors'
+import { ThemeConfigBlockType } from '@jadawel/modules/builder/themeConfigBlockTypes'
 
 import {
   BACKGROUND_TYPES,
   CHILD_WIDTH_TYPES,
   WIDTH_TYPES,
   BACKGROUND_MODES,
-} from '@baserow/modules/builder/enums'
-import applicationContextMixin from '@baserow/modules/builder/mixins/applicationContext'
+} from '@jadawel/modules/builder/enums'
+import applicationContextMixin from '@jadawel/modules/builder/mixins/applicationContext'
 
 import { mapGetters } from 'vuex'
 

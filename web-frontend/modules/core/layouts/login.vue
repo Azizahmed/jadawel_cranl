@@ -9,7 +9,7 @@
 
 <script>
 import { useHead } from '#imports'
-import Toasts from '@baserow/modules/core/components/toasts/Toasts'
+import Toasts from '@jadawel/modules/core/components/toasts/Toasts'
 
 export default {
   components: { Toasts },

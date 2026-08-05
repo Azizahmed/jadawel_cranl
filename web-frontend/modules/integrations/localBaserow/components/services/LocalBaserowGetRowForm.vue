@@ -44,11 +44,11 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import localBaserowService from '@baserow/modules/integrations/localBaserow/mixins/localBaserowService'
-import LocalBaserowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
-import ServiceRefinementForms from '@baserow/modules/integrations/localBaserow/components/services/ServiceRefinementForms'
+import form from '@jadawel/modules/core/mixins/form'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import localBaserowService from '@jadawel/modules/integrations/localBaserow/mixins/localBaserowService'
+import LocalBaserowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
+import ServiceRefinementForms from '@jadawel/modules/integrations/localBaserow/components/services/ServiceRefinementForms'
 
 export default {
   components: {

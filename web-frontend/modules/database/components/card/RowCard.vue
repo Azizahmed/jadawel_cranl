@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import RecursiveWrapper from '@baserow/modules/core/components/RecursiveWrapper'
+import RecursiveWrapper from '@jadawel/modules/core/components/RecursiveWrapper'
 
 export default {
   name: 'RowCard',

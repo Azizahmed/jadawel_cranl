@@ -1,4 +1,4 @@
-import { ELEMENT_EVENTS, SHARE_TYPES } from '@baserow/modules/builder/enums'
+import { ELEMENT_EVENTS, SHARE_TYPES } from '@jadawel/modules/builder/enums'
 import _ from 'lodash'
 
 export const ContainerElementTypeMixin = (Base) =>

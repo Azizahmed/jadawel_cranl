@@ -6,9 +6,9 @@ import {
   SingleSelectFieldType,
   MultipleSelectFieldType,
   MultipleCollaboratorsFieldType,
-} from '@baserow/modules/database/fieldTypes'
+} from '@jadawel/modules/database/fieldTypes'
 import { firstBy } from 'thenby'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 const testTableData = [
   {

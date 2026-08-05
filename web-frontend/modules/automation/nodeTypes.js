@@ -1,10 +1,10 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 import {
   ActionNodeTypeMixin,
   TriggerNodeTypeMixin,
   UtilityNodeMixin,
   containerNodeTypeMixin,
-} from '@baserow/modules/automation/nodeTypeMixins'
+} from '@jadawel/modules/automation/nodeTypeMixins'
 import {
   LocalBaserowCreateRowWorkflowServiceType,
   LocalBaserowUpdateRowWorkflowServiceType,
@@ -15,19 +15,19 @@ import {
   LocalBaserowGetRowServiceType,
   LocalBaserowListRowsServiceType,
   LocalBaserowAggregateRowsServiceType,
-} from '@baserow/modules/integrations/localBaserow/serviceTypes'
-import slackIntegration from '@baserow/modules/integrations/slack/assets/images/slack.svg?url'
-import localBaserowIntegration from '@baserow/modules/integrations/localBaserow/assets/images/localBaserowIntegration.svg?url'
+} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+import slackIntegration from '@jadawel/modules/integrations/slack/assets/images/slack.svg?url'
+import localBaserowIntegration from '@jadawel/modules/integrations/localBaserow/assets/images/localBaserowIntegration.svg?url'
 import {
   CoreHTTPRequestServiceType,
   CoreRouterServiceType,
   CoreSMTPEmailServiceType,
   CoreHTTPTriggerServiceType,
   CoreIteratorServiceType,
-} from '@baserow/modules/integrations/core/serviceTypes'
-import { AIAgentServiceType } from '@baserow/modules/integrations/ai/serviceTypes'
-import { uuid } from '@baserow/modules/core/utils/string'
-import { SlackWriteMessageServiceType } from '@baserow/modules/integrations/slack/serviceTypes'
+} from '@jadawel/modules/integrations/core/serviceTypes'
+import { AIAgentServiceType } from '@jadawel/modules/integrations/ai/serviceTypes'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import { SlackWriteMessageServiceType } from '@jadawel/modules/integrations/slack/serviceTypes'
 
 export class NodeType extends Registerable {
   /**

@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
 
 import WorkspaceForm from './WorkspaceForm'
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

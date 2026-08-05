@@ -147,10 +147,10 @@
 <script>
 import { required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
-import form from '@baserow/modules/core/mixins/form'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import IntegrationDropdown from '@baserow/modules/core/components/integrations/IntegrationDropdown'
-import { AIIntegrationType } from '@baserow/modules/integrations/ai/integrationTypes'
+import form from '@jadawel/modules/core/mixins/form'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown'
+import { AIIntegrationType } from '@jadawel/modules/integrations/ai/integrationTypes'
 
 export default {
   name: 'AIAgentServiceForm',

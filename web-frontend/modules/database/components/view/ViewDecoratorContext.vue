@@ -104,14 +104,14 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import viewDecoration from '@baserow/modules/database/mixins/viewDecoration'
-import ViewDecoratorList from '@baserow/modules/database/components/view/ViewDecoratorList'
-import ViewDecoratorItem from '@baserow/modules/database/components/view/ViewDecoratorItem'
-import SelectViewDecoratorContext from '@baserow/modules/database/components/view/SelectViewDecoratorContext'
-import DecoratorValueProviderItem from '@baserow/modules/database/components/view/DecoratorValueProviderItem'
-import DecoratorValueProviderList from '@baserow/modules/database/components/view/DecoratorValueProviderList'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import context from '@jadawel/modules/core/mixins/context'
+import viewDecoration from '@jadawel/modules/database/mixins/viewDecoration'
+import ViewDecoratorList from '@jadawel/modules/database/components/view/ViewDecoratorList'
+import ViewDecoratorItem from '@jadawel/modules/database/components/view/ViewDecoratorItem'
+import SelectViewDecoratorContext from '@jadawel/modules/database/components/view/SelectViewDecoratorContext'
+import DecoratorValueProviderItem from '@jadawel/modules/database/components/view/DecoratorValueProviderItem'
+import DecoratorValueProviderList from '@jadawel/modules/database/components/view/DecoratorValueProviderList'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'ViewDecoratorContext',

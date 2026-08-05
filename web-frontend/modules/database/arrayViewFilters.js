@@ -1,19 +1,19 @@
-import moment from '@baserow/modules/core/moment'
-import ViewFilterTypeText from '@baserow/modules/database/components/view/ViewFilterTypeText'
-import ViewFilterTypeNumber from '@baserow/modules/database/components/view/ViewFilterTypeNumber'
-import { FormulaFieldType } from '@baserow/modules/database/fieldTypes'
+import moment from '@jadawel/modules/core/moment'
+import ViewFilterTypeText from '@jadawel/modules/database/components/view/ViewFilterTypeText'
+import ViewFilterTypeNumber from '@jadawel/modules/database/components/view/ViewFilterTypeNumber'
+import { FormulaFieldType } from '@jadawel/modules/database/fieldTypes'
 import {
   ViewFilterType,
   BaseDateMultiStepViewFilterType,
-} from '@baserow/modules/database/viewFilters'
-import viewFilterTypeText from '@baserow/modules/database/components/view/ViewFilterTypeText.vue'
-import ViewFilterTypeMultipleSelectOptions from '@baserow/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
+} from '@jadawel/modules/database/viewFilters'
+import viewFilterTypeText from '@jadawel/modules/database/components/view/ViewFilterTypeText.vue'
+import ViewFilterTypeMultipleSelectOptions from '@jadawel/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
 import {
   BaserowFormulaDurationType,
   BaserowFormulaNumberType,
-} from '@baserow/modules/database/formula/formulaTypes'
-import { ComparisonOperator } from '@baserow/modules/database//utils/fieldFilters'
-import { mix } from '@baserow/modules/core/mixins'
+} from '@jadawel/modules/database/formula/formulaTypes'
+import { ComparisonOperator } from '@jadawel/modules/database//utils/fieldFilters'
+import { mix } from '@jadawel/modules/core/mixins'
 
 const HasEmptyValueViewFilterTypeMixin = {
   getCompatibleFieldTypes() {

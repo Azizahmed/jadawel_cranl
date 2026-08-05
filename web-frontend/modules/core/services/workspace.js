@@ -1,4 +1,4 @@
-import baseService from '@baserow/modules/core/crudTable/baseService'
+import baseService from '@jadawel/modules/core/crudTable/baseService'
 
 export default (client) => {
   return Object.assign(

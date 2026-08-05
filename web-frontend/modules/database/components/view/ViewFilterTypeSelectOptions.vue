@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import FieldSelectOptionsDropdown from '@baserow/modules/database/components/field/FieldSelectOptionsDropdown'
-import viewFilter from '@baserow/modules/database/mixins/viewFilter'
+import FieldSelectOptionsDropdown from '@jadawel/modules/database/components/field/FieldSelectOptionsDropdown'
+import viewFilter from '@jadawel/modules/database/mixins/viewFilter'
 
 export default {
   name: 'ViewFilterTypeSelectOptions',

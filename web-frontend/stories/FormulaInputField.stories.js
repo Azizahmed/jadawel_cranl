@@ -1,4 +1,4 @@
-import FormulaInputField from '@baserow/modules/core/components/formula/FormulaInputField'
+import FormulaInputField from '@jadawel/modules/core/components/formula/FormulaInputField'
 
 const mockNodesHierarchy = [
   {

@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import elementSidePanel from '@baserow/modules/builder/mixins/elementSidePanel'
-import CustomStyleForm from '@baserow/modules/builder/components/elements/components/forms/style/CustomStyleForm'
+import elementSidePanel from '@jadawel/modules/builder/mixins/elementSidePanel'
+import CustomStyleForm from '@jadawel/modules/builder/components/elements/components/forms/style/CustomStyleForm'
 
 export default {
   name: 'GeneralSidePanel',

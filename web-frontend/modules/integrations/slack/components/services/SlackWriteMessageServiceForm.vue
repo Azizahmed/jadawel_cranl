@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput.vue'
+import form from '@jadawel/modules/core/mixins/form'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput.vue'
 import { useVuelidate } from '@vuelidate/core'
 import { maxLength, helpers } from '@vuelidate/validators'
-import IntegrationDropdown from '@baserow/modules/core/components/integrations/IntegrationDropdown.vue'
+import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown.vue'
 
-import { SlackBotIntegrationType } from '@baserow/modules/integrations/slack/integrationTypes'
+import { SlackBotIntegrationType } from '@jadawel/modules/integrations/slack/integrationTypes'
 
 export default {
   name: 'SlackWriteMessageServiceForm',

@@ -1,5 +1,5 @@
-import AuthService from '@baserow/modules/core/services/auth'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import AuthService from '@jadawel/modules/core/services/auth'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   data() {

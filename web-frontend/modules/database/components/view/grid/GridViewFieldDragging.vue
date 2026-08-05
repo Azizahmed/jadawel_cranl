@@ -22,15 +22,15 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import gridViewHelpers from '@baserow/modules/database/mixins/gridViewHelpers'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
 import {
   getFieldDragTarget,
   getInlinePointerDelta,
   getInlinePointerPosition,
   getInlineScrollOffset,
   getPhysicalScrollDelta,
-} from '@baserow/modules/database/utils/gridViewDrag'
+} from '@jadawel/modules/database/utils/gridViewDrag'
 
 export default {
   name: 'GridViewFieldDragging',

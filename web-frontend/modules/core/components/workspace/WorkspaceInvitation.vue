@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import ApplicationService from '@baserow/modules/core/services/application'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import ApplicationService from '@jadawel/modules/core/services/application'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

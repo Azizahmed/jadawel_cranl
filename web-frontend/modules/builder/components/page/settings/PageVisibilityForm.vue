@@ -110,11 +110,11 @@
 </template>
 
 <script>
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import visibilityForm from '@baserow/modules/builder/mixins/visibilityForm'
-import form from '@baserow/modules/core/mixins/form'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import visibilityForm from '@jadawel/modules/builder/mixins/visibilityForm'
+import form from '@jadawel/modules/core/mixins/form'
 
-import { VISIBILITY_LOGGED_IN } from '@baserow/modules/builder/constants'
+import { VISIBILITY_LOGGED_IN } from '@jadawel/modules/builder/constants'
 
 export default {
   name: 'PageVisibilityForm',

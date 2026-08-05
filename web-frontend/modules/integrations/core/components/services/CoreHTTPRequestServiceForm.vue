@@ -249,8 +249,8 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
+import form from '@jadawel/modules/core/mixins/form'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
 import { useVuelidate } from '@vuelidate/core'
 import {
   required,
@@ -260,7 +260,7 @@ import {
   maxLength,
   helpers,
 } from '@vuelidate/validators'
-import { uuid } from '@baserow/modules/core/utils/string'
+import { uuid } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'CoreHTTPRequestService',

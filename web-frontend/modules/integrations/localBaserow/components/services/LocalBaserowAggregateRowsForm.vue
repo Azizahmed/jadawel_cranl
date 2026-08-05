@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import LocalBaserowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm.vue'
-import localBaserowService from '@baserow/modules/integrations/localBaserow/mixins/localBaserowService'
-import ServiceRefinementForms from '@baserow/modules/integrations/localBaserow/components/services/ServiceRefinementForms'
+import form from '@jadawel/modules/core/mixins/form'
+import LocalBaserowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm.vue'
+import localBaserowService from '@jadawel/modules/integrations/localBaserow/mixins/localBaserowService'
+import ServiceRefinementForms from '@jadawel/modules/integrations/localBaserow/components/services/ServiceRefinementForms'
 
 export default {
   components: {

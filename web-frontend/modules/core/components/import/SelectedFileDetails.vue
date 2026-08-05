@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import ImportWorkspaceService from '@baserow/modules/core/services/importExportService'
-import error from '@baserow/modules/core/mixins/error'
-import { formatFileSize } from '@baserow/modules/core/utils/file'
+import ImportWorkspaceService from '@jadawel/modules/core/services/importExportService'
+import error from '@jadawel/modules/core/mixins/error'
+import { formatFileSize } from '@jadawel/modules/core/utils/file'
 
 export default {
   name: 'SelectedFileDetails',

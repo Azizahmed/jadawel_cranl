@@ -1,8 +1,8 @@
-import ViewDecoratorContext from '@baserow/modules/database/components/view/ViewDecoratorContext'
-import { DecoratorValueProviderType } from '@baserow/modules/database/decoratorValueProviders'
-import { ViewDecoratorType } from '@baserow/modules/database/viewDecorators'
+import ViewDecoratorContext from '@jadawel/modules/database/components/view/ViewDecoratorContext'
+import { DecoratorValueProviderType } from '@jadawel/modules/database/decoratorValueProviders'
+import { ViewDecoratorType } from '@jadawel/modules/database/viewDecorators'
 
-import { MockServer } from '@baserow/test/fixtures/mockServer'
+import { MockServer } from '@jadawel/test/fixtures/mockServer'
 import MockAdapter from 'axios-mock-adapter'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { h } from 'vue'

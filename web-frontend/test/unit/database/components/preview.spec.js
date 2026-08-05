@@ -1,5 +1,5 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import PreviewAny from '@baserow/modules/database/components/preview/PreviewAny'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import PreviewAny from '@jadawel/modules/database/components/preview/PreviewAny'
 
 describe('Preview component', () => {
   let testApp = null

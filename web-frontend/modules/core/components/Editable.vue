@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { focusEnd } from '@baserow/modules/core/utils/dom'
+import { focusEnd } from '@jadawel/modules/core/utils/dom'
 
 export default {
   name: 'Editable',

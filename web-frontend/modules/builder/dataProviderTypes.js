@@ -1,15 +1,15 @@
 import _ from 'lodash'
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
-import { getValueAtPath } from '@baserow/modules/core/utils/object'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
+import { getValueAtPath } from '@jadawel/modules/core/utils/object'
 
-import { defaultValueForParameterType } from '@baserow/modules/builder/utils/params'
-import { DEFAULT_USER_ROLE_PREFIX } from '@baserow/modules/builder/constants'
+import { defaultValueForParameterType } from '@jadawel/modules/builder/utils/params'
+import { DEFAULT_USER_ROLE_PREFIX } from '@jadawel/modules/builder/constants'
 import {
   PAGE_PARAM_TYPE_VALIDATION_FUNCTIONS,
   QUERY_PARAM_TYPE_HANDLER_FUNCTIONS,
-} from '@baserow/modules/builder/enums'
-import { extractSubSchema } from '@baserow/modules/core/utils/schema'
-import { handleDispatchError } from '@baserow/modules/builder/utils/error'
+} from '@jadawel/modules/builder/enums'
+import { extractSubSchema } from '@jadawel/modules/core/utils/schema'
+import { handleDispatchError } from '@jadawel/modules/builder/utils/error'
 
 export class DataSourceDataProviderType extends DataProviderType {
   constructor(...args) {

@@ -9,7 +9,7 @@ import {
   isNumeric,
   isInteger,
   isSubstringOfStrings,
-} from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/string'
 
 describe('test string utils', () => {
   const originalCrypto = globalThis.crypto

@@ -77,10 +77,10 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import CreateTable from '@baserow/modules/database/components/table/CreateTable'
-import CreateDataSync from '@baserow/modules/database/components/table/CreateDataSync'
-import DataSyncTypeChoice from '@baserow/modules/database/components/dataSync/DataSyncTypeChoice.vue'
+import modal from '@jadawel/modules/core/mixins/modal'
+import CreateTable from '@jadawel/modules/database/components/table/CreateTable'
+import CreateDataSync from '@jadawel/modules/database/components/table/CreateDataSync'
+import DataSyncTypeChoice from '@jadawel/modules/database/components/dataSync/DataSyncTypeChoice.vue'
 
 export default {
   name: 'CreateTableModal',

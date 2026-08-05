@@ -304,13 +304,13 @@
 </template>
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import themeConfigBlock from '@baserow/modules/builder/mixins/themeConfigBlock'
-import ThemeConfigBlockSection from '@baserow/modules/builder/components/theme/ThemeConfigBlockSection'
-import ResetButton from '@baserow/modules/builder/components/theme/ResetButton'
-import FontFamilySelector from '@baserow/modules/builder/components/FontFamilySelector'
-import PixelValueSelector from '@baserow/modules/builder/components/PixelValueSelector'
-import FontWeightSelector from '@baserow/modules/builder/components/FontWeightSelector'
-import PaddingSelector from '@baserow/modules/builder/components/PaddingSelector'
+import themeConfigBlock from '@jadawel/modules/builder/mixins/themeConfigBlock'
+import ThemeConfigBlockSection from '@jadawel/modules/builder/components/theme/ThemeConfigBlockSection'
+import ResetButton from '@jadawel/modules/builder/components/theme/ResetButton'
+import FontFamilySelector from '@jadawel/modules/builder/components/FontFamilySelector'
+import PixelValueSelector from '@jadawel/modules/builder/components/PixelValueSelector'
+import FontWeightSelector from '@jadawel/modules/builder/components/FontWeightSelector'
+import PaddingSelector from '@jadawel/modules/builder/components/PaddingSelector'
 import {
   required,
   integer,
@@ -318,7 +318,7 @@ import {
   maxValue,
   helpers,
 } from '@vuelidate/validators'
-import { DEFAULT_FONT_SIZE_PX } from '@baserow/modules/builder/defaultStyles'
+import { DEFAULT_FONT_SIZE_PX } from '@jadawel/modules/builder/defaultStyles'
 const minMax = {
   label_font_size: {
     min: 1,

@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import ViewContext from '@baserow/modules/database/components/view/ViewContext'
-import EditableViewName from '@baserow/modules/database/components/view/EditableViewName'
+import context from '@jadawel/modules/core/mixins/context'
+import ViewContext from '@jadawel/modules/database/components/view/ViewContext'
+import EditableViewName from '@jadawel/modules/database/components/view/EditableViewName'
 
 export default {
   name: 'ViewsContextItem',

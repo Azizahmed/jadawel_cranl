@@ -1,4 +1,4 @@
-import Alert from '@baserow/modules/core/components/Alert'
+import Alert from '@jadawel/modules/core/components/Alert'
 
 export default {
   title: 'Jadawel/Alert',

@@ -60,9 +60,9 @@ const uuidMockState = vi.hoisted(() => {
   }
 })
 
-vi.mock('@baserow/modules/core/utils/string', async () => {
+vi.mock('@jadawel/modules/core/utils/string', async () => {
   const actual = await vi.importActual<any>(
-    '@baserow/modules/core/utils/string'
+    '@jadawel/modules/core/utils/string'
   )
 
   return {

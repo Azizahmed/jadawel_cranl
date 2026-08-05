@@ -39,11 +39,11 @@
 </template>
 
 <script>
-import LocalBaserowTableSelector from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowTableSelector'
-import { LocalBaserowIntegrationType } from '@baserow/modules/integrations/localBaserow/integrationTypes'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import IntegrationDropdown from '@baserow/modules/core/components/integrations/IntegrationDropdown'
-import form from '@baserow/modules/core/mixins/form'
+import LocalBaserowTableSelector from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowTableSelector'
+import { LocalBaserowIntegrationType } from '@jadawel/modules/integrations/localBaserow/integrationTypes'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown'
+import form from '@jadawel/modules/core/mixins/form'
 
 /**
  * The purpose of this component is to reuse the concept of a "Local Jadawel service form"

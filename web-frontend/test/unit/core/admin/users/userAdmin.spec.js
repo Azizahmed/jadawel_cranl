@@ -1,10 +1,10 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import UsersAdminTable from '@baserow/modules/core/components/admin/users/UsersAdminTable'
-import UserForm from '@baserow/modules/core/components/admin/users/forms/UserForm'
-import moment from '@baserow/modules/core/moment'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import UsersAdminTable from '@jadawel/modules/core/components/admin/users/UsersAdminTable'
+import UserForm from '@jadawel/modules/core/components/admin/users/forms/UserForm'
+import moment from '@jadawel/modules/core/moment'
 import flushPromises from 'flush-promises'
-import UserAdminUserHelpers from '@baserow/test/helpers/userAdminHelpers'
-import { MockServer } from '@baserow/test/fixtures/mockServer'
+import UserAdminUserHelpers from '@jadawel/test/helpers/userAdminHelpers'
+import { MockServer } from '@jadawel/test/fixtures/mockServer'
 
 // Mock out debounce so we dont have to wait or simulate waiting for the various
 // debounces in the search functionality.

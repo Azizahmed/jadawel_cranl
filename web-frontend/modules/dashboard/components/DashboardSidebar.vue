@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import EmptyDashboardSidebar from '@baserow/modules/dashboard/components/EmptyDashboardSidebar'
-import WidgetSettings from '@baserow/modules/dashboard/components/widget/WidgetSettings'
+import EmptyDashboardSidebar from '@jadawel/modules/dashboard/components/EmptyDashboardSidebar'
+import WidgetSettings from '@jadawel/modules/dashboard/components/widget/WidgetSettings'
 
 export default {
   name: 'DashboardSidebar',

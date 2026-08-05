@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import DisplayedFieldsFormGroup from '@baserow/modules/arabase/dashboard/components/data_source/DisplayedFieldsFormGroup'
-import ListRowsDataSourceForm from '@baserow/modules/arabase/dashboard/components/data_source/ListRowsDataSourceForm'
-import dashboardWidgetSettings from '@baserow/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
-import tableFields from '@baserow/modules/database/mixins/tableFields'
+import DisplayedFieldsFormGroup from '@jadawel/modules/arabase/dashboard/components/data_source/DisplayedFieldsFormGroup'
+import ListRowsDataSourceForm from '@jadawel/modules/arabase/dashboard/components/data_source/ListRowsDataSourceForm'
+import dashboardWidgetSettings from '@jadawel/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
+import tableFields from '@jadawel/modules/database/mixins/tableFields'
 
 export default {
   name: 'RecordsListWidgetSettings',

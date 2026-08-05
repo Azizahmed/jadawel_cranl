@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import ViewDecoratorContext from '@baserow/modules/database/components/view/ViewDecoratorContext'
+import ViewDecoratorContext from '@jadawel/modules/database/components/view/ViewDecoratorContext'
 
 export default {
   name: 'ViewDecoratorMenu',

@@ -1,4 +1,4 @@
-import { getToken, setToken } from '@baserow/modules/core/utils/auth'
+import { getToken, setToken } from '@jadawel/modules/core/utils/auth'
 
 export const state = () => ({
   authToken: null,

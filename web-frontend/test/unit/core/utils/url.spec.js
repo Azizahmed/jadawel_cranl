@@ -1,12 +1,12 @@
 import {
   isRelativeUrl,
   parseHostnamesFromUrls,
-} from '@baserow/modules/core/utils/url'
+} from '@jadawel/modules/core/utils/url'
 import {
   isValidAbsoluteURL,
   isValidURL,
   isValidURLWithHttpScheme,
-} from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/string'
 
 describe('test url utils', () => {
   describe('test isRelativeUrl', () => {

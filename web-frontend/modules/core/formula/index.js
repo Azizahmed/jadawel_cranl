@@ -1,7 +1,7 @@
-import parseBaserowFormula from '@baserow/modules/core/formula/parser/parser'
-import BaserowFormulaExecutionVisitor from '@baserow/modules/core/formula/parser/formulaExecutionVisitor.js'
-import BaserowFormulaValidationVisitor from '@baserow/modules/core/formula/parser/formulaValidationVisitor.js'
-import { FORMULA_TYPE } from '@baserow/modules/core/enums'
+import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
+import BaserowFormulaExecutionVisitor from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
+import BaserowFormulaValidationVisitor from '@jadawel/modules/core/formula/parser/formulaValidationVisitor.js'
+import { FORMULA_TYPE } from '@jadawel/modules/core/enums'
 
 /**
  * Resolves a formula in the context of the given context.

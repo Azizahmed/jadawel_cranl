@@ -202,12 +202,12 @@
 </template>
 
 <script>
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
-import ViewRotateSlugModal from '@baserow/modules/database/components/view/ViewRotateSlugModal'
-import EnablePasswordModal from '@baserow/modules/database/components/view/public/EnablePasswordModal'
-import DisablePasswordModal from '@baserow/modules/database/components/view/public/DisablePasswordModal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ViewService from '@baserow/modules/database/services/view'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
+import ViewRotateSlugModal from '@jadawel/modules/database/components/view/ViewRotateSlugModal'
+import EnablePasswordModal from '@jadawel/modules/database/components/view/public/EnablePasswordModal'
+import DisablePasswordModal from '@jadawel/modules/database/components/view/public/DisablePasswordModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ViewService from '@jadawel/modules/database/services/view'
 
 export default {
   name: 'ShareViewLink',
@@ -250,7 +250,7 @@ export default {
   computed: {
     shareUrl() {
       return (
-        this.$config.public.baserowEmbeddedShareUrl +
+        this.$config.public.jadawelEmbeddedShareUrl +
         this.$router.resolve({
           name: this.viewType.getPublicRoute(),
           params: { slug: this.view.slug },

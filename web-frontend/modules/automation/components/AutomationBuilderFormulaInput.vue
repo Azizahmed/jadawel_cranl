@@ -13,9 +13,9 @@
 </template>
 
 <script setup>
-import FormulaInputField from '@baserow/modules/core/components/formula/FormulaInputField'
-import { buildFormulaFunctionNodes } from '@baserow/modules/core/formula'
-import { getDataNodesFromDataProvider } from '@baserow/modules/core/utils/dataProviders'
+import FormulaInputField from '@jadawel/modules/core/components/formula/FormulaInputField'
+import { buildFormulaFunctionNodes } from '@jadawel/modules/core/formula'
+import { getDataNodesFromDataProvider } from '@jadawel/modules/core/utils/dataProviders'
 
 const props = defineProps({
   modelValue: { type: [Object, String], required: false, default: () => ({}) },

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import FieldContext from '@baserow/modules/database/components/field/FieldContext'
+import FieldContext from '@jadawel/modules/database/components/field/FieldContext'
 
 export default {
   name: 'RowEditModalField',

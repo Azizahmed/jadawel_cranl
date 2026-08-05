@@ -1,4 +1,4 @@
-import { parseXML } from '@baserow/modules/database/utils/xml'
+import { parseXML } from '@jadawel/modules/database/utils/xml'
 
 describe('test xml utils', () => {
   test('xml parser', () => {

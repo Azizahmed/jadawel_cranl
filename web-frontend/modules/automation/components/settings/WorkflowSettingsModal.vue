@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import WorkflowGeneralSettings from '@baserow/modules/automation/components/settings/WorkflowGeneralSettings'
+import modal from '@jadawel/modules/core/mixins/modal'
+import WorkflowGeneralSettings from '@jadawel/modules/automation/components/settings/WorkflowGeneralSettings'
 
 export default {
   name: 'WorkflowSettingsModal',

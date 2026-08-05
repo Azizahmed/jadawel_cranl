@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import ViewService from '@baserow/modules/database/services/view'
-import { clone } from '@baserow/modules/core/utils/object'
+import ViewService from '@jadawel/modules/database/services/view'
+import { clone } from '@jadawel/modules/core/utils/object'
 
 export const state = () => ({
   fieldOptions: {},

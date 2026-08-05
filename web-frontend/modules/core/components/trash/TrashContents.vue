@@ -70,10 +70,10 @@
  * contents.
  */
 
-import moment from '@baserow/modules/core/moment'
-import TrashEntry from '@baserow/modules/core/components/trash/TrashEntry'
-import InfiniteScroll from '@baserow/modules/core/components/helpers/InfiniteScroll'
-import TrashEmptyModal from '@baserow/modules/core/components/trash/TrashEmptyModal'
+import moment from '@jadawel/modules/core/moment'
+import TrashEntry from '@jadawel/modules/core/components/trash/TrashEntry'
+import InfiniteScroll from '@jadawel/modules/core/components/helpers/InfiniteScroll'
+import TrashEmptyModal from '@jadawel/modules/core/components/trash/TrashEmptyModal'
 
 export default {
   name: 'TrashContents',

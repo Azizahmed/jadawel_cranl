@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import { clone } from '@baserow/modules/core/utils/object'
-import ViewService from '@baserow/modules/database/services/view'
+import { clone } from '@jadawel/modules/core/utils/object'
+import ViewService from '@jadawel/modules/database/services/view'
 
 /**
  * This store mixin can in combination with a view, if it needs to store options per

@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { ORIENTATIONS } from '@baserow/modules/builder/enums'
+import { ORIENTATIONS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'BaserowTable',

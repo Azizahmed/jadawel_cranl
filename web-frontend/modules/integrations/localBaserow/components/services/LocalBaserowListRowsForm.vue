@@ -72,10 +72,10 @@
 </template>
 
 <script>
-import form from '@baserow/modules/core/mixins/form'
-import localBaserowService from '@baserow/modules/integrations/localBaserow/mixins/localBaserowService'
-import ServiceRefinementForms from '@baserow/modules/integrations/localBaserow/components/services/ServiceRefinementForms'
-import Tab from '@baserow/modules/core/components/Tab'
+import form from '@jadawel/modules/core/mixins/form'
+import localBaserowService from '@jadawel/modules/integrations/localBaserow/mixins/localBaserowService'
+import ServiceRefinementForms from '@jadawel/modules/integrations/localBaserow/components/services/ServiceRefinementForms'
+import Tab from '@jadawel/modules/core/components/Tab'
 import {
   required,
   minValue,
@@ -84,7 +84,7 @@ import {
   integer,
 } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
-import LocalBaserowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
+import LocalBaserowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
 
 export default {
   components: {

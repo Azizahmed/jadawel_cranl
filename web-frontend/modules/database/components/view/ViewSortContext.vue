@@ -107,10 +107,10 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import context from '@baserow/modules/core/mixins/context'
-import ViewSortOrder from '@baserow/modules/database/components/view/ViewSortOrder'
-import { DEFAULT_SORT_TYPE_KEY } from '@baserow/modules/database/constants'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import context from '@jadawel/modules/core/mixins/context'
+import ViewSortOrder from '@jadawel/modules/database/components/view/ViewSortOrder'
+import { DEFAULT_SORT_TYPE_KEY } from '@jadawel/modules/database/constants'
 
 export default {
   name: 'ViewSortContext',

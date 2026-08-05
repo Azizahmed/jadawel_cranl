@@ -1,8 +1,8 @@
-import PasswordInput from '@baserow/modules/core/components/helpers/PasswordInput'
+import PasswordInput from '@jadawel/modules/core/components/helpers/PasswordInput'
 import { useVuelidate } from '@vuelidate/core'
 import { reactive, computed } from 'vue'
-import { passwordValidation } from '@baserow/modules/core/validators'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import { passwordValidation } from '@jadawel/modules/core/validators'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('Password Input Tests', () => {
   let testApp = null

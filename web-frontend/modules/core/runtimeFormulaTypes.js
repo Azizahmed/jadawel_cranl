@@ -1,4 +1,4 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 import {
   NumberBaserowRuntimeFormulaArgumentType,
   TextBaserowRuntimeFormulaArgumentType,
@@ -9,24 +9,24 @@ import {
   AnyBaserowRuntimeFormulaArgumentType,
   ArrayBaserowRuntimeFormulaArgumentType,
   ArrayOfNumbersBaserowRuntimeFormulaArgumentType,
-} from '@baserow/modules/core/runtimeFormulaArgumentTypes'
+} from '@jadawel/modules/core/runtimeFormulaArgumentTypes'
 import {
   InvalidFormulaArgument,
   InvalidFormulaArgumentType,
   InvalidNumberOfArguments,
-} from '@baserow/modules/core/formula/parser/errors'
-import { reverseString, generateUUID } from '@baserow/modules/core/utils/string'
-import { avg, sum } from '@baserow/modules/core/utils/number'
+} from '@jadawel/modules/core/formula/parser/errors'
+import { reverseString, generateUUID } from '@jadawel/modules/core/utils/string'
+import { avg, sum } from '@jadawel/modules/core/utils/number'
 import {
   ensureString,
   ensureArray,
-} from '@baserow/modules/core/utils/validator'
+} from '@jadawel/modules/core/utils/validator'
 import { Node, VueNodeViewRenderer } from '@tiptap/vue-3'
-import GetFormulaComponent from '@baserow/modules/core/components/formula/GetFormulaComponent'
+import GetFormulaComponent from '@jadawel/modules/core/components/formula/GetFormulaComponent'
 import { mergeAttributes } from '@tiptap/core'
-import { FORMULA_CATEGORY, FORMULA_TYPE } from '@baserow/modules/core/enums'
+import { FORMULA_CATEGORY, FORMULA_TYPE } from '@jadawel/modules/core/enums'
 import _ from 'lodash'
-import moment from '@baserow/modules/core/moment'
+import moment from '@jadawel/modules/core/moment'
 
 export class RuntimeFormulaFunction extends Registerable {
   /**

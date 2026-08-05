@@ -1,5 +1,5 @@
-import WebhookForm from '@baserow/modules/database/components/webhook/WebhookForm'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import WebhookForm from '@jadawel/modules/database/components/webhook/WebhookForm'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 
 describe('Webhook form Input Tests', () => {
   let testApp = null

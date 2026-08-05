@@ -1,12 +1,12 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import ViewForm from '@baserow/modules/database/components/view/ViewForm'
-import GridView from '@baserow/modules/database/components/view/grid/GridView'
-import GridViewHeader from '@baserow/modules/database/components/view/grid/GridViewHeader'
-import GalleryView from '@baserow/modules/database/components/view/gallery/GalleryView'
-import GalleryViewHeader from '@baserow/modules/database/components/view/gallery/GalleryViewHeader'
-import FormView from '@baserow/modules/database/components/view/form/FormView'
-import FormViewHeader from '@baserow/modules/database/components/view/form/FormViewHeader'
-import { FileFieldType } from '@baserow/modules/database/fieldTypes'
+import { Registerable } from '@jadawel/modules/core/registry'
+import ViewForm from '@jadawel/modules/database/components/view/ViewForm'
+import GridView from '@jadawel/modules/database/components/view/grid/GridView'
+import GridViewHeader from '@jadawel/modules/database/components/view/grid/GridViewHeader'
+import GalleryView from '@jadawel/modules/database/components/view/gallery/GalleryView'
+import GalleryViewHeader from '@jadawel/modules/database/components/view/gallery/GalleryViewHeader'
+import FormView from '@jadawel/modules/database/components/view/form/FormView'
+import FormViewHeader from '@jadawel/modules/database/components/view/form/FormViewHeader'
+import { FileFieldType } from '@jadawel/modules/database/fieldTypes'
 import {
   filterVisibleFieldsFunction,
   isAdhocFiltering,
@@ -14,11 +14,11 @@ import {
   newFieldMatchesActiveSearchTerm,
   sortFieldsByOrderAndIdFunction,
   maxPossibleOrderValue,
-} from '@baserow/modules/database/utils/view'
-import { clone } from '@baserow/modules/core/utils/object'
-import { getDefaultSearchModeFromEnv } from '@baserow/modules/database/utils/search'
-import { GRID_VIEW_SIZE_TO_ROW_HEIGHT_MAPPING } from '@baserow/modules/database/constants'
-import { waitFor } from '@baserow/modules/core/utils/queue'
+} from '@jadawel/modules/database/utils/view'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { getDefaultSearchModeFromEnv } from '@jadawel/modules/database/utils/search'
+import { GRID_VIEW_SIZE_TO_ROW_HEIGHT_MAPPING } from '@jadawel/modules/database/constants'
+import { waitFor } from '@jadawel/modules/core/utils/queue'
 
 export class ViewType extends Registerable {
   /**

@@ -247,10 +247,10 @@ import { useStore } from 'vuex'
 import { useVuelidate } from '@vuelidate/core'
 import { required, integer, between, helpers } from '@vuelidate/validators'
 
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import SettingsService from '@baserow/modules/core/services/settings'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
-import { EMAIL_VERIFICATION_OPTIONS } from '@baserow/modules/core/enums'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import SettingsService from '@jadawel/modules/core/services/settings'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
+import { EMAIL_VERIFICATION_OPTIONS } from '@jadawel/modules/core/enums'
 
 const { $registry, $client, $baserowVersion, $i18n } = useNuxtApp()
 const { t: $t } = useI18n()

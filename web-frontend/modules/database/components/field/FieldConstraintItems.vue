@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import FieldConstraintItem from '@baserow/modules/database/components/field/FieldConstraintItem.vue'
+import FieldConstraintItem from '@jadawel/modules/database/components/field/FieldConstraintItem.vue'
 import BigNumber from 'bignumber.js'
 
 export default {

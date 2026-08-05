@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import gridField from '@baserow/modules/database/mixins/gridField'
-import gridFieldInput from '@baserow/modules/database/mixins/gridFieldInput'
-import linkURLField from '@baserow/modules/database/mixins/linkURLField'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import gridFieldInput from '@jadawel/modules/database/mixins/gridFieldInput'
+import linkURLField from '@jadawel/modules/database/mixins/linkURLField'
 export default {
   name: 'GridViewFieldButton',
   mixins: [gridField, gridFieldInput, linkURLField],

@@ -63,19 +63,19 @@
 </template>
 
 <script>
-import { uuid } from '@baserow/modules/core/utils/string'
-import FileFieldModal from '@baserow/modules/database/components/field/FileFieldModal'
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import fileField from '@baserow/modules/database/mixins/fileField'
-import UploadFileDropzone from '@baserow/modules/core/components/files/UploadFileDropzone'
-import UserFileService from '@baserow/modules/core/services/userFile'
-import { UploadFileUserFileUploadType } from '@baserow/modules/core/userFileUploadTypes'
-import UserFilesModal from '@baserow/modules/core/components/files/UserFilesModal'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import FileFieldModal from '@jadawel/modules/database/components/field/FileFieldModal'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import fileField from '@jadawel/modules/database/mixins/fileField'
+import UploadFileDropzone from '@jadawel/modules/core/components/files/UploadFileDropzone'
+import UserFileService from '@jadawel/modules/core/services/userFile'
+import { UploadFileUserFileUploadType } from '@jadawel/modules/core/userFileUploadTypes'
+import UserFilesModal from '@jadawel/modules/core/components/files/UserFilesModal'
 import axios from 'axios'
-import FileInProgress from '@baserow/modules/core/components/files/FileInProgress'
-import FileFailed from '@baserow/modules/core/components/files/FileFailed'
-import FileUploaded from '@baserow/modules/core/components/files/FileUploaded'
-import { IMAGE_FILE_TYPES } from '@baserow/modules/core/enums'
+import FileInProgress from '@jadawel/modules/core/components/files/FileInProgress'
+import FileFailed from '@jadawel/modules/core/components/files/FileFailed'
+import FileUploaded from '@jadawel/modules/core/components/files/FileUploaded'
+import { IMAGE_FILE_TYPES } from '@jadawel/modules/core/enums'
 
 export default {
   components: {

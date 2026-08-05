@@ -1,9 +1,9 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 
-import TableCSVImporter from '@baserow/modules/database/components/table/TableCSVImporter'
-import TablePasteImporter from '@baserow/modules/database/components/table/TablePasteImporter'
-import TableXMLImporter from '@baserow/modules/database/components/table/TableXMLImporter'
-import TableJSONImporter from '@baserow/modules/database/components/table/TableJSONImporter'
+import TableCSVImporter from '@jadawel/modules/database/components/table/TableCSVImporter'
+import TablePasteImporter from '@jadawel/modules/database/components/table/TablePasteImporter'
+import TableXMLImporter from '@jadawel/modules/database/components/table/TableXMLImporter'
+import TableJSONImporter from '@jadawel/modules/database/components/table/TableJSONImporter'
 
 export class ImporterType extends Registerable {
   /**

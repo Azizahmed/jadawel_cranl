@@ -53,10 +53,10 @@
 <script>
 import { useI18n } from 'vue-i18n'
 import { useHead } from '#app'
-import LangPicker from '@baserow/modules/core/components/LangPicker'
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import error from '@baserow/modules/core/mixins/error'
-import AuthService from '@baserow/modules/core/services/auth'
+import LangPicker from '@jadawel/modules/core/components/LangPicker'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import AuthService from '@jadawel/modules/core/services/auth'
 
 export default {
   components: { LangPicker },

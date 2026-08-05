@@ -124,15 +124,15 @@
 
 <script>
 import { useStore } from 'vuex'
-import moment from '@baserow/modules/core/moment'
-import { getUserTimeZone } from '@baserow/modules/core/utils/date'
+import moment from '@jadawel/modules/core/moment'
+import { getUserTimeZone } from '@jadawel/modules/core/utils/date'
 import { defineComponent, ref, computed, inject } from 'vue'
-import { HistoryEditorSidePanelType } from '@baserow/modules/automation/editorSidePanelTypes'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { WORKFLOW_STATES } from '@baserow/modules/automation/components/enums'
+import { HistoryEditorSidePanelType } from '@jadawel/modules/automation/editorSidePanelTypes'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { WORKFLOW_STATES } from '@jadawel/modules/automation/components/enums'
 
-import NodeGraphHandler from '@baserow/modules/automation/utils/nodeGraphHandler'
-import WorkflowSettingsModal from '@baserow/modules/automation/components/settings/WorkflowSettingsModal'
+import NodeGraphHandler from '@jadawel/modules/automation/utils/nodeGraphHandler'
+import WorkflowSettingsModal from '@jadawel/modules/automation/components/settings/WorkflowSettingsModal'
 
 export default defineComponent({
   name: 'AutomationHeader',

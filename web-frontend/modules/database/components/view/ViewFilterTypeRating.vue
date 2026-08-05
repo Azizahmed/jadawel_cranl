@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import filterTypeInput from '@baserow/modules/database/mixins/filterTypeInput'
-import Rating from '@baserow/modules/database/components/Rating'
+import filterTypeInput from '@jadawel/modules/database/mixins/filterTypeInput'
+import Rating from '@jadawel/modules/database/components/Rating'
 
 export default {
   name: 'ViewFilterTypeRating',

@@ -1,4 +1,4 @@
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
 import _ from 'lodash'
 
 export class PreviousNodeDataProviderType extends DataProviderType {

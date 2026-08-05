@@ -188,10 +188,10 @@ import _ from 'lodash'
 import {
   filterVisibleFieldsFunction,
   sortFieldsByOrderAndIdFunction,
-} from '@baserow/modules/database/utils/view'
-import HorizontalResize from '@baserow/modules/core/components/HorizontalResize'
-import SimpleGridField from '@baserow/modules/database/components/view/grid/SimpleGridField'
-import { GRID_VIEW_MIN_FIELD_WIDTH } from '@baserow/modules/database/constants'
+} from '@jadawel/modules/database/utils/view'
+import HorizontalResize from '@jadawel/modules/core/components/HorizontalResize'
+import SimpleGridField from '@jadawel/modules/database/components/view/grid/SimpleGridField'
+import { GRID_VIEW_MIN_FIELD_WIDTH } from '@jadawel/modules/database/constants'
 
 export default {
   name: 'SimpleGrid',

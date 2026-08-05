@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import rowEditFieldInput from '@baserow/modules/database/mixins/rowEditFieldInput'
-import { ensureUrlProtocol } from '@baserow/modules/core/utils/url'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import rowEditFieldInput from '@jadawel/modules/database/mixins/rowEditFieldInput'
+import { ensureUrlProtocol } from '@jadawel/modules/core/utils/url'
 
 export default {
   mixins: [rowEditField, rowEditFieldInput],

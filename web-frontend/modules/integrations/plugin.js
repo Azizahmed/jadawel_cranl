@@ -1,8 +1,8 @@
 import { defineNuxtPlugin } from '#app'
 
-import { LocalBaserowIntegrationType } from '@baserow/modules/integrations/localBaserow/integrationTypes'
-import { SMTPIntegrationType } from '@baserow/modules/integrations/core/integrationTypes'
-import { AIIntegrationType } from '@baserow/modules/integrations/ai/integrationTypes'
+import { LocalBaserowIntegrationType } from '@jadawel/modules/integrations/localBaserow/integrationTypes'
+import { SMTPIntegrationType } from '@jadawel/modules/integrations/core/integrationTypes'
+import { AIIntegrationType } from '@jadawel/modules/integrations/ai/integrationTypes'
 import {
   LocalBaserowGetRowServiceType,
   LocalBaserowListRowsServiceType,
@@ -13,7 +13,7 @@ import {
   LocalBaserowRowsCreatedTriggerServiceType,
   LocalBaserowRowsUpdatedTriggerServiceType,
   LocalBaserowRowsDeletedTriggerServiceType,
-} from '@baserow/modules/integrations/localBaserow/serviceTypes'
+} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
 import {
   CoreHTTPRequestServiceType,
   PeriodicTriggerServiceType,
@@ -21,10 +21,10 @@ import {
   CoreSMTPEmailServiceType,
   CoreHTTPTriggerServiceType,
   CoreIteratorServiceType,
-} from '@baserow/modules/integrations/core/serviceTypes'
-import { AIAgentServiceType } from '@baserow/modules/integrations/ai/serviceTypes'
-import { SlackWriteMessageServiceType } from '@baserow/modules/integrations/slack/serviceTypes'
-import { SlackBotIntegrationType } from '@baserow/modules/integrations/slack/integrationTypes'
+} from '@jadawel/modules/integrations/core/serviceTypes'
+import { AIAgentServiceType } from '@jadawel/modules/integrations/ai/serviceTypes'
+import { SlackWriteMessageServiceType } from '@jadawel/modules/integrations/slack/serviceTypes'
+import { SlackBotIntegrationType } from '@jadawel/modules/integrations/slack/integrationTypes'
 
 export default defineNuxtPlugin({
   dependsOn: ['core'],

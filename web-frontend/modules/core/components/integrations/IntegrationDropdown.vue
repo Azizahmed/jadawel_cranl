@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import IntegrationCreateEditModal from '@baserow/modules/core/components/integrations/IntegrationCreateEditModal'
+import IntegrationCreateEditModal from '@jadawel/modules/core/components/integrations/IntegrationCreateEditModal'
 
 export default {
   name: 'IntegrationDropdown',

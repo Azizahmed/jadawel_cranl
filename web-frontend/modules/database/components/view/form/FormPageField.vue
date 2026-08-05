@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import FieldContext from '@baserow/modules/database/components/field/FieldContext'
-import { DEFAULT_FORM_VIEW_FIELD_COMPONENT_KEY } from '@baserow/modules/database/constants'
+import FieldContext from '@jadawel/modules/database/components/field/FieldContext'
+import { DEFAULT_FORM_VIEW_FIELD_COMPONENT_KEY } from '@jadawel/modules/database/constants'
 
 export default {
   name: 'FormPageField',

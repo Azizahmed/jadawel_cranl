@@ -1,6 +1,6 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import { GridViewType } from '@baserow/modules/database/viewTypes'
-import TableCSVExporter from '@baserow/modules/database/components/export/TableCSVExporter'
+import { Registerable } from '@jadawel/modules/core/registry'
+import { GridViewType } from '@jadawel/modules/database/viewTypes'
+import TableCSVExporter from '@jadawel/modules/database/components/export/TableCSVExporter'
 
 export class TableExporterType extends Registerable {
   /**

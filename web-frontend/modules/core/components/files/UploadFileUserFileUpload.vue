@@ -68,13 +68,13 @@
 </template>
 
 <script>
-import { uuid } from '@baserow/modules/core/utils/string'
-import { mimetype2icon } from '@baserow/modules/core/utils/fileTypeToIcon'
-import { generateThumbnail } from '@baserow/modules/core/utils/image'
-import UserFileService from '@baserow/modules/core/services/userFile'
-import UploadFileDropzone from '@baserow/modules/core/components/files/UploadFileDropzone'
-import { getFilesFromEvent } from '@baserow/modules/core/utils/file'
-import { IMAGE_FILE_TYPES } from '@baserow/modules/core/enums'
+import { uuid } from '@jadawel/modules/core/utils/string'
+import { mimetype2icon } from '@jadawel/modules/core/utils/fileTypeToIcon'
+import { generateThumbnail } from '@jadawel/modules/core/utils/image'
+import UserFileService from '@jadawel/modules/core/services/userFile'
+import UploadFileDropzone from '@jadawel/modules/core/components/files/UploadFileDropzone'
+import { getFilesFromEvent } from '@jadawel/modules/core/utils/file'
+import { IMAGE_FILE_TYPES } from '@jadawel/modules/core/enums'
 export default {
   name: 'UploadFileUserFileUpload',
   components: { UploadFileDropzone },

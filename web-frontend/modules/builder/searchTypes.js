@@ -1,4 +1,4 @@
-import { BaseSearchType } from '@baserow/modules/core/search/types/base'
+import { BaseSearchType } from '@jadawel/modules/core/search/types/base'
 
 export class BuilderSearchType extends BaseSearchType {
   constructor(context = {}) {

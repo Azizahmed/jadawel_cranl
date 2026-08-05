@@ -3,15 +3,15 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import RowEditFieldDateReadOnly from '@baserow/modules/database/components/row/RowEditFieldDateReadOnly'
-import RowEditFieldLongText from '@baserow/modules/database/components/row/RowEditFieldLongText'
-import RowEditFieldText from '@baserow/modules/database/components/row/RowEditFieldText'
-import RowEditFieldBoolean from '@baserow/modules/database/components/row/RowEditFieldBoolean'
-import RowEditFieldNumber from '@baserow/modules/database/components/row/RowEditFieldNumber'
-import RowEditFieldSingleSelectReadOnly from '@baserow/modules/database/components/row/RowEditFieldSingleSelectReadOnly'
-import RowEditFieldBlank from '@baserow/modules/database/components/row/RowEditFieldBlank'
-import RowEditFieldArray from '@baserow/modules/database/components/row/RowEditFieldArray'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import RowEditFieldDateReadOnly from '@jadawel/modules/database/components/row/RowEditFieldDateReadOnly'
+import RowEditFieldLongText from '@jadawel/modules/database/components/row/RowEditFieldLongText'
+import RowEditFieldText from '@jadawel/modules/database/components/row/RowEditFieldText'
+import RowEditFieldBoolean from '@jadawel/modules/database/components/row/RowEditFieldBoolean'
+import RowEditFieldNumber from '@jadawel/modules/database/components/row/RowEditFieldNumber'
+import RowEditFieldSingleSelectReadOnly from '@jadawel/modules/database/components/row/RowEditFieldSingleSelectReadOnly'
+import RowEditFieldBlank from '@jadawel/modules/database/components/row/RowEditFieldBlank'
+import RowEditFieldArray from '@jadawel/modules/database/components/row/RowEditFieldArray'
 
 export default {
   name: 'RowEditFieldFormula',

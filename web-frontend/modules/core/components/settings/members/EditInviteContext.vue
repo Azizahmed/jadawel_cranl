@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import context from '@jadawel/modules/core/mixins/context'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 
 export default {
   name: 'EditInviteContext',

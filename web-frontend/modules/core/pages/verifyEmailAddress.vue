@@ -22,11 +22,11 @@
 
 <script setup>
 import { computed } from 'vue'
-import AuthService from '@baserow/modules/core/services/auth'
+import AuthService from '@jadawel/modules/core/services/auth'
 import {
   setToken,
   setUserSessionCookie,
-} from '@baserow/modules/core/utils/auth'
+} from '@jadawel/modules/core/utils/auth'
 
 definePageMeta({
   layout: 'login',

@@ -128,13 +128,13 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import themeConfigBlock from '@baserow/modules/builder/mixins/themeConfigBlock'
-import ThemeConfigBlockSection from '@baserow/modules/builder/components/theme/ThemeConfigBlockSection'
-import CustomColorInput from '@baserow/modules/builder/components/theme/CustomColorInput'
+import themeConfigBlock from '@jadawel/modules/builder/mixins/themeConfigBlock'
+import ThemeConfigBlockSection from '@jadawel/modules/builder/components/theme/ThemeConfigBlockSection'
+import CustomColorInput from '@jadawel/modules/builder/components/theme/CustomColorInput'
 import {
   smallUID,
   getNextAvailableNameInSequence,
-} from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/string'
 
 const COLOR_ID_LENGTH = 5
 

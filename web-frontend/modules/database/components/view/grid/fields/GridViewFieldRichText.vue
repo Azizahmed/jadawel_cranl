@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import RichTextEditor from '@baserow/modules/core/components/editor/RichTextEditor.vue'
-import gridField from '@baserow/modules/database/mixins/gridField'
-import gridFieldInput from '@baserow/modules/database/mixins/gridFieldInput'
-import FieldRichTextModal from '@baserow/modules/database/components/view/FieldRichTextModal'
-import { parseMarkdown } from '@baserow/modules/core/editor/markdown'
+import RichTextEditor from '@jadawel/modules/core/components/editor/RichTextEditor.vue'
+import gridField from '@jadawel/modules/database/mixins/gridField'
+import gridFieldInput from '@jadawel/modules/database/mixins/gridFieldInput'
+import FieldRichTextModal from '@jadawel/modules/database/components/view/FieldRichTextModal'
+import { parseMarkdown } from '@jadawel/modules/core/editor/markdown'
 
 export default {
   components: { RichTextEditor, FieldRichTextModal },

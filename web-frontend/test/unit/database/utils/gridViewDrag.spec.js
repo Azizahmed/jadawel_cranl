@@ -4,7 +4,7 @@ import {
   getInlinePointerPosition,
   getInlineScrollOffset,
   getPhysicalScrollDelta,
-} from '@baserow/modules/database/utils/gridViewDrag'
+} from '@jadawel/modules/database/utils/gridViewDrag'
 
 describe('grid view field dragging coordinates', () => {
   const rect = { left: 100, right: 600 }

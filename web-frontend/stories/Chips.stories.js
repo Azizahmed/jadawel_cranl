@@ -1,4 +1,4 @@
-import Chips from '@baserow/modules/core/components/Chips'
+import Chips from '@jadawel/modules/core/components/Chips'
 
 export default {
   title: 'Jadawel/Chips',

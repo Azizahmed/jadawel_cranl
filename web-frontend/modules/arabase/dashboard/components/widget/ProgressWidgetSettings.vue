@@ -100,8 +100,8 @@
 </template>
 
 <script>
-import AggregateRowsDataSourceForm from '@baserow/modules/dashboard/components/data_source/AggregateRowsDataSourceForm'
-import dashboardWidgetSettings from '@baserow/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
+import AggregateRowsDataSourceForm from '@jadawel/modules/dashboard/components/data_source/AggregateRowsDataSourceForm'
+import dashboardWidgetSettings from '@jadawel/modules/arabase/dashboard/mixins/dashboardWidgetSettings'
 
 export default {
   name: 'ProgressWidgetSettings',

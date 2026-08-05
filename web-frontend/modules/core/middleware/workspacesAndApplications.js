@@ -1,4 +1,4 @@
-import { getWorkspaceCookie } from '@baserow/modules/core/utils/workspace'
+import { getWorkspaceCookie } from '@jadawel/modules/core/utils/workspace'
 
 /**
  * This middleware will make sure that all the workspaces and applications belonging to

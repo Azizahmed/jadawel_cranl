@@ -1,7 +1,7 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import GridView from '@baserow/modules/database/components/view/grid/GridView'
-import { DecoratorValueProviderType } from '@baserow/modules/database/decoratorValueProviders'
-import { ViewDecoratorType } from '@baserow/modules/database/viewDecorators'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import GridView from '@jadawel/modules/database/components/view/grid/GridView'
+import { DecoratorValueProviderType } from '@jadawel/modules/database/decoratorValueProviders'
+import { ViewDecoratorType } from '@jadawel/modules/database/viewDecorators'
 import { h } from 'vue'
 
 export class FakeDecoratorType extends ViewDecoratorType {

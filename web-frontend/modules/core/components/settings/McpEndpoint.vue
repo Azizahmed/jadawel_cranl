@@ -145,9 +145,9 @@
 </template>
 
 <script>
-import McpEndpointService from '@baserow/modules/core/services/mcpEndpoint'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
+import McpEndpointService from '@jadawel/modules/core/services/mcpEndpoint'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
 
 export default {
   name: 'McpEndpoint',

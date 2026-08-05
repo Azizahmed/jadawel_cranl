@@ -199,17 +199,17 @@
 <script>
 import { mapGetters } from 'vuex'
 import { required, maxLength, helpers } from '@vuelidate/validators'
-import FormTextarea from '@baserow/modules/core/components/FormTextarea'
+import FormTextarea from '@jadawel/modules/core/components/FormTextarea'
 import { useVuelidate } from '@vuelidate/core'
-import FieldConstraintsSubForm from '@baserow/modules/database/components/field/FieldConstraintsSubForm'
+import FieldConstraintsSubForm from '@jadawel/modules/database/components/field/FieldConstraintsSubForm'
 
-import { getNextAvailableNameInSequence } from '@baserow/modules/core/utils/string'
-import form from '@baserow/modules/core/mixins/form'
+import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
+import form from '@jadawel/modules/core/mixins/form'
 import {
   RESERVED_BASEROW_FIELD_NAMES,
   MAX_FIELD_NAME_LENGTH,
-} from '@baserow/modules/database/utils/constants'
-import { FIELD_CONSTRAINT_ERROR_CODES } from '@baserow/modules/database/constants'
+} from '@jadawel/modules/database/utils/constants'
+import { FIELD_CONSTRAINT_ERROR_CODES } from '@jadawel/modules/database/constants'
 
 // @TODO focus form on open
 export default {

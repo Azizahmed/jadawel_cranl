@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import FunctionalFormulaArrayItems from '@baserow/modules/database/components/formula/array/FunctionalFormulaArrayItems'
-import { LINKED_ITEMS_DEFAULT_LOAD_COUNT } from '@baserow/modules/database/constants'
+import FunctionalFormulaArrayItems from '@jadawel/modules/database/components/formula/array/FunctionalFormulaArrayItems'
+import { LINKED_ITEMS_DEFAULT_LOAD_COUNT } from '@jadawel/modules/database/constants'
 
 export default {
   name: 'FunctionalGridViewFieldArray',

@@ -1,7 +1,7 @@
 import { nextTick, reactive, ref, toRef, defineComponent } from 'vue'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-import { useForm } from '@baserow/modules/core/composables/useForm'
+import { useForm } from '@jadawel/modules/core/composables/useForm'
 
 const TestForm = defineComponent({
   props: {

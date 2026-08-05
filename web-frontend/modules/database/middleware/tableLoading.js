@@ -1,4 +1,4 @@
-import { getDefaultView } from '@baserow/modules/database/utils/view'
+import { getDefaultView } from '@jadawel/modules/database/utils/view'
 
 import { useNuxtApp } from '#app'
 

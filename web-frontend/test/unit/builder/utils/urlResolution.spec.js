@@ -1,5 +1,5 @@
-import { resolveFormula } from '@baserow/modules/core/formula'
-import resolveElementUrl from '@baserow/modules/builder/utils/urlResolution'
+import { resolveFormula } from '@jadawel/modules/core/formula'
+import resolveElementUrl from '@jadawel/modules/builder/utils/urlResolution'
 
 describe('resolveElementUrl tests', () => {
   test('Should return empty resolvedContext with page navigation type where page is not found.', () => {

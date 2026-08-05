@@ -1,5 +1,5 @@
-import { TestApp } from '@baserow/test/helpers/testApp'
-import SegmentControl from '@baserow/modules/core/components/SegmentControl.vue'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import SegmentControl from '@jadawel/modules/core/components/SegmentControl.vue'
 
 describe('SegmentControl.vue', () => {
   let testApp = null

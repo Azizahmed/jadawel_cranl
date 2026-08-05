@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Modal from '@baserow/modules/core/mixins/modal'
-import MemberSelectionList from '@baserow/modules/core/components/workspace/MemberSelectionList'
+import Modal from '@jadawel/modules/core/mixins/modal'
+import MemberSelectionList from '@jadawel/modules/core/components/workspace/MemberSelectionList'
 
 export default {
   name: 'MemberAssignmentModal',

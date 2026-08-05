@@ -36,7 +36,7 @@ import { locales } from '../../config/locales.js'
 
 export default defineNuxtModule({
   meta: {
-    name: '@baserow/dashboard',
+    name: '@jadawel/dashboard',
     configKey: 'dashboard',
     compatibility: {
       nuxt: '^3.0.0',

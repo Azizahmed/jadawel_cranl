@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import singleSelectField from '@baserow/modules/database/mixins/singleSelectField'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import singleSelectField from '@jadawel/modules/database/mixins/singleSelectField'
 
 export default {
   name: 'FormViewSingleSelectRadios',

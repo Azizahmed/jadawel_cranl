@@ -1,7 +1,7 @@
 import {
   getValueAtPath,
   setValueAtPath,
-} from '@baserow/modules/core/utils/object'
+} from '@jadawel/modules/core/utils/object'
 
 const state = {}
 

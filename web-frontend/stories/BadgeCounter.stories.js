@@ -1,4 +1,4 @@
-import BadgeCounter from '@baserow/modules/core/components/BadgeCounter'
+import BadgeCounter from '@jadawel/modules/core/components/BadgeCounter'
 
 export default {
   title: 'Jadawel/BadgeCounter',

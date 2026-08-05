@@ -1,7 +1,7 @@
-import element from '@baserow/modules/builder/mixins/element'
-import { resolveColor } from '@baserow/modules/core/utils/colors'
-import { ThemeConfigBlockType } from '@baserow/modules/builder/themeConfigBlockTypes'
-import applicationContextMixin from '@baserow/modules/builder/mixins/applicationContext'
+import element from '@jadawel/modules/builder/mixins/element'
+import { resolveColor } from '@jadawel/modules/core/utils/colors'
+import { ThemeConfigBlockType } from '@jadawel/modules/builder/themeConfigBlockTypes'
+import applicationContextMixin from '@jadawel/modules/builder/mixins/applicationContext'
 
 export default {
   inject: ['workspace', 'builder', 'elementPage', 'mode'],

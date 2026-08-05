@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { formatDecimalNumber } from '@baserow/modules/database/utils/number'
+import { formatDecimalNumber } from '@jadawel/modules/database/utils/number'
 
 export default {
   name: 'FunctionalFormulaArrayNumberItem',

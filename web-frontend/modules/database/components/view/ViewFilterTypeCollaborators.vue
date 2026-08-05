@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import FieldCollaboratorDropdown from '@baserow/modules/database/components/field/FieldCollaboratorDropdown'
-import viewFilter from '@baserow/modules/database/mixins/viewFilter'
-import availableCollaborators from '@baserow/modules/database/mixins/availableCollaborators'
+import FieldCollaboratorDropdown from '@jadawel/modules/database/components/field/FieldCollaboratorDropdown'
+import viewFilter from '@jadawel/modules/database/mixins/viewFilter'
+import availableCollaborators from '@jadawel/modules/database/mixins/availableCollaborators'
 
 export default {
   name: 'ViewFilterTypeSelectOptions',

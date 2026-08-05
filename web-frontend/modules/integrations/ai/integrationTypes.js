@@ -1,5 +1,5 @@
-import { IntegrationType } from '@baserow/modules/core/integrationTypes'
-import AIForm from '@baserow/modules/integrations/ai/components/integrations/AIForm'
+import { IntegrationType } from '@jadawel/modules/core/integrationTypes'
+import AIForm from '@jadawel/modules/integrations/ai/components/integrations/AIForm'
 
 export class AIIntegrationType extends IntegrationType {
   static getType() {

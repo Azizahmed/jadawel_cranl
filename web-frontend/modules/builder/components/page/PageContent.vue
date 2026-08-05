@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import PageElement from '@baserow/modules/builder/components/page/PageElement'
-import { dimensionMixin } from '@baserow/modules/core/mixins/dimensions'
+import PageElement from '@jadawel/modules/builder/components/page/PageElement'
+import { dimensionMixin } from '@jadawel/modules/core/mixins/dimensions'
 import _ from 'lodash'
-import { PAGE_PLACES } from '@baserow/modules/builder/enums'
+import { PAGE_PLACES } from '@jadawel/modules/builder/enums'
 
 export default {
   components: { PageElement },

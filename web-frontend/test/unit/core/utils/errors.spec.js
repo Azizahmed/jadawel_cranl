@@ -2,7 +2,7 @@ import {
   ClientErrorMap,
   makeErrorResponseInterceptor,
   ResponseErrorMessage,
-} from '@baserow/modules/core/plugins/clientHandler'
+} from '@jadawel/modules/core/plugins/clientHandler'
 
 function errorInterceptorWithStubAppAndStore(
   storeDispatches = [],

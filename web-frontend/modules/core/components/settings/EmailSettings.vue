@@ -86,9 +86,9 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers } from '@vuelidate/validators'
 
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import error from '@baserow/modules/core/mixins/error'
-import AuthService from '@baserow/modules/core/services/auth'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import AuthService from '@jadawel/modules/core/services/auth'
 
 export default {
   mixins: [error],

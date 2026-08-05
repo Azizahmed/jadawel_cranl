@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import CreateWidgetCard from '@baserow/modules/dashboard/components/CreateWidgetCard'
+import modal from '@jadawel/modules/core/mixins/modal'
+import CreateWidgetCard from '@jadawel/modules/dashboard/components/CreateWidgetCard'
 
 export default {
   name: 'CreateWidgetModal',

@@ -1,4 +1,4 @@
-import ProgressBar from '@baserow/modules/core/components/ProgressBar'
+import ProgressBar from '@jadawel/modules/core/components/ProgressBar'
 
 export default {
   title: 'Jadawel/ProgressBar',

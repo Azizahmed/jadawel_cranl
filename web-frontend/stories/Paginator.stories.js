@@ -1,4 +1,4 @@
-import Paginator from '@baserow/modules/core/components/Paginator'
+import Paginator from '@jadawel/modules/core/components/Paginator'
 import { ref } from 'vue'
 
 export default {

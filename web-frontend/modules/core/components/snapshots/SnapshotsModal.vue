@@ -88,13 +88,13 @@
 </template>
 
 <script>
-import modal from '@baserow/modules/core/mixins/modal'
-import error from '@baserow/modules/core/mixins/error'
-import CreateSnapshotForm from '@baserow/modules/core/components/snapshots/CreateSnapshotForm'
-import SnapshotListItem from '@baserow/modules/core/components/snapshots/SnapshotListItem'
-import SnapshotsService from '@baserow/modules/core/services/snapshots'
-import job from '@baserow/modules/core/mixins/job'
-import { CreateSnapshotJobType } from '@baserow/modules/core/jobTypes'
+import modal from '@jadawel/modules/core/mixins/modal'
+import error from '@jadawel/modules/core/mixins/error'
+import CreateSnapshotForm from '@jadawel/modules/core/components/snapshots/CreateSnapshotForm'
+import SnapshotListItem from '@jadawel/modules/core/components/snapshots/SnapshotListItem'
+import SnapshotsService from '@jadawel/modules/core/services/snapshots'
+import job from '@jadawel/modules/core/mixins/job'
+import { CreateSnapshotJobType } from '@jadawel/modules/core/jobTypes'
 
 export default {
   name: 'SnapshotsModal',
@@ -127,7 +127,7 @@ export default {
         .toLowerCase()
     },
     maxSnapshots() {
-      return parseInt(this.$config.public.baserowMaxSnapshotsPerGroup)
+      return parseInt(this.$config.public.jadawelMaxSnapshotsPerGroup)
     },
     snapshotModalAlertComponents() {
       return Object.values(this.$registry.getAll('plugin'))

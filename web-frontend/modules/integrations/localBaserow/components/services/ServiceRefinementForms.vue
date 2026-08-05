@@ -194,13 +194,13 @@
 </template>
 
 <script>
-import Context from '@baserow/modules/core/components/Context'
-import LocalBaserowTableServiceConditionalForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowTableServiceConditionalForm'
-import LocalBaserowTableServiceSortForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowTableServiceSortForm'
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput'
-import Tabs from '@baserow/modules/core/components/Tabs'
-import Tab from '@baserow/modules/core/components/Tab'
-import FormGroup from '@baserow/modules/core/components/FormGroup'
+import Context from '@jadawel/modules/core/components/Context'
+import LocalBaserowTableServiceConditionalForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowTableServiceConditionalForm'
+import LocalBaserowTableServiceSortForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowTableServiceSortForm'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput'
+import Tabs from '@jadawel/modules/core/components/Tabs'
+import Tab from '@jadawel/modules/core/components/Tab'
+import FormGroup from '@jadawel/modules/core/components/FormGroup'
 
 export default {
   name: 'ServiceRefinementForms',

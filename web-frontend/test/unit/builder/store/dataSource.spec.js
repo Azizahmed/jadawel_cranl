@@ -1,5 +1,5 @@
 import { expect } from 'vitest'
-import { MockServer } from '@baserow/test/fixtures/mockServer'
+import { MockServer } from '@jadawel/test/fixtures/mockServer'
 import MockAdapter from 'axios-mock-adapter'
 
 describe('dataSource store', () => {

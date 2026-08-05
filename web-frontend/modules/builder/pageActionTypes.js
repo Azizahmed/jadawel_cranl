@@ -1,8 +1,8 @@
-import { Registerable } from '@baserow/modules/core/registry'
+import { Registerable } from '@jadawel/modules/core/registry'
 
 import { compile } from 'path-to-regexp'
-import PublishActionModal from '@baserow/modules/builder/components/page/header/PublishActionModal'
-import { ensureString } from '@baserow/modules/core/utils/validator'
+import PublishActionModal from '@jadawel/modules/builder/components/page/header/PublishActionModal'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
 
 export class PageActionType extends Registerable {
   get label() {

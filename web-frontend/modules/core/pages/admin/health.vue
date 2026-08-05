@@ -68,8 +68,8 @@
 <script setup>
 import { computed } from 'vue'
 import { useHead } from '#imports'
-import HealthService from '@baserow/modules/core/services/health'
-import EmailTester from '@baserow/modules/core/components/health/EmailTester.vue'
+import HealthService from '@jadawel/modules/core/services/health'
+import EmailTester from '@jadawel/modules/core/components/health/EmailTester.vue'
 
 // Page meta
 definePageMeta({

@@ -53,13 +53,13 @@
 <script>
 import _ from 'lodash'
 
-import AddElementZone from '@baserow/modules/builder/components/elements/AddElementZone'
-import AddElementModal from '@baserow/modules/builder/components/elements/AddElementModal'
-import containerElement from '@baserow/modules/builder/mixins/containerElement'
-import PageElement from '@baserow/modules/builder/components/page/PageElement'
-import ElementPreview from '@baserow/modules/builder/components/elements/ElementPreview'
-import { VERTICAL_ALIGNMENTS } from '@baserow/modules/builder/enums'
-import { dimensionMixin } from '@baserow/modules/core/mixins/dimensions'
+import AddElementZone from '@jadawel/modules/builder/components/elements/AddElementZone'
+import AddElementModal from '@jadawel/modules/builder/components/elements/AddElementModal'
+import containerElement from '@jadawel/modules/builder/mixins/containerElement'
+import PageElement from '@jadawel/modules/builder/components/page/PageElement'
+import ElementPreview from '@jadawel/modules/builder/components/elements/ElementPreview'
+import { VERTICAL_ALIGNMENTS } from '@jadawel/modules/builder/enums'
+import { dimensionMixin } from '@jadawel/modules/core/mixins/dimensions'
 
 export default {
   name: 'ColumnElement',

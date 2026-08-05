@@ -1,6 +1,6 @@
-import { IntegrationType } from '@baserow/modules/core/integrationTypes'
-import slackIntegration from '@baserow/modules/integrations/slack/assets/images/slack.svg?url'
-import SlackBotForm from '@baserow/modules/integrations/slack/components/integrations/SlackBotForm'
+import { IntegrationType } from '@jadawel/modules/core/integrationTypes'
+import slackIntegration from '@jadawel/modules/integrations/slack/assets/images/slack.svg?url'
+import SlackBotForm from '@jadawel/modules/integrations/slack/components/integrations/SlackBotForm'
 
 export class SlackBotIntegrationType extends IntegrationType {
   static getType() {

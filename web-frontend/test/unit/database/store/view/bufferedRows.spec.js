@@ -1,9 +1,9 @@
-import bufferedRows from '@baserow/modules/database/store/view/bufferedRows'
-import viewStore from '@baserow/modules/database/store/view'
-import { TestApp } from '@baserow/test/helpers/testApp'
-import { ContainsViewFilterType } from '@baserow/modules/database/viewFilters'
-import { createPrimaryField } from '@baserow/test/fixtures/fields'
-import { createView } from '@baserow/test/fixtures/view'
+import bufferedRows from '@jadawel/modules/database/store/view/bufferedRows'
+import viewStore from '@jadawel/modules/database/store/view'
+import { TestApp } from '@jadawel/test/helpers/testApp'
+import { ContainsViewFilterType } from '@jadawel/modules/database/viewFilters'
+import { createPrimaryField } from '@jadawel/test/fixtures/fields'
+import { createView } from '@jadawel/test/fixtures/view'
 
 describe('Buffered rows view store helper', () => {
   let testApp = null

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Toast from '@baserow/modules/core/components/toasts/Toast'
-import { UNDO_REDO_STATES } from '@baserow/modules/core/utils/undoRedoConstants'
+import Toast from '@jadawel/modules/core/components/toasts/Toast'
+import { UNDO_REDO_STATES } from '@jadawel/modules/core/utils/undoRedoConstants'
 
 export default {
   name: 'UndoRedoToast',

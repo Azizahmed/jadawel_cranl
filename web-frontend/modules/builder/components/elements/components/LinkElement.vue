@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import element from '@baserow/modules/builder/mixins/element'
-import resolveElementUrl from '@baserow/modules/builder/utils/urlResolution'
-import { ensureString } from '@baserow/modules/core/utils/validator'
+import element from '@jadawel/modules/builder/mixins/element'
+import resolveElementUrl from '@jadawel/modules/builder/utils/urlResolution'
+import { ensureString } from '@jadawel/modules/core/utils/validator'
 
 /**
  * @typedef LinkElement

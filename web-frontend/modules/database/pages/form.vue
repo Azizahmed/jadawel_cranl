@@ -43,17 +43,17 @@ import { useAsyncData } from '#app'
 import { useHead } from '#imports'
 import { useRoute, useRouter } from 'vue-router'
 
-import { clone, isPromise } from '@baserow/modules/core/utils/object'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import Toasts from '@baserow/modules/core/components/toasts/Toasts'
-import FormService from '@baserow/modules/database/services/view/form'
+import { clone, isPromise } from '@jadawel/modules/core/utils/object'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import Toasts from '@jadawel/modules/core/components/toasts/Toasts'
+import FormService from '@jadawel/modules/database/services/view/form'
 import {
   getHiddenFieldNames,
   getPrefills,
   prefillField,
-} from '@baserow/modules/database/utils/form'
-import { matchSearchFilters } from '@baserow/modules/database/utils/view'
-import FormViewPoweredBy from '@baserow/modules/database/components/view/form/FormViewPoweredBy'
+} from '@jadawel/modules/database/utils/form'
+import { matchSearchFilters } from '@jadawel/modules/database/utils/view'
+import FormViewPoweredBy from '@jadawel/modules/database/components/view/form/FormViewPoweredBy'
 
 definePageMeta({
   middleware: ['settings'],

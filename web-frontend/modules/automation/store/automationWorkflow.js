@@ -1,10 +1,10 @@
 import { useNuxtApp, useRouter } from '#app'
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import { AutomationApplicationType } from '@baserow/modules/automation/applicationTypes'
-import AutomationWorkflowService from '@baserow/modules/automation/services/workflow'
-import { generateHash } from '@baserow/modules/core/utils/hashing'
-import { AUTOMATION_ACTION_SCOPES } from '@baserow/modules/automation/utils/undoRedoConstants'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import { AutomationApplicationType } from '@jadawel/modules/automation/applicationTypes'
+import AutomationWorkflowService from '@jadawel/modules/automation/services/workflow'
+import { generateHash } from '@jadawel/modules/core/utils/hashing'
+import { AUTOMATION_ACTION_SCOPES } from '@jadawel/modules/automation/utils/undoRedoConstants'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick } from '#imports'
 
 export function populateAutomationWorkflow(workflow) {

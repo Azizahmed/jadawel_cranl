@@ -11,11 +11,11 @@
 import { useHead, useAsyncData } from '#imports'
 import { computed } from 'vue'
 import { onBeforeRouteUpdate, onBeforeRouteLeave } from 'vue-router'
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
-import { BuilderApplicationType } from '@baserow/modules/builder/applicationTypes'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
+import { BuilderApplicationType } from '@jadawel/modules/builder/applicationTypes'
 import _ from 'lodash'
-import PageEditorContent from '@baserow/modules/builder/components/PageEditorContent.vue'
+import PageEditorContent from '@jadawel/modules/builder/components/PageEditorContent.vue'
 
 definePageMeta({
   layout: 'app',

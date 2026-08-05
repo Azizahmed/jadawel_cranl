@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import { filterHiddenFieldsFunction } from '@baserow/modules/database/utils/view'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import ViewFieldsContext from '@baserow/modules/database/components/view/ViewFieldsContext'
+import { filterHiddenFieldsFunction } from '@jadawel/modules/database/utils/view'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import ViewFieldsContext from '@jadawel/modules/database/components/view/ViewFieldsContext'
 
 export default {
   name: 'GridViewHide',

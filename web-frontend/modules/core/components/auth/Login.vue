@@ -72,17 +72,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import EmailNotVerified from '@baserow/modules/core/components/auth/EmailNotVerified.vue'
-import LoginButtons from '@baserow/modules/core/components/auth/LoginButtons'
-import LoginActions from '@baserow/modules/core/components/auth/LoginActions'
-import PasswordLogin from '@baserow/modules/core/components/auth/PasswordLogin'
-import LangPicker from '@baserow/modules/core/components/LangPicker'
+import EmailNotVerified from '@jadawel/modules/core/components/auth/EmailNotVerified.vue'
+import LoginButtons from '@jadawel/modules/core/components/auth/LoginButtons'
+import LoginActions from '@jadawel/modules/core/components/auth/LoginActions'
+import PasswordLogin from '@jadawel/modules/core/components/auth/PasswordLogin'
+import LangPicker from '@jadawel/modules/core/components/LangPicker'
 import {
   isRelativeUrl,
   addQueryParamsToRedirectUrl,
-} from '@baserow/modules/core/utils/url'
-import TOTPLogin from '@baserow/modules/core/components/auth/TOTPLogin'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+} from '@jadawel/modules/core/utils/url'
+import TOTPLogin from '@jadawel/modules/core/components/auth/TOTPLogin'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick, useNuxtApp } from '#imports'
 
 export default {

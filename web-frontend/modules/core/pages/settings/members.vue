@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import MembersTable from '@baserow/modules/core/components/settings/members/MembersTable'
+import MembersTable from '@jadawel/modules/core/components/settings/members/MembersTable'
 
 export default {
   name: 'Members',

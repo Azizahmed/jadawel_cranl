@@ -1,4 +1,4 @@
-import Context from '@baserow/modules/core/components/Context'
+import Context from '@jadawel/modules/core/components/Context'
 import { ref } from 'vue'
 
 export default {

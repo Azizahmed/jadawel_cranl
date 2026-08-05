@@ -1,11 +1,11 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import PasswordSettings from '@baserow/modules/core/components/settings/PasswordSettings'
-import AccountSettings from '@baserow/modules/core/components/settings/AccountSettings'
-import DeleteAccountSettings from '@baserow/modules/core/components/settings/DeleteAccountSettings'
-import EmailSettings from '@baserow/modules/core/components/settings/EmailSettings'
-import EmailNotifications from '@baserow/modules/core/components/settings/EmailNotifications'
-import McpEndpointSettings from '@baserow/modules/core/components/settings/McpEndpointSettings.vue'
-import TwoFactorAuthSettings from '@baserow/modules/core/components/settings/TwoFactorAuthSettings.vue'
+import { Registerable } from '@jadawel/modules/core/registry'
+import PasswordSettings from '@jadawel/modules/core/components/settings/PasswordSettings'
+import AccountSettings from '@jadawel/modules/core/components/settings/AccountSettings'
+import DeleteAccountSettings from '@jadawel/modules/core/components/settings/DeleteAccountSettings'
+import EmailSettings from '@jadawel/modules/core/components/settings/EmailSettings'
+import EmailNotifications from '@jadawel/modules/core/components/settings/EmailNotifications'
+import McpEndpointSettings from '@jadawel/modules/core/components/settings/McpEndpointSettings.vue'
+import TwoFactorAuthSettings from '@jadawel/modules/core/components/settings/TwoFactorAuthSettings.vue'
 
 /**
  * All settings types will be added to the settings modal.

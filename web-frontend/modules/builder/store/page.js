@@ -1,10 +1,10 @@
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
-import { BuilderApplicationType } from '@baserow/modules/builder/applicationTypes'
-import PageService from '@baserow/modules/builder/services/page'
-import { generateHash } from '@baserow/modules/core/utils/hashing'
-import { pageFinished } from '@baserow/modules/core/utils/routing'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
+import { BuilderApplicationType } from '@jadawel/modules/builder/applicationTypes'
+import PageService from '@jadawel/modules/builder/services/page'
+import { generateHash } from '@jadawel/modules/core/utils/hashing'
+import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick } from '#imports'
-import { BUILDER_ACTION_SCOPES } from '@baserow/modules/builder/utils/undoRedoConstants'
+import { BUILDER_ACTION_SCOPES } from '@jadawel/modules/builder/utils/undoRedoConstants'
 
 export function populatePage(page) {
   return {

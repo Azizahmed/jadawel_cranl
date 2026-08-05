@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import { hasCompatibleFilterTypes } from '@baserow/modules/database/utils/field'
-import viewFilterTypes from '@baserow/modules/database/mixins/viewFilterTypes'
+import { hasCompatibleFilterTypes } from '@jadawel/modules/database/utils/field'
+import viewFilterTypes from '@jadawel/modules/database/mixins/viewFilterTypes'
 
 export default {
   name: 'ViewFieldConditionItem',

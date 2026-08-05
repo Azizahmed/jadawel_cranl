@@ -36,15 +36,15 @@ import {
   DatabaseOnboardingType,
   DatabaseImportOnboardingType,
   DatabaseScratchTrackOnboardingType,
-} from '@baserow/modules/database/onboardingTypes'
-import DatabaseTablePreview from '@baserow/modules/database/components/onboarding/DatabaseTablePreview'
-import { populateTable } from '@baserow/modules/database/store/table'
-import { clone } from '@baserow/modules/core/utils/object'
-import Sidebar from '@baserow/modules/core/components/sidebar/Sidebar'
-import Highlight from '@baserow/modules/core/components/Highlight'
-import { populateWorkspace } from '@baserow/modules/core/store/workspace'
-import { populateApplication } from '@baserow/modules/core/store/application'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
+} from '@jadawel/modules/database/onboardingTypes'
+import DatabaseTablePreview from '@jadawel/modules/database/components/onboarding/DatabaseTablePreview'
+import { populateTable } from '@jadawel/modules/database/store/table'
+import { clone } from '@jadawel/modules/core/utils/object'
+import Sidebar from '@jadawel/modules/core/components/sidebar/Sidebar'
+import Highlight from '@jadawel/modules/core/components/Highlight'
+import { populateWorkspace } from '@jadawel/modules/core/store/workspace'
+import { populateApplication } from '@jadawel/modules/core/store/application'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
 
 export default {
   name: 'DatabaseAppLayoutPreview',

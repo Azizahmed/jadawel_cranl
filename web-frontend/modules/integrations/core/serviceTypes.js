@@ -1,14 +1,14 @@
-import CoreHTTPTriggerServiceForm from '@baserow/modules/integrations/core/components/services/CoreHTTPTriggerServiceForm'
+import CoreHTTPTriggerServiceForm from '@jadawel/modules/integrations/core/components/services/CoreHTTPTriggerServiceForm'
 import {
   ServiceType,
   TriggerServiceTypeMixin,
   WorkflowActionServiceTypeMixin,
-} from '@baserow/modules/core/serviceTypes'
-import CoreHTTPRequestServiceForm from '@baserow/modules/integrations/core/components/services/CoreHTTPRequestServiceForm'
-import CoreSMTPEmailServiceForm from '@baserow/modules/integrations/core/components/services/CoreSMTPEmailServiceForm'
-import CoreRouterServiceForm from '@baserow/modules/integrations/core/components/services/CoreRouterServiceForm'
-import CoreIteratorServiceForm from '@baserow/modules/integrations/core/components/services/CoreIteratorServiceForm'
-import CorePeriodicServiceForm from '@baserow/modules/integrations/core/components/services/CorePeriodicServiceForm.vue'
+} from '@jadawel/modules/core/serviceTypes'
+import CoreHTTPRequestServiceForm from '@jadawel/modules/integrations/core/components/services/CoreHTTPRequestServiceForm'
+import CoreSMTPEmailServiceForm from '@jadawel/modules/integrations/core/components/services/CoreSMTPEmailServiceForm'
+import CoreRouterServiceForm from '@jadawel/modules/integrations/core/components/services/CoreRouterServiceForm'
+import CoreIteratorServiceForm from '@jadawel/modules/integrations/core/components/services/CoreIteratorServiceForm'
+import CorePeriodicServiceForm from '@jadawel/modules/integrations/core/components/services/CorePeriodicServiceForm.vue'
 
 export class CoreHTTPRequestServiceType extends WorkflowActionServiceTypeMixin(
   ServiceType

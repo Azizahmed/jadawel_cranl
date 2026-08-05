@@ -94,9 +94,9 @@
 import { useVuelidate } from '@vuelidate/core'
 import { reactive } from 'vue'
 import { required, email } from '@vuelidate/validators'
-import form from '@baserow/modules/core/mixins/form'
-import error from '@baserow/modules/core/mixins/error'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import form from '@jadawel/modules/core/mixins/form'
+import error from '@jadawel/modules/core/mixins/error'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 
 export default {
   name: 'PasswordLogin',
@@ -150,7 +150,7 @@ export default {
     }
   },
   async mounted() {
-    if (!this.$config.public.baserowDisablePublicUrlCheck) {
+    if (!this.$config.public.jadawelDisablePublicUrlCheck) {
       const publicBackendUrl = new URL(this.$config.public.publicBackendUrl)
       if (publicBackendUrl.hostname !== window.location.hostname) {
         // If the host of the browser location does not match the PUBLIC_BACKEND_URL

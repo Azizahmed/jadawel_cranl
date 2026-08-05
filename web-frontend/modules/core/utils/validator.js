@@ -1,8 +1,8 @@
 import _ from 'lodash'
 
-import { trueValues, falseValues } from '@baserow/modules/core/utils/constants'
-import moment from '@baserow/modules/core/moment'
-import { DateOnly } from '@baserow/modules/core/utils/date'
+import { trueValues, falseValues } from '@jadawel/modules/core/utils/constants'
+import moment from '@jadawel/modules/core/moment'
+import { DateOnly } from '@jadawel/modules/core/utils/date'
 
 const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?$/
 const isoDateFormat = 'YYYY-MM-DD HH:mm:ss'

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ConfigureDataSyncModal from '@baserow/modules/database/components/dataSync/ConfigureDataSyncModal'
+import ConfigureDataSyncModal from '@jadawel/modules/database/components/dataSync/ConfigureDataSyncModal'
 
 export default {
   components: { ConfigureDataSyncModal },

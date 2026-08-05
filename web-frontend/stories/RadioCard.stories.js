@@ -1,4 +1,4 @@
-import RadioCard from '@baserow/modules/core/components/RadioCard'
+import RadioCard from '@jadawel/modules/core/components/RadioCard'
 
 export default {
   title: 'Jadawel/Form Elements/Radio/RadioCard',

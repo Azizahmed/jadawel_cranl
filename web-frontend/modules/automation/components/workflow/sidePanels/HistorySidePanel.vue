@@ -59,7 +59,7 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import WorkflowHistory from '@baserow/modules/automation/components/workflow/sidePanels/WorkflowHistory'
+import WorkflowHistory from '@jadawel/modules/automation/components/workflow/sidePanels/WorkflowHistory'
 const store = useStore()
 
 const workflow = inject('workflow')

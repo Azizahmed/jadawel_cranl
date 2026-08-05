@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-import ChartWidget from '@baserow/modules/arabase/dashboard/components/widget/ChartWidget'
+import ChartWidget from '@jadawel/modules/arabase/dashboard/components/widget/ChartWidget'
 
 // The chart itself renders into a canvas, which tells us nothing in jsdom. Stub
 // the four vue-chartjs components so the props the widget computes — the labels,

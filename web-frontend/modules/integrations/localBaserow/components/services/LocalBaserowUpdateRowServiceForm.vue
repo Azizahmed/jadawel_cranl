@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import UpsertRowWorkflowActionForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowUpsertRowServiceForm'
+import UpsertRowWorkflowActionForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowUpsertRowServiceForm'
 
 export default {
   name: 'LocalBaserowUpdateRowServiceForm',

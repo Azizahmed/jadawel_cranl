@@ -19,7 +19,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import LanguageSwitcherDropdown from '@baserow/modules/core/components/LangSwitcherDropdown'
+import LanguageSwitcherDropdown from '@jadawel/modules/core/components/LangSwitcherDropdown'
 
 const { locale, locales } = useI18n()
 

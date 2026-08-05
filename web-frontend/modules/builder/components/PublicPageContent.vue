@@ -17,22 +17,22 @@
 import { computed, watch, onMounted, provide } from 'vue'
 import { useStore } from 'vuex'
 import { useHead, useNuxtApp } from '#app'
-import PageContent from '@baserow/modules/builder/components/page/PageContent'
+import PageContent from '@jadawel/modules/builder/components/page/PageContent'
 
-import { DataProviderType } from '@baserow/modules/core/dataProviderTypes'
-import BuilderToasts from '@baserow/modules/builder/components/BuilderToasts'
-import ApplicationBuilderFormulaInput from '@baserow/modules/builder/components/ApplicationBuilderFormulaInput'
+import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
+import BuilderToasts from '@jadawel/modules/builder/components/BuilderToasts'
+import ApplicationBuilderFormulaInput from '@jadawel/modules/builder/components/ApplicationBuilderFormulaInput'
 import _ from 'lodash'
-import { prefixInternalResolvedUrl } from '@baserow/modules/builder/utils/urlResolution'
-import { userCanViewPage } from '@baserow/modules/builder/utils/visibility'
+import { prefixInternalResolvedUrl } from '@jadawel/modules/builder/utils/urlResolution'
+import { userCanViewPage } from '@jadawel/modules/builder/utils/visibility'
 
 import {
   userSourceCookieTokenName,
   setToken,
-} from '@baserow/modules/core/utils/auth'
-import { QUERY_PARAM_TYPE_HANDLER_FUNCTIONS } from '@baserow/modules/builder/enums'
-import RecursiveWrapper from '@baserow/modules/core/components/RecursiveWrapper'
-import { ThemeConfigBlockType } from '@baserow/modules/builder/themeConfigBlockTypes'
+} from '@jadawel/modules/core/utils/auth'
+import { QUERY_PARAM_TYPE_HANDLER_FUNCTIONS } from '@jadawel/modules/builder/enums'
+import RecursiveWrapper from '@jadawel/modules/core/components/RecursiveWrapper'
+import { ThemeConfigBlockType } from '@jadawel/modules/builder/themeConfigBlockTypes'
 import { useRoute, useRouter } from '#imports'
 
 defineOptions({

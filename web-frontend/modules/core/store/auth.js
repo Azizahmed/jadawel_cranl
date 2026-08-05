@@ -2,16 +2,16 @@ import jwtDecode from 'jwt-decode'
 
 import _ from 'lodash'
 
-import AuthService from '@baserow/modules/core/services/auth'
-import WorkspaceService from '@baserow/modules/core/services/workspace'
+import AuthService from '@jadawel/modules/core/services/auth'
+import WorkspaceService from '@jadawel/modules/core/services/workspace'
 import {
   setToken,
   setUserSessionCookie,
   unsetToken,
   unsetUserSessionCookie,
-} from '@baserow/modules/core/utils/auth'
-import { unsetWorkspaceCookie } from '@baserow/modules/core/utils/workspace'
-import { uuid } from '@baserow/modules/core/utils/string'
+} from '@jadawel/modules/core/utils/auth'
+import { unsetWorkspaceCookie } from '@jadawel/modules/core/utils/workspace'
+import { uuid } from '@jadawel/modules/core/utils/string'
 
 export const state = () => ({
   refreshing: false,

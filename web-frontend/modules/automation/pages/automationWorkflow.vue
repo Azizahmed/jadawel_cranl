@@ -13,9 +13,9 @@ import { ref, computed } from 'vue'
 import { useAsyncData } from '#imports'
 import { onBeforeRouteUpdate, onBeforeRouteLeave } from 'vue-router'
 
-import AutomationWorkflowContent from '@baserow/modules/automation/components/AutomationWorkflowContent'
-import { AutomationApplicationType } from '@baserow/modules/automation/applicationTypes'
-import { StoreItemLookupError } from '@baserow/modules/core/errors'
+import AutomationWorkflowContent from '@jadawel/modules/automation/components/AutomationWorkflowContent'
+import { AutomationApplicationType } from '@jadawel/modules/automation/applicationTypes'
+import { StoreItemLookupError } from '@jadawel/modules/core/errors'
 
 definePageMeta({
   layout: 'app',

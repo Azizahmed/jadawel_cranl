@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ViewGroupByContext from '@baserow/modules/database/components/view/ViewGroupByContext'
+import ViewGroupByContext from '@jadawel/modules/database/components/view/ViewGroupByContext'
 
 export default {
   name: 'ViewGroupBy',

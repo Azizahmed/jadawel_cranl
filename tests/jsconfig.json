@@ -2,7 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./cases",
         "paths": {
-            "@baserow_test_cases/*": [
+            "@jadawel_test_cases/*": [
                 "./cases/*"
             ]
         }

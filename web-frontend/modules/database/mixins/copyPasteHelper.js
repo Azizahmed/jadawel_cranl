@@ -6,7 +6,7 @@ import {
   getRichClipboard,
   setRichClipboard,
   LOCAL_STORAGE_CLIPBOARD_KEY,
-} from '@baserow/modules/database/utils/clipboard'
+} from '@jadawel/modules/database/utils/clipboard'
 
 const PAPA_CONFIG = {
   delimiter: '\t',

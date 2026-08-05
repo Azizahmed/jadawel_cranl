@@ -1,55 +1,55 @@
-import { Registerable } from '@baserow/modules/core/registry'
-import RowEditFieldText from '@baserow/modules/database/components/row/RowEditFieldText'
-import RowEditFieldLongText from '@baserow/modules/database/components/row/RowEditFieldLongText'
-import RowEditFieldNumber from '@baserow/modules/database/components/row/RowEditFieldNumber'
-import RowEditFieldDateReadOnly from '@baserow/modules/database/components/row/RowEditFieldDateReadOnly'
-import GridViewFieldLongText from '@baserow/modules/database/components/view/grid/fields/GridViewFieldLongText'
-import RowEditFieldBoolean from '@baserow/modules/database/components/row/RowEditFieldBoolean'
-import FunctionalGridViewFieldLongText from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldLongText'
-import FunctionalGridViewFieldText from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldText'
-import FunctionalGridViewFieldBlank from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldBlank'
-import FunctionalGridViewFieldArray from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldArray'
-import FunctionalGridViewFieldButton from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldButton'
-import FunctionalGridViewFieldLinkURL from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldLinkURL'
-import GridViewFieldArray from '@baserow/modules/database/components/view/grid/fields/GridViewFieldArray'
-import RowEditFieldSingleSelectReadOnly from '@baserow/modules/database/components/row/RowEditFieldSingleSelectReadOnly'
-import RowEditFieldMultipleSelectReadOnly from '@baserow/modules/database/components/row/RowEditFieldMultipleSelectReadOnly'
-import RowEditFieldMultipleCollaboratorsReadOnly from '@baserow/modules/database/components/row/RowEditFieldMultipleCollaboratorsReadOnly'
-import RowEditFieldArray from '@baserow/modules/database/components/row/RowEditFieldArray'
-import RowEditFieldLinkURL from '@baserow/modules/database/components/row/RowEditFieldLinkURL'
-import RowEditFieldButton from '@baserow/modules/database/components/row/RowEditFieldButton'
-import RowEditFieldDurationReadOnly from '@baserow/modules/database/components/row/RowEditFieldDurationReadOnly'
-import FunctionalFormulaArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaArrayItem'
-import FunctionalFormulaArrayDurationItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaArrayDurationItem'
-import FunctionalFormulaArrayNumberItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaArrayNumberItem'
-import FunctionalFormulaBooleanArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaBooleanArrayItem'
-import FunctionalFormulaDateArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaDateArrayItem'
-import FunctionalFormulaSingleSelectArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaSingleSelectArrayItem'
-import FunctionalFormulaMultipleSelectArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaMultipleSelectArrayItem'
-import FunctionalFormulaMultipleCollaboratorsArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaMultipleCollaboratorsArrayItem'
-import FunctionalFormulaLinkArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaLinkArrayItem'
-import FunctionalFormulaButtonArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaButtonArrayItem'
-import RowCardFieldArray from '@baserow/modules/database/components/card/RowCardFieldArray'
-import RowEditFieldBlank from '@baserow/modules/database/components/row/RowEditFieldBlank'
-import RowCardFieldBlank from '@baserow/modules/database/components/card/RowCardFieldBlank'
-import RowCardFieldLinkURL from '@baserow/modules/database/components/card/RowCardFieldLinkURL'
-import RowCardFieldButton from '@baserow/modules/database/components/card/RowCardFieldButton'
-import GridViewFieldButton from '@baserow/modules/database/components/view/grid/fields/GridViewFieldButton'
-import GridViewFieldLinkURL from '@baserow/modules/database/components/view/grid/fields/GridViewFieldLinkURL'
-import GridViewFieldText from '@baserow/modules/database/components/view/grid/fields/GridViewFieldText'
-import RowEditFieldFileReadOnly from '@baserow/modules/database/components/row/RowEditFieldFileReadOnly'
-import FunctionalGridViewSingleFile from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewSingleFile'
-import FunctionalFormulaFileArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaFileArrayItem'
-import SingleFileArrayModal from '@baserow/modules/database/components/view/grid/fields/SingleFileArrayModal'
-import GridViewSingleFile from '@baserow/modules/database/components/view/grid/fields/GridViewSingleFile'
-import RowEditSingleFileReadOnly from '@baserow/modules/database/components/row/RowEditSingleFileReadOnly'
-import RowCardFieldSingleFile from '@baserow/modules/database/components/card/RowCardFieldSingleFile'
-import RowEditFieldURL from '@baserow/modules/database/components/row/RowEditFieldURL'
-import FunctionalGridViewFieldURL from '@baserow/modules/database/components/view/grid/fields/FunctionalGridViewFieldURL'
-import GridViewFieldURL from '@baserow/modules/database/components/view/grid/fields/GridViewFieldURL'
-import RowCardFieldURL from '@baserow/modules/database/components/card/RowCardFieldURL'
-import FunctionalFormulaURLArrayItem from '@baserow/modules/database/components/formula/array/FunctionalFormulaURLArrayItem'
-import { mix } from '@baserow/modules/core/mixins'
+import { Registerable } from '@jadawel/modules/core/registry'
+import RowEditFieldText from '@jadawel/modules/database/components/row/RowEditFieldText'
+import RowEditFieldLongText from '@jadawel/modules/database/components/row/RowEditFieldLongText'
+import RowEditFieldNumber from '@jadawel/modules/database/components/row/RowEditFieldNumber'
+import RowEditFieldDateReadOnly from '@jadawel/modules/database/components/row/RowEditFieldDateReadOnly'
+import GridViewFieldLongText from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldLongText'
+import RowEditFieldBoolean from '@jadawel/modules/database/components/row/RowEditFieldBoolean'
+import FunctionalGridViewFieldLongText from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldLongText'
+import FunctionalGridViewFieldText from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldText'
+import FunctionalGridViewFieldBlank from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldBlank'
+import FunctionalGridViewFieldArray from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldArray'
+import FunctionalGridViewFieldButton from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldButton'
+import FunctionalGridViewFieldLinkURL from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldLinkURL'
+import GridViewFieldArray from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldArray'
+import RowEditFieldSingleSelectReadOnly from '@jadawel/modules/database/components/row/RowEditFieldSingleSelectReadOnly'
+import RowEditFieldMultipleSelectReadOnly from '@jadawel/modules/database/components/row/RowEditFieldMultipleSelectReadOnly'
+import RowEditFieldMultipleCollaboratorsReadOnly from '@jadawel/modules/database/components/row/RowEditFieldMultipleCollaboratorsReadOnly'
+import RowEditFieldArray from '@jadawel/modules/database/components/row/RowEditFieldArray'
+import RowEditFieldLinkURL from '@jadawel/modules/database/components/row/RowEditFieldLinkURL'
+import RowEditFieldButton from '@jadawel/modules/database/components/row/RowEditFieldButton'
+import RowEditFieldDurationReadOnly from '@jadawel/modules/database/components/row/RowEditFieldDurationReadOnly'
+import FunctionalFormulaArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaArrayItem'
+import FunctionalFormulaArrayDurationItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaArrayDurationItem'
+import FunctionalFormulaArrayNumberItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaArrayNumberItem'
+import FunctionalFormulaBooleanArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaBooleanArrayItem'
+import FunctionalFormulaDateArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaDateArrayItem'
+import FunctionalFormulaSingleSelectArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaSingleSelectArrayItem'
+import FunctionalFormulaMultipleSelectArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaMultipleSelectArrayItem'
+import FunctionalFormulaMultipleCollaboratorsArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaMultipleCollaboratorsArrayItem'
+import FunctionalFormulaLinkArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaLinkArrayItem'
+import FunctionalFormulaButtonArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaButtonArrayItem'
+import RowCardFieldArray from '@jadawel/modules/database/components/card/RowCardFieldArray'
+import RowEditFieldBlank from '@jadawel/modules/database/components/row/RowEditFieldBlank'
+import RowCardFieldBlank from '@jadawel/modules/database/components/card/RowCardFieldBlank'
+import RowCardFieldLinkURL from '@jadawel/modules/database/components/card/RowCardFieldLinkURL'
+import RowCardFieldButton from '@jadawel/modules/database/components/card/RowCardFieldButton'
+import GridViewFieldButton from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldButton'
+import GridViewFieldLinkURL from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldLinkURL'
+import GridViewFieldText from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldText'
+import RowEditFieldFileReadOnly from '@jadawel/modules/database/components/row/RowEditFieldFileReadOnly'
+import FunctionalGridViewSingleFile from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewSingleFile'
+import FunctionalFormulaFileArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaFileArrayItem'
+import SingleFileArrayModal from '@jadawel/modules/database/components/view/grid/fields/SingleFileArrayModal'
+import GridViewSingleFile from '@jadawel/modules/database/components/view/grid/fields/GridViewSingleFile'
+import RowEditSingleFileReadOnly from '@jadawel/modules/database/components/row/RowEditSingleFileReadOnly'
+import RowCardFieldSingleFile from '@jadawel/modules/database/components/card/RowCardFieldSingleFile'
+import RowEditFieldURL from '@jadawel/modules/database/components/row/RowEditFieldURL'
+import FunctionalGridViewFieldURL from '@jadawel/modules/database/components/view/grid/fields/FunctionalGridViewFieldURL'
+import GridViewFieldURL from '@jadawel/modules/database/components/view/grid/fields/GridViewFieldURL'
+import RowCardFieldURL from '@jadawel/modules/database/components/card/RowCardFieldURL'
+import FunctionalFormulaURLArrayItem from '@jadawel/modules/database/components/formula/array/FunctionalFormulaURLArrayItem'
+import { mix } from '@jadawel/modules/core/mixins'
 import {
   hasEmptyValueFilterMixin,
   hasValueEqualFilterMixin,
@@ -59,23 +59,23 @@ import {
   hasSelectOptionIdEqualMixin,
   hasSelectOptionValueContainsFilterMixin,
   hasSelectOptionValueContainsWordFilterMixin,
-  baserowFormulaArrayTypeFilterMixin,
+  jadawelFormulaArrayTypeFilterMixin,
   hasNumericValueComparableToFilterMixin,
   hasNestedSelectOptionValueContainsFilterMixin,
   hasNestedSelectOptionValueContainsWordFilterMixin,
   hasMultipleSelectOptionIdEqualMixin,
-} from '@baserow/modules/database/arrayFilterMixins'
+} from '@jadawel/modules/database/arrayFilterMixins'
 import _ from 'lodash'
-import ViewFilterTypeBoolean from '@baserow/modules/database/components/view/ViewFilterTypeBoolean'
+import ViewFilterTypeBoolean from '@jadawel/modules/database/components/view/ViewFilterTypeBoolean'
 import {
   genericHasAllValuesEqualFilter,
   genericHasValueContainsFilter,
   genericHasValueContainsWordFilter,
-} from '@baserow/modules/database/utils/fieldFilters'
-import ViewFilterTypeDuration from '@baserow/modules/database/components/view/ViewFilterTypeDuration'
-import ViewFilterTypeMultipleSelectOptions from '@baserow/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
-import { DEFAULT_SORT_TYPE_KEY } from '@baserow/modules/database/constants'
-import ViewFilterTypeCollaborators from '@baserow/modules/database/components/view/ViewFilterTypeCollaborators'
+} from '@jadawel/modules/database/utils/fieldFilters'
+import ViewFilterTypeDuration from '@jadawel/modules/database/components/view/ViewFilterTypeDuration'
+import ViewFilterTypeMultipleSelectOptions from '@jadawel/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
+import { DEFAULT_SORT_TYPE_KEY } from '@jadawel/modules/database/constants'
+import ViewFilterTypeCollaborators from '@jadawel/modules/database/components/view/ViewFilterTypeCollaborators'
 
 export class BaserowFormulaTypeDefinition extends Registerable {
   getIconClass() {
@@ -664,7 +664,7 @@ export class BaserowFormulaInvalidType extends BaserowFormulaTypeDefinition {
 }
 
 export class BaserowFormulaArrayType extends mix(
-  baserowFormulaArrayTypeFilterMixin,
+  jadawelFormulaArrayTypeFilterMixin,
   BaserowFormulaTypeDefinition
 ) {
   static getType() {

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import FieldSelectOptionsDropdown from '@baserow/modules/database/components/field/FieldSelectOptionsDropdown'
+import FieldSelectOptionsDropdown from '@jadawel/modules/database/components/field/FieldSelectOptionsDropdown'
 
 export default {
   name: 'FormViewFieldOptionsAllowedSelectOptions',

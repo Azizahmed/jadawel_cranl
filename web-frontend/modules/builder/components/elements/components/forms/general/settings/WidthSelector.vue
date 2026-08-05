@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { WIDTHS } from '@baserow/modules/builder/enums'
+import { WIDTHS } from '@jadawel/modules/builder/enums'
 
 export default {
   name: 'WidthSelector',

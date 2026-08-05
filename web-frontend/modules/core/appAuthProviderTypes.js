@@ -1,4 +1,4 @@
-import { BaseAuthProviderType } from '@baserow/modules/core/authProviderTypes'
+import { BaseAuthProviderType } from '@jadawel/modules/core/authProviderTypes'
 
 export class AppAuthProviderType extends BaseAuthProviderType {
   get name() {

@@ -78,8 +78,8 @@
 </template>
 
 <script>
-import inMemoryPaginatedDropdown from '@baserow/modules/core/mixins/inMemoryPaginatedDropdown'
-import FieldCollaboratorDropdownItem from '@baserow/modules/database/components/field/FieldCollaboratorDropdownItem'
+import inMemoryPaginatedDropdown from '@jadawel/modules/core/mixins/inMemoryPaginatedDropdown'
+import FieldCollaboratorDropdownItem from '@jadawel/modules/database/components/field/FieldCollaboratorDropdownItem'
 
 export default {
   name: 'FieldCollaboratorDropdown',

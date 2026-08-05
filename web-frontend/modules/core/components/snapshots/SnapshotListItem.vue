@@ -42,12 +42,12 @@
 </template>
 
 <script>
-import SnapshotsService from '@baserow/modules/core/services/snapshots'
-import DeleteSnapshotModal from '@baserow/modules/core/components/snapshots/DeleteSnapshotModal'
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import job from '@baserow/modules/core/mixins/job'
-import timeAgo from '@baserow/modules/core/mixins/timeAgo'
-import { RestoreSnapshotJobType } from '@baserow/modules/core/jobTypes'
+import SnapshotsService from '@jadawel/modules/core/services/snapshots'
+import DeleteSnapshotModal from '@jadawel/modules/core/components/snapshots/DeleteSnapshotModal'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import job from '@jadawel/modules/core/mixins/job'
+import timeAgo from '@jadawel/modules/core/mixins/timeAgo'
+import { RestoreSnapshotJobType } from '@jadawel/modules/core/jobTypes'
 
 export default {
   components: {

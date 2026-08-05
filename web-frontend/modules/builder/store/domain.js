@@ -1,4 +1,4 @@
-import DomainService from '@baserow/modules/builder/services/domain'
+import DomainService from '@jadawel/modules/builder/services/domain'
 
 const populateDomain = (domain) => {
   domain._ = {

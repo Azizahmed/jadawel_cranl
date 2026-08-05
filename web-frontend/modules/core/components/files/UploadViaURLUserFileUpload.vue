@@ -35,8 +35,8 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required, url, helpers } from '@vuelidate/validators'
 
-import error from '@baserow/modules/core/mixins/error'
-import UserFileService from '@baserow/modules/core/services/userFile'
+import error from '@jadawel/modules/core/mixins/error'
+import UserFileService from '@jadawel/modules/core/services/userFile'
 
 export default {
   name: 'UploadViaURLUserFileUpload',

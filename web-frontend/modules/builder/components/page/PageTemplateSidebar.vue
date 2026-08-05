@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { BuilderApplicationType } from '@baserow/modules/builder/applicationTypes'
+import { BuilderApplicationType } from '@jadawel/modules/builder/applicationTypes'
 
 export default {
   name: 'TemplateSidebar',

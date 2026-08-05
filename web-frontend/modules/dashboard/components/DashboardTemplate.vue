@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import Dashboard from '@baserow/modules/dashboard/components/Dashboard'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import Dashboard from '@jadawel/modules/dashboard/components/Dashboard'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 export default {
   name: 'DashboardTemplate',

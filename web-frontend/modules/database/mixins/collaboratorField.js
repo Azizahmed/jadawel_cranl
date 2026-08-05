@@ -1,5 +1,5 @@
-import selectDropdown from '@baserow/modules/database/mixins/selectDropdown'
-import availableCollaborators from '@baserow/modules/database/mixins/availableCollaborators'
+import selectDropdown from '@jadawel/modules/database/mixins/selectDropdown'
+import availableCollaborators from '@jadawel/modules/database/mixins/availableCollaborators'
 
 export default {
   mixins: [selectDropdown, availableCollaborators],

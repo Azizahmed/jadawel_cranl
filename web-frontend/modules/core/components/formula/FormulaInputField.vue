@@ -50,10 +50,10 @@ import { Document } from '@tiptap/extension-document'
 import { Text } from '@tiptap/extension-text'
 import { History } from '@tiptap/extension-history'
 import { HardBreak } from '@tiptap/extension-hard-break'
-import { ArrowKeyNavigationExtension } from '@baserow/modules/core/components/formula/extensions/ArrowKeyNavigationExtension'
-import { SmartDeletionExtension } from '@baserow/modules/core/components/formula/extensions/SmartDeletionExtension'
-import { ZWSManagementExtension } from '@baserow/modules/core/components/formula/extensions/ZWSManagementExtension'
-import { FunctionHelpTooltipExtension } from '@baserow/modules/core/components/formula/extensions/FunctionHelpTooltipExtension'
+import { ArrowKeyNavigationExtension } from '@jadawel/modules/core/components/formula/extensions/ArrowKeyNavigationExtension'
+import { SmartDeletionExtension } from '@jadawel/modules/core/components/formula/extensions/SmartDeletionExtension'
+import { ZWSManagementExtension } from '@jadawel/modules/core/components/formula/extensions/ZWSManagementExtension'
+import { FunctionHelpTooltipExtension } from '@jadawel/modules/core/components/formula/extensions/FunctionHelpTooltipExtension'
 import {
   FormulaInsertionExtension,
   FunctionFormulaComponentNode,
@@ -62,27 +62,27 @@ import {
   GroupOpeningParenNode,
   GroupClosingParenNode,
   OperatorFormulaComponentNode,
-} from '@baserow/modules/core/components/formula/extensions/FormulaNodes'
-import { NodeSelectionExtension } from '@baserow/modules/core/components/formula/extensions/NodeSelectionExtension'
-import { ContextManagementExtension } from '@baserow/modules/core/components/formula/extensions/ContextManagementExtension'
-import { FunctionDetectionExtension } from '@baserow/modules/core/components/formula/extensions/FunctionDetectionExtension'
-import { GroupDetectionExtension } from '@baserow/modules/core/components/formula/extensions/GroupDetectionExtension'
-import { OperatorDetectionExtension } from '@baserow/modules/core/components/formula/extensions/OperatorDetectionExtension'
+} from '@jadawel/modules/core/components/formula/extensions/FormulaNodes'
+import { NodeSelectionExtension } from '@jadawel/modules/core/components/formula/extensions/NodeSelectionExtension'
+import { ContextManagementExtension } from '@jadawel/modules/core/components/formula/extensions/ContextManagementExtension'
+import { FunctionDetectionExtension } from '@jadawel/modules/core/components/formula/extensions/FunctionDetectionExtension'
+import { GroupDetectionExtension } from '@jadawel/modules/core/components/formula/extensions/GroupDetectionExtension'
+import { OperatorDetectionExtension } from '@jadawel/modules/core/components/formula/extensions/OperatorDetectionExtension'
 import {
   createClipboardTextSerializer,
   createPasteHandler,
-} from '@baserow/modules/core/components/formula/extensions/FormulaClipboardHandler'
+} from '@jadawel/modules/core/components/formula/extensions/FormulaClipboardHandler'
 import _ from 'lodash'
-import parseBaserowFormula from '@baserow/modules/core/formula/parser/parser'
-import { ToTipTapVisitor } from '@baserow/modules/core/formula/tiptap/toTipTapVisitor'
-import { RuntimeFunctionCollection } from '@baserow/modules/core/functionCollection'
-import { FromTipTapVisitor } from '@baserow/modules/core/formula/tiptap/fromTipTapVisitor'
+import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
+import { ToTipTapVisitor } from '@jadawel/modules/core/formula/tiptap/toTipTapVisitor'
+import { RuntimeFunctionCollection } from '@jadawel/modules/core/functionCollection'
+import { FromTipTapVisitor } from '@jadawel/modules/core/formula/tiptap/fromTipTapVisitor'
 import { mergeAttributes } from '@tiptap/core'
 import FormulaInputErrorContext from '~/modules/core/components/formula/FormulaInputErrorContext'
-import FormulaInputExplorerContext from '@baserow/modules/core/components/formula/FormulaInputExplorerContext'
-import { isFormulaValid } from '@baserow/modules/core/formula'
-import NodeHelpTooltip from '@baserow/modules/core/components/nodeExplorer/NodeHelpTooltip'
-import { BASEROW_FORMULA_MODES } from '@baserow/modules/core/formula/constants'
+import FormulaInputExplorerContext from '@jadawel/modules/core/components/formula/FormulaInputExplorerContext'
+import { isFormulaValid } from '@jadawel/modules/core/formula'
+import NodeHelpTooltip from '@jadawel/modules/core/components/nodeExplorer/NodeHelpTooltip'
+import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'FormulaInputField',

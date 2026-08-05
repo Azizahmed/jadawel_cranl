@@ -94,13 +94,13 @@
 </template>
 
 <script>
-import context from '@baserow/modules/core/mixins/context'
-import ColorPicker from '@baserow/modules/core/components/ColorPicker.vue'
+import context from '@jadawel/modules/core/mixins/context'
+import ColorPicker from '@jadawel/modules/core/components/ColorPicker.vue'
 import {
   isValidHexColor,
   convertHexToRgb,
   convertRgbToHex,
-} from '@baserow/modules/core/utils/colors'
+} from '@jadawel/modules/core/utils/colors'
 
 export const COLOR_NOTATIONS = {
   HEX: 'hex',

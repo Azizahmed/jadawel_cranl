@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import ThemeProvider from '@baserow/modules/builder/components/theme/ThemeProvider'
-import ThemeConfigBlock from '@baserow/modules/builder/components/theme/ThemeConfigBlock'
+import ThemeProvider from '@jadawel/modules/builder/components/theme/ThemeProvider'
+import ThemeConfigBlock from '@jadawel/modules/builder/components/theme/ThemeConfigBlock'
 
 import { mapActions } from 'vuex'
-import { notifyIf } from '@baserow/modules/core/utils/error'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
 import _ from 'lodash'
 
 export default {

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LocalBaserowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
+import LocalBaserowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
 
 export default {
   name: 'LocalBaserowDeleteRowServiceForm',

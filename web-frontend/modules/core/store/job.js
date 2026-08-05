@@ -1,4 +1,4 @@
-import JobService from '@baserow/modules/core/services/job'
+import JobService from '@jadawel/modules/core/services/job'
 import _ from 'lodash'
 
 const FINISHED_STATES = ['finished', 'failed', 'cancelled']
@@ -121,7 +121,7 @@ export const actions = {
     const unfinishedJobIds = unfinishedJobs
       ? unfinishedJobs.map((job) => job.id)
       : []
-    const maxTimeout = this.$config.public.baserowFrontendJobsPollingTimeoutMs
+    const maxTimeout = this.$config.public.jadawelFrontendJobsPollingTimeoutMs
     commit('COMPUTE_NEXT_TIMEOUT_MS', { unfinishedJobIds, maxTimeout })
     const nextTimeoutInMs = state.nextTimeoutInMs
     // too many attempts for the same pending jobs, stop polling

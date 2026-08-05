@@ -163,11 +163,11 @@
 </template>
 
 <script>
-import InjectedFormulaInput from '@baserow/modules/core/components/formula/InjectedFormulaInput.vue'
-import { CHOICE_OPTION_TYPES } from '@baserow/modules/builder/enums'
-import CustomStyleButton from '@baserow/modules/builder/components/elements/components/forms/style/CustomStyleButton'
-import formElementForm from '@baserow/modules/builder/mixins/formElementForm'
-import { uuid } from '@baserow/modules/core/utils/string'
+import InjectedFormulaInput from '@jadawel/modules/core/components/formula/InjectedFormulaInput.vue'
+import { CHOICE_OPTION_TYPES } from '@jadawel/modules/builder/enums'
+import CustomStyleButton from '@jadawel/modules/builder/components/elements/components/forms/style/CustomStyleButton'
+import formElementForm from '@jadawel/modules/builder/mixins/formElementForm'
+import { uuid } from '@jadawel/modules/core/utils/string'
 
 export default {
   name: 'ChoiceElementForm',

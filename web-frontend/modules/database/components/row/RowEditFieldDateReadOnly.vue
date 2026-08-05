@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import readOnlyDateField from '@baserow/modules/database/mixins/readOnlyDateField'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import readOnlyDateField from '@jadawel/modules/database/mixins/readOnlyDateField'
 
 export default {
   mixins: [rowEditField, readOnlyDateField],

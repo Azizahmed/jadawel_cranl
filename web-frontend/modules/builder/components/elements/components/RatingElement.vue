@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Rating from '@baserow/modules/database/components/Rating'
-import element from '@baserow/modules/builder/mixins/element'
-import { ensurePositiveInteger } from '@baserow/modules/core/utils/validator'
+import Rating from '@jadawel/modules/database/components/Rating'
+import element from '@jadawel/modules/builder/mixins/element'
+import { ensurePositiveInteger } from '@jadawel/modules/core/utils/validator'
 
 export default {
   name: 'RatingElement',

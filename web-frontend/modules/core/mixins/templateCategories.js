@@ -1,5 +1,5 @@
-import { clone } from '@baserow/modules/core/utils/object'
-import { escapeRegExp } from '@baserow/modules/core/utils/string'
+import { clone } from '@jadawel/modules/core/utils/object'
+import { escapeRegExp } from '@jadawel/modules/core/utils/string'
 
 export default {
   props: {

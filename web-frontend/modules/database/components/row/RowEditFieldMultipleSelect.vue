@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import rowEditField from '@baserow/modules/database/mixins/rowEditField'
-import multipleSelectField from '@baserow/modules/database/mixins/multipleSelectField'
-import FieldSelectOptionsDropdown from '@baserow/modules/database/components/field/FieldSelectOptionsDropdown'
+import rowEditField from '@jadawel/modules/database/mixins/rowEditField'
+import multipleSelectField from '@jadawel/modules/database/mixins/multipleSelectField'
+import FieldSelectOptionsDropdown from '@jadawel/modules/database/components/field/FieldSelectOptionsDropdown'
 
 export default {
   name: 'RowEditFieldMultipleSelect',

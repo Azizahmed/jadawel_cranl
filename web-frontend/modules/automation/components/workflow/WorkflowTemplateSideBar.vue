@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { AutomationApplicationType } from '@baserow/modules/automation/applicationTypes'
+import { AutomationApplicationType } from '@jadawel/modules/automation/applicationTypes'
 
 export default {
   name: 'TemplateSidebar',

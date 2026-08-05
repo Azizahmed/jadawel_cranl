@@ -51,9 +51,9 @@
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
-import { ResponseErrorMessage } from '@baserow/modules/core/plugins/clientHandler'
-import error from '@baserow/modules/core/mixins/error'
-import TwoFactorAuthService from '@baserow/modules/core/services/twoFactorAuth'
+import { ResponseErrorMessage } from '@jadawel/modules/core/plugins/clientHandler'
+import error from '@jadawel/modules/core/mixins/error'
+import TwoFactorAuthService from '@jadawel/modules/core/services/twoFactorAuth'
 
 export default {
   name: 'DisableTwoFactorAuth',

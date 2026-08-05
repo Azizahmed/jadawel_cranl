@@ -1,6 +1,6 @@
-import workspaceStore from '@baserow/modules/core/store/workspace'
-import authStore from '@baserow/modules/core/store/auth'
-import { TestApp } from '@baserow/test/helpers/testApp'
+import workspaceStore from '@jadawel/modules/core/store/workspace'
+import authStore from '@jadawel/modules/core/store/auth'
+import { TestApp } from '@jadawel/test/helpers/testApp'
 import { expect, test } from 'vitest'
 
 describe('Workspace store', () => {

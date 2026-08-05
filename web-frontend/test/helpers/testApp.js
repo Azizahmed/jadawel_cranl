@@ -1,19 +1,19 @@
-import setupCore from '@baserow/modules/core/plugin'
+import setupCore from '@jadawel/modules/core/plugin'
 import Papa from 'papaparse'
 import axios from 'axios'
 import setupClient, {
   ClientErrorMap,
-} from '@baserow/modules/core/plugins/clientHandler'
+} from '@jadawel/modules/core/plugins/clientHandler'
 
-import setupDatabasePlugin from '@baserow/modules/database/plugin'
-import setupBuilderPlugin from '@baserow/modules/builder/plugin'
-import setupIntegrationPlugin from '@baserow/modules/integrations/plugin'
-import { bootstrapVueContext } from '@baserow/test/helpers/components'
+import setupDatabasePlugin from '@jadawel/modules/database/plugin'
+import setupBuilderPlugin from '@jadawel/modules/builder/plugin'
+import setupIntegrationPlugin from '@jadawel/modules/integrations/plugin'
+import { bootstrapVueContext } from '@jadawel/test/helpers/components'
 import MockAdapter from 'axios-mock-adapter'
 import _ from 'lodash'
-import { MockServer } from '@baserow/test/fixtures/mockServer'
+import { MockServer } from '@jadawel/test/fixtures/mockServer'
 import flushPromises from 'flush-promises'
-import setupHasFeaturePlugin from '@baserow/modules/core/plugins/hasFeature'
+import setupHasFeaturePlugin from '@jadawel/modules/core/plugins/hasFeature'
 
 import { fail, vi } from 'vitest'
 

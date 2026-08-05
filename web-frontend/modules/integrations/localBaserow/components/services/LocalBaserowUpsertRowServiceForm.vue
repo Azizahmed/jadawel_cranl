@@ -29,9 +29,9 @@
 
 <script>
 import _ from 'lodash'
-import FieldMappingsForm from '@baserow/modules/integrations/localBaserow/components/services/FieldMappingsForm'
-import form from '@baserow/modules/core/mixins/form'
-import LocalBaserowServiceForm from '@baserow/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
+import FieldMappingsForm from '@jadawel/modules/integrations/localBaserow/components/services/FieldMappingsForm'
+import form from '@jadawel/modules/core/mixins/form'
+import LocalBaserowServiceForm from '@jadawel/modules/integrations/localBaserow/components/services/LocalBaserowServiceForm'
 
 export default {
   name: 'LocalBaserowUpsertRowServiceForm',

@@ -7,21 +7,21 @@ import {
   IntegrationsBuilderSettingsType,
   ThemeBuilderSettingsType,
   UserSourcesBuilderSettingsType,
-} from '@baserow/modules/builder/builderSettingTypes'
+} from '@jadawel/modules/builder/builderSettingTypes'
 
-import pageStore from '@baserow/modules/builder/store/page'
-import elementStore from '@baserow/modules/builder/store/element'
-import domainStore from '@baserow/modules/builder/store/domain'
-import publicBuilderStore from '@baserow/modules/builder/store/publicBuilder'
-import dataSourceStore from '@baserow/modules/builder/store/dataSource'
-import pageParameterStore from '@baserow/modules/builder/store/pageParameter'
-import dataSourceContentStore from '@baserow/modules/builder/store/dataSourceContent'
-import elementContentStore from '@baserow/modules/builder/store/elementContent'
-import themeStore from '@baserow/modules/builder/store/theme'
-import builderWorkflowActionStore from '@baserow/modules/builder/store/builderWorkflowAction'
-import formDataStore from '@baserow/modules/builder/store/formData'
-import builderToast from '@baserow/modules/builder/store/builderToast'
-import { registerRealtimeEvents } from '@baserow/modules/builder/realtime'
+import pageStore from '@jadawel/modules/builder/store/page'
+import elementStore from '@jadawel/modules/builder/store/element'
+import domainStore from '@jadawel/modules/builder/store/domain'
+import publicBuilderStore from '@jadawel/modules/builder/store/publicBuilder'
+import dataSourceStore from '@jadawel/modules/builder/store/dataSource'
+import pageParameterStore from '@jadawel/modules/builder/store/pageParameter'
+import dataSourceContentStore from '@jadawel/modules/builder/store/dataSourceContent'
+import elementContentStore from '@jadawel/modules/builder/store/elementContent'
+import themeStore from '@jadawel/modules/builder/store/theme'
+import builderWorkflowActionStore from '@jadawel/modules/builder/store/builderWorkflowAction'
+import formDataStore from '@jadawel/modules/builder/store/formData'
+import builderToast from '@jadawel/modules/builder/store/builderToast'
+import { registerRealtimeEvents } from '@jadawel/modules/builder/realtime'
 import {
   HeadingElementType,
   ImageElementType,
@@ -44,46 +44,46 @@ import {
   RatingInputElementType,
   MenuElementType,
   SimpleContainerElementType,
-} from '@baserow/modules/builder/elementTypes'
+} from '@jadawel/modules/builder/elementTypes'
 import {
   DesktopDeviceType,
   SmartphoneDeviceType,
   TabletDeviceType,
-} from '@baserow/modules/builder/deviceTypes'
+} from '@jadawel/modules/builder/deviceTypes'
 import {
   DuplicatePageJobType,
   PublishBuilderJobType,
-} from '@baserow/modules/builder/jobTypes'
-import { BuilderApplicationType } from '@baserow/modules/builder/applicationTypes'
-import { PublicSiteErrorPageType } from '@baserow/modules/builder/errorPageTypes'
+} from '@jadawel/modules/builder/jobTypes'
+import { BuilderApplicationType } from '@jadawel/modules/builder/applicationTypes'
+import { PublicSiteErrorPageType } from '@jadawel/modules/builder/errorPageTypes'
 import {
   DataSourcesPageHeaderItemType,
   ElementsPageHeaderItemType,
   SettingsPageHeaderItemType,
-} from '@baserow/modules/builder/pageHeaderItemTypes'
+} from '@jadawel/modules/builder/pageHeaderItemTypes'
 import {
   EventsPageSidePanelType,
   GeneralPageSidePanelType,
   StylePageSidePanelType,
   VisibilityPageSidePanelType,
-} from '@baserow/modules/builder/pageSidePanelTypes'
+} from '@jadawel/modules/builder/pageSidePanelTypes'
 import {
   CustomDomainType,
   SubDomainType,
-} from '@baserow/modules/builder/domainTypes'
+} from '@jadawel/modules/builder/domainTypes'
 import {
   PagePageSettingsType,
   PageVisibilitySettingsType,
-} from '@baserow/modules/builder/pageSettingsTypes'
+} from '@jadawel/modules/builder/pageSettingsTypes'
 import {
   TextPathParamType,
   NumericPathParamType,
-} from '@baserow/modules/builder/pathParamTypes'
+} from '@jadawel/modules/builder/pathParamTypes'
 
 import {
   PreviewPageActionType,
   PublishPageActionType,
-} from '@baserow/modules/builder/pageActionTypes'
+} from '@jadawel/modules/builder/pageActionTypes'
 
 import {
   PageParameterDataProviderType,
@@ -93,7 +93,7 @@ import {
   PreviousActionDataProviderType,
   UserDataProviderType,
   DataSourceContextDataProviderType,
-} from '@baserow/modules/builder/dataProviderTypes'
+} from '@jadawel/modules/builder/dataProviderTypes'
 
 import {
   ColorThemeConfigBlockType,
@@ -104,7 +104,7 @@ import {
   PageThemeConfigBlockType,
   InputThemeConfigBlockType,
   TableThemeConfigBlockType,
-} from '@baserow/modules/builder/themeConfigBlockTypes'
+} from '@jadawel/modules/builder/themeConfigBlockTypes'
 import {
   CreateRowWorkflowActionType,
   NotificationWorkflowActionType,
@@ -117,7 +117,7 @@ import {
   CoreSMTPEmailWorkflowActionType,
   AIAgentWorkflowActionType,
   SlackWriteMessageWorkflowActionType,
-} from '@baserow/modules/builder/workflowActionTypes'
+} from '@jadawel/modules/builder/workflowActionTypes'
 
 import {
   BooleanCollectionFieldType,
@@ -127,7 +127,7 @@ import {
   TagsCollectionFieldType,
   ImageCollectionFieldType,
   RatingCollectionFieldType,
-} from '@baserow/modules/builder/collectionFieldTypes'
+} from '@jadawel/modules/builder/collectionFieldTypes'
 
 import {
   InterFontFamilyType,
@@ -140,14 +140,14 @@ import {
   GaramondFontFamilyType,
   CourierNewFontFamilyType,
   BrushScriptMTFontFamilyType,
-} from '@baserow/modules/builder/fontFamilyTypes'
+} from '@jadawel/modules/builder/fontFamilyTypes'
 import {
   TextQueryParamType,
   NumericQueryParamType,
-} from '@baserow/modules/builder/queryParamTypes'
-import { BuilderGuidedTourType } from '@baserow/modules/builder/guidedTourTypes'
-import { BuilderSearchType } from '@baserow/modules/builder/searchTypes'
-import { searchTypeRegistry } from '@baserow/modules/core/search/types/registry'
+} from '@jadawel/modules/builder/queryParamTypes'
+import { BuilderGuidedTourType } from '@jadawel/modules/builder/guidedTourTypes'
+import { BuilderSearchType } from '@jadawel/modules/builder/searchTypes'
+import { searchTypeRegistry } from '@jadawel/modules/core/search/types/registry'
 
 export default defineNuxtPlugin({
   name: 'builder',

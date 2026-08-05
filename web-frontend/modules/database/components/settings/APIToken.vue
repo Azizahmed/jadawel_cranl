@@ -183,10 +183,10 @@
 </template>
 
 <script>
-import { notifyIf } from '@baserow/modules/core/utils/error'
-import { DatabaseApplicationType } from '@baserow/modules/database/applicationTypes'
-import { copyToClipboard } from '@baserow/modules/database/utils/clipboard'
-import TokenService from '@baserow/modules/database/services/token'
+import { notifyIf } from '@jadawel/modules/core/utils/error'
+import { DatabaseApplicationType } from '@jadawel/modules/database/applicationTypes'
+import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
+import TokenService from '@jadawel/modules/database/services/token'
 
 export default {
   name: 'APIToken',

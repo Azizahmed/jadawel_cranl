@@ -1,9 +1,9 @@
 import { markRaw } from 'vue'
-import { Registerable } from '@baserow/modules/core/registry'
-import ElementsContextComponent from '@baserow/modules/builder/components/page/header/ElementsContext'
-import DataSourceContextComponent from '@baserow/modules/builder/components/page/header/DataSourceContext'
-import VariablesContextComponent from '@baserow/modules/builder/components/page/header/VariablesContext'
-import PageSettingsModalComponent from '@baserow/modules/builder/components/page/settings/PageSettingsModal'
+import { Registerable } from '@jadawel/modules/core/registry'
+import ElementsContextComponent from '@jadawel/modules/builder/components/page/header/ElementsContext'
+import DataSourceContextComponent from '@jadawel/modules/builder/components/page/header/DataSourceContext'
+import VariablesContextComponent from '@jadawel/modules/builder/components/page/header/VariablesContext'
+import PageSettingsModalComponent from '@jadawel/modules/builder/components/page/settings/PageSettingsModal'
 
 const ElementsContext = markRaw(ElementsContextComponent)
 const DataSourceContext = markRaw(DataSourceContextComponent)
