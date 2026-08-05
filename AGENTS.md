@@ -1,53 +1,118 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
+Jadawel (جداول) is an Arabic-first, RTL-native spreadsheet-database forked from
+Baserow, self-hosted so that data stays inside Saudi Arabia. This repository is also
+the CranL deployment copy, so it carries the root `Dockerfile` and
+`.github/workflows/publish-image.yml` on top of the application.
 
-Baserow is a monorepo. Core Django code lives in `backend/src`, shared backend tests in `backend/tests`, and the main Nuxt app in `web-frontend/` (`modules/`, `server/`, `test/`, `stories/`). Paid extensions mirror that layout in `premium/backend`, `premium/web-frontend`, `enterprise/backend`, and `enterprise/web-frontend`. End-to-end coverage lives in `e2e-tests/`. Product and contributor docs are in `docs/`, while deployment recipes are under `deploy/`.
+**Pushing code does not change what is deployed.** The root `Dockerfile` pulls a
+published image instead of building the monorepo, because the Nuxt production build
+is OOM-killed on a 4 GB plan. Shipping is three steps: run the *Publish all-in-one
+image* workflow, bump `ARG JADAWEL_IMAGE`, redeploy. `docs/DEPLOY_CRANL.md` holds
+the procedure and `cranl_fix.md` the environment set that actually boots.
 
-## Build, Test, and Development Commands
+## Layout
 
-Use `just` from the repo root; it wraps the backend and frontend workflows consistently for local and Docker setups.
+```
+backend/         Django project — src/baserow (upstream), src/arabase (fork), tests/
+web-frontend/    Nuxt 3 app — modules/{core,database,dashboard,…}, modules/arabase (fork)
+website/         Static marketing pages
+e2e-tests/       Playwright suites
+embeddings/      Embedding sidecar, compose profile `ai`
+deploy/          Docker, Helm and reverse-proxy recipes
+docs/            Audit, Arabic glossary, RTL review, deployment write-ups
+.agents/skills/  Reusable workflows for this repository
+```
 
-- `just init` installs dependencies and creates `.env.local`.
-- `just dev up` starts the local stack; `just dc-dev up -d` runs the Docker dev environment.
-- `just b test -n=auto` runs backend pytest suites in parallel.
-- `just f test` runs frontend Vitest suites.
-- `just lint` runs both backend and frontend linters; `just fix` applies auto-fixes.
-- `just b migrate` runs Django migrations.
+## Commands
 
-For direct package-manager use, backend commands run through `uv` and frontend commands through `yarn`.
+`just` from the repository root wraps both halves. Run `just` for the recipe index.
 
-## Coding Style & Naming Conventions
+```
+just init          # install backend + frontend dependencies
+just dev up        # local processes: app :3000, API :8000, Storybook :6006
+just dc-dev up -d  # the same stack entirely in Docker
+just b <cmd>       # backend/justfile      — b test -n=auto, b migrate, b lint
+just f <cmd>       # web-frontend/justfile — f test, f lint
+just lint | just fix | just test
+```
 
-Python targets Python 3.14, uses 4-space indentation, and is formatted and linted with Ruff (`ruff check`, `ruff format`) with an 88-character line length. Follow existing Django app/module naming and keep new tests in `test_*.py` or `*_test.py` files. Frontend code uses ESLint, Stylelint, and Prettier; SCSS should follow BEM-style naming already used in `web-frontend/modules`.
+Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
 
-## Technology Stack
+## Arabic-first
 
-Backend code uses Django, Django REST Framework, Celery, PostgreSQL, Redis, and pytest/pytest-django. Python dependencies are managed with `uv`.
+- Arabic is the default locale and `dir="rtl"` is set at the document root. English,
+  French, Dutch, German, Spanish, Italian, Polish, Korean and Ukrainian stay
+  selectable per user, so both directions must keep working.
+- Every user-facing string ships in `en.json` **and** `ar.json`. CI runs
+  `yarn locale:check` in strict mode; one missing Arabic key fails the build.
+- Take Arabic wording from `docs/GLOSSARY_AR.md`, and add a new recurring term there
+  before using it. Keep placeholders (`{name}`, `@:action.save`), Latin technical
+  tokens and Western digits (0–9) verbatim.
+- Style with CSS logical properties (`margin-inline-start`, `inset-inline-end`).
+  `csstools/use-logical` is a hard error under `web-frontend/modules/arabase/` and a
+  warning elsewhere.
 
-Frontend code uses Vue 3, Nuxt 3, Vuex, Vite, Vitest, Storybook, SCSS, ESLint, Stylelint, Prettier, and `yarn`. Render functions must use Vue 3 semantics, for example importing `h` from `vue` instead of expecting `render(h)` to receive it. JSX-bearing frontend files must use a `.jsx` or `.tsx` extension so Vite can parse them.
+## Fork hygiene
 
-## Testing Guidelines
+- `premium/` and `enterprise/` are deleted for licence reasons.
+  `backend/tests/arabase/test_fork_hygiene.py` fails if `baserow_premium` or
+  `baserow_enterprise` becomes importable, or if `BASEROW_OSS_ONLY` stops being true.
+  Run it after every upstream merge.
+- Fork features are **additive**: they live in `backend/src/arabase/` and
+  `web-frontend/modules/arabase/`. The backend hooks into Baserow's registries from
+  `ArabaseConfig.ready()`, and its API mounts under `/api/arabase/` through
+  `ArabasePlugin`, so a new feature needs no core edit.
+- Editing an upstream `baserow` core file is the last resort, and every such edit is
+  logged in `PATCHES.md` with its reason and merge risk. Files you create under
+  `arabase/`, `docs/` or `.github/` are additive and stay out of that log.
+- The `baserow` name is load-bearing. The Python distribution, the `baserow.*` import
+  namespace, `src/baserow`, `uv.lock`, and the `baserow` container, service and volume
+  names all depend on it. Rebrand user-facing surfaces to Jadawel / جداول only.
 
-Backend tests use `pytest` with `pytest-django`; frontend tests use `vitest`; browser flows live in `e2e-tests/`. Add unit tests for backend changes and targeted frontend tests for component or store behavior. 
+## Coding style
 
-Examples: `just b test backend/tests/path/`, `just b test-coverage`, `just f test -- --coverage`, `just f yarn test:core path/to/test`.
+Python 3.14, 4-space indentation, Ruff (`ruff check`, `ruff format`) at 88 columns,
+with `baserow` and `arabase` both first-party for isort. Name tests `test_*.py`.
 
-## Commit & Pull Request Guidelines
+Vue 3 and Nuxt 3 with ESLint, Stylelint and Prettier. SCSS class names follow the BEM
+pattern Stylelint enforces. Render functions use Vue 3 semantics — import `h` from
+`vue`. A file containing JSX needs a `.jsx` or `.tsx` extension so Vite parses it.
 
-Recent history favors short, imperative subjects, often with Conventional Commit prefixes such as `fix:`, `feat:`, and `chore(deps):`. Branch from `develop`, keep PRs focused, and link the related issue or discussion. Include a clear summary, note schema or env changes, attach screenshots for UI work, add a changelog entry when required, and make sure the relevant lint and test commands pass before opening the PR.
+## Testing
 
-## Project Skills
+`just b test -n=auto` runs pytest with pytest-django, `just f test` runs Vitest, and
+browser flows live in `e2e-tests/`. Add backend tests for backend changes and targeted
+frontend tests for component or store behaviour.
 
-Reusable skills live in `.agents/skills/`. Each subdirectory is a self-contained skill with a `SKILL.md` that describes when and how to apply it. Use these instead of re-deriving the same workflow from scratch.
+`.github/workflows/jadawel-ci.yml` gates a pull request on six jobs. Two are
+fork-specific and easy to miss locally — Arabic locale parity (`yarn locale:check`)
+and fork hygiene (`pytest tests/arabase -q`). Run both before pushing.
 
-| Skill directory | When to use |
+## Commits and pull requests
+
+Branch from `main`; history is linear, so rebase rather than merge. Subjects are
+short, imperative Conventional Commits — `feat(dashboard):`, `fix(mcp):`,
+`chore(deploy):`. This fork keeps no changelog directory; record deployment findings
+and audits as documents in `docs/` instead. Call out schema or environment changes,
+and attach screenshots for UI work.
+
+## Skills
+
+`.agents/skills/` is canonical. `.claude/skills` is a symlink to it that a Windows
+checkout leaves as a plain text file, so read through `.agents/skills/`.
+
+| Skill | When to use |
 |---|---|
-| `add-django-config-env-var` | Adding a new Django setting backed by an env var and propagating it to `base.py`, docker-compose files, `env-remap.mjs`, and `docs/installation/configuration.md` |
-| `write-frontend-unit-test` | Writing or fixing frontend unit tests in `web-frontend`, `premium/web-frontend`, or `enterprise/web-frontend` |
+| `add-django-config-env-var` | Adding a Django setting backed by an env var and propagating it to `base.py`, the compose files, `env-remap.mjs` and `docs/CONFIGURATION.md` |
+| `create-in-app-notification` | Adding a `NotificationType` with its frontend rendering, target routing and duplicate prevention |
 | `create-update-service` | Creating or updating an integration type or service type in `contrib/integrations` |
-| `create-in-app-notification` | Creating or updating a Baserow in-app notification for an event, including backend and frontend registration, target routing data, and duplicate-prevention behavior |
+| `silk-profiler` | Investigating a slow endpoint, an N+1 query or a request's query pattern with Django Silk |
+| `write-backend-unit-test` | Writing pytest tests with the repository's DRF `APIClient` and fixture patterns |
+| `write-frontend-unit-test` | Writing Vitest tests with the repository's `TestApp`, Vue Test Utils and snapshot patterns |
 
-## Security & Configuration Tips
+## Security and configuration
 
-Do not commit secrets or local overrides. Use `.env.local` for development, keep production settings in the documented deploy configs, and report vulnerabilities privately via the contact path in `CONTRIBUTING.md` rather than opening a public issue.
+Keep secrets out of the tree: `.env.local` for local processes, `.env.docker-dev` for
+Docker, and the deploy configs for production. Report vulnerabilities privately
+through the contact path in `SECURITY.md`.
