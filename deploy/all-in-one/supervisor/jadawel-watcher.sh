@@ -5,7 +5,7 @@ set -Eeo pipefail
 # healthcheck endpoints. When the services become healthy it informs the user how to
 # access them,
 
-baserow_ready() {
+jadawel_ready() {
     curlf() {
       HTTP_CODE=$(curl --silent -o /dev/null --write-out "%{http_code}" --max-time 10 "$@")
       if [[ ${HTTP_CODE} -lt 200 || ${HTTP_CODE} -gt 299 ]] ; then
@@ -21,8 +21,8 @@ baserow_ready() {
     fi
 }
 
-wait_for_baserow() {
-  until baserow_ready; do
+wait_for_jadawel() {
+  until jadawel_ready; do
     echo 'Waiting for Jadawel to become available, this might take 30+ seconds...'
     sleep 10
   done
@@ -35,7 +35,7 @@ wait_for_baserow() {
   while true
   do
     sleep 20
-    if ! baserow_ready; then
+    if ! jadawel_ready; then
       echo -e "\e[32mWARNING: Jadawel has become unhealthy.\e[0m"
       unhealthy=true
     elif [ "$unhealthy" = true ]; then
@@ -45,4 +45,4 @@ wait_for_baserow() {
   done
 }
 
-wait_for_baserow
+wait_for_jadawel
