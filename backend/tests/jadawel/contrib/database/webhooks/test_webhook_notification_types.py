@@ -40,7 +40,7 @@ def test_webhook_deactivated_notification_can_be_render_as_email(data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_WEBHOOKS_BATCH_LIMIT=1)
+@override_settings(JADAWEL_WEBHOOKS_BATCH_LIMIT=1)
 def test_webhook_payload_too_large_can_be_render_as_email(data_fixture):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)

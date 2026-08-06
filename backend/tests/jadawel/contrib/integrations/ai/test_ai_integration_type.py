@@ -309,7 +309,7 @@ def test_ai_integration_get_provider_settings_empty(data_fixture, settings):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
 
-    settings.BASEROW_OPENAI_API_KEY = "sk-env-key"
+    settings.JADAWEL_OPENAI_API_KEY = "sk-env-key"
 
     integration_type = AIIntegrationType()
 
@@ -379,8 +379,8 @@ def test_ai_integration_settings_hierarchy(data_fixture, settings):
         user=user, workspace=workspace
     )
 
-    settings.BASEROW_OPENAI_API_KEY = "sk-env-key"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-3.5-turbo"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-env-key"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-3.5-turbo"]
 
     workspace.generative_ai_models_settings = {
         "openai": {"api_key": "sk-workspace-key", "models": ["gpt-4"]}

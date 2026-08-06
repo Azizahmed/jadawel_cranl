@@ -294,7 +294,7 @@ caddy:
 | `backendConfigMap.DONT_UPDATE_FORMULAS_AFTER_MIGRATION`           | Set to "yes" to disable updating formulas after migration  | `yes`   |
 | `backendConfigMap.SYNC_TEMPLATES_ON_STARTUP`                      | Set to "false" to disable syncing templates on startup     | `false` |
 | `backendConfigMap.MIGRATE_ON_STARTUP`                             | Set to "false" to disable migration on startup             | `false` |
-| `backendConfigMap.BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | Set to "true" to trigger syncing templates after migration | `true`  |
+| `backendConfigMap.JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | Set to "true" to trigger syncing templates after migration | `true`  |
 
 ### Migration Job Configuration
 

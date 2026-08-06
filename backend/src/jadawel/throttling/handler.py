@@ -18,7 +18,7 @@ from .exceptions import RateLimitExceededException
 from .types import RateLimit
 from .utils import get_auth_token
 
-BASEROW_CONCURRENCY_THROTTLE_REQUEST_ID = "baserow_concurrency_throttle_request_id"
+JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID = "baserow_concurrency_throttle_request_id"
 
 # Slightly modified version of
 # https://gist.github.com/ptarjan/e38f45f2dfe601419ca3af937fff574d
@@ -92,7 +92,7 @@ class ConcurrentUserRequestsThrottle(SimpleRateThrottle):
         )
 
     def parse_rate(self, rate):
-        duration = settings.BASEROW_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT
+        duration = settings.JADAWEL_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT
         return int(rate), duration
 
     @classmethod
@@ -120,7 +120,7 @@ class ConcurrentUserRequestsThrottle(SimpleRateThrottle):
                 return None
 
             ident = str(user.id)
-        elif settings.BASEROW_THROTTLE_IP_ENABLED:
+        elif settings.JADAWEL_THROTTLE_IP_ENABLED:
             ident = cls._get_ip(request)
         else:
             return None
@@ -152,7 +152,7 @@ class ConcurrentUserRequestsThrottle(SimpleRateThrottle):
     def _allow(self, request, request_id, count, limit):
         django_request = request._request
         # Needed to remove request from sorted set in on_request_processed when done.
-        setattr(django_request, BASEROW_CONCURRENCY_THROTTLE_REQUEST_ID, request_id)
+        setattr(django_request, JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID, request_id)
         self._debug(
             request,
             "ALLOWING: as count={count} < limit={limit}",
@@ -165,13 +165,13 @@ class ConcurrentUserRequestsThrottle(SimpleRateThrottle):
     def _raise_deny_exc(self, request, request_id, count, limit):
         """
         Raise ThrottledAPIException to reject the request. When the blacklist
-        is enabled (BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS > 0) the caller is
+        is enabled (JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS > 0) the caller is
         also blacklisted for that cooldown, and the cooldown is surfaced as
         the Retry-After hint; otherwise no Retry-After is emitted since a
         concurrency slot may free up at any moment.
         """
 
-        cooldown = settings.BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS
+        cooldown = settings.JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS
         if cooldown > 0:
             self._blacklist(request, ttl=cooldown)
         else:
@@ -200,7 +200,7 @@ class ConcurrentUserRequestsThrottle(SimpleRateThrottle):
 
     @classmethod
     def on_request_processed(cls, request):
-        request_id = getattr(request, BASEROW_CONCURRENCY_THROTTLE_REQUEST_ID, None)
+        request_id = getattr(request, JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID, None)
         if request_id and (cache_key := cls.get_cache_key(request)):
             cls._debug(
                 request, "UNTRACKING: request has finished", request_id=request_id

@@ -10,8 +10,8 @@ from jadawel.core.cache import (
 )
 from jadawel.core.handler import CoreHandler
 
-_CACHE_ON = override_settings(BASEROW_CACHE_TTL_SECONDS=30)
-_CACHE_OFF = override_settings(BASEROW_CACHE_TTL_SECONDS=0)
+_CACHE_ON = override_settings(JADAWEL_CACHE_TTL_SECONDS=30)
+_CACHE_OFF = override_settings(JADAWEL_CACHE_TTL_SECONDS=0)
 
 
 @pytest.mark.django_db

@@ -163,14 +163,14 @@ class PostgreSQLDataSyncType(DataSyncType):
             raise SyncError("It's not allowed to connect to this hostname.")
 
         baserow_postgresql_connection = (
-            settings.BASEROW_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE
+            settings.JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE
             and are_hostnames_same(
                 instance.postgresql_host, settings.DATABASES[DEFAULT_DB_ALIAS]["HOST"]
             )
         )
         data_sync_blacklist = any(
             are_hostnames_same(instance.postgresql_host, hostname)
-            for hostname in settings.BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST
+            for hostname in settings.JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST
         )
 
         if baserow_postgresql_connection or data_sync_blacklist:

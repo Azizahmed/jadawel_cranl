@@ -11,8 +11,8 @@ from jadawel.core.captcha.provider_types import (
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 def test_is_configured():
     provider = CloudflareTurnstileCaptchaProviderType()
@@ -20,8 +20,8 @@ def test_is_configured():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="",
 )
 def test_is_not_configured_when_keys_empty():
     provider = CloudflareTurnstileCaptchaProviderType()
@@ -29,8 +29,8 @@ def test_is_not_configured_when_keys_empty():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="",
 )
 def test_is_not_configured_when_secret_missing():
     provider = CloudflareTurnstileCaptchaProviderType()
@@ -38,8 +38,8 @@ def test_is_not_configured_when_secret_missing():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 def test_get_frontend_config():
     provider = CloudflareTurnstileCaptchaProviderType()
@@ -48,7 +48,7 @@ def test_get_frontend_config():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 @responses.activate
 def test_validate_token_success():
@@ -70,7 +70,7 @@ def test_validate_token_success():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 @responses.activate
 def test_validate_token_without_remote_ip():
@@ -89,7 +89,7 @@ def test_validate_token_without_remote_ip():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 @responses.activate
 def test_validate_token_failure():
@@ -106,7 +106,7 @@ def test_validate_token_failure():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 @responses.activate
 def test_validate_token_network_error():
@@ -124,7 +124,7 @@ def test_validate_token_network_error():
 
 
 @override_settings(
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 @responses.activate
 def test_validate_token_http_500_error():

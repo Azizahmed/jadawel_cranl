@@ -112,7 +112,7 @@ def on_action_done_update_row_history(
     action_uuid,
     **kwargs,
 ):
-    if settings.BASEROW_ROW_HISTORY_RETENTION_DAYS == 0:
+    if settings.JADAWEL_ROW_HISTORY_RETENTION_DAYS == 0:
         return
 
     try:

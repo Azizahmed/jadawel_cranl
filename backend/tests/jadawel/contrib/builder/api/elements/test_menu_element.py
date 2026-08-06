@@ -8,8 +8,8 @@ from rest_framework.status import HTTP_200_OK
 from jadawel.contrib.builder.elements.handler import ElementHandler
 from jadawel.contrib.builder.elements.models import MenuItemElement
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.test_utils.helpers import AnyInt, AnyStr
 
 
@@ -86,8 +86,8 @@ def test_get_menu_element(api_client, menu_element_fixture):
             "navigate_to_page_id": None,
             "navigate_to_url": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "navigation_type": "",
             "page_parameters": [],
@@ -164,8 +164,8 @@ def test_can_update_menu_element_items(api_client, menu_element_fixture):
             "uid": AnyStr(),
             "navigate_to_page_id": None,
             "navigate_to_url": BaserowFormulaObject(
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 formula="",
             ),
             "navigation_type": "page",

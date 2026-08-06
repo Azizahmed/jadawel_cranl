@@ -247,7 +247,7 @@ tolerations: []
 ## see: docs/CONFIGURATION.md
 ## For example:
 ##  extraEnvVars:
-##  - name: BASEROW_PUBLIC_URL
+##  - name: JADAWEL_PUBLIC_URL
 ##    value: "https://baserow.mydomain.com"
 ##
 extraEnv: []

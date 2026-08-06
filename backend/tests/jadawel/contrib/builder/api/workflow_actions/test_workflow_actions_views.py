@@ -31,9 +31,9 @@ from jadawel.contrib.database.table.handler import TableHandler
 from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowUpsertRowServiceType,
 )
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE, BaserowFormulaObject
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, BaserowFormulaObject
 
 
 @pytest.mark.django_db
@@ -399,8 +399,8 @@ def test_create_create_row_workflow_action(api_client, data_fixture):
         "integration_id": None,
         "row_id": BaserowFormulaObject(
             formula="",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "type": LocalBaserowUpsertRowServiceType.type,
         "schema": None,
@@ -465,8 +465,8 @@ def test_update_create_row_workflow_action(api_client, data_fixture):
             "field_id": field.id,
             "value": BaserowFormulaObject(
                 formula="'Pony'",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "enabled": True,
         }
@@ -507,8 +507,8 @@ def test_create_update_row_workflow_action(api_client, data_fixture):
         "schema": None,
         "row_id": BaserowFormulaObject(
             formula="",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "table_id": None,
         "field_mappings": [],
@@ -582,8 +582,8 @@ def test_update_update_row_workflow_action(api_client, data_fixture):
             "field_id": field.id,
             "value": BaserowFormulaObject(
                 formula="'Pony'",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "enabled": True,
         }
@@ -1205,8 +1205,8 @@ def test_create_delete_row_workflow_action(api_client, data_fixture):
         "integration_id": None,
         "row_id": BaserowFormulaObject(
             formula="",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "type": DeleteRowWorkflowActionType.service_type,
         "schema": None,

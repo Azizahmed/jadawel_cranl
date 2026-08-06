@@ -4,7 +4,7 @@ from opentelemetry.sdk.trace import TracerProvider
 
 from jadawel.core.telemetry.env_overrides_parser import get_sampler_overrides_from_str
 
-BASEROW_CUSTOM_OTEL_SAMPLER_ENV_VAR_NAME = "OTEL_PER_MODULE_SAMPLER_OVERRIDES"
+JADAWEL_CUSTOM_OTEL_SAMPLER_ENV_VAR_NAME = "OTEL_PER_MODULE_SAMPLER_OVERRIDES"
 
 
 class DifferentSamplerPerLibraryTracerProvider(TracerProvider):
@@ -47,7 +47,7 @@ class DifferentSamplerPerLibraryTracerProvider(TracerProvider):
     ):
         self.default_sampler_override_per_instrumented_module_name = (
             get_sampler_overrides_from_str(
-                os.getenv(BASEROW_CUSTOM_OTEL_SAMPLER_ENV_VAR_NAME, "")
+                os.getenv(JADAWEL_CUSTOM_OTEL_SAMPLER_ENV_VAR_NAME, "")
             )
         )
         super().__init__(*args, **kwargs)

@@ -17,8 +17,8 @@ def test_arabase_app_is_installed():
 
 
 def test_oss_only_and_no_builtin_plugins():
-    assert settings.BASEROW_OSS_ONLY is True
-    assert settings.BASEROW_BUILT_IN_PLUGINS == []
+    assert settings.JADAWEL_OSS_ONLY is True
+    assert settings.JADAWEL_BUILT_IN_PLUGINS == []
 
 
 @pytest.mark.parametrize("module_name", ["baserow_premium", "baserow_enterprise"])

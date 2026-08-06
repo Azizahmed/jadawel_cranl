@@ -13,10 +13,10 @@ services:
     image: jadawel/jadawel:latest
     environment:
       # This nginx is configured to use the docker network to reach the Jadawel service.
-      # No need to use BASEROW_EXTRA_ALLOWED_HOSTS if your Nginx can access your
+      # No need to use JADAWEL_EXTRA_ALLOWED_HOSTS if your Nginx can access your
       # Jadawel on a normal network using localhost/127.0.0.1 .
-      BASEROW_EXTRA_ALLOWED_HOSTS: "baserow"
-      BASEROW_PUBLIC_URL: http://example.localhost
+      JADAWEL_EXTRA_ALLOWED_HOSTS: "baserow"
+      JADAWEL_PUBLIC_URL: http://example.localhost
     volumes:
       - baserow_data:/baserow/data
 volumes:

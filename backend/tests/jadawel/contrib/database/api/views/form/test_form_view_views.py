@@ -3110,8 +3110,8 @@ def test_upload_file_view(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json()["error"] == "ERROR_INVALID_FILE"
 
-    old_limit = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 6
+    old_limit = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 6
     response = api_client.post(
         reverse(
             "api:database:views:form:upload_file",
@@ -3121,7 +3121,7 @@ def test_upload_file_view(api_client, data_fixture, tmpdir):
         format="multipart",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
     assert response.status_code == HTTP_413_REQUEST_ENTITY_TOO_LARGE
     assert response.json()["error"] == "ERROR_FILE_SIZE_TOO_LARGE"
     assert response.json()["detail"] == (

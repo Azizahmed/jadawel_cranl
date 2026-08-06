@@ -1963,7 +1963,7 @@ class BaserowFormulaMultipleCollaboratorsType(
         return super().all_fields() + ["available_collaborators"]
 
 
-BASEROW_FORMULA_TYPES = [
+JADAWEL_FORMULA_TYPES = [
     BaserowFormulaInvalidType,
     BaserowFormulaTextType,
     BaserowFormulaCharType,
@@ -1982,30 +1982,30 @@ BASEROW_FORMULA_TYPES = [
     BaserowFormulaMultipleCollaboratorsType,
 ]
 
-BASEROW_FORMULA_TYPE_ALLOWED_FIELDS = list(
+JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS = list(
     set(
-        allowed_field for f in BASEROW_FORMULA_TYPES for allowed_field in f.all_fields()
+        allowed_field for f in JADAWEL_FORMULA_TYPES for allowed_field in f.all_fields()
     )
 )
 
-BASEROW_FORMULA_TYPE_CHOICES = [(f.type, f.type) for f in BASEROW_FORMULA_TYPES]
-BASEROW_FORMULA_ARRAY_TYPE_CHOICES = [
+JADAWEL_FORMULA_TYPE_CHOICES = [(f.type, f.type) for f in JADAWEL_FORMULA_TYPES]
+JADAWEL_FORMULA_ARRAY_TYPE_CHOICES = [
     (f.type, f.type)
-    for f in BASEROW_FORMULA_TYPES
+    for f in JADAWEL_FORMULA_TYPES
     if f.type != BaserowFormulaArrayType.type
 ]
 
-BASEROW_FORMULA_TYPE_SERIALIZER_FIELD_NAMES = list(
+JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES = list(
     set(
         allowed_field
-        for f in BASEROW_FORMULA_TYPES
+        for f in JADAWEL_FORMULA_TYPES
         for allowed_field in f.get_serializer_field_names()
     )
 )
-BASEROW_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES = list(
+JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES = list(
     set(
         allowed_field
-        for f in BASEROW_FORMULA_TYPES
+        for f in JADAWEL_FORMULA_TYPES
         for allowed_field in f.get_request_serializer_field_names()
     )
 )
@@ -2014,7 +2014,7 @@ BASEROW_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES = list(
 def get_baserow_formula_type_serializer_field_overrides():
     return {
         key: value
-        for f in BASEROW_FORMULA_TYPES
+        for f in JADAWEL_FORMULA_TYPES
         for key, value in f.get_serializer_field_overrides().items()
     }
 
@@ -2049,7 +2049,7 @@ def calculate_number_type(
 
 
 def _lookup_formula_type_from_string(formula_type_string):
-    for possible_type in BASEROW_FORMULA_TYPES:
+    for possible_type in JADAWEL_FORMULA_TYPES:
         if formula_type_string == possible_type.type:
             return possible_type
     raise UnknownFormulaType(formula_type_string)

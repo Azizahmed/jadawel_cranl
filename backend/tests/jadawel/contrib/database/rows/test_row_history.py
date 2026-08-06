@@ -350,7 +350,7 @@ def test_row_history_not_recorded_with_retention_zero_days(settings, data_fixtur
     row = model.objects.create()
 
     # no history will be recorded with zero retention days
-    settings.BASEROW_ROW_HISTORY_RETENTION_DAYS = 0
+    settings.JADAWEL_ROW_HISTORY_RETENTION_DAYS = 0
     UpdateRowsActionType.do(
         user,
         table,
@@ -366,7 +366,7 @@ def test_row_history_not_recorded_with_retention_zero_days(settings, data_fixtur
     assert RowHistory.objects.count() == 0
 
     # otherwise record row history
-    settings.BASEROW_ROW_HISTORY_RETENTION_DAYS = 1
+    settings.JADAWEL_ROW_HISTORY_RETENTION_DAYS = 1
     UpdateRowsActionType.do(
         user,
         table,

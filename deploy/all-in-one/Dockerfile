@@ -21,9 +21,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV DOCKER_USER=baserow_docker_user \
     POSTGRES_VERSION=15 \
-    BASEROW_IMAGE_TYPE="all-in-one" \
+    JADAWEL_IMAGE_TYPE="all-in-one" \
     DATA_DIR=/baserow/data \
-    BASEROW_PLUGIN_DIR=/baserow/data/plugins
+    JADAWEL_PLUGIN_DIR=/baserow/data/plugins
 
 # Runtime dependencies
 RUN apt-get update && \
@@ -51,8 +51,8 @@ RUN apt-get update && \
     # Setup supervisor
     ln -sf /dev/stdout /var/log/supervisor/supervisord.log && \
     # Create data and plugin directories with correct ownership
-    mkdir -p "${DATA_DIR}" "${BASEROW_PLUGIN_DIR}" && \
-    chown -R "$UID:$GID" "${DATA_DIR}" "${BASEROW_PLUGIN_DIR}"
+    mkdir -p "${DATA_DIR}" "${JADAWEL_PLUGIN_DIR}" && \
+    chown -R "$UID:$GID" "${DATA_DIR}" "${JADAWEL_PLUGIN_DIR}"
 
 COPY --from=caddy_image /usr/bin/caddy /usr/bin/caddy
 

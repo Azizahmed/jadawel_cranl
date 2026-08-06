@@ -52,10 +52,10 @@ def test_openai_max_upload_size(settings):
     ai_model_type = OpenAIGenerativeAIModelType()
     handler = ai_model_type.file_handler
 
-    settings.BASEROW_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = 1000
+    settings.JADAWEL_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = 1000
     assert handler._get_max_upload_bytes() == 512 * 1024 * 1024
 
-    settings.BASEROW_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = 100
+    settings.JADAWEL_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = 100
     assert handler._get_max_upload_bytes() == 100 * 1024 * 1024
 
 
@@ -191,7 +191,7 @@ def test_prepare_files_oversized_uploadable_is_skipped(settings):
     """Uploadable files exceeding the size limit are excluded."""
 
     ai_model_type = OpenAIGenerativeAIModelType()
-    settings.BASEROW_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = 1
+    settings.JADAWEL_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = 1
     limit = ai_model_type.file_handler._get_max_upload_bytes()
     data = b"x" * (limit + 1)
     ai_file = _make_ai_file("huge.txt", size=len(data), content_bytes=data)

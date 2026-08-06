@@ -23,7 +23,7 @@ def sync_templates_only_for_e2e(sender, **kwargs):
 
 # Disable normal template syncing in CI as we will sync a single template ourselves
 # instead.
-BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = False
+JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = False
 post_migrate.connect(sync_templates_only_for_e2e)
 
 # Don't bother waiting for the non-existent license authority

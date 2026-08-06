@@ -10,7 +10,7 @@ from asgiref.local import Local
 from loguru import logger
 from redis.exceptions import LockNotOwnedError
 
-from jadawel.version import VERSION as BASEROW_VERSION
+from jadawel.version import VERSION as JADAWEL_VERSION
 
 if TYPE_CHECKING:
     from jadawel.core.models import Settings
@@ -56,7 +56,7 @@ class LocalCache:
         As the cache is shared, ensure the key is unique to prevent collision.
         """
 
-        if not settings.BASEROW_USE_LOCAL_CACHE:
+        if not settings.JADAWEL_USE_LOCAL_CACHE:
             return default() if callable(default) else default
 
         if not hasattr(self._local, "cache"):
@@ -183,7 +183,7 @@ class GlobalCache:
 
         key = key if invalidate_key is None else invalidate_key
 
-        return f"{BASEROW_VERSION}_{GLOBAL_CACHE_VERSION}_{key}__current_version"
+        return f"{JADAWEL_VERSION}_{GLOBAL_CACHE_VERSION}_{key}__current_version"
 
     def _get_cache_key_with_version(self, key: str) -> str:
         """
@@ -194,7 +194,7 @@ class GlobalCache:
         """
 
         version = cache.get(self._get_version_cache_key(key), 0)
-        return f"{BASEROW_VERSION}_{GLOBAL_CACHE_VERSION}_{key}__version_{version}"
+        return f"{JADAWEL_VERSION}_{GLOBAL_CACHE_VERSION}_{key}__version_{version}"
 
     def _get_versioned_cache_key(
         self, key: str, invalidate_key: None | str = None
@@ -204,7 +204,7 @@ class GlobalCache:
         version = cache.get(version_key, 0)
 
         cache_key_to_use = (
-            f"{BASEROW_VERSION}_{GLOBAL_CACHE_VERSION}_{key}__version_{version}"
+            f"{JADAWEL_VERSION}_{GLOBAL_CACHE_VERSION}_{key}__version_{version}"
         )
 
         return cache_key_to_use
@@ -343,18 +343,18 @@ _SETTINGS_CACHE_KEY = "core:settings"
 
 
 def get_cached_settings() -> Settings | None:
-    if settings.BASEROW_CACHE_TTL_SECONDS <= 0:
+    if settings.JADAWEL_CACHE_TTL_SECONDS <= 0:
         return None
     return cache.get(_SETTINGS_CACHE_KEY)
 
 
 def set_cached_settings(instance: Settings) -> None:
-    if settings.BASEROW_CACHE_TTL_SECONDS <= 0:
+    if settings.JADAWEL_CACHE_TTL_SECONDS <= 0:
         return
-    cache.set(_SETTINGS_CACHE_KEY, instance, timeout=settings.BASEROW_CACHE_TTL_SECONDS)
+    cache.set(_SETTINGS_CACHE_KEY, instance, timeout=settings.JADAWEL_CACHE_TTL_SECONDS)
 
 
 def invalidate_cached_settings() -> None:
-    if settings.BASEROW_CACHE_TTL_SECONDS <= 0:
+    if settings.JADAWEL_CACHE_TTL_SECONDS <= 0:
         return
     cache.delete(_SETTINGS_CACHE_KEY)

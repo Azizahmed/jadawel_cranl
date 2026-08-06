@@ -19,7 +19,7 @@ setup_telemetry(add_django_instrumentation=True)
 application = get_wsgi_application()
 
 # This is only needed in asgi.py
-settings.BASEROW_LAZY_LOADED_LIBRARIES.append("mcp")
+settings.JADAWEL_LAZY_LOADED_LIBRARIES.append("mcp")
 
 # Check that libraries meant to be lazy-loaded haven't been imported at startup.
 # This runs after Django is fully loaded, so it catches imports from all apps.

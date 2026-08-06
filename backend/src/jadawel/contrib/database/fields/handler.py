@@ -259,7 +259,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
         """
 
         queryset = Field.objects.select_related("table").select_for_update(
-            of=("self", "table"), nowait=settings.BASEROW_NOWAIT_FOR_LOCKS
+            of=("self", "table"), nowait=settings.JADAWEL_NOWAIT_FOR_LOCKS
         )
 
         try:

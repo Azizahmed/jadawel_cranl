@@ -40,7 +40,7 @@ def test_dangling_snapshots_are_removed(data_fixture):
     # cleanup should remove stale snapshots along with a job
     with freeze_time(
         timezone.now()
-        + timedelta(minutes=settings.BASEROW_JOB_EXPIRATION_TIME_LIMIT + 10)
+        + timedelta(minutes=settings.JADAWEL_JOB_EXPIRATION_TIME_LIMIT + 10)
     ):
         JobHandler().clean_up_jobs()
     assert Snapshot.objects.count() == 0

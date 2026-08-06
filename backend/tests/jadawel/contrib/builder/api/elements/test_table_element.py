@@ -7,8 +7,8 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 from jadawel.contrib.builder.elements.models import LinkElement, NavigationElementMixin
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 
 
 @pytest.mark.django_db
@@ -98,8 +98,8 @@ def test_can_update_a_table_element_fields(api_client, data_fixture):
             "type": "text",
             "value": BaserowFormulaObject(
                 formula="get('data_source.123')",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "uid": uuids[0],
             "styles": {},
@@ -111,13 +111,13 @@ def test_can_update_a_table_element_fields(api_client, data_fixture):
             "navigation_type": NavigationElementMixin.NAVIGATION_TYPES.PAGE,
             "navigate_to_url": BaserowFormulaObject(
                 formula="get('data_source.124')",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "link_name": BaserowFormulaObject(
                 formula="get('data_source.125')",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "target": "self",
             "page_parameters": [],
@@ -131,8 +131,8 @@ def test_can_update_a_table_element_fields(api_client, data_fixture):
             "type": "text",
             "value": BaserowFormulaObject(
                 formula="get('data_source.126')",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "uid": uuids[2],
             "styles": {},

@@ -88,7 +88,7 @@ launch_tab_and_exec(){
 
 launch_e2e_tab(){
   PWD=$(pwd)
-  new_tab "e2e tests" "export BASEROW_E2E_STARTUP_MAX_WAIT_TIME_SECONDS=1200; cd $PWD/e2e-tests && bash --init-file <(echo 'history -s yarn run test-ci;./run-e2e-tests-locally.sh')"
+  new_tab "e2e tests" "export JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS=1200; cd $PWD/e2e-tests && bash --init-file <(echo 'history -s yarn run test-ci;./run-e2e-tests-locally.sh')"
 }
 
 show_help() {
@@ -342,16 +342,16 @@ else
   echo "./dev.sh Using the already set value for the env variable MIGRATE_ON_STARTUP = $MIGRATE_ON_STARTUP"
 fi
 
-if [[ -z "${BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION:-}" ]]; then
+if [[ -z "${JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION:-}" ]]; then
 if [ "$sync_templates" = true ] ; then
-export BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION="true"
+export JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION="true"
 else
 # Because of the defaults set in the docker-compose file we need to explicitly turn
 # this off as just not setting it will get the default "true" value.
-export BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION="false"
+export JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION="false"
 fi
 else
-  echo "./dev.sh Using the already set value for the env variable BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = $BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION"
+  echo "./dev.sh Using the already set value for the env variable JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = $JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION"
 fi
 
 # Enable buildkit for faster builds with better caching.
@@ -366,12 +366,12 @@ if [[ "$dev" = true ]]; then
   export WEB_FRONTEND_PORT=4000
   export WEB_FRONTEND_SSL_PORT=4443
 
-  export BASEROW_PUBLIC_URL=
+  export JADAWEL_PUBLIC_URL=
   export PUBLIC_BACKEND_URL=${PUBLIC_BACKEND_URL:-http://localhost:8000}
   export PUBLIC_WEB_FRONTEND_URL=${PUBLIC_WEB_FRONTEND_URL:-http://localhost:3000}
 
   export MEDIA_URL=http://localhost:4000/media/
-  export BASEROW_DEPLOYMENT_ENV="development-$USER"
+  export JADAWEL_DEPLOYMENT_ENV="development-$USER"
 fi
 
 

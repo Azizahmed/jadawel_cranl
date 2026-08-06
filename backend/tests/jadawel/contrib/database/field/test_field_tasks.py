@@ -32,7 +32,7 @@ def create_table_with_row_in_workspace(data_fixture, workspace):
 
 @pytest.mark.django_db
 def test_run_periodic_fields_updates_if_necessary(data_fixture, settings):
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
     user = data_fixture.create_user()
     field_type_instance = field_type_registry.get("formula")
 
@@ -105,7 +105,7 @@ def test_run_periodic_field_type_update_per_non_existing_workspace_does_nothing(
 
 @pytest.mark.django_db
 def test_run_periodic_fields_updates(data_fixture, settings):
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
     user = data_fixture.create_user()
 
     def create_table_with_row_in_workspace(workspace):
@@ -161,7 +161,7 @@ def test_run_periodic_fields_updates(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_run_periodic_field_type_update_per_workspace(data_fixture, settings):
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
 
@@ -192,7 +192,7 @@ def test_run_periodic_field_type_update_per_workspace(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_run_field_type_updates_dependant_fields(data_fixture, settings):
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
 
@@ -239,7 +239,7 @@ def test_run_field_type_updates_dependant_fields(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_workspace_updated_last_will_be_updated_first_this_time(data_fixture, settings):
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 0
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 0
     user = data_fixture.create_user()
 
     def create_table_with_now_in_workspace(workspace):
@@ -294,7 +294,7 @@ def test_workspace_updated_last_will_be_updated_first_this_time(data_fixture, se
 
 @pytest.mark.django_db
 def test_one_formula_failing_doesnt_block_others(data_fixture, settings):
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 0
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 0
     user = data_fixture.create_user()
 
     def create_table_with_now_in_workspace(workspace):

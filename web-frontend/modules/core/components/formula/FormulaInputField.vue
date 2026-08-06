@@ -82,7 +82,7 @@ import FormulaInputErrorContext from '~/modules/core/components/formula/FormulaI
 import FormulaInputExplorerContext from '@jadawel/modules/core/components/formula/FormulaInputExplorerContext'
 import { isFormulaValid } from '@jadawel/modules/core/formula'
 import NodeHelpTooltip from '@jadawel/modules/core/components/nodeExplorer/NodeHelpTooltip'
-import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
+import { JADAWEL_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'FormulaInputField',
@@ -143,7 +143,7 @@ export default {
       required: false,
       default: 'simple',
       validator: (value) => {
-        return BASEROW_FORMULA_MODES.includes(value)
+        return JADAWEL_FORMULA_MODES.includes(value)
       },
     },
     contextPosition: {
@@ -161,7 +161,7 @@ export default {
     enabledModes: {
       type: Array,
       required: false,
-      default: () => BASEROW_FORMULA_MODES,
+      default: () => JADAWEL_FORMULA_MODES,
     },
     validationContext: {
       type: Object,

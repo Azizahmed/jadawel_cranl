@@ -99,7 +99,7 @@ suggests.
 ## 4. Environment variables
 
 ```bash
-for n in SECRET_KEY BASEROW_JWT_SIGNING_KEY; do echo "$n=$(tr -dc 'a-z0-9' </dev/urandom | head -c50)"; done
+for n in SECRET_KEY JADAWEL_JWT_SIGNING_KEY; do echo "$n=$(tr -dc 'a-z0-9' </dev/urandom | head -c50)"; done
 ```
 
 The list below was written before the first deploy and proved incomplete. Five
@@ -111,13 +111,13 @@ working set and why each is needed.
 |---|---|---|
 | `PORT` | `3000` | CranL injects `PORT=80` to match the routing port, and Nitro obeys it — so the web-frontend tries to bind Caddy's socket and dies with `EADDRINUSE :::80`. `NITRO_PORT` does not override it. |
 | `DISABLE_VOLUME_CHECK` | `yes` | Boot otherwise stops at the unmounted-data-folder warning. Safe: Postgres and Redis are external. |
-| `BASEROW_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker on a 4 GB plan. |
-| `BASEROW_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
+| `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker on a 4 GB plan. |
+| `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Drops a step that can take 30 minutes from every boot. |
-| `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Must be set alongside the row above, which it silently defaults to (`backend/docker/docker-entrypoint.sh:30`). Without it the instance has **no templates at all**; with it they import in celery after boot instead of blocking it. |
+| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Must be set alongside the row above, which it silently defaults to (`backend/docker/docker-entrypoint.sh:30`). Without it the instance has **no templates at all**; with it they import in celery after boot instead of blocking it. |
 | `SECRET_KEY` | *generated* | Must be set explicitly. `baserow.sh` otherwise generates one into `/baserow/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |
-| `BASEROW_JWT_SIGNING_KEY` | *generated* | Same, via `.jwt_signing_key`. Regenerating it logs everyone out. |
-| `BASEROW_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
+| `JADAWEL_JWT_SIGNING_KEY` | *generated* | Same, via `.jwt_signing_key`. Regenerating it logs everyone out. |
+| `JADAWEL_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
 | `DATABASE_URL` | *from managed Postgres* | Or the `DATABASE_HOST` / `PORT` / `NAME` / `USER` / `PASSWORD` set. |
 | `REDIS_URL` | *from managed Redis* | Or the `REDIS_HOST` / `PORT` / `PASSWORD` set. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | **Required on the lite image.** Without it the startup script runs `chown -R postgres:postgres` for a user that only exists in the full image, and a missing database silently becomes a confusing failure instead of a loud one. |
@@ -128,7 +128,7 @@ working set and why each is needed.
 | `AWS_S3_REGION_NAME` | | |
 | `AWS_S3_ENDPOINT_URL` | | Only for non-AWS S3. |
 
-Leave `BASEROW_CADDY_ADDRESSES` unset. Its `:80` default is correct — CranL owns
+Leave `JADAWEL_CADDY_ADDRESSES` unset. Its `:80` default is correct — CranL owns
 TLS, and pointing Caddy at an `https://` address makes it try to obtain its own
 certificate on a port it cannot reach, which hangs the deploy.
 
@@ -171,16 +171,16 @@ and CranL has no credential for it. See §1.
 `DISABLE_EMBEDDED_PSQL` / `DISABLE_EMBEDDED_REDIS` are not set. See §4.
 
 **Everyone is logged out after each deploy** — `SECRET_KEY` or
-`BASEROW_JWT_SIGNING_KEY` is unset and being regenerated. See §4.
+`JADAWEL_JWT_SIGNING_KEY` is unset and being regenerated. See §4.
 
 **UI loads but the grid stays empty and websockets fail** —
-`BASEROW_PUBLIC_URL` does not exactly match the browser URL.
+`JADAWEL_PUBLIC_URL` does not exactly match the browser URL.
 
 **The template picker is empty** — the sync never ran against this database. See
 §4; it is a separate variable from `SYNC_TEMPLATES_ON_STARTUP`.
 
 **`/api/*` returns a Nuxt 404 page instead of JSON** — the host being requested
-is not named in `BASEROW_PUBLIC_URL`, so `Caddyfile:82-131` routes backend paths
-to the frontend. Add the extra host to `BASEROW_EXTRA_PUBLIC_URLS`.
+is not named in `JADAWEL_PUBLIC_URL`, so `Caddyfile:82-131` routes backend paths
+to the frontend. Add the extra host to `JADAWEL_EXTRA_PUBLIC_URLS`.
 
 **Uploaded files disappear after a deploy** — no S3 configured. See §4.

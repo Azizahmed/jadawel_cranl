@@ -167,7 +167,7 @@ export default {
             'Backend URL mis-configuration detected',
             `Cannot connect to the backend at ${publicBackendUrlWithProto}.` +
               ` You visited the app at ${browserWindowUrl}, which indicates the` +
-              ' BASEROW_PUBLIC_URL or PUBLIC_BACKEND_URL environment variables' +
+              ' JADAWEL_PUBLIC_URL or PUBLIC_BACKEND_URL environment variables' +
               ' are mis-configured. Both must point at the URL you actually' +
               ' browse to.'
           )

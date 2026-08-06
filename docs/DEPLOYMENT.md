@@ -27,7 +27,7 @@ internet -> Traefik (Coolify, TLS via letsencrypt)
 Two consequences worth internalising:
 
 - **Caddy does not issue certificates here.** Traefik does, via its
-  `letsencrypt` certresolver. `BASEROW_CADDY_ADDRESSES` should stay at its `:80`
+  `letsencrypt` certresolver. `JADAWEL_CADDY_ADDRESSES` should stay at its `:80`
   default — setting it to an `https://` URL would make Caddy try to obtain its
   own certificate on a port it cannot reach, and the deploy will hang.
 - **Ports 80/443 are not published by this stack.** Only Traefik binds them. Do
@@ -74,11 +74,11 @@ for n in SECRET_KEY DATABASE_PASSWORD REDIS_PASSWORD; do echo "$n=$(tr -dc 'a-z0
 | `SECRET_KEY` | *generated* | Rotating this invalidates all sessions. |
 | `DATABASE_PASSWORD` | *generated* | |
 | `REDIS_PASSWORD` | *generated* | |
-| `BASEROW_PUBLIC_URL` | `https://jadawel.azoz.cloud` | Must match the browser URL exactly — scheme included, no trailing slash. |
+| `JADAWEL_PUBLIC_URL` | `https://jadawel.azoz.cloud` | Must match the browser URL exactly — scheme included, no trailing slash. |
 | `DATABASE_USER` | `baserow` | |
 | `DATABASE_NAME` | `baserow` | |
 
-`BASEROW_PUBLIC_URL` is the one people get wrong. It is baked into API calls,
+`JADAWEL_PUBLIC_URL` is the one people get wrong. It is baked into API calls,
 websocket URLs and outbound email links. If it disagrees with the address in the
 browser, the UI loads but the grid never populates and realtime silently dies.
 
@@ -107,7 +107,7 @@ traefik.http.routers.jadawel-https.rule=Host(`jadawel.azoz.cloud`) && PathPrefix
 
 To move to another domain you must edit both lines and commit — setting a
 different domain in Coolify's UI alone will not route, because Traefik matches
-on these labels. Update `BASEROW_PUBLIC_URL` to match at the same time.
+on these labels. Update `JADAWEL_PUBLIC_URL` to match at the same time.
 
 ## 5. Deploy
 
@@ -163,10 +163,10 @@ do not match the domain you are requesting. See §4.
 *before* Traefik can complete the ACME challenge. Check the Traefik/proxy logs
 from Coolify's dashboard.
 
-**UI loads but the grid stays empty, websockets fail** — `BASEROW_PUBLIC_URL`
+**UI loads but the grid stays empty, websockets fail** — `JADAWEL_PUBLIC_URL`
 does not exactly match the browser URL.
 
-**Deploy hangs while starting Caddy** — `BASEROW_CADDY_ADDRESSES` was set to an
+**Deploy hangs while starting Caddy** — `JADAWEL_CADDY_ADDRESSES` was set to an
 `https://` value. Leave it unset; Traefik owns TLS.
 
 **Build killed with no error** — out of memory. Add swap (§1) and redeploy.

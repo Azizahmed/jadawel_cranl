@@ -311,8 +311,8 @@ ci-check-startup-oss-only: _check-dev
     set -euo pipefail
     set -x
     {{ _load_env }}
-    BASEROW_OSS_ONLY=true {{ uv_run }} python src/jadawel/manage.py check
-    BASEROW_OSS_ONLY=true timeout --preserve-status 10s \
+    JADAWEL_OSS_ONLY=true {{ uv_run }} python src/jadawel/manage.py check
+    JADAWEL_OSS_ONLY=true timeout --preserve-status 10s \
         {{ uv_run }} gunicorn --workers=1 -b 0.0.0.0:8002 \
         -k uvicorn.workers.UvicornWorker jadawel.config.asgi:application
 
@@ -395,8 +395,8 @@ ci-check-startup-python-oss-only: _check-dev
     #!/usr/bin/env bash
     set -euxo pipefail
     {{ _load_env }}
-    BASEROW_OSS_ONLY=true DJANGO_SETTINGS_MODULE={{ django_settings }} {{ uv_run }} django-admin check
-    BASEROW_OSS_ONLY=true DJANGO_SETTINGS_MODULE={{ django_settings }} timeout --preserve-status 10s \
+    JADAWEL_OSS_ONLY=true DJANGO_SETTINGS_MODULE={{ django_settings }} {{ uv_run }} django-admin check
+    JADAWEL_OSS_ONLY=true DJANGO_SETTINGS_MODULE={{ django_settings }} timeout --preserve-status 10s \
         {{ uv_run }} gunicorn --workers=1 -b 0.0.0.0:8002 \
         -k uvicorn.workers.UvicornWorker jadawel.config.asgi:application
 

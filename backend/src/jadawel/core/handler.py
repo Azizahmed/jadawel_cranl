@@ -998,7 +998,7 @@ class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context
         parsed_base_url = urlparse(base_url)
         if parsed_base_url.hostname not in (
             settings.PUBLIC_WEB_FRONTEND_HOSTNAME,
-            settings.BASEROW_EMBEDDED_SHARE_HOSTNAME,
+            settings.JADAWEL_EMBEDDED_SHARE_HOSTNAME,
         ):
             raise BaseURLHostnameNotAllowed(
                 f"The hostname {parsed_base_url.netloc} is not allowed."
@@ -1695,7 +1695,7 @@ class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context
 
         storage = storage or get_default_storage()
         zip_stream = zipstream.ZipStream(
-            compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+            compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
             compress_type=zipstream.ZIP_DEFLATED,
         )
 
@@ -1882,7 +1882,7 @@ class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context
         for template_file_path in tqdm(
             template_files_paths,
             desc="Syncing Jadawel templates. Disable by setting "
-            "BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=false.",
+            "JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=false.",
         ):
             try:
                 with transaction.atomic():

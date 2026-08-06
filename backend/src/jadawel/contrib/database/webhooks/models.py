@@ -71,7 +71,7 @@ class TableWebhook(CreatedAndUpdatedOnMixin, models.Model):
         the webhook couldn't send all the data.
         """
 
-        return settings.BASEROW_WEBHOOKS_BATCH_LIMIT
+        return settings.JADAWEL_WEBHOOKS_BATCH_LIMIT
 
     class Meta:
         ordering = ("id",)

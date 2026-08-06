@@ -24,14 +24,14 @@ class ThrottleBlacklistMiddleware:
     every request.  A hit returns 429 immediately, skipping JWT validation,
     DB/cache lookups, DRF view initialisation, permissions, and serializers.
 
-    When ``BASEROW_THROTTLE_IP_ENABLED`` is ``True``, anonymous requests
+    When ``JADAWEL_THROTTLE_IP_ENABLED`` is ``True``, anonymous requests
     (no ``Authorization`` header) are also checked against an IP-based
     blacklist.
     """
 
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]):
         self.get_response = get_response
-        if settings.BASEROW_THROTTLE_IP_ENABLED:
+        if settings.JADAWEL_THROTTLE_IP_ENABLED:
             self._check_anonymous = lambda request: is_ip_blacklisted(
                 get_user_remote_ip_address_from_request(request)
             )

@@ -315,9 +315,9 @@ class UserFileHandler:
 
         size = stream_size(stream)
 
-        if size > settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB:
+        if size > settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB:
             raise FileSizeTooLargeError(
-                settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB,
+                settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB,
                 "The provided file is too large.",
             )
 
@@ -441,9 +441,9 @@ class UserFileHandler:
 
             try:
                 content_length = int(response.headers.get("Content-Length", ""))
-                if content_length > settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB:
+                if content_length > settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB:
                     raise FileSizeTooLargeError(
-                        settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB,
+                        settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB,
                         "The provided file is too large.",
                     )
             except ValueError:
@@ -452,10 +452,10 @@ class UserFileHandler:
             content = b""
             for chunk in response.iter_content(chunk_size=None):
                 content += chunk
-                if len(content) > settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB:
+                if len(content) > settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB:
                     response.close()
                     raise FileSizeTooLargeError(
-                        settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB,
+                        settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB,
                         "The provided file is too large.",
                     )
             content_type = response.headers.get("Content-Type", "")

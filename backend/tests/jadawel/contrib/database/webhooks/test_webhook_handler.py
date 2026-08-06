@@ -171,7 +171,7 @@ def test_get_all_table_webhooks(data_fixture, django_assert_num_queries):
 
 
 @pytest.mark.django_db(transaction=True)
-@override_settings(BASEROW_WEBHOOKS_MAX_PER_TABLE=4)
+@override_settings(JADAWEL_WEBHOOKS_MAX_PER_TABLE=4)
 def test_create_webhook(data_fixture):
     user = data_fixture.create_user()
     user_2 = data_fixture.create_user()
@@ -389,7 +389,7 @@ def test_trigger_test_call(data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_WEBHOOKS_MAX_CALL_LOG_ENTRIES=2)
+@override_settings(JADAWEL_WEBHOOKS_MAX_CALL_LOG_ENTRIES=2)
 def test_clean_webhook_calls(data_fixture):
     webhook = data_fixture.create_table_webhook()
     deleted_1 = data_fixture.create_table_webhook_call(webhook=webhook)  # deleted

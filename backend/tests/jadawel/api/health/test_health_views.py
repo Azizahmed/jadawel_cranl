@@ -115,7 +115,7 @@ def test_passing_is_false_when_one_critical_service_fails(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size")
 def test_celery_queue_size_exceed_within_limits(
     mock_get_size, data_fixture, api_client
@@ -129,7 +129,7 @@ def test_celery_queue_size_exceed_within_limits(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size")
 def test_celery_queue_size_exceed_outside_limits(
     mock_get_size, data_fixture, api_client
@@ -144,7 +144,7 @@ def test_celery_queue_size_exceed_outside_limits(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size", kwargs={"queue": "celery"})
 def test_celery_queue_size_exceed_queue_name(mock_get_size, data_fixture, api_client):
     mock_get_size.return_value = 0
@@ -156,7 +156,7 @@ def test_celery_queue_size_exceed_queue_name(mock_get_size, data_fixture, api_cl
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size", kwargs={"queue": "celery"})
 def test_celery_queue_size_exceed_export_queue_name(
     mock_get_size, data_fixture, api_client
@@ -170,7 +170,7 @@ def test_celery_queue_size_exceed_export_queue_name(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size", kwargs={"queue": "celery"})
 def test_celery_queue_size_exceed_export_one_of_the_queues(
     mock_get_size, data_fixture, api_client
@@ -192,7 +192,7 @@ def test_celery_queue_size_exceed_export_one_of_the_queues(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size", kwargs={"queue": "celery"})
 def test_celery_queue_size_exceed_queue_not_found(
     mock_get_size, data_fixture, api_client
@@ -207,7 +207,7 @@ def test_celery_queue_size_exceed_queue_not_found(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
+@override_settings(JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE=10)
 @patch("jadawel.api.health.views.get_celery_queue_size", kwargs={"queue": "celery"})
 def test_celery_queue_size_exceed_no_queue_provided(
     mock_get_size, data_fixture, api_client

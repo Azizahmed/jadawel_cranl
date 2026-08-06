@@ -874,9 +874,9 @@ def atomic_with_retry_on_deadlock(
     """
 
     if max_retries is None:
-        max_retries = settings.BASEROW_DEADLOCK_MAX_RETRIES
+        max_retries = settings.JADAWEL_DEADLOCK_MAX_RETRIES
     if initial_backoff is None:
-        initial_backoff = settings.BASEROW_DEADLOCK_INITIAL_BACKOFF
+        initial_backoff = settings.JADAWEL_DEADLOCK_INITIAL_BACKOFF
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)

@@ -151,7 +151,7 @@ class DatabaseApplicationType(ApplicationType):
                 )
 
             serialized_rows = []
-            row_count_limit = settings.BASEROW_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT
+            row_count_limit = settings.JADAWEL_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT
             export_all_table_rows = not import_export_config.only_structure
             if export_all_table_rows:
                 model = table.get_model(fields=fields, add_dependencies=False)

@@ -71,7 +71,7 @@ class EmailNotificationTypeMixin(metaclass=ABCMeta):
         if not self.has_web_frontend_route:
             return None
 
-        base_url = settings.BASEROW_EMBEDDED_SHARE_URL
+        base_url = settings.JADAWEL_EMBEDDED_SHARE_URL
         # This path must match the one defined in web-frontend/modules/core/routes.js
         path = f"/notification/{notification.workspace_id}/{notification.id}"
 

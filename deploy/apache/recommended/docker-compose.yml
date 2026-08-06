@@ -11,10 +11,10 @@ services:
     image: jadawel/jadawel:latest
     environment:
       # Apache is configured to use the docker network to reach this Jadawel service.
-      # No need to use BASEROW_EXTRA_ALLOWED_HOSTS if your Apache can access your
+      # No need to use JADAWEL_EXTRA_ALLOWED_HOSTS if your Apache can access your
       # Jadawel normally on a port.
-      BASEROW_EXTRA_ALLOWED_HOSTS: "baserow"
-      BASEROW_PUBLIC_URL: http://example.localhost
+      JADAWEL_EXTRA_ALLOWED_HOSTS: "baserow"
+      JADAWEL_PUBLIC_URL: http://example.localhost
     volumes:
       - baserow_data:/baserow/data
 volumes:

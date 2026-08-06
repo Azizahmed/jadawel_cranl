@@ -283,11 +283,11 @@ class TablesView(APIView):
             context=database,
         )
 
-        limit = settings.BASEROW_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT
+        limit = settings.JADAWEL_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT
         if limit and len(data) > limit:
             raise InitialSyncTableDataLimitExceeded(
                 f"It is not possible to import more than "
-                f"{settings.BASEROW_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT} rows "
+                f"{settings.JADAWEL_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT} rows "
                 "when creating a table synchronously. Use Asynchronous "
                 "alternative instead."
             )

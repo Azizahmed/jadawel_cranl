@@ -5,8 +5,8 @@ from jadawel.contrib.builder.elements.collection_field_types import (
 )
 from jadawel.contrib.builder.pages.models import Page
 from jadawel.contrib.builder.pages.signals import page_deleted
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 
 
 @pytest.mark.django_db
@@ -39,13 +39,13 @@ def test_page_deletion_updates_link_collection_navigate_to_page_id(data_fixture)
         "target": "self",
         "link_name": {
             "formula": "'Click me'",
-            "mode": BASEROW_FORMULA_MODE_SIMPLE,
-            "version": BASEROW_FORMULA_VERSION_INITIAL,
+            "mode": JADAWEL_FORMULA_MODE_SIMPLE,
+            "version": JADAWEL_FORMULA_VERSION_INITIAL,
         },
         "navigate_to_url": {
             "formula": "",
-            "mode": BASEROW_FORMULA_MODE_SIMPLE,
-            "version": BASEROW_FORMULA_VERSION_INITIAL,
+            "mode": JADAWEL_FORMULA_MODE_SIMPLE,
+            "version": JADAWEL_FORMULA_VERSION_INITIAL,
         },
         "navigation_type": "page",
         "page_parameters": [],

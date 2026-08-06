@@ -223,13 +223,13 @@ class JobHandler:
         # Delete old job
         now = datetime.now(tz=timezone.utc)
         limit_date = now - timedelta(
-            minutes=(settings.BASEROW_JOB_EXPIRATION_TIME_LIMIT)
+            minutes=(settings.JADAWEL_JOB_EXPIRATION_TIME_LIMIT)
         )
         for job_to_delete in Job.objects.filter(created_on__lte=limit_date).is_ended():
             self.delete_job(job_to_delete.specific)
 
         # Expire non expired jobs
-        limit_date = now - timedelta(seconds=(settings.BASEROW_JOB_SOFT_TIME_LIMIT + 1))
+        limit_date = now - timedelta(seconds=(settings.JADAWEL_JOB_SOFT_TIME_LIMIT + 1))
 
         #  Use updated_on instead of created_on to verify the last update date
         # but use the cache since the DB is not updated until the end of the transaction

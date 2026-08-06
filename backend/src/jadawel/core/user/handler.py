@@ -433,7 +433,7 @@ class UserHandler(metaclass=baserow_trace_methods(tracer)):
         parsed_base_url = urlparse(base_url)
         if parsed_base_url.hostname not in (
             settings.PUBLIC_WEB_FRONTEND_HOSTNAME,
-            settings.BASEROW_EMBEDDED_SHARE_HOSTNAME,
+            settings.JADAWEL_EMBEDDED_SHARE_HOSTNAME,
         ):
             raise BaseURLHostnameNotAllowed(
                 f"The hostname {parsed_base_url.netloc} is not allowed."
@@ -602,7 +602,7 @@ class UserHandler(metaclass=baserow_trace_methods(tracer)):
         parsed_base_url = urlparse(base_url)
         if parsed_base_url.hostname not in (
             settings.PUBLIC_WEB_FRONTEND_HOSTNAME,
-            settings.BASEROW_EMBEDDED_SHARE_HOSTNAME,
+            settings.JADAWEL_EMBEDDED_SHARE_HOSTNAME,
         ):
             raise BaseURLHostnameNotAllowed(
                 f"The hostname {parsed_base_url.netloc} is not allowed."
@@ -972,7 +972,7 @@ class UserHandler(metaclass=baserow_trace_methods(tracer)):
         token = self.create_email_verification_token(user)
 
         base_url = (
-            settings.BASEROW_EMBEDDED_SHARE_URL or settings.PUBLIC_WEB_FRONTEND_URL
+            settings.JADAWEL_EMBEDDED_SHARE_URL or settings.PUBLIC_WEB_FRONTEND_URL
         )
         if not base_url.endswith("/"):
             base_url += "/"
@@ -988,7 +988,7 @@ class UserHandler(metaclass=baserow_trace_methods(tracer)):
                 email.send(fail_silently=False)
 
         rate_limit(
-            rate=settings.BASEROW_SEND_VERIFY_EMAIL_RATE_LIMIT,
+            rate=settings.JADAWEL_SEND_VERIFY_EMAIL_RATE_LIMIT,
             key=user.username,
             raise_exception=False,
         )(send_email)()

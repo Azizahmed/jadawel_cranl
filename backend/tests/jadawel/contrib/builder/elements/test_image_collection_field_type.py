@@ -6,8 +6,8 @@ from django.core.files.storage import FileSystemStorage
 import pytest
 
 from jadawel.contrib.builder.pages.service import PageService
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE, BaserowFormulaObject
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, BaserowFormulaObject
 from jadawel.core.user_files.handler import UserFileHandler
 
 
@@ -74,12 +74,12 @@ def test_import_export_image_collection_field_type(data_fixture, fake, storage):
     assert images.config == {
         "src": BaserowFormulaObject(
             formula=f"get('data_source.{data_source_2.id}.*.{fields[0].db_column}.url')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "alt": BaserowFormulaObject(
             formula=f"get('data_source.{data_source_2.id}.*.{fields[0].db_column}.name')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
     }

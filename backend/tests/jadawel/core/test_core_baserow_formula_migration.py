@@ -6,9 +6,9 @@ from django.db import connection
 import pytest
 
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_SIMPLE,
+    JADAWEL_FORMULA_MODE_SIMPLE,
     BaserowFormulaMinified,
 )
 
@@ -29,34 +29,34 @@ def test_create_text_formula_field_value(mock_db_type, data_fixture):
     service = data_fixture.create_core_http_request_service(url="'http://google.com'")
     assert service.url == BaserowFormulaObject(
         formula="'http://google.com'",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     raw_url = get_raw_table_value("url", service._meta.db_table, service.id)
     assert json.loads(raw_url) == BaserowFormulaMinified(
         f="'http://google.com'",
-        m=BASEROW_FORMULA_MODE_SIMPLE,
-        v=BASEROW_FORMULA_VERSION_INITIAL,
+        m=JADAWEL_FORMULA_MODE_SIMPLE,
+        v=JADAWEL_FORMULA_VERSION_INITIAL,
     )
 
     # Create a service with a formula context.
     service = data_fixture.create_core_http_request_service(
         url=BaserowFormulaObject(
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
-            version=BASEROW_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
             formula="'http://google.com'",
         )
     )
     assert service.url == BaserowFormulaObject(
         formula="'http://google.com'",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     raw_url = get_raw_table_value("url", service._meta.db_table, service.id)
     assert json.loads(raw_url) == BaserowFormulaMinified(
         f="'http://google.com'",
-        m=BASEROW_FORMULA_MODE_SIMPLE,
-        v=BASEROW_FORMULA_VERSION_INITIAL,
+        m=JADAWEL_FORMULA_MODE_SIMPLE,
+        v=JADAWEL_FORMULA_VERSION_INITIAL,
     )
 
 
@@ -69,32 +69,32 @@ def test_update_text_formula_field_value(mock_db_type, data_fixture):
     service.save()
     assert service.url == BaserowFormulaObject(
         formula="'http://google.com'",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     raw_url = get_raw_table_value("url", service._meta.db_table, service.id)
     assert json.loads(raw_url) == BaserowFormulaMinified(
         f="'http://google.com'",
-        m=BASEROW_FORMULA_MODE_SIMPLE,
-        v=BASEROW_FORMULA_VERSION_INITIAL,
+        m=JADAWEL_FORMULA_MODE_SIMPLE,
+        v=JADAWEL_FORMULA_VERSION_INITIAL,
     )
 
     # Update a service with a formula context.
     service = data_fixture.create_core_http_request_service()
     service.url = BaserowFormulaObject(
         formula="'http://google.com'",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     service.save()
     assert service.url == BaserowFormulaObject(
         formula="'http://google.com'",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     raw_url = get_raw_table_value("url", service._meta.db_table, service.id)
     assert json.loads(raw_url) == BaserowFormulaMinified(
         f="'http://google.com'",
-        m=BASEROW_FORMULA_MODE_SIMPLE,
-        v=BASEROW_FORMULA_VERSION_INITIAL,
+        m=JADAWEL_FORMULA_MODE_SIMPLE,
+        v=JADAWEL_FORMULA_VERSION_INITIAL,
     )

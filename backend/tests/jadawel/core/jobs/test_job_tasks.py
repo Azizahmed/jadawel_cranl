@@ -177,7 +177,7 @@ def test_run_task_with_exception_mapping(mock_get_by_model, data_fixture):
 def test_cleanup_file_import_job(storage_mock, data_fixture, settings):
     now = datetime.now(tz=timezone.utc)
     time_before_expiration = now - timedelta(
-        minutes=settings.BASEROW_JOB_EXPIRATION_TIME_LIMIT + 1
+        minutes=settings.JADAWEL_JOB_EXPIRATION_TIME_LIMIT + 1
     )
     with freeze_time(now):
         data_fixture.create_fake_job()

@@ -971,7 +971,7 @@ def test_import_from_airtable_to_workspace(
 def test_import_from_airtable_to_workspace_file_size_over_limit(
     data_fixture, tmpdir, settings
 ):
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 100 * 1024  # 100kB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 100 * 1024  # 100kB
     workspace = data_fixture.create_workspace()
     base_path = os.path.join(
         settings.BASE_DIR, "../../../tests/airtable_responses/basic"

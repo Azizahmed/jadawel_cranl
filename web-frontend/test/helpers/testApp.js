@@ -117,8 +117,8 @@ export class OldTestApp {
       $config: {
         PUBLIC_WEB_FRONTEND_URL: 'https://localhost/',
         PRIVATE: 'http://backend:8000',
-        BASEROW_USE_PG_FULLTEXT_SEARCH: 'true',
-        BASEROW_FRONTEND_SAME_SITE_COOKIE: 'lax',
+        JADAWEL_USE_PG_FULLTEXT_SEARCH: 'true',
+        JADAWEL_FRONTEND_SAME_SITE_COOKIE: 'lax',
       },
       i18n: {
         t: (key) => key,

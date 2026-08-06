@@ -18,46 +18,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:45
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:45
 msgid "Homepage"
 msgstr ""
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:46
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:46
 msgid "Examples"
 msgstr ""
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:47
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:47
 msgid "Customers"
 msgstr ""
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:48
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:48
 msgid "List rows"
 msgstr ""
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:49
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:49
 msgid "Local جداول"
 msgstr ""
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:50
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:50
 msgid "Name"
 msgstr ""
 
-#: src/baserow/contrib/builder/builder_beta_init_application.py:51
+#: src/jadawel/contrib/builder/builder_beta_init_application.py:51
 msgid "Last name"
 msgstr ""
 
-#: src/baserow/contrib/builder/data_providers/data_provider_types.py:621
+#: src/jadawel/contrib/builder/data_providers/data_provider_types.py:621
 #, python-format
 msgid "%(user_source_name)s member"
 msgstr ""
 
-#: src/baserow/contrib/builder/data_sources/service.py:158
+#: src/jadawel/contrib/builder/data_sources/service.py:158
 msgid "Data source"
 msgstr ""
 
-#: src/baserow/contrib/builder/elements/mixins.py:612
-#: src/baserow/contrib/builder/elements/mixins.py:617
-#: src/baserow/contrib/builder/elements/mixins.py:622
+#: src/jadawel/contrib/builder/elements/mixins.py:612
+#: src/jadawel/contrib/builder/elements/mixins.py:617
+#: src/jadawel/contrib/builder/elements/mixins.py:622
 #, python-format
 msgid "Column %(count)s"
 msgstr ""

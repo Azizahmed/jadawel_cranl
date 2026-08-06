@@ -10,8 +10,8 @@ from jadawel.contrib.builder.elements.handler import ElementHandler
 from jadawel.contrib.builder.elements.models import MenuElement, MenuItemElement
 from jadawel.contrib.builder.workflow_actions.models import NotificationWorkflowAction
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.utils import MirrorDict
 from jadawel.test_utils.helpers import AnyInt
 
@@ -188,8 +188,8 @@ def test_add_sub_link(menu_element_fixture):
             "navigate_to_url",
             BaserowFormulaObject(
                 formula="https://www.jadawel.io",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
         ),
         (
@@ -199,8 +199,8 @@ def test_add_sub_link(menu_element_fixture):
                     "name": "foo",
                     "value": BaserowFormulaObject(
                         formula="'bar'",
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
                     ),
                 }
             ],
@@ -212,8 +212,8 @@ def test_add_sub_link(menu_element_fixture):
                     "name": "param",
                     "value": BaserowFormulaObject(
                         formula="'baz'",
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
                     ),
                 }
             ],
@@ -241,8 +241,8 @@ def test_update_menu_item(menu_element_fixture, field, value):
         "navigate_to_page_id": None,
         "navigate_to_url": {
             "formula": "",
-            "mode": BASEROW_FORMULA_MODE_SIMPLE,
-            "version": BASEROW_FORMULA_VERSION_INITIAL,
+            "mode": JADAWEL_FORMULA_MODE_SIMPLE,
+            "version": JADAWEL_FORMULA_VERSION_INITIAL,
         },
         "parent_menu_item": None,
         "page_parameters": [],

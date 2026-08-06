@@ -7,8 +7,8 @@ import pytest
 from jadawel.contrib.builder.elements.registries import element_type_registry
 from jadawel.contrib.builder.pages.service import PageService
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 
 
 @pytest.mark.django_db
@@ -43,8 +43,8 @@ def test_import_export_rating_collection_field_type(data_fixture):
                 "config": {
                     "value": BaserowFormulaObject(
                         formula=f"get('data_source.{data_source.id}.0.{rating_field.db_column}')",
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     ),
                     "max_value": 5,
                     "rating_style": "star",
@@ -85,8 +85,8 @@ def test_import_export_rating_collection_field_type(data_fixture):
     assert imported_field.config == {
         "value": BaserowFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{rating_field.db_column}')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "max_value": 5,
         "rating_style": "star",

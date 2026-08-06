@@ -52,7 +52,7 @@
                 "DATABASE_HOST": "localhost",
                 "PYTHONPATH": "$PYTHONPATH:backend/src",
                 "DJANGO_SETTINGS_MODULE": "jadawel.config.settings.dev",
-                "BASEROW_PUBLIC_URL": "http://localhost:3000",
+                "JADAWEL_PUBLIC_URL": "http://localhost:3000",
             },
         },
         {

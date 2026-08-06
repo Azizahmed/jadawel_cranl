@@ -112,7 +112,7 @@ class CeleryQueueSizeExceededView(APIView):
             f"Health check endpoint to check if the the celery and/or export celery "
             f"queue has  exceeded the maximum healthy size. Responds with `200` if "
             f"there there are less than "
-            f"{settings.BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE} in all queues provided. "
+            f"{settings.JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE} in all queues provided. "
             f"Otherwise responds with a `503`."
         ),
         responses={
@@ -133,7 +133,7 @@ class CeleryQueueSizeExceededView(APIView):
             if queue not in allowed_queues:
                 return Response(f"queue {queue} not found", status=HTTP_404_NOT_FOUND)
             queue_size = get_celery_queue_size(queue)
-            if queue_size >= settings.BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE:
+            if queue_size >= settings.JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE:
                 return Response("not ok", status=HTTP_503_SERVICE_UNAVAILABLE)
 
         return Response("ok", status=200)

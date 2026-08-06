@@ -16,8 +16,8 @@ from jadawel.api.polymorphic import PolymorphicSerializer
 from jadawel.api.user_files.serializers import UserFileURLAndThumbnailsSerializerMixin
 from jadawel.api.user_files.validators import user_file_name_validator
 from jadawel.contrib.database.fields.constants import (
-    BASEROW_BOOLEAN_FIELD_FALSE_VALUES,
-    BASEROW_BOOLEAN_FIELD_TRUE_VALUES,
+    JADAWEL_BOOLEAN_FIELD_FALSE_VALUES,
+    JADAWEL_BOOLEAN_FIELD_TRUE_VALUES,
 )
 from jadawel.contrib.database.fields.models import Field, FieldConstraint
 from jadawel.contrib.database.fields.registries import field_type_registry
@@ -539,8 +539,8 @@ class BaserowBooleanField(serializers.BooleanField):
     `FALSE_VALUES` in DRF so that we support "checked" and "unchecked".
     """
 
-    TRUE_VALUES = BASEROW_BOOLEAN_FIELD_TRUE_VALUES
-    FALSE_VALUES = BASEROW_BOOLEAN_FIELD_FALSE_VALUES
+    TRUE_VALUES = JADAWEL_BOOLEAN_FIELD_TRUE_VALUES
+    FALSE_VALUES = JADAWEL_BOOLEAN_FIELD_FALSE_VALUES
 
 
 @extend_schema_field(OpenApiTypes.FLOAT)

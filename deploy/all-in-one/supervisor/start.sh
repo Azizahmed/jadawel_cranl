@@ -70,10 +70,10 @@ fi
 # ========================
 # = LOG ABOUT URL
 # ========================
-if [[ "$BASEROW_PUBLIC_URL" == "http://localhost"* ]]; then
-  startup_echo "No BASEROW_PUBLIC_URL environment variable provided. Starting Jadawel locally at http://localhost without automatic https."
+if [[ "$JADAWEL_PUBLIC_URL" == "http://localhost"* ]]; then
+  startup_echo "No JADAWEL_PUBLIC_URL environment variable provided. Starting Jadawel locally at http://localhost without automatic https."
 else
-  startup_echo "Starting Jadawel using addresses $BASEROW_PUBLIC_URL, if any are https automatically Caddy will attempt to setup HTTPS automatically."
+  startup_echo "Starting Jadawel using addresses $JADAWEL_PUBLIC_URL, if any are https automatically Caddy will attempt to setup HTTPS automatically."
 fi
 
 # ========================

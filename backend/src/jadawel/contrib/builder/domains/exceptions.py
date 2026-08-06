@@ -32,7 +32,7 @@ class SubDomainHasInvalidDomainName(Exception):
 
     def __init__(self, domain_name, *args, **kwargs):
         self.domain_name = domain_name
-        self.available_domain_names = settings.BASEROW_BUILDER_DOMAINS
+        self.available_domain_names = settings.JADAWEL_BUILDER_DOMAINS
         super().__init__(
             f"The subdomain {domain_name} has an invalid domain name, you can only use "
             f"{self.available_domain_names}",

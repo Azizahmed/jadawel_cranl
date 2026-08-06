@@ -90,7 +90,7 @@ theorised.
 ### 1.5 No rate limiting on login
 
 Twelve failed logins sent back to back all returned `401`. Never a `429`.
-Baserow's own throttle (`BASEROW_MAX_CONCURRENT_USER_REQUESTS`) defaults to off,
+Baserow's own throttle (`JADAWEL_MAX_CONCURRENT_USER_REQUESTS`) defaults to off,
 and it throttles concurrency per user rather than attempts per IP, so it is the
 wrong tool for credential stuffing.
 
@@ -133,10 +133,10 @@ and no CAPTCHA. You chose **open but verified**, which needs three things:
    list. Send yourself a password reset to confirm before enabling enforcement.
 3. **CAPTCHA.** Set in Coolify, then enable in the admin panel:
    ```
-   BASEROW_ENABLE_CAPTCHA=true
-   BASEROW_CAPTCHA_PROVIDER=cloudflare_turnstile
-   BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY=<site key>
-   BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY=<secret key>
+   JADAWEL_ENABLE_CAPTCHA=true
+   JADAWEL_CAPTCHA_PROVIDER=cloudflare_turnstile
+   JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY=<site key>
+   JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY=<secret key>
    ```
    Email verification alone stops neither scripted signup nor disposable
    addresses; the CAPTCHA is what stops the bot.
@@ -146,7 +146,7 @@ still work with it off.
 
 ### 2.2 JWT signing key is not separated from `SECRET_KEY`
 
-`SIGNING_KEY` falls back to `SECRET_KEY` when `BASEROW_JWT_SIGNING_KEY` is
+`SIGNING_KEY` falls back to `SECRET_KEY` when `JADAWEL_JWT_SIGNING_KEY` is
 unset, and the deployment guide never listed it. The consequence is operational:
 rotating a leaked signing key means rotating `SECRET_KEY`, which invalidates far
 more than sessions.
@@ -154,12 +154,12 @@ more than sessions.
 Set a distinct random value in Coolify:
 
 ```bash
-echo "BASEROW_JWT_SIGNING_KEY=$(tr -dc 'a-z0-9' </dev/urandom | head -c50)"
+echo "JADAWEL_JWT_SIGNING_KEY=$(tr -dc 'a-z0-9' </dev/urandom | head -c50)"
 ```
 
 Setting it logs every user out once. Do it before you have real users.
 
-### 2.3 `BASEROW_ENABLE_SECURE_PROXY_SSL_HEADER` is not set
+### 2.3 `JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER` is not set
 
 Django cannot tell that requests arrived over HTTPS, because TLS terminates at
 Traefik. Set it to `yes` in Coolify. It also makes the entrypoint pass
@@ -169,7 +169,7 @@ above see real client IPs rather than the proxy's.
 ### 2.4 Template sync runs on every backend start, for up to 30 minutes
 
 `SYNC_TEMPLATES_ON_STARTUP` defaults to `true` and
-`BASEROW_SYNC_TEMPLATES_TIME_LIMIT` to `1800` seconds. Every deploy and every
+`JADAWEL_SYNC_TEMPLATES_TIME_LIMIT` to `1800` seconds. Every deploy and every
 restart re-imports the full template library, saturating Postgres while it runs.
 On a small VPS this alone makes the app feel broken for a long stretch after
 each deploy.
@@ -267,6 +267,6 @@ every restart is the most likely source of a memory spike in this stack.
   required for public views. Set
   `DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS=yes` if you never share views
   publicly.
-- **`BASEROW_CACHALOT_ENABLED` is off.** Baserow's own ORM query cache. Worth
+- **`JADAWEL_CACHALOT_ENABLED` is off.** Baserow's own ORM query cache. Worth
   trying once the reload problem is understood — not before, so you can tell
   which change did what.

@@ -145,18 +145,18 @@ fi
 
 # copy the plugin at the folder location into the plugin dir if it has not been already.
 plugin_name="$(basename -- "$folder")"
-plugin_install_dir="$BASEROW_PLUGIN_DIR/$plugin_name"
+plugin_install_dir="$JADAWEL_PLUGIN_DIR/$plugin_name"
 if [[ ! "$folder" -ef "$plugin_install_dir" ]]; then
   if [[ ! -d "$plugin_install_dir" || "$overwrite" == "true" ]]; then
     log "Copying plugin $plugin_name into plugins folder at $plugin_install_dir."
-    mkdir -p "$BASEROW_PLUGIN_DIR"
+    mkdir -p "$JADAWEL_PLUGIN_DIR"
     rm -rf "$plugin_install_dir"
     cp -Tr "$folder" "$plugin_install_dir"
   else
     log "Found an existing plugin installed at $plugin_install_dir, not overwriting it
         as the --overwrite flag was not provided to this script."
   fi
-  folder="$BASEROW_PLUGIN_DIR/$plugin_name"
+  folder="$JADAWEL_PLUGIN_DIR/$plugin_name"
 fi
 chown -R "$DOCKER_USER": "$folder"
 
@@ -278,8 +278,8 @@ if [[ -d "/baserow/web-frontend" && -d "$PLUGIN_WEBFRONTEND_FOLDER" ]]; then
     fi
 fi
 
-log "Fixing ownership of plugins from $(id -u) to $DOCKER_USER in $BASEROW_PLUGIN_DIR"
-chown -R "$DOCKER_USER": "$BASEROW_PLUGIN_DIR"
+log "Fixing ownership of plugins from $(id -u) to $DOCKER_USER in $JADAWEL_PLUGIN_DIR"
+chown -R "$DOCKER_USER": "$JADAWEL_PLUGIN_DIR"
 chown -R "$DOCKER_USER": /baserow/container_markers/
 log_success "Finished setting up ${plugin_name} successfully."
 

@@ -23,7 +23,7 @@ DATE_TIME_FORMAT_CHOICES = [(k, v["name"]) for k, v in DATE_TIME_FORMAT.items()]
 
 # Should stay in sync with `light-`, (non-prefixed), and 'dark-' in
 # `modules/core/assets/scss/colors.scss::$colors`.
-BASEROW_COLORS = [
+JADAWEL_COLORS = [
     "light-blue",
     "light-cyan",
     "light-orange",

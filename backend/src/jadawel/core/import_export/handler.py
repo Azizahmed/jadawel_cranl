@@ -29,7 +29,7 @@ from jsonschema import validate
 from loguru import logger
 from opentelemetry import trace
 
-from jadawel.config.settings.base import BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL
+from jadawel.config.settings.base import JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL
 from jadawel.contrib.database.constants import EXPORT_WORKSPACE_CREATE_ARCHIVE
 from jadawel.core.handler import CoreHandler
 from jadawel.core.import_export.exceptions import (
@@ -486,7 +486,7 @@ class ImportExportHandler(metaclass=baserow_trace_methods(tracer)):
         export_file_path = self.get_export_storage_path(file_name)
 
         zip_file = ExportZipFile(
-            compress_level=BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+            compress_level=JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
             compress_type=zipstream.ZIP_DEFLATED,
         )
 
@@ -605,9 +605,9 @@ class ImportExportHandler(metaclass=baserow_trace_methods(tracer)):
 
         size = stream_size(stream)
 
-        if size > settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB:
+        if size > settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB:
             raise FileSizeTooLargeError(
-                settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB,
+                settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB,
                 "The provided file is too large.",
             )
 
@@ -1167,7 +1167,7 @@ class ImportExportHandler(metaclass=baserow_trace_methods(tracer)):
         self,
         user: AbstractUser,
         resource_id: str,
-        delete_used_resources_after_days: int = settings.BASEROW_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS,
+        delete_used_resources_after_days: int = settings.JADAWEL_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS,
     ):
         """
         Marks a resource for deletion by setting the `marked_for_deletion` field to

@@ -2,10 +2,10 @@ import pytest
 
 from jadawel.contrib.builder.pages.service import PageService
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_RAW,
-    BASEROW_FORMULA_MODE_SIMPLE,
+    JADAWEL_FORMULA_MODE_RAW,
+    JADAWEL_FORMULA_MODE_SIMPLE,
 )
 
 
@@ -71,13 +71,13 @@ def test_import_export_tags_collection_field_type(data_fixture):
     assert tags_with_formula.config == {
         "values": BaserowFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{name_field.db_column}')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "colors": BaserowFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{color_field.db_column}')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "colors_is_formula": True,
     }
@@ -86,13 +86,13 @@ def test_import_export_tags_collection_field_type(data_fixture):
     assert tags_without_formula.config == {
         "values": BaserowFormulaObject(
             formula="'a,b,c'",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "colors_is_formula": False,
         "colors": BaserowFormulaObject(
             formula="#d06060ff",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_RAW,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_RAW,
         ),
     }

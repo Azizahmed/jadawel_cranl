@@ -498,7 +498,7 @@ _dc_help:
     @echo "Production (always builds locally - Jadawel has no published registry image):"
     @echo "  just dc-prod up -d                          # Build and run latest locally"
     @echo "  just dc-prod build --parallel               # Build latest images"
-    @echo "  BASEROW_VERSION=2.2.2 just dc-prod up -d    # Build and tag as :2.2.2"
+    @echo "  JADAWEL_VERSION=2.2.2 just dc-prod up -d    # Build and tag as :2.2.2"
     @echo ""
     @echo "Troubleshooting:"
     @echo "  just dc-cache-clear                  # Clear build cache if builds fail"
@@ -819,7 +819,7 @@ dc-fix-network:
 # Production Images (build & test production Docker images)
 # =============================================================================
 
-# Production compose (builds locally if BASEROW_VERSION is unset/latest, otherwise pulls images)
+# Production compose (builds locally if JADAWEL_VERSION is unset/latest, otherwise pulls images)
 [group('3 - production')]
 [doc("Docker compose (production images): just dc-prod <build|up|down|logs>")]
 dc-prod *ARGS:
@@ -827,14 +827,14 @@ dc-prod *ARGS:
     if [ -z "{{ ARGS }}" ]; then
         just _dc_help
     else
-        export BASEROW_PUBLIC_URL="${BASEROW_PUBLIC_URL:-http://localhost}"
-        VERSION="${BASEROW_VERSION:-latest}"
-        if [ "$VERSION" = "latest" ] || [ -z "$BASEROW_VERSION" ]; then
+        export JADAWEL_PUBLIC_URL="${JADAWEL_PUBLIC_URL:-http://localhost}"
+        VERSION="${JADAWEL_VERSION:-latest}"
+        if [ "$VERSION" = "latest" ] || [ -z "$JADAWEL_VERSION" ]; then
             # Build locally for latest/unset
-            BASEROW_VERSION="$VERSION" docker compose -f docker-compose.yml -f docker-compose.build.yml {{ ARGS }}
+            JADAWEL_VERSION="$VERSION" docker compose -f docker-compose.yml -f docker-compose.build.yml {{ ARGS }}
         else
             # Pull from registry for specific versions
-            BASEROW_VERSION="$VERSION" docker compose -f docker-compose.yml {{ ARGS }}
+            JADAWEL_VERSION="$VERSION" docker compose -f docker-compose.yml {{ ARGS }}
         fi
     fi
 

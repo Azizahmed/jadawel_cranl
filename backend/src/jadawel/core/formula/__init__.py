@@ -10,7 +10,7 @@ from jadawel.core.formula.parser.generated.BaserowFormulaVisitor import (
     BaserowFormulaVisitor,
 )
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_RAW,
+    JADAWEL_FORMULA_MODE_RAW,
     BaserowFormulaObject,
     FormulaContext,
     FunctionCollection,
@@ -49,7 +49,7 @@ def resolve_formula(
     if not formula["formula"]:
         return formula["formula"]
 
-    if formula["mode"] == BASEROW_FORMULA_MODE_RAW:
+    if formula["mode"] == JADAWEL_FORMULA_MODE_RAW:
         return formula["formula"]
 
     tree = get_parse_tree_for_formula(formula["formula"])

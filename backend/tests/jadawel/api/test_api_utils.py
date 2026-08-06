@@ -34,7 +34,7 @@ from jadawel.core.registry import (
     Registry,
 )
 from jadawel.throttling.handler import (
-    BASEROW_CONCURRENCY_THROTTLE_REQUEST_ID,
+    JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID,
     ConcurrentUserRequestsThrottle,
 )
 
@@ -448,8 +448,8 @@ def create_dummy_request(user, path="/api/user/dashboard"):
 
 
 @override_settings(
-    BASEROW_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT=30,
-    BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS=7,
+    JADAWEL_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT=30,
+    JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS=7,
 )
 @pytest.mark.django_db
 def test_concurrent_user_requests_throttle_non_staff_authenticated_users(data_fixture):
@@ -485,8 +485,8 @@ def test_concurrent_user_requests_throttle_non_staff_authenticated_users(data_fi
 
 
 @override_settings(
-    BASEROW_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT=30,
-    BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS=0,
+    JADAWEL_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT=30,
+    JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS=0,
 )
 @pytest.mark.django_db
 def test_concurrent_throttle_denies_without_retry_after_when_blacklist_disabled(
@@ -572,7 +572,7 @@ def test_throttle_set_baserow_concurrency_throttle_request_id_and_middleware_can
     assert response.status_code == 200
     assert mock_on_request_processed.call_count == 1
     request = mock_on_request_processed.call_args[0][0]
-    assert getattr(request, BASEROW_CONCURRENCY_THROTTLE_REQUEST_ID, None) is not None
+    assert getattr(request, JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID, None) is not None
 
 
 @pytest.mark.django_db

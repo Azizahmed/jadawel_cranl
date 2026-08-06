@@ -140,7 +140,7 @@ def test_perform_restore(data_fixture: Fixtures):
 @pytest.mark.django_db(transaction=True)
 def test_delete_expired_snapshots(data_fixture: Fixtures, settings):
     exp_days = 1
-    settings.BASEROW_SNAPSHOT_EXPIRATION_TIME_DAYS = exp_days
+    settings.JADAWEL_SNAPSHOT_EXPIRATION_TIME_DAYS = exp_days
     now = datetime.now(tz=timezone.utc)
     time_before_expiration = now - timedelta(days=exp_days) - timedelta(seconds=10)
     user, token = data_fixture.create_user_and_token()

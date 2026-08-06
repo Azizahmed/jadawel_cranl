@@ -29,7 +29,7 @@ When adding a new setting, usually check these files:
 Example:
 
 ```python
-MY_SETTING = int(os.getenv("BASEROW_MY_SETTING", 123))
+MY_SETTING = int(os.getenv("JADAWEL_MY_SETTING", 123))
 ```
 
 2. If the variable should be configurable in Docker, add it everywhere the similar example appears in:

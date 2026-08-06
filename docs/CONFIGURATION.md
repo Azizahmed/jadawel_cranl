@@ -14,8 +14,8 @@ variable and the two should always be set together.
 
 | Variable | Description | Default |
 |---|---|---|
-| `BASEROW_DEFAULT_LOCALE` | The default locale assigned to newly created users and used as the fallback UI language. Must be one of the codes in `settings.LANGUAGES` (`ar`, `en`, `fr`, `nl`, `de`, `es`, `it`, `pl`, `ko`, `uk`). Set to `en` to bring the stack up in English/LTR. | `ar` |
-| `NUXT_DEFAULT_LOCALE` | The web-frontend default UI locale, used before a user-specific language is known (for example on the login and signup screens). Drives `dir="rtl"` on `<html>`. Should mirror `BASEROW_DEFAULT_LOCALE`; set both to `en` for English/LTR. | `ar` |
+| `JADAWEL_DEFAULT_LOCALE` | The default locale assigned to newly created users and used as the fallback UI language. Must be one of the codes in `settings.LANGUAGES` (`ar`, `en`, `fr`, `nl`, `de`, `es`, `it`, `pl`, `ko`, `uk`). Set to `en` to bring the stack up in English/LTR. | `ar` |
+| `NUXT_DEFAULT_LOCALE` | The web-frontend default UI locale, used before a user-specific language is known (for example on the login and signup screens). Drives `dir="rtl"` on `<html>`. Should mirror `JADAWEL_DEFAULT_LOCALE`; set both to `en` for English/LTR. | `ar` |
 
 > The `BASEROW_` prefix is retained because the underlying engine reads these names
 > directly. Renaming the prefix would require touching every deployment recipe and the

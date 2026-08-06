@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from jadawel.core.exceptions import InstanceTypeDoesNotExist
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.parser.exceptions import (
     BaserowFormulaSyntaxError,
     InvalidNumberOfArguments,
@@ -17,9 +17,9 @@ from jadawel.core.formula.parser.formula_validation_visitor import (
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 from jadawel.core.formula.registries import formula_runtime_function_registry
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_ADVANCED,
-    BASEROW_FORMULA_MODE_RAW,
-    BASEROW_FORMULA_MODE_SIMPLE,
+    JADAWEL_FORMULA_MODE_ADVANCED,
+    JADAWEL_FORMULA_MODE_RAW,
+    JADAWEL_FORMULA_MODE_SIMPLE,
     BaserowFormulaObject,
 )
 from jadawel.core.registry import Registry
@@ -55,15 +55,15 @@ def collect_json_formula_field_properties(registry: Type[Registry]) -> List[str]
 class BaserowFormulaObjectSerializer(serializers.Serializer):
     formula = serializers.CharField(required=True, allow_blank=True)
     version = serializers.CharField(
-        required=False, default=BASEROW_FORMULA_VERSION_INITIAL
+        required=False, default=JADAWEL_FORMULA_VERSION_INITIAL
     )
     mode = serializers.ChoiceField(
         required=False,
-        default=BASEROW_FORMULA_MODE_SIMPLE,
+        default=JADAWEL_FORMULA_MODE_SIMPLE,
         choices=[
-            BASEROW_FORMULA_MODE_SIMPLE,
-            BASEROW_FORMULA_MODE_ADVANCED,
-            BASEROW_FORMULA_MODE_RAW,
+            JADAWEL_FORMULA_MODE_SIMPLE,
+            JADAWEL_FORMULA_MODE_ADVANCED,
+            JADAWEL_FORMULA_MODE_RAW,
         ],
     )
 
@@ -79,8 +79,8 @@ class FormulaSerializerField(serializers.JSONField):
         self.required = False
         self.default = BaserowFormulaObject(
             formula="",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         )
 
     def to_internal_value(self, data: Union[str, Dict[str, str]]):
@@ -113,11 +113,11 @@ class FormulaSerializerField(serializers.JSONField):
         if isinstance(data, str):
             data = BaserowFormulaObject(
                 formula=data,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             )
 
-        if not data["formula"] or data["mode"] == BASEROW_FORMULA_MODE_RAW:
+        if not data["formula"] or data["mode"] == JADAWEL_FORMULA_MODE_RAW:
             return data
 
         # Inspect the `context` for an `ApplicationType`, we'll need to

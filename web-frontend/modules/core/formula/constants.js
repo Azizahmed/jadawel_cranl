@@ -1,1 +1,1 @@
-export const BASEROW_FORMULA_MODES = ['raw', 'simple', 'advanced']
+export const JADAWEL_FORMULA_MODES = ['raw', 'simple', 'advanced']

@@ -22,10 +22,10 @@ def get_webhook_request_function() -> Callable:
     or settings.
     In production mode, the advocate library is used so that the internal
     network can't be reached. This can be disabled by changing the Django
-    setting BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS.
+    setting JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS.
     """
 
-    if settings.BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS is True:
+    if settings.JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS is True:
         from requests import request
 
         return request
@@ -44,9 +44,9 @@ def get_advocate_address_validator() -> AddrValidator:
     """
 
     return AddrValidator(
-        ip_blacklist=settings.BASEROW_WEBHOOKS_IP_BLACKLIST,
-        ip_whitelist=settings.BASEROW_WEBHOOKS_IP_WHITELIST,
-        hostname_blacklist=settings.BASEROW_WEBHOOKS_URL_REGEX_BLACKLIST,
+        ip_blacklist=settings.JADAWEL_WEBHOOKS_IP_BLACKLIST,
+        ip_whitelist=settings.JADAWEL_WEBHOOKS_IP_WHITELIST,
+        hostname_blacklist=settings.JADAWEL_WEBHOOKS_URL_REGEX_BLACKLIST,
     )
 
 
@@ -61,7 +61,7 @@ def url_validator(value):
     :return: The provided URL if valid.
     """
 
-    if settings.BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS is True:
+    if settings.JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS is True:
         return value
 
     # Make sure we a are valid URL with a schema before parsing otherwise the parser can
@@ -91,7 +91,7 @@ def url_validator(value):
         validating_create_connection(
             (url.hostname, port),
             validator=addr_validator,
-            timeout=settings.BASEROW_WEBHOOKS_URL_CHECK_TIMEOUT_SECS,
+            timeout=settings.JADAWEL_WEBHOOKS_URL_CHECK_TIMEOUT_SECS,
         )
         return value
     except (UnacceptableAddressException, gaierror, ConnectionError, timeout) as e:

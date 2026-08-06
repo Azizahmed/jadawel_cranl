@@ -1500,7 +1500,7 @@ def test_change_email_same_as_current(data_fixture, client):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_ENABLE_CAPTCHA="")
+@override_settings(JADAWEL_ENABLE_CAPTCHA="")
 def test_create_user_without_captcha_when_disabled(client, data_fixture):
     data_fixture.create_password_provider()
     response = client.post(
@@ -1518,10 +1518,10 @@ def test_create_user_without_captcha_when_disabled(client, data_fixture):
 
 @pytest.mark.django_db
 @override_settings(
-    BASEROW_ENABLE_CAPTCHA="all",
-    BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_ENABLE_CAPTCHA="all",
+    JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 def test_create_user_captcha_required_when_enabled(client, data_fixture):
     data_fixture.create_password_provider()
@@ -1542,10 +1542,10 @@ def test_create_user_captcha_required_when_enabled(client, data_fixture):
 @pytest.mark.django_db
 @responses.activate
 @override_settings(
-    BASEROW_ENABLE_CAPTCHA="all",
-    BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_ENABLE_CAPTCHA="all",
+    JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 def test_create_user_captcha_valid_token(client, data_fixture):
     from jadawel.core.captcha.provider_types import TURNSTILE_VERIFY_URL
@@ -1576,10 +1576,10 @@ def test_create_user_captcha_valid_token(client, data_fixture):
 @pytest.mark.django_db
 @responses.activate
 @override_settings(
-    BASEROW_ENABLE_CAPTCHA="all",
-    BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_ENABLE_CAPTCHA="all",
+    JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 def test_create_user_captcha_invalid_token(client, data_fixture):
     from jadawel.core.captcha.provider_types import TURNSTILE_VERIFY_URL
@@ -1609,10 +1609,10 @@ def test_create_user_captcha_invalid_token(client, data_fixture):
 
 @pytest.mark.django_db
 @override_settings(
-    BASEROW_ENABLE_CAPTCHA="invitations",
-    BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-    BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-    BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+    JADAWEL_ENABLE_CAPTCHA="invitations",
+    JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+    JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
 )
 def test_create_user_captcha_only_for_configured_context(client, data_fixture):
     data_fixture.create_password_provider()

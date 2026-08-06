@@ -277,7 +277,7 @@ def test_exported_files_checksum(
 
 @pytest.mark.import_export_workspace
 @pytest.mark.django_db(transaction=True)
-@override_settings(BASEROW_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT=1)
+@override_settings(JADAWEL_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT=1)
 def test_export_with_rows_limit(
     data_fixture,
     api_client,

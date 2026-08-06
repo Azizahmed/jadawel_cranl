@@ -9,44 +9,44 @@ from jadawel.core.captcha.provider_types import TURNSTILE_VERIFY_URL
 
 
 def test_is_captcha_enabled_for_all():
-    with override_settings(BASEROW_ENABLE_CAPTCHA="all"):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA="all"):
         assert CaptchaHandler.is_captcha_enabled_for("signup") is True
         assert CaptchaHandler.is_captcha_enabled_for("invitations") is True
         assert CaptchaHandler.is_captcha_enabled_for("anything") is True
 
 
 def test_is_captcha_enabled_for_specific():
-    with override_settings(BASEROW_ENABLE_CAPTCHA="signup"):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA="signup"):
         assert CaptchaHandler.is_captcha_enabled_for("signup") is True
         assert CaptchaHandler.is_captcha_enabled_for("invitations") is False
 
 
 def test_is_captcha_enabled_for_multiple():
-    with override_settings(BASEROW_ENABLE_CAPTCHA="signup,invitations"):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA="signup,invitations"):
         assert CaptchaHandler.is_captcha_enabled_for("signup") is True
         assert CaptchaHandler.is_captcha_enabled_for("invitations") is True
         assert CaptchaHandler.is_captcha_enabled_for("other") is False
 
 
 def test_is_captcha_enabled_case_insensitive():
-    with override_settings(BASEROW_ENABLE_CAPTCHA="Signup,INVITATIONS"):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA="Signup,INVITATIONS"):
         assert CaptchaHandler.is_captcha_enabled_for("signup") is True
         assert CaptchaHandler.is_captcha_enabled_for("Signup") is True
         assert CaptchaHandler.is_captcha_enabled_for("invitations") is True
         assert CaptchaHandler.is_captcha_enabled_for("INVITATIONS") is True
 
-    with override_settings(BASEROW_ENABLE_CAPTCHA="ALL"):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA="ALL"):
         assert CaptchaHandler.is_captcha_enabled_for("signup") is True
 
 
 def test_is_captcha_disabled():
-    with override_settings(BASEROW_ENABLE_CAPTCHA=""):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA=""):
         assert CaptchaHandler.is_captcha_enabled_for("signup") is False
         assert CaptchaHandler.is_captcha_enabled_for("invitations") is False
 
 
 def test_validate_if_required_skips_when_disabled():
-    with override_settings(BASEROW_ENABLE_CAPTCHA=""):
+    with override_settings(JADAWEL_ENABLE_CAPTCHA=""):
         CaptchaHandler.validate_if_required("signup", "")
         CaptchaHandler.validate_if_required("signup", "some-token")
 
@@ -62,10 +62,10 @@ def test_validate_if_required_raises_when_token_missing():
     )
 
     with override_settings(
-        BASEROW_ENABLE_CAPTCHA="all",
-        BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-        BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-        BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+        JADAWEL_ENABLE_CAPTCHA="all",
+        JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
     ):
         with pytest.raises(CaptchaVerificationFailed):
             CaptchaHandler.validate_if_required("signup", "")
@@ -85,10 +85,10 @@ def test_validate_if_required_calls_provider():
     )
 
     with override_settings(
-        BASEROW_ENABLE_CAPTCHA="all",
-        BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-        BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-        BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+        JADAWEL_ENABLE_CAPTCHA="all",
+        JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
     ):
         CaptchaHandler.validate_if_required("signup", "valid-token", "1.2.3.4")
 
@@ -98,10 +98,10 @@ def test_validate_if_required_calls_provider():
 @pytest.mark.django_db
 def test_validate_if_required_skips_for_unconfigured_context():
     with override_settings(
-        BASEROW_ENABLE_CAPTCHA="invitations",
-        BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-        BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
-        BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
+        JADAWEL_ENABLE_CAPTCHA="invitations",
+        JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="test-site-key",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="test-secret-key",
     ):
         # Should not raise since "signup" is not in the enabled contexts
         CaptchaHandler.validate_if_required("signup", "")
@@ -110,10 +110,10 @@ def test_validate_if_required_skips_for_unconfigured_context():
 @pytest.mark.django_db
 def test_get_active_provider_raises_when_provider_not_configured():
     with override_settings(
-        BASEROW_ENABLE_CAPTCHA="all",
-        BASEROW_CAPTCHA_PROVIDER="cloudflare_turnstile",
-        BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY="",
-        BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY="",
+        JADAWEL_ENABLE_CAPTCHA="all",
+        JADAWEL_CAPTCHA_PROVIDER="cloudflare_turnstile",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY="",
+        JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY="",
     ):
         with pytest.raises(RuntimeError, match="not properly configured"):
             CaptchaHandler.get_active_provider()
@@ -122,8 +122,8 @@ def test_get_active_provider_raises_when_provider_not_configured():
 @pytest.mark.django_db
 def test_get_active_provider_raises_when_provider_type_empty():
     with override_settings(
-        BASEROW_ENABLE_CAPTCHA="all",
-        BASEROW_CAPTCHA_PROVIDER="",
+        JADAWEL_ENABLE_CAPTCHA="all",
+        JADAWEL_CAPTCHA_PROVIDER="",
     ):
-        with pytest.raises(RuntimeError, match="BASEROW_CAPTCHA_PROVIDER is empty"):
+        with pytest.raises(RuntimeError, match="JADAWEL_CAPTCHA_PROVIDER is empty"):
             CaptchaHandler.get_active_provider()

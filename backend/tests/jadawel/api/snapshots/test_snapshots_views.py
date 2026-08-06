@@ -126,7 +126,7 @@ def test_create_snapshot(api_client, data_fixture):
 
 @pytest.mark.django_db
 def test_create_snapshot_limit_reached(api_client, data_fixture, settings):
-    settings.BASEROW_MAX_SNAPSHOTS_PER_GROUP = 3
+    settings.JADAWEL_MAX_SNAPSHOTS_PER_GROUP = 3
     user, token = data_fixture.create_user_and_token()
     workspace_1 = data_fixture.create_workspace(user=user)
     workspace_2 = data_fixture.create_workspace(user=user)

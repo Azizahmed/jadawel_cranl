@@ -32,7 +32,7 @@ from jadawel.contrib.builder.workflow_actions.registries import (
 )
 from jadawel.core.exceptions import InstanceTypeDoesNotExist
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_RAW
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW
 
 
 class ElementSerializer(serializers.ModelSerializer):
@@ -529,7 +529,7 @@ class CollectionFieldOptionalFormulaSerializerField(FormulaSerializerField):
         if not is_formula:
             # We force the type to raw as it's not a formula
             # For compat with unmigrated values.
-            value["mode"] = BASEROW_FORMULA_MODE_RAW
+            value["mode"] = JADAWEL_FORMULA_MODE_RAW
 
         return value
 
@@ -538,6 +538,6 @@ class CollectionFieldOptionalFormulaSerializerField(FormulaSerializerField):
 
         is_formula = self.parent.data.get(self.is_formula_field_name, False)
         if not is_formula:
-            data["mode"] = BASEROW_FORMULA_MODE_RAW
+            data["mode"] = JADAWEL_FORMULA_MODE_RAW
 
         return data

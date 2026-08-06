@@ -18,17 +18,17 @@ class CloudflareTurnstileCaptchaProviderType(CaptchaProviderType):
 
     def is_configured(self) -> bool:
         return bool(
-            getattr(settings, "BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY", "")
-            and getattr(settings, "BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY", "")
+            getattr(settings, "JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY", "")
+            and getattr(settings, "JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY", "")
         )
 
     def get_frontend_config(self) -> dict:
         return {
-            "site_key": getattr(settings, "BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY", ""),
+            "site_key": getattr(settings, "JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY", ""),
         }
 
     def validate_token(self, token: str, remote_ip: Optional[str] = None) -> bool:
-        secret_key = getattr(settings, "BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY", "")
+        secret_key = getattr(settings, "JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY", "")
 
         payload = {
             "secret": secret_key,

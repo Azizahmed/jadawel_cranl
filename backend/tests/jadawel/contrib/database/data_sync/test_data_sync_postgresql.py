@@ -472,7 +472,7 @@ def test_postgresql_data_sync_table_connect_to_same_database(data_fixture):
 
     with pytest.raises(SyncError) as e:
         with override_settings(
-            BASEROW_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE=True
+            JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE=True
         ):
             data_sync = handler.create_data_sync_table(
                 user=user,
@@ -492,7 +492,7 @@ def test_postgresql_data_sync_table_connect_to_same_database(data_fixture):
 
     # This is expected to fail because `postgresql_host` is equal to the
     # default_database["HOST"] and that's not allowed if
-    # BASEROW_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE=True.
+    # JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE=True.
     assert str(e.value) == "It's not allowed to connect to this hostname."
 
 
@@ -505,7 +505,7 @@ def test_postgresql_data_sync_table_connect_to_blacklist(data_fixture):
 
     with pytest.raises(SyncError) as e:
         with override_settings(
-            BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST=["localhost", "baserow.io"]
+            JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST=["localhost", "baserow.io"]
         ):
             data_sync = handler.create_data_sync_table(
                 user=user,
@@ -524,7 +524,7 @@ def test_postgresql_data_sync_table_connect_to_blacklist(data_fixture):
             handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
     # This is expected to fail because `postgresql_host` is equal to the to one of the
-    # hostnames in BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST.
+    # hostnames in JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST.
     assert str(e.value) == "It's not allowed to connect to this hostname."
 
 

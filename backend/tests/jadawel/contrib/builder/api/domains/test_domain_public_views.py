@@ -19,8 +19,8 @@ from jadawel.contrib.builder.pages.models import Page
 from jadawel.contrib.database.views.models import SORT_ORDER_ASC
 from jadawel.core.exceptions import PermissionException
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.models import Workspace
 from jadawel.core.services.exceptions import (
     DoesNotExist,
@@ -472,8 +472,8 @@ def test_get_elements_of_public_builder(api_client, data_fixture):
         "role_type": "allow_all",
         "roles": [],
         "value": BaserowFormulaObject(
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
             formula="",
         ),
         "level": 1,

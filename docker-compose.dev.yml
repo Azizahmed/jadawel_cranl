@@ -24,11 +24,11 @@ services:
   backend:
     image: baserow_backend:dev
     environment:
-      - BASEROW_BACKEND_DEBUGGER_ENABLED
-      - BASEROW_BACKEND_DEBUGGER_PORT=${BASEROW_BACKEND_DEBUGGER_PORT:-5678}
-      - BASEROW_DANGEROUS_SILKY_ANALYZE_QUERIES
+      - JADAWEL_BACKEND_DEBUGGER_ENABLED
+      - JADAWEL_BACKEND_DEBUGGER_PORT=${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}
+      - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
-      - BASEROW_EMBEDDINGS_API_URL=${BASEROW_EMBEDDINGS_API_URL}
+      - JADAWEL_EMBEDDINGS_API_URL=${JADAWEL_EMBEDDINGS_API_URL}
     build:
       dockerfile: ./backend/Dockerfile
       context: .
@@ -40,7 +40,7 @@ services:
         GID: $GID
     ports:
       - "${HOST_PUBLISH_IP:-127.0.0.1}:8000:8000"
-      - "${HOST_PUBLISH_IP:-127.0.0.1}:${BASEROW_BACKEND_DEBUGGER_PORT:-5678}:${BASEROW_BACKEND_DEBUGGER_PORT:-5678}"
+      - "${HOST_PUBLISH_IP:-127.0.0.1}:${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}:${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}"
     volumes:
       - ./docs:/baserow/docs
       - ./backend:/baserow/backend
@@ -117,7 +117,7 @@ services:
     command: "watch-py celery-worker"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
-      - BASEROW_DANGEROUS_SILKY_ANALYZE_QUERIES
+      - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
     volumes:
       - ./docs:/baserow/docs
       - ./backend:/baserow/backend
@@ -134,7 +134,7 @@ services:
     command: "watch-py celery-exportworker"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
-      - BASEROW_DANGEROUS_SILKY_ANALYZE_QUERIES
+      - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
     volumes:
       - ./docs:/baserow/docs
       - ./backend:/baserow/backend

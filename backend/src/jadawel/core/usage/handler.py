@@ -31,7 +31,7 @@ class UsageHandler:
 
         count, chunk_size = 0, 256
         hours_ago = datetime.now(tz=timezone.utc) - timedelta(
-            hours=settings.BASEROW_UPDATE_WORKSPACE_STORAGE_USAGE_HOURS
+            hours=settings.JADAWEL_UPDATE_WORKSPACE_STORAGE_USAGE_HOURS
         )
         qs = (
             Workspace.objects.filter(

@@ -9,8 +9,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from jadawel.contrib.database.fields.constants import (
-    BASEROW_BOOLEAN_FIELD_FALSE_VALUES,
-    BASEROW_BOOLEAN_FIELD_TRUE_VALUES,
+    JADAWEL_BOOLEAN_FIELD_FALSE_VALUES,
+    JADAWEL_BOOLEAN_FIELD_TRUE_VALUES,
 )
 from jadawel.core.datetime import FormattedDate, FormattedDateTime
 
@@ -26,9 +26,9 @@ def ensure_boolean(value: Any, strict=True) -> bool:
         boolean.
     """
 
-    if value in BASEROW_BOOLEAN_FIELD_TRUE_VALUES:
+    if value in JADAWEL_BOOLEAN_FIELD_TRUE_VALUES:
         return True
-    elif value in BASEROW_BOOLEAN_FIELD_FALSE_VALUES:
+    elif value in JADAWEL_BOOLEAN_FIELD_FALSE_VALUES:
         return False
 
     if not strict:

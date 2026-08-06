@@ -532,7 +532,7 @@ def test_run_file_import_test_chunk(data_fixture, patch_filefield_storage):
 @pytest.mark.django_db()
 def test_run_file_import_limit(data_fixture, patch_filefield_storage):
     row_count = 2000
-    max_error = settings.BASEROW_MAX_ROW_REPORT_ERROR_COUNT
+    max_error = settings.JADAWEL_MAX_ROW_REPORT_ERROR_COUNT
 
     user = data_fixture.create_user()
 
@@ -594,7 +594,7 @@ def test_run_file_import_limit(data_fixture, patch_filefield_storage):
     assert job.human_readable_error == "This file import has raised too many errors."
 
     assert (
-        len(job.report["failing_rows"]) == settings.BASEROW_MAX_ROW_REPORT_ERROR_COUNT
+        len(job.report["failing_rows"]) == settings.JADAWEL_MAX_ROW_REPORT_ERROR_COUNT
     )
 
     assert len(job.report["failing_rows"]) == max_error
@@ -633,10 +633,10 @@ def test_run_file_import_task_big_data(data_fixture, patch_filefield_storage):
 def test_cleanup_file_import_job(data_fixture, settings, patch_filefield_storage):
     now = datetime.now(tz=timezone.utc)
     time_before_soft_limit = now - timedelta(
-        minutes=settings.BASEROW_JOB_SOFT_TIME_LIMIT + 1
+        minutes=settings.JADAWEL_JOB_SOFT_TIME_LIMIT + 1
     )
     time_before_expiration = now - timedelta(
-        minutes=settings.BASEROW_JOB_EXPIRATION_TIME_LIMIT + 1
+        minutes=settings.JADAWEL_JOB_EXPIRATION_TIME_LIMIT + 1
     )
     # create recent job
     with freeze_time(now):

@@ -151,7 +151,7 @@ if [[ "$DATABASE_HOST" == "embed" && -z "${DATABASE_URL:-}" ]]; then
   fi
   startup_echo "No DATABASE_HOST or DATABASE_URL provided, using embedded postgres."
   export DATABASE_HOST=localhost
-  export BASEROW_EMBEDDED_PSQL=true
+  export JADAWEL_EMBEDDED_PSQL=true
 else
   if [ ! -z "${DATABASE_URL:-}" ] && [ "${POSTGRES_SETUP_SCRIPT_COMMAND:-}" = "upgrade" ]; then
       startup_echo "===================================================================================="
@@ -161,7 +161,7 @@ else
   fi
   startup_echo "Using provided external postgres at ${DATABASE_HOST:-} or the " \
                "DATABASE_URL"
-  export BASEROW_EMBEDDED_PSQL=false
+  export JADAWEL_EMBEDDED_PSQL=false
 fi
 
 # ========================
@@ -200,8 +200,8 @@ fi
 file_env SECRET_KEY
 create_secret_env_if_missing .secret SECRET_KEY
 
-file_env BASEROW_JWT_SIGNING_KEY
-create_secret_env_if_missing .jwt_signing_key BASEROW_JWT_SIGNING_KEY
+file_env JADAWEL_JWT_SIGNING_KEY
+create_secret_env_if_missing .jwt_signing_key JADAWEL_JWT_SIGNING_KEY
 
 if [[ -z "${DATABASE_URL:-}" && -z "${DISABLE_EMBEDDED_SQL:-}" ]]; then
   file_env DATABASE_PASSWORD
@@ -332,7 +332,7 @@ case "$1" in
       exec /baserow/plugins/install_plugin.sh --runtime "${@:2}"
     ;;
     uninstall-plugin)
-      export BASEROW_DISABLE_PLUGIN_INSTALL_ON_STARTUP="on"
+      export JADAWEL_DISABLE_PLUGIN_INSTALL_ON_STARTUP="on"
       # We need the database to uninstall as the plugin might need to unapply migrations
       # Whereas when installing any database changes can just be normal migrations which
       # will then be run on startup.

@@ -1073,7 +1073,7 @@ class Table(
             and field_ids is None
             and add_dependencies is True
             and attribute_names is False
-            and not settings.BASEROW_DISABLE_MODEL_CACHE
+            and not settings.JADAWEL_DISABLE_MODEL_CACHE
         )
 
         if use_cache:

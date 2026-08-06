@@ -2,8 +2,8 @@
 # Bash strict mode: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail
 
-export BASEROW_VERSION="2.2.2"
-BASEROW_WEBFRONTEND_PORT="${BASEROW_WEBFRONTEND_PORT:-3000}"
+export JADAWEL_VERSION="2.2.2"
+JADAWEL_WEBFRONTEND_PORT="${JADAWEL_WEBFRONTEND_PORT:-3000}"
 
 show_help() {
     echo """
@@ -60,7 +60,7 @@ setup_additional_modules(){
   # We only want to include the built ones as we might have not yet installed the
   # dependencies or some plugins yet and we don't want nuxt building those ones.
   ADDITIONAL_MODULES="${ADDITIONAL_MODULES:-}"
-  for plugin_dir in "$BASEROW_PLUGIN_DIR"/*; do
+  for plugin_dir in "$JADAWEL_PLUGIN_DIR"/*; do
       if [[ -d "${plugin_dir}/web-frontend/" ]]; then
         plugin_name="$(basename -- "$plugin_dir")"
         package_name=$(echo "$plugin_name" | tr '_' '-')
@@ -89,8 +89,8 @@ case "$1" in
     nuxt-prod)
       startup_plugin_setup
       setup_additional_modules
-      export NITRO_HOST="${BASEROW_WEBFRONTEND_BIND_ADDRESS:-0.0.0.0}"
-      export NITRO_PORT="$BASEROW_WEBFRONTEND_PORT"
+      export NITRO_HOST="${JADAWEL_WEBFRONTEND_BIND_ADDRESS:-0.0.0.0}"
+      export NITRO_PORT="$JADAWEL_WEBFRONTEND_PORT"
       exec node --import ./env-remap.mjs .output/server/index.mjs "${@:2}"
     ;;
     nuxt-prepare)

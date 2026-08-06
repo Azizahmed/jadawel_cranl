@@ -16,8 +16,8 @@ from jadawel.contrib.builder.workflow_actions.workflow_action_types import (
     RefreshDataSourceWorkflowActionType,
 )
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.services.exceptions import InvalidServiceTypeDispatchSource
 from jadawel.core.utils import MirrorDict
 from jadawel.core.workflow_actions.registries import WorkflowActionType
@@ -149,8 +149,8 @@ def test_export_import_upsert_row_workflow_action_type(data_fixture):
             "type": "local_baserow_upsert_row",
             "row_id": BaserowFormulaObject(
                 formula="",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "table_id": table.id,
             "field_mappings": [

@@ -110,9 +110,9 @@ from jadawel.contrib.database.fields.utils.field_constraint import (
     validate_default_value_with_constraints,
 )
 from jadawel.contrib.database.formula import (
-    BASEROW_FORMULA_TYPE_ALLOWED_FIELDS,
-    BASEROW_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES,
-    BASEROW_FORMULA_TYPE_SERIALIZER_FIELD_NAMES,
+    JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS,
+    JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES,
+    JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES,
     BaserowExpression,
     BaserowFormulaBooleanType,
     BaserowFormulaCharType,
@@ -163,8 +163,8 @@ from jadawel.core.user_files.handler import UserFileHandler
 from jadawel.core.utils import grouper, list_to_comma_separated_string
 
 from .constants import (
-    BASEROW_BOOLEAN_FIELD_FALSE_VALUES,
-    BASEROW_BOOLEAN_FIELD_TRUE_VALUES,
+    JADAWEL_BOOLEAN_FIELD_FALSE_VALUES,
+    JADAWEL_BOOLEAN_FIELD_TRUE_VALUES,
     SINGLE_SELECT_SORT_BY_ORDER,
     UPSERT_OPTION_DICT_KEY,
     DeleteFieldStrategyEnum,
@@ -1042,7 +1042,7 @@ class BooleanFieldType(FieldType):
         'checked' or to one of the serializers.BooleanField.TRUE_VALUES.
         """
 
-        true_values = ",".join(["'%s'" % v for v in BASEROW_BOOLEAN_FIELD_TRUE_VALUES])
+        true_values = ",".join(["'%s'" % v for v in JADAWEL_BOOLEAN_FIELD_TRUE_VALUES])
         return f"""
             IF lower(p_in::text) IN ({true_values}) THEN
                 p_in = TRUE;
@@ -1085,9 +1085,9 @@ class BooleanFieldType(FieldType):
     def parse_filter_value(self, field, model_field, value):
         if value == "":
             return None
-        elif value in BASEROW_BOOLEAN_FIELD_TRUE_VALUES:
+        elif value in JADAWEL_BOOLEAN_FIELD_TRUE_VALUES:
             return True
-        elif value in BASEROW_BOOLEAN_FIELD_FALSE_VALUES:
+        elif value in JADAWEL_BOOLEAN_FIELD_FALSE_VALUES:
             return False
         else:
             raise ValueError(f"Invalid value for boolean field: {value}")
@@ -5395,17 +5395,17 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         "formula",
         "formula_type",
     ]
-    allowed_fields = BASEROW_FORMULA_TYPE_ALLOWED_FIELDS + CORE_FORMULA_FIELDS
+    allowed_fields = JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS + CORE_FORMULA_FIELDS
     serializer_extra_args = ["limit_linked_items"]
     request_serializer_field_names = (
-        BASEROW_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES + CORE_FORMULA_FIELDS
+        JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES + CORE_FORMULA_FIELDS
     )
     request_serializer_field_overrides = {
         "error": serializers.CharField(required=False, read_only=True),
         "nullable": serializers.BooleanField(required=False, read_only=True),
     }
     serializer_field_names = (
-        BASEROW_FORMULA_TYPE_SERIALIZER_FIELD_NAMES + CORE_FORMULA_FIELDS
+        JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES + CORE_FORMULA_FIELDS
     )
 
     @property
@@ -6040,10 +6040,10 @@ class CountFieldType(FormulaFieldType):
         InvalidCountThroughField: ERROR_INVALID_COUNT_THROUGH_FIELD,
     }
     can_get_unique_values = False
-    allowed_fields = BASEROW_FORMULA_TYPE_ALLOWED_FIELDS + [
+    allowed_fields = JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS + [
         "through_field_id",
     ]
-    serializer_field_names = BASEROW_FORMULA_TYPE_ALLOWED_FIELDS + [
+    serializer_field_names = JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS + [
         "through_field_id",
         "formula_type",
     ]
@@ -6210,12 +6210,12 @@ class RollupFieldType(FormulaFieldType):
         FormulaFunctionTypeDoesNotExist: ERROR_INVALID_ROLLUP_FORMULA_FUNCTION,
     }
     can_get_unique_values = False
-    allowed_fields = BASEROW_FORMULA_TYPE_ALLOWED_FIELDS + [
+    allowed_fields = JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS + [
         "through_field_id",
         "target_field_id",
         "rollup_function",
     ]
-    serializer_field_names = BASEROW_FORMULA_TYPE_ALLOWED_FIELDS + [
+    serializer_field_names = JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS + [
         "through_field_id",
         "target_field_id",
         "rollup_function",
@@ -6436,14 +6436,14 @@ class LookupFieldType(FormulaFieldType):
         InvalidLookupTargetField: ERROR_INVALID_LOOKUP_TARGET_FIELD,
     }
     can_get_unique_values = False
-    allowed_fields = BASEROW_FORMULA_TYPE_ALLOWED_FIELDS + [
+    allowed_fields = JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS + [
         "through_field_id",
         "through_field_name",
         "target_field_id",
         "target_field_name",
     ]
     request_serializer_field_names = (
-        BASEROW_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES
+        JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES
         + [
             "through_field_id",
             "through_field_name",
@@ -6452,7 +6452,7 @@ class LookupFieldType(FormulaFieldType):
             "formula_type",
         ]
     )
-    serializer_field_names = BASEROW_FORMULA_TYPE_SERIALIZER_FIELD_NAMES + [
+    serializer_field_names = JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES + [
         "through_field_id",
         "through_field_name",
         "target_field_id",

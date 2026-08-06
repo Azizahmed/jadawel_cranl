@@ -89,7 +89,7 @@ def test_sign_in_user_action_type(data_fixture):
 
 @pytest.mark.django_db(transaction=True)
 def test_sign_in_user_action_type_action_log_limit(settings, data_fixture):
-    settings.BASEROW_LOGIN_ACTION_LOG_LIMIT = RateLimit.from_string("2/h")
+    settings.JADAWEL_LOGIN_ACTION_LOG_LIMIT = RateLimit.from_string("2/h")
     user = data_fixture.create_user()
     cache_key = f"log_signin_action:{user.username}:PasswordAuthProviderModel"
     cache.delete(cache_key)

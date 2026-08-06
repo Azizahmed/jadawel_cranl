@@ -160,7 +160,7 @@ describe('test url utils', () => {
 
       expect(warnSpy).toHaveBeenCalledTimes(1)
       expect(warnSpy).toHaveBeenCalledWith(
-        'Invalid URL in BASEROW_EXTRA_PUBLIC_URLS: not-a-url'
+        'Invalid URL in JADAWEL_EXTRA_PUBLIC_URLS: not-a-url'
       )
     })
 

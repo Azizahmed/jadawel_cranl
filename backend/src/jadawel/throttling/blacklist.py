@@ -33,7 +33,7 @@ def _remaining_ttl(expires_at: float) -> int | None:
 
 def _resolve_ttl(ttl: int | None) -> int | None:
     if ttl is None:
-        ttl = settings.BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS
+        ttl = settings.JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS
     return ttl if ttl > 0 else None
 
 

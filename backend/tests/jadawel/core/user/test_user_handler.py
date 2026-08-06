@@ -812,7 +812,7 @@ def test_verify_email_address_already_verified(data_fixture):
 
 
 @pytest.mark.django_db(transaction=True)
-@override_settings(BASEROW_EMBEDDED_SHARE_HOSTNAME="http://test/")
+@override_settings(JADAWEL_EMBEDDED_SHARE_HOSTNAME="http://test/")
 def test_send_email_pending_verification(data_fixture, mailoutbox):
     user = data_fixture.create_user()
 

@@ -45,8 +45,8 @@ def mock_ai_prompt(return_value="AI response", should_fail=False):
 
 @pytest.mark.django_db
 def test_ai_agent_service_creation(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -82,8 +82,8 @@ def test_ai_agent_service_creation(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_creation_with_temperature(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -110,8 +110,8 @@ def test_ai_agent_service_creation_with_temperature(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_creation_with_choices(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -139,8 +139,8 @@ def test_ai_agent_service_creation_with_choices(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_update(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4", "gpt-3.5-turbo"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4", "gpt-3.5-turbo"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -179,8 +179,8 @@ def test_ai_agent_service_update(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_text_output(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -212,8 +212,8 @@ def test_ai_agent_service_dispatch_text_output(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_with_temperature(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -251,8 +251,8 @@ def test_ai_agent_service_dispatch_with_temperature(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_choice_output(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -286,8 +286,8 @@ def test_ai_agent_service_dispatch_choice_output(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_with_formula(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -321,7 +321,7 @@ def test_ai_agent_service_dispatch_with_formula(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_missing_provider(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -356,8 +356,8 @@ def test_ai_agent_service_dispatch_missing_provider(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_missing_model(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -393,8 +393,8 @@ def test_ai_agent_service_dispatch_missing_model(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_missing_choices(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -427,8 +427,8 @@ def test_ai_agent_service_dispatch_missing_choices(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_ai_error(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -461,8 +461,8 @@ def test_ai_agent_service_dispatch_ai_error(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_dispatch_with_integration_settings(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-env-key"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-3.5-turbo"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-env-key"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-3.5-turbo"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -509,8 +509,8 @@ def test_ai_agent_service_dispatch_with_integration_settings(data_fixture, setti
 
 @pytest.mark.django_db
 def test_ai_agent_service_generate_schema(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -548,8 +548,8 @@ def test_ai_agent_service_generate_schema(data_fixture, settings):
 
 @pytest.mark.django_db
 def test_ai_agent_service_export_import(data_fixture, settings):
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
@@ -612,8 +612,8 @@ def test_ai_agent_service_dispatch_in_published_workflow(data_fixture, settings)
     This test verifies that the integration settings are properly copied.
     """
 
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
@@ -697,8 +697,8 @@ def test_ai_agent_service_requires_integration_settings_not_workspace_fallback(
     not rely on workspace fallback, because published workflows have workspace=None.
     """
 
-    settings.BASEROW_OPENAI_API_KEY = "sk-test"
-    settings.BASEROW_OPENAI_MODELS = ["gpt-4"]
+    settings.JADAWEL_OPENAI_API_KEY = "sk-test"
+    settings.JADAWEL_OPENAI_MODELS = ["gpt-4"]
 
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)

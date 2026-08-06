@@ -55,7 +55,7 @@ def setup_logging():
     logger.remove()
     # Replace it with our format, loguru recommends sending application logs to stderr.
     logger.add(
-        sys.stderr, format=loguru_format, level=settings.BASEROW_BACKEND_LOG_LEVEL
+        sys.stderr, format=loguru_format, level=settings.JADAWEL_BACKEND_LOG_LEVEL
     )
     logger.info("Logger setup.")
     if otel_is_enabled():
@@ -64,7 +64,7 @@ def setup_logging():
 
 def setup_telemetry(add_django_instrumentation: bool):
     """
-    Sets up logging and when the env var BASEROW_ENABLE_OTEL is set to any non-blank
+    Sets up logging and when the env var JADAWEL_ENABLE_OTEL is set to any non-blank
     string and this function is called metrics will be setup and sent according to
     the OTEL env vars you can find described at:
     - https://opentelemetry.io/docs/reference/specification/protocol/exporter/
@@ -108,7 +108,7 @@ def setup_telemetry(add_django_instrumentation: bool):
 
             print("Telemetry enabled!")
     else:
-        print("Not configuring telemetry due to BASEROW_ENABLE_OTEL not being set.")
+        print("Not configuring telemetry due to JADAWEL_ENABLE_OTEL not being set.")
 
 
 def _setup_log_exporting(logger):
@@ -121,11 +121,11 @@ def _setup_log_exporting(logger):
     set_logger_provider(logger_provider)
     exporter = OTLPLogExporter()
     handler = LogGuruCompatibleLoggerHandler(
-        level=settings.BASEROW_BACKEND_LOG_LEVEL,
+        level=settings.JADAWEL_BACKEND_LOG_LEVEL,
         logger_provider=logger_provider,
     )
     logger_provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
-    logger.add(handler, format="{message}", level=settings.BASEROW_BACKEND_LOG_LEVEL)
+    logger.add(handler, format="{message}", level=settings.JADAWEL_BACKEND_LOG_LEVEL)
     logger.info("Logger open telemetry exporting setup.")
 
 

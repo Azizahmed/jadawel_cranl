@@ -182,7 +182,7 @@ class SnapshotHandler:
         if app_type.supports_snapshots is False:
             raise ApplicationOperationNotSupported()
 
-        max_snapshots = settings.BASEROW_MAX_SNAPSHOTS_PER_GROUP
+        max_snapshots = settings.JADAWEL_MAX_SNAPSHOTS_PER_GROUP
         if max_snapshots >= 0 and self._count(application.workspace) >= max_snapshots:
             raise MaximumSnapshotsReached()
 
@@ -349,11 +349,11 @@ class SnapshotHandler:
     def delete_expired(self) -> None:
         """
         Finds all snapshots that are considered expired based on
-        BASEROW_SNAPSHOT_EXPIRATION_TIME_DAYS and schedules their deletion.
+        JADAWEL_SNAPSHOT_EXPIRATION_TIME_DAYS and schedules their deletion.
         """
 
         threshold = datetime.now(tz=timezone.utc) - timedelta(
-            days=settings.BASEROW_SNAPSHOT_EXPIRATION_TIME_DAYS
+            days=settings.JADAWEL_SNAPSHOT_EXPIRATION_TIME_DAYS
         )
         expired_snapshots = Snapshot.objects.filter(
             created_at__lt=threshold

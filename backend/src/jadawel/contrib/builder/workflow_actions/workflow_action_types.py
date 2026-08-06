@@ -45,9 +45,9 @@ from jadawel.contrib.integrations.slack.service_types import (
     SlackWriteMessageServiceType,
 )
 from jadawel.core.db import specific_queryset
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE, BaserowFormulaObject
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, BaserowFormulaObject
 from jadawel.core.integrations.models import Integration
 from jadawel.core.registry import Instance
 from jadawel.core.services.handler import ServiceHandler
@@ -85,13 +85,13 @@ class NotificationWorkflowActionType(BuilderWorkflowActionType):
         return {
             "title": BaserowFormulaObject(
                 formula="'hello'",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "description": BaserowFormulaObject(
                 formula="'there'",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
         }
 

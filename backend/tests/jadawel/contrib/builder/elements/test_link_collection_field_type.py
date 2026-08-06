@@ -16,8 +16,8 @@ from jadawel.contrib.builder.pages.service import PageService
 from jadawel.contrib.builder.pages.signals import page_deleted
 from jadawel.core.exceptions import InstanceTypeDoesNotExist
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 
 
 def test_registering_link_collection_field_type_connects_to_page_deleted_signal():
@@ -108,13 +108,13 @@ def test_import_export_link_collection_field_type(data_fixture):
     assert imported_field.config == {
         "link_name": BaserowFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{text_field.db_column}')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "navigate_to_url": BaserowFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{text_field.db_column}')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "navigate_to_page_id": None,
         "navigation_type": "page",
@@ -123,8 +123,8 @@ def test_import_export_link_collection_field_type(data_fixture):
                 "name": "fooQueryParam",
                 "value": BaserowFormulaObject(
                     formula=f"get('data_source.{data_source2.id}.field_1')",
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 ),
             },
         ],
@@ -133,8 +133,8 @@ def test_import_export_link_collection_field_type(data_fixture):
                 "name": "fooPageParam",
                 "value": BaserowFormulaObject(
                     formula=f"get('data_source.{data_source2.id}.field_1')",
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 ),
             },
         ],

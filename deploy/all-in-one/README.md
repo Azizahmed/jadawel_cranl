@@ -39,7 +39,7 @@ You will only be able to connect to Jadawel from the machine running the server 
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=http://localhost \
+  -e JADAWEL_PUBLIC_URL=http://localhost \
   -v baserow_data:/baserow/data \
   -p 80:80 \
   -p 443:443 \
@@ -47,10 +47,10 @@ docker run \
   jadawel/jadawel:2.2.2
 ```
 
-* Change `BASEROW_PUBLIC_URL` to `https://YOUR_DOMAIN` or `http://YOUR_IP` to enable
+* Change `JADAWEL_PUBLIC_URL` to `https://YOUR_DOMAIN` or `http://YOUR_IP` to enable
   external access. Ensure that this address matches the one you enter in your browser's
   URL bar. Any different address will be considered a published application.
-* Add `-e BASEROW_CADDY_ADDRESSES=:443` to enable
+* Add `-e JADAWEL_CADDY_ADDRESSES=:443` to enable
   [automatic Caddy HTTPS](https://caddyserver.com/docs/automatic-https).
 * Optionally add `-e DATABASE_URL=postgresql://user:pwd@host:port/db` to use an external
   Postgresql.
@@ -89,7 +89,7 @@ A quick summary of its features are:
 * Set `REDIS_URL` or the `REDIS_...` variables to disable the internal redis and instead
   connect to an external Postgres.
 * Runs all services behind a pre-configured Caddy reverse proxy. Set
-  `BASEROW_CADDY_ADDRESSES` to `https://YOUR_DOMAIN.com` and it will
+  `JADAWEL_CADDY_ADDRESSES` to `https://YOUR_DOMAIN.com` and it will
   [automatically enable https](https://caddyserver.com/docs/automatic-https#overview)
   for
   you and store the keys and certs in `/baserow/data/caddy`.
@@ -206,17 +206,17 @@ following command to make Jadawel available at the domain with
 [automatic https](https://caddyserver.com/docs/automatic-https#overview) provided by
 Caddy.
 
-> Append `,http://localhost` to BASEROW_CADDY_ADDRESSES if you still want to be able to
+> Append `,http://localhost` to JADAWEL_CADDY_ADDRESSES if you still want to be able to
 > access your server from the machine it is running on using http://localhost. See
 > [Caddy's Address Docs](https://caddyserver.com/docs/caddyfile/concepts#addresses)
-> for all supported values for BASEROW_CADDY_ADDRESSES.
+> for all supported values for JADAWEL_CADDY_ADDRESSES.
 
 ```bash
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=https://www.REPLACE_WITH_YOUR_DOMAIN.com \
-  -e BASEROW_CADDY_ADDRESSES=:443 \
+  -e JADAWEL_PUBLIC_URL=https://www.REPLACE_WITH_YOUR_DOMAIN.com \
+  -e JADAWEL_CADDY_ADDRESSES=:443 \
   -v baserow_data:/baserow/data \
   -p 80:80 \
   -p 443:443 \
@@ -230,7 +230,7 @@ docker run \
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=https://www.yourdomain.com \
+  -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -v baserow_data:/baserow/data \
   -p 80:80 \
   --restart unless-stopped \
@@ -243,7 +243,7 @@ docker run \
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=https://www.yourdomain.com:3001 \
+  -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com:3001 \
   -v baserow_data:/baserow/data \
   -p 3001:80 \
   --restart unless-stopped \
@@ -256,7 +256,7 @@ docker run \
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=https://www.yourdomain.com \
+  -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -e DATABASE_HOST=TODO \
   -e DATABASE_NAME=TODO \
   -e DATABASE_USER=TODO \
@@ -275,7 +275,7 @@ docker run \
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=https://www.yourdomain.com \
+  -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -e REDIS_HOST=TODO \
   -e REDIS_USER=TODO \
   -e REDIS_PASSWORD=TODO \
@@ -296,7 +296,7 @@ docker run \
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=https://www.yourdomain.com \
+  -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -e EMAIL_SMTP=True \
   -e EMAIL_SMTP_HOST=TODO \
   -e EMAIL_SMTP_PORT=TODO \
@@ -335,7 +335,7 @@ docker run \
   -d \
   --name baserow \
   --add-host host.docker.internal:host-gateway \
-  -e BASEROW_PUBLIC_URL=http://localhost \
+  -e JADAWEL_PUBLIC_URL=http://localhost \
   -e DATABASE_HOST=host.docker.internal \
   -e DATABASE_PORT=5432 \
   -e DATABASE_NAME=YOUR_DATABASE_NAME \
@@ -360,7 +360,7 @@ echo "your_pg_password" > .your_pg_password
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=http://localhost \
+  -e JADAWEL_PUBLIC_URL=http://localhost \
   -e REDIS_PASSWORD_FILE=/baserow/.your_redis_password \
   -e SECRET_KEY_FILE=/baserow/.your_secret_key \
   -e DATABASE_PASSWORD_FILE=/baserow/.your_pg_password \
@@ -397,12 +397,12 @@ docker exec -it baserow cat /baserow/data/.pgpass
 
 The build in Caddy server is configured to automatically handle additional application
 builder domains. Depending on the environment variables, it will also automatically
-fetch SSL certificates for those domains. Note that the `BASEROW_CADDY_ADDRESSES`
+fetch SSL certificates for those domains. Note that the `JADAWEL_CADDY_ADDRESSES`
 environment variable must be `:80` or `:443` to allow multiple domains. If you have set
 a URL there, it won't work.
 
 By default, it will accept requests of any domain over the http protocol, which is
-perfect if you have a proxy in front of Jadawel. If `BASEROW_CADDY_ADDRESSES` starts
+perfect if you have a proxy in front of Jadawel. If `JADAWEL_CADDY_ADDRESSES` starts
 with `https` protocol or is `:443`, then it will redirect http requests to https, and
 will handle the SSL certificate part automatically. This is recommended when the
 container is directly exposed to the internet.
@@ -469,16 +469,16 @@ horizontally.
 
 This image has the following "horizontal scaling" environment variables:
 
-1. `BASEROW_AMOUNT_OF_GUNICORN_WORKERS` this controls the number of REST API
+1. `JADAWEL_AMOUNT_OF_GUNICORN_WORKERS` this controls the number of REST API
    workers (the things that do most of the API work) per container.
-2. `BASEROW_AMOUNT_OF_WORKERS` controls the number of background task celery
+2. `JADAWEL_AMOUNT_OF_WORKERS` controls the number of background task celery
    runners, these run realtime collaboration tasks, cleanup jobs and other slow tasks
    like big file exports/imports.
     1. If you are scaling many of these containers you probably only need one or two
        of these background workers per container as they will all pool together and
        collect background tasks submitted from any other container via Redis.
 3. You can make the image launch fewer internal processes and hence reduce memory usage
-   by setting `BASEROW_RUN_MINIMAL=yes` AND `BASEROW_AMOUNT_OF_WORKERS=1`.
+   by setting `JADAWEL_RUN_MINIMAL=yes` AND `JADAWEL_AMOUNT_OF_WORKERS=1`.
     1. This will cause this image to only launch a single celery task
        process which handles both the fast and slow queues. The consequence of this is
        that there is only one process handling tasks per container and so a slow task
@@ -610,8 +610,8 @@ your Jadawel like so:
 
 ```bash
 custom_baserow_conf.sh << EOF
-export BASEROW_PUBLIC_URL=todo
-export BASEROW_CADDY_ADDRESSES=todo
+export JADAWEL_PUBLIC_URL=todo
+export JADAWEL_CADDY_ADDRESSES=todo
 
 # You can perform any Bash logic required in here to setup Jadawel conditionally.
 EOF
@@ -619,7 +619,7 @@ EOF
 docker run \
   -d \
   --name baserow \
-  -e BASEROW_PUBLIC_URL=http://localhost \
+  -e JADAWEL_PUBLIC_URL=http://localhost \
   -v $PWD/custom_baserow_conf.sh /baserow/supervisor/custom_baserow_conf.sh \
   -v baserow_data:/baserow/data \
   -p 80:80 \

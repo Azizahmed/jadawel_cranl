@@ -360,7 +360,7 @@ def test_import_export_form_view(data_fixture, tmpdir):
     form_view_type = view_type_registry.get("form")
 
     zip_file = ExportZipFile(
-        compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+        compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
         compress_type=zipstream.ZIP_DEFLATED,
     )
 
@@ -595,7 +595,7 @@ def test_import_export_form_view_with_grouped_conditions(data_fixture, tmpdir):
     form_view_type = view_type_registry.get("form")
 
     zip_file = ExportZipFile(
-        compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+        compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
         compress_type=zipstream.ZIP_DEFLATED,
     )
 

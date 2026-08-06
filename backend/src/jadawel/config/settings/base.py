@@ -13,6 +13,7 @@ from django.core.exceptions import ImproperlyConfigured
 import dj_database_url
 from corsheaders.defaults import default_headers
 
+from jadawel.config.legacy_env import apply as _apply_legacy_env
 from jadawel.config.settings.utils import (
     Setting,
     crontab,
@@ -27,6 +28,9 @@ from jadawel.core.telemetry.utils import otel_is_enabled
 from jadawel.throttling.types import RateLimit
 from jadawel.version import VERSION
 
+# Must run before the first os.getenv below: deployments still set BASEROW_*.
+LEGACY_ENV_NAMES_IN_USE = _apply_legacy_env()
+
 # A comma separated list of feature flags used to enable in-progress or not ready
 # features for developers. See docs/development/feature-flags.md for more info.
 FEATURE_FLAGS = [
@@ -35,29 +39,29 @@ FEATURE_FLAGS = [
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-BASEROW_PLUGIN_DIR_PATH = Path(os.environ.get("BASEROW_PLUGIN_DIR", "/baserow/plugins"))
+JADAWEL_PLUGIN_DIR_PATH = Path(os.environ.get("JADAWEL_PLUGIN_DIR", "/baserow/plugins"))
 
-if BASEROW_PLUGIN_DIR_PATH.exists():
-    BASEROW_PLUGIN_FOLDERS = [
+if JADAWEL_PLUGIN_DIR_PATH.exists():
+    JADAWEL_PLUGIN_FOLDERS = [
         file
-        for file in BASEROW_PLUGIN_DIR_PATH.iterdir()
+        for file in JADAWEL_PLUGIN_DIR_PATH.iterdir()
         if file.is_dir() and Path(file, "backend").exists()
     ]
 else:
-    BASEROW_PLUGIN_FOLDERS = []
+    JADAWEL_PLUGIN_FOLDERS = []
 
-BASEROW_BACKEND_PLUGIN_NAMES = [d.name for d in BASEROW_PLUGIN_FOLDERS]
+JADAWEL_BACKEND_PLUGIN_NAMES = [d.name for d in JADAWEL_PLUGIN_FOLDERS]
 # Jadawel fork: the proprietary premium/ and enterprise/ directories have been
 # stripped (see PATCHES.md). There are no built-in plugins; enterprise-equivalent
 # features (SSO, audit log, RBAC) are rebuilt from scratch under backend/src/arabase/.
-BASEROW_OSS_ONLY = True
-BASEROW_BUILT_IN_PLUGINS = []
+JADAWEL_OSS_ONLY = True
+JADAWEL_BUILT_IN_PLUGINS = []
 
 # Previously injected by the (now stripped) enterprise plugin's settings. Core
 # jadawel.core.user_sources.handler references it, so it must exist. Value must be
 # a divisor of 60 (used as `60 // interval` to batch the user-count update task).
-BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES", "10")
+JADAWEL_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES = int(
+    os.getenv("JADAWEL_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES", "10")
 )
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -65,12 +69,12 @@ if "SECRET_KEY" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("BASEROW_BACKEND_DEBUG", "off") == "on"
+DEBUG = os.getenv("JADAWEL_BACKEND_DEBUG", "off") == "on"
 
 # The `testserver` is needed for the
-# `src/baserow/core/mcp/utils.py::internal_api_request`.
+# `src/jadawel/core/mcp/utils.py::internal_api_request`.
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
-ALLOWED_HOSTS += os.getenv("BASEROW_EXTRA_ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS += os.getenv("JADAWEL_EXTRA_ALLOWED_HOSTS", "").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -99,7 +103,7 @@ INSTALLED_APPS = [
     "jadawel.contrib.builder",
     "jadawel.contrib.dashboard",
     "jadawel.contrib.automation",
-    *BASEROW_BUILT_IN_PLUGINS,
+    *JADAWEL_BUILT_IN_PLUGINS,
     # Jadawel fork: our additive backend code. Sub-apps (arabase.sso, arabase.audit,
     # arabase.rbac, ...) are added here as each phase implements them.
     "arabase",
@@ -110,9 +114,9 @@ ADDITIONAL_APPS = os.getenv("ADDITIONAL_APPS", "").split(",")
 if ADDITIONAL_APPS is not None:
     INSTALLED_APPS += [app.strip() for app in ADDITIONAL_APPS if app.strip() != ""]
 
-if BASEROW_BACKEND_PLUGIN_NAMES:
-    print(f"Loaded backend plugins: {','.join(BASEROW_BACKEND_PLUGIN_NAMES)}")
-    INSTALLED_APPS.extend(BASEROW_BACKEND_PLUGIN_NAMES)
+if JADAWEL_BACKEND_PLUGIN_NAMES:
+    print(f"Loaded backend plugins: {','.join(JADAWEL_BACKEND_PLUGIN_NAMES)}")
+    INSTALLED_APPS.extend(JADAWEL_BACKEND_PLUGIN_NAMES)
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -156,11 +160,11 @@ ASGI_APPLICATION = "jadawel.config.asgi.application"
 
 
 # `ASGI_HTTP_MAX_CONCURRENCY` sets max concurrent asgi requests to be processed by
-# the asgi application. It's configurable with `BASEROW_ASGI_HTTP_MAX_CONCURRENCY`
+# the asgi application. It's configurable with `JADAWEL_ASGI_HTTP_MAX_CONCURRENCY`
 # env variable.
 # The default is None - no concurrency limit
 ASGI_HTTP_MAX_CONCURRENCY = (
-    int(os.getenv("BASEROW_ASGI_HTTP_MAX_CONCURRENCY") or 0) or None
+    int(os.getenv("JADAWEL_ASGI_HTTP_MAX_CONCURRENCY") or 0) or None
 )
 
 REDIS_HOST = os.getenv("REDIS_HOST", "redis")
@@ -183,10 +187,10 @@ REDIS_URL = os.getenv(
     f"{REDIS_PROTOCOL}://{redis_auth}{REDIS_HOST}:{REDIS_PORT}/0{redis_url_suffix}",
 )
 
-BASEROW_GROUP_STORAGE_USAGE_QUEUE = os.getenv(
-    "BASEROW_GROUP_STORAGE_USAGE_QUEUE", "export"
+JADAWEL_GROUP_STORAGE_USAGE_QUEUE = os.getenv(
+    "JADAWEL_GROUP_STORAGE_USAGE_QUEUE", "export"
 )
-BASEROW_ROLE_USAGE_QUEUE = os.getenv("BASEROW_GROUP_STORAGE_USAGE_QUEUE", "export")
+JADAWEL_ROLE_USAGE_QUEUE = os.getenv("JADAWEL_GROUP_STORAGE_USAGE_QUEUE", "export")
 
 CELERY_BROKER_URL = REDIS_URL
 CELERY_TASK_ROUTES = {
@@ -196,7 +200,7 @@ CELERY_TASK_ROUTES = {
         "queue": "export"
     },
     "baserow.core.trash.tasks.permanently_delete_marked_trash": {"queue": "export"},
-    "baserow.core.usage.tasks": {"queue": BASEROW_GROUP_STORAGE_USAGE_QUEUE},
+    "baserow.core.usage.tasks": {"queue": JADAWEL_GROUP_STORAGE_USAGE_QUEUE},
     "baserow.contrib.database.table.tasks.run_row_count_job": {"queue": "export"},
     "baserow.core.jobs.tasks.clean_up_jobs": {"queue": "export"},
 }
@@ -296,7 +300,7 @@ for key, value in os.environ.items():
 # Default 0 = new connection per request; each runs a locale-setting query.
 # Increase in WSGI to save those round-trips. In ASGI be careful: async tasks
 # open their own connections and persistent ones can exhaust the pool.
-BASEROW_CONN_MAX_AGE = int(os.getenv("BASEROW_CONN_MAX_AGE", 0))
+JADAWEL_CONN_MAX_AGE = int(os.getenv("JADAWEL_CONN_MAX_AGE", 0))
 
 # Apply the configured connection reuse timeout consistently to every database.
 # Also enable connection health checks by default so Django verifies that a
@@ -304,7 +308,7 @@ BASEROW_CONN_MAX_AGE = int(os.getenv("BASEROW_CONN_MAX_AGE", 0))
 # "connection already closed" errors when connections are dropped by the server,
 # a load balancer, or a connection pooler.
 for _db_key in DATABASES:
-    DATABASES[_db_key]["CONN_MAX_AGE"] = BASEROW_CONN_MAX_AGE
+    DATABASES[_db_key]["CONN_MAX_AGE"] = JADAWEL_CONN_MAX_AGE
     DATABASES[_db_key].setdefault("CONN_HEALTH_CHECKS", True)
 
 DATABASE_ROUTERS = ["jadawel.config.db_routers.ReadReplicaRouter"]
@@ -330,12 +334,12 @@ CACHES = {
 
 BUILDER_PUBLICLY_USED_PROPERTIES_CACHE_TTL_SECONDS = int(
     # Default TTL is 2 hours
-    os.getenv("BASEROW_BUILDER_PUBLICLY_USED_PROPERTIES_CACHE_TTL_SECONDS")
+    os.getenv("JADAWEL_BUILDER_PUBLICLY_USED_PROPERTIES_CACHE_TTL_SECONDS")
     or 60 * 10 * 2
 )
 BUILDER_DISPATCH_ACTION_CACHE_TTL_SECONDS = int(
     # Default TTL is 5 minutes
-    os.getenv("BASEROW_BUILDER_DISPATCH_ACTION_CACHE_TTL_SECONDS") or 300
+    os.getenv("JADAWEL_BUILDER_DISPATCH_ACTION_CACHE_TTL_SECONDS") or 300
 )
 
 
@@ -344,8 +348,8 @@ CELERY_SINGLETON_BACKEND_CLASS = (
 )
 
 # This flag enable automatic index creation for table views based on sortings.
-AUTO_INDEX_VIEW_ENABLED = os.getenv("BASEROW_AUTO_INDEX_VIEW_ENABLED", "true") == "true"
-AUTO_INDEX_LOCK_EXPIRY = os.getenv("BASEROW_AUTO_INDEX_LOCK_EXPIRY", 60 * 2)
+AUTO_INDEX_VIEW_ENABLED = os.getenv("JADAWEL_AUTO_INDEX_VIEW_ENABLED", "true") == "true"
+AUTO_INDEX_LOCK_EXPIRY = os.getenv("JADAWEL_AUTO_INDEX_LOCK_EXPIRY", 60 * 2)
 
 # Should contain the database connection name of the database where the user tables
 # are stored. This can be different than the default database because there are not
@@ -374,10 +378,10 @@ AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.AllowAllUsersModelBacke
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 # Jadawel fork: Arabic is the primary locale. The default locale for new users
-# is env-configurable (BASEROW_DEFAULT_LOCALE) and defaults to Arabic. New user
+# is env-configurable (JADAWEL_DEFAULT_LOCALE) and defaults to Arabic. New user
 # creation reads settings.LANGUAGE_CODE at runtime (see core.user.handler), so
 # this is honoured live per deploy without a migration.
-LANGUAGE_CODE = os.getenv("BASEROW_DEFAULT_LOCALE", "ar")
+LANGUAGE_CODE = os.getenv("JADAWEL_DEFAULT_LOCALE", "ar")
 
 # Jadawel ships Arabic and English only. The upstream project's other
 # translations were removed deliberately: they were partial and unreviewed.
@@ -422,27 +426,27 @@ REST_FRAMEWORK = {
 }
 
 # Throttling / rate-limiting — see docs/installation/configuration.md
-BASEROW_MAX_CONCURRENT_USER_REQUESTS = int(
-    os.getenv("BASEROW_MAX_CONCURRENT_USER_REQUESTS", "") or -1
+JADAWEL_MAX_CONCURRENT_USER_REQUESTS = int(
+    os.getenv("JADAWEL_MAX_CONCURRENT_USER_REQUESTS", "") or -1
 )
-BASEROW_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT = int(
-    os.getenv("BASEROW_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT", 180)
+JADAWEL_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT = int(
+    os.getenv("JADAWEL_CONCURRENT_USER_REQUESTS_THROTTLE_TIMEOUT", 180)
 )
-BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS = int(
-    os.getenv("BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS", "") or -1
+JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS = int(
+    os.getenv("JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS", "") or -1
 )
-BASEROW_THROTTLE_IP_ENABLED = str_to_bool(os.getenv("BASEROW_THROTTLE_IP_ENABLED", ""))
+JADAWEL_THROTTLE_IP_ENABLED = str_to_bool(os.getenv("JADAWEL_THROTTLE_IP_ENABLED", ""))
 
-if BASEROW_MAX_CONCURRENT_USER_REQUESTS > 0:
+if JADAWEL_MAX_CONCURRENT_USER_REQUESTS > 0:
     REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = [
         "jadawel.throttling.handler.ConcurrentUserRequestsThrottle",
     ]
 
     REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
-        "concurrent_user_requests": BASEROW_MAX_CONCURRENT_USER_REQUESTS
+        "concurrent_user_requests": JADAWEL_MAX_CONCURRENT_USER_REQUESTS
     }
 
-    if BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS > 0:
+    if JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS > 0:
         # Insert after SecurityMiddleware so 429s still get security/CORS headers.
         _security_idx = MIDDLEWARE.index(
             "django.middleware.security.SecurityMiddleware"
@@ -456,7 +460,7 @@ if BASEROW_MAX_CONCURRENT_USER_REQUESTS > 0:
         "jadawel.throttling.middleware.ConcurrentUserRequestsMiddleware",
     ]
 
-BASEROW_CACHE_TTL_SECONDS = int(os.getenv("BASEROW_CACHE_TTL_SECONDS", 0))
+JADAWEL_CACHE_TTL_SECONDS = int(os.getenv("JADAWEL_CACHE_TTL_SECONDS", 0))
 
 PUBLIC_VIEW_AUTHORIZATION_HEADER = "Jadawel-View-Authorization"
 
@@ -479,20 +483,20 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 ]
 
 ACCESS_TOKEN_LIFETIME = timedelta(
-    minutes=int(os.getenv("BASEROW_ACCESS_TOKEN_LIFETIME_MINUTES", 10))  # 10 minutes
+    minutes=int(os.getenv("JADAWEL_ACCESS_TOKEN_LIFETIME_MINUTES", 10))  # 10 minutes
 )
 REFRESH_TOKEN_LIFETIME = timedelta(
-    hours=int(os.getenv("BASEROW_REFRESH_TOKEN_LIFETIME_HOURS", 24 * 7))  # 7 days
+    hours=int(os.getenv("JADAWEL_REFRESH_TOKEN_LIFETIME_HOURS", 24 * 7))  # 7 days
 )
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": ACCESS_TOKEN_LIFETIME,
     "REFRESH_TOKEN_LIFETIME": REFRESH_TOKEN_LIFETIME,
     "AUTH_HEADER_TYPES": ("JWT",),
-    # It is recommended that you set BASEROW_JWT_SIGNING_KEY so it is independent
+    # It is recommended that you set JADAWEL_JWT_SIGNING_KEY so it is independent
     # from the Django SECRET_KEY. This will make changing the signing key used for
     # tokens easier in the event that it is compromised.
-    "SIGNING_KEY": os.getenv("BASEROW_JWT_SIGNING_KEY") or os.getenv("SECRET_KEY"),
+    "SIGNING_KEY": os.getenv("JADAWEL_JWT_SIGNING_KEY") or os.getenv("SECRET_KEY"),
     "USER_AUTHENTICATION_RULE": lambda user: user is not None,
 }
 
@@ -613,21 +617,21 @@ SPECTACULAR_SETTINGS = {
     },
 }
 
-BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = int(
-    Decimal(os.getenv("BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB", 1024 * 1024)) * 1024 * 1024
+JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = int(
+    Decimal(os.getenv("JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB", 1024 * 1024)) * 1024 * 1024
 )  # ~1TB by default
 
 FILE_UPLOAD_ACTIVE_CONTENT_POLICY = os.getenv(
-    "BASEROW_FILE_UPLOAD_ACTIVE_CONTENT_POLICY", "download"
+    "JADAWEL_FILE_UPLOAD_ACTIVE_CONTENT_POLICY", "download"
 ).lower()
 if FILE_UPLOAD_ACTIVE_CONTENT_POLICY not in ("download", "block"):
     raise ImproperlyConfigured(
-        "BASEROW_FILE_UPLOAD_ACTIVE_CONTENT_POLICY must be set to "
+        "JADAWEL_FILE_UPLOAD_ACTIVE_CONTENT_POLICY must be set to "
         "'download' or 'block'."
     )
 
-BASEROW_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = int(
-    os.getenv("BASEROW_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB", 512)
+JADAWEL_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB = int(
+    os.getenv("JADAWEL_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB", 512)
 )
 
 # Allows accessing and setting values on a dictionary like an object. Using this
@@ -668,7 +672,7 @@ if AWS_STORAGE_ENABLED:
     AWS_S3_FILE_OVERWRITE = False
     # This is needed to write the media file in a single call to `files_zip.writestr`
     # as described here: https://github.com/kobotoolbox/kobocat/issues/475
-    AWS_S3_FILE_BUFFER_SIZE = BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
+    AWS_S3_FILE_BUFFER_SIZE = JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
     set_settings_from_env_if_present(
         AttrDict(vars()),
         [
@@ -779,19 +783,19 @@ STORAGES = {
     },
 }
 
-BASEROW_PUBLIC_URL = os.getenv("BASEROW_PUBLIC_URL", "")
-if BASEROW_PUBLIC_URL:
-    PUBLIC_BACKEND_URL = BASEROW_PUBLIC_URL
-    PUBLIC_WEB_FRONTEND_URL = BASEROW_PUBLIC_URL
+JADAWEL_PUBLIC_URL = os.getenv("JADAWEL_PUBLIC_URL", "")
+if JADAWEL_PUBLIC_URL:
+    PUBLIC_BACKEND_URL = JADAWEL_PUBLIC_URL
+    PUBLIC_WEB_FRONTEND_URL = JADAWEL_PUBLIC_URL
 else:
     PUBLIC_BACKEND_URL = os.getenv("PUBLIC_BACKEND_URL", "http://localhost:8000")
     PUBLIC_WEB_FRONTEND_URL = os.getenv(
         "PUBLIC_WEB_FRONTEND_URL", "http://localhost:3000"
     )
 
-BASEROW_EMBEDDED_SHARE_URL = os.getenv("BASEROW_EMBEDDED_SHARE_URL")
-if not BASEROW_EMBEDDED_SHARE_URL:
-    BASEROW_EMBEDDED_SHARE_URL = PUBLIC_WEB_FRONTEND_URL
+JADAWEL_EMBEDDED_SHARE_URL = os.getenv("JADAWEL_EMBEDDED_SHARE_URL")
+if not JADAWEL_EMBEDDED_SHARE_URL:
+    JADAWEL_EMBEDDED_SHARE_URL = PUBLIC_WEB_FRONTEND_URL
 
 MEDIA_URL_PATH = "/media/"
 MEDIA_URL = os.getenv("MEDIA_URL", urljoin(PUBLIC_BACKEND_URL, MEDIA_URL_PATH))
@@ -799,7 +803,7 @@ MEDIA_URL = os.getenv("MEDIA_URL", urljoin(PUBLIC_BACKEND_URL, MEDIA_URL_PATH))
 PRIVATE_BACKEND_URL = os.getenv("PRIVATE_BACKEND_URL", "http://backend:8000")
 PUBLIC_BACKEND_HOSTNAME = urlparse(PUBLIC_BACKEND_URL).hostname
 PUBLIC_WEB_FRONTEND_HOSTNAME = urlparse(PUBLIC_WEB_FRONTEND_URL).hostname
-BASEROW_EMBEDDED_SHARE_HOSTNAME = urlparse(BASEROW_EMBEDDED_SHARE_URL).hostname
+JADAWEL_EMBEDDED_SHARE_HOSTNAME = urlparse(JADAWEL_EMBEDDED_SHARE_URL).hostname
 MEDIA_URL_HOSTNAME = urlparse(MEDIA_URL).hostname
 PRIVATE_BACKEND_HOSTNAME = urlparse(PRIVATE_BACKEND_URL).hostname
 
@@ -812,23 +816,23 @@ if MEDIA_URL_HOSTNAME:
 if PRIVATE_BACKEND_HOSTNAME:
     ALLOWED_HOSTS.append(PRIVATE_BACKEND_HOSTNAME)
 
-# Parse BASEROW_EXTRA_PUBLIC_URLS - comma-separated list of additional public URLs
-# where Jadawel will be accessible. It's the same as the `BASEROW_PUBLIC_URL`, the
-# only difference is that the `BASEROW_PUBLIC_URL` is used in emails.
-BASEROW_EXTRA_PUBLIC_URLS = os.getenv("BASEROW_EXTRA_PUBLIC_URLS", "")
+# Parse JADAWEL_EXTRA_PUBLIC_URLS - comma-separated list of additional public URLs
+# where Jadawel will be accessible. It's the same as the `JADAWEL_PUBLIC_URL`, the
+# only difference is that the `JADAWEL_PUBLIC_URL` is used in emails.
+JADAWEL_EXTRA_PUBLIC_URLS = os.getenv("JADAWEL_EXTRA_PUBLIC_URLS", "")
 EXTRA_PUBLIC_BACKEND_HOSTNAMES = []
 EXTRA_PUBLIC_WEB_FRONTEND_HOSTNAMES = []
 
-if BASEROW_EXTRA_PUBLIC_URLS:
+if JADAWEL_EXTRA_PUBLIC_URLS:
     extra_urls = [
-        url.strip() for url in BASEROW_EXTRA_PUBLIC_URLS.split(",") if url.strip()
+        url.strip() for url in JADAWEL_EXTRA_PUBLIC_URLS.split(",") if url.strip()
     ]
 
     for url in extra_urls:
         # Validate URL format - must start with http:// or https://
         if not url.startswith(("http://", "https://")):
             print(
-                f"WARNING: BASEROW_EXTRA_PUBLIC_URLS contains invalid URL '{url}'. "
+                f"WARNING: JADAWEL_EXTRA_PUBLIC_URLS contains invalid URL '{url}'. "
                 "URLs must start with http:// or https://. Skipping."
             )
             continue
@@ -851,7 +855,7 @@ FROM_EMAIL = os.getenv("FROM_EMAIL", "no-reply@localhost")
 RESET_PASSWORD_TOKEN_MAX_AGE = 60 * 60 * 2  # 2 hours
 CHANGE_EMAIL_TOKEN_MAX_AGE = 60 * 60 * 12  # 12 hours
 
-ROW_PAGE_SIZE_LIMIT = int(os.getenv("BASEROW_ROW_PAGE_SIZE_LIMIT", 200))
+ROW_PAGE_SIZE_LIMIT = int(os.getenv("JADAWEL_ROW_PAGE_SIZE_LIMIT", 200))
 BATCH_ROWS_SIZE_LIMIT = int(
     os.getenv("BATCH_ROWS_SIZE_LIMIT", 200)
 )  # How many rows can be modified at once.
@@ -861,26 +865,26 @@ FIELD_RULE_ROWS_LIMIT = int(os.getenv("FIELD_RULE_ROWS_LIMIT", BATCH_ROWS_SIZE_L
 
 # Maximum count of records returned by local baserow data source
 INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT = int(
-    os.getenv("BASEROW_INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT", 200)
+    os.getenv("JADAWEL_INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT", 200)
 )
 INTEGRATION_ALLOW_SMTP_SERVICE_TO_USE_INSTANCE_SETTINGS = str_to_bool(
-    os.getenv("BASEROW_INTEGRATION_ALLOW_SMTP_SERVICE_TO_USE_INSTANCE_SETTINGS", "true")
+    os.getenv("JADAWEL_INTEGRATION_ALLOW_SMTP_SERVICE_TO_USE_INSTANCE_SETTINGS", "true")
 )
 
 AUTOMATION_HISTORY_PAGE_SIZE_LIMIT = int(
-    os.getenv("BASEROW_AUTOMATION_HISTORY_PAGE_SIZE_LIMIT", 100)
+    os.getenv("JADAWEL_AUTOMATION_HISTORY_PAGE_SIZE_LIMIT", 100)
 )
 _legacy_workflow_rate_limit_max_runs = os.getenv(
-    "BASEROW_AUTOMATION_WORKFLOW_RATE_LIMIT_MAX_RUNS"
+    "JADAWEL_AUTOMATION_WORKFLOW_RATE_LIMIT_MAX_RUNS"
 )
 _legacy_workflow_rate_limit_window_seconds = os.getenv(
-    "BASEROW_AUTOMATION_WORKFLOW_RATE_LIMIT_CACHE_EXPIRY_SECONDS"
+    "JADAWEL_AUTOMATION_WORKFLOW_RATE_LIMIT_CACHE_EXPIRY_SECONDS"
 )
 _automation_workflow_rate_limits_env = os.getenv(
-    "BASEROW_AUTOMATION_WORKFLOW_RATE_LIMITS"
+    "JADAWEL_AUTOMATION_WORKFLOW_RATE_LIMITS"
 )
 _automation_workflow_error_limits_env = os.getenv(
-    "BASEROW_AUTOMATION_WORKFLOW_ERROR_LIMITS"
+    "JADAWEL_AUTOMATION_WORKFLOW_ERROR_LIMITS"
 )
 
 if _automation_workflow_rate_limits_env is not None:
@@ -902,7 +906,7 @@ else:
 
 if len(_automation_workflow_rate_limit_values) % 2 != 0:
     raise ImproperlyConfigured(
-        "BASEROW_AUTOMATION_WORKFLOW_RATE_LIMITS must contain an even number of "
+        "JADAWEL_AUTOMATION_WORKFLOW_RATE_LIMITS must contain an even number of "
         "comma-separated integers formatted as max_runs,window_seconds pairs."
     )
 
@@ -915,7 +919,7 @@ AUTOMATION_WORKFLOW_RATE_LIMITS = tuple(
 )
 AUTOMATION_WORKFLOW_HISTORY_RATE_LIMIT_CACHE_EXPIRY_SECONDS = int(
     os.getenv(
-        "BASEROW_AUTOMATION_WORKFLOW_HISTORY_RATE_LIMIT_CACHE_EXPIRY_SECONDS",
+        "JADAWEL_AUTOMATION_WORKFLOW_HISTORY_RATE_LIMIT_CACHE_EXPIRY_SECONDS",
         _legacy_workflow_rate_limit_window_seconds or 5,
     )
 )
@@ -930,7 +934,7 @@ else:
 
 if len(_automation_workflow_error_limit_values) % 2 != 0:
     raise ImproperlyConfigured(
-        "BASEROW_AUTOMATION_WORKFLOW_ERROR_LIMITS must contain an even number of "
+        "JADAWEL_AUTOMATION_WORKFLOW_ERROR_LIMITS must contain an even number of "
         "comma-separated integers formatted as max_errors,window_seconds pairs."
     )
 
@@ -942,26 +946,26 @@ AUTOMATION_WORKFLOW_ERROR_LIMITS = tuple(
     for index in range(0, len(_automation_workflow_error_limit_values), 2)
 )
 AUTOMATION_WORKFLOW_MAX_CONSECUTIVE_ERRORS = int(
-    os.getenv("BASEROW_AUTOMATION_WORKFLOW_MAX_CONSECUTIVE_ERRORS", 5)
+    os.getenv("JADAWEL_AUTOMATION_WORKFLOW_MAX_CONSECUTIVE_ERRORS", 5)
 )
 AUTOMATION_WORKFLOW_TIMEOUT_HOURS = int(
-    os.getenv("BASEROW_AUTOMATION_WORKFLOW_TIMEOUT_HOURS", 24)
+    os.getenv("JADAWEL_AUTOMATION_WORKFLOW_TIMEOUT_HOURS", 24)
 )
 AUTOMATION_WORKFLOW_HISTORY_MAX_DAYS = int(
-    os.getenv("BASEROW_AUTOMATION_WORKFLOW_HISTORY_MAX_DAYS", 30)
+    os.getenv("JADAWEL_AUTOMATION_WORKFLOW_HISTORY_MAX_DAYS", 30)
 )
 AUTOMATION_WORKFLOW_HISTORY_MAX_ENTRIES = int(
-    os.getenv("BASEROW_AUTOMATION_WORKFLOW_HISTORY_MAX_ENTRIES", 200)
+    os.getenv("JADAWEL_AUTOMATION_WORKFLOW_HISTORY_MAX_ENTRIES", 200)
 )
 AUTOMATION_WORKFLOW_HISTORY_CLEANUP_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_AUTOMATION_WORKFLOW_HISTORY_CLEANUP_INTERVAL_MINUTES", 60)
+    os.getenv("JADAWEL_AUTOMATION_WORKFLOW_HISTORY_CLEANUP_INTERVAL_MINUTES", 60)
 )
 
 TRASH_PAGE_SIZE_LIMIT = 200  # How many trash entries can be requested at once.
 
 # How many unique row values can be requested at once.
-BASEROW_UNIQUE_ROW_VALUES_SIZE_LIMIT = int(
-    os.getenv("BASEROW_UNIQUE_ROW_VALUES_SIZE_LIMIT", 100)
+JADAWEL_UNIQUE_ROW_VALUES_SIZE_LIMIT = int(
+    os.getenv("JADAWEL_UNIQUE_ROW_VALUES_SIZE_LIMIT", 100)
 )
 
 # The amount of rows that can be imported when creating a table or data sync.
@@ -969,8 +973,8 @@ INITIAL_TABLE_DATA_LIMIT = None
 if "INITIAL_TABLE_DATA_LIMIT" in os.environ:
     INITIAL_TABLE_DATA_LIMIT = int(os.getenv("INITIAL_TABLE_DATA_LIMIT"))
 
-BASEROW_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT = int(
-    os.getenv("BASEROW_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT", 5000)
+JADAWEL_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT = int(
+    os.getenv("JADAWEL_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT", 5000)
 )
 
 MEDIA_ROOT = os.getenv("MEDIA_ROOT", "/baserow/media")
@@ -988,16 +992,16 @@ IMPORT_FILES_DIRECTORY = "import_files"
 # The interval in minutes that the mentions cleanup job should run. This job will
 # remove mentions that are no longer used.
 STALE_MENTIONS_CLEANUP_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_STALE_MENTIONS_CLEANUP_INTERVAL_MINUTES", "") or 360
+    os.getenv("JADAWEL_STALE_MENTIONS_CLEANUP_INTERVAL_MINUTES", "") or 360
 )
 
 # Indicates how frequently the workspace storage should be updated. Once every X number
 # of hours.
-BASEROW_UPDATE_WORKSPACE_STORAGE_USAGE_HOURS = 24
+JADAWEL_UPDATE_WORKSPACE_STORAGE_USAGE_HOURS = 24
 
 ONE_AM_CRONTAB_STR = "0 1 * * *"
-BASEROW_SEAT_USAGE_JOB_CRONTAB = get_crontab_from_env(
-    "BASEROW_SEAT_USAGE_JOB_CRONTAB", default_crontab=ONE_AM_CRONTAB_STR
+JADAWEL_SEAT_USAGE_JOB_CRONTAB = get_crontab_from_env(
+    "JADAWEL_SEAT_USAGE_JOB_CRONTAB", default_crontab=ONE_AM_CRONTAB_STR
 )
 
 EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
@@ -1029,61 +1033,61 @@ else:
 # Enable email notifications globally. If disabled, tasks will reset the
 # email_scheduled field without sending any emails.
 EMAIL_NOTIFICATIONS_ENABLED = str_to_bool(
-    os.getenv("BASEROW_EMAIL_NOTIFICATIONS_ENABLED", "true")
+    os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_ENABLED", "true")
 )
 # The maximum amount of email notifications that can be sent per task. This
 # equals the amount of users that will receive an email, since all the
 # notifications for a user are sent in one email. If you want to limit the
 # number of emails sent per minute, look at MAX_EMAILS_PER_MINUTE.
 EMAIL_NOTIFICATIONS_LIMIT_PER_TASK = {
-    "instant": int(os.getenv("BASEROW_EMAIL_NOTIFICATIONS_LIMIT_INSTANT", 50)),
-    "daily": int(os.getenv("BASEROW_EMAIL_NOTIFICATIONS_LIMIT_DAILY", 1000)),
-    "weekly": int(os.getenv("BASEROW_EMAIL_NOTIFICATIONS_LIMIT_WEEKLY", 5000)),
+    "instant": int(os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_LIMIT_INSTANT", 50)),
+    "daily": int(os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_LIMIT_DAILY", 1000)),
+    "weekly": int(os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_LIMIT_WEEKLY", 5000)),
 }
 # The crontab used to schedule the instant email notifications task.
 EMAIL_NOTIFICATIONS_INSTANT_CRONTAB = get_crontab_from_env(
-    "BASEROW_EMAIL_NOTIFICATIONS_INSTANT_CRONTAB", default_crontab="* * * * *"
+    "JADAWEL_EMAIL_NOTIFICATIONS_INSTANT_CRONTAB", default_crontab="* * * * *"
 )
 # The hour of the day (between 0 and 23) when the daily and weekly email
 # notifications task is scheduled, according to the user timezone. Every hour a
 # task is scheduled and only the users in the correct timezone will receive an
 # email.
 EMAIL_NOTIFICATIONS_DAILY_HOUR_OF_DAY = int(
-    os.getenv("BASEROW_EMAIL_NOTIFICATIONS_DAILY_HOUR_OF_DAY", 0)
+    os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_DAILY_HOUR_OF_DAY", 0)
 )
 # The day of the week when the weekly email notifications task is scheduled,
 # according to the user timezone (0: Monday, ..., 6: Sunday).
 EMAIL_NOTIFICATIONS_WEEKLY_DAY_OF_WEEK = int(
-    os.getenv("BASEROW_EMAIL_NOTIFICATIONS_WEEKLY_DAY_OF_WEEK", 0)
+    os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_WEEKLY_DAY_OF_WEEK", 0)
 )
 # 0 seconds means that the task will not be retried if the limit of users being
 # notified is reached. Provide a positive number to enable retries after this many
 # seconds.
 EMAIL_NOTIFICATIONS_AUTO_RETRY_IF_LIMIT_REACHED_AFTER = (
-    int(os.getenv("BASEROW_EMAIL_NOTIFICATIONS_AUTO_RETRY_IF_LIMIT_REACHED_AFTER", 0))
+    int(os.getenv("JADAWEL_EMAIL_NOTIFICATIONS_AUTO_RETRY_IF_LIMIT_REACHED_AFTER", 0))
     or None
 )
 
 # The maximum number of notifications that are going to be listed in a single email.
 # All the additional notifications are going to be included in a single "and x more"
 MAX_NOTIFICATIONS_LISTED_PER_EMAIL = int(
-    os.getenv("BASEROW_MAX_NOTIFICATIONS_LISTED_PER_EMAIL", 10)
+    os.getenv("JADAWEL_MAX_NOTIFICATIONS_LISTED_PER_EMAIL", 10)
 )
 
 # Look into `CeleryEmailBackend` for more information about these settings.
 CELERY_EMAIL_CHUNK_SIZE = int(os.getenv("CELERY_EMAIL_CHUNK_SIZE", 10))
 # Use a multiple of CELERY_EMAIL_CHUNK_SIZE to have a sensible rate limit.
-MAX_EMAILS_PER_MINUTE = int(os.getenv("BASEROW_MAX_EMAILS_PER_MINUTE", 50))
+MAX_EMAILS_PER_MINUTE = int(os.getenv("JADAWEL_MAX_EMAILS_PER_MINUTE", 50))
 CELERY_EMAIL_TASK_CONFIG = {
     "rate_limit": f"{int(MAX_EMAILS_PER_MINUTE / CELERY_EMAIL_CHUNK_SIZE)}/m",
 }
 
-BASEROW_SEND_VERIFY_EMAIL_RATE_LIMIT = RateLimit.from_string(
-    os.getenv("BASEROW_SEND_VERIFY_EMAIL_RATE_LIMIT", "5/h")
+JADAWEL_SEND_VERIFY_EMAIL_RATE_LIMIT = RateLimit.from_string(
+    os.getenv("JADAWEL_SEND_VERIFY_EMAIL_RATE_LIMIT", "5/h")
 )
 
-login_action_limit_from_env = os.getenv("BASEROW_LOGIN_ACTION_LOG_LIMIT")
-BASEROW_LOGIN_ACTION_LOG_LIMIT = (
+login_action_limit_from_env = os.getenv("JADAWEL_LOGIN_ACTION_LOG_LIMIT")
+JADAWEL_LOGIN_ACTION_LOG_LIMIT = (
     RateLimit.from_string(login_action_limit_from_env)
     if login_action_limit_from_env
     else RateLimit(period_in_seconds=60 * 5, number_of_calls=1)
@@ -1101,14 +1105,14 @@ APPLICATION_TEMPLATES_DIR = os.path.join(BASE_DIR, "../../../templates")
 # modal.
 # IF CHANGING KEEP IN SYNC WITH e2e-tests/wait-for-services.sh
 DEFAULT_APPLICATION_TEMPLATES = ["project-tracker", "ab_ivory_theme"]
-BASEROW_SYNC_TEMPLATES_PATTERN = os.getenv("BASEROW_SYNC_TEMPLATES_PATTERN", None)
+JADAWEL_SYNC_TEMPLATES_PATTERN = os.getenv("JADAWEL_SYNC_TEMPLATES_PATTERN", None)
 
-MAX_FIELD_LIMIT = int(os.getenv("BASEROW_MAX_FIELD_LIMIT", 600))
+MAX_FIELD_LIMIT = int(os.getenv("JADAWEL_MAX_FIELD_LIMIT", 600))
 
 
 # set max events to be returned by every ICal feed. Empty value means no limit.
-BASEROW_ICAL_VIEW_MAX_EVENTS = try_int(
-    os.getenv("BASEROW_ICAL_VIEW_MAX_EVENTS", None), None
+JADAWEL_ICAL_VIEW_MAX_EVENTS = try_int(
+    os.getenv("JADAWEL_ICAL_VIEW_MAX_EVENTS", None), None
 )
 
 
@@ -1133,73 +1137,73 @@ DONT_UPDATE_FORMULAS_AFTER_MIGRATION = bool(
 )
 EVERY_TEN_MINUTES = "*/10 * * * *"
 PERIODIC_FIELD_UPDATE_TIMEOUT_MINUTES = int(
-    os.getenv("BASEROW_PERIODIC_FIELD_UPDATE_TIMEOUT_MINUTES", 9)
+    os.getenv("JADAWEL_PERIODIC_FIELD_UPDATE_TIMEOUT_MINUTES", 9)
 )
 PERIODIC_FIELD_UPDATE_CRONTAB = get_crontab_from_env(
-    "BASEROW_PERIODIC_FIELD_UPDATE_CRONTAB", default_crontab=EVERY_TEN_MINUTES
+    "JADAWEL_PERIODIC_FIELD_UPDATE_CRONTAB", default_crontab=EVERY_TEN_MINUTES
 )
-BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = int(
-    os.getenv("BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN", 60)
+JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = int(
+    os.getenv("JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN", 60)
 )
 PERIODIC_FIELD_UPDATE_QUEUE_NAME = os.getenv(
-    "BASEROW_PERIODIC_FIELD_UPDATE_QUEUE_NAME", "export"
+    "JADAWEL_PERIODIC_FIELD_UPDATE_QUEUE_NAME", "export"
 )
 
-BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES = int(
-    os.getenv("BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES", 8)
+JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES = int(
+    os.getenv("JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES", 8)
 )
-BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL = int(
-    os.getenv("BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL", 8)
+JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL = int(
+    os.getenv("JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL", 8)
 )
-BASEROW_WEBHOOKS_MAX_PER_TABLE = int(os.getenv("BASEROW_WEBHOOKS_MAX_PER_TABLE", 20))
-BASEROW_WEBHOOKS_MAX_CALL_LOG_ENTRIES = int(
-    os.getenv("BASEROW_WEBHOOKS_MAX_CALL_LOG_ENTRIES", 10)
+JADAWEL_WEBHOOKS_MAX_PER_TABLE = int(os.getenv("JADAWEL_WEBHOOKS_MAX_PER_TABLE", 20))
+JADAWEL_WEBHOOKS_MAX_CALL_LOG_ENTRIES = int(
+    os.getenv("JADAWEL_WEBHOOKS_MAX_CALL_LOG_ENTRIES", 10)
 )
-BASEROW_WEBHOOKS_REQUEST_TIMEOUT_SECONDS = int(
-    os.getenv("BASEROW_WEBHOOKS_REQUEST_TIMEOUT_SECONDS", 5)
+JADAWEL_WEBHOOKS_REQUEST_TIMEOUT_SECONDS = int(
+    os.getenv("JADAWEL_WEBHOOKS_REQUEST_TIMEOUT_SECONDS", 5)
 )
-BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS = bool(
-    os.getenv("BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS", False)
+JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS = bool(
+    os.getenv("JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS", False)
 )
-BASEROW_WEBHOOKS_IP_BLACKLIST = [
+JADAWEL_WEBHOOKS_IP_BLACKLIST = [
     ip_network(ip.strip())
-    for ip in os.getenv("BASEROW_WEBHOOKS_IP_BLACKLIST", "").split(",")
+    for ip in os.getenv("JADAWEL_WEBHOOKS_IP_BLACKLIST", "").split(",")
     if ip.strip() != ""
 ]
-BASEROW_WEBHOOKS_IP_WHITELIST = [
+JADAWEL_WEBHOOKS_IP_WHITELIST = [
     ip_network(ip.strip())
-    for ip in os.getenv("BASEROW_WEBHOOKS_IP_WHITELIST", "").split(",")
+    for ip in os.getenv("JADAWEL_WEBHOOKS_IP_WHITELIST", "").split(",")
     if ip.strip() != ""
 ]
-BASEROW_WEBHOOKS_URL_REGEX_BLACKLIST = [
+JADAWEL_WEBHOOKS_URL_REGEX_BLACKLIST = [
     re.compile(url_regex.strip())
-    for url_regex in os.getenv("BASEROW_WEBHOOKS_URL_REGEX_BLACKLIST", "").split(",")
+    for url_regex in os.getenv("JADAWEL_WEBHOOKS_URL_REGEX_BLACKLIST", "").split(",")
     if url_regex.strip() != ""
 ]
-BASEROW_WEBHOOKS_URL_CHECK_TIMEOUT_SECS = int(
-    os.getenv("BASEROW_WEBHOOKS_URL_CHECK_TIMEOUT_SECS", "10")
+JADAWEL_WEBHOOKS_URL_CHECK_TIMEOUT_SECS = int(
+    os.getenv("JADAWEL_WEBHOOKS_URL_CHECK_TIMEOUT_SECS", "10")
 )
-BASEROW_MAX_WEBHOOK_CALLS_IN_QUEUE_PER_WEBHOOK = (
-    int(os.getenv("BASEROW_MAX_WEBHOOK_CALLS_IN_QUEUE_PER_WEBHOOK", "0")) or None
+JADAWEL_MAX_WEBHOOK_CALLS_IN_QUEUE_PER_WEBHOOK = (
+    int(os.getenv("JADAWEL_MAX_WEBHOOK_CALLS_IN_QUEUE_PER_WEBHOOK", "0")) or None
 )
-BASEROW_WEBHOOKS_BATCH_LIMIT = int(os.getenv("BASEROW_WEBHOOKS_BATCH_LIMIT", 5))
-BASEROW_WEBHOOK_ROWS_ENTER_VIEW_BATCH_SIZE = int(
-    os.getenv("BASEROW_WEBHOOK_ROWS_ENTER_VIEW_BATCH_SIZE", BATCH_ROWS_SIZE_LIMIT)
+JADAWEL_WEBHOOKS_BATCH_LIMIT = int(os.getenv("JADAWEL_WEBHOOKS_BATCH_LIMIT", 5))
+JADAWEL_WEBHOOK_ROWS_ENTER_VIEW_BATCH_SIZE = int(
+    os.getenv("JADAWEL_WEBHOOK_ROWS_ENTER_VIEW_BATCH_SIZE", BATCH_ROWS_SIZE_LIMIT)
 )
 
-OAUTH_BACKEND_URL = os.getenv("BASEROW_OAUTH_BACKEND_URL") or PUBLIC_BACKEND_URL
+OAUTH_BACKEND_URL = os.getenv("JADAWEL_OAUTH_BACKEND_URL") or PUBLIC_BACKEND_URL
 
 INTEGRATIONS_ALLOW_PRIVATE_ADDRESS = bool(
-    os.getenv("BASEROW_INTEGRATIONS_ALLOW_PRIVATE_ADDRESS", False)
+    os.getenv("JADAWEL_INTEGRATIONS_ALLOW_PRIVATE_ADDRESS", False)
 )
 INTEGRATIONS_PERIODIC_TASK_CRONTAB = crontab(minute="*")
 # The minimum amount of minutes the periodic task's "minute" interval
 # supports. Self-hosters can run every minute, if they choose to.
 INTEGRATIONS_PERIODIC_MINUTE_MIN = int(
-    os.getenv("BASEROW_INTEGRATIONS_PERIODIC_MINUTE_MIN") or 1
+    os.getenv("JADAWEL_INTEGRATIONS_PERIODIC_MINUTE_MIN") or 1
 )
 
-TOTP_ISSUER_NAME = os.getenv("BASEROW_TOTP_ISSUER_NAME", "Jadawel")
+TOTP_ISSUER_NAME = os.getenv("JADAWEL_TOTP_ISSUER_NAME", "Jadawel")
 
 # ======== WARNING ========
 # Please read and understand everything at:
@@ -1212,58 +1216,58 @@ TOTP_ISSUER_NAME = os.getenv("BASEROW_TOTP_ISSUER_NAME", "Jadawel")
 # https://stackoverflow.com/questions/62337379/how-to-append-nginx-ip-to-x-forwarded
 # -for-in-kubernetes-nginx-ingress-controller
 
-if bool(os.getenv("BASEROW_ENABLE_SECURE_PROXY_SSL_HEADER", False)):
+if bool(os.getenv("JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER", False)):
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS = bool(
     os.getenv("DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS", "")
 )
 
-BASEROW_BACKEND_LOG_LEVEL = os.getenv("BASEROW_BACKEND_LOG_LEVEL", "INFO")
-BASEROW_BACKEND_DATABASE_LOG_LEVEL = os.getenv(
-    "BASEROW_BACKEND_DATABASE_LOG_LEVEL", "ERROR"
+JADAWEL_BACKEND_LOG_LEVEL = os.getenv("JADAWEL_BACKEND_LOG_LEVEL", "INFO")
+JADAWEL_BACKEND_DATABASE_LOG_LEVEL = os.getenv(
+    "JADAWEL_BACKEND_DATABASE_LOG_LEVEL", "ERROR"
 )
 
-BASEROW_JOB_EXPIRATION_TIME_LIMIT = int(
-    os.getenv("BASEROW_JOB_EXPIRATION_TIME_LIMIT", 30 * 24 * 60)  # 30 days
+JADAWEL_JOB_EXPIRATION_TIME_LIMIT = int(
+    os.getenv("JADAWEL_JOB_EXPIRATION_TIME_LIMIT", 30 * 24 * 60)  # 30 days
 )
-BASEROW_JOB_SOFT_TIME_LIMIT = int(
-    os.getenv("BASEROW_JOB_SOFT_TIME_LIMIT", 60 * 30)  # 30 minutes
+JADAWEL_JOB_SOFT_TIME_LIMIT = int(
+    os.getenv("JADAWEL_JOB_SOFT_TIME_LIMIT", 60 * 30)  # 30 minutes
 )
-BASEROW_JOB_CLEANUP_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_JOB_CLEANUP_INTERVAL_MINUTES", 5)  # 5 minutes
+JADAWEL_JOB_CLEANUP_INTERVAL_MINUTES = int(
+    os.getenv("JADAWEL_JOB_CLEANUP_INTERVAL_MINUTES", 5)  # 5 minutes
 )
-BASEROW_ROW_HISTORY_CLEANUP_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_ROW_HISTORY_CLEANUP_INTERVAL_MINUTES", 30)  # 30 minutes
+JADAWEL_ROW_HISTORY_CLEANUP_INTERVAL_MINUTES = int(
+    os.getenv("JADAWEL_ROW_HISTORY_CLEANUP_INTERVAL_MINUTES", 30)  # 30 minutes
 )
-BASEROW_ROW_HISTORY_RETENTION_DAYS = int(
-    os.getenv("BASEROW_ROW_HISTORY_RETENTION_DAYS", 180)
+JADAWEL_ROW_HISTORY_RETENTION_DAYS = int(
+    os.getenv("JADAWEL_ROW_HISTORY_RETENTION_DAYS", 180)
 )
-BASEROW_MAX_ROW_REPORT_ERROR_COUNT = int(
-    os.getenv("BASEROW_MAX_ROW_REPORT_ERROR_COUNT", 30)
+JADAWEL_MAX_ROW_REPORT_ERROR_COUNT = int(
+    os.getenv("JADAWEL_MAX_ROW_REPORT_ERROR_COUNT", 30)
 )
-BASEROW_MAX_SNAPSHOTS_PER_GROUP = int(os.getenv("BASEROW_MAX_SNAPSHOTS_PER_GROUP", 50))
-BASEROW_SNAPSHOT_EXPIRATION_TIME_DAYS = int(
-    os.getenv("BASEROW_SNAPSHOT_EXPIRATION_TIME_DAYS", 360)  # 360 days
+JADAWEL_MAX_SNAPSHOTS_PER_GROUP = int(os.getenv("JADAWEL_MAX_SNAPSHOTS_PER_GROUP", 50))
+JADAWEL_SNAPSHOT_EXPIRATION_TIME_DAYS = int(
+    os.getenv("JADAWEL_SNAPSHOT_EXPIRATION_TIME_DAYS", 360)  # 360 days
 )
-BASEROW_USER_LOG_ENTRY_CLEANUP_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_USER_LOG_ENTRY_CLEANUP_INTERVAL_MINUTES", 60)  # 60 minutes
+JADAWEL_USER_LOG_ENTRY_CLEANUP_INTERVAL_MINUTES = int(
+    os.getenv("JADAWEL_USER_LOG_ENTRY_CLEANUP_INTERVAL_MINUTES", 60)  # 60 minutes
 )
 # 61 days to accommodate timezone changes in admin dashboard
-BASEROW_USER_LOG_ENTRY_RETENTION_DAYS = int(
-    os.getenv("BASEROW_USER_LOG_ENTRY_RETENTION_DAYS", 61)
+JADAWEL_USER_LOG_ENTRY_RETENTION_DAYS = int(
+    os.getenv("JADAWEL_USER_LOG_ENTRY_RETENTION_DAYS", 61)
 )
-BASEROW_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES", 5)
+JADAWEL_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES = int(
+    os.getenv("JADAWEL_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES", 5)
 )
-BASEROW_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS = int(
-    os.getenv("BASEROW_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS", 5)
+JADAWEL_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS = int(
+    os.getenv("JADAWEL_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS", 5)
 )
 
 # The maximum number of rows that will be exported when exporting a table.
 # If `0` then all rows will be exported.
-BASEROW_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT = int(
-    os.getenv("BASEROW_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT", 0)
+JADAWEL_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT = int(
+    os.getenv("JADAWEL_IMPORT_EXPORT_TABLE_ROWS_COUNT_LIMIT", 0)
 )
 
 PERMISSION_MANAGERS = [
@@ -1313,19 +1317,19 @@ LOGGING = {
     "loggers": {
         "django.db.backends": {
             "handlers": ["console"],
-            "level": BASEROW_BACKEND_DATABASE_LOG_LEVEL,
+            "level": JADAWEL_BACKEND_DATABASE_LOG_LEVEL,
             "propagate": True,
         },
         # Default to ERROR to suppress 429 spam under heavy throttling.
         "django.request": {
             "handlers": ["console"],
-            "level": os.getenv("BASEROW_DJANGO_REQUEST_LOG_LEVEL", "ERROR"),
+            "level": os.getenv("JADAWEL_DJANGO_REQUEST_LOG_LEVEL", "ERROR"),
             "propagate": False,
         },
     },
     "root": {
         "handlers": ["console"],
-        "level": BASEROW_BACKEND_LOG_LEVEL,
+        "level": JADAWEL_BACKEND_LOG_LEVEL,
     },
 }
 
@@ -1335,67 +1339,67 @@ LOGGING = {
 # happening. Now we sync_templates in an async job triggered after migration.
 # This variable if not true will now stop the async job from being triggered.
 SYNC_TEMPLATES_ON_STARTUP = os.getenv("SYNC_TEMPLATES_ON_STARTUP", "true") == "true"
-BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = os.getenv(
-    "BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION", None
+JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = os.getenv(
+    "JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION", None
 )
 
-if BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION is None:
+if JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION is None:
     # If the new correctly named environment variable is not set, default to using
     # the old now incorrectly named SYNC_TEMPLATES_ON_STARTUP.
-    BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = SYNC_TEMPLATES_ON_STARTUP
+    JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = SYNC_TEMPLATES_ON_STARTUP
 else:
     # The new correctly named environment variable is set, so use that instead of
     # the old.
-    BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = (
-        BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION == "true"
+    JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = (
+        JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION == "true"
     )
 
-BASEROW_SYNC_TEMPLATES_TIME_LIMIT = int(
-    os.getenv("BASEROW_SYNC_TEMPLATES_TIME_LIMIT", 60 * 30)
+JADAWEL_SYNC_TEMPLATES_TIME_LIMIT = int(
+    os.getenv("JADAWEL_SYNC_TEMPLATES_TIME_LIMIT", 60 * 30)
 )
 
 APPEND_SLASH = False
 
-BASEROW_DISABLE_MODEL_CACHE = bool(os.getenv("BASEROW_DISABLE_MODEL_CACHE", ""))
-BASEROW_NOWAIT_FOR_LOCKS = not bool(
-    os.getenv("BASEROW_WAIT_INSTEAD_OF_409_CONFLICT_ERROR", False)
+JADAWEL_DISABLE_MODEL_CACHE = bool(os.getenv("JADAWEL_DISABLE_MODEL_CACHE", ""))
+JADAWEL_NOWAIT_FOR_LOCKS = not bool(
+    os.getenv("JADAWEL_WAIT_INSTEAD_OF_409_CONFLICT_ERROR", False)
 )
 
-BASEROW_PERSONAL_VIEW_LOWEST_ROLE_ALLOWED = (
-    os.getenv("BASEROW_PERSONAL_VIEW_LOWEST_ROLE_ALLOWED", "viewer").strip().upper()
+JADAWEL_PERSONAL_VIEW_LOWEST_ROLE_ALLOWED = (
+    os.getenv("JADAWEL_PERSONAL_VIEW_LOWEST_ROLE_ALLOWED", "viewer").strip().upper()
 )
 
 LICENSE_AUTHORITY_CHECK_TIMEOUT_SECONDS = 10
 
 MAX_NUMBER_CALENDAR_DAYS = 45
 
-MIGRATION_LOCK_ID = os.getenv("BASEROW_MIGRATION_LOCK_ID", 123456)
-DEFAULT_SEARCH_MODE = os.getenv("BASEROW_DEFAULT_SEARCH_MODE", "compat")
+MIGRATION_LOCK_ID = os.getenv("JADAWEL_MIGRATION_LOCK_ID", 123456)
+DEFAULT_SEARCH_MODE = os.getenv("JADAWEL_DEFAULT_SEARCH_MODE", "compat")
 
 
 # Search specific configuration settings.
 CELERY_SEARCH_UPDATE_HARD_TIME_LIMIT = int(
-    os.getenv("BASEROW_CELERY_SEARCH_UPDATE_HARD_TIME_LIMIT", 60 * 60)  # 1 hour
+    os.getenv("JADAWEL_CELERY_SEARCH_UPDATE_HARD_TIME_LIMIT", 60 * 60)  # 1 hour
 )
 # By default, Jadawel will use Postgres full-text as its
 # search backend. If the product is installed on a system
 # with limited disk space, and less accurate results / degraded
 # search performance is acceptable, then switch this setting off.
 PG_FULLTEXT_SEARCH_ENABLED = str_to_bool(
-    (os.getenv("BASEROW_USE_PG_FULLTEXT_SEARCH", "true"))
+    (os.getenv("JADAWEL_USE_PG_FULLTEXT_SEARCH", "true"))
 )
-PG_FULLTEXT_SEARCH_CONFIG = os.getenv("BASEROW_PG_SEARCH_CONFIG", "simple")
+PG_FULLTEXT_SEARCH_CONFIG = os.getenv("JADAWEL_PG_SEARCH_CONFIG", "simple")
 PG_FULLTEXT_SEARCH_UPDATE_DATA_THROTTLE_SECONDS = float(
-    os.getenv("BASEROW_PG_FULLTEXT_SEARCH_UPDATE_DATA_THROTTLE_SECONDS", 2)  # seconds
+    os.getenv("JADAWEL_PG_FULLTEXT_SEARCH_UPDATE_DATA_THROTTLE_SECONDS", 2)  # seconds
 )
 
 POSTHOG_PROJECT_API_KEY = os.getenv("POSTHOG_PROJECT_API_KEY", "")
 POSTHOG_HOST = os.getenv("POSTHOG_HOST") or None
 POSTHOG_ENABLED = bool(POSTHOG_PROJECT_API_KEY)
 
-BASEROW_BUILDER_DOMAINS = os.getenv("BASEROW_BUILDER_DOMAINS", None)
-BASEROW_BUILDER_DOMAINS = (
-    BASEROW_BUILDER_DOMAINS.split(",") if BASEROW_BUILDER_DOMAINS is not None else []
+JADAWEL_BUILDER_DOMAINS = os.getenv("JADAWEL_BUILDER_DOMAINS", None)
+JADAWEL_BUILDER_DOMAINS = (
+    JADAWEL_BUILDER_DOMAINS.split(",") if JADAWEL_BUILDER_DOMAINS is not None else []
 )
 
 # Indicates whether we are running the tests or not. Set to True in the test.py settings
@@ -1403,7 +1407,7 @@ BASEROW_BUILDER_DOMAINS = (
 TESTS = False
 
 
-for plugin in [*BASEROW_BUILT_IN_PLUGINS, *BASEROW_BACKEND_PLUGIN_NAMES]:
+for plugin in [*JADAWEL_BUILT_IN_PLUGINS, *JADAWEL_BACKEND_PLUGIN_NAMES]:
     try:
         mod = importlib.import_module(plugin + ".config.settings.settings")
         # The plugin should have a setup function which accepts a 'settings' object.
@@ -1419,7 +1423,7 @@ for plugin in [*BASEROW_BUILT_IN_PLUGINS, *BASEROW_BACKEND_PLUGIN_NAMES]:
 # memory footprint at startup. If any of these are found in sys.modules during startup,
 # a warning will be shown suggesting to either lazy-load them or remove them from this
 # list if they're legitimately needed at startup.
-BASEROW_LAZY_LOADED_LIBRARIES = [
+JADAWEL_LAZY_LOADED_LIBRARIES = [
     "openai",
     "anthropic",
     "mistralai",
@@ -1460,90 +1464,90 @@ if SENTRY_DSN:
         environment=os.getenv("SENTRY_ENVIRONMENT", ""),
     )
 else:
-    BASEROW_LAZY_LOADED_LIBRARIES.append("sentry_sdk")
+    JADAWEL_LAZY_LOADED_LIBRARIES.append("sentry_sdk")
 
-BASEROW_OPENAI_API_KEY = os.getenv("BASEROW_OPENAI_API_KEY", None)
-BASEROW_OPENAI_ORGANIZATION = os.getenv("BASEROW_OPENAI_ORGANIZATION", "") or None
-BASEROW_OPENAI_BASE_URL = os.getenv("BASEROW_OPENAI_BASE_URL", None) or None
-BASEROW_OPENAI_MODELS = os.getenv("BASEROW_OPENAI_MODELS", "")
-BASEROW_OPENAI_MODELS = (
-    BASEROW_OPENAI_MODELS.split(",") if BASEROW_OPENAI_MODELS else []
-)
-
-BASEROW_OPENROUTER_API_KEY = os.getenv("BASEROW_OPENROUTER_API_KEY", None)
-BASEROW_OPENROUTER_ORGANIZATION = (
-    os.getenv("BASEROW_OPENROUTER_ORGANIZATION", "") or None
-)
-BASEROW_OPENROUTER_MODELS = os.getenv("BASEROW_OPENROUTER_MODELS", "")
-BASEROW_OPENROUTER_MODELS = (
-    BASEROW_OPENROUTER_MODELS.split(",") if BASEROW_OPENROUTER_MODELS else []
+JADAWEL_OPENAI_API_KEY = os.getenv("JADAWEL_OPENAI_API_KEY", None)
+JADAWEL_OPENAI_ORGANIZATION = os.getenv("JADAWEL_OPENAI_ORGANIZATION", "") or None
+JADAWEL_OPENAI_BASE_URL = os.getenv("JADAWEL_OPENAI_BASE_URL", None) or None
+JADAWEL_OPENAI_MODELS = os.getenv("JADAWEL_OPENAI_MODELS", "")
+JADAWEL_OPENAI_MODELS = (
+    JADAWEL_OPENAI_MODELS.split(",") if JADAWEL_OPENAI_MODELS else []
 )
 
-BASEROW_ANTHROPIC_API_KEY = os.getenv("BASEROW_ANTHROPIC_API_KEY", None)
-BASEROW_ANTHROPIC_MODELS = os.getenv("BASEROW_ANTHROPIC_MODELS", "")
-BASEROW_ANTHROPIC_MODELS = (
-    BASEROW_ANTHROPIC_MODELS.split(",") if BASEROW_ANTHROPIC_MODELS else []
+JADAWEL_OPENROUTER_API_KEY = os.getenv("JADAWEL_OPENROUTER_API_KEY", None)
+JADAWEL_OPENROUTER_ORGANIZATION = (
+    os.getenv("JADAWEL_OPENROUTER_ORGANIZATION", "") or None
+)
+JADAWEL_OPENROUTER_MODELS = os.getenv("JADAWEL_OPENROUTER_MODELS", "")
+JADAWEL_OPENROUTER_MODELS = (
+    JADAWEL_OPENROUTER_MODELS.split(",") if JADAWEL_OPENROUTER_MODELS else []
 )
 
-BASEROW_MISTRAL_API_KEY = os.getenv("BASEROW_MISTRAL_API_KEY", None)
-BASEROW_MISTRAL_MODELS = os.getenv("BASEROW_MISTRAL_MODELS", "")
-BASEROW_MISTRAL_MODELS = (
-    BASEROW_MISTRAL_MODELS.split(",") if BASEROW_MISTRAL_MODELS else []
+JADAWEL_ANTHROPIC_API_KEY = os.getenv("JADAWEL_ANTHROPIC_API_KEY", None)
+JADAWEL_ANTHROPIC_MODELS = os.getenv("JADAWEL_ANTHROPIC_MODELS", "")
+JADAWEL_ANTHROPIC_MODELS = (
+    JADAWEL_ANTHROPIC_MODELS.split(",") if JADAWEL_ANTHROPIC_MODELS else []
 )
 
-BASEROW_OLLAMA_HOST = os.getenv("BASEROW_OLLAMA_HOST", None)
-BASEROW_OLLAMA_MODELS = os.getenv("BASEROW_OLLAMA_MODELS", "")
-BASEROW_OLLAMA_MODELS = (
-    BASEROW_OLLAMA_MODELS.split(",") if BASEROW_OLLAMA_MODELS else []
+JADAWEL_MISTRAL_API_KEY = os.getenv("JADAWEL_MISTRAL_API_KEY", None)
+JADAWEL_MISTRAL_MODELS = os.getenv("JADAWEL_MISTRAL_MODELS", "")
+JADAWEL_MISTRAL_MODELS = (
+    JADAWEL_MISTRAL_MODELS.split(",") if JADAWEL_MISTRAL_MODELS else []
 )
 
-BASEROW_TWO_WAY_SYNC_MAX_CONSECUTIVE_FAILURES = int(
-    os.getenv("BASEROW_TWO_WAY_SYNC_MAX_CONSECUTIVE_FAILURES", "") or 8
-)
-BASEROW_TWO_WAY_SYNC_MAX_RETRIES = int(
-    os.getenv("BASEROW_TWO_WAY_SYNC_MAX_RETRIES", "") or 3
+JADAWEL_OLLAMA_HOST = os.getenv("JADAWEL_OLLAMA_HOST", None)
+JADAWEL_OLLAMA_MODELS = os.getenv("JADAWEL_OLLAMA_MODELS", "")
+JADAWEL_OLLAMA_MODELS = (
+    JADAWEL_OLLAMA_MODELS.split(",") if JADAWEL_OLLAMA_MODELS else []
 )
 
-BASEROW_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE = str_to_bool(
-    os.getenv("BASEROW_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE", "true")
+JADAWEL_TWO_WAY_SYNC_MAX_CONSECUTIVE_FAILURES = int(
+    os.getenv("JADAWEL_TWO_WAY_SYNC_MAX_CONSECUTIVE_FAILURES", "") or 8
 )
-BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST = os.getenv(
-    "BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST", ""
+JADAWEL_TWO_WAY_SYNC_MAX_RETRIES = int(
+    os.getenv("JADAWEL_TWO_WAY_SYNC_MAX_RETRIES", "") or 3
 )
-BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST = (
-    BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST.split(",")
-    if BASEROW_POSTGRESQL_DATA_SYNC_BLACKLIST
+
+JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE = str_to_bool(
+    os.getenv("JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE", "true")
+)
+JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST = os.getenv(
+    "JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST", ""
+)
+JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST = (
+    JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST.split(",")
+    if JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST
     else []
 )
 
 # Default compression level for creating zip files. This setting balances the need to
 # save resources when compressing media files with the need to save space when
 # compressing text files.
-BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL = 5
+JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL = 5
 
-BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE = int(
-    os.getenv("BASEROW_MAX_HEALTHY_CELERY_QUEUE_SIZE", "") or 10
+JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE = int(
+    os.getenv("JADAWEL_MAX_HEALTHY_CELERY_QUEUE_SIZE", "") or 10
 )
 
-BASEROW_USE_LOCAL_CACHE = str_to_bool(os.getenv("BASEROW_USE_LOCAL_CACHE", "true"))
+JADAWEL_USE_LOCAL_CACHE = str_to_bool(os.getenv("JADAWEL_USE_LOCAL_CACHE", "true"))
 
-BASEROW_EMBEDDINGS_API_URL = os.getenv("BASEROW_EMBEDDINGS_API_URL", "")
+JADAWEL_EMBEDDINGS_API_URL = os.getenv("JADAWEL_EMBEDDINGS_API_URL", "")
 
 # -- CACHALOT SETTINGS --
 
-CACHALOT_TIMEOUT = int(os.getenv("BASEROW_CACHALOT_TIMEOUT", 60 * 60 * 24 * 7))
-BASEROW_CACHALOT_ONLY_CACHABLE_TABLES = os.getenv(
-    "BASEROW_CACHALOT_ONLY_CACHABLE_TABLES", None
+CACHALOT_TIMEOUT = int(os.getenv("JADAWEL_CACHALOT_TIMEOUT", 60 * 60 * 24 * 7))
+JADAWEL_CACHALOT_ONLY_CACHABLE_TABLES = os.getenv(
+    "JADAWEL_CACHALOT_ONLY_CACHABLE_TABLES", None
 )
-BASEROW_CACHALOT_MODE = os.getenv("BASEROW_CACHALOT_MODE", "default")
-if BASEROW_CACHALOT_MODE == "full":
+JADAWEL_CACHALOT_MODE = os.getenv("JADAWEL_CACHALOT_MODE", "default")
+if JADAWEL_CACHALOT_MODE == "full":
     CACHALOT_ONLY_CACHABLE_TABLES = []
 
-elif BASEROW_CACHALOT_ONLY_CACHABLE_TABLES:
+elif JADAWEL_CACHALOT_ONLY_CACHABLE_TABLES:
     # Please avoid to add tables with more than 50 modifications per minute to this
     # list, as described here:
     # https://django-cachalot.readthedocs.io/en/latest/limits.html
-    CACHALOT_ONLY_CACHABLE_TABLES = BASEROW_CACHALOT_ONLY_CACHABLE_TABLES.split(",")
+    CACHALOT_ONLY_CACHABLE_TABLES = JADAWEL_CACHALOT_ONLY_CACHABLE_TABLES.split(",")
 else:
     CACHALOT_ONLY_CACHABLE_TABLES = [
         "auth_user",
@@ -1568,16 +1572,16 @@ else:
     ]
 
 # This list will have priority over CACHALOT_ONLY_CACHABLE_TABLES.
-BASEROW_CACHALOT_UNCACHABLE_TABLES = os.getenv(
-    "BASEROW_CACHALOT_UNCACHABLE_TABLES", None
+JADAWEL_CACHALOT_UNCACHABLE_TABLES = os.getenv(
+    "JADAWEL_CACHALOT_UNCACHABLE_TABLES", None
 )
 
-if BASEROW_CACHALOT_UNCACHABLE_TABLES:
+if JADAWEL_CACHALOT_UNCACHABLE_TABLES:
     CACHALOT_UNCACHABLE_TABLES = list(
-        filter(bool, BASEROW_CACHALOT_UNCACHABLE_TABLES.split(","))
+        filter(bool, JADAWEL_CACHALOT_UNCACHABLE_TABLES.split(","))
     )
 
-CACHALOT_ENABLED = str_to_bool(os.getenv("BASEROW_CACHALOT_ENABLED", ""))
+CACHALOT_ENABLED = str_to_bool(os.getenv("JADAWEL_CACHALOT_ENABLED", ""))
 CACHALOT_CACHE = "cachalot"
 CACHALOT_UNCACHABLE_TABLES = [
     "django_migrations",
@@ -1609,24 +1613,24 @@ if CACHALOT_ENABLED:
 # -- END CACHALOT SETTINGS --
 
 
-BASEROW_DEADLOCK_MAX_RETRIES = max(
-    try_int(os.getenv("BASEROW_DEADLOCK_MAX_RETRIES"), 1),
+JADAWEL_DEADLOCK_MAX_RETRIES = max(
+    try_int(os.getenv("JADAWEL_DEADLOCK_MAX_RETRIES"), 1),
     1,
 )
-BASEROW_DEADLOCK_INITIAL_BACKOFF = max(
-    try_float(os.getenv("BASEROW_DEADLOCK_INITIAL_BACKOFF"), 0.2),
+JADAWEL_DEADLOCK_INITIAL_BACKOFF = max(
+    try_float(os.getenv("JADAWEL_DEADLOCK_INITIAL_BACKOFF"), 0.2),
     0.1,
 )
 
 # Set to "all" to enable captcha everywhere, or comma-separated contexts like
 # "signup,invitations" to enable only in specific places.
-BASEROW_ENABLE_CAPTCHA = os.getenv("BASEROW_ENABLE_CAPTCHA", "")
-BASEROW_CAPTCHA_PROVIDER = os.getenv("BASEROW_CAPTCHA_PROVIDER", "cloudflare_turnstile")
-BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY = os.getenv(
-    "BASEROW_CLOUDFLARE_TURNSTILE_SITE_KEY", ""
+JADAWEL_ENABLE_CAPTCHA = os.getenv("JADAWEL_ENABLE_CAPTCHA", "")
+JADAWEL_CAPTCHA_PROVIDER = os.getenv("JADAWEL_CAPTCHA_PROVIDER", "cloudflare_turnstile")
+JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY = os.getenv(
+    "JADAWEL_CLOUDFLARE_TURNSTILE_SITE_KEY", ""
 )
-BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY = os.getenv(
-    "BASEROW_CLOUDFLARE_TURNSTILE_SECRET_KEY", ""
+JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY = os.getenv(
+    "JADAWEL_CLOUDFLARE_TURNSTILE_SECRET_KEY", ""
 )
 
 

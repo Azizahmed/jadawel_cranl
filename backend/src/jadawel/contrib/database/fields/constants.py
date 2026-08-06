@@ -10,7 +10,7 @@ UPSERT_OPTION_DICT_KEY = "upsert_id"
 # WARNING: these values are prone to SQL injection
 # lowercase serializers.BooleanField.TRUE_VALUES + "checked" keyword
 # fmt: off
-BASEROW_BOOLEAN_FIELD_TRUE_VALUES = [
+JADAWEL_BOOLEAN_FIELD_TRUE_VALUES = [
     't', 'T',
     'y', 'Y', 'yes', 'Yes', 'YES',
     'true', 'True', 'TRUE',
@@ -21,7 +21,7 @@ BASEROW_BOOLEAN_FIELD_TRUE_VALUES = [
 ]
 # lowercase serializers.BooleanField.FALSE_VALUES + "unchecked" keyword
 # fmt: off
-BASEROW_BOOLEAN_FIELD_FALSE_VALUES = [
+JADAWEL_BOOLEAN_FIELD_FALSE_VALUES = [
     'f', 'F',
     'n', 'N', 'no', 'No', 'NO',
     'false', 'False', 'FALSE',

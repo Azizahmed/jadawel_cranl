@@ -311,7 +311,7 @@ class SignInUserActionType(ActionType):
             )
 
         rate_limit(
-            rate=settings.BASEROW_LOGIN_ACTION_LOG_LIMIT,
+            rate=settings.JADAWEL_LOGIN_ACTION_LOG_LIMIT,
             key=f"{user.username}:{type(auth_provider).__name__}",
             raise_exception=False,
         )(log_signin_action)()

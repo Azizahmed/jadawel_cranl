@@ -23,9 +23,9 @@ heroku labs:enable -a jadawel-test-app runtime-dyno-metadata
 
 # Finally we need to set all the environment variables listed in the app.json file.
 heroku config:set -a jadawel-test-app SECRET_KEY=REPLACE_WITH_SECRET_VALUE
-heroku config:set -a jadawel-test-app BASEROW_JWT_SIGNING_KEY=REPLACE_WITH_JWT_SIGNING_VALUE
-heroku config:set -a jadawel-test-app BASEROW_PUBLIC_URL=https://jadawel-test-app.herokuapp.com
-heroku config:set -a jadawel-test-app BASEROW_AMOUNT_OF_WORKERS=1
+heroku config:set -a jadawel-test-app JADAWEL_JWT_SIGNING_KEY=REPLACE_WITH_JWT_SIGNING_VALUE
+heroku config:set -a jadawel-test-app JADAWEL_PUBLIC_URL=https://jadawel-test-app.herokuapp.com
+heroku config:set -a jadawel-test-app JADAWEL_AMOUNT_OF_WORKERS=1
 ```
 
 Now that we have replicated the setup of the app.json, we can deploy the application

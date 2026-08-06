@@ -35,7 +35,7 @@ baserow_ready() {
     fi
 }
 
-for _ in $(seq 1 "${BASEROW_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-60}")
+for _ in $(seq 1 "${JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-60}")
 do
   echo 'Waiting for backend, web-frontend and synced templates to be ready'
   if baserow_ready; then

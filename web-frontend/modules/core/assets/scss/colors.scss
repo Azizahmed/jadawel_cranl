@@ -222,7 +222,7 @@ $color-cyan-200: $palette-cyan-200 !default;
 $color-cyan-300: $palette-cyan-300 !default;
 $color-cyan-400: $palette-cyan-400 !default;
 
-// Should stay in sync with 'backend/src/baserow/core/constants.py::BASEROW_COLORS'.
+// Should stay in sync with 'backend/src/jadawel/core/constants.py::JADAWEL_COLORS'.
 //
 // These are USER DATA, not interface styling: the key is what gets written to
 // the database when someone picks a colour for a select option, a view or a

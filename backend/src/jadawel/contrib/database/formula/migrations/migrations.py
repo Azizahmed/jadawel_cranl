@@ -134,4 +134,4 @@ FORMULA_MIGRATIONS = FormulaMigrations(
     ]
 )
 # The current version is the last migration.
-BASEROW_FORMULA_VERSION = FORMULA_MIGRATIONS.get_latest_version()
+JADAWEL_FORMULA_VERSION = FORMULA_MIGRATIONS.get_latest_version()

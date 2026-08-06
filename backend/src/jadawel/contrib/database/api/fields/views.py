@@ -352,7 +352,7 @@ class FieldsView(APIView):
         type_name = data.pop("type")
         field_type = field_type_registry.get(type_name)
         table = TableHandler().get_table_for_update(
-            table_id, nowait=settings.BASEROW_NOWAIT_FOR_LOCKS
+            table_id, nowait=settings.JADAWEL_NOWAIT_FOR_LOCKS
         )
         CoreHandler().check_permissions(
             request.user,
@@ -631,8 +631,8 @@ class UniqueRowValueFieldView(APIView):
         limit = query_params.get("limit")
         split_comma_separated = query_params.get("split_comma_separated")
 
-        if not limit or limit > settings.BASEROW_UNIQUE_ROW_VALUES_SIZE_LIMIT:
-            limit = settings.BASEROW_UNIQUE_ROW_VALUES_SIZE_LIMIT
+        if not limit or limit > settings.JADAWEL_UNIQUE_ROW_VALUES_SIZE_LIMIT:
+            limit = settings.JADAWEL_UNIQUE_ROW_VALUES_SIZE_LIMIT
 
         values = FieldHandler().get_unique_row_values(
             field, limit, split_comma_separated=split_comma_separated

@@ -6,7 +6,7 @@ set -euo pipefail
 source /baserow/plugins/utils.sh
 
 simple_log "Installed Jadawel Plugins:"
-for plugin_folder in "$BASEROW_PLUGIN_DIR"/*; do
+for plugin_folder in "$JADAWEL_PLUGIN_DIR"/*; do
     if [[ -d "$plugin_folder" ]]; then
         plugin_name="$(basename -- "$plugin_folder")"
         simple_log " - $plugin_name"

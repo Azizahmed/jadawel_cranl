@@ -326,7 +326,7 @@ def test_prepare_file_for_db_with_unreachable_url(data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB=1)
+@override_settings(JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB=1)
 def test_prepare_file_for_db_with_toolarge_url(data_fixture, fake):
     user = data_fixture.create_user()
     image = fake.image(size=(1000, 1000))

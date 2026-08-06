@@ -18,7 +18,7 @@ class CaptchaHandler:
         :return: True if captcha is enabled in this instance.
         """
 
-        return bool(getattr(settings, "BASEROW_ENABLE_CAPTCHA", ""))
+        return bool(getattr(settings, "JADAWEL_ENABLE_CAPTCHA", ""))
 
     @staticmethod
     def is_captcha_enabled_for(context: str) -> bool:
@@ -32,7 +32,7 @@ class CaptchaHandler:
         if not CaptchaHandler.is_enabled():
             return False
 
-        enabled = getattr(settings, "BASEROW_ENABLE_CAPTCHA", "")
+        enabled = getattr(settings, "JADAWEL_ENABLE_CAPTCHA", "")
         enabled = enabled.strip().lower()
         if enabled == "all":
             return True
@@ -43,7 +43,7 @@ class CaptchaHandler:
     @staticmethod
     def get_active_provider() -> CaptchaProviderType:
         """
-        Returns the active captcha provider based on the BASEROW_CAPTCHA_PROVIDER
+        Returns the active captcha provider based on the JADAWEL_CAPTCHA_PROVIDER
         setting.
 
         :raises CaptchaProviderDoesNotExist: If the configured provider type is not
@@ -52,10 +52,10 @@ class CaptchaHandler:
             env vars).
         """
 
-        provider_type = getattr(settings, "BASEROW_CAPTCHA_PROVIDER", "")
+        provider_type = getattr(settings, "JADAWEL_CAPTCHA_PROVIDER", "")
         if not provider_type:
             raise RuntimeError(
-                "BASEROW_ENABLE_CAPTCHA is set but BASEROW_CAPTCHA_PROVIDER is empty. "
+                "JADAWEL_ENABLE_CAPTCHA is set but JADAWEL_CAPTCHA_PROVIDER is empty. "
                 "Please configure a captcha provider."
             )
 

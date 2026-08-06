@@ -73,7 +73,7 @@ from jadawel.core.services.registries import (
     TriggerServiceTypeMixin,
 )
 from jadawel.core.services.types import DispatchResult, FormulaToResolve, ServiceDict
-from jadawel.version import VERSION as BASEROW_VERSION
+from jadawel.version import VERSION as JADAWEL_VERSION
 
 
 class CoreServiceType(ServiceType):
@@ -561,7 +561,7 @@ class CoreHTTPRequestServiceType(CoreServiceType):
         elif service.body_type == BODY_TYPE.RAW:  # Raw payload
             body_dict["data"] = body_content
 
-        headers = {"user-agent": f"Jadawel/{BASEROW_VERSION}/HTTPRequestService"} | {
+        headers = {"user-agent": f"Jadawel/{JADAWEL_VERSION}/HTTPRequestService"} | {
             h.key: resolved_values[f"header_{h.id}"] for h in service.headers.all()
         }
         query_params = {

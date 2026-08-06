@@ -17,13 +17,13 @@ on upstream refactor · `high` = frequently-touched upstream file, expect confli
 
 **Context:** The Baserow repo is open-core. Per the non-negotiable legal guardrail, the
 `premium/` and `enterprise/` directories are proprietary and were **deleted** from the
-fork. Baserow already supports an OSS-only mode (`BASEROW_OSS_ONLY`), so most of core is
+fork. Baserow already supports an OSS-only mode (`JADAWEL_OSS_ONLY`), so most of core is
 designed to run without these plugins; the edits below remove the remaining build/config
 references and one runtime dependency on a setting the enterprise plugin used to inject.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/jadawel/config/settings/base.py` | Force `BASEROW_OSS_ONLY = True` and `BASEROW_BUILT_IN_PLUGINS = []`; removed `baserow_premium_*`/`baserow_enterprise_*` table names from the CACHALOT lists; added a default for `BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES` | Stop loading the deleted plugins; keep cache config referencing only existing tables; provide the setting core still reads (see below) | high |
+| `backend/src/jadawel/config/settings/base.py` | Force `JADAWEL_OSS_ONLY = True` and `JADAWEL_BUILT_IN_PLUGINS = []`; removed `baserow_premium_*`/`baserow_enterprise_*` table names from the CACHALOT lists; added a default for `JADAWEL_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES` | Stop loading the deleted plugins; keep cache config referencing only existing tables; provide the setting core still reads (see below) | high |
 | `backend/pyproject.toml` | Removed `[tool.uv.workspace] members` (premium/enterprise backends), their pytest `pythonpath` entries; set isort `known-first-party = ["baserow", "arabase"]` | Workspace members no longer exist | med |
 | `backend/uv.lock` | Regenerated with `uv lock` — dropped `baserow-premium` and `baserow-enterprise` | Keep lock consistent with pyproject so `uv sync --frozen` works | med |
 | `backend/Dockerfile` | Removed all premium/enterprise `COPY`/`--mount`/`PYTHONPATH`/`mkdir` refs across builder-prod-base, builder-ci, builder-prod, ci, dev, local stages | Those paths/files no longer exist; build would fail | high |
@@ -94,7 +94,7 @@ Nuxt build (and the bind-mounted dev server) fails with
 
 ### Runtime note
 `baserow.core.user_sources.handler.update_user_count_...` reads
-`settings.BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES`, which the
+`settings.JADAWEL_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES`, which the
 enterprise plugin used to inject. The periodic task that calls it was scheduled by the
 enterprise plugin (not core), so this path is effectively dormant in the OSS build, but
 we define a safe default (10, a divisor of 60) so it can never raise `AttributeError`.
@@ -109,12 +109,12 @@ env-configurable so new installs come up Arabic-first.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
-| `backend/src/jadawel/config/settings/base.py` | `LANGUAGE_CODE = os.getenv("BASEROW_DEFAULT_LOCALE", "ar")`; prepended `("ar", "Arabic")` to `LANGUAGES` | Make Arabic selectable + the env-configurable default; new-user creation reads `settings.LANGUAGE_CODE` live (see `core.user.handler`) so `BASEROW_DEFAULT_LOCALE` is honoured per deploy | med |
+| `backend/src/jadawel/config/settings/base.py` | `LANGUAGE_CODE = os.getenv("JADAWEL_DEFAULT_LOCALE", "ar")`; prepended `("ar", "Arabic")` to `LANGUAGES` | Make Arabic selectable + the env-configurable default; new-user creation reads `settings.LANGUAGE_CODE` live (see `core.user.handler`) so `JADAWEL_DEFAULT_LOCALE` is honoured per deploy | med |
 | `backend/src/jadawel/core/migrations/0115_jadawel_add_arabic_language.py` | **New** AlterField migration for `userprofile.language` (adds `ar` to choices, default `ar`) | Django requires the migration to live in the model's app (`core`); it's a no-op choices/default change, no data impact | low |
 | `web-frontend/config/locales.js` | Added `{ code: 'ar', name: 'العربية', file: 'ar.json', dir: 'rtl' }` (first entry) | Activate the `ar` locale across all module langDirs; `dir: 'rtl'` is the source of truth for direction | med |
 | `web-frontend/config/nuxt.config.base.ts` | `defaultLocale` now `process.env.NUXT_DEFAULT_LOCALE || 'ar'` | Arabic-first frontend default, env-overridable to match the backend | med |
 
-**New env var:** `BASEROW_DEFAULT_LOCALE` (backend, default `ar`) / `NUXT_DEFAULT_LOCALE`
+**New env var:** `JADAWEL_DEFAULT_LOCALE` (backend, default `ar`) / `NUXT_DEFAULT_LOCALE`
 (frontend, default `ar`). Set both to `en` to bring the stack up LTR/English for
 comparison during the RTL audit.
 

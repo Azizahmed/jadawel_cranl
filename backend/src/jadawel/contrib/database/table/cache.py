@@ -4,7 +4,7 @@ stored in the generated models cache in a Redis backed Django cache (or in-memor
 for tests).
 
 We then store cache field_attrs in the cache key:
-    `full_table_model_{table_id}_{min_model_version}_{BASEROW_VERSION}`
+    `full_table_model_{table_id}_{min_model_version}_{JADAWEL_VERSION}`
 
 When we construct a model we:
 1. Get the table version using the table.version attribute.
@@ -23,7 +23,7 @@ from django.core.cache import caches
 from django.core.exceptions import ImproperlyConfigured
 
 from jadawel.core.cache import local_cache
-from jadawel.version import VERSION as BASEROW_VERSION
+from jadawel.version import VERSION as JADAWEL_VERSION
 
 if typing.TYPE_CHECKING:
     from jadawel.contrib.database.table.models import Table
@@ -32,7 +32,7 @@ generated_models_cache = caches[settings.GENERATED_MODEL_CACHE_NAME]
 
 
 def table_model_cache_entry_key(table_id: int) -> str:
-    return f"full_table_model_{table_id}_{BASEROW_VERSION}"
+    return f"full_table_model_{table_id}_{JADAWEL_VERSION}"
 
 
 def get_cached_model_field_attrs(table: "Table") -> Optional[Dict[str, Any]]:
@@ -78,7 +78,7 @@ def invalidate_table_in_model_cache(table_id: int):
     # Delete model local cache
     local_cache.delete(f"database_table_model_{table_id}*")
 
-    if settings.BASEROW_DISABLE_MODEL_CACHE:
+    if settings.JADAWEL_DISABLE_MODEL_CACHE:
         return None
 
     new_version = str(uuid.uuid4())

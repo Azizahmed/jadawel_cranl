@@ -4,7 +4,7 @@ from jadawel.contrib.automation.data_providers.registries import (
     automation_data_provider_type_registry,
 )
 from jadawel.core.formula import BaserowFormulaObject, get_parse_tree_for_formula
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_RAW
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW
 from jadawel.core.services.formula_importer import BaserowFormulaImporter
 
 
@@ -35,7 +35,7 @@ def import_formula(
 
     formula = BaserowFormulaObject.to_formula(formula)
 
-    if formula["mode"] == BASEROW_FORMULA_MODE_RAW or not formula["formula"]:
+    if formula["mode"] == JADAWEL_FORMULA_MODE_RAW or not formula["formula"]:
         return formula
 
     tree = get_parse_tree_for_formula(formula["formula"])

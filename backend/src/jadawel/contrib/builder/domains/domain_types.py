@@ -33,7 +33,7 @@ class SubDomainType(DomainType):
         :raises SubDomainHasInvalidDomainName: If the domain name is not registered
         """
 
-        for domain in settings.BASEROW_BUILDER_DOMAINS:
+        for domain in settings.JADAWEL_BUILDER_DOMAINS:
             if domain_name.endswith(f".{domain}"):
                 # The domain suffix is valid
                 return

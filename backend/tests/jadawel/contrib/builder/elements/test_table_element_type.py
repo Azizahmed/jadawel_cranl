@@ -15,8 +15,8 @@ from jadawel.contrib.builder.elements.registries import element_type_registry
 from jadawel.contrib.builder.elements.service import ElementService
 from jadawel.contrib.builder.workflow_actions.models import NotificationWorkflowAction
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.utils import MirrorDict
 
 
@@ -224,8 +224,8 @@ def test_duplicate_table_element_with_current_record_formulas(data_fixture):
         {
             "value": BaserowFormulaObject(
                 formula=f"get('current_record.field_{fields[0].id}')",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             )
         },
         {
@@ -235,13 +235,13 @@ def test_duplicate_table_element_with_current_record_formulas(data_fixture):
             "navigation_type": "custom",
             "navigate_to_url": BaserowFormulaObject(
                 formula=f"get('current_record.field_{fields[0].id}')",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "link_name": BaserowFormulaObject(
                 formula=f"get('current_record.field_{fields[0].id}')",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "target": "self",
             "variant": LinkElement.VARIANTS.BUTTON,
@@ -287,8 +287,8 @@ def test_import_table_element_with_current_record_formulas_with_update(data_fixt
                 "config": {
                     "value": BaserowFormulaObject(
                         formula="get('current_record.field_42')",
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
                     )
                 },
                 "type": "text",
@@ -303,13 +303,13 @@ def test_import_table_element_with_current_record_formulas_with_update(data_fixt
                     "navigation_type": "custom",
                     "navigate_to_url": BaserowFormulaObject(
                         formula="get('current_record.field_42')",
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
                     ),
                     "link_name": BaserowFormulaObject(
                         formula="get('current_record.field_42')",
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
                     ),
                     "target": "self",
                     "variant": LinkElement.VARIANTS.BUTTON,
@@ -335,8 +335,8 @@ def test_import_table_element_with_current_record_formulas_with_update(data_fixt
         {
             "value": BaserowFormulaObject(
                 formula=f"get('current_record.field_{fields[0].id}')",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             )
         },
         {
@@ -346,13 +346,13 @@ def test_import_table_element_with_current_record_formulas_with_update(data_fixt
             "navigation_type": "custom",
             "navigate_to_url": BaserowFormulaObject(
                 formula=f"get('current_record.field_{fields[0].id}')",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "link_name": BaserowFormulaObject(
                 formula=f"get('current_record.field_{fields[0].id}')",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "target": "self",
             "variant": LinkElement.VARIANTS.BUTTON,

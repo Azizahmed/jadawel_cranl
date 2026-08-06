@@ -119,7 +119,7 @@ class AuthProviderType(BaseAuthProviderType):
         user = UserHandler().get_active_user(email=user_info.email)
 
         is_original_provider_check_needed = (
-            not settings.BASEROW_ALLOW_MULTIPLE_SSO_PROVIDERS_FOR_SAME_ACCOUNT
+            not settings.JADAWEL_ALLOW_MULTIPLE_SSO_PROVIDERS_FOR_SAME_ACCOUNT
         )
         if (
             is_original_provider_check_needed

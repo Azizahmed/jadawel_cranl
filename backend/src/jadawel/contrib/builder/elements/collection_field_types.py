@@ -10,7 +10,7 @@ from jadawel.contrib.builder.elements.registries import CollectionFieldType
 from jadawel.contrib.builder.workflow_actions.models import BuilderWorkflowAction
 from jadawel.core.constants import RatingStyleChoices
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_RAW, BaserowFormulaObject
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW, BaserowFormulaObject
 from jadawel.core.registry import Instance
 
 
@@ -276,7 +276,7 @@ class TagsCollectionFieldType(CollectionFieldType):
         )
 
         if not is_formula:
-            colors["mode"] = BASEROW_FORMULA_MODE_RAW
+            colors["mode"] = JADAWEL_FORMULA_MODE_RAW
 
         new_formula = yield colors
         if new_formula is not None:

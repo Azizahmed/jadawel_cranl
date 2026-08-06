@@ -22,7 +22,7 @@ if [[ -z "$plugin_name" ]]; then
 fi
 
 
-folder="$BASEROW_PLUGIN_DIR/$plugin_name"
+folder="$JADAWEL_PLUGIN_DIR/$plugin_name"
 
 if [[ ! -d "$folder" ]]; then
     error "Plugin '$plugin_name' not found."

@@ -129,7 +129,7 @@ import InjectedFormulaInput from '@jadawel/modules/core/components/formula/Injec
 import IntegrationDropdown from '@jadawel/modules/core/components/integrations/IntegrationDropdown'
 import Checkbox from '@jadawel/modules/core/components/Checkbox'
 import { SMTPIntegrationType } from '@jadawel/modules/integrations/core/integrationTypes'
-import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
+import { JADAWEL_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'CoreSMTPEmailServiceForm',
@@ -182,7 +182,7 @@ export default {
   computed: {
     bodyFormulaMode() {
       return this.values.body_type !== 'html'
-        ? BASEROW_FORMULA_MODES
+        ? JADAWEL_FORMULA_MODES
         : ['raw', 'simple']
     },
     showInstanceSmtpOption() {

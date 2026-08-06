@@ -22,7 +22,7 @@ def get_queue(webhook_id):
     return RedisQueue(
         queue_key,
         redis_connection,
-        max_length=settings.BASEROW_MAX_WEBHOOK_CALLS_IN_QUEUE_PER_WEBHOOK,
+        max_length=settings.JADAWEL_MAX_WEBHOOK_CALLS_IN_QUEUE_PER_WEBHOOK,
     )
 
 
@@ -51,7 +51,7 @@ def schedule_next_task_in_queue(webhook_id):
 @app.task(
     name="baserow.contrib.database.webhooks.tasks.call_webhook",
     bind=True,
-    max_retries=settings.BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL,
+    max_retries=settings.JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL,
     queue="export",
 )
 def call_webhook(
@@ -165,7 +165,7 @@ def call_webhook(
     # This part must be outside of the transaction block, otherwise it could cause
     # the transaction to rollback when the retry exception is raised, and we don't want
     # that to happen.
-    if not success and retries < settings.BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL:
+    if not success and retries < settings.JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL:
         # If the task is still operating within the max retries per call limit, then we
         # want to retry the task with an exponential backoff. If there are other
         # webhook calls in the webhook task queue (not the Celery queue), it could be
@@ -230,7 +230,7 @@ def make_request_and_save_result(
             webhook.save()
     elif (
         webhook.failed_triggers
-        < settings.BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES
+        < settings.JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES
     ):
         # If the task has reached the maximum amount of failed calls, we're
         # going to give up and increase the total failed triggers of the webhook

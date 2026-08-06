@@ -3,7 +3,7 @@
         ask {$PRIVATE_BACKEND_URL:localhost:8000}/api/builder/domains/ask-public-domain-exists/
     }
 
-    {$BASEROW_CADDY_GLOBAL_CONF}
+    {$JADAWEL_CADDY_GLOBAL_CONF}
 }
 
 (jadawel_media_files) {
@@ -17,7 +17,7 @@
 
         # Allow to call head from public url to get size
         header {
-            Access-Control-Allow-Origin {$BASEROW_PUBLIC_URL:http://localhost}
+            Access-Control-Allow-Origin {$JADAWEL_PUBLIC_URL:http://localhost}
             Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
             Access-Control-Allow-Headers "*"
             Access-Control-Expose-Headers "Content-Length, Content-Type"
@@ -29,7 +29,7 @@
     }
 }
 
-{$BASEROW_CADDY_ADDRESSES} {
+{$JADAWEL_CADDY_ADDRESSES} {
     tls {
         on_demand
     }
@@ -81,8 +81,8 @@
 
     @is_jadawel_tool {
         expression `
-            "{$BASEROW_PUBLIC_URL}".contains({http.request.host}) ||
-            "{$BASEROW_EXTRA_PUBLIC_URLS}".split(",")
+            "{$JADAWEL_PUBLIC_URL}".contains({http.request.host}) ||
+            "{$JADAWEL_EXTRA_PUBLIC_URLS}".split(",")
                 .filter(u, u != "" && u.contains({http.request.host}))
                 .size() > 0
         `
@@ -116,7 +116,7 @@
     }
 
     handle @is_jadawel_tool {
-        @backend_routes path /api/* /ws/* /mcp/* /assistant/* {$BASEROW_CADDY_BACKEND_EXTRA_ROUTES:}
+        @backend_routes path /api/* /ws/* /mcp/* /assistant/* {$JADAWEL_CADDY_BACKEND_EXTRA_ROUTES:}
         handle @backend_routes {
             reverse_proxy {$PRIVATE_BACKEND_URL:localhost:8000}
         }

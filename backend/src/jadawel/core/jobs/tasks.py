@@ -13,7 +13,7 @@ from jadawel.core.telemetry.utils import setup_user_in_baggage_and_spans
     name="baserow.core.jobs.tasks.run_async_job",
     bind=True,
     queue="export",
-    soft_time_limit=settings.BASEROW_JOB_SOFT_TIME_LIMIT,
+    soft_time_limit=settings.JADAWEL_JOB_SOFT_TIME_LIMIT,
 )
 def run_async_job(self, job_id: int):
     """Run the job task asynchronously"""
@@ -97,6 +97,6 @@ def clean_up_jobs(self):
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
-        timedelta(minutes=settings.BASEROW_JOB_CLEANUP_INTERVAL_MINUTES),
+        timedelta(minutes=settings.JADAWEL_JOB_CLEANUP_INTERVAL_MINUTES),
         clean_up_jobs.s(),
     )

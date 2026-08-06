@@ -39,8 +39,8 @@ from jadawel.core.action.registries import action_type_registry
 from jadawel.core.actions import CreateApplicationActionType
 from jadawel.core.db import specific_iterator
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.registries import ImportExportConfig, application_type_registry
 from jadawel.core.storage import ExportZipFile
 from jadawel.core.trash.handler import TrashHandler
@@ -253,8 +253,8 @@ def test_builder_application_export(data_fixture):
                 "visibility": "all",
                 "visibility_condition": BaserowFormulaObject(
                     formula="",
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
                 ),
                 "css_classes": "",
                 "styles": {},
@@ -306,8 +306,8 @@ def test_builder_application_export(data_fixture):
                 "visibility": "all",
                 "visibility_condition": BaserowFormulaObject(
                     formula="",
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
                 ),
                 "styles": {},
                 "style_border_top_color": "border",
@@ -447,8 +447,8 @@ def test_builder_application_export(data_fixture):
                         "visibility": "all",
                         "visibility_condition": BaserowFormulaObject(
                             formula="",
-                            mode=BASEROW_FORMULA_MODE_SIMPLE,
-                            version=BASEROW_FORMULA_VERSION_INITIAL,
+                            mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                            version=JADAWEL_FORMULA_VERSION_INITIAL,
                         ),
                         "styles": {},
                         "style_border_top_color": "border",
@@ -490,8 +490,8 @@ def test_builder_application_export(data_fixture):
                         "visibility": "all",
                         "visibility_condition": BaserowFormulaObject(
                             formula="",
-                            mode=BASEROW_FORMULA_MODE_SIMPLE,
-                            version=BASEROW_FORMULA_VERSION_INITIAL,
+                            mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                            version=JADAWEL_FORMULA_VERSION_INITIAL,
                         ),
                         "styles": {},
                         "style_border_top_color": "border",
@@ -532,8 +532,8 @@ def test_builder_application_export(data_fixture):
                         "visibility": "all",
                         "visibility_condition": BaserowFormulaObject(
                             formula="",
-                            mode=BASEROW_FORMULA_MODE_SIMPLE,
-                            version=BASEROW_FORMULA_VERSION_INITIAL,
+                            mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                            version=JADAWEL_FORMULA_VERSION_INITIAL,
                         ),
                         "styles": {},
                         "style_border_top_color": "border",
@@ -576,8 +576,8 @@ def test_builder_application_export(data_fixture):
                         "visibility": "all",
                         "visibility_condition": BaserowFormulaObject(
                             formula="",
-                            mode=BASEROW_FORMULA_MODE_SIMPLE,
-                            version=BASEROW_FORMULA_VERSION_INITIAL,
+                            mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                            version=JADAWEL_FORMULA_VERSION_INITIAL,
                         ),
                         "styles": {},
                         "style_border_top_color": "border",
@@ -1717,7 +1717,7 @@ def test_builder_application_exports_file_with_zip_file(
     )
 
     zip_file = ExportZipFile(
-        compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+        compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
         compress_type=zipstream.ZIP_DEFLATED,
     )
 

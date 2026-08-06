@@ -22,13 +22,13 @@ from .user.tasks import check_pending_account_deletion
     raise_on_duplicate=False,
     bind=True,
     queue="export",
-    time_limit=settings.BASEROW_SYNC_TEMPLATES_TIME_LIMIT,
-    lock_expiry=settings.BASEROW_SYNC_TEMPLATES_TIME_LIMIT,
+    time_limit=settings.JADAWEL_SYNC_TEMPLATES_TIME_LIMIT,
+    lock_expiry=settings.JADAWEL_SYNC_TEMPLATES_TIME_LIMIT,
 )
 def sync_templates_task(self):
     from jadawel.core.handler import CoreHandler
 
-    CoreHandler().sync_templates(pattern=settings.BASEROW_SYNC_TEMPLATES_PATTERN)
+    CoreHandler().sync_templates(pattern=settings.JADAWEL_SYNC_TEMPLATES_PATTERN)
 
 
 __all__ = [

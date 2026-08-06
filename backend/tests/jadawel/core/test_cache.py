@@ -79,10 +79,10 @@ def test_cache_cleanup_after_request(middleware):
     assert local_cache.get("user_profile", "after") == "after"
 
 
-@override_settings(BASEROW_USE_LOCAL_CACHE=False)
+@override_settings(JADAWEL_USE_LOCAL_CACHE=False)
 def test_cache_disabled():
     """
-    Test that the cache does not store values when BASEROW_USE_LOCAL_CACHE is False.
+    Test that the cache does not store values when JADAWEL_USE_LOCAL_CACHE is False.
     """
 
     assert local_cache.get("user_profile", lambda: "disabled") == "disabled"

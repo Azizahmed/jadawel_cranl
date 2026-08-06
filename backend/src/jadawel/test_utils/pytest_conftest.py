@@ -1081,12 +1081,12 @@ def test_thread():
 def baserow_db_setup(django_db_setup, django_db_blocker):
     """
     Initialize the Jadawel database for tests by installing custom pgSQL functions
-    and sequences. Disable this fixture with BASEROW_TESTS_SETUP_DB_FIXTURE=off if
+    and sequences. Disable this fixture with JADAWEL_TESTS_SETUP_DB_FIXTURE=off if
     running a subset of tests with `--no-migrations --reuse-db` and the pgSQL
     functions are not needed or if you want to run all migrations.
     """
 
-    if getattr(django_settings, "BASEROW_TESTS_SETUP_DB_FIXTURE", False) is False:
+    if getattr(django_settings, "JADAWEL_TESTS_SETUP_DB_FIXTURE", False) is False:
         return
 
     def init_link_row_sequence():

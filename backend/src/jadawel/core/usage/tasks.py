@@ -14,7 +14,7 @@ CALCULATE_STORAGE_TIME_LIMIT = 60 * CALCULATE_STORAGE_MINUTES
 @app.task(
     name="baserow.core.usage.tasks.run_calculate_storage",
     base=Singleton,
-    queue=settings.BASEROW_GROUP_STORAGE_USAGE_QUEUE,
+    queue=settings.JADAWEL_GROUP_STORAGE_USAGE_QUEUE,
     raise_on_duplicate=False,
     soft_time_limit=CALCULATE_STORAGE_TIME_LIMIT,
     time_limit=CALCULATE_STORAGE_TIME_LIMIT,

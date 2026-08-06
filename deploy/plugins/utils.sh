@@ -32,7 +32,7 @@ BOLD="$(safe_tput bold)"
 
 NC=$(safe_tput sgr0) # No Color
 
-BASEROW_PLUGIN_DIR=${BASEROW_PLUGIN_DIR:-/baserow/plugins}
+JADAWEL_PLUGIN_DIR=${JADAWEL_PLUGIN_DIR:-/baserow/plugins}
 
 simple_log(){
   echo -e "${BLUE}[PLUGIN] $*${NC}"
@@ -49,11 +49,11 @@ error(){
 
 
 startup_plugin_setup(){
-  if [[ -z "${BASEROW_PLUGIN_SETUP_ALREADY_RUN:-}" ]]; then
-    if [[ -z "${BASEROW_DISABLE_PLUGIN_INSTALL_ON_STARTUP:-}" ]]; then
+  if [[ -z "${JADAWEL_PLUGIN_SETUP_ALREADY_RUN:-}" ]]; then
+    if [[ -z "${JADAWEL_DISABLE_PLUGIN_INSTALL_ON_STARTUP:-}" ]]; then
       # Make sure any plugins found in the data dir are installed in this container if not
       # already.
-      for plugin_dir in "$BASEROW_PLUGIN_DIR"/*/; do
+      for plugin_dir in "$JADAWEL_PLUGIN_DIR"/*/; do
         log "Found a plugin in $plugin_dir, ensuring it is installed..."
         if [[ -d "$plugin_dir" ]]; then
           /baserow/plugins/install_plugin.sh --runtime --folder "$plugin_dir"
@@ -61,24 +61,24 @@ startup_plugin_setup(){
       done
 
       # Make sure any plugins configured via the environment variable are installed.
-      for url in $(echo "${BASEROW_PLUGIN_URLS:-}" | tr "," "\n")
+      for url in $(echo "${JADAWEL_PLUGIN_URLS:-}" | tr "," "\n")
       do
         log "Downloading and installing the plugin found at $url"
         /baserow/plugins/install_plugin.sh --runtime --url "$url"
       done
 
-      for repo in $(echo "${BASEROW_PLUGIN_GIT_REPOS:-}" | tr "," "\n")
+      for repo in $(echo "${JADAWEL_PLUGIN_GIT_REPOS:-}" | tr "," "\n")
       do
         log "Downloading and installing the plugin found at $repo"
         /baserow/plugins/install_plugin.sh --runtime --git "$repo"
       done
 
       # Ensure we don't run this function multiple times in the same shell.
-      export BASEROW_PLUGIN_SETUP_ALREADY_RUN="yes"
+      export JADAWEL_PLUGIN_SETUP_ALREADY_RUN="yes"
     else
-      log "Not installing any plugins found in $BASEROW_PLUGIN_DIR or set in the
-      BASEROW_PLUGIN_URLS or BASEROW_PLUGIN_GIT_REPOS env variables as
-      BASEROW_DISABLE_PLUGIN_INSTALL_ON_STARTUP is set."
+      log "Not installing any plugins found in $JADAWEL_PLUGIN_DIR or set in the
+      JADAWEL_PLUGIN_URLS or JADAWEL_PLUGIN_GIT_REPOS env variables as
+      JADAWEL_DISABLE_PLUGIN_INSTALL_ON_STARTUP is set."
     fi
   fi
 }

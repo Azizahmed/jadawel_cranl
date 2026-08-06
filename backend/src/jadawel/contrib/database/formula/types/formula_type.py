@@ -390,13 +390,13 @@ class BaserowFormulaType(abc.ABC):
 
         from jadawel.contrib.database.fields.models import FormulaField
         from jadawel.contrib.database.formula.types.formula_types import (
-            BASEROW_FORMULA_TYPE_ALLOWED_FIELDS,
+            JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS,
         )
 
         field_has_user_defined_values = self._has_user_defined_values(formula_field)
 
         formula_field.formula_type = self.type
-        for attr in BASEROW_FORMULA_TYPE_ALLOWED_FIELDS:
+        for attr in JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS:
             if attr in self.user_overridable_formatting_option_fields:
                 if not field_has_user_defined_values:
                     setattr(formula_field, attr, getattr(self, attr))

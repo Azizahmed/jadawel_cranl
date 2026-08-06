@@ -9,24 +9,24 @@ from .utils import setup_dev_e2e, str_to_bool
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev_hardcoded_secret_key")  # noqa: F405
 SIMPLE_JWT["SIGNING_KEY"] = (  # noqa: F405
-    os.getenv("BASEROW_JWT_SIGNING_KEY") or "dev_hardcoded_jwt_signing_key"
+    os.getenv("JADAWEL_JWT_SIGNING_KEY") or "dev_hardcoded_jwt_signing_key"
 )
 
 
 DEBUG = True
-BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES = 4
-BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL = 4
+JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES = 4
+JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL = 4
 
 INSTALLED_APPS.insert(0, "daphne")  # noqa: F405
 INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 
 # daphne imports numpy via autobahn -> flatbuffers, so we exclude it from the
 # lazy-load check in dev mode. In production, numpy should still be lazy-loaded.
-if "numpy" in BASEROW_LAZY_LOADED_LIBRARIES:  # noqa: F405
-    BASEROW_LAZY_LOADED_LIBRARIES.remove("numpy")  # noqa: F405
+if "numpy" in JADAWEL_LAZY_LOADED_LIBRARIES:  # noqa: F405
+    JADAWEL_LAZY_LOADED_LIBRARIES.remove("numpy")  # noqa: F405
 
-BASEROW_ENABLE_SILK = str_to_bool(os.getenv("BASEROW_ENABLE_SILK", "on"))
-if BASEROW_ENABLE_SILK:
+JADAWEL_ENABLE_SILK = str_to_bool(os.getenv("JADAWEL_ENABLE_SILK", "on"))
+if JADAWEL_ENABLE_SILK:
     INSTALLED_APPS += ["silk"]  # noqa: F405
     MIDDLEWARE += [  # noqa: F405
         "silk.middleware.SilkyMiddleware",
@@ -50,7 +50,7 @@ if BASEROW_ENABLE_SILK:
 # See https://github.com/jazzband/django-silk/issues/629.
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 SILKY_ANALYZE_QUERIES = bool(
-    os.getenv("BASEROW_DANGEROUS_SILKY_ANALYZE_QUERIES", False)  # noqa: F405
+    os.getenv("JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES", False)  # noqa: F405
 )
 
 snoop.install()
@@ -61,18 +61,18 @@ EMAIL_USE_TLS = False
 EMAIL_HOST = os.getenv("EMAIL_HOST", "mailhog")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "1025"))
 
-BASEROW_MAX_ROW_REPORT_ERROR_COUNT = 10  # To trigger this exception easily
+JADAWEL_MAX_ROW_REPORT_ERROR_COUNT = 10  # To trigger this exception easily
 
 post_migrate.connect(setup_dev_e2e, dispatch_uid="setup_dev_e2e")
 
 
-# Mirror logs to a file when BASEROW_LOG_FILE is set (e.g. for AI access when
+# Mirror logs to a file when JADAWEL_LOG_FILE is set (e.g. for AI access when
 # running locally). Truncated on each restart.
-BASEROW_LOG_FILE = os.getenv("BASEROW_LOG_FILE", "")
-if BASEROW_LOG_FILE:
+JADAWEL_LOG_FILE = os.getenv("JADAWEL_LOG_FILE", "")
+if JADAWEL_LOG_FILE:
     LOGGING["handlers"]["file"] = {  # noqa: F405
         "class": "logging.FileHandler",
-        "filename": BASEROW_LOG_FILE,
+        "filename": JADAWEL_LOG_FILE,
         "formatter": "console",
         "mode": "w",
     }
@@ -82,7 +82,7 @@ if BASEROW_LOG_FILE:
     # the assistant telemetry) appear alongside stdlib log output.
     from loguru import logger as _loguru_logger
 
-    _loguru_logger.add(BASEROW_LOG_FILE, mode="a")
+    _loguru_logger.add(JADAWEL_LOG_FILE, mode="a")
 
 try:
     from .local import *  # noqa: F403, F401

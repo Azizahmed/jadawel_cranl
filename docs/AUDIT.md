@@ -29,7 +29,7 @@ The locale infrastructure (task set §1.1 of the plan) is implemented and verifi
 **headlessly against the live dev stack**:
 - **Backend:** `settings.LANGUAGE_CODE == "ar"` and `("ar", "Arabic") in settings.LANGUAGES`
   (container shell). New-user default language reads `LANGUAGE_CODE` live, so
-  `BASEROW_DEFAULT_LOCALE` is honoured per deploy. Core migration
+  `JADAWEL_DEFAULT_LOCALE` is honoured per deploy. Core migration
   `0115_jadawel_add_arabic_language` applied; `core` migration state clean.
 - **Frontend SSR:** `GET http://localhost:3000/login/` → HTTP 200 emits
   **`<html lang="ar" dir="rtl">`** (single `dir="rtl"`, single `lang="ar"` — set

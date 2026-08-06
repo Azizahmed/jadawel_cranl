@@ -11,7 +11,7 @@ class RowErrorReport:
     def __init__(
         self,
         rows: List[Dict[str, Any]],
-        error_limit: int = settings.BASEROW_MAX_ROW_REPORT_ERROR_COUNT,
+        error_limit: int = settings.JADAWEL_MAX_ROW_REPORT_ERROR_COUNT,
     ):
         """
         The RowErrorReport is a helper to track rows errors and generate a report at

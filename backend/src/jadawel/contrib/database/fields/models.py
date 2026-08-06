@@ -16,8 +16,8 @@ from jadawel.contrib.database.fields.mixins import (
 )
 from jadawel.contrib.database.fields.utils.duration import DURATION_FORMATS
 from jadawel.contrib.database.formula import (
-    BASEROW_FORMULA_ARRAY_TYPE_CHOICES,
-    BASEROW_FORMULA_TYPE_CHOICES,
+    JADAWEL_FORMULA_ARRAY_TYPE_CHOICES,
+    JADAWEL_FORMULA_TYPE_CHOICES,
     FormulaHandler,
 )
 from jadawel.contrib.database.mixins import ParentFieldTrashableModelMixin
@@ -633,11 +633,11 @@ class FormulaField(Field):
     nullable = models.BooleanField()
 
     formula_type = models.TextField(
-        choices=BASEROW_FORMULA_TYPE_CHOICES,
+        choices=JADAWEL_FORMULA_TYPE_CHOICES,
         default="invalid",
     )
     array_formula_type = models.TextField(
-        choices=BASEROW_FORMULA_ARRAY_TYPE_CHOICES,
+        choices=JADAWEL_FORMULA_ARRAY_TYPE_CHOICES,
         default=None,
         null=True,
     )

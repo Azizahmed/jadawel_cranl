@@ -117,7 +117,7 @@ Get jwt secret key
 Get jwt secret key
 */}}
 {{- define "baserow.global.jwt.signing_key" -}}
-{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" .Values.global.baserow.backendSecret "Length" 10 "Key" "BASEROW_JWT_SIGNING_KEY")  -}}
+{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" .Values.global.baserow.backendSecret "Length" 10 "Key" "JADAWEL_JWT_SIGNING_KEY")  -}}
 {{- end }}
 
 {{/*

@@ -71,9 +71,9 @@ class FormulaFunction(ABC):
         """Executes the function"""
 
 
-BASEROW_FORMULA_MODE_SIMPLE: Literal["simple"] = "simple"
-BASEROW_FORMULA_MODE_ADVANCED: Literal["advanced"] = "advanced"
-BASEROW_FORMULA_MODE_RAW: Literal["raw"] = "raw"
+JADAWEL_FORMULA_MODE_SIMPLE: Literal["simple"] = "simple"
+JADAWEL_FORMULA_MODE_ADVANCED: Literal["advanced"] = "advanced"
+JADAWEL_FORMULA_MODE_RAW: Literal["raw"] = "raw"
 BaserowFormulaMode = Literal["simple", "advanced", "raw"]
 
 
@@ -86,7 +86,7 @@ class BaserowFormulaObject(TypedDict):
     def create(
         cls,
         formula: str = "",
-        mode: BaserowFormulaMode = BASEROW_FORMULA_MODE_SIMPLE,
+        mode: BaserowFormulaMode = JADAWEL_FORMULA_MODE_SIMPLE,
         version: str = "0.1",
     ) -> "BaserowFormulaObject":
         return BaserowFormulaObject(formula=formula, mode=mode, version=version)

@@ -45,7 +45,7 @@ if [[ -n "${NO_COLOR:-}" ]]; then
   NC=
 fi
 
-if [[ -z "$BASEROW_RUN_MINIMAL" ]]; then
+if [[ -z "$JADAWEL_RUN_MINIMAL" ]]; then
 # Below is the magic that nicely formats the stdout and stderr of the command we will
 # exec later.
 #

@@ -19,7 +19,7 @@ from jadawel.core.import_export.handler import ImportExportHandler
 from jadawel.core.models import ImportExportResource
 
 DELETE_MARKED_IMPORT_EXPORT_RESOURCES_TIME_LIMIT = (
-    60 * settings.BASEROW_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES
+    60 * settings.JADAWEL_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES
 )
 
 
@@ -30,7 +30,7 @@ DELETE_MARKED_IMPORT_EXPORT_RESOURCES_TIME_LIMIT = (
 )
 def mark_import_export_resources_for_deletion(
     self,
-    older_than_days: int = settings.BASEROW_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS,
+    older_than_days: int = settings.JADAWEL_IMPORT_EXPORT_RESOURCE_REMOVAL_AFTER_DAYS,
 ):
     """
     Marks all ImportExportResources that are invalid or are older than 5 days for
@@ -68,13 +68,13 @@ def delete_marked_import_export_resources(self):
 def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
         timedelta(
-            minutes=settings.BASEROW_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES
+            minutes=settings.JADAWEL_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES
         ),
         mark_import_export_resources_for_deletion.s(),
     )
     sender.add_periodic_task(
         timedelta(
-            minutes=settings.BASEROW_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES
+            minutes=settings.JADAWEL_IMPORT_EXPORT_RESOURCE_CLEANUP_INTERVAL_MINUTES
         ),
         delete_marked_import_export_resources.s(),
     )

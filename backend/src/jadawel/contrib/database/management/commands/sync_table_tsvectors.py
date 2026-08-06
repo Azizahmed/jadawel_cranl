@@ -29,7 +29,7 @@ class Command(BaseCommand):
                 self.style.ERROR(
                     "Your Jadawel installation has Postgres full-text"
                     "search disabled. To use full-text, ensure that"
-                    "BASEROW_USE_PG_FULLTEXT_SEARCH=true."
+                    "JADAWEL_USE_PG_FULLTEXT_SEARCH=true."
                 )
             )
 

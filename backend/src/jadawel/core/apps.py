@@ -591,7 +591,7 @@ class CoreConfig(AppConfig):
 def start_sync_templates_task_after_migrate(sender, **kwargs):
     from jadawel.core.tasks import sync_templates_task
 
-    if settings.BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION and not settings.TESTS:
+    if settings.JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION and not settings.TESTS:
         print(
             "Submitting the sync templates task to run asynchronously in "
             "celery after the migration..."

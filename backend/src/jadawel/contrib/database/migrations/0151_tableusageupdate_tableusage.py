@@ -3,7 +3,7 @@
 import django.db.models.deletion
 from django.db import connection, migrations, models
 
-BASEROW_TABLE_ROW_COUNT_FUNC = """
+JADAWEL_TABLE_ROW_COUNT_FUNC = """
 CREATE OR REPLACE FUNCTION get_baserow_table_row_count(table_id INT) RETURNS BIGINT AS $$
 DECLARE
     row_count BIGINT;
@@ -19,7 +19,7 @@ $$
 LANGUAGE plpgsql;
 """
 
-BASEROW_TABLE_FILE_UNIQUES_QUERY_FUN = """
+JADAWEL_TABLE_FILE_UNIQUES_QUERY_FUN = """
 CREATE OR REPLACE FUNCTION _get_baserow_table_file_uniques(table__id INT) RETURNS TABLE(file_unique TEXT, field_id INT, table_id INT) AS $$
 DECLARE
     field RECORD;
@@ -41,7 +41,7 @@ $$
 LANGUAGE plpgsql;
 """
 
-BASEROW_TABLE_FILE_UNIQUES_FUNC = """
+JADAWEL_TABLE_FILE_UNIQUES_FUNC = """
 CREATE OR REPLACE FUNCTION get_distinct_baserow_table_file_uniques(table_id INT) RETURNS TEXT[] AS $$
 DECLARE
     file_uniques TEXT[];
@@ -60,9 +60,9 @@ LANGUAGE plpgsql;
 
 def forward(apps, schema_editor):
     with connection.cursor() as cursor:
-        cursor.execute(BASEROW_TABLE_ROW_COUNT_FUNC)
-        cursor.execute(BASEROW_TABLE_FILE_UNIQUES_QUERY_FUN)
-        cursor.execute(BASEROW_TABLE_FILE_UNIQUES_FUNC)
+        cursor.execute(JADAWEL_TABLE_ROW_COUNT_FUNC)
+        cursor.execute(JADAWEL_TABLE_FILE_UNIQUES_QUERY_FUN)
+        cursor.execute(JADAWEL_TABLE_FILE_UNIQUES_FUNC)
 
 
 def reverse(apps, schema_editor):

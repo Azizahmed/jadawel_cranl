@@ -28,8 +28,8 @@ else:
 # Prefixes for vars that can be overridden via env vars (for DB/Redis configuration)
 ALLOWED_ENV_PREFIXES = (
     "DATABASE_",
-    "BASEROW_EMBEDDINGS_API_URL",
-    "BASEROW_BACKEND_LOG_LEVEL",
+    "JADAWEL_EMBEDDINGS_API_URL",
+    "JADAWEL_BACKEND_LOG_LEVEL",
 )
 
 
@@ -66,12 +66,12 @@ CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}
 
 # Set to 'off' to runs all migrations and disable the custom setup fixture that installs
 # all pgPSQL functions. Default is 'on' for faster setup by skipping migrations.
-BASEROW_TESTS_SETUP_DB_FIXTURE = str_to_bool(
-    os.getenv("BASEROW_TESTS_SETUP_DB_FIXTURE", "on")
+JADAWEL_TESTS_SETUP_DB_FIXTURE = str_to_bool(
+    os.getenv("JADAWEL_TESTS_SETUP_DB_FIXTURE", "on")
 )
 DATABASES["default"].setdefault("TEST", {})[
     "MIGRATE"
-] = not BASEROW_TESTS_SETUP_DB_FIXTURE
+] = not JADAWEL_TESTS_SETUP_DB_FIXTURE
 
 # Open a second database connection that can be used to test transactions.
 DATABASES["default-copy"] = deepcopy(DATABASES["default"])
@@ -114,14 +114,14 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = []
 
 # Disable object caches (users, tokens, settings, licenses) so every request
 # hits the DB. This ensures query-count assertions remain stable and predictable.
-BASEROW_CACHE_TTL_SECONDS = 0
+JADAWEL_CACHE_TTL_SECONDS = 0
 
 # Tests should not inherit the anonymous IP throttle from any local env.
-BASEROW_THROTTLE_IP_ENABLED = False
+JADAWEL_THROTTLE_IP_ENABLED = False
 
 # Default TTL used by tests that call blacklist_token / blacklist_ip without
 # specifying one explicitly. Individual tests can still override this.
-BASEROW_THROTTLE_BLACKLIST_TTL_SECONDS = 10
+JADAWEL_THROTTLE_BLACKLIST_TTL_SECONDS = 10
 
 
 BUILDER_PUBLICLY_USED_PROPERTIES_CACHE_TTL_SECONDS = 10
@@ -130,7 +130,7 @@ BUILDER_DISPATCH_ACTION_CACHE_TTL_SECONDS = 300
 AUTO_INDEX_VIEW_ENABLED = False
 # For ease of testing tests assume this setting is set to this. Set it explicitly to
 # prevent any dev env config from breaking the tests.
-BASEROW_PERSONAL_VIEW_LOWEST_ROLE_ALLOWED = "VIEWER"
+JADAWEL_PERSONAL_VIEW_LOWEST_ROLE_ALLOWED = "VIEWER"
 
 # Ensure the tests never run with the concurrent middleware unless they add it in to
 # prevent failures caused by the middleware itself
@@ -139,20 +139,20 @@ if "jadawel.middleware.ConcurrentUserRequestsMiddleware" in MIDDLEWARE:
 
 PUBLIC_BACKEND_URL = "http://localhost:8000"
 PUBLIC_WEB_FRONTEND_URL = "http://localhost:3000"
-BASEROW_EMBEDDED_SHARE_URL = "http://localhost:3000"
+JADAWEL_EMBEDDED_SHARE_URL = "http://localhost:3000"
 
 FEATURE_FLAGS = "*"
 
 # We must allow this because we're connecting to the same database in the tests.
-BASEROW_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE = False
+JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE = False
 
 # Make sure that default storage is used for the tests.
 BASE_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 STORAGES["default"] = {"BACKEND": BASE_FILE_STORAGE}
 
-BASEROW_LOGIN_ACTION_LOG_LIMIT = RateLimit.from_string("1000/s")
+JADAWEL_LOGIN_ACTION_LOG_LIMIT = RateLimit.from_string("1000/s")
 
-BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS = False
+JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS = False
 INTEGRATIONS_ALLOW_PRIVATE_ADDRESS = False
 
 CACHALOT_ENABLED = str_to_bool(os.getenv("CACHALOT_ENABLED", "false"))
@@ -165,7 +165,7 @@ if CACHALOT_ENABLED:
 
     install_cachalot()
 
-BASEROW_ENABLE_CAPTCHA = ""
+JADAWEL_ENABLE_CAPTCHA = ""
 
 try:
     from .local_test import *  # noqa: F403, F401

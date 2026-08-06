@@ -40,7 +40,7 @@ class PeriodicFieldUpdateHandler:
 
         now = datetime.now(tz=timezone.utc)
         threshold = now - timedelta(
-            minutes=settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN
+            minutes=settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN
         )
         rclient = _get_redis_client()
         rclient.zremrangebyscore(

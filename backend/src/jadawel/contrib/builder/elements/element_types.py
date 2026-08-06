@@ -94,10 +94,10 @@ from jadawel.core.formula import (
     get_parse_tree_for_formula,
     resolve_formula,
 )
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.registries import formula_runtime_function_registry
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_SIMPLE,
+    JADAWEL_FORMULA_MODE_SIMPLE,
     BaserowFormula,
     BaserowFormulaObject,
 )
@@ -239,8 +239,8 @@ class FormContainerElementType(ContainerElementTypeMixin, ElementType):
         return {
             "submit_button_label": BaserowFormulaObject(
                 formula="'Submit'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "reset_initial_values_post_submission": True,
         }
@@ -355,8 +355,8 @@ class TableElementType(CollectionElementWithFieldsTypeMixin, ElementType):
             "data_source_id": None,
             "button_load_more_label": BaserowFormulaObject(
                 formula="'test'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "orientation": get_default_table_orientation(),
         }
@@ -422,8 +422,8 @@ class RepeatElementType(
             "data_source_id": None,
             "button_load_more_label": BaserowFormulaObject(
                 formula="'test'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "orientation": RepeatElement.ORIENTATIONS.VERTICAL,
         }
@@ -599,24 +599,24 @@ class RecordSelectorElementType(
             "required": False,
             "label": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "default_value": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "placeholder": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "multiple": False,
             "option_name_suffix": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
         }
 
@@ -725,8 +725,8 @@ class HeadingElementType(ElementType):
         return {
             "value": BaserowFormulaObject(
                 formula="'Corporis perspiciatis'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "level": 2,
         }
@@ -755,8 +755,8 @@ class TextElementType(ElementType):
                 "Maxime qui nam consequatur. "
                 "Asperiores corporis perspiciatis nam harum veritatis. "
                 "Impedit qui maxime aut illo quod ea molestias.'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "format": TextElement.TEXT_FORMATS.PLAIN,
         }
@@ -899,8 +899,8 @@ class NavigationElementManager:
             "navigate_to_page_id": None,
             "navigate_to_url": BaserowFormulaObject(
                 formula='"http://example.com"',
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "page_parameters": [],
             "query_parameters": [],
@@ -1085,8 +1085,8 @@ class LinkElementType(ElementType):
         return NavigationElementManager().get_pytest_params(pytest_data_fixture) | {
             "value": BaserowFormulaObject(
                 formula="'test'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "variant": "link",
         }
@@ -1139,13 +1139,13 @@ class ImageElementType(ElementType):
             "image_file_id": None,
             "image_url": BaserowFormulaObject(
                 formula="'https://test.com/image.png'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "alt_text": BaserowFormulaObject(
                 formula="'some alt text'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
         }
 
@@ -1295,8 +1295,8 @@ class RatingElementType(ElementType):
             "max_value": 5,
             "value": BaserowFormulaObject(
                 formula="5",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "color": "dark-orange",
             "rating_style": "star",
@@ -1347,15 +1347,15 @@ class RatingInputElementType(InputElementType):
             "max_value": 5,
             "value": BaserowFormulaObject(
                 formula="5",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "color": "dark-orange",
             "rating_style": "star",
             "label": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
         }
@@ -1490,19 +1490,19 @@ class InputTextElementType(InputElementType):
         return {
             "label": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
             "placeholder": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "default_value": BaserowFormulaObject(
                 formula="'Corporis perspiciatis'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "is_multiline": False,
             "rows": 1,
@@ -1575,8 +1575,8 @@ class ButtonElementType(ElementType):
         return {
             "value": BaserowFormulaObject(
                 formula="'Some value'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             )
         }
 
@@ -1642,14 +1642,14 @@ class CheckboxElementType(InputElementType):
         return {
             "label": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
             "default_value": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
         }
 
@@ -1860,32 +1860,32 @@ class ChoiceElementType(FormElementTypeMixin, ElementType):
         return {
             "label": BaserowFormulaObject(
                 formula="'test'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "default_value": BaserowFormulaObject(
                 formula="'option 1'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
             "placeholder": BaserowFormulaObject(
                 formula="'some placeholder'",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "multiple": False,
             "show_as_dropdown": True,
             "option_type": ChoiceElement.OPTION_TYPE.MANUAL,
             "formula_value": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "formula_name": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
         }
 
@@ -2012,13 +2012,13 @@ class IFrameElementType(ElementType):
             "source_type": IFrameElement.IFRAME_SOURCE_TYPE.URL,
             "url": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "embed": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "height": 300,
         }
@@ -2136,13 +2136,13 @@ class DateTimePickerElementType(FormElementTypeMixin, ElementType):
             "required": False,
             "label": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "default_value": BaserowFormulaObject(
                 formula="",
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "date_format": DATE_FORMAT_CHOICES[0][0],
             "include_time": False,

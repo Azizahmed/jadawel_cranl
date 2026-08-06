@@ -59,7 +59,7 @@ class OpenAIFileHandler(FileHandler):
         """
 
         return (
-            min(512, settings.BASEROW_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB) * 1024 * 1024
+            min(512, settings.JADAWEL_OPENAI_UPLOADED_FILE_SIZE_LIMIT_MB) * 1024 * 1024
         )
 
     def _can_upload_file(self, ext: str, size: int) -> bool:
@@ -193,7 +193,7 @@ class BaseOpenAIGenerativeAIModelType(GenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "api_key", settings_override)
-            or settings.BASEROW_OPENAI_API_KEY
+            or settings.JADAWEL_OPENAI_API_KEY
         )
 
     def get_enabled_models(
@@ -204,7 +204,7 @@ class BaseOpenAIGenerativeAIModelType(GenerativeAIModelType):
         workspace_models = self.get_workspace_setting(
             workspace, "models", settings_override
         )
-        return workspace_models or settings.BASEROW_OPENAI_MODELS
+        return workspace_models or settings.JADAWEL_OPENAI_MODELS
 
     def get_organization(
         self,
@@ -213,7 +213,7 @@ class BaseOpenAIGenerativeAIModelType(GenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "organization", settings_override)
-            or settings.BASEROW_OPENAI_ORGANIZATION
+            or settings.JADAWEL_OPENAI_ORGANIZATION
         )
 
     def get_base_url(
@@ -268,7 +268,7 @@ class OpenAIGenerativeAIModelType(BaseOpenAIGenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "base_url", settings_override)
-            or settings.BASEROW_OPENAI_BASE_URL
+            or settings.JADAWEL_OPENAI_BASE_URL
         )
 
 
@@ -288,7 +288,7 @@ class AnthropicGenerativeAIModelType(GenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "api_key", settings_override)
-            or settings.BASEROW_ANTHROPIC_API_KEY
+            or settings.JADAWEL_ANTHROPIC_API_KEY
         )
 
     def get_enabled_models(
@@ -299,7 +299,7 @@ class AnthropicGenerativeAIModelType(GenerativeAIModelType):
         workspace_models = self.get_workspace_setting(
             workspace, "models", settings_override
         )
-        return workspace_models or settings.BASEROW_ANTHROPIC_MODELS
+        return workspace_models or settings.JADAWEL_ANTHROPIC_MODELS
 
     def get_ai_model(
         self,
@@ -344,7 +344,7 @@ class MistralGenerativeAIModelType(GenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "api_key", settings_override)
-            or settings.BASEROW_MISTRAL_API_KEY
+            or settings.JADAWEL_MISTRAL_API_KEY
         )
 
     def get_enabled_models(
@@ -355,7 +355,7 @@ class MistralGenerativeAIModelType(GenerativeAIModelType):
         workspace_models = self.get_workspace_setting(
             workspace, "models", settings_override
         )
-        return workspace_models or settings.BASEROW_MISTRAL_MODELS
+        return workspace_models or settings.JADAWEL_MISTRAL_MODELS
 
     def get_ai_model(
         self,
@@ -397,7 +397,7 @@ class OllamaGenerativeAIModelType(BaseOpenAIGenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "host", settings_override)
-            or settings.BASEROW_OLLAMA_HOST
+            or settings.JADAWEL_OLLAMA_HOST
         )
 
     def get_api_key(
@@ -430,7 +430,7 @@ class OllamaGenerativeAIModelType(BaseOpenAIGenerativeAIModelType):
         workspace_models = self.get_workspace_setting(
             workspace, "models", settings_override
         )
-        return workspace_models or settings.BASEROW_OLLAMA_MODELS
+        return workspace_models or settings.JADAWEL_OLLAMA_MODELS
 
     def is_enabled(
         self,
@@ -480,7 +480,7 @@ class OpenRouterGenerativeAIModelType(BaseOpenAIGenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "api_key", settings_override)
-            or settings.BASEROW_OPENROUTER_API_KEY
+            or settings.JADAWEL_OPENROUTER_API_KEY
         )
 
     def get_enabled_models(
@@ -491,7 +491,7 @@ class OpenRouterGenerativeAIModelType(BaseOpenAIGenerativeAIModelType):
         workspace_models = self.get_workspace_setting(
             workspace, "models", settings_override
         )
-        return workspace_models or settings.BASEROW_OPENROUTER_MODELS
+        return workspace_models or settings.JADAWEL_OPENROUTER_MODELS
 
     def get_organization(
         self,
@@ -500,7 +500,7 @@ class OpenRouterGenerativeAIModelType(BaseOpenAIGenerativeAIModelType):
     ) -> Optional[str]:
         return (
             self.get_workspace_setting(workspace, "organization", settings_override)
-            or settings.BASEROW_OPENROUTER_ORGANIZATION
+            or settings.JADAWEL_OPENROUTER_ORGANIZATION
         )
 
     def get_base_url(

@@ -11,7 +11,7 @@ from jadawel.contrib.database.fields.models import (
 from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.views.models import GridView
 from jadawel.contrib.database.views.registries import view_type_registry
-from jadawel.core.constants import BASEROW_COLORS
+from jadawel.core.constants import JADAWEL_COLORS
 from jadawel.core.registries import ImportExportConfig
 
 REPORT_TABLE_ID = "report"
@@ -114,7 +114,7 @@ class AirtableImportReport:
             name: SelectOption(
                 id=f"table_{name}",
                 value=name,
-                color=random.choice(BASEROW_COLORS),  # nosec
+                color=random.choice(JADAWEL_COLORS),  # nosec
                 order=index + 1,
             )
             for index, name in enumerate(unique_table_names)

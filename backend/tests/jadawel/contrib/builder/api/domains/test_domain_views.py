@@ -155,7 +155,7 @@ def test_create_domain_invalid_domain_name(api_client, data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_BUILDER_DOMAINS=["test.com"])
+@override_settings(JADAWEL_BUILDER_DOMAINS=["test.com"])
 def test_create_invalid_sub_domain(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     builder = data_fixture.create_builder_application(user=user)

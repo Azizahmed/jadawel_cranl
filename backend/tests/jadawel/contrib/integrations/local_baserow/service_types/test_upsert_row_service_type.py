@@ -20,8 +20,8 @@ from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowUpsertRowServiceType,
 )
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.handler import CoreHandler
 from jadawel.core.registries import ImportExportConfig
 from jadawel.core.services.exceptions import (
@@ -593,16 +593,16 @@ def test_local_baserow_upsert_row_service_resolve_service_formulas(
     # We're creating a row.
     service.row_id = BaserowFormulaObject(
         formula="",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     assert service_type.resolve_service_formulas(service, dispatch_context) == {}
 
     # We're updating a row, but the ID isn't an integer
     service.row_id = BaserowFormulaObject(
         formula="'horse'",
-        mode=BASEROW_FORMULA_MODE_SIMPLE,
-        version=BASEROW_FORMULA_VERSION_INITIAL,
+        mode=JADAWEL_FORMULA_MODE_SIMPLE,
+        version=JADAWEL_FORMULA_VERSION_INITIAL,
     )
     with pytest.raises(InvalidContextContentDispatchException) as exc:
         service_type.resolve_service_formulas(service, dispatch_context)

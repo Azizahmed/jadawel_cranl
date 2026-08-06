@@ -6,7 +6,7 @@ from django.db import connection, models
 
 from jadawel.core.formula import BaserowFormulaObject
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_SIMPLE,
+    JADAWEL_FORMULA_MODE_SIMPLE,
     BaserowFormulaMinified,
     FormulaFieldDatabaseValue,
     JSONFormulaFieldDatabaseValue,
@@ -16,7 +16,7 @@ from jadawel.core.formula.types import (
 logger = logging.getLogger(__name__)
 
 
-BASEROW_FORMULA_VERSION_INITIAL = "0.1"
+JADAWEL_FORMULA_VERSION_INITIAL = "0.1"
 
 
 class FormulaField(models.TextField):
@@ -96,8 +96,8 @@ class FormulaField(models.TextField):
                 # `BaserowFormulaObject` and return.
                 return BaserowFormulaObject(
                     formula=value,
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
                 )
             # It's a dictionary, so we can assume it's already a formula context.
             # We just wrap it in a `BaserowFormulaObject` for typing purposes.
@@ -115,16 +115,16 @@ class FormulaField(models.TextField):
                     exc_info=True,
                 )
                 return BaserowFormulaObject(
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
                     formula="",
                 )
 
             if isinstance(value, str):
                 return BaserowFormulaObject(
                     formula=value,
-                    mode=BASEROW_FORMULA_MODE_SIMPLE,
-                    version=BASEROW_FORMULA_VERSION_INITIAL,
+                    mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                    version=JADAWEL_FORMULA_VERSION_INITIAL,
                 )
 
             return BaserowFormulaObject(
@@ -202,8 +202,8 @@ class FormulaField(models.TextField):
         if value is None:
             return json.dumps(
                 BaserowFormulaMinified(
-                    m=BASEROW_FORMULA_MODE_SIMPLE,
-                    v=BASEROW_FORMULA_VERSION_INITIAL,
+                    m=JADAWEL_FORMULA_MODE_SIMPLE,
+                    v=JADAWEL_FORMULA_VERSION_INITIAL,
                     f="",
                 )
             )
@@ -211,8 +211,8 @@ class FormulaField(models.TextField):
         # v2/v2.1: if we've received a dictionary...
         if isinstance(value, dict):
             # Ensure we have proper defaults for None values
-            mode = value.get("mode") or BASEROW_FORMULA_MODE_SIMPLE
-            version = value.get("version") or BASEROW_FORMULA_VERSION_INITIAL
+            mode = value.get("mode") or JADAWEL_FORMULA_MODE_SIMPLE
+            version = value.get("version") or JADAWEL_FORMULA_VERSION_INITIAL
             formula = value.get("formula") or ""
 
             # v2: the column type is `text`, so we need to
@@ -227,8 +227,8 @@ class FormulaField(models.TextField):
         return json.dumps(
             BaserowFormulaMinified(
                 f=str(value),
-                m=BASEROW_FORMULA_MODE_SIMPLE,
-                v=BASEROW_FORMULA_VERSION_INITIAL,
+                m=JADAWEL_FORMULA_MODE_SIMPLE,
+                v=JADAWEL_FORMULA_VERSION_INITIAL,
             )
         )
 
@@ -294,8 +294,8 @@ class JSONFormulaField(models.JSONField):
 
         if not isinstance(value, dict):
             return BaserowFormulaObject(
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
-                version=BASEROW_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
                 formula=value,
             )
         return BaserowFormulaObject(
@@ -415,13 +415,13 @@ class JSONFormulaField(models.JSONField):
 
         if not isinstance(value, dict):
             return BaserowFormulaMinified(
-                m=BASEROW_FORMULA_MODE_SIMPLE,
-                v=BASEROW_FORMULA_VERSION_INITIAL,
+                m=JADAWEL_FORMULA_MODE_SIMPLE,
+                v=JADAWEL_FORMULA_VERSION_INITIAL,
                 f=value,
             )
         return BaserowFormulaMinified(
-            m=value.get("mode", BASEROW_FORMULA_MODE_SIMPLE),
-            v=value.get("version", BASEROW_FORMULA_VERSION_INITIAL),
+            m=value.get("mode", JADAWEL_FORMULA_MODE_SIMPLE),
+            v=value.get("version", JADAWEL_FORMULA_VERSION_INITIAL),
             f=value.get("formula", ""),
         )
 

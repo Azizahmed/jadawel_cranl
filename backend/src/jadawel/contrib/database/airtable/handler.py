@@ -155,10 +155,10 @@ def download_airtable_file(
         raise FileDownloadFailed(f"Could not determine the size of file {name}.")
 
     # Prevent upload to Jadawel failures by excluding oversized files
-    max_size_bytes = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
+    max_size_bytes = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
     if file_size_bytes > max_size_bytes:
         raise FileDownloadFailed(
-            f"File {name} exceeds the size limit of {settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB} bytes."
+            f"File {name} exceeds the size limit of {settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB} bytes."
         )
     return response
 

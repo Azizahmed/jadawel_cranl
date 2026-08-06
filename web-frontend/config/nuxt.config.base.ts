@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     strategy: 'no_prefix',
     // Jadawel fork: Arabic is the primary locale (RTL). Env-overridable so a deploy
     // can bring the frontend up in English/LTR (set NUXT_DEFAULT_LOCALE=en) to match
-    // the backend BASEROW_DEFAULT_LOCALE during the RTL audit.
+    // the backend JADAWEL_DEFAULT_LOCALE during the RTL audit.
     defaultLocale: process.env.NUXT_DEFAULT_LOCALE || 'ar',
     // Jadawel fork: upstream bridges @nuxtjs/i18n's default restructureDir ('i18n')
     // to the real web-frontend/locales/ dir via a filesystem symlink (i18n/locales ->

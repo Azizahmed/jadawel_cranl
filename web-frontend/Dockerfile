@@ -105,7 +105,7 @@ RUN apt-get update && apt-get upgrade -y --no-install-recommends \
 
 ENV DOCKER_USER=baserow_docker_user \
     APP_ENV=test \
-    BASEROW_IMAGE_TYPE="web-frontend"
+    JADAWEL_IMAGE_TYPE="web-frontend"
 
 RUN groupadd --system --gid $GID ${DOCKER_USER} && \
     useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
@@ -170,7 +170,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     sudo
 
 ENV DOCKER_USER=baserow_docker_user \
-    BASEROW_IMAGE_TYPE="web-frontend" \
+    JADAWEL_IMAGE_TYPE="web-frontend" \
     PATH="/baserow/web-frontend/node_modules/.bin:$PATH" \
     YARN_CACHE_FOLDER=/tmp/.yarn-dev-cache
 
@@ -237,7 +237,7 @@ ARG GID
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV DOCKER_USER=baserow_docker_user \
-    BASEROW_IMAGE_TYPE="web-frontend" \
+    JADAWEL_IMAGE_TYPE="web-frontend" \
     NODE_ENV=production \
     YARN_CACHE_FOLDER=/tmp/.yarn-cache
 

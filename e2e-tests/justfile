@@ -188,8 +188,8 @@ up: _ensure-images
             -e SECRET_KEY=test \
             -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.e2e \
             -e FEATURE_FLAGS="*" \
-            -e BASEROW_RUN_MINIMAL=yes \
-            -e BASEROW_AMOUNT_OF_WORKERS=1 \
+            -e JADAWEL_RUN_MINIMAL=yes \
+            -e JADAWEL_AMOUNT_OF_WORKERS=1 \
             {{ backend_image }} celery-worker
     fi
 

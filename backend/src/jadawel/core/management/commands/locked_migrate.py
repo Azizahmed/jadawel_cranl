@@ -54,7 +54,7 @@ class Command(MigrateCommand):
             logger.info(
                 f"Attempting to lock the postgres advisory lock with id: {lock_id} "
                 "You can disable using locked_migrate by default and switch back to the "
-                "non-locking version by setting BASEROW_DISABLE_LOCKED_MIGRATIONS=true"
+                "non-locking version by setting JADAWEL_DISABLE_LOCKED_MIGRATIONS=true"
             )
             # We are forced to use a xact lock to ensure this works properly with
             # pgbouncer, see

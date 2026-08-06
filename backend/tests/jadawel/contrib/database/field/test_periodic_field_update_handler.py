@@ -7,7 +7,7 @@ from jadawel.contrib.database.fields.periodic_field_update_handler import (
 
 def test_get_recently_used_workspace_ids_interval(settings):
     workspace_id = 1
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
 
     with freeze_time("2020-01-01 12:00"):
         PeriodicFieldUpdateHandler.mark_workspace_as_recently_used(workspace_id)
@@ -28,7 +28,7 @@ def test_get_recently_used_workspace_ids_interval(settings):
 def test_get_recently_used_workspace_ids_multiple_ids(settings):
     workspace_id = 1
     workspace_id_2 = 2
-    settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
+    settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN = 5
 
     with freeze_time("2020-01-01 00:00"):
         # workspace 1 was used long time ago, outside interval

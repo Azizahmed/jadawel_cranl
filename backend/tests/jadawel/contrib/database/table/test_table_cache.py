@@ -112,7 +112,7 @@ def test_converting_text_to_link_row_field_invalidates_its_related_tables_cache(
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_DISABLE_MODEL_CACHE=True)
+@override_settings(JADAWEL_DISABLE_MODEL_CACHE=True)
 def test_can_disable_model_cache(
     data_fixture,
 ):

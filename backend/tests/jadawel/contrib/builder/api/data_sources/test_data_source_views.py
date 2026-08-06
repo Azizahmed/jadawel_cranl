@@ -17,10 +17,10 @@ from rest_framework.status import (
 from jadawel.contrib.builder.data_sources.models import DataSource
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.contrib.database.views.models import SORT_ORDER_ASC
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import (
-    BASEROW_FORMULA_MODE_RAW,
-    BASEROW_FORMULA_MODE_SIMPLE,
+    JADAWEL_FORMULA_MODE_RAW,
+    JADAWEL_FORMULA_MODE_SIMPLE,
     BaserowFormulaObject,
 )
 from jadawel.core.services.models import Service
@@ -400,8 +400,8 @@ def test_update_data_source_with_filters(api_client, data_fixture):
                     "type": "equals",
                     "value": BaserowFormulaObject(
                         formula="foobar",
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
-                        mode=BASEROW_FORMULA_MODE_RAW,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_RAW,
                     ),
                     "value_is_formula": False,
                 },
@@ -410,8 +410,8 @@ def test_update_data_source_with_filters(api_client, data_fixture):
                     "type": "equals",
                     "value": BaserowFormulaObject(
                         formula="get('page_parameter.id')",
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
-                        mode=BASEROW_FORMULA_MODE_SIMPLE,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     ),
                     "value_is_formula": True,
                 },
@@ -431,8 +431,8 @@ def test_update_data_source_with_filters(api_client, data_fixture):
             "type": "equals",
             "value": BaserowFormulaObject(
                 formula="foobar",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_RAW,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_RAW,
             ),
             "trashed": False,
             "value_is_formula": False,
@@ -445,8 +445,8 @@ def test_update_data_source_with_filters(api_client, data_fixture):
             "trashed": False,
             "value": BaserowFormulaObject(
                 formula="get('page_parameter.id')",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_SIMPLE,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
             "value_is_formula": True,
         },
@@ -476,8 +476,8 @@ def test_update_data_source_with_filters(api_client, data_fixture):
                     "type": "equals",
                     "value": BaserowFormulaObject(
                         formula="foobar",
-                        version=BASEROW_FORMULA_VERSION_INITIAL,
-                        mode=BASEROW_FORMULA_MODE_RAW,
+                        version=JADAWEL_FORMULA_VERSION_INITIAL,
+                        mode=JADAWEL_FORMULA_MODE_RAW,
                     ),
                     "value_is_formula": False,
                 }
@@ -497,8 +497,8 @@ def test_update_data_source_with_filters(api_client, data_fixture):
             "type": "equals",
             "value": BaserowFormulaObject(
                 formula="foobar",
-                version=BASEROW_FORMULA_VERSION_INITIAL,
-                mode=BASEROW_FORMULA_MODE_RAW,
+                version=JADAWEL_FORMULA_VERSION_INITIAL,
+                mode=JADAWEL_FORMULA_MODE_RAW,
             ),
             "trashed": False,
             "value_is_formula": False,

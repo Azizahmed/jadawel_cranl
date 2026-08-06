@@ -23,7 +23,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--from-env",
             action="store_true",
-            help="If set templates will be synced based on BASEROW_SYNC_TEMPLATES_PATTERN var",
+            help="If set templates will be synced based on JADAWEL_SYNC_TEMPLATES_PATTERN var",
         )
         parser.add_argument(
             "--force",
@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
         if from_env:
             CoreHandler().sync_templates(
-                pattern=settings.BASEROW_SYNC_TEMPLATES_PATTERN, force=force
+                pattern=settings.JADAWEL_SYNC_TEMPLATES_PATTERN, force=force
             )
         elif options.get("only", None):
             try:

@@ -67,7 +67,7 @@
 <script>
 import context from '@jadawel/modules/core/mixins/context'
 import NodeExplorer from '@jadawel/modules/core/components/nodeExplorer/NodeExplorer'
-import { BASEROW_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
+import { JADAWEL_FORMULA_MODES } from '@jadawel/modules/core/formula/constants'
 
 export default {
   name: 'FormulaInputExplorerContext',
@@ -96,7 +96,7 @@ export default {
       required: false,
       default: 'advanced',
       validator: (value) => {
-        return BASEROW_FORMULA_MODES.includes(value)
+        return JADAWEL_FORMULA_MODES.includes(value)
       },
     },
     /**

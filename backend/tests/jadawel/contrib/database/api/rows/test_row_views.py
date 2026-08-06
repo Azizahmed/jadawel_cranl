@@ -2131,8 +2131,8 @@ def test_create_row_with_blank_decimal_field(api_client, data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_DEADLOCK_INITIAL_BACKOFF=0.01)
-@override_settings(BASEROW_DEADLOCK_MAX_RETRIES=1)
+@override_settings(JADAWEL_DEADLOCK_INITIAL_BACKOFF=0.01)
+@override_settings(JADAWEL_DEADLOCK_MAX_RETRIES=1)
 def test_create_row_deadlock(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
@@ -2536,8 +2536,8 @@ def test_update_row(api_client, data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_DEADLOCK_INITIAL_BACKOFF=0.01)
-@override_settings(BASEROW_DEADLOCK_MAX_RETRIES=1)
+@override_settings(JADAWEL_DEADLOCK_INITIAL_BACKOFF=0.01)
+@override_settings(JADAWEL_DEADLOCK_MAX_RETRIES=1)
 def test_update_row_deadlock(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
@@ -2784,8 +2784,8 @@ def test_move_row(api_client, data_fixture):
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_DEADLOCK_INITIAL_BACKOFF=0.01)
-@override_settings(BASEROW_DEADLOCK_MAX_RETRIES=1)
+@override_settings(JADAWEL_DEADLOCK_INITIAL_BACKOFF=0.01)
+@override_settings(JADAWEL_DEADLOCK_MAX_RETRIES=1)
 def test_move_row_deadlock(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
@@ -2972,8 +2972,8 @@ def test_delete_row_by_id_with_disabled_webhook_events(api_client, data_fixture)
 
 
 @pytest.mark.django_db
-@override_settings(BASEROW_DEADLOCK_INITIAL_BACKOFF=0.01)
-@override_settings(BASEROW_DEADLOCK_MAX_RETRIES=1)
+@override_settings(JADAWEL_DEADLOCK_INITIAL_BACKOFF=0.01)
+@override_settings(JADAWEL_DEADLOCK_MAX_RETRIES=1)
 def test_delete_row_deadlock(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)

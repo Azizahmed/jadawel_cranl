@@ -42,7 +42,7 @@ def disable_instrumentation(wrapped_function):
 
 # attrs don't include the module name to keep them short and easier to see so we add
 # baserow manually.
-BASEROW_OTEL_TRACE_ATTR_PREFIX = "baserow."
+JADAWEL_OTEL_TRACE_ATTR_PREFIX = "baserow."
 
 
 class BatchBaggageSpanProcessor(BatchSpanProcessor):
@@ -216,11 +216,11 @@ def add_baserow_trace_attrs(**kwargs):
 
     span = get_current_span()
     for key, value in kwargs.items():
-        span.set_attribute(f"{BASEROW_OTEL_TRACE_ATTR_PREFIX}{key}", value)
+        span.set_attribute(f"{JADAWEL_OTEL_TRACE_ATTR_PREFIX}{key}", value)
 
 
 def otel_is_enabled():
-    env_var_set = bool(os.getenv("BASEROW_ENABLE_OTEL", False))
+    env_var_set = bool(os.getenv("JADAWEL_ENABLE_OTEL", False))
     not_in_tests = (
         os.getenv("DJANGO_SETTINGS_MODULE", "").strip()
         != "jadawel.config.settings.test"

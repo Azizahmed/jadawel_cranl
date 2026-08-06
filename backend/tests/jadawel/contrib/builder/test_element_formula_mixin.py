@@ -29,8 +29,8 @@ from jadawel.contrib.builder.elements.models import (
 )
 from jadawel.contrib.builder.pages.handler import PageHandler
 from jadawel.core.formula import BaserowFormulaObject
-from jadawel.core.formula.field import BASEROW_FORMULA_VERSION_INITIAL
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_SIMPLE
+from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 
 
 @pytest.fixture
@@ -209,8 +209,8 @@ def test_table_element_formula_generator(data_fixture, formula_generator_fixture
     assert table_element.fields.get().config == {
         "label": BaserowFormulaObject(
             formula="get('current_record.field_111')",
-            version=BASEROW_FORMULA_VERSION_INITIAL,
-            mode=BASEROW_FORMULA_MODE_SIMPLE,
+            version=JADAWEL_FORMULA_VERSION_INITIAL,
+            mode=JADAWEL_FORMULA_MODE_SIMPLE,
         )
     }
     assert table_element.data_source_id == data_source.id

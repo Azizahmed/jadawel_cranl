@@ -5,11 +5,11 @@ description: Investigate backend performance using Django Silk profiling data. U
 
 # Investigate Backend Performance with Silk
 
-Use this skill to investigate a slow endpoint or a potential bottleneck. Django Silk (enabled by default in dev via `BASEROW_ENABLE_SILK` in `dev.py`) records every HTTP request, its SQL queries, and full Python stack traces into PostgreSQL. The user may provide a Silk request URL, a request ID, or just describe which endpoint is slow.
+Use this skill to investigate a slow endpoint or a potential bottleneck. Django Silk (enabled by default in dev via `JADAWEL_ENABLE_SILK` in `dev.py`) records every HTTP request, its SQL queries, and full Python stack traces into PostgreSQL. The user may provide a Silk request URL, a request ID, or just describe which endpoint is slow.
 
 ## Prerequisites
 
-- Silk must be enabled (default in dev: `BASEROW_ENABLE_SILK=on` in `dev.py`)
+- Silk must be enabled (default in dev: `JADAWEL_ENABLE_SILK=on` in `dev.py`)
 - The slow operation must have been performed recently so Silk has captured it
 - The dev database must be accessible (usually via `docker exec` into the `baserow-db-1` container)
 
@@ -157,7 +157,7 @@ EXPLAIN ANALYZE <paste query from silk_sqlquery here>;
 - **Existing indexes not being used** — an index may exist but the planner ignores it (wrong column order in composite index, type mismatch, function wrapping the column, etc.). Check whether the index is used by *any* query in the codebase — if not, it's dead weight and should be removed.
 - **Nested Loop with high row estimates** — often a sign of missing `select_related` or a missing index on the join column.
 
-> **Do not enable `SILKY_ANALYZE_QUERIES`** (`BASEROW_DANGEROUS_SILKY_ANALYZE_QUERIES`) to upgrade to EXPLAIN ANALYZE globally. It re-executes every UPDATE and breaks data integrity. The default EXPLAIN plans in the `analysis` column are sufficient for most investigations — run `EXPLAIN ANALYZE` manually only on specific queries when needed.
+> **Do not enable `SILKY_ANALYZE_QUERIES`** (`JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES`) to upgrade to EXPLAIN ANALYZE globally. It re-executes every UPDATE and breaks data integrity. The default EXPLAIN plans in the `analysis` column are sufficient for most investigations — run `EXPLAIN ANALYZE` manually only on specific queries when needed.
 
 ### Step 6: Read Stack Traces
 
@@ -278,7 +278,7 @@ Once you've identified the problematic query and its origin in the stack trace:
 ## Guardrails
 
 - **Use read-only queries only.** Never run INSERT, UPDATE, DELETE, or DDL on any table.
-- **Never enable `SILKY_ANALYZE_QUERIES`** (`BASEROW_DANGEROUS_SILKY_ANALYZE_QUERIES`). It runs every UPDATE twice and breaks data integrity.
+- **Never enable `SILKY_ANALYZE_QUERIES`** (`JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES`). It runs every UPDATE twice and breaks data integrity.
 - **Do not truncate Silk tables** without asking the user first.
 - **Ground every claim in data.** Always quote the specific evidence (EXPLAIN output, stack trace lines, source code with file path and line number) when making a diagnosis. Never state that a query is slow, an index is missing, or a `select_related` is needed without showing the data that supports it.
 - When proposing fixes, always read the actual source code first — don't guess from the query text alone.

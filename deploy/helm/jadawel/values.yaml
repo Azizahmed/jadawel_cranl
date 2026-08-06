@@ -100,11 +100,11 @@ frontendConfigMap:
   DOWNLOAD_FILE_VIA_XHR: "1"
 # frontendConfigMap:
 #   ADDITIONAL_MODULES: ""
-#   BASEROW_DISABLE_PUBLIC_URL_CHECK: "yes"
-#   BASEROW_DISABLE_GOOGLE_DOCS_FILE_PREVIEW: ""
+#   JADAWEL_DISABLE_PUBLIC_URL_CHECK: "yes"
+#   JADAWEL_DISABLE_GOOGLE_DOCS_FILE_PREVIEW: ""
 #   DOWNLOAD_FILE_VIA_XHR: "1"
-#   BASEROW_MAX_IMPORT_FILE_SIZE_MB: "512"
-#   BASEROW_MAX_SNAPSHOTS_PER_GROUP: "-1"
+#   JADAWEL_MAX_IMPORT_FILE_SIZE_MB: "512"
+#   JADAWEL_MAX_SNAPSHOTS_PER_GROUP: "-1"
 
 ## @section backend Secrets Configuration
 ## Configuration for the backend Secrets
@@ -116,21 +116,21 @@ backendSecrets: {}
 ## @param backendConfigMap.DONT_UPDATE_FORMULAS_AFTER_MIGRATION Set to "yes" to disable updating formulas after migration
 ## @param backendConfigMap.SYNC_TEMPLATES_ON_STARTUP Set to "false" to disable syncing templates on startup
 ## @param backendConfigMap.MIGRATE_ON_STARTUP Set to "false" to disable migration on startup
-## @param backendConfigMap.BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION Set to "true" to trigger syncing templates after migration
+## @param backendConfigMap.JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION Set to "true" to trigger syncing templates after migration
 backendConfigMap:
   DONT_UPDATE_FORMULAS_AFTER_MIGRATION: "yes"
   SYNC_TEMPLATES_ON_STARTUP: "false"
   MIGRATE_ON_STARTUP: "false"
-  BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION: "true"
+  JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION: "true"
 # backendConfigMap:
-#   BASEROW_AMOUNT_OF_GUNICORN_WORKERS: "5"
-#   BASEROW_BACKEND_LOG_LEVEL: DEBUG
-#   BASEROW_COUNT_ROWS_ENABLED: "true"
-#   BASEROW_DEFAULT_SEARCH_MODE: full-text-with-count
-#   BASEROW_ENABLE_OTEL: "false"
-#   BASEROW_EXTRA_ALLOWED_HOSTS: "*"
-#   BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB: "20"
-#   BASEROW_GROUP_STORAGE_USAGE_ENABLED: "true"
+#   JADAWEL_AMOUNT_OF_GUNICORN_WORKERS: "5"
+#   JADAWEL_BACKEND_LOG_LEVEL: DEBUG
+#   JADAWEL_COUNT_ROWS_ENABLED: "true"
+#   JADAWEL_DEFAULT_SEARCH_MODE: full-text-with-count
+#   JADAWEL_ENABLE_OTEL: "false"
+#   JADAWEL_EXTRA_ALLOWED_HOSTS: "*"
+#   JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB: "20"
+#   JADAWEL_GROUP_STORAGE_USAGE_ENABLED: "true"
 #   DONT_UPDATE_FORMULAS_AFTER_MIGRATION: "yes"
 #   ENABLE_SECURE_PROXY_SSL_HEADER: "yes"
 #   MAILGUN_SENDER_DOMAIN: mail.mydomain.com

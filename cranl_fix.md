@@ -104,7 +104,7 @@ port, and Nitro reads `PORT` to decide where to listen — so the frontend kept
 trying to take Caddy's socket.
 
 **Fix:** set `PORT=3000` explicitly in the environment. `NITRO_PORT=3000` and
-`BASEROW_WEB_FRONTEND_PORT=3000` alone did **not** win; `PORT` overrides them.
+`JADAWEL_WEB_FRONTEND_PORT=3000` alone did **not** win; `PORT` overrides them.
 A runtime env var set on the app beats CranL's injected one, which is why this
 works and why it cannot be baked into the image instead.
 
@@ -131,7 +131,7 @@ Cause was `SYNC_TEMPLATES_ON_STARTUP=false`, set in §4's env table to avoid a
 30-minute boot stall. `backend/docker/docker-entrypoint.sh:30`:
 
 ```bash
-BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=${BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION:-$SYNC_TEMPLATES_ON_STARTUP}
+JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=${JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION:-$SYNC_TEMPLATES_ON_STARTUP}
 ```
 
 The trigger variable *defaults to* the startup variable, so switching off the
@@ -141,10 +141,10 @@ one too. The two are separable, and want opposite values here:
 | Variable | Value | Effect |
 |---|---|---|
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Boot does **not** wait for the sync |
-| `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Sync runs in celery *after* startup |
+| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Sync runs in celery *after* startup |
 
 Fix was to set the trigger to `true` and Reload. The task routes to the `export`
-queue (`backend/src/jadawel/core/tasks.py:23`), which under `BASEROW_RUN_MINIMAL`
+queue (`backend/src/jadawel/core/tasks.py:23`), which under `JADAWEL_RUN_MINIMAL`
 is served by the combined worker (`docker-entrypoint.sh:373-393`) — so it is
 picked up rather than sitting unrouted. It took **13m15s** for 157 templates
 while the app kept serving traffic normally.
@@ -158,7 +158,7 @@ warnings during the sync are expected and not CranL-specific: those view types
 are premium/enterprise, which this fork removes. Templates import with those
 views dropped.
 
-Left `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true` afterwards. It is
+Left `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true` afterwards. It is
 idempotent and self-healing, so a future fresh database gets templates without
 anyone remembering this page. The cost is that each deploy spends ~13 minutes of
 the single combined worker on it, during which user exports and file imports
@@ -172,8 +172,8 @@ gates the backend routes on the request host, lines 82-89:
 ```caddy
 @is_jadawel_tool {
     expression `
-        "{$BASEROW_PUBLIC_URL}".contains({http.request.host}) ||
-        "{$BASEROW_EXTRA_PUBLIC_URLS}".split(",")
+        "{$JADAWEL_PUBLIC_URL}".contains({http.request.host}) ||
+        "{$JADAWEL_EXTRA_PUBLIC_URLS}".split(",")
             .filter(u, u != "" && u.contains({http.request.host}))
             .size() > 0
     `
@@ -187,10 +187,10 @@ by Nuxt with its own 404 page — a JSON body containing
 `"message": "لم يتم العثور على الموقع"`, which is the giveaway that the request
 never reached Django.
 
-With `BASEROW_PUBLIC_URL=https://jadawl.site/`, `jadawl.site` works completely
+With `JADAWEL_PUBLIC_URL=https://jadawl.site/`, `jadawl.site` works completely
 and `jadawel-img0kf.cranl.net` 404s on every path. To keep both hosts alive, set
-`BASEROW_EXTRA_PUBLIC_URLS` to the comma-separated others — do not try to put two
-URLs in `BASEROW_PUBLIC_URL`.
+`JADAWEL_EXTRA_PUBLIC_URLS` to the comma-separated others — do not try to put two
+URLs in `JADAWEL_PUBLIC_URL`.
 
 ---
 
@@ -201,18 +201,18 @@ URLs in `BASEROW_PUBLIC_URL`.
 | `PORT` | `3000` | **Critical.** Overrides CranL's injected `PORT=80`, which otherwise makes Nuxt fight Caddy for the socket (§4). |
 | `DISABLE_VOLUME_CHECK` | `yes` | Unblocks boot; no persistent volume by design (§3). |
 | `SECRET_KEY` | *50 chars, generated* | Must be explicit — `baserow.sh:201` otherwise writes one to the ephemeral `/baserow/data/.secret`, so every redeploy would invalidate all sessions. |
-| `BASEROW_JWT_SIGNING_KEY` | *50 chars, generated* | Same, via `.jwt_signing_key`. |
-| `BASEROW_PUBLIC_URL` | current domain, no trailing slash | Baserow rejects requests on any host that does not match. Must be switched when the domain changes. |
+| `JADAWEL_JWT_SIGNING_KEY` | *50 chars, generated* | Same, via `.jwt_signing_key`. |
+| `JADAWEL_PUBLIC_URL` | current domain, no trailing slash | Baserow rejects requests on any host that does not match. Must be switched when the domain changes. |
 | `DATABASE_URL` | internal, from `jadawel-postgres` | |
 | `REDIS_URL` | internal, from `jadawel-redis` | Celery and websockets do not work without Redis; no BaaS replaces it. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | Required on the lite image — the startup script otherwise runs `chown -R postgres:postgres` for a user that exists only in the full image. |
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
-| `BASEROW_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |
-| `BASEROW_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
+| `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |
+| `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Removes a step that can take 30 minutes from every boot. |
-| `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | **Must be set explicitly.** It defaults to `SYNC_TEMPLATES_ON_STARTUP`, so the line above otherwise leaves the instance with zero templates (§6). |
+| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | **Must be set explicitly.** It defaults to `SYNC_TEMPLATES_ON_STARTUP`, so the line above otherwise leaves the instance with zero templates (§6). |
 
-Leave `BASEROW_CADDY_ADDRESSES` unset. Its `:80` default is correct — CranL owns
+Leave `JADAWEL_CADDY_ADDRESSES` unset. Its `:80` default is correct — CranL owns
 TLS, and pointing Caddy at an `https://` address makes it try to obtain its own
 certificate on a port it cannot reach, which hangs the deploy.
 
@@ -220,7 +220,7 @@ certificate on a port it cannot reach, which hangs the deploy.
 
 | Variable | Why |
 |---|---|
-| `BASEROW_ENABLE_SECURE_PROXY_SSL_HEADER=yes` | TLS terminates at CranL's proxy, so Django cannot currently tell requests arrived over HTTPS. Also passes `--forwarded-allow-ips='*'` to gunicorn so real client IPs are visible. See `docs/PRODUCTION_HARDENING.md` §2.3. |
+| `JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER=yes` | TLS terminates at CranL's proxy, so Django cannot currently tell requests arrived over HTTPS. Also passes `--forwarded-allow-ips='*'` to gunicorn so real client IPs are visible. See `docs/PRODUCTION_HARDENING.md` §2.3. |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_STORAGE_BUCKET_NAME`, `AWS_S3_REGION_NAME`, `AWS_S3_ENDPOINT_URL` | **Uploaded files are lost on every redeploy until these exist.** Blocked on a CranL bug: creating a bucket token returns "Quota limit exceeded. You can create no more than 50 tokens". Any S3-compatible provider works as a fallback, at the cost of files leaving Saudi Arabia. |
 
 ---
@@ -266,7 +266,7 @@ real deploy once that clears.
 `https://jadawl.site` is the live URL and resolves, serves valid TLS and reaches
 Django. `https://jadawel-img0kf.cranl.net` now 404s on every path, by design: see
 §7 — the Caddyfile only proxies backend routes for hosts named in
-`BASEROW_PUBLIC_URL`. Add it to `BASEROW_EXTRA_PUBLIC_URLS` if a working fallback
+`JADAWEL_PUBLIC_URL`. Add it to `JADAWEL_EXTRA_PUBLIC_URLS` if a working fallback
 host is wanted.
 
 Kept for the next domain change:
@@ -275,7 +275,7 @@ Kept for the next domain change:
    use the provider's `ALIAS`/`ANAME`, or Cloudflare's CNAME flattening. On
    Cloudflare keep the record **DNS-only (grey cloud)** until the certificate
    issues, or the proxy intercepts the ACME challenge.
-2. Once SSL is active, set `BASEROW_PUBLIC_URL` to the new origin and Reload.
+2. Once SSL is active, set `JADAWEL_PUBLIC_URL` to the new origin and Reload.
    Baserow rejects requests on any host that does not match it, so the two must
    change together, and the old host stops working the moment it is dropped.
 
@@ -297,12 +297,12 @@ tolerates it, but it is worth trimming next time the variable is touched.
 | `401 Unauthorized` pulling the image | GHCR package private | Make the package (not the repo) public |
 | `Railpack could not determine how to build the app` | Wrong build type; cannot be changed | Recreate the app with Dockerfile |
 | Container restarts repeatedly on first boot | Migrations in progress | Expected; they resume and finish |
-| Killed / exit 137 | OOM on the 4 GB plan | `BASEROW_RUN_MINIMAL=yes`, `BASEROW_AMOUNT_OF_WORKERS=1`, `SYNC_TEMPLATES_ON_STARTUP=false` |
-| UI loads, grid empty, websockets fail | `BASEROW_PUBLIC_URL` does not match the browser URL | Correct it and Reload |
-| Template picker empty | Sync never ran on this database | `BASEROW_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true`, Reload, wait ~13 min (§6) |
-| `/api/*` returns JSON with `"message": "لم يتم العثور على الموقع"` | Request host is not in `BASEROW_PUBLIC_URL`, so Caddy sent it to Nuxt instead of Django | Add the host to `BASEROW_EXTRA_PUBLIC_URLS` (§7) |
+| Killed / exit 137 | OOM on the 4 GB plan | `JADAWEL_RUN_MINIMAL=yes`, `JADAWEL_AMOUNT_OF_WORKERS=1`, `SYNC_TEMPLATES_ON_STARTUP=false` |
+| UI loads, grid empty, websockets fail | `JADAWEL_PUBLIC_URL` does not match the browser URL | Correct it and Reload |
+| Template picker empty | Sync never ran on this database | `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true`, Reload, wait ~13 min (§6) |
+| `/api/*` returns JSON with `"message": "لم يتم العثور على الموقع"` | Request host is not in `JADAWEL_PUBLIC_URL`, so Caddy sent it to Nuxt instead of Django | Add the host to `JADAWEL_EXTRA_PUBLIC_URLS` (§7) |
 | Uploaded files vanish after a deploy | No S3 configured | Set the `AWS_*` variables |
-| Everyone logged out after a deploy | `SECRET_KEY` / `BASEROW_JWT_SIGNING_KEY` being regenerated | Set both explicitly |
+| Everyone logged out after a deploy | `SECRET_KEY` / `JADAWEL_JWT_SIGNING_KEY` being regenerated | Set both explicitly |
 | `/api/schema.json` returns a Django 500 | Pre-existing upstream schema-generation bug (see open items) — **not** a sign of a bad deploy | Ignore; use another endpoint to check liveness |
 
 ---
@@ -320,7 +320,7 @@ tolerates it, but it is worth trimming next time the variable is touched.
    (`docs/PRODUCTION_HARDENING.md` §2.1, its highest-priority item).
 3. **S3 credentials** — blocked on the CranL token quota bug.
 4. **`jadawl.site`** — DNS and SSL pending.
-5. **`BASEROW_ENABLE_SECURE_PROXY_SSL_HEADER`** — not set.
+5. **`JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER`** — not set.
 6. **`PORT=3000` is fragile.** It is a manual env var defending against a
    platform-injected one. Making the image immune would mean forcing `PORT` in
    the frontend's supervisor wrapper in `Azizahmed/Jadawel` and republishing.

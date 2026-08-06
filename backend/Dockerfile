@@ -171,7 +171,7 @@ RUN apt-get update && \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV DOCKER_USER=baserow_docker_user \
-    BASEROW_IMAGE_TYPE="backend" \
+    JADAWEL_IMAGE_TYPE="backend" \
     PYTHONUNBUFFERED=1 \
     UV_PROJECT_ENVIRONMENT=/baserow/venv \
     UV_CACHE_DIR=/tmp/baserow_uv_cache \
@@ -238,7 +238,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     sudo
 
 ENV DOCKER_USER=baserow_docker_user \
-    BASEROW_IMAGE_TYPE="backend" \
+    JADAWEL_IMAGE_TYPE="backend" \
     UV_PYTHON_DOWNLOADS=0 \
     UV_COMPILE_BYTECODE=0 \
     UV_LINK_MODE=copy \
@@ -311,7 +311,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV POSTGRES_VERSION=15 \
     DOCKER_USER=baserow_docker_user \
-    BASEROW_IMAGE_TYPE="backend" \
+    JADAWEL_IMAGE_TYPE="backend" \
     UV_PROJECT_ENVIRONMENT=/baserow/venv \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \

@@ -69,7 +69,7 @@ def run_periodic_fields_updates(
         )
         now = datetime.now(tz=timezone.utc)
         threshold = now - timedelta(
-            minutes=settings.BASEROW_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN
+            minutes=settings.JADAWEL_PERIODIC_FIELD_UPDATE_UNUSED_WORKSPACE_INTERVAL_MIN
         )
         workspaces = filter_distinct_workspace_ids_per_fields(
             field_qs, workspace_id

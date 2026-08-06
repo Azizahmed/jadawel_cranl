@@ -26,8 +26,8 @@ from jadawel.core.redis import WebhookRedisQueue
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -50,8 +50,8 @@ def test_call_webhook_webhook_does_not_exist(mock_clear_queue):
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -90,8 +90,8 @@ def test_call_webhook_webhook_url_cannot_be_reached(data_fixture):
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -118,8 +118,8 @@ def test_call_webhook_becomes_inactive_max_failed_reached(data_fixture):
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -145,8 +145,8 @@ def test_call_webhook_skipped_because_not_active(data_fixture):
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -173,8 +173,8 @@ def test_call_webhook_reset_after_success_call(data_fixture):
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -287,9 +287,9 @@ def test_call_webhook_next_item_scheduled(mock_schedule, data_fixture):
 
 @pytest.mark.django_db(transaction=True)
 @override_settings(
-    BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS=False,
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=0,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=0,
+    JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS=False,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=0,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=0,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -317,9 +317,9 @@ def test_cant_call_webhook_to_localhost_when_private_addresses_not_allowed(
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS=True,
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=0,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=0,
+    JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS=True,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=0,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=0,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -353,8 +353,8 @@ def test_can_call_webhook_to_localhost_when_private_addresses_allowed(
 @pytest.mark.django_db(transaction=True)
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
-    BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
+    JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL=1,
+    JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES=1,
 )
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
@@ -501,7 +501,7 @@ def test_webhook_with_paginated_payload(
 
 @pytest.mark.django_db(transaction=True)
 @responses.activate
-@override_settings(BASEROW_WEBHOOKS_BATCH_LIMIT=1)
+@override_settings(JADAWEL_WEBHOOKS_BATCH_LIMIT=1)
 @patch("jadawel.contrib.database.webhooks.tasks.RedisQueue", WebhookRedisQueue)
 @patch("jadawel.contrib.database.webhooks.tasks.cache", MagicMock())
 @patch("jadawel.ws.tasks.broadcast_to_users.apply")

@@ -100,11 +100,11 @@ def test_upload_user_file(data_fixture, tmpdir):
     with pytest.raises(InvalidFileStreamError):
         handler.upload_user_file(user, "test.txt", None, storage=storage)
 
-    old_limit = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 6
+    old_limit = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 6
     with pytest.raises(FileSizeTooLargeError):
         handler.upload_user_file(user, "test.txt", ContentFile(b"Hello World"))
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
 
     with freeze_time("2020-01-01 12:00"):
         user_file = handler.upload_user_file(
@@ -736,7 +736,7 @@ def test_export_user_file_doesnt_add_if_file_exists_in_files_zip(
     )
 
     zip_file = ExportZipFile(
-        compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+        compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
         compress_type=zipstream.ZIP_DEFLATED,
     )
     # Pretend the file already exists and verify that add() is not called.
@@ -806,7 +806,7 @@ def test_export_user_file_adds_if_files_zip_is_empty_and_not_in_cache(
     cache = {}
 
     zip_file = ExportZipFile(
-        compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+        compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
         compress_type=zipstream.ZIP_DEFLATED,
     )
     result = handler.export_user_file(

@@ -17,7 +17,7 @@ def clean_up_row_history_entries(self):
 
     from .history import RowHistoryHandler
 
-    older_than_days = timedelta(days=settings.BASEROW_ROW_HISTORY_RETENTION_DAYS)
+    older_than_days = timedelta(days=settings.JADAWEL_ROW_HISTORY_RETENTION_DAYS)
 
     cutoff_datetime = datetime.combine(
         datetime.now(tz=timezone.utc) - older_than_days, time.min
@@ -27,6 +27,6 @@ def clean_up_row_history_entries(self):
 
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
-    every = timedelta(minutes=settings.BASEROW_ROW_HISTORY_CLEANUP_INTERVAL_MINUTES)
+    every = timedelta(minutes=settings.JADAWEL_ROW_HISTORY_CLEANUP_INTERVAL_MINUTES)
 
     sender.add_periodic_task(every, clean_up_row_history_entries.s())

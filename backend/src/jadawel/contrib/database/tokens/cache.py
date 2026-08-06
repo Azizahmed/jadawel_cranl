@@ -19,7 +19,7 @@ def _cache_key(token_key: str) -> str:
 
 
 def get_cached_token(token_key: str) -> Token | None:
-    if settings.BASEROW_CACHE_TTL_SECONDS <= 0:
+    if settings.JADAWEL_CACHE_TTL_SECONDS <= 0:
         return None
 
     token = cache.get(_cache_key(token_key))
@@ -30,7 +30,7 @@ def get_cached_token(token_key: str) -> Token | None:
 
 
 def set_cached_token(token: Token, ttl: int | None = None) -> None:
-    if settings.BASEROW_CACHE_TTL_SECONDS <= 0:
+    if settings.JADAWEL_CACHE_TTL_SECONDS <= 0:
         return
 
     # Don't store the key in the cache for security reasons.
@@ -40,7 +40,7 @@ def set_cached_token(token: Token, ttl: int | None = None) -> None:
     cache.set(
         _cache_key(token_key),
         token,
-        timeout=ttl or settings.BASEROW_CACHE_TTL_SECONDS,
+        timeout=ttl or settings.JADAWEL_CACHE_TTL_SECONDS,
     )
 
     # Restore the key on the token instance after caching.
@@ -48,6 +48,6 @@ def set_cached_token(token: Token, ttl: int | None = None) -> None:
 
 
 def invalidate_cached_token(token_key: str) -> None:
-    if settings.BASEROW_CACHE_TTL_SECONDS <= 0:
+    if settings.JADAWEL_CACHE_TTL_SECONDS <= 0:
         return
     cache.delete(_cache_key(token_key))

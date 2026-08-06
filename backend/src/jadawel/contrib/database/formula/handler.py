@@ -20,7 +20,7 @@ from jadawel.contrib.database.formula.expression_generator.generator import (
     baserow_expression_to_update_django_expression,
 )
 from jadawel.contrib.database.formula.migrations.migrations import (
-    BASEROW_FORMULA_VERSION,
+    JADAWEL_FORMULA_VERSION,
 )
 from jadawel.contrib.database.formula.parser.ast_mapper import (
     BaserowFieldReferenceVisitor,
@@ -358,7 +358,7 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         refresh_after_insert = _expression_requires_refresh_after_insert(expression)
 
         formula_field.internal_formula = internal_formula
-        formula_field.version = BASEROW_FORMULA_VERSION
+        formula_field.version = JADAWEL_FORMULA_VERSION
 
         formula_field.needs_periodic_update = _needs_periodic_update(expression)
         formula_field.expand_formula_when_referenced = _has_lookup_expressions(

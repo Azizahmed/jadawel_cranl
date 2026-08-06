@@ -50,7 +50,7 @@ export function parseHostnamesFromUrls(urlsString) {
       try {
         return new URL(url).hostname
       } catch (e) {
-        console.warn(`Invalid URL in BASEROW_EXTRA_PUBLIC_URLS: ${url}`)
+        console.warn(`Invalid URL in JADAWEL_EXTRA_PUBLIC_URLS: ${url}`)
         return null
       }
     })

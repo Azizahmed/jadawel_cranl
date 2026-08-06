@@ -64,7 +64,7 @@ class WebhookDeactivatedNotificationType(EmailNotificationTypeMixin, Notificatio
             "The webhook failed more than %(max_failures)s consecutive times and "
             "was therefore deactivated."
         ) % {
-            "max_failures": settings.BASEROW_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES,
+            "max_failures": settings.JADAWEL_WEBHOOKS_MAX_CONSECUTIVE_TRIGGER_FAILURES,
         }
 
 

@@ -49,7 +49,7 @@ def clean_up_user_log_entry(self):
 
     from jadawel.core.user.handler import UserHandler
 
-    older_than_days = timedelta(days=settings.BASEROW_USER_LOG_ENTRY_RETENTION_DAYS)
+    older_than_days = timedelta(days=settings.JADAWEL_USER_LOG_ENTRY_RETENTION_DAYS)
     cutoff_datetime = datetime.now(tz=timezone.utc) - older_than_days
 
     UserHandler().delete_user_log_entries_older_than(cutoff_datetime)
@@ -67,6 +67,6 @@ def setup_periodic_tasks(sender, **kwargs):
         flush_expired_tokens.s(),
     )
     sender.add_periodic_task(
-        timedelta(minutes=settings.BASEROW_USER_LOG_ENTRY_CLEANUP_INTERVAL_MINUTES),
+        timedelta(minutes=settings.JADAWEL_USER_LOG_ENTRY_CLEANUP_INTERVAL_MINUTES),
         clean_up_user_log_entry.s(),
     )

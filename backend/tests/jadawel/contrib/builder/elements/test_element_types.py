@@ -937,7 +937,7 @@ def test_image_element_import_export(data_fixture, fake, storage):
     )
 
     zip_file = ExportZipFile(
-        compress_level=settings.BASEROW_DEFAULT_ZIP_COMPRESS_LEVEL,
+        compress_level=settings.JADAWEL_DEFAULT_ZIP_COMPRESS_LEVEL,
         compress_type=zipstream.ZIP_DEFLATED,
     )
 

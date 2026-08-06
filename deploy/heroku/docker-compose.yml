@@ -10,7 +10,7 @@ services:
         - FROM_IMAGE=baserow
     environment:
       - PORT=80
-      - BASEROW_PUBLIC_URL=http://localhost
+      - JADAWEL_PUBLIC_URL=http://localhost
       - DATABASE_URL=postgresql://baserow:baserow@db:5432/baserow
       - HEROKU_APP_NAME=test
       - REDIS_URL=redis://:baserow@redis:6379
@@ -19,7 +19,7 @@ services:
       - MAILGUN_SMTP_LOGIN=mailhog
       - MAILGUN_SMTP_PASSWORD=mailhog
       - MAILGUN_SMTP_PORT=1025
-      - BASEROW_AMOUNT_OF_WORKERS
+      - JADAWEL_AMOUNT_OF_WORKERS
     ports:
       - "80:80"
       - "443:443"

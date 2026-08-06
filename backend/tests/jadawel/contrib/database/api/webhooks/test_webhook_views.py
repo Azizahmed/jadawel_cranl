@@ -662,7 +662,7 @@ def test_trigger_test_call(api_client, data_fixture):
 @pytest.mark.django_db
 @responses.activate
 @override_settings(
-    BASEROW_WEBHOOKS_ALLOW_PRIVATE_ADDRESS=True,
+    JADAWEL_WEBHOOKS_ALLOW_PRIVATE_ADDRESS=True,
 )
 def test_can_query_private_http_addresses_when_env_var_on(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()

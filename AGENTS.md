@@ -57,7 +57,7 @@ Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
 
 - `premium/` and `enterprise/` are deleted for licence reasons.
   `backend/tests/arabase/test_fork_hygiene.py` fails if `baserow_premium` or
-  `baserow_enterprise` becomes importable, or if `BASEROW_OSS_ONLY` stops being true.
+  `baserow_enterprise` becomes importable, or if `JADAWEL_OSS_ONLY` stops being true.
   Run it after every upstream merge.
 - Fork features are **additive**: they live in `backend/src/arabase/` and
   `web-frontend/modules/arabase/`. The backend hooks into Baserow's registries from

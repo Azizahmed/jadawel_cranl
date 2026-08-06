@@ -23,7 +23,7 @@ from jadawel.contrib.integrations.local_baserow.models import (
 from jadawel.core.formula import BaserowFormulaObject, resolve_formula
 from jadawel.core.formula.registries import formula_runtime_function_registry
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import BASEROW_FORMULA_MODE_RAW
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW
 from jadawel.core.formula.validator import ensure_integer, ensure_string
 from jadawel.core.registry import Instance
 from jadawel.core.services.dispatch_context import DispatchContext
@@ -271,7 +271,7 @@ class LocalBaserowTableServiceFilterableMixin:
             # We need this test for compatibility purposes with old values
             if (
                 service_filter.value_is_formula
-                or service_filter.value["mode"] == BASEROW_FORMULA_MODE_RAW
+                or service_filter.value["mode"] == JADAWEL_FORMULA_MODE_RAW
             ):
                 try:
                     resolved_value = ensure_string(
@@ -313,7 +313,7 @@ class LocalBaserowTableServiceFilterableMixin:
             formula = BaserowFormulaObject.to_formula(service_filter.value)
 
             if not is_formula:
-                formula["mode"] = BASEROW_FORMULA_MODE_RAW
+                formula["mode"] = JADAWEL_FORMULA_MODE_RAW
 
             # Service types like LocalBaserowGetRow do not have a value attribute.
             new_formula = yield formula

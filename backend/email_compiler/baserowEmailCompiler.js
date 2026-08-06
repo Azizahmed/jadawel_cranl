@@ -7,10 +7,10 @@ const path = require('path')
 const { globSync } = require('glob')
 const chokidar = require('chokidar')
 
-const BASEROW_BACKEND_SRC_DIR = path.join(__dirname, '..', 'src')
+const JADAWEL_BACKEND_SRC_DIR = path.join(__dirname, '..', 'src')
 const MJML_FILE_SEARCH_ROOT = process.env.MJML_FILE_SEARCH_ROOT
   ? process.env.MJML_FILE_SEARCH_ROOT
-  : BASEROW_BACKEND_SRC_DIR
+  : JADAWEL_BACKEND_SRC_DIR
 const MJML_ETA_FILE_GLOB = path.join(MJML_FILE_SEARCH_ROOT, '**', '*.mjml.eta')
 const ETA_LAYOUT_FILE_GLOB = path.join(
   MJML_FILE_SEARCH_ROOT,

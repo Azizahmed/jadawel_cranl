@@ -3,7 +3,7 @@
 # There is no published registry image for Jadawel, so build it first with:
 #   just build all-in-one latest
 # then start it with:
-#   BASEROW_VERSION=latest docker compose -f docker-compose.all-in-one.yml up -d
+#   JADAWEL_VERSION=latest docker compose -f docker-compose.all-in-one.yml up -d
 #
 # NOTE: the `baserow` service/container/volume names and the `/baserow/data` mount path
 # are load-bearing (the image entrypoint and named volumes depend on them) and are
@@ -11,9 +11,9 @@
 services:
   baserow:
     container_name: baserow
-    image: jadawel/jadawel:${BASEROW_VERSION:-latest}
+    image: jadawel/jadawel:${JADAWEL_VERSION:-latest}
     environment:
-      BASEROW_PUBLIC_URL: 'http://localhost'
+      JADAWEL_PUBLIC_URL: 'http://localhost'
     ports:
       - "80:80"
       - "443:443"

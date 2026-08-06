@@ -59,15 +59,15 @@ def test_upload_file_with_jwt_auth(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json()["error"] == "ERROR_INVALID_FILE"
 
-    old_limit = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 6
+    old_limit = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 6
     response = api_client.post(
         reverse("api:user_files:upload_file"),
         data={"file": SimpleUploadedFile("test.txt", b"Hello World")},
         format="multipart",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
     assert response.status_code == HTTP_413_REQUEST_ENTITY_TOO_LARGE
     assert response.json()["error"] == "ERROR_FILE_SIZE_TOO_LARGE"
     assert response.json()["detail"] == (
@@ -196,15 +196,15 @@ def test_upload_file_with_token_auth(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json()["error"] == "ERROR_INVALID_FILE"
 
-    old_limit = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 6
+    old_limit = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 6
     response = api_client.post(
         reverse("api:user_files:upload_file"),
         data={"file": SimpleUploadedFile("test.txt", b"Hello World")},
         format="multipart",
         HTTP_AUTHORIZATION=f"Token {token.key}",
     )
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
     assert response.status_code == HTTP_413_REQUEST_ENTITY_TOO_LARGE
     assert response.json()["error"] == "ERROR_FILE_SIZE_TOO_LARGE"
     assert response.json()["detail"] == (
@@ -350,8 +350,8 @@ def test_upload_file_via_url_with_jwt_auth(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json()["error"] == "ERROR_INVALID_FILE_URL"
 
-    old_limit = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 6
+    old_limit = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 6
 
     responses.add(
         responses.GET,
@@ -385,7 +385,7 @@ def test_upload_file_via_url_with_jwt_auth(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_413_REQUEST_ENTITY_TOO_LARGE
     assert response.json()["error"] == "ERROR_FILE_SIZE_TOO_LARGE"
 
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
 
     storage = FileSystemStorage(location=str(tmpdir), base_url="http://localhost")
 
@@ -460,8 +460,8 @@ def test_upload_file_via_url_with_token_auth(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json()["error"] == "ERROR_INVALID_FILE_URL"
 
-    old_limit = settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = 6
+    old_limit = settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = 6
 
     responses.add(
         responses.GET,
@@ -495,7 +495,7 @@ def test_upload_file_via_url_with_token_auth(api_client, data_fixture, tmpdir):
     assert response.status_code == HTTP_413_REQUEST_ENTITY_TOO_LARGE
     assert response.json()["error"] == "ERROR_FILE_SIZE_TOO_LARGE"
 
-    settings.BASEROW_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
+    settings.JADAWEL_FILE_UPLOAD_SIZE_LIMIT_MB = old_limit
 
     storage = FileSystemStorage(location=str(tmpdir), base_url="http://localhost")
 

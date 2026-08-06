@@ -22,7 +22,7 @@ services:
       # The domain the service will respond to
       - "traefik.http.routers.baserow.rule=Host(`example.localhost`)"
     environment:
-      - BASEROW_PUBLIC_URL=http://example.localhost
+      - JADAWEL_PUBLIC_URL=http://example.localhost
     volumes:
       - baserow_data:/baserow/data
 volumes:
