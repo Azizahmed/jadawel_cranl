@@ -15,7 +15,7 @@ from opentelemetry import trace
 
 from jadawel.core.emails import NotificationsSummaryEmail
 from jadawel.core.models import User, UserProfile, Workspace
-from jadawel.core.telemetry.utils import baserow_trace
+from jadawel.core.telemetry.utils import jadawel_trace
 from jadawel.core.utils import (
     atomic_if_not_already,
     grouper,
@@ -67,7 +67,7 @@ class NotificationHandler:
         return unread_broadcast
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def get_notification_by_id(
         cls, user: AbstractUser, notification_id: int
     ) -> NotificationRecipient:
@@ -85,7 +85,7 @@ class NotificationHandler:
         return cls.get_notification_by(user, id=notification_id)
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def get_notification_by(cls, user: AbstractUser, **kwargs) -> Notification:
         """
         Get a notification for the given user matching the given kwargs.
@@ -125,7 +125,7 @@ class NotificationHandler:
         return result[0]
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def all_notifications_for_user(
         cls, user, include_workspace: Optional[Workspace] = None
     ):
@@ -142,7 +142,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def list_notifications(cls, user, workspace: Workspace):
         """
         Returns a list of notifications for the given user and workspace.
@@ -160,7 +160,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def get_unread_notifications_count(
         cls, user: AbstractUser, workspace: Optional[Workspace] = None
     ) -> int:
@@ -192,7 +192,7 @@ class NotificationHandler:
         ).count()
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def annotate_workspaces_with_unread_notifications_count(
         cls, user: AbstractUser, workspace_queryset: QuerySet, outer_ref_key: str = "pk"
     ) -> QuerySet:
@@ -226,7 +226,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def _get_missing_broadcast_entries_for_user(
         cls,
         user: AbstractUser,
@@ -248,7 +248,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def _create_missing_entries_for_broadcast_notifications_with_defaults(
         cls, user: AbstractUser, read=False, cleared=False, **kwargs
     ):
@@ -285,7 +285,7 @@ class NotificationHandler:
             )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def clear_all_notifications(
         cls,
         user: AbstractUser,
@@ -335,7 +335,7 @@ class NotificationHandler:
         all_notifications_cleared.send(sender=cls, user=user, workspace=workspace)
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def mark_notification_as_read(
         cls,
         user: AbstractUser,
@@ -387,7 +387,7 @@ class NotificationHandler:
         return notification_recipient
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def mark_all_notifications_as_read(cls, user: AbstractUser, workspace: Workspace):
         """
         Marks all the notifications as read for the given workspace and user.
@@ -413,7 +413,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def construct_notification(
         cls, notification_type: str, sender=None, data=None, workspace=None, **kwargs
     ) -> Notification:
@@ -437,7 +437,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def construct_notification_recipient(
         cls,
         notification: Notification,
@@ -497,7 +497,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def create_notification(
         cls, notification_type: str, sender=None, data=None, workspace=None, **kwargs
     ) -> Notification:
@@ -525,7 +525,7 @@ class NotificationHandler:
         return notification
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def create_broadcast_notification(
         cls,
         notification_type: str,
@@ -571,7 +571,7 @@ class NotificationHandler:
         return notification
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def create_direct_notification_for_users(
         cls,
         notification_type: str,
@@ -624,7 +624,7 @@ class NotificationHandler:
         return notification_recipients
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def construct_email_summary_for_user(
         cls,
         user: AbstractUser,
@@ -654,7 +654,7 @@ class NotificationHandler:
             )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def filter_and_annotate_users_with_notifications_to_send_by_email(
         cls,
         user_filters_q: Q,
@@ -731,7 +731,7 @@ class NotificationHandler:
         )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def mark_all_notifications_matching_filters_as_sent_by_emails(
         cls, filters_q: Q
     ) -> int:
@@ -749,7 +749,7 @@ class NotificationHandler:
         ).update(email_scheduled=False)
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def send_unread_notifications_by_email_to_users_matching_filters(
         cls, user_filters_q: Q, max_emails: Optional[int] = None
     ) -> UserWithScheduledEmailNotifications:

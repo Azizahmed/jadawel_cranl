@@ -1,5 +1,5 @@
 """
-WSGI config for baserow project.
+WSGI config for jadawel project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

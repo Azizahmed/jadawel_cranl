@@ -3,7 +3,7 @@
 * so as an initial step so the actual email eta files can correctly wrap themselves
 * using this base layout.
 *
-* See baserow/backend/email_compiler/baserowEmailCompiler.js
+* See baserow/backend/email_compiler/jadawelEmailCompiler.js
 * for the script which runs the eta and mjml tools over these files.
 *
 * The <%~ it.body %> tag found below is where other eta templates using

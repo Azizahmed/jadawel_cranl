@@ -17,7 +17,7 @@ def construct_all_possible_field_kwargs(
     form_view,
 ) -> Dict[str, List[Dict[str, Any]]]:
     """
-    Some baserow field types have multiple different 'modes' which result in
+    Some jadawel field types have multiple different 'modes' which result in
     different database columns and modes of operation being
     created. This function creates a dictionary of field type to a list of
     kwarg dicts, one for each interesting possible 'subtype' of the field.

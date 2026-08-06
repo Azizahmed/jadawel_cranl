@@ -48,7 +48,7 @@ from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.utils import generate_hash
 from jadawel.throttling.handler import rate_limit
 
-from ..telemetry.utils import baserow_trace_methods
+from ..telemetry.utils import jadawel_trace_methods
 from .emails import (
     AccountDeleted,
     AccountDeletionCanceled,
@@ -83,7 +83,7 @@ tracer = trace.get_tracer(__name__)
 LAST_LOGIN_UPDATE_DELAY = timedelta(minutes=1)
 
 
-class UserHandler(metaclass=baserow_trace_methods(tracer)):
+class UserHandler(metaclass=jadawel_trace_methods(tracer)):
     def get_active_user(
         self,
         user_id: Optional[int] = None,
@@ -236,9 +236,9 @@ class UserHandler(metaclass=baserow_trace_methods(tracer)):
             email=email,
             name=name,
             password=password,
-            # This is the first ever user created in this baserow instance and
+            # This is the first ever user created in this jadawel instance and
             # therefore the administrator user, lets give them staff rights so they
-            # can set baserow wide settings.
+            # can set jadawel wide settings.
             is_staff=not User.objects.exists(),
             language=language,
         )

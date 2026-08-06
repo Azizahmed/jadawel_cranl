@@ -39,7 +39,7 @@ from jadawel.contrib.database.views.models import View
 from jadawel.contrib.database.views.view_types import GridViewType
 from jadawel.core.handler import CoreHandler
 from jadawel.core.registries import ImportExportConfig, application_type_registry
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.usage.registries import USAGE_UNIT_MB
 from jadawel.core.user_files.models import UserFile
@@ -243,7 +243,7 @@ class TableUsageHandler:
         return total_tables_counted
 
 
-class TableHandler(metaclass=baserow_trace_methods(tracer)):
+class TableHandler(metaclass=jadawel_trace_methods(tracer)):
     @classmethod
     def get_tables(
         cls, base_queryset: Optional[QuerySet[Table]] = None

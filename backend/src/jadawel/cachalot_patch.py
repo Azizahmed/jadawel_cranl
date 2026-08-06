@@ -45,11 +45,11 @@ else:
         yield
 
 
-def patch_cachalot_for_baserow():
+def patch_cachalot_for_jadawel():
     """
-    This function patches the cachalot library to make it work with baserow dynamic
+    This function patches the cachalot library to make it work with jadawel dynamic
     models. The problem we're trying to solve here is that the only way to limit what
-    cachalot caches is to provide a fix list of tables, but baserow creates dynamic
+    cachalot caches is to provide a fix list of tables, but jadawel creates dynamic
     models on the fly so we can't know what tables will be created in advance, so we
     need to include all the tables that start with the USER_TABLE_DATABASE_NAME_PREFIX
     prefix in the list of cachable tables.
@@ -71,7 +71,7 @@ def patch_cachalot_for_baserow():
 
     # create a single regex to match if a string provided starts with any of the
     # prefixes we want to match followed by a number
-    baserow_table_names_regex = re.compile(
+    jadawel_table_names_regex = re.compile(
         r"^(?:{}|{}|{}|{})\d+".format(
             USER_TABLE_DATABASE_NAME_PREFIX,
             LINK_ROW_THROUGH_TABLE_PREFIX,
@@ -80,17 +80,17 @@ def patch_cachalot_for_baserow():
         )
     )
 
-    def is_baserow_table(table_name):
+    def is_jadawel_table(table_name):
         uncachable_tables = getattr(settings, "CACHALOT_UNCACHABLE_TABLES", [])
         return (
             table_name not in uncachable_tables
-            and baserow_table_names_regex.match(table_name) is not None
+            and jadawel_table_names_regex.match(table_name) is not None
         )
 
     @wraps(original_filter_cachable)
     def patched_filter_cachable(tables):
         return original_filter_cachable(tables).union(
-            set(filter(is_baserow_table, tables))
+            set(filter(is_jadawel_table, tables))
         )
 
     cachalot_utils.filter_cachable = patched_filter_cachable
@@ -99,7 +99,7 @@ def patch_cachalot_for_baserow():
 
     @wraps(original_is_cachable)
     def patched_is_cachable(table):
-        return is_baserow_table(table) or original_is_cachable(table)
+        return is_jadawel_table(table) or original_is_cachable(table)
 
     cachalot_utils.is_cachable = patched_is_cachable
 
@@ -120,12 +120,12 @@ def patch_cachalot_for_baserow():
 
         cachalot_enabled = getattr(LOCAL_STORAGE, "cachalot_enabled", False)
         if cachalot_enabled:
-            tables = set(filter(lambda t: not is_baserow_table(t), tables))
+            tables = set(filter(lambda t: not is_jadawel_table(t), tables))
         return original_are_all_cachable(tables)
 
     cachalot_utils.are_all_cachable = patched_are_all_cachable
 
-    baserow_tables_regex = re.compile(
+    jadawel_tables_regex = re.compile(
         r"({}\d+|{}\d+|{}\d+|{}\d+)".format(
             USER_TABLE_DATABASE_NAME_PREFIX,
             LINK_ROW_THROUGH_TABLE_PREFIX,
@@ -139,8 +139,8 @@ def patch_cachalot_for_baserow():
     def patched_get_tables_from_sql(
         connection, lowercased_sql, enable_quote: bool = False
     ):
-        baserow_tables = baserow_tables_regex.findall(lowercased_sql)
-        return set(baserow_tables) | original_get_tables_from_sql(
+        jadawel_tables = jadawel_tables_regex.findall(lowercased_sql)
+        return set(jadawel_tables) | original_get_tables_from_sql(
             connection, lowercased_sql, enable_quote
         )
 

@@ -9,7 +9,7 @@ from jadawel.config.helpers import (
     check_lazy_loaded_libraries,
     log_env_warnings,
 )
-from jadawel.core.mcp import get_baserow_mcp_server
+from jadawel.core.mcp import get_jadawel_mcp_server
 from jadawel.core.telemetry.telemetry import setup_telemetry
 from jadawel.ws.routers import websocket_router
 
@@ -30,7 +30,7 @@ application = ProtocolTypeRouter(
         "http": ConcurrencyLimiterASGI(
             URLRouter(
                 [
-                    re_path(r"^mcp", get_baserow_mcp_server().sse_app()),
+                    re_path(r"^mcp", get_jadawel_mcp_server().sse_app()),
                     re_path(r"", django_asgi_app),
                 ]
             ),

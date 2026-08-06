@@ -18,7 +18,7 @@ from jadawel.core.exceptions import (
     is_max_lock_exceeded_exception,
 )
 from jadawel.core.models import Application, TrashEntry, Workspace
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.trash.exceptions import (
     CannotDeleteAlreadyDeletedItem,
     CannotRestoreChildBeforeParent,
@@ -45,7 +45,7 @@ User = get_user_model()
 tracer = trace.get_tracer(__name__)
 
 
-class TrashHandler(metaclass=baserow_trace_methods(tracer)):
+class TrashHandler(metaclass=jadawel_trace_methods(tracer)):
     @staticmethod
     def trash(
         requesting_user: User,
@@ -663,13 +663,13 @@ def _get_trash_entry(
     trash_item_id: int,
 ) -> TrashEntry:
     """
-    Gets the trash entry for a particular resource in baserow which has been
+    Gets the trash entry for a particular resource in jadawel which has been
     trashed.
     :param trash_item_id: The id of the item to look for a trash entry for.
     :param parent_trash_item_id: The parent id of the item to look for a trash
         entry for.
     :param trash_item_type: The trashable type of the item.
-    :returns The trash entry for the specified baserow item.
+    :returns The trash entry for the specified jadawel item.
     :raises UserNotInWorkspace: If the requesting_user is not in the trashed items
         workspace.
     """

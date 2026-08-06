@@ -1222,7 +1222,7 @@ def safely_update_formula_versions(sender, **kwargs):
                 "Skipping formula update as FormulaField does not exist or have "
                 "version column."
             )
-            # We are starting up a version of baserow before formulas with versions
+            # We are starting up a version of jadawel before formulas with versions
             # existed, there is nothing to do.
             return
 

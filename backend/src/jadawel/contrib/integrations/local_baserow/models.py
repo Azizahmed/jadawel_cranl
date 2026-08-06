@@ -25,7 +25,7 @@ User = get_user_model()
 
 class LocalBaserowIntegration(Integration):
     """
-    An integration for accessing the local baserow instance. Everything which is
+    An integration for accessing the local jadawel instance. Everything which is
     accessible by the associated user can be accessed with this integration.
     """
 
@@ -95,7 +95,7 @@ class LocalBaserowListRows(
     SearchableServiceMixin,
 ):
     """
-    A model for the local baserow list rows service configuration data.
+    A model for the local jadawel list rows service configuration data.
     """
 
     default_result_count = models.PositiveIntegerField(
@@ -109,7 +109,7 @@ class LocalBaserowAggregateRows(
     LocalBaserowViewService, LocalBaserowFilterableServiceMixin, SearchableServiceMixin
 ):
     """
-    A model for the local baserow aggregate rows service configuration data.
+    A model for the local jadawel aggregate rows service configuration data.
     """
 
     field = models.ForeignKey(
@@ -130,7 +130,7 @@ class LocalBaserowGetRow(
     SearchableServiceMixin,
 ):
     """
-    A model for the local baserow get row service configuration data.
+    A model for the local jadawel get row service configuration data.
     """
 
     row_id = FormulaField()
@@ -138,7 +138,7 @@ class LocalBaserowGetRow(
 
 class LocalBaserowUpsertRow(LocalBaserowTableService):
     """
-    A model for the local baserow upsert row service configuration data.
+    A model for the local jadawel upsert row service configuration data.
     """
 
     row_id = FormulaField()
@@ -146,7 +146,7 @@ class LocalBaserowUpsertRow(LocalBaserowTableService):
 
 class LocalBaserowDeleteRow(LocalBaserowTableService):
     """
-    A model for the local baserow delete row service configuration data.
+    A model for the local jadawel delete row service configuration data.
     """
 
     row_id = FormulaField()
@@ -154,19 +154,19 @@ class LocalBaserowDeleteRow(LocalBaserowTableService):
 
 class LocalBaserowRowsCreated(LocalBaserowTableService):
     """
-    A model for the local baserow rows created trigger service.
+    A model for the local jadawel rows created trigger service.
     """
 
 
 class LocalBaserowRowsUpdated(LocalBaserowTableService):
     """
-    A model for the local baserow rows updated trigger service.
+    A model for the local jadawel rows updated trigger service.
     """
 
 
 class LocalBaserowRowsDeleted(LocalBaserowTableService):
     """
-    A model for the local baserow rows deleted trigger service.
+    A model for the local jadawel rows deleted trigger service.
     """
 
 

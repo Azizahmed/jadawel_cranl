@@ -4,7 +4,7 @@ set -euo pipefail
 
 # This script builds the Dockerfile found in the same folder, which is a simple image
 # containing the antlr4 parser generator. It then uses this image and runs it with
-# the grammar files mounted into to, then generates the appropriate parsers for Baserow
+# the grammar files mounted into to, then generates the appropriate parsers for Jadawel
 # and finally copies the generated code for those parsers to the correct location.
 
 function realpath()
@@ -33,7 +33,7 @@ NC=$(tput sgr0) # No Color
 cd "$(dirname "$(realpath "$0")")";
 
 # Double check the above command worked and we are now indeed in the formula directory
-if [ ! -f BaserowFormula.g4 ] || [ ! -f BaserowFormulaLexer.g4 ] || [ ! -d ../backend ] ; then
+if [ ! -f JadawelFormula.g4 ] || [ ! -f JadawelFormulaLexer.g4 ] || [ ! -d ../backend ] ; then
     echo "${RED}Grammar files or baserow code not found in build scripts directory, cannot continue...${NC}"
     exit 1
 fi
@@ -52,21 +52,21 @@ docker run -it --rm \
     -u "$USER_ID":"$GROUP_ID" \
     "$(docker build -q --build-arg UID="$USER_ID" --build-arg GID="$GROUP_ID" . )" sh -c "
         cd src
-        java -jar ../antlr.jar -Dlanguage=JavaScript -o out/frontend_parser -visitor -listener BaserowFormulaLexer.g4 BaserowFormula.g4
-        java -jar ../antlr.jar -Dlanguage=Python3 -o out/backend_parser -visitor -listener BaserowFormulaLexer.g4 BaserowFormula.g4
+        java -jar ../antlr.jar -Dlanguage=JavaScript -o out/frontend_parser -visitor -listener JadawelFormulaLexer.g4 JadawelFormula.g4
+        java -jar ../antlr.jar -Dlanguage=Python3 -o out/backend_parser -visitor -listener JadawelFormulaLexer.g4 JadawelFormula.g4
     "
 
-echo "Copying the new generated parsers into Baserow's source code overwriting the old ones..."
+echo "Copying the new generated parsers into Jadawel's source code overwriting the old ones..."
 FRONTEND_OUTPUT_DIR=./../web-frontend/modules/core/formula/parser/generated/
 mkdir -p $FRONTEND_OUTPUT_DIR
 # Delete all old parser files already in the source code to ensure we are getting a
 # fresh clean build
-rm -f "$FRONTEND_OUTPUT_DIR"BaserowFormula*
+rm -f "$FRONTEND_OUTPUT_DIR"JadawelFormula*
 cp out/frontend_parser/* $FRONTEND_OUTPUT_DIR
 
 BACKEND_OUTPUT_DIR=./../backend/src/jadawel/core/formula/parser/generated/
 mkdir -p $BACKEND_OUTPUT_DIR
-rm -f "$BACKEND_OUTPUT_DIR"BaserowFormula*
+rm -f "$BACKEND_OUTPUT_DIR"JadawelFormula*
 cp out/backend_parser/* $BACKEND_OUTPUT_DIR
 touch "$BACKEND_OUTPUT_DIR"__init__.py
 

@@ -76,7 +76,7 @@ class CollaboratorAddedToRowNotificationType(
         :param field: The field that the users have been added to.
         """
 
-        table = row.baserow_table
+        table = row.jadawel_table
         workspace = table.database.workspace
         data = CollaboratorAddedToRowNotificationData(
             row_id=row.id,
@@ -204,7 +204,7 @@ class UserMentionInRichTextFieldNotificationType(
         :param field: The field that the users have been mentioned to.
         """
 
-        table = row.baserow_table
+        table = row.jadawel_table
         workspace = table.database.workspace
         data = UserMentionInRichTextFieldNotificationData(
             row_id=row.id,
@@ -233,7 +233,7 @@ class UserMentionInRichTextFieldNotificationType(
             return
 
         model = rows[0]._meta.model
-        table = model.baserow_table
+        table = model.jadawel_table
 
         workspace_user_ids = set(
             table.database.workspace.users.values_list("id", flat=True)

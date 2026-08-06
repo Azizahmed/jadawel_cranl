@@ -108,7 +108,7 @@ from .signals import (
     workspaces_reordered,
 )
 from .storage import get_default_storage
-from .telemetry.utils import baserow_trace_methods, disable_instrumentation
+from .telemetry.utils import disable_instrumentation, jadawel_trace_methods
 from .trash.handler import TrashHandler
 from .types import (
     Actor,
@@ -140,7 +140,7 @@ class ApplicationUpdatedResult:
     updated_app_allowed_values: Dict[str, Any]
 
 
-class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context")):
+class CoreHandler(metaclass=jadawel_trace_methods(tracer, exclude="clear_context")):
     default_create_allowed_fields = ["name", "init_with_data"]
     default_update_allowed_fields = ["name"]
 
@@ -1968,7 +1968,7 @@ class CoreHandler(metaclass=baserow_trace_methods(tracer, exclude="clear_context
         content = Path(template_file_path).read_text()
         parsed_json = json.loads(content)
 
-        if "baserow_template_version" not in parsed_json:
+        if "jadawel_template_version" not in parsed_json:
             return
 
         slug = ".".join(template_file_path.name.split(".")[:-1])

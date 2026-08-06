@@ -129,48 +129,48 @@ def test_updating_many_rows_in_public_filtered_views(
 
 
     0.018 test_updating_many_rows_in_public_filtered_views  test_public_sharing_perform
-└─ 0.018 update_row_by_id  baserow/contrib/database/rows/handler.py:426
+└─ 0.018 update_row_by_id  jadawel/contrib/database/rows/handler.py:426
    ├─ 0.015 send  django/dispatch/dispatcher.py:159
    │     [2 frames hidden]  django
    │        0.015 <listcomp>  django/dispatch/dispatcher.py:180
-   │        ├─ 0.009 public_before_row_update  baserow/contrib/database/ws/public/rows
-   │        │  ├─ 0.004 get_public_views_row_checker  baserow/contrib/database/views/han
-   │        │  │  └─ 0.004 __init__  baserow/contrib/database/views/handler.py:985
-   │        │  │     ├─ 0.002 apply_filters  baserow/contrib/database/views/handler.py:2
-   │        │  │     │  └─ 0.002 apply_to_queryset  baserow/contrib/database/fields/fiel
+   │        ├─ 0.009 public_before_row_update  jadawel/contrib/database/ws/public/rows
+   │        │  ├─ 0.004 get_public_views_row_checker  jadawel/contrib/database/views/han
+   │        │  │  └─ 0.004 __init__  jadawel/contrib/database/views/handler.py:985
+   │        │  │     ├─ 0.002 apply_filters  jadawel/contrib/database/views/handler.py:2
+   │        │  │     │  └─ 0.002 apply_to_queryset  jadawel/contrib/database/fields/fiel
    │        │  │     │     └─ 0.002 filter  django/db/models/query.py:935
    │        │  │     │           [14 frames hidden]  django
    │        │  │     └─ 0.002 __iter__  django/db/models/query.py:265
    │        │  │           [16 frames hidden]  django
    │        │  │              0.001 get_prefetch_queryset  django/db/models/fields/relat
-   │        │  │              └─ 0.001 get_queryset  baserow/core/managers.py:29
+   │        │  │              └─ 0.001 get_queryset  jadawel/core/managers.py:29
    │        │  │                 └─ 0.001 filter  django/db/models/query.py:935
    │        │  │                       [9 frames hidden]  django
-   │        │  ├─ 0.003 _serialize_row  baserow/contrib/database/ws/public/rows/signals
+   │        │  ├─ 0.003 _serialize_row  jadawel/contrib/database/ws/public/rows/signals
    │        │  │  ├─ 0.002 data  rest_framework/serializers.py:546
    │        │  │  │     [18 frames hidden]  rest_framework, django, copy, <built-in>
-   │        │  │  └─ 0.001 get_row_serializer_class  baserow/contrib/database/api/rows/
-   │        │  │     └─ 0.001 get_response_serializer_field  baserow/contrib/database/fi
-   │        │  └─ 0.002 get_filtered_views_where_row_is_visible  baserow/contrib/databas
-   │        │     └─ 0.002 _check_row_visible  baserow/contrib/database/views/handler.py
+   │        │  │  └─ 0.001 get_row_serializer_class  jadawel/contrib/database/api/rows/
+   │        │  │     └─ 0.001 get_response_serializer_field  jadawel/contrib/database/fi
+   │        │  └─ 0.002 get_filtered_views_where_row_is_visible  jadawel/contrib/databas
+   │        │     └─ 0.002 _check_row_visible  jadawel/contrib/database/views/handler.py
    │        │        └─ 0.002 exists  django/db/models/query.py:806
    │        │              [19 frames hidden]  django, copy
-   │        ├─ 0.003 public_row_updated  baserow/contrib/database/ws/public/rows/signals
-   │        │  ├─ 0.002 _serialize_row  baserow/contrib/database/ws/public/rows/signals.
-   │        │  │  ├─ 0.001 get_row_serializer_class  baserow/contrib/database/api/rows/s
-   │        │  │  │  └─ 0.001 get_response_serializer_field  baserow/contrib/database/fi
-   │        │  │  │     └─ 0.001 get_serializer_field  baserow/contrib/database/fields/f
+   │        ├─ 0.003 public_row_updated  jadawel/contrib/database/ws/public/rows/signals
+   │        │  ├─ 0.002 _serialize_row  jadawel/contrib/database/ws/public/rows/signals.
+   │        │  │  ├─ 0.001 get_row_serializer_class  jadawel/contrib/database/api/rows/s
+   │        │  │  │  └─ 0.001 get_response_serializer_field  jadawel/contrib/database/fi
+   │        │  │  │     └─ 0.001 get_serializer_field  jadawel/contrib/database/fields/f
    │        │  │  │        └─ 0.001 __init__  rest_framework/fields.py:773
    │        │  │  │              [3 frames hidden]  rest_framework
    │        │  │  └─ 0.001 data  rest_framework/serializers.py:546
    │        │  │        [15 frames hidden]  rest_framework, django, copy, <built-in>
    │        │  └─ 0.001 on_commit  django/db/transaction.py:123
    │        │        [7 frames hidden]  django, asgiref
-   │        └─ 0.003 before_row_update  baserow/contrib/database/ws/rows/signals.py:37
+   │        └─ 0.003 before_row_update  jadawel/contrib/database/ws/rows/signals.py:37
    │           ├─ 0.002 data  rest_framework/serializers.py:546
    │           │     [13 frames hidden]  rest_framework, django, copy
-   │           └─ 0.001 get_row_serializer_class  baserow/contrib/database/api/rows/seri
-   │              └─ 0.001 get_serializer_class  baserow/api/utils.py:254
+   │           └─ 0.001 get_row_serializer_class  jadawel/contrib/database/api/rows/seri
+   │              └─ 0.001 get_serializer_class  jadawel/api/utils.py:254
    ├─ 0.002 get  django/db/models/query.py:414
    │     [18 frames hidden]  django
    └─ 0.001 save  django/db/models/base.py:672

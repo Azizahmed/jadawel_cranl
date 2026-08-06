@@ -403,7 +403,7 @@ def safe_django_schema_editor(atomic=True, name=None, classes=None, **kwargs):
     causes an exception. Instead we disable its internal atomic wrapper which has
     this bug and wrap it ourselves properly and safely.
     2. Our implementation of link_row fields which link back to the same table have to
-    add two separate ManyToMany model fields to the Generated baserow django models.
+    add two separate ManyToMany model fields to the Generated jadawel django models.
     Because of this the normal shcema_editor.delete_model/create_model functions crash
     as they will try to create or delete the through m2m table twice. This safe
     schema editor overrides these two methods to only create/delete the m2m table once.

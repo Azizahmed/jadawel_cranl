@@ -175,256 +175,256 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
         {
             "operator": "contains",
             "value": "1",
-            "baserow_filter_type": "contains",
-            "baserow_value": "1",
+            "jadawel_filter_type": "contains",
+            "jadawel_value": "1",
         },
         {
             "operator": "doesNotContain",
             "value": "1",
-            "baserow_filter_type": "contains_not",
-            "baserow_value": "1",
+            "jadawel_filter_type": "contains_not",
+            "jadawel_value": "1",
         },
         {
             "operator": "=",
             "value": "1",
-            "baserow_filter_type": "equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "!=",
             "value": "1",
-            "baserow_filter_type": "not_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "not_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "multilineText": [
         {
             "operator": "contains",
             "value": "1",
-            "baserow_filter_type": "contains",
-            "baserow_value": "1",
+            "jadawel_filter_type": "contains",
+            "jadawel_value": "1",
         },
         {
             "operator": "doesNotContain",
             "value": "1",
-            "baserow_filter_type": "contains_not",
-            "baserow_value": "1",
+            "jadawel_filter_type": "contains_not",
+            "jadawel_value": "1",
         },
         {
             "operator": "=",
             "value": "1",
-            "baserow_filter_type": "equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "!=",
             "value": "1",
-            "baserow_filter_type": "not_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "not_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "multipleAttachment": [
         {
             "operator": "filename",
             "value": "test",
-            "baserow_filter_type": "filename_contains",
-            "baserow_value": "test",
+            "jadawel_filter_type": "filename_contains",
+            "jadawel_value": "test",
         },
         {
             "operator": "filetype",
             "value": "image",
-            "baserow_filter_type": "has_file_type",
-            "baserow_value": "image",
+            "jadawel_filter_type": "has_file_type",
+            "jadawel_value": "image",
         },
         {
             "operator": "filetype",
             "value": "text",
-            "baserow_filter_type": "has_file_type",
-            "baserow_value": "document",
+            "jadawel_filter_type": "has_file_type",
+            "jadawel_value": "document",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "checkbox": [
         {
             "operator": "=",
             "value": True,
-            "baserow_filter_type": "boolean",
-            "baserow_value": "true",
+            "jadawel_filter_type": "boolean",
+            "jadawel_value": "true",
         },
         {
             "operator": "=",
             "value": False,
-            "baserow_filter_type": "boolean",
-            "baserow_value": "false",
+            "jadawel_filter_type": "boolean",
+            "jadawel_value": "false",
         },
     ],
     "multiSelect": [
         {
             "operator": "|",
             "value": ["selNkxVarxxS8tRkS"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "&",
             "value": ["selFSuP84urXClrlS"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "=",
             "value": ["selvostaiXnRkaHXI"],
-            "baserow_filter_type": "multiple_select_has",
-            "baserow_value": "fldE3rb2UYv3a605v_selvostaiXnRkaHXI",
+            "jadawel_filter_type": "multiple_select_has",
+            "jadawel_value": "fldE3rb2UYv3a605v_selvostaiXnRkaHXI",
         },
         {
             "operator": "=",
             "value": None,
-            "baserow_filter_type": "multiple_select_has",
-            "baserow_value": "",
+            "jadawel_filter_type": "multiple_select_has",
+            "jadawel_value": "",
         },
         {
             "operator": "doesNotContain",
             "value": ["selvostaiXnRkaHXI"],
-            "baserow_filter_type": "multiple_select_has_not",
-            "baserow_value": "fldE3rb2UYv3a605v_selvostaiXnRkaHXI",
+            "jadawel_filter_type": "multiple_select_has_not",
+            "jadawel_value": "fldE3rb2UYv3a605v_selvostaiXnRkaHXI",
         },
         {
             "operator": "doesNotContain",
             "value": None,
-            "baserow_filter_type": "multiple_select_has_not",
-            "baserow_value": "",
+            "jadawel_filter_type": "multiple_select_has_not",
+            "jadawel_value": "",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "select": [
         {
             "operator": "=",
             "value": "sela2TITKl8Ng946B",
-            "baserow_filter_type": "single_select_equal",
-            "baserow_value": "fldWmh0gNFmvYHLwy_sela2TITKl8Ng946B",
+            "jadawel_filter_type": "single_select_equal",
+            "jadawel_value": "fldWmh0gNFmvYHLwy_sela2TITKl8Ng946B",
         },
         {
             "operator": "!=",
             "value": "selRvipUxtrC2Wc6g",
-            "baserow_filter_type": "single_select_not_equal",
-            "baserow_value": "fldWmh0gNFmvYHLwy_selRvipUxtrC2Wc6g",
+            "jadawel_filter_type": "single_select_not_equal",
+            "jadawel_value": "fldWmh0gNFmvYHLwy_selRvipUxtrC2Wc6g",
         },
         {
             "operator": "isAnyOf",
             "value": ["selTvmx6xRumPDwa7", "selTvmx6xRumPDwa8"],
-            "baserow_filter_type": "single_select_is_any_of",
-            "baserow_value": "fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa7,fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa8",
+            "jadawel_filter_type": "single_select_is_any_of",
+            "jadawel_value": "fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa7,fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa8",
         },
         {
             "operator": "isAnyOf",
             "value": None,
-            "baserow_filter_type": "single_select_is_any_of",
-            "baserow_value": "",
+            "jadawel_filter_type": "single_select_is_any_of",
+            "jadawel_value": "",
         },
         {
             "operator": "isNoneOf",
             "value": ["selTvmx6xRumPDwa7", "selTvmx6xRumPDwa8"],
-            "baserow_filter_type": "single_select_is_none_of",
-            "baserow_value": "fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa7,fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa8",
+            "jadawel_filter_type": "single_select_is_none_of",
+            "jadawel_value": "fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa7,fldWmh0gNFmvYHLwy_selTvmx6xRumPDwa8",
         },
         {
             "operator": "isNoneOf",
             "value": None,
-            "baserow_filter_type": "single_select_is_none_of",
-            "baserow_value": "",
+            "jadawel_filter_type": "single_select_is_none_of",
+            "jadawel_value": "",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "collaborator": [
         {
             "operator": "=",
             "value": "usrGIN77VWdhm7LKk",
-            "baserow_filter_type": "multiple_collaborators_has",
-            "baserow_value": "usrGIN77VWdhm7LKk",
+            "jadawel_filter_type": "multiple_collaborators_has",
+            "jadawel_value": "usrGIN77VWdhm7LKk",
         },
         {
             "operator": "!=",
             "value": "usrGIN77VWdhm7LKk",
-            "baserow_filter_type": "multiple_collaborators_has_not",
-            "baserow_value": "usrGIN77VWdhm7LKk",
+            "jadawel_filter_type": "multiple_collaborators_has_not",
+            "jadawel_value": "usrGIN77VWdhm7LKk",
         },
         {
             "operator": "isAnyOf",
             "value": ["usrGIN77VWdhm7LKk"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "isNoneOf",
             "value": ["usrGIN77VWdhm7LKk"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "date": [
@@ -436,8 +436,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam?2025-02-05?exact_date",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam?2025-02-05?exact_date",
         },
         {
             "operator": "=",
@@ -446,8 +446,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam??tomorrow",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam??tomorrow",
         },
         {
             "operator": "=",
@@ -456,8 +456,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam??today",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam??today",
         },
         {
             "operator": "=",
@@ -466,8 +466,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam??yesterday",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam??yesterday",
         },
         {
             "operator": "=",
@@ -476,8 +476,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam?1?nr_weeks_ago",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam?1?nr_weeks_ago",
         },
         {
             "operator": "=",
@@ -486,8 +486,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam?1?nr_weeks_from_now",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam?1?nr_weeks_from_now",
         },
         {
             "operator": "=",
@@ -496,8 +496,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam??one_month_ago",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam??one_month_ago",
         },
         {
             "operator": "=",
@@ -506,8 +506,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam?1?nr_months_from_now",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam?1?nr_months_from_now",
         },
         {
             "operator": "=",
@@ -517,8 +517,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam?1?nr_days_ago",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam?1?nr_days_ago",
         },
         {
             "operator": "=",
@@ -528,8 +528,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is",
-            "baserow_value": "Europe/Amsterdam?1?nr_days_from_now",
+            "jadawel_filter_type": "date_is",
+            "jadawel_value": "Europe/Amsterdam?1?nr_days_from_now",
         },
         {
             "operator": "isWithin",
@@ -538,8 +538,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam?1?nr_weeks_ago",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam?1?nr_weeks_ago",
         },
         {
             "operator": "isWithin",
@@ -548,8 +548,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam?1?nr_months_ago",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam?1?nr_months_ago",
         },
         {
             "operator": "isWithin",
@@ -558,8 +558,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam?1?nr_years_ago",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam?1?nr_years_ago",
         },
         {
             "operator": "isWithin",
@@ -568,8 +568,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam??next_week",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam??next_week",
         },
         {
             "operator": "isWithin",
@@ -578,8 +578,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam??next_year",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam??next_year",
         },
         {
             "operator": "isWithin",
@@ -588,8 +588,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam??next_month",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam??next_month",
         },
         {
             "operator": "isWithin",
@@ -598,8 +598,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam??this_year",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam??this_year",
         },
         {
             "operator": "isWithin",
@@ -608,8 +608,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam??this_month",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam??this_month",
         },
         {
             "operator": "isWithin",
@@ -618,8 +618,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam??this_week",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam??this_week",
         },
         {
             "operator": "isWithin",
@@ -629,8 +629,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam?1?nr_days_from_now",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam?1?nr_days_from_now",
         },
         {
             "operator": "isWithin",
@@ -640,8 +640,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_within",
-            "baserow_value": "Europe/Amsterdam?1?nr_days_ago",
+            "jadawel_filter_type": "date_is_within",
+            "jadawel_value": "Europe/Amsterdam?1?nr_days_ago",
         },
         {
             "operator": "<",
@@ -651,8 +651,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_before",
-            "baserow_value": "Europe/Amsterdam?2025-02-04?exact_date",
+            "jadawel_filter_type": "date_is_before",
+            "jadawel_value": "Europe/Amsterdam?2025-02-04?exact_date",
         },
         {
             "operator": ">",
@@ -662,8 +662,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_after",
-            "baserow_value": "Europe/Amsterdam?2025-02-13?exact_date",
+            "jadawel_filter_type": "date_is_after",
+            "jadawel_value": "Europe/Amsterdam?2025-02-13?exact_date",
         },
         {
             "operator": "<=",
@@ -673,8 +673,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_on_or_before",
-            "baserow_value": "Europe/Amsterdam?2025-02-02?exact_date",
+            "jadawel_filter_type": "date_is_on_or_before",
+            "jadawel_value": "Europe/Amsterdam?2025-02-02?exact_date",
         },
         {
             "operator": ">=",
@@ -684,8 +684,8 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_on_or_after",
-            "baserow_value": "Europe/Amsterdam?2025-02-05?exact_date",
+            "jadawel_filter_type": "date_is_on_or_after",
+            "jadawel_value": "Europe/Amsterdam?2025-02-05?exact_date",
         },
         {
             "operator": "!=",
@@ -695,324 +695,324 @@ ALL_AIRTABLE_FILTERS_PER_TYPE = {
                 "timeZone": "Europe/Amsterdam",
                 "shouldUseCorrectTimeZoneForFormulaicColumn": True,
             },
-            "baserow_filter_type": "date_is_not",
-            "baserow_value": "Europe/Amsterdam?2025-02-05?exact_date",
+            "jadawel_filter_type": "date_is_not",
+            "jadawel_value": "Europe/Amsterdam?2025-02-05?exact_date",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "id": "fltzpQ8PlY7w2DKb4",
             "columnId": "fldVzq9v4wQr4vbFv",
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "phone": [
         {
             "operator": "contains",
             "value": "1",
-            "baserow_filter_type": "contains",
-            "baserow_value": "1",
+            "jadawel_filter_type": "contains",
+            "jadawel_value": "1",
         },
         {
             "operator": "doesNotContain",
             "value": "1",
-            "baserow_filter_type": "contains_not",
-            "baserow_value": "1",
+            "jadawel_filter_type": "contains_not",
+            "jadawel_value": "1",
         },
         {
             "operator": "=",
             "value": "1",
-            "baserow_filter_type": "equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "!=",
             "value": "1",
-            "baserow_filter_type": "not_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "not_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "number": [
         {
             "operator": "=",
             "value": 1,
-            "baserow_filter_type": "equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "!=",
             "value": 1,
-            "baserow_filter_type": "not_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "not_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "<",
             "value": 1,
-            "baserow_filter_type": "lower_than",
-            "baserow_value": "1",
+            "jadawel_filter_type": "lower_than",
+            "jadawel_value": "1",
         },
         {
             "operator": ">",
             "value": 1,
-            "baserow_filter_type": "higher_than",
-            "baserow_value": "1",
+            "jadawel_filter_type": "higher_than",
+            "jadawel_value": "1",
         },
         {
             "operator": "<=",
             "value": 1,
-            "baserow_filter_type": "lower_than_or_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "lower_than_or_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": ">=",
             "value": 1,
-            "baserow_filter_type": "higher_than_or_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "higher_than_or_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "duration": [
         {
             "operator": "=",
             "value": 86399999913600,
-            "baserow_filter_type": "equal",
-            "baserow_value": "86399999913600",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "86399999913600",
         },
         {
             "operator": "=",
             "value": 86399999913601,
-            "baserow_filter_type": "equal",
-            "baserow_skip": True,
+            "jadawel_filter_type": "equal",
+            "jadawel_skip": True,
         },
         {
             "operator": "!=",
             "value": 86399999913601,
-            "baserow_filter_type": "not_equal",
-            "baserow_skip": True,
+            "jadawel_filter_type": "not_equal",
+            "jadawel_skip": True,
         },
         {
             "operator": "<",
             "value": 86399999913601,
-            "baserow_filter_type": "lower_than",
-            "baserow_skip": True,
+            "jadawel_filter_type": "lower_than",
+            "jadawel_skip": True,
         },
         {
             "operator": ">",
             "value": 86399999913601,
-            "baserow_filter_type": "higher_than",
-            "baserow_skip": True,
+            "jadawel_filter_type": "higher_than",
+            "jadawel_skip": True,
         },
         {
             "operator": "<=",
             "value": 86399999913601,
-            "baserow_filter_type": "lower_than_or_equal",
-            "baserow_skip": True,
+            "jadawel_filter_type": "lower_than_or_equal",
+            "jadawel_skip": True,
         },
         {
             "operator": ">=",
             "value": 86399999913601,
-            "baserow_filter_type": "higher_than_or_equal",
-            "baserow_skip": True,
+            "jadawel_filter_type": "higher_than_or_equal",
+            "jadawel_skip": True,
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "rating": [
         {
             "operator": "=",
             "value": 1,
-            "baserow_filter_type": "equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "!=",
             "value": 1,
-            "baserow_filter_type": "not_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "not_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "<",
             "value": 1,
-            "baserow_filter_type": "lower_than",
-            "baserow_value": "1",
+            "jadawel_filter_type": "lower_than",
+            "jadawel_value": "1",
         },
         {
             "operator": ">",
             "value": 1,
-            "baserow_filter_type": "higher_than",
-            "baserow_value": "1",
+            "jadawel_filter_type": "higher_than",
+            "jadawel_value": "1",
         },
         {
             "operator": "<=",
             "value": 1,
-            "baserow_filter_type": "lower_than_or_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "lower_than_or_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": ">=",
             "value": 1,
-            "baserow_filter_type": "higher_than_or_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "higher_than_or_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "autoNumber": [
         {
             "operator": "=",
             "value": 1,
-            "baserow_filter_type": "equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "!=",
             "value": 1,
-            "baserow_filter_type": "not_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "not_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "<",
             "value": 1,
-            "baserow_filter_type": "lower_than",
-            "baserow_value": "1",
+            "jadawel_filter_type": "lower_than",
+            "jadawel_value": "1",
         },
         {
             "operator": ">",
             "value": 1,
-            "baserow_filter_type": "higher_than",
-            "baserow_value": "1",
+            "jadawel_filter_type": "higher_than",
+            "jadawel_value": "1",
         },
         {
             "operator": "<=",
             "value": 1,
-            "baserow_filter_type": "lower_than_or_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "lower_than_or_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": ">=",
             "value": 1,
-            "baserow_filter_type": "higher_than_or_equal",
-            "baserow_value": "1",
+            "jadawel_filter_type": "higher_than_or_equal",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
     "foreignKey": [
         {
             "operator": "|",
             "value": ["rect9vRzdJvCLrRg9"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "&",
             "value": ["rect9vRzdJvCLrRg9"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "=",
             "value": ["rect9vRzdJvCLrRg9"],
-            "baserow_filter_type": "link_row_has",
-            "baserow_value": "2",
+            "jadawel_filter_type": "link_row_has",
+            "jadawel_value": "2",
         },
         {
             "operator": "=",
             "value": ["not_existing_id"],
-            "baserow_filter_type": "link_row_has",
-            "baserow_value": "",
+            "jadawel_filter_type": "link_row_has",
+            "jadawel_value": "",
         },
         {
             "operator": "=",
             "value": ["rect9vRzdJvCLrRg9", "rect9vRzdJvCLrRg8"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "isNoneOf",
             "value": ["rect9vRzdJvCLrRg9"],
-            "baserow_skip": True,
+            "jadawel_skip": True,
         },
         {
             "operator": "contains",
             "value": "1",
-            "baserow_filter_type": "link_row_contains",
-            "baserow_value": "1",
+            "jadawel_filter_type": "link_row_contains",
+            "jadawel_value": "1",
         },
         {
             "operator": "doesNotContain",
             "value": "1",
-            "baserow_filter_type": "link_row_not_contains",
-            "baserow_value": "1",
+            "jadawel_filter_type": "link_row_not_contains",
+            "jadawel_value": "1",
         },
         {
             "operator": "isEmpty",
             "value": None,
-            "baserow_filter_type": "empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "empty",
+            "jadawel_value": "",
         },
         {
             "operator": "isNotEmpty",
             "value": None,
-            "baserow_filter_type": "not_empty",
-            "baserow_value": "",
+            "jadawel_filter_type": "not_empty",
+            "jadawel_value": "",
         },
     ],
 }
@@ -1036,14 +1036,14 @@ def test_all_airtable_filters():
     for airtable_column_type, airtable_filters in ALL_AIRTABLE_FILTERS_PER_TYPE.items():
         airtable_column = AIRTABLE_COLUMN_PER_TYPE[airtable_column_type]
         for airtable_filter in airtable_filters:
-            has_baserow_skip = "baserow_skip" in airtable_filter
-            has_baserow_filter = (
-                "baserow_filter_type" in airtable_filter
-                and "baserow_value" in airtable_filter
+            has_jadawel_skip = "jadawel_skip" in airtable_filter
+            has_jadawel_filter = (
+                "jadawel_filter_type" in airtable_filter
+                and "jadawel_value" in airtable_filter
             )
 
-            if not has_baserow_skip and not has_baserow_filter:
-                assert False, f"No baserow_ property in {airtable_filter}"
+            if not has_jadawel_skip and not has_jadawel_filter:
+                assert False, f"No jadawel_ property in {airtable_filter}"
 
             import_report = AirtableImportReport()
             airtable_table = deepcopy(AIRTABLE_TABLE)
@@ -1054,7 +1054,7 @@ def test_all_airtable_filters():
             airtable_filter["columnId"] = airtable_column["id"]
 
             (
-                baserow_field,
+                jadawel_field,
                 airtable_column_type,
             ) = airtable_column_type_registry.from_airtable_column_to_serialized(
                 {},
@@ -1070,24 +1070,24 @@ def test_all_airtable_filters():
                 ROW_ID_MAPPING,
                 airtable_table,
                 airtable_column,
-                baserow_field,
+                jadawel_field,
                 import_report,
                 airtable_filter["value"],
             )
 
-            if has_baserow_skip:
+            if has_jadawel_skip:
                 with pytest.raises(AirtableSkipFilter):
                     try:
-                        filter_operator.to_baserow_filter_and_value(*args)
+                        filter_operator.to_jadawel_filter_and_value(*args)
                     except NotImplementedError:
                         assert False, (
                             f"not implemented {json.dumps(airtable_filter, indent=4)}"
                             f"{json.dumps(airtable_column, indent=4)}"
                         )
 
-            if has_baserow_filter:
+            if has_jadawel_filter:
                 try:
-                    filter_type, value = filter_operator.to_baserow_filter_and_value(
+                    filter_type, value = filter_operator.to_jadawel_filter_and_value(
                         *args
                     )
                 except NotImplementedError:
@@ -1102,11 +1102,11 @@ def test_all_airtable_filters():
                         f" {json.dumps(airtable_filter, indent=4)}"
                         f"{json.dumps(airtable_column, indent=4)}"
                     )
-                assert filter_type.type == airtable_filter["baserow_filter_type"], (
+                assert filter_type.type == airtable_filter["jadawel_filter_type"], (
                     f"filter type mismatch {json.dumps(airtable_filter, indent=4)}"
                     f"{json.dumps(airtable_column, indent=4)}"
                 )
-                assert value == airtable_filter["baserow_value"], (
+                assert value == airtable_filter["jadawel_value"], (
                     f"value mismatch {json.dumps(airtable_filter, indent=4)}"
                     f"{json.dumps(airtable_column, indent=4)}"
                 )

@@ -5,7 +5,7 @@ from .exceptions import AirtableSkipFilter
 from .helpers import to_import_select_option_id
 from .registry import AirtableFilterOperator
 from .utils import (
-    airtable_date_filter_value_to_baserow,
+    airtable_date_filter_value_to_jadawel,
     skip_filter_if_type_duration_and_value_too_high,
 )
 
@@ -13,12 +13,12 @@ from .utils import (
 class AirtableContainsOperator(AirtableFilterOperator):
     type = "contains"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -31,12 +31,12 @@ class AirtableContainsOperator(AirtableFilterOperator):
 class AirtableDoesNotContainOperator(AirtableFilterOperator):
     type = "doesNotContain"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -56,12 +56,12 @@ class AirtableDoesNotContainOperator(AirtableFilterOperator):
 class AirtableEqualOperator(AirtableFilterOperator):
     type = "="
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -97,7 +97,7 @@ class AirtableEqualOperator(AirtableFilterOperator):
             return view_filter_type_registry.get("multiple_collaborators_has"), value
 
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is"), value
 
         if raw_airtable_column["type"] in ["foreignKey"]:
@@ -122,12 +122,12 @@ class AirtableEqualOperator(AirtableFilterOperator):
 class AirtableNotEqualOperator(AirtableFilterOperator):
     type = "!="
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -153,7 +153,7 @@ class AirtableNotEqualOperator(AirtableFilterOperator):
             )
 
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is_not"), value
 
         raise AirtableSkipFilter
@@ -162,12 +162,12 @@ class AirtableNotEqualOperator(AirtableFilterOperator):
 class AirtableIsEmptyOperator(AirtableFilterOperator):
     type = "isEmpty"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -177,12 +177,12 @@ class AirtableIsEmptyOperator(AirtableFilterOperator):
 class AirtableIsNotEmptyOperator(AirtableFilterOperator):
     type = "isNotEmpty"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -192,12 +192,12 @@ class AirtableIsNotEmptyOperator(AirtableFilterOperator):
 class AirtableFilenameOperator(AirtableFilterOperator):
     type = "filename"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -207,12 +207,12 @@ class AirtableFilenameOperator(AirtableFilterOperator):
 class AirtableFiletypeOperator(AirtableFilterOperator):
     type = "filetype"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -229,12 +229,12 @@ class AirtableFiletypeOperator(AirtableFilterOperator):
 class AirtableIsAnyOfOperator(AirtableFilterOperator):
     type = "isAnyOf"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -256,12 +256,12 @@ class AirtableIsAnyOfOperator(AirtableFilterOperator):
 class AirtableIsNoneOfOperator(AirtableFilterOperator):
     type = "isNoneOf"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -283,12 +283,12 @@ class AirtableIsNoneOfOperator(AirtableFilterOperator):
 class AirtableHasAnyOfOperator(AirtableFilterOperator):
     type = "|"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -298,12 +298,12 @@ class AirtableHasAnyOfOperator(AirtableFilterOperator):
 class AirtableHasAllOfOperator(AirtableFilterOperator):
     type = "&"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -313,12 +313,12 @@ class AirtableHasAllOfOperator(AirtableFilterOperator):
 class AirtableLessThanOperator(AirtableFilterOperator):
     type = "<"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -331,7 +331,7 @@ class AirtableLessThanOperator(AirtableFilterOperator):
             return view_filter_type_registry.get("lower_than"), str(value)
 
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is_before"), value
 
         raise AirtableSkipFilter
@@ -340,12 +340,12 @@ class AirtableLessThanOperator(AirtableFilterOperator):
 class AirtableMoreThanOperator(AirtableFilterOperator):
     type = ">"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -358,7 +358,7 @@ class AirtableMoreThanOperator(AirtableFilterOperator):
             return view_filter_type_registry.get("higher_than"), str(value)
 
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is_after"), value
 
         raise AirtableSkipFilter
@@ -367,12 +367,12 @@ class AirtableMoreThanOperator(AirtableFilterOperator):
 class AirtableLessThanOrEqualOperator(AirtableFilterOperator):
     type = "<="
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -385,7 +385,7 @@ class AirtableLessThanOrEqualOperator(AirtableFilterOperator):
             return view_filter_type_registry.get("lower_than_or_equal"), str(value)
 
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is_on_or_before"), value
 
         raise AirtableSkipFilter
@@ -394,12 +394,12 @@ class AirtableLessThanOrEqualOperator(AirtableFilterOperator):
 class AirtableMoreThanOrEqualOperator(AirtableFilterOperator):
     type = ">="
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
@@ -412,7 +412,7 @@ class AirtableMoreThanOrEqualOperator(AirtableFilterOperator):
             return view_filter_type_registry.get("higher_than_or_equal"), str(value)
 
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is_on_or_after"), value
 
         raise AirtableSkipFilter
@@ -421,17 +421,17 @@ class AirtableMoreThanOrEqualOperator(AirtableFilterOperator):
 class AirtableIsWithinOperator(AirtableFilterOperator):
     type = "isWithin"
 
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         import_report,
         value,
     ):
         if raw_airtable_column["type"] in ["date"]:
-            value = airtable_date_filter_value_to_baserow(value)
+            value = airtable_date_filter_value_to_jadawel(value)
             return view_filter_type_registry.get("date_is_within"), value
 
         raise AirtableSkipFilter

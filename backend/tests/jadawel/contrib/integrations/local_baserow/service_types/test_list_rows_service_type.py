@@ -1129,7 +1129,7 @@ def test_dispatch_transform_passes_field_ids(mock_get_serializer, field_names):
     service_type = LocalBaserowListRowsUserServiceType()
 
     dispatch_data = {
-        "baserow_table_model": MagicMock(),
+        "jadawel_table_model": MagicMock(),
         "results": [],
         "has_next_page": False,
     }
@@ -1143,7 +1143,7 @@ def test_dispatch_transform_passes_field_ids(mock_get_serializer, field_names):
         "results": mock_serializer.data,
     }
     mock_get_serializer.assert_called_once_with(
-        dispatch_data["baserow_table_model"],
+        dispatch_data["jadawel_table_model"],
         RowSerializer,
         is_response=True,
         field_ids=None,

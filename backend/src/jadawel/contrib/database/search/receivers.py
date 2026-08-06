@@ -67,9 +67,9 @@ def handle_permanently_deleted_row(
 
     row = trash_item
     if SearchHandler.full_text_enabled():
-        SearchHandler.mark_search_data_for_deletion(row.baserow_table, row_ids=[row.id])
+        SearchHandler.mark_search_data_for_deletion(row.jadawel_table, row_ids=[row.id])
     else:  # we can drop the entire search table if exists
-        workspace_id = row.baserow_table.database.workspace_id
+        workspace_id = row.jadawel_table.database.workspace_id
         SearchHandler.delete_workspace_search_table_if_exists(workspace_id)
 
 

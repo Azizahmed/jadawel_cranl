@@ -13,7 +13,7 @@ from jadawel.core.management.backup.exceptions import InvalidBaserowBackupArchiv
 class Command(BaseCommand):
     help = """
         Backs up a Jadawel database into a single compressed archive which can be
-        restored using the restore_baserow Jadawel management command.
+        restored using the restore_jadawel Jadawel management command.
         To provide the database password you should either have a valid .pgpass file
         containing the password for the requested connection in the expected postgres
         location (see https://www.postgresql.org/docs/current/libpq-pgpass.html) or set
@@ -78,7 +78,7 @@ class Command(BaseCommand):
             dest="file",
             help="Send the backup to the specified file. If not given then "
             "backups will be saved to the working directory with a file name of "
-            "`baserow_backup_{database}_{datetime}.tar.gz`",
+            "`jadawel_backup_{database}_{datetime}.tar.gz`",
         )
         add_shared_postgres_command_args(parser)
         parser.add_argument(
@@ -111,11 +111,11 @@ class Command(BaseCommand):
             jobs,
         )
         try:
-            backup_file_name = runner.backup_baserow(file, batch_size, additional_args)
+            backup_file_name = runner.backup_jadawel(file, batch_size, additional_args)
             self.stdout.write(
                 self.style.SUCCESS(
                     f"Successfully backed up Jadawel to {backup_file_name} which can "
-                    f"be restored using the ./jadawel restore_baserow command. "
+                    f"be restored using the ./jadawel restore_jadawel command. "
                 )
             )
 
@@ -132,5 +132,5 @@ class Command(BaseCommand):
             raise CommandError(
                 "Please ensure the provided back-up file is a valid "
                 "Jadawel backup file produced by ./jadawel "
-                "backup_baserow"
+                "backup_jadawel"
             )

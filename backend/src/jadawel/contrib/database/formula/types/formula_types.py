@@ -85,17 +85,17 @@ class BaserowJSONBObjectBaseType(BaserowFormulaValidType, ABC):
 
     def parse_filter_value(self, field, model_field, value):
         """
-        Since the subclasses don't have a baserow_field_type or data might be stored
+        Since the subclasses don't have a jadawel_field_type or data might be stored
         differently due to the JSONB nature, return the value as is here and let the
         filter method handle it.
         """
 
         from jadawel.contrib.database.fields.registries import field_type_registry
 
-        if self.baserow_field_type is None:
+        if self.jadawel_field_type is None:
             return value if value != "" else None
 
-        return field_type_registry.get(self.baserow_field_type).parse_filter_value(
+        return field_type_registry.get(self.jadawel_field_type).parse_filter_value(
             field, model_field, value
         )
 
@@ -138,7 +138,7 @@ class BaserowFormulaBaseTextType(BaserowFormulaTypeHasEmptyBaserowExpression):
     def placeholder_empty_value(self):
         return Value("", output_field=models.TextField())
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         return literal("")
@@ -160,7 +160,7 @@ class BaserowFormulaTextType(
     BaserowFormulaValidType,
 ):
     type = "text"
-    baserow_field_type = "text"
+    jadawel_field_type = "text"
     can_order_by_in_array = True
     can_have_db_index = True
 
@@ -199,12 +199,12 @@ class BaserowFormulaTextType(
 
 class BaserowFormulaURLType(BaserowFormulaTextType, BaserowFormulaValidType):
     type = "url"
-    baserow_field_type = "url"
+    jadawel_field_type = "url"
 
 
 class BaserowFormulaCharType(BaserowFormulaTextType, BaserowFormulaValidType):
     type = "char"
-    baserow_field_type = "text"
+    jadawel_field_type = "text"
     can_order_by_in_array = True
     can_group_by = True
 
@@ -215,7 +215,7 @@ class BaserowFormulaCharType(BaserowFormulaTextType, BaserowFormulaValidType):
             )
         )
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         return formula_function_registry.get("tovarchar")(literal(""))
@@ -223,7 +223,7 @@ class BaserowFormulaCharType(BaserowFormulaTextType, BaserowFormulaValidType):
 
 class BaserowFormulaLinkType(BaserowJSONBObjectBaseType):
     type = "link"
-    baserow_field_type = None
+    jadawel_field_type = None
     can_order_by = False
     can_group_by = False
 
@@ -252,7 +252,7 @@ class BaserowFormulaLinkType(BaserowJSONBObjectBaseType):
     ) -> "BaserowExpression[BaserowFormulaType]":
         return formula_function_registry.get("get_link_label")(arg)
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         return self, self
 
     @property
@@ -315,7 +315,7 @@ class BaserowFormulaLinkType(BaserowJSONBObjectBaseType):
     def placeholder_empty_value(self):
         return Value({}, output_field=JSONField())
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         return formula_function_registry.get("link")(literal(""))
@@ -365,7 +365,7 @@ class BaserowFormulaNumberType(
     BaserowFormulaValidType,
 ):
     type = "number"
-    baserow_field_type = "number"
+    jadawel_field_type = "number"
     array_index_sql = "({elem} ->> 'value')::numeric"
     output_field_class = models.DecimalField
     user_overridable_formatting_option_fields = [
@@ -494,7 +494,7 @@ class BaserowFormulaNumberType(
             0, output_field=models.DecimalField(max_digits=50, decimal_places=0)
         )
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         return literal(0)
@@ -534,7 +534,7 @@ class BaserowFormulaBooleanType(
     BaserowFormulaValidType,
 ):
     type = "boolean"
-    baserow_field_type = "boolean"
+    jadawel_field_type = "boolean"
     array_index_sql = "({elem} ->> 'value')::boolean"
     output_field_class = models.BooleanField
     can_order_by_in_array = True
@@ -559,7 +559,7 @@ class BaserowFormulaBooleanType(
     def placeholder_empty_value(self):
         return Value(False, output_field=models.BooleanField())
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         return literal(False)
@@ -622,7 +622,7 @@ class BaserowFormulaDateIntervalType(
     BaserowFormulaDateIntervalTypeMixin,
 ):
     type = "date_interval"
-    baserow_field_type = None
+    jadawel_field_type = None
     can_group_by = True
 
     @property
@@ -663,7 +663,7 @@ class BaserowFormulaDateIntervalType(
             )
         )
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         # Until Jadawel has a duration field type implement the required methods below
         return self, self
 
@@ -715,7 +715,7 @@ class BaserowFormulaDateIntervalType(
     def placeholder_empty_value(self):
         return Value(timedelta(hours=0), output_field=models.DurationField())
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         func = formula_function_registry.get("date_interval")
@@ -735,7 +735,7 @@ class BaserowFormulaDurationType(
     HasValueEmptyFilterSupport,
 ):
     type = "duration"
-    baserow_field_type = "duration"
+    jadawel_field_type = "duration"
     array_index_sql = "({elem} ->> 'value')::interval"
     output_field_class = models.DurationField
     user_overridable_formatting_option_fields = ["duration_format"]
@@ -825,7 +825,7 @@ class BaserowFormulaDurationType(
     def placeholder_empty_value(self):
         return Value(timedelta(hours=0), output_field=models.DurationField())
 
-    def placeholder_empty_baserow_expression(
+    def placeholder_empty_jadawel_expression(
         self,
     ) -> "BaserowExpression[BaserowFormulaValidType]":
         func = formula_function_registry.get("date_interval")
@@ -866,7 +866,7 @@ class BaserowFormulaDateType(
     HasValueEmptyFilterSupport, HasValueContainsFilterSupport, BaserowFormulaValidType
 ):
     type = "date"
-    baserow_field_type = "date"
+    jadawel_field_type = "date"
     user_overridable_formatting_option_fields = [
         "date_format",
         "date_include_time",
@@ -1030,7 +1030,7 @@ class BaserowFormulaSingleFileType(
     can_group_by = False
     can_order_by = False
     can_order_by_in_array = False
-    baserow_field_type = None
+    jadawel_field_type = None
     item_is_in_nested_value_object_when_in_array = False
     array_index_sql = "{elem}"
     can_represent_files = True
@@ -1085,7 +1085,7 @@ class BaserowFormulaSingleFileType(
     def get_model_field(self, instance, **kwargs) -> models.Field:
         return JSONField(default=dict, **kwargs)
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         return self, self
 
     def get_response_serializer_field(self, instance, **kwargs):
@@ -1275,7 +1275,7 @@ class BaserowFormulaArrayType(
         return arg.with_valid_type(sub_type)
 
     @property
-    def baserow_field_type(self) -> str:
+    def jadawel_field_type(self) -> str:
         return "unknown"
 
     @property
@@ -1286,7 +1286,7 @@ class BaserowFormulaArrayType(
     def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
         return []
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         # Until Jadawel has a array field type implement the required methods below
         return self, self
 
@@ -1311,7 +1311,7 @@ class BaserowFormulaArrayType(
         (
             instance,
             field_type,
-        ) = self.sub_type.get_baserow_field_instance_and_type()
+        ) = self.sub_type.get_jadawel_field_instance_and_type()
         if self.sub_type.item_is_in_nested_value_object_when_in_array:
             serializer = ArrayValueSerializer(
                 field_type.get_response_serializer_field(instance)
@@ -1332,7 +1332,7 @@ class BaserowFormulaArrayType(
         if value is None:
             return [] if rich_value else ""
 
-        field_instance, field_type = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, field_type = self.sub_type.get_jadawel_field_instance_and_type()
         field_obj = {
             "field": field_instance,
             "type": field_type,
@@ -1362,7 +1362,7 @@ class BaserowFormulaArrayType(
         if value is None:
             return ""
 
-        field_instance, field_type = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, field_type = self.sub_type.get_jadawel_field_instance_and_type()
         field_obj = {
             "field": field_instance,
             "type": field_type,
@@ -1482,7 +1482,7 @@ class BaserowFormulaSingleSelectType(
     BaserowJSONBObjectBaseType,
 ):
     type = "single_select"
-    baserow_field_type = "single_select"
+    jadawel_field_type = "single_select"
     can_order_by = True
     can_order_by_in_array = True
     can_group_by = False
@@ -1502,7 +1502,7 @@ class BaserowFormulaSingleSelectType(
     def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
         return []
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         return self, self
 
     @property
@@ -1513,11 +1513,11 @@ class BaserowFormulaSingleSelectType(
         return JSONField(default=dict, **kwargs)
 
     def get_response_serializer_field(self, instance, **kwargs) -> Optional[Field]:
-        instance, field_type = super().get_baserow_field_instance_and_type()
+        instance, field_type = super().get_jadawel_field_instance_and_type()
         return field_type.get_response_serializer_field(instance, **kwargs)
 
     def get_serializer_field(self, *args, **kwargs) -> Optional[Field]:
-        instance, field_type = super().get_baserow_field_instance_and_type()
+        instance, field_type = super().get_jadawel_field_instance_and_type()
         return field_type.get_response_serializer_field(instance, **kwargs)
 
     def get_export_value(self, value, field_object, rich_value=False) -> Any:
@@ -1633,7 +1633,7 @@ class BaserowFormulaMultipleSelectType(
     MultipleSelectFormulaTypeFilterSupport, BaserowJSONBObjectBaseType
 ):
     type = "multiple_select"
-    baserow_field_type = "multiple_select"
+    jadawel_field_type = "multiple_select"
     can_order_by = False
     can_order_by_in_array = False
     can_group_by = False
@@ -1646,7 +1646,7 @@ class BaserowFormulaMultipleSelectType(
     def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
         return []
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         return self, self
 
     def get_alter_column_prepare_old_value(self, connection, from_field, to_field):
@@ -1664,11 +1664,11 @@ class BaserowFormulaMultipleSelectType(
         return JSONField(default=list, **kwargs)
 
     def get_response_serializer_field(self, instance, **kwargs) -> Optional[Field]:
-        instance, field_type = super().get_baserow_field_instance_and_type()
+        instance, field_type = super().get_jadawel_field_instance_and_type()
         return field_type.get_response_serializer_field(instance, **kwargs)
 
     def get_serializer_field(self, *args, **kwargs) -> Optional[Field]:
-        instance, field_type = super().get_baserow_field_instance_and_type()
+        instance, field_type = super().get_jadawel_field_instance_and_type()
         return field_type.get_response_serializer_field(instance, **kwargs)
 
     def get_export_value(self, value, field_object, rich_value=False):
@@ -1758,7 +1758,7 @@ class BaserowFormulaMultipleCollaboratorsType(
     BaserowJSONBObjectBaseType,
 ):
     type = "multiple_collaborators"
-    baserow_field_type = "multiple_collaborators"
+    jadawel_field_type = "multiple_collaborators"
     can_order_by = False
     can_order_by_in_array = False
     can_group_by = False
@@ -1830,7 +1830,7 @@ class BaserowFormulaMultipleCollaboratorsType(
     def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
         return []
 
-    def get_baserow_field_instance_and_type(self):
+    def get_jadawel_field_instance_and_type(self):
         return self, self
 
     def get_alter_column_prepare_old_value(self, connection, from_field, to_field):
@@ -1848,17 +1848,17 @@ class BaserowFormulaMultipleCollaboratorsType(
         return JSONField(default=list, **kwargs)
 
     def get_response_serializer_field(self, instance, **kwargs) -> Optional[Field]:
-        instance, field_type = super().get_baserow_field_instance_and_type()
+        instance, field_type = super().get_jadawel_field_instance_and_type()
         return field_type.get_response_serializer_field(instance, **kwargs)
 
     def get_serializer_field(self, *args, **kwargs) -> Optional[Field]:
-        instance, field_type = super().get_baserow_field_instance_and_type()
+        instance, field_type = super().get_jadawel_field_instance_and_type()
         return field_type.get_response_serializer_field(instance, **kwargs)
 
     def get_export_value(self, value, field_object, rich_value=False):
-        _, field_type = super().get_baserow_field_instance_and_type()
+        _, field_type = super().get_jadawel_field_instance_and_type()
 
-        cache_key = f"_baserow_cache_{field_object['name']}_relations"
+        cache_key = f"_jadawel_cache_{field_object['name']}_relations"
         field = field_object["formula_field"]
         if not hasattr(field, cache_key):
             setattr(
@@ -2011,7 +2011,7 @@ JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES = list(
 )
 
 
-def get_baserow_formula_type_serializer_field_overrides():
+def get_jadawel_formula_type_serializer_field_overrides():
     return {
         key: value
         for f in JADAWEL_FORMULA_TYPES

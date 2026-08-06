@@ -2,7 +2,7 @@ r"""
 The database formula module can parse, type and generate Django expressions given a
 Jadawel Formula string like:
 
-```baserow_formula
+```jadawel_formula
 CONCAT(UPPER(LOWER('test')), "test\"", 'test\'") -- evaluates to `testtest"test'`
 ```
 

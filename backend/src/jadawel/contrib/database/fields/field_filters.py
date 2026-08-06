@@ -11,7 +11,7 @@ from opentelemetry import trace
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
     FileNameContainsExpr,
 )
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 
 if TYPE_CHECKING:
     from jadawel.contrib.database.table.models import GeneratedTableModel
@@ -294,7 +294,7 @@ class GroupedFiltersAdapter(ABC):
         """
 
 
-class AdvancedFilterBuilder(metaclass=baserow_trace_methods(tracer)):
+class AdvancedFilterBuilder(metaclass=jadawel_trace_methods(tracer)):
     """
     This utility class constructs a filter builder using an instance of
     GroupedFiltersAdapter. While the FilterBuilder class combines filters using

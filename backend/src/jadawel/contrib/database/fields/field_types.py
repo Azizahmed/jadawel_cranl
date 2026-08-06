@@ -368,10 +368,10 @@ class TextFieldMatchingRegexFieldType(FieldType, ABC):
     def contains_word_query(self, *args):
         return contains_word_filter(*args)
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaTextType(nullable=True)
 
-    def from_baserow_formula_type(self, formula_type: BaserowFormulaCharType):
+    def from_jadawel_formula_type(self, formula_type: BaserowFormulaCharType):
         return self.model_class()
 
 
@@ -412,7 +412,7 @@ class CharFieldMatchingRegexFieldType(TextFieldMatchingRegexFieldType):
             **kwargs,
         )
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaCharType(nullable=True)
 
 
@@ -464,10 +464,10 @@ class TextFieldType(CollationSortMixin, FieldType):
     def contains_word_query(self, *args):
         return contains_word_filter(*args)
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaTextType(nullable=True)
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaTextType
     ) -> TextField:
         return TextField()
@@ -534,10 +534,10 @@ class LongTextFieldType(CollationSortMixin, FieldType):
     def contains_word_query(self, *args):
         return contains_word_filter(*args)
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaTextType(nullable=True)
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaTextType
     ) -> "LongTextField":
         return LongTextField()
@@ -567,7 +567,7 @@ class URLFieldType(CollationSortMixin, TextFieldMatchingRegexFieldType):
         value = getattr(row, field.db_column)
         return collate_expression(Value(value))
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaURLType(nullable=True)
 
 
@@ -784,7 +784,7 @@ class NumberFieldType(FieldType):
         value = self.get_internal_value_from_db(row, field_name)
         return value if value is None else str(value)
 
-    def to_baserow_formula_type(self, field: NumberField) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field: NumberField) -> BaserowFormulaType:
         return BaserowFormulaNumberType(
             number_decimal_places=field.number_decimal_places,
             number_prefix=field.number_prefix,
@@ -793,7 +793,7 @@ class NumberFieldType(FieldType):
             nullable=True,
         )
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaNumberType
     ) -> NumberField:
         return NumberField(
@@ -1005,10 +1005,10 @@ class RatingFieldType(FieldType):
     def contains_word_query(self, *args):
         return contains_word_filter(*args)
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaNumberType(0)
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaNumberType
     ) -> "RatingField":
         return RatingField()
@@ -1074,10 +1074,10 @@ class BooleanFieldType(FieldType):
     ):
         setattr(row, field_name, value == "true")
 
-    def to_baserow_formula_type(self, field: NumberField) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field: NumberField) -> BaserowFormulaType:
         return BaserowFormulaBooleanType()
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, boolean_formula_type: BaserowFormulaBooleanType
     ) -> BooleanField:
         return BooleanField()
@@ -1454,7 +1454,7 @@ class DateFieldType(FieldType):
 
         setattr(row, field_name, value)
 
-    def to_baserow_formula_type(self, field: DateField) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field: DateField) -> BaserowFormulaType:
         return BaserowFormulaDateType(
             field.date_format,
             field.date_include_time,
@@ -1464,7 +1464,7 @@ class DateFieldType(FieldType):
             nullable=True,
         )
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaDateType
     ) -> DateField:
         return DateField(
@@ -2217,12 +2217,12 @@ class DurationFieldType(FieldType):
 
         return {**base, "duration_format": field.duration_format}
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaDurationType(
             duration_format=field.duration_format, nullable=True
         )
 
-    def from_baserow_formula_type(self, formula_type: BaserowFormulaCharType):
+    def from_jadawel_formula_type(self, formula_type: BaserowFormulaCharType):
         return self.model_class(duration_format=formula_type.duration_format)
 
     def get_export_serialized_value(
@@ -2974,23 +2974,23 @@ class LinkRowFieldType(
         # related ManyToMany field can use that one. Otherwise we end up in a recursive
         # loop.
         model_name = model._meta.model_name
-        model.baserow_models[model_name] = model
+        model.jadawel_models[model_name] = model
 
-        # Check if the related table model is already in the model.baserow_models.
+        # Check if the related table model is already in the model.jadawel_models.
         if instance.is_self_referencing:
             related_model = model
         else:
             related_model_name = Table.get_table_model_name(
                 instance.link_row_table_id
             ).lower()
-            related_model = model.baserow_models.get(related_model_name)
+            related_model = model.jadawel_models.get(related_model_name)
             # If we do not have a related table model already we can generate a new one.
             if related_model is None:
                 related_model = instance.link_row_table.get_model(
-                    manytomany_models=model.baserow_models,
+                    manytomany_models=model.jadawel_models,
                     app_label=model._meta.app_label,
                 )
-                model.baserow_models[related_model_name] = related_model
+                model.jadawel_models[related_model_name] = related_model
 
         instance._related_model = related_model
         related_name = f"reversed_field_{instance.id}"
@@ -3551,21 +3551,21 @@ class LinkRowFieldType(
             fields.append(field.link_row_related_field)
         return fields
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         primary_field = field.link_row_table_primary_field
         if primary_field is None:
             return BaserowFormulaInvalidType("references unknown or deleted table")
         else:
             primary_field = primary_field.specific
             related_field_type = field_type_registry.get_by_model(primary_field)
-            return related_field_type.to_baserow_formula_type(primary_field)
+            return related_field_type.to_jadawel_formula_type(primary_field)
 
-    def to_baserow_formula_expression(
+    def to_jadawel_formula_expression(
         self, field
     ) -> BaserowExpression[BaserowFormulaType]:
         primary_field = field.link_row_table_primary_field
         return FormulaHandler.get_lookup_field_reference_expression(
-            field, primary_field, self.to_baserow_formula_type(field)
+            field, primary_field, self.to_jadawel_formula_type(field)
         )
 
     def get_field_dependencies(
@@ -3753,10 +3753,10 @@ class FileFieldType(FieldType):
     can_get_unique_values = False
     _can_order_by_types = []
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaArrayType(BaserowFormulaSingleFileType(nullable=True))
 
-    def from_baserow_formula_type(self, formula_type) -> Field:
+    def from_jadawel_formula_type(self, formula_type) -> Field:
         return self.model_class()
 
     def get_search_expression(self, field: FileField, queryset: QuerySet) -> Expression:
@@ -4704,10 +4704,10 @@ class SingleSelectFieldType(CollationSortMixin, SelectOptionBaseFieldType):
 
         setattr(row, field_name + "_id", select_option_mapping[value])
 
-    def to_baserow_formula_type(self, field):
+    def to_jadawel_formula_type(self, field):
         return BaserowFormulaSingleSelectType(nullable=True)
 
-    def from_baserow_formula_type(self, formula_type) -> Field:
+    def from_jadawel_formula_type(self, formula_type) -> Field:
         return self.model_class()
 
     def get_group_by_serializer_field(self, field, **kwargs):
@@ -4868,10 +4868,10 @@ class MultipleSelectFieldType(
         existing_options = instance.select_options.all()
         return [option.id for option in existing_options if option.id in default_value]
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaMultipleSelectType(nullable=True)
 
-    def from_baserow_formula_type(self, formula_type) -> Field:
+    def from_jadawel_formula_type(self, formula_type) -> Field:
         return self.model_class()
 
     def get_serializer_field(self, instance, **kwargs):
@@ -5411,12 +5411,12 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
     @property
     def serializer_field_overrides(self):
         from jadawel.contrib.database.formula.types.formula_types import (
-            get_baserow_formula_type_serializer_field_overrides,
+            get_jadawel_formula_type_serializer_field_overrides,
         )
 
         return {
             **self.request_serializer_field_overrides,
-            **get_baserow_formula_type_serializer_field_overrides(),
+            **get_jadawel_formula_type_serializer_field_overrides(),
         }
 
     def empty_query(self, field_name, model_field, field) -> Q:
@@ -5442,12 +5442,12 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
     def get_search_expression(
         self, field: FormulaField, queryset: QuerySet
     ) -> Expression:
-        return self.to_baserow_formula_type(field.specific).get_search_expression(
+        return self.to_jadawel_formula_type(field.specific).get_search_expression(
             field, queryset
         )
 
     def is_searchable(self, field: FormulaField) -> bool:
-        return self.to_baserow_formula_type(field.specific).is_searchable(field)
+        return self.to_jadawel_formula_type(field.specific).is_searchable(field)
 
     @staticmethod
     def array_of(formula_type: str):
@@ -5479,8 +5479,8 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         :return: The BaserowFormulaType of the formula field instance.
         """
 
-        formula_type = self.to_baserow_formula_type(formula_field_instance)
-        return formula_type.get_baserow_field_instance_and_type()
+        formula_type = self.to_jadawel_formula_type(formula_field_instance)
+        return formula_type.get_jadawel_field_instance_and_type()
 
     def _filter_serializer_field_kwargs(
         self, field_type: FieldType, **kwargs
@@ -5619,16 +5619,16 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
             connection, field_instance, to_field
         )
 
-    def to_baserow_formula_type(self, field: FormulaField) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field: FormulaField) -> BaserowFormulaType:
         return field.cached_formula_type
 
-    def to_baserow_formula_expression(
+    def to_jadawel_formula_expression(
         self, field: FormulaField
     ) -> BaserowExpression[BaserowFormulaType]:
         if field.expand_formula_when_referenced:
             return FormulaHandler.get_typed_internal_expression_from_field(field)
         else:
-            return super().to_baserow_formula_expression(field)
+            return super().to_jadawel_formula_expression(field)
 
     def get_field_dependencies(
         self, field_instance: FormulaField, field_cache: "FieldCache"
@@ -5780,7 +5780,7 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         via_path_to_starting_table: Optional[List[LinkRowField]],
     ):
         update_statement = (
-            FormulaHandler.baserow_expression_to_update_django_expression(
+            FormulaHandler.jadawel_expression_to_update_django_expression(
                 field.cached_typed_internal_expression,
                 field_cache.get_model(field.table),
             )
@@ -5879,7 +5879,7 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         """
 
         model = field.table.get_model()
-        expr = FormulaHandler.baserow_expression_to_update_django_expression(
+        expr = FormulaHandler.jadawel_expression_to_update_django_expression(
             field.cached_typed_internal_expression, model
         )
         model.objects_and_trash.all().update(**{f"{field.db_column}": expr})
@@ -5906,7 +5906,7 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         to_field_kwargs,
     ):
         to_model = to_field.table.get_model()
-        expr = FormulaHandler.baserow_expression_to_update_django_expression(
+        expr = FormulaHandler.jadawel_expression_to_update_django_expression(
             to_field.cached_typed_internal_expression, to_model
         )
         to_model.objects_and_trash.all().update(**{f"{to_field.db_column}": expr})
@@ -5947,23 +5947,23 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         # if the `order_type` is not the default, it will always return False.
         if order_type != DEFAULT_SORT_TYPE_KEY:
             return False
-        return self.to_baserow_formula_type(field.specific).can_order_by
+        return self.to_jadawel_formula_type(field.specific).can_order_by
 
     def check_can_group_by(self, field, sort_type):
         # The formula types are not compatible with the order type. Therefore,
         # if the `order_type` is not the default, it will always return False.
-        return self.to_baserow_formula_type(field.specific).can_group_by
+        return self.to_jadawel_formula_type(field.specific).can_group_by
 
     def get_order(
         self, field, field_name, order_direction, sort_type, table_model=None
     ) -> OptionallyAnnotatedOrderBy:
         # Ignore the `sort_type` because that is not yet supported in formulas.
-        return self.to_baserow_formula_type(field.specific).get_order(
+        return self.to_jadawel_formula_type(field.specific).get_order(
             field, field_name, order_direction, table_model=table_model
         )
 
     def get_value_for_filter(self, row: "GeneratedTableModel", field):
-        return self.to_baserow_formula_type(field.specific).get_value_for_filter(
+        return self.to_jadawel_formula_type(field.specific).get_value_for_filter(
             row, field
         )
 
@@ -5979,16 +5979,16 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         return False
 
     def can_represent_date(self, field: "Field") -> bool:
-        return self.to_baserow_formula_type(field.specific).can_represent_date
+        return self.to_jadawel_formula_type(field.specific).can_represent_date
 
     def can_represent_files(self, field):
-        return self.to_baserow_formula_type(field.specific).can_represent_files
+        return self.to_jadawel_formula_type(field.specific).can_represent_files
 
     def can_represent_select_options(self, field):
-        return self.to_baserow_formula_type(field.specific).can_represent_select_options
+        return self.to_jadawel_formula_type(field.specific).can_represent_select_options
 
     def can_represent_collaborators(self, field):
-        return self.to_baserow_formula_type(field.specific).can_represent_collaborators
+        return self.to_jadawel_formula_type(field.specific).can_represent_collaborators
 
     def get_permission_error_when_user_changes_field_to_depend_on_forbidden_field(
         self, user: AbstractUser, changed_field: Field, forbidden_field: Field
@@ -6029,7 +6029,7 @@ class FormulaFieldType(FormulaFieldTypeArrayFilterSupport, ReadOnlyFieldType):
         return field_type.parse_filter_value(field_instance, model_field, value)
 
     def can_have_db_index(self, field: Field) -> bool:
-        return self.to_baserow_formula_type(field.specific).can_have_db_index
+        return self.to_jadawel_formula_type(field.specific).can_have_db_index
 
 
 class CountFieldType(FormulaFieldType):
@@ -7176,10 +7176,10 @@ class MultipleCollaboratorsFieldType(
     ) -> Expression | F:
         return F(f"{field_name}__first_name")
 
-    def to_baserow_formula_type(self, field: Field):
+    def to_jadawel_formula_type(self, field: Field):
         return BaserowFormulaMultipleCollaboratorsType(nullable=True)
 
-    def from_baserow_formula_type(self, formula_type) -> Field:
+    def from_jadawel_formula_type(self, formula_type) -> Field:
         return self.model_class()
 
     def get_formula_reference_to_model_field(
@@ -7277,16 +7277,16 @@ class UUIDFieldType(ReadOnlyFieldType):
     def contains_query(self, *args):
         return contains_filter(*args, validate=False)
 
-    def to_baserow_formula_expression(self, field):
+    def to_jadawel_formula_expression(self, field):
         # Cast the uuid to text, to make it compatible with all the text related
         # functions.
         totext = formula_function_registry.get("totext")
-        return totext(super().to_baserow_formula_expression(field))
+        return totext(super().to_jadawel_formula_expression(field))
 
-    def to_baserow_formula_type(self, field) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field) -> BaserowFormulaType:
         return BaserowFormulaTextType(nullable=True, unwrap_cast_to_text=False)
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaTextType
     ) -> UUIDField:
         return UUIDField()
@@ -7516,12 +7516,12 @@ class AutonumberFieldType(ReadOnlyFieldType):
             )
             cursor.execute(f"DROP SEQUENCE IF EXISTS {db_column}_seq;")
 
-    def to_baserow_formula_type(self, field: NumberField) -> BaserowFormulaType:
+    def to_jadawel_formula_type(self, field: NumberField) -> BaserowFormulaType:
         return BaserowFormulaNumberType(
             number_decimal_places=0, requires_refresh_after_insert=True
         )
 
-    def from_baserow_formula_type(
+    def from_jadawel_formula_type(
         self, formula_type: BaserowFormulaNumberType
     ) -> NumberField:
         return NumberField(number_decimal_places=0, number_negative=False)

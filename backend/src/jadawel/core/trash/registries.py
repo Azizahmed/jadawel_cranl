@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class TrashableItemType(ModelInstanceMixin, Instance, ABC):
     """
-    A TrashableItemType specifies a baserow model which can be trashed.
+    A TrashableItemType specifies a jadawel model which can be trashed.
     """
 
     def lookup_trashed_item(
@@ -208,9 +208,9 @@ class DefaultTrashOperationType(TrashOperationType):
 class TrashableItemTypeRegistry(ModelRegistryMixin, Registry):
     """
     The TrashableItemTypeRegistry contains models which can be "trashed" in jadawel.
-    When an instance of a trashable model is trashed it is removed from baserow but
+    When an instance of a trashable model is trashed it is removed from jadawel but
     not permanently. Once trashed an item can then be restored to add it back to
-    baserow just as it was when it was trashed.
+    jadawel just as it was when it was trashed.
     """
 
     name = "trashable"

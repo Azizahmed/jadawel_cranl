@@ -76,7 +76,7 @@ class FieldDependencyExtractingVisitor(
     BaserowFormulaASTVisitor[UnTyped, FieldDependencies]
 ):
     """
-    Calculates and returns all the field dependencies that the baserow expression has.
+    Calculates and returns all the field dependencies that the jadawel expression has.
     """
 
     def __init__(self, source_field, table, field_cache):
@@ -266,7 +266,7 @@ class FormulaTypingVisitor(
                         target_field, referenced_field, field_reference
                     )
             # check the lookup field
-            expression = field_type.to_baserow_formula_expression(referenced_field)
+            expression = field_type.to_jadawel_formula_expression(referenced_field)
             # if other formula fields are referenced, we want to avoid
             # keep nesting wrapper functions, so unwrap the expression here
             if expression.is_wrapper:
@@ -299,7 +299,7 @@ class FormulaTypingVisitor(
             sub_ref = ""
 
         lookup_field_type = field_type_registry.get_by_model(target_field)
-        formula_type = lookup_field_type.to_baserow_formula_type(target_field)
+        formula_type = lookup_field_type.to_jadawel_formula_type(target_field)
 
         return BaserowFieldReference(
             referenced_field.db_column,

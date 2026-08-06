@@ -58,7 +58,7 @@ from jadawel.contrib.database.views.handler import ViewHandler
 from jadawel.core.db import specific_iterator, sql
 from jadawel.core.handler import CoreHandler
 from jadawel.core.models import TrashEntry, User
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.trash.exceptions import RelatedTableTrashedException
 from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.trash.registries import trash_item_type_registry
@@ -161,7 +161,7 @@ def _validate_field_name(
 T = TypeVar("T", bound="Field")
 
 
-class FieldHandler(metaclass=baserow_trace_methods(tracer)):
+class FieldHandler(metaclass=jadawel_trace_methods(tracer)):
     def get_field(
         self,
         field_id: int,
@@ -561,14 +561,14 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
 
         # If the provided field type does not match with the current one we need to
         # migrate the field to the new type.
-        baserow_field_type_changed = from_field_type.type != to_field_type_name
+        jadawel_field_type_changed = from_field_type.type != to_field_type_name
         field_cache = FieldCache()
 
         # Get field_constraints from kwargs, defaulting to None if not provided
         # This preserves existing constraints when not included in PATCH requests
         field_constraints = kwargs.get("field_constraints", None)
 
-        if baserow_field_type_changed:
+        if jadawel_field_type_changed:
             to_field_type = field_type_registry.get(to_field_type_name)
         else:
             to_field_type = from_field_type
@@ -603,7 +603,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
                 "Field constraints cannot be modified on readonly or immutable fields."
             )
 
-        if baserow_field_type_changed:
+        if jadawel_field_type_changed:
             ViewHandler().before_field_type_change(field)
             dependants_broken_due_to_type_change = (
                 from_field_type.get_dependants_which_will_break_when_field_type_changes(
@@ -628,7 +628,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
             validate_default_value_with_constraints(
                 to_field_type, field_constraints, field_values, field
             )
-        elif baserow_field_type_changed and old_constraints:
+        elif jadawel_field_type_changed and old_constraints:
             existing_constraint_data = [
                 {"type_name": c.type_name} for c in old_constraints
             ]
@@ -677,7 +677,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
         # If the field type or the database representation changes it could be
         # that some view dependencies like filters or sortings need to be changed.
         if (
-            baserow_field_type_changed
+            jadawel_field_type_changed
             or not from_field_type.has_compatible_model_fields(
                 from_model_field, to_model_field
             )
@@ -717,9 +717,9 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
                 connection,
             )
         else:
-            if baserow_field_type_changed:
-                # If the baserow type has changed we always want to force run any alter
-                # column SQL as otherwise it might not run if the two baserow fields
+            if jadawel_field_type_changed:
+                # If the jadawel type has changed we always want to force run any alter
+                # column SQL as otherwise it might not run if the two jadawel fields
                 # share the same underlying database column type.
                 force_alter_column = True
             else:
@@ -739,7 +739,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
                 force_alter_column,
             ) as schema_editor:
                 try:
-                    if baserow_field_type_changed or field_constraints_changed:
+                    if jadawel_field_type_changed or field_constraints_changed:
                         existing_constraints = build_django_field_constraints(
                             old_field, old_constraints
                         )
@@ -756,7 +756,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
                     )
 
                     if (
-                        baserow_field_type_changed or field_constraints_changed
+                        jadawel_field_type_changed or field_constraints_changed
                     ) and field_constraints:
                         new_constraint_objects = _create_constraint_objects(
                             field, field_constraints
@@ -845,7 +845,7 @@ class FieldHandler(metaclass=baserow_trace_methods(tracer)):
             field=field,
             old_field=old_field,
             related_fields=updated_fields,
-            field_type_changed=baserow_field_type_changed,
+            field_type_changed=jadawel_field_type_changed,
             user=user,
         )
         update_collector.send_additional_field_updated_signals()

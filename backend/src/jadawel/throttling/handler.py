@@ -18,7 +18,7 @@ from .exceptions import RateLimitExceededException
 from .types import RateLimit
 from .utils import get_auth_token
 
-JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID = "baserow_concurrency_throttle_request_id"
+JADAWEL_CONCURRENCY_THROTTLE_REQUEST_ID = "jadawel_concurrency_throttle_request_id"
 
 # Slightly modified version of
 # https://gist.github.com/ptarjan/e38f45f2dfe601419ca3af937fff574d

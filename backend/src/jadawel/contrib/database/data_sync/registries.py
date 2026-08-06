@@ -64,7 +64,7 @@ class DataSyncProperty(ABC):
         self.initially_selected = initially_selected
 
     @abstractmethod
-    def to_baserow_field(self) -> Field:
+    def to_jadawel_field(self) -> Field:
         """
         Should return an unsaved Jadawel field instance. This is the field object that
         will be used to automatically create the field.
@@ -73,32 +73,32 @@ class DataSyncProperty(ABC):
         """
 
     def get_metadata(
-        self, baserow_field: Field, existing_metadata: Optional[dict] = None
+        self, jadawel_field: Field, existing_metadata: Optional[dict] = None
     ) -> Optional[dict]:
         """
         Called after the field is created or updated. It can return metadata that's
         going to be stored in the related DataSyncSyncedProperty. This can for
         example to store a mapping that's needed when the data is synchronized.
 
-        :param baserow_field: The saved/created Jadawel field in the synced table.
+        :param jadawel_field: The saved/created Jadawel field in the synced table.
         :param existing_metadata: Optionally already existing metadata can be provided.
         :return: The mapping that must be stored in the `DataSyncSyncedProperty`.
         """
 
         return None
 
-    def is_equal(self, baserow_row_value: Any, data_sync_row_value: Any) -> bool:
+    def is_equal(self, jadawel_row_value: Any, data_sync_row_value: Any) -> bool:
         """
         Checks if the provided cell value is equal. This is used to check if the
         row must be updated.
 
-        :param baserow_row_value: The row value from the Jadawel row.
+        :param jadawel_row_value: The row value from the Jadawel row.
         :param data_sync_row_value:  The row value from the data sync `get_all_rows`
             row.
         :return: `True` if the value is equal.
         """
 
-        return baserow_row_value == data_sync_row_value
+        return jadawel_row_value == data_sync_row_value
 
 
 class DataSyncType(
@@ -161,7 +161,7 @@ class DataSyncType(
     ) -> Iterable[Dict]:
         """
         Should return a list with dicts containing the raw row values. The values will
-        run through the `to_baserow_value` method of the related property to convert
+        run through the `to_jadawel_value` method of the related property to convert
         them to the Jadawel format. It must contain all the rows, even if there are
         many. It will be used to figure out:
 

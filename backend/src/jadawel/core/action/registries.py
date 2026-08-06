@@ -17,7 +17,7 @@ from jadawel.api.sessions import (
 )
 from jadawel.core.models import Workspace
 from jadawel.core.registry import Instance, Registry
-from jadawel.core.telemetry.utils import add_baserow_trace_attrs, baserow_trace_methods
+from jadawel.core.telemetry.utils import add_jadawel_trace_attrs, jadawel_trace_methods
 
 from .models import Action
 from .signals import ActionCommandType, action_done
@@ -150,7 +150,7 @@ def render_action_type_description(
 
 class ActionType(
     Instance,
-    metaclass=baserow_trace_methods(tracer, only=["do", "undo", "redo"], abc=True),
+    metaclass=jadawel_trace_methods(tracer, only=["do", "undo", "redo"], abc=True),
 ):
     type: str = NotImplemented
     description: ActionTypeDescription = ActionTypeDescription()
@@ -248,7 +248,7 @@ class ActionType(
         action_group = get_client_undo_redo_action_group_id(user)
         action_timestamp = timestamp if timestamp else datetime.now(tz=timezone.utc)
 
-        add_baserow_trace_attrs(
+        add_jadawel_trace_attrs(
             action_user_id=getattr(user, "id", None),
             workspace_id=getattr(workspace, "id", None),
             action_scope=scope,

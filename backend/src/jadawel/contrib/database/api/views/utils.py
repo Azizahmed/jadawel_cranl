@@ -328,7 +328,7 @@ def serialize_single_row_metadata(
     """
 
     return row_metadata_registry.generate_and_merge_metadata_for_row(
-        user, row.baserow_table, row.id
+        user, row.jadawel_table, row.id
     )
 
 

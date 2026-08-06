@@ -1,7 +1,7 @@
 import pytest
 
 from jadawel.contrib.database.airtable.utils import (
-    airtable_date_filter_value_to_baserow,
+    airtable_date_filter_value_to_jadawel,
     extract_share_id_from_url,
     get_airtable_column_name,
     get_airtable_row_primary_value,
@@ -274,9 +274,9 @@ def test_quill_to_markdown_airtable_example_two_lists():
     )
 
 
-def test_airtable_date_filter_value_to_baserow():
+def test_airtable_date_filter_value_to_jadawel():
     assert (
-        airtable_date_filter_value_to_baserow(
+        airtable_date_filter_value_to_jadawel(
             {
                 "mode": "exactDate",
                 "exactDate": "2025-02-05T00:00:00.000Z",
@@ -288,16 +288,16 @@ def test_airtable_date_filter_value_to_baserow():
     )
 
 
-def test_airtable_date_string_filter_value_to_baserow():
+def test_airtable_date_string_filter_value_to_jadawel():
     assert (
-        airtable_date_filter_value_to_baserow("2025-02-05T00:00:00.000Z")
+        airtable_date_filter_value_to_jadawel("2025-02-05T00:00:00.000Z")
         == "?2025-02-05?exact_date"
     )
 
 
-def test_airtable_invalid_date_filter_value_to_baserow():
+def test_airtable_invalid_date_filter_value_to_jadawel():
     with pytest.raises(KeyError):
-        assert airtable_date_filter_value_to_baserow(
+        assert airtable_date_filter_value_to_jadawel(
             {
                 "mode": "not_found",
                 "exactDate": "2025-02-05T00:00:00.000Z",

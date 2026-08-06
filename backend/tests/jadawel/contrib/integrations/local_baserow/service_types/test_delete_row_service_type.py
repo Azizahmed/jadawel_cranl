@@ -155,6 +155,6 @@ def test_local_baserow_delete_row_service_dispatch_data(data_fixture):
 @pytest.mark.django_db
 def test_local_baserow_delete_row_service_dispatch_transform(data_fixture):
     service_type = LocalBaserowDeleteRowServiceType()
-    dispatch_data = {"data": {}, "baserow_table_model": Mock()}
+    dispatch_data = {"data": {}, "jadawel_table_model": Mock()}
     result = service_type.dispatch_transform(dispatch_data)
     assert result.status == 204

@@ -436,7 +436,7 @@ def test_recalculate_formula_that_is_broken_marks_it_as_invalid(
 
 @pytest.mark.django_db(transaction=True)
 @patch(
-    "jadawel.contrib.database.formula.FormulaHandler.baserow_expression_to_update_django_expression",
+    "jadawel.contrib.database.formula.FormulaHandler.jadawel_expression_to_update_django_expression",
 )
 def test_formula_migration_failing_when_refreshing_cell_values_marks_as_invalid(
     mock_generator_func,

@@ -17,11 +17,11 @@ class UnknownFieldRaisesExceptionSerializerMixin:
     """
 
     def __init__(self, *args, **kwargs):
-        self._baserow_internal_initial_data = None
+        self._jadawel_internal_initial_data = None
         super().__init__(*args, **kwargs)
 
     def to_internal_value(self, data):
-        self._baserow_internal_initial_data = data
+        self._jadawel_internal_initial_data = data
         return super().to_internal_value(data)
 
     @property
@@ -43,7 +43,7 @@ class UnknownFieldRaisesExceptionSerializerMixin:
         if hasattr(self, "initial_data"):
             return self.initial_data
         else:
-            return self._baserow_internal_initial_data
+            return self._jadawel_internal_initial_data
 
     def validate(self, data):
         safe_initial_data = self.safe_initial_data

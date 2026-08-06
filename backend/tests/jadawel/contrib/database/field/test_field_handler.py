@@ -118,7 +118,7 @@ def _test_can_convert_between_fields(data_fixture, field_type_to_test):
 
     cache = {}
 
-    # Some baserow field types have multiple different 'modes' which result in
+    # Some jadawel field types have multiple different 'modes' which result in
     # different conversion behaviour or entirely different database columns being
     # created. Here the kwargs which control these modes are enumerated so we can then
     # generate every possible type of conversion.
@@ -883,7 +883,7 @@ def test_field_which_changes_its_underlying_type_will_have_alter_sql_run(data_fi
         # Need to clear the cache again
         field_type_registry.get_for_class.cache_clear()
 
-        # Update to the same baserow type, but due to this fields implementation of
+        # Update to the same jadawel type, but due to this fields implementation of
         # get_model_field this will alter the underlying database column from type
         # of varchar to text, which should make our reversing alter sql run.
         handler.update_field(
@@ -1445,7 +1445,7 @@ def test_can_convert_formula_to_numeric_field(data_fixture):
 
     handler = FieldHandler()
 
-    # Update to the same baserow type, but due to this fields implementation of
+    # Update to the same jadawel type, but due to this fields implementation of
     # get_model_field this will alter the underlying database column from type
     # of varchar to text, which should make our reversing alter sql run.
     handler.update_field(

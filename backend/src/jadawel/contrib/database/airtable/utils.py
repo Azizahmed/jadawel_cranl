@@ -245,7 +245,7 @@ def quill_to_markdown(ops: list) -> str:
     return "".join(md_output).strip()
 
 
-def airtable_date_filter_value_to_baserow(value: Optional[Union[dict, str]]) -> str:
+def airtable_date_filter_value_to_jadawel(value: Optional[Union[dict, str]]) -> str:
     """
     Converts the provided Airtable filter date value to the Jadawel compatible date
     value string.

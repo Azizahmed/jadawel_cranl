@@ -185,7 +185,7 @@ def test_extract_schema():
 
 @pytest.mark.django_db
 @responses.activate
-def test_to_baserow_database_export():
+def test_to_jadawel_database_export():
     base_path = os.path.join(
         settings.BASE_DIR, "../../../tests/airtable_responses/basic"
     )
@@ -278,7 +278,7 @@ def test_to_baserow_database_export():
     ) = AirtableHandler.fetch_and_combine_airtable_data(
         "appZkaH3aWX3ZjT3b", AirtableImportConfig()
     )
-    baserow_database_export, files_buffer = AirtableHandler.to_baserow_database_export(
+    jadawel_database_export, files_buffer = AirtableHandler.to_jadawel_database_export(
         init_data, request_id, cookies, schema, tables, AirtableImportConfig()
     )
 
@@ -289,28 +289,28 @@ def test_to_baserow_database_export():
     ) as file_handler:
         assert file_handler.read() == b"test\n"
 
-    assert baserow_database_export["id"] == 1
-    assert baserow_database_export["name"] == "Test"
-    assert baserow_database_export["order"] == 1
-    assert baserow_database_export["type"] == "database"
-    assert len(baserow_database_export["tables"]) == 3  # 2 + import report table
+    assert jadawel_database_export["id"] == 1
+    assert jadawel_database_export["name"] == "Test"
+    assert jadawel_database_export["order"] == 1
+    assert jadawel_database_export["type"] == "database"
+    assert len(jadawel_database_export["tables"]) == 3  # 2 + import report table
 
-    assert baserow_database_export["tables"][0]["id"] == "tblRpq315qnnIcg5IjI"
-    assert baserow_database_export["tables"][0]["name"] == "Users"
-    assert baserow_database_export["tables"][0]["order"] == 0
-    assert len(baserow_database_export["tables"][0]["fields"]) == 4
+    assert jadawel_database_export["tables"][0]["id"] == "tblRpq315qnnIcg5IjI"
+    assert jadawel_database_export["tables"][0]["name"] == "Users"
+    assert jadawel_database_export["tables"][0]["order"] == 0
+    assert len(jadawel_database_export["tables"][0]["fields"]) == 4
 
-    assert baserow_database_export["tables"][1]["id"] == "tbl7glLIGtH8C8zGCzb"
-    assert baserow_database_export["tables"][1]["name"] == "Data"
-    assert baserow_database_export["tables"][1]["order"] == 1
-    assert len(baserow_database_export["tables"][1]["fields"]) == 26
+    assert jadawel_database_export["tables"][1]["id"] == "tbl7glLIGtH8C8zGCzb"
+    assert jadawel_database_export["tables"][1]["name"] == "Data"
+    assert jadawel_database_export["tables"][1]["order"] == 1
+    assert len(jadawel_database_export["tables"][1]["fields"]) == 26
 
     # We don't have to check all the fields and rows, just a single one, because we have
     # separate tests for mapping the Airtable fields and values to Baserow.
     assert (
-        baserow_database_export["tables"][0]["fields"][0]["id"] == "fldG9y88Zw7q7u4Z7i4"
+        jadawel_database_export["tables"][0]["fields"][0]["id"] == "fldG9y88Zw7q7u4Z7i4"
     )
-    assert baserow_database_export["tables"][0]["fields"][0] == {
+    assert jadawel_database_export["tables"][0]["fields"][0] == {
         "type": "text",
         "id": "fldG9y88Zw7q7u4Z7i4",
         "name": "Name",
@@ -324,7 +324,7 @@ def test_to_baserow_database_export():
         "db_index": False,
         "field_constraints": [],
     }
-    assert baserow_database_export["tables"][0]["fields"][1] == {
+    assert jadawel_database_export["tables"][0]["fields"][1] == {
         "type": "email",
         "id": "fldB7wkyR0buF1sRF9O",
         "name": "Email",
@@ -337,8 +337,8 @@ def test_to_baserow_database_export():
         "db_index": False,
         "field_constraints": [],
     }
-    assert len(baserow_database_export["tables"][0]["rows"]) == 3
-    assert baserow_database_export["tables"][0]["rows"][0] == {
+    assert len(jadawel_database_export["tables"][0]["rows"]) == 3
+    assert jadawel_database_export["tables"][0]["rows"][0] == {
         "id": 1,
         "order": "1.00000000000000000000",
         "created_on": "2022-01-16T17:59:13+00:00",
@@ -348,7 +348,7 @@ def test_to_baserow_database_export():
         "field_fldFh5wIL430N62LN6t": [1],
         "field_fldZBmr4L45mhjILhlA": "1",
     }
-    assert baserow_database_export["tables"][0]["rows"][1] == {
+    assert jadawel_database_export["tables"][0]["rows"][1] == {
         "id": 2,
         "order": "2.00000000000000000000",
         "created_on": "2022-01-16T17:59:13+00:00",
@@ -358,17 +358,17 @@ def test_to_baserow_database_export():
         "field_fldFh5wIL430N62LN6t": [2, 3, 1],
         "field_fldZBmr4L45mhjILhlA": "2",
     }
-    assert baserow_database_export["tables"][0]["rows"][2] == {
+    assert jadawel_database_export["tables"][0]["rows"][2] == {
         "id": 3,
         "order": "3.00000000000000000000",
         "created_on": "2022-01-17T17:59:13+00:00",
         "updated_on": None,
     }
     assert (
-        baserow_database_export["tables"][1]["rows"][0]["field_fldEB5dp0mNjVZu0VJI"]
+        jadawel_database_export["tables"][1]["rows"][0]["field_fldEB5dp0mNjVZu0VJI"]
         == "2022-01-21T00:00:00+00:00"
     )
-    assert baserow_database_export["tables"][0]["views"] == [
+    assert jadawel_database_export["tables"][0]["views"] == [
         {
             "id": "viwFSKLuVm97DnNVD91",
             "type": "grid",
@@ -428,7 +428,7 @@ def test_to_baserow_database_export():
         }
     ]
 
-    assert baserow_database_export["tables"][2]["rows"][0] == {
+    assert jadawel_database_export["tables"][2]["rows"][0] == {
         "id": 1,
         "order": "1.00000000000000000000",
         "created_on": None,
@@ -544,7 +544,7 @@ def test_download_files_via_endpoint():
     ) = AirtableHandler.fetch_and_combine_airtable_data(
         "appZkaH3aWX3ZjT3b", AirtableImportConfig()
     )
-    baserow_database_export, files_buffer = AirtableHandler.to_baserow_database_export(
+    jadawel_database_export, files_buffer = AirtableHandler.to_jadawel_database_export(
         init_data, request_id, cookies, schema, tables, AirtableImportConfig()
     )
 
@@ -651,7 +651,7 @@ def test_config_skip_files(tmpdir, data_fixture):
     ) = AirtableHandler.fetch_and_combine_airtable_data(
         "appZkaH3aWX3ZjT3b", AirtableImportConfig()
     )
-    baserow_database_export, files_buffer = AirtableHandler.to_baserow_database_export(
+    jadawel_database_export, files_buffer = AirtableHandler.to_jadawel_database_export(
         init_data,
         request_id,
         cookies,
@@ -666,7 +666,7 @@ def test_config_skip_files(tmpdir, data_fixture):
 
 @pytest.mark.django_db
 @responses.activate
-def test_to_baserow_database_export_without_primary_value():
+def test_to_jadawel_database_export_without_primary_value():
     base_path = os.path.join(
         settings.BASE_DIR, "../../../tests/airtable_responses/basic"
     )
@@ -763,7 +763,7 @@ def test_to_baserow_database_export_without_primary_value():
     # Rename the primary column so that we depend on the fallback in the migrations.
     schema["tableSchemas"][0]["primaryColumnId"] = "fldG9y88Zw7q7u4Z7i4_unknown"
 
-    baserow_database_export, files_buffer = AirtableHandler.to_baserow_database_export(
+    jadawel_database_export, files_buffer = AirtableHandler.to_jadawel_database_export(
         init_data,
         request_id,
         cookies,
@@ -771,8 +771,8 @@ def test_to_baserow_database_export_without_primary_value():
         tables,
         AirtableImportConfig(skip_files=True),
     )
-    assert baserow_database_export["tables"][0]["fields"][0]["primary"] is True
-    assert baserow_database_export["tables"][2]["rows"][0] == {
+    assert jadawel_database_export["tables"][0]["fields"][0]["primary"] is True
+    assert jadawel_database_export["tables"][2]["rows"][0] == {
         "id": 1,
         "order": "1.00000000000000000000",
         "created_on": None,
@@ -785,7 +785,7 @@ def test_to_baserow_database_export_without_primary_value():
     }
 
     schema["tableSchemas"][0]["columns"] = []
-    baserow_database_export, files_buffer = AirtableHandler.to_baserow_database_export(
+    jadawel_database_export, files_buffer = AirtableHandler.to_jadawel_database_export(
         init_data,
         request_id,
         cookies,
@@ -793,7 +793,7 @@ def test_to_baserow_database_export_without_primary_value():
         tables,
         AirtableImportConfig(skip_files=True),
     )
-    assert baserow_database_export["tables"][0]["fields"] == [
+    assert jadawel_database_export["tables"][0]["fields"] == [
         {
             "type": "text",
             "id": "primary_field",
@@ -809,7 +809,7 @@ def test_to_baserow_database_export_without_primary_value():
             "field_constraints": [],
         }
     ]
-    assert baserow_database_export["tables"][2]["rows"][0] == {
+    assert jadawel_database_export["tables"][2]["rows"][0] == {
         "id": 1,
         "order": "1.00000000000000000000",
         "created_on": None,

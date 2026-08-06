@@ -89,5 +89,5 @@ class ListDataSyncPropertySerializer(serializers.Serializer):
     initially_selected = serializers.BooleanField()
 
     def get_field_type(self, instance):
-        field_type = field_type_registry.get_by_model(instance.to_baserow_field())
+        field_type = field_type_registry.get_by_model(instance.to_jadawel_field())
         return field_type.type

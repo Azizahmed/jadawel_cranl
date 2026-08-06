@@ -21,13 +21,13 @@ from jadawel.core.utils import grouper
 
 User = get_user_model()
 
-EMAIL_PREFIX = "baserow_prefix_to_ensure_we_never_accidentally_email_a_real_person_"
+EMAIL_PREFIX = "jadawel_prefix_to_ensure_we_never_accidentally_email_a_real_person_"
 CLASHING_EMAIL_COUNTER = 0
 
 
 class Command(BaseCommand):
     help = (
-        "Fills baserow with random users. If no workspace is provided, a new one will be created, "
+        "Fills jadawel with random users. If no workspace is provided, a new one will be created, "
         "otherwise the users will be added to the workspace of the provided id."
     )
 

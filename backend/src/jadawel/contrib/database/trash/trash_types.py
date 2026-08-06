@@ -328,7 +328,7 @@ class RowTrashableItemType(TrashableItemType):
         return True
 
     def get_parent(self, trashed_item: Any) -> Optional[Any]:
-        return self._get_table(trashed_item.baserow_table_id)
+        return self._get_table(trashed_item.jadawel_table_id)
 
     @staticmethod
     def _get_table(parent_id):
@@ -382,7 +382,7 @@ class RowTrashableItemType(TrashableItemType):
 
     def permanently_delete_item(self, row, trash_item_lookup_cache=None):
         RichTextFieldMention.objects.filter(
-            table_id=row.baserow_table_id, row_id=row.id
+            table_id=row.jadawel_table_id, row_id=row.id
         ).delete()
         row.delete()
 

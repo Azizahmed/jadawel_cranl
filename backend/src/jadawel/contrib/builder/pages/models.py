@@ -117,7 +117,7 @@ class DuplicatePageJob(
         null=True,
         related_name="duplicated_by_jobs",
         on_delete=models.SET_NULL,
-        help_text="The baserow page to duplicate.",
+        help_text="The jadawel page to duplicate.",
     )
 
     duplicated_page = models.OneToOneField(

@@ -20,7 +20,7 @@ from jadawel.contrib.database.table.models import RichTextFieldMention
 from jadawel.contrib.database.views.handler import ViewSubscriptionHandler
 from jadawel.contrib.database.views.models import View, ViewSubscription
 from jadawel.core.models import Workspace
-from jadawel.core.telemetry.utils import add_baserow_trace_attrs, baserow_trace
+from jadawel.core.telemetry.utils import add_jadawel_trace_attrs, jadawel_trace
 
 tracer = trace.get_tracer(__name__)
 
@@ -84,7 +84,7 @@ def run_periodic_fields_updates(
             )
 
 
-@baserow_trace(tracer)
+@jadawel_trace(tracer)
 def _run_periodic_field_type_update_per_workspace(
     field_type_instance: Type[FieldType], workspace: Workspace, update_now: bool = True
 ):
@@ -94,7 +94,7 @@ def _run_periodic_field_type_update_per_workspace(
 
     if update_now:
         workspace.refresh_now()
-    add_baserow_trace_attrs(update_now=update_now, workspace_id=workspace.id)
+    add_jadawel_trace_attrs(update_now=update_now, workspace_id=workspace.id)
 
     fields = (
         qs.filter(

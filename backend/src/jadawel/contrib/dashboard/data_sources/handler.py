@@ -186,7 +186,7 @@ class DashboardDataSourceHandler:
         order = DashboardDataSource.get_last_order(dashboard)
 
         # Currently all Dashboard data sources will be of
-        # local baserow integration type
+        # local jadawel integration type
         integration = Integration.objects.filter(application=dashboard).first()
         service = self.service_handler.create_service(
             service_type=service_type, integration=integration, **kwargs

@@ -41,7 +41,7 @@ class FormulaField(models.TextField):
         self.null = True
         self.blank = True
 
-    def _deserialize_baserow_object(
+    def _deserialize_jadawel_object(
         self, value: FormulaFieldDatabaseValue
     ) -> Optional[Dict[str, Any]]:
         """
@@ -86,7 +86,7 @@ class FormulaField(models.TextField):
                 # receive an integer, we convert it to a string.
                 value = str(value)
             # We could encounter a serialized object...
-            if context := self._deserialize_baserow_object(value):
+            if context := self._deserialize_jadawel_object(value):
                 # If we have, then we can parse it and return the `BaserowFormulaObject`
                 return BaserowFormulaObject(
                     mode=context["m"], version=context["v"], formula=context["f"]

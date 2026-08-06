@@ -435,7 +435,7 @@ case "$1" in
           cd "$DATA_DIR"/backups || true
         fi
         export PGPASSWORD=$DATABASE_PASSWORD
-        exec python3 /jadawel/backend/src/jadawel/manage.py backup_baserow \
+        exec python3 /jadawel/backend/src/jadawel/manage.py backup_jadawel \
             -h "$DATABASE_HOST" \
             -d "$DATABASE_NAME" \
             -U "$DATABASE_USER" \
@@ -453,7 +453,7 @@ case "$1" in
           cd "$DATA_DIR"/backups || true
         fi
         export PGPASSWORD=$DATABASE_PASSWORD
-        exec python3 /jadawel/backend/src/jadawel/manage.py restore_baserow \
+        exec python3 /jadawel/backend/src/jadawel/manage.py restore_jadawel \
             -h "$DATABASE_HOST" \
             -d "$DATABASE_NAME" \
             -U "$DATABASE_USER" \

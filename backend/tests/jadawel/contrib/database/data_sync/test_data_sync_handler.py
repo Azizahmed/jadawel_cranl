@@ -1209,7 +1209,7 @@ def test_set_data_sync_synced_properties_field_types_changed(data_fixture):
     registry = DataSyncTypeRegistry()
 
     class TmpUIDICalCalendarDataSyncProperty(UIDICalCalendarDataSyncProperty):
-        def to_baserow_field(self) -> TextField:
+        def to_jadawel_field(self) -> TextField:
             return LongTextField(name=self.name)
 
     class TmpICalCalendarDataSync(ICalCalendarDataSyncType):

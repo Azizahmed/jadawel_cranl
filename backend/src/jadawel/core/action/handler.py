@@ -11,7 +11,7 @@ from loguru import logger
 from opentelemetry import trace
 
 from jadawel.core.exceptions import LockConflict
-from jadawel.core.telemetry.utils import baserow_trace, baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace, jadawel_trace_methods
 
 from .models import Action
 from .registries import (
@@ -42,7 +42,7 @@ class OneActionHasErrorAndCannotBeRedone(Exception):
     """
 
 
-class ActionHandler(metaclass=baserow_trace_methods(tracer)):
+class ActionHandler(metaclass=jadawel_trace_methods(tracer)):
     """
     Contains methods to do high level operations on ActionType's like undoing or
     redoing them.
@@ -90,7 +90,7 @@ class ActionHandler(metaclass=baserow_trace_methods(tracer)):
             raise exc
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def undo(
         cls, user: AbstractUser, scopes: List[ActionScopeStr], session: str
     ) -> List[Action]:
@@ -172,7 +172,7 @@ class ActionHandler(metaclass=baserow_trace_methods(tracer)):
             raise exc
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def redo(
         cls, user: AbstractUser, scopes: List[ActionScopeStr], session: str
     ) -> List[Action]:

@@ -35,21 +35,21 @@ class BasePostgreSQLSyncProperty(DataSyncProperty):
 class TextPostgreSQLSyncProperty(BasePostgreSQLSyncProperty):
     immutable_properties = True
 
-    def to_baserow_field(self) -> TextField:
+    def to_jadawel_field(self) -> TextField:
         return TextField(name=self.name)
 
 
 class LongTextPostgreSQLSyncProperty(BasePostgreSQLSyncProperty):
     immutable_properties = True
 
-    def to_baserow_field(self) -> LongTextField:
+    def to_jadawel_field(self) -> LongTextField:
         return LongTextField(name=self.name)
 
 
 class BooleanPostgreSQLSyncProperty(BasePostgreSQLSyncProperty):
     immutable_properties = True
 
-    def to_baserow_field(self) -> BooleanField:
+    def to_jadawel_field(self) -> BooleanField:
         return BooleanField(name=self.name)
 
     def prepare_value(self, value):
@@ -63,15 +63,15 @@ class NumberPostgreSQLSyncProperty(BasePostgreSQLSyncProperty):
     def __init__(self, key, name):
         super().__init__(key, name)
 
-    def is_equal(self, baserow_row_value: Any, data_sync_row_value: Any) -> bool:
+    def is_equal(self, jadawel_row_value: Any, data_sync_row_value: Any) -> bool:
         try:
-            return round(baserow_row_value, self.decimal_places) == round(
+            return round(jadawel_row_value, self.decimal_places) == round(
                 data_sync_row_value, self.decimal_places
             )
         except TypeError:
-            return super().is_equal(baserow_row_value, data_sync_row_value)
+            return super().is_equal(jadawel_row_value, data_sync_row_value)
 
-    def to_baserow_field(self) -> NumberField:
+    def to_jadawel_field(self) -> NumberField:
         return NumberField(
             name=self.name,
             number_decimal_places=min(
@@ -85,10 +85,10 @@ class DatePostgreSQLSyncProperty(BasePostgreSQLSyncProperty):
     immutable_properties = False
     include_time = False
 
-    def is_equal(self, baserow_row_value, data_sync_row_value) -> bool:
-        return compare_date(baserow_row_value, data_sync_row_value)
+    def is_equal(self, jadawel_row_value, data_sync_row_value) -> bool:
+        return compare_date(jadawel_row_value, data_sync_row_value)
 
-    def to_baserow_field(self) -> DateField:
+    def to_jadawel_field(self) -> DateField:
         return DateField(
             name=self.name,
             date_format="ISO",
@@ -104,7 +104,7 @@ class DateTimePostgreSQLSyncProperty(DatePostgreSQLSyncProperty):
 
 # The key of the mapping must be in the column type to map to it. `integer` column
 # type would therefore map to `NumberPostgreSQLSyncProperty`.
-column_type_to_baserow_field_type = {
+column_type_to_jadawel_field_type = {
     "int": NumberPostgreSQLSyncProperty,
     "serial": NumberPostgreSQLSyncProperty,
     "boolean": BooleanPostgreSQLSyncProperty,
@@ -162,7 +162,7 @@ class PostgreSQLDataSyncType(DataSyncType):
         if not settings.TESTS and not is_hostname_safe(instance.postgresql_host):
             raise SyncError("It's not allowed to connect to this hostname.")
 
-        baserow_postgresql_connection = (
+        jadawel_postgresql_connection = (
             settings.JADAWEL_PREVENT_POSTGRESQL_DATA_SYNC_CONNECTION_TO_DATABASE
             and are_hostnames_same(
                 instance.postgresql_host, settings.DATABASES[DEFAULT_DB_ALIAS]["HOST"]
@@ -173,7 +173,7 @@ class PostgreSQLDataSyncType(DataSyncType):
             for hostname in settings.JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST
         )
 
-        if baserow_postgresql_connection or data_sync_blacklist:
+        if jadawel_postgresql_connection or data_sync_blacklist:
             raise SyncError("It's not allowed to connect to this hostname.")
         try:
             connection = psycopg.connect(
@@ -275,8 +275,8 @@ class PostgreSQLDataSyncType(DataSyncType):
         for column_name, column_type, decimal_places in columns:
             is_primary = column_name in primary_columns
             property_class = [
-                column_type_to_baserow_field_type[key]
-                for key in column_type_to_baserow_field_type.keys()
+                column_type_to_jadawel_field_type[key]
+                for key in column_type_to_jadawel_field_type.keys()
                 if key.lower() in column_type.lower()
             ]
 

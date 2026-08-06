@@ -255,9 +255,9 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DATABASE_NAME", "baserow"),
-            "USER": os.getenv("DATABASE_USER", "baserow"),
-            "PASSWORD": os.getenv("DATABASE_PASSWORD", "baserow"),
+            "NAME": os.getenv("DATABASE_NAME", "jadawel"),
+            "USER": os.getenv("DATABASE_USER", "jadawel"),
+            "PASSWORD": os.getenv("DATABASE_PASSWORD", "jadawel"),
             "HOST": os.getenv("DATABASE_HOST", "db"),
             "PORT": os.getenv("DATABASE_PORT", "5432"),
         }
@@ -320,14 +320,14 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": REDIS_URL,
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": "baserow-default-cache",
+        "KEY_PREFIX": "jadawel-default-cache",
         "VERSION": VERSION,
     },
     GENERATED_MODEL_CACHE_NAME: {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": REDIS_URL,
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": f"baserow-{GENERATED_MODEL_CACHE_NAME}-cache",
+        "KEY_PREFIX": f"jadawel-{GENERATED_MODEL_CACHE_NAME}-cache",
         "VERSION": None,
     },
 }
@@ -863,7 +863,7 @@ BATCH_ROWS_SIZE_LIMIT = int(
 # Maximum count of records considered as a 'small table' during field rule operations.
 FIELD_RULE_ROWS_LIMIT = int(os.getenv("FIELD_RULE_ROWS_LIMIT", BATCH_ROWS_SIZE_LIMIT))
 
-# Maximum count of records returned by local baserow data source
+# Maximum count of records returned by local jadawel data source
 INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT = int(
     os.getenv("JADAWEL_INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT", 200)
 )
@@ -1591,13 +1591,13 @@ CACHALOT_UNCACHABLE_TABLES = [
 
 
 def install_cachalot():
-    from jadawel.cachalot_patch import patch_cachalot_for_baserow
+    from jadawel.cachalot_patch import patch_cachalot_for_jadawel
 
     global INSTALLED_APPS
 
     INSTALLED_APPS.append("cachalot")
 
-    patch_cachalot_for_baserow()
+    patch_cachalot_for_jadawel()
 
 
 if CACHALOT_ENABLED:
@@ -1607,7 +1607,7 @@ if CACHALOT_ENABLED:
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": REDIS_URL,
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": f"baserow-{CACHALOT_CACHE}-cache",
+        "KEY_PREFIX": f"jadawel-{CACHALOT_CACHE}-cache",
         "VERSION": VERSION,
     }
 # -- END CACHALOT SETTINGS --

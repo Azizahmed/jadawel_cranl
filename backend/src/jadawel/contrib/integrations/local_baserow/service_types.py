@@ -1044,7 +1044,7 @@ class LocalBaserowListRowsUserServiceType(
         """
         Returns a list of rows from the table stored in the service instance.
 
-        :param service: the local baserow get row service.
+        :param service: the local jadawel get row service.
         :param resolved_values: If the service has any formulas, this dictionary will
             contain their resolved values.
         :param dispatch_context: The context used for the dispatch.
@@ -1099,7 +1099,7 @@ class LocalBaserowListRowsUserServiceType(
         return {
             "results": rows[:-1] if has_next_page else rows,
             "has_next_page": has_next_page,
-            "baserow_table_model": table_model,
+            "jadawel_table_model": table_model,
             "public_allowed_properties": only_field_names,
         }
 
@@ -1126,7 +1126,7 @@ class LocalBaserowListRowsUserServiceType(
         )
 
         serializer = get_row_serializer_class(
-            dispatch_data["baserow_table_model"],
+            dispatch_data["jadawel_table_model"],
             RowSerializer,
             is_response=True,
             field_ids=field_ids,
@@ -1134,7 +1134,7 @@ class LocalBaserowListRowsUserServiceType(
         )
 
         result = self._prepare_result(
-            dispatch_data["baserow_table_model"],
+            dispatch_data["jadawel_table_model"],
             {
                 "results": serializer(dispatch_data["results"], many=True).data,
                 "has_next_page": dispatch_data["has_next_page"],
@@ -1481,7 +1481,7 @@ class LocalBaserowAggregateRowsUserServiceType(
         """
         Returns a field aggregation from the table stored in the service instance.
 
-        :param service: the local baserow aggregate rows service.
+        :param service: the local jadawel aggregate rows service.
         :param resolved_values: If the service has any formulas, this dictionary will
             contain their resolved values.
         :param dispatch_context: The context used for the dispatch.
@@ -1509,7 +1509,7 @@ class LocalBaserowAggregateRowsUserServiceType(
 
             return {
                 "data": {"result": result},
-                "baserow_table_model": model,
+                "jadawel_table_model": model,
                 "field": field,
             }
         except DjangoFieldDoesNotExist as ex:
@@ -1678,7 +1678,7 @@ class LocalBaserowGetRowUserServiceType(
         Returns the row targeted by the `row_id` formula from the table stored in the
         service instance.
 
-        :param service: the local baserow get row service.
+        :param service: the local jadawel get row service.
         :param resolved_values: If the service has any formulas, this dictionary will
             contain their resolved values.
         :param dispatch_context: The context used for the dispatch.
@@ -1701,7 +1701,7 @@ class LocalBaserowGetRowUserServiceType(
                 raise ServiceImproperlyConfiguredDispatchException(_("No rows found"))
             return {
                 "data": queryset.first(),
-                "baserow_table_model": table_model,
+                "jadawel_table_model": table_model,
                 "public_allowed_properties": only_field_names,
             }
 
@@ -1709,7 +1709,7 @@ class LocalBaserowGetRowUserServiceType(
             row = queryset.get(pk=resolved_values["row_id"])
             return {
                 "data": row,
-                "baserow_table_model": table_model,
+                "jadawel_table_model": table_model,
                 "public_allowed_properties": only_field_names,
             }
         except table_model.DoesNotExist:
@@ -1732,7 +1732,7 @@ class LocalBaserowGetRowUserServiceType(
         )
 
         serializer = get_row_serializer_class(
-            dispatch_data["baserow_table_model"],
+            dispatch_data["jadawel_table_model"],
             RowSerializer,
             is_response=True,
             field_ids=field_ids,
@@ -1740,7 +1740,7 @@ class LocalBaserowGetRowUserServiceType(
         )
 
         serialized_row = self._prepare_result(
-            dispatch_data["baserow_table_model"], serializer(dispatch_data["data"]).data
+            dispatch_data["jadawel_table_model"], serializer(dispatch_data["data"]).data
         )
 
         return DispatchResult(data=serialized_row)
@@ -2039,7 +2039,7 @@ class LocalBaserowUpsertRowServiceType(
         Responsible for creating a new row, or updating an existing row if a row ID has
         been provided, in this `LocalBaserowUpsertRow` service's table.
 
-        :param service: the local baserow upsert row service.
+        :param service: the local jadawel upsert row service.
         :param resolved_values: If the service has any formulas, this dictionary will
             contain their resolved values.
         :param dispatch_context: the context used for formula resolution.
@@ -2169,7 +2169,7 @@ class LocalBaserowUpsertRowServiceType(
 
         return {
             "data": row,
-            "baserow_table_model": model,
+            "jadawel_table_model": model,
             "public_formula_fields": used_field_names,
         }
 
@@ -2188,7 +2188,7 @@ class LocalBaserowUpsertRowServiceType(
         )
 
         serializer = get_row_serializer_class(
-            dispatch_data["baserow_table_model"],
+            dispatch_data["jadawel_table_model"],
             RowSerializer,
             is_response=True,
             field_ids=field_ids,
@@ -2196,7 +2196,7 @@ class LocalBaserowUpsertRowServiceType(
         )
 
         serialized_row = self._prepare_result(
-            dispatch_data["baserow_table_model"], serializer(dispatch_data["data"]).data
+            dispatch_data["jadawel_table_model"], serializer(dispatch_data["data"]).data
         )
 
         return DispatchResult(data=serialized_row)
@@ -2286,7 +2286,7 @@ class LocalBaserowDeleteRowServiceType(
         Responsible for deleting a specific row if a row ID has been provided,
         in this `LocalBaserowDeleteRow` service's table.
 
-        :param service: the local baserow delete row service.
+        :param service: the local jadawel delete row service.
         :param resolved_values: If the service has any formulas, this dictionary will
             contain their resolved values.
         :param dispatch_context: the context used for formula resolution.
@@ -2311,7 +2311,7 @@ class LocalBaserowDeleteRowServiceType(
                     "it has a data sync."
                 ) from exc
 
-        return {"data": {}, "baserow_table_model": model}
+        return {"data": {}, "jadawel_table_model": model}
 
     def dispatch_transform(self, dispatch_data: Dict[str, Any]) -> DispatchResult:
         """
@@ -2359,7 +2359,7 @@ class LocalBaserowRowsSignalServiceType(
     ):
         def get_data(service: Service):
             # Make sure we have an up to date model
-            local_model = model.baserow_table.get_model()
+            local_model = model.jadawel_table.get_model()
 
             serializer = get_row_serializer_class(
                 local_model, RowSerializer, is_response=True, user_field_names=True

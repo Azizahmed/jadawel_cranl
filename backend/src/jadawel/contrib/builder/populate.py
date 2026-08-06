@@ -57,11 +57,11 @@ def load_test_data():
 
     try:
         integration = Integration.objects.get(
-            name="Local baserow", application__trashed=False, application_id=builder.id
+            name="Local jadawel", application__trashed=False, application_id=builder.id
         )
     except Integration.DoesNotExist:
         integration = IntegrationHandler().create_integration(
-            integration_type, builder, name="Local baserow", authorized_user=user
+            integration_type, builder, name="Local jadawel", authorized_user=user
         )
 
     heading_element_type = element_type_registry.get("heading")

@@ -58,7 +58,7 @@ from jadawel.contrib.database.search.regexes import (
 from jadawel.contrib.database.search.tasks import schedule_update_search_data
 from jadawel.contrib.database.table.cache import invalidate_table_in_model_cache
 from jadawel.core.psycopg import errors
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.utils import to_camel_case
 
 if TYPE_CHECKING:
@@ -134,8 +134,8 @@ def _generate_search_table_model(
     table_name = SearchHandler.get_workspace_search_table_name(workspace_id)
     model_name = to_camel_case(table_name)
 
-    baserow_models = {}
-    apps = GeneratedModelAppsProxy(baserow_models, app_label)
+    jadawel_models = {}
+    apps = GeneratedModelAppsProxy(jadawel_models, app_label)
     meta = type(
         "Meta",
         (),
@@ -156,8 +156,8 @@ def _generate_search_table_model(
         "Meta": meta,
         "__module__": "database.models",
         "_generated_table_model": True,
-        "baserow_workspace_id": workspace_id,
-        "baserow_models": baserow_models,
+        "jadawel_workspace_id": workspace_id,
+        "jadawel_models": jadawel_models,
         "parent": workspace_id,
         "__str__": __str__,
     }
@@ -178,7 +178,7 @@ class SearchDatabaseSchemaEditor(BaseDatabaseSchemaEditor):
 
 
 class SearchHandler(
-    metaclass=baserow_trace_methods(
+    metaclass=jadawel_trace_methods(
         tracer, exclude=["full_text_enabled", "search_config"]
     )
 ):

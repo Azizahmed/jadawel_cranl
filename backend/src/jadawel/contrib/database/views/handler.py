@@ -96,7 +96,7 @@ from jadawel.core.exceptions import PermissionDenied
 from jadawel.core.handler import CoreHandler
 from jadawel.core.models import Workspace
 from jadawel.core.registries import ImportExportConfig
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.utils import (
     MirrorDict,
@@ -205,7 +205,7 @@ class UpdatedViewWithChangedAttributes:
     new_view_attributes: Dict[str, Any]
 
 
-class ViewIndexingHandler(metaclass=baserow_trace_methods(tracer)):
+class ViewIndexingHandler(metaclass=jadawel_trace_methods(tracer)):
     @classmethod
     def does_index_exist(cls, index_name: str) -> bool:
         """
@@ -646,7 +646,7 @@ class ViewIndexingHandler(metaclass=baserow_trace_methods(tracer)):
             view.save(update_fields=["db_index_name"])
 
 
-class ViewHandler(metaclass=baserow_trace_methods(tracer)):
+class ViewHandler(metaclass=jadawel_trace_methods(tracer)):
     PUBLIC_VIEW_TOKEN_ALGORITHM = "HS256"  # nosec
 
     def list_views(

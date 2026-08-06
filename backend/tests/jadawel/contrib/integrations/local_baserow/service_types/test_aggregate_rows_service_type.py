@@ -238,7 +238,7 @@ def test_local_baserow_aggregate_rows_dispatch_data_with_table(data_fixture):
     dispatch_context = FakeDispatchContext()
     dispatch_values = service_type.resolve_service_formulas(service, dispatch_context)
     result = service_type.dispatch_data(service, dispatch_values, dispatch_context)
-    assert result["baserow_table_model"]
+    assert result["jadawel_table_model"]
     assert result["data"] == {"result": Decimal("20")}
     assert service_type.dispatch_transform(result) == DispatchResult(
         data={"result": "20"}, status=200, output_uid=""
@@ -281,7 +281,7 @@ def test_local_baserow_aggregate_rows_dispatch_data_with_view(data_fixture):
     dispatch_context = FakeDispatchContext()
     dispatch_values = service_type.resolve_service_formulas(service, dispatch_context)
     result = service_type.dispatch_data(service, dispatch_values, dispatch_context)
-    assert result["baserow_table_model"]
+    assert result["jadawel_table_model"]
     assert result["data"] == {"result": Decimal("20")}
     assert service_type.dispatch_transform(result) == DispatchResult(
         data={"result": "20"}, status=200, output_uid=""
@@ -329,7 +329,7 @@ def test_local_baserow_aggregate_rows_dispatch_data_with_total(data_fixture):
     dispatch_context = FakeDispatchContext()
     dispatch_values = service_type.resolve_service_formulas(service, dispatch_context)
     result = service_type.dispatch_data(service, dispatch_values, dispatch_context)
-    assert result["baserow_table_model"]
+    assert result["jadawel_table_model"]
     assert result["data"] == {"result": 50.0}
 
 
@@ -374,7 +374,7 @@ def test_local_baserow_aggregate_rows_dispatch_data_with_view_filters(data_fixtu
     dispatch_context = FakeDispatchContext()
     dispatch_values = service_type.resolve_service_formulas(service, dispatch_context)
     result = service_type.dispatch_data(service, dispatch_values, dispatch_context)
-    assert result["baserow_table_model"]
+    assert result["jadawel_table_model"]
     assert result["data"] == {"result": 6.0}
 
 
@@ -423,7 +423,7 @@ def test_local_baserow_aggregate_rows_dispatch_data_with_service_filters(data_fi
     dispatch_context = FakeDispatchContext()
     dispatch_values = service_type.resolve_service_formulas(service, dispatch_context)
     result = service_type.dispatch_data(service, dispatch_values, dispatch_context)
-    assert result["baserow_table_model"]
+    assert result["jadawel_table_model"]
     assert result["data"] == {"result": 14.0}
 
 
@@ -472,7 +472,7 @@ def test_local_baserow_aggregate_rows_dispatch_data_with_search(data_fixture):
             service, dispatch_context
         )
     result = service_type.dispatch_data(service, dispatch_values, dispatch_context)
-    assert result["baserow_table_model"]
+    assert result["jadawel_table_model"]
     assert result["data"] == {"result": 1500.0}
 
 

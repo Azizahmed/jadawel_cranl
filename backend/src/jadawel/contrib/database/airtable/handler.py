@@ -475,7 +475,7 @@ class AirtableHandler:
         return schema, tables
 
     @staticmethod
-    def to_baserow_field(
+    def to_jadawel_field(
         table: dict,
         column: dict,
         config: AirtableImportConfig,
@@ -495,16 +495,16 @@ class AirtableHandler:
         """
 
         (
-            baserow_field,
+            jadawel_field,
             airtable_column_type,
         ) = airtable_column_type_registry.from_airtable_column_to_serialized(
             table, column, config, import_report
         )
 
-        if baserow_field is None:
+        if jadawel_field is None:
             return None, None, None
 
-        baserow_field_type = field_type_registry.get_by_model(baserow_field)
+        jadawel_field_type = field_type_registry.get_by_model(jadawel_field)
 
         try:
             order = next(
@@ -515,20 +515,20 @@ class AirtableHandler:
         except StopIteration:
             order = 32767
 
-        baserow_field.id = column["id"]
-        baserow_field.pk = 0
-        baserow_field.name = column["name"]
-        baserow_field.order = order
-        baserow_field.description = column.get("description", None) or None
-        baserow_field.primary = (
-            baserow_field_type.can_be_primary_field(baserow_field)
+        jadawel_field.id = column["id"]
+        jadawel_field.pk = 0
+        jadawel_field.name = column["name"]
+        jadawel_field.order = order
+        jadawel_field.description = column.get("description", None) or None
+        jadawel_field.primary = (
+            jadawel_field_type.can_be_primary_field(jadawel_field)
             and table["primaryColumnId"] == column["id"]
         )
 
-        return baserow_field, baserow_field_type, airtable_column_type
+        return jadawel_field, jadawel_field_type, airtable_column_type
 
     @staticmethod
-    def to_baserow_row_export(
+    def to_jadawel_row_export(
         table: dict,
         row_id_mapping: Dict[str, Dict[str, int]],
         column_mapping: Dict[str, dict],
@@ -586,7 +586,7 @@ class AirtableHandler:
                 table,
                 row,
                 mapping_values["raw_airtable_column"],
-                mapping_values["baserow_field"],
+                mapping_values["jadawel_field"],
                 cell_values.get(column_id, None),
                 files_to_download,
                 config,
@@ -597,21 +597,21 @@ class AirtableHandler:
                 # The column_id typically doesn't exist in the `cell_values` if the
                 # value is empty in Airtable.
                 if column_id in cell_values:
-                    baserow_serialized_value = (
-                        airtable_column_type.to_baserow_export_serialized_value(*args)
+                    jadawel_serialized_value = (
+                        airtable_column_type.to_jadawel_export_serialized_value(*args)
                     )
                 else:
                     # remove the cell_value because that one is not accepted in the args
                     # of this method.
                     args.pop(5)
-                    baserow_serialized_value = (
-                        airtable_column_type.to_baserow_export_empty_value(*args)
+                    jadawel_serialized_value = (
+                        airtable_column_type.to_jadawel_export_empty_value(*args)
                     )
-                exported_row[f"field_{column_id}"] = baserow_serialized_value
+                exported_row[f"field_{column_id}"] = jadawel_serialized_value
             except AirtableSkipCellValue:
                 # If the `AirtableSkipCellValue` is raised, then the cell value must
                 # not be included in the export. This is the default behavior for
-                # `to_baserow_export_empty_value`, but in some cases, a specific empty
+                # `to_jadawel_export_empty_value`, but in some cases, a specific empty
                 # value must be returned.
                 pass
 
@@ -685,12 +685,12 @@ class AirtableHandler:
             except FileDownloadFailed:
                 field_name = ""
                 table_name = ""
-                baserow_row_id = download_file.row_id
+                jadawel_row_id = download_file.row_id
 
                 for table_id, field_mapping in field_mapping_per_table.items():
                     if download_file.column_id in field_mapping:
                         field_info = field_mapping[download_file.column_id]
-                        field_name = field_info["baserow_field"].name
+                        field_name = field_info["jadawel_field"].name
 
                         for exported_table in exported_tables:
                             if exported_table["id"] == table_id:
@@ -698,7 +698,7 @@ class AirtableHandler:
                                 break
 
                         if row_id_mapping and table_id in row_id_mapping:
-                            baserow_row_id = row_id_mapping[table_id].get(
+                            jadawel_row_id = row_id_mapping[table_id].get(
                                 download_file.row_id, download_file.row_id
                             )
                         break
@@ -708,7 +708,7 @@ class AirtableHandler:
                     SCOPE_CELL,
                     table_name,
                     ERROR_TYPE_OTHER,
-                    f"Field: {field_name}, Row: {baserow_row_id}, File: {file_name}",
+                    f"Field: {field_name}, Row: {jadawel_row_id}, File: {file_name}",
                 )
                 failed_files.append(file_name)
 
@@ -737,15 +737,15 @@ class AirtableHandler:
             primary = None
             for column in table["columns"]:
                 (
-                    baserow_field,
-                    baserow_field_type,
+                    jadawel_field,
+                    jadawel_field_type,
                     airtable_column_type,
-                ) = cls.to_baserow_field(table, column, config, import_report)
+                ) = cls.to_jadawel_field(table, column, config, import_report)
                 converting_progress.increment(state=AIRTABLE_EXPORT_JOB_CONVERTING)
 
                 # None means that none of the field types know how to parse this field,
                 # so we must ignore it.
-                if baserow_field is None:
+                if jadawel_field is None:
                     import_report.add_failed(
                         column["name"],
                         SCOPE_FIELD,
@@ -755,24 +755,24 @@ class AirtableHandler:
                     )
                     continue
 
-                # The `baserow_field` is returning it it's specific form, but it doesn't
+                # The `jadawel_field` is returning it it's specific form, but it doesn't
                 # have the `content_type` property yet. This breaks all the `.specific`
                 # behavior because an `id` is also not set.
-                baserow_field.content_type = ContentType.objects.get_for_model(
-                    baserow_field
+                jadawel_field.content_type = ContentType.objects.get_for_model(
+                    jadawel_field
                 )
 
                 # Construct a mapping where the Airtable column id is the key and the
                 # value contains the raw Airtable column values, Jadawel field and
                 # the Jadawel field type object for later use.
                 field_mapping[column["id"]] = {
-                    "baserow_field": baserow_field,
-                    "baserow_field_type": baserow_field_type,
+                    "jadawel_field": jadawel_field,
+                    "jadawel_field_type": jadawel_field_type,
                     "raw_airtable_column": column,
                     "airtable_column_type": airtable_column_type,
                 }
-                if baserow_field.primary:
-                    primary = baserow_field
+                if jadawel_field.primary:
+                    primary = jadawel_field
 
             # There is always a primary field, but it could be that it's not compatible
             # with Jadawel. In that case, we need to find an alternative field, or
@@ -782,16 +782,16 @@ class AirtableHandler:
                 found_existing_field = False
                 for value in field_mapping.values():
                     if field_type_registry.get_by_model(
-                        value["baserow_field"]
-                    ).can_be_primary_field(value["baserow_field"]):
-                        value["baserow_field"].primary = True
+                        value["jadawel_field"]
+                    ).can_be_primary_field(value["jadawel_field"]):
+                        value["jadawel_field"].primary = True
                         found_existing_field = True
                         import_report.add_failed(
-                            value["baserow_field"].name,
+                            value["jadawel_field"].name,
                             SCOPE_FIELD,
                             table["name"],
                             ERROR_TYPE_UNSUPPORTED_FEATURE,
-                            f"""Changed primary field to "{value["baserow_field"].name}" because the original primary field is incompatible.""",
+                            f"""Changed primary field to "{value["jadawel_field"].name}" because the original primary field is incompatible.""",
                         )
                         break
 
@@ -804,28 +804,28 @@ class AirtableHandler:
                         "type": "text",
                     }
                     (
-                        baserow_field,
-                        baserow_field_type,
+                        jadawel_field,
+                        jadawel_field_type,
                         airtable_column_type,
-                    ) = cls.to_baserow_field(
+                    ) = cls.to_jadawel_field(
                         table, airtable_column, config, import_report
                     )
-                    baserow_field.primary = True
-                    baserow_field.content_type = ContentType.objects.get_for_model(
-                        baserow_field
+                    jadawel_field.primary = True
+                    jadawel_field.content_type = ContentType.objects.get_for_model(
+                        jadawel_field
                     )
                     field_mapping["primary_id"] = {
-                        "baserow_field": baserow_field,
-                        "baserow_field_type": baserow_field_type,
+                        "jadawel_field": jadawel_field,
+                        "jadawel_field_type": jadawel_field_type,
                         "raw_airtable_column": airtable_column,
                         "airtable_column_type": airtable_column_type,
                     }
                     import_report.add_failed(
-                        baserow_field.name,
+                        jadawel_field.name,
                         SCOPE_FIELD,
                         table["name"],
                         ERROR_TYPE_UNSUPPORTED_FEATURE,
-                        f"""Created new primary field "{baserow_field.name}" because none of the provided fields are compatible.""",
+                        f"""Created new primary field "{jadawel_field.name}" because none of the provided fields are compatible.""",
                     )
 
             field_mapping_per_table[table["id"]] = field_mapping
@@ -839,7 +839,7 @@ class AirtableHandler:
             for field_object in field_mapping.values():
                 field_object["airtable_column_type"].after_field_objects_prepared(
                     field_mapping_per_table,
-                    field_object["baserow_field"],
+                    field_object["jadawel_field"],
                     field_object["raw_airtable_column"],
                 )
 
@@ -872,7 +872,7 @@ class AirtableHandler:
 
             # Loop over all the fields and convert them to Jadawel serialized format.
             exported_fields = [
-                value["baserow_field_type"].export_serialized(value["baserow_field"])
+                value["jadawel_field_type"].export_serialized(value["jadawel_field"])
                 for value in field_mapping.values()
             ]
 
@@ -884,7 +884,7 @@ class AirtableHandler:
             exported_rows = []
             for row_index, row in enumerate(tables[table["id"]]["rows"]):
                 exported_rows.append(
-                    cls.to_baserow_row_export(
+                    cls.to_jadawel_row_export(
                         table,
                         row_id_mapping,
                         field_mapping,
@@ -969,7 +969,7 @@ class AirtableHandler:
         return exported_tables, files_to_download
 
     @classmethod
-    def to_baserow_database_export(
+    def to_jadawel_database_export(
         cls,
         init_data: dict,
         request_id: str,
@@ -1074,7 +1074,7 @@ class AirtableHandler:
         # so that a new table is created with the import report result for the user to
         # see.
         exported_tables.append(
-            import_report.get_baserow_export_table(len(schema["tableSchemas"]) + 1)
+            import_report.get_jadawel_export_table(len(schema["tableSchemas"]) + 1)
         )
 
         exported_database = CoreExportSerializedStructure.application(
@@ -1252,7 +1252,7 @@ class AirtableHandler:
 
         # Convert the raw Airtable data to Jadawel export format so we can import that
         # later.
-        baserow_database_export, files_buffer = cls.to_baserow_database_export(
+        jadawel_database_export, files_buffer = cls.to_jadawel_database_export(
             init_data,
             request_id,
             cookies,
@@ -1272,7 +1272,7 @@ class AirtableHandler:
         # Import the converted data using the existing method to avoid duplicate code.
         databases, _ = CoreHandler().import_applications_to_workspace(
             workspace,
-            [baserow_database_export],
+            [jadawel_database_export],
             files_buffer,
             import_export_config,
             storage=storage,

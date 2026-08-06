@@ -427,7 +427,7 @@ def test_postgresql_data_sync_get_properties_unsupported_column_types(
     user, token = data_fixture.create_user_and_token()
 
     with patch(
-        "jadawel.contrib.database.data_sync.postgresql_data_sync_type.column_type_to_baserow_field_type",
+        "jadawel.contrib.database.data_sync.postgresql_data_sync_type.column_type_to_jadawel_field_type",
         new={
             "char": TextPostgreSQLSyncProperty,
         },
@@ -853,7 +853,7 @@ def test_create_data_sync_via_api_without_a_primary_property(
 
 
 @pytest.mark.django_db(transaction=True)
-def test_create_data_sync_with_negative_int_and_positive_baserow_number_field(
+def test_create_data_sync_with_negative_int_and_positive_jadawel_number_field(
     data_fixture, api_client, create_postgresql_test_table
 ):
     default_database = settings.DATABASES["default"]

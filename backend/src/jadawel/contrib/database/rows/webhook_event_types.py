@@ -63,7 +63,7 @@ class RowsEventType(RespectSendWebhookEvents, WebhookEventType):
         :return: A Q object that can be used to filter webhooks for related tables.
         """
 
-        table = model.baserow_table
+        table = model.jadawel_table
         table_field_objs = model.get_field_objects()
         link_row_fields = [
             fo["field"]

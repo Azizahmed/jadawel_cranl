@@ -41,7 +41,7 @@ def disable_instrumentation(wrapped_function):
 
 
 # attrs don't include the module name to keep them short and easier to see so we add
-# baserow manually.
+# jadawel manually.
 JADAWEL_OTEL_TRACE_ATTR_PREFIX = "baserow."
 
 
@@ -93,7 +93,7 @@ def setup_user_in_baggage_and_spans(user, request=None):
         context.detach(token)
 
 
-def _baserow_trace_func(wrapped_func, tracer: Tracer):
+def _jadawel_trace_func(wrapped_func, tracer: Tracer):
     if asyncio.iscoroutinefunction(wrapped_func):
 
         @functools.wraps(wrapped_func)
@@ -126,7 +126,7 @@ def _baserow_trace_func(wrapped_func, tracer: Tracer):
         return _sync_wrapper
 
 
-def baserow_trace_methods(
+def jadawel_trace_methods(
     tracer: Tracer,
     only: Optional[Union[str, List[str]]] = None,
     exclude: Optional[Union[str, List[str]]] = None,
@@ -168,7 +168,7 @@ def baserow_trace_methods(
                     continue
                 value = local[attr]
                 if inspect.isfunction(value):
-                    local[attr] = _baserow_trace_func(value, tracer)
+                    local[attr] = _jadawel_trace_func(value, tracer)
             return super().__new__(cls, name, bases, local)
 
         @staticmethod
@@ -182,7 +182,7 @@ def baserow_trace_methods(
     return TraceMethodsMetaClass
 
 
-def baserow_trace(tracer):
+def jadawel_trace(tracer):
     """
     Decorates a function to send a span of its execution. This will let you see how
     long the function took in your telemetry platform.
@@ -193,19 +193,19 @@ def baserow_trace(tracer):
 
     if not isinstance(tracer, Tracer):
         raise Exception(
-            f"Must provider a tracer to baserow_trace, instead you gave me a "
+            f"Must provider a tracer to jadawel_trace, instead you gave me a "
             f"{type(tracer)}. Get "
             "one using "
             "`tracer = trace.get_tracer(__name__)`."
         )
 
     def inner(wrapped_function_or_cls):
-        return _baserow_trace_func(wrapped_function_or_cls, tracer)
+        return _jadawel_trace_func(wrapped_function_or_cls, tracer)
 
     return inner
 
 
-def add_baserow_trace_attrs(**kwargs):
+def add_jadawel_trace_attrs(**kwargs):
     """
     Simple helper function for quickly adding attributes to the current span. The
     attribute names will be prefixed with the jadawel. to namespace them properly.

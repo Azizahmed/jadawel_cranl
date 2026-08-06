@@ -781,7 +781,7 @@ def test_dispatch_transform_passes_field_ids(mock_get_serializer, field_names):
     service_type = LocalBaserowGetRowUserServiceType()
 
     dispatch_data = {
-        "baserow_table_model": MagicMock(),
+        "jadawel_table_model": MagicMock(),
         "data": {},
     }
     dispatch_data["public_allowed_properties"] = field_names
@@ -790,7 +790,7 @@ def test_dispatch_transform_passes_field_ids(mock_get_serializer, field_names):
 
     assert results.data == mock_serializer.data
     mock_get_serializer.assert_called_once_with(
-        dispatch_data["baserow_table_model"],
+        dispatch_data["jadawel_table_model"],
         RowSerializer,
         is_response=True,
         field_ids=None,

@@ -541,7 +541,7 @@ def test_concurrent_user_requests_does_not_throttle_staff_users(data_fixture):
     ],
 )
 @pytest.mark.django_db
-def test_throttle_set_baserow_concurrency_throttle_request_id_and_middleware_can_get_it(
+def test_throttle_set_jadawel_concurrency_throttle_request_id_and_middleware_can_get_it(
     data_fixture,
 ):
     from jadawel.throttling.middleware import ConcurrentUserRequestsMiddleware

@@ -47,13 +47,13 @@ from jadawel.core.services.exceptions import (
 from jadawel.core.services.handler import ServiceHandler
 from jadawel.core.services.models import Service
 from jadawel.core.storage import ExportZipFile
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.utils import ChildProgressBuilder, MirrorDict, extract_allowed
 
 tracer = trace.get_tracer(__name__)
 
 
-class AutomationNodeHandler(metaclass=baserow_trace_methods(tracer)):
+class AutomationNodeHandler(metaclass=jadawel_trace_methods(tracer)):
     allowed_fields = [
         "label",
         "service",

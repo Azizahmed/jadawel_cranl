@@ -19,7 +19,7 @@ from jadawel.contrib.database.rows.types import ActionData
 from jadawel.core.action.signals import action_done
 from jadawel.core.models import Workspace
 from jadawel.core.psycopg import sql
-from jadawel.core.telemetry.utils import baserow_trace
+from jadawel.core.telemetry.utils import jadawel_trace
 from jadawel.core.types import AnyUser
 
 tracer = trace.get_tracer(__name__)
@@ -27,7 +27,7 @@ tracer = trace.get_tracer(__name__)
 
 class RowHistoryHandler:
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def record_history_from_rows_action(
         cls,
         user: AnyUser,
@@ -50,7 +50,7 @@ class RowHistoryHandler:
                 )
 
     @classmethod
-    @baserow_trace(tracer)
+    @jadawel_trace(tracer)
     def list_row_history(
         cls, workspace: Workspace, table_id: int, row_id: int
     ) -> QuerySet[RowHistory]:

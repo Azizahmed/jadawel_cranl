@@ -16,7 +16,7 @@ from jadawel.test_utils.helpers import setup_interesting_test_table
 
 @pytest.mark.django_db(transaction=True)
 @pytest.mark.once_per_day_in_ci
-def test_can_backup_and_restore_baserow_reverting_changes(
+def test_can_backup_and_restore_jadawel_reverting_changes(
     data_fixture, environ, temporary_database
 ):
     host = connection.settings_dict["HOST"]
@@ -42,7 +42,7 @@ def test_can_backup_and_restore_baserow_reverting_changes(
 
     with tempfile.TemporaryDirectory() as temporary_directory_name:
         backup_loc = temporary_directory_name + "/backup.tar.gz"
-        runner.backup_baserow(backup_loc, batch_size=1)
+        runner.backup_jadawel(backup_loc, batch_size=1)
         assert Path(backup_loc).is_file()
 
         restore_runner = BaserowBackupRunner(
@@ -52,7 +52,7 @@ def test_can_backup_and_restore_baserow_reverting_changes(
             port=port,
             jobs=1,
         )
-        restore_runner.restore_baserow(backup_loc)
+        restore_runner.restore_jadawel(backup_loc)
 
         with psycopg.connect(
             host=host,
@@ -74,7 +74,7 @@ def test_can_backup_and_restore_baserow_reverting_changes(
 @patch("tempfile.TemporaryDirectory")
 @patch("psycopg.connect" if is_psycopg3 else "psycopg2.connect")
 @patch("subprocess.check_output")
-def test_backup_baserow_dumps_database_in_batches(
+def test_backup_jadawel_dumps_database_in_batches(
     mock_check_output, mock_connect, mock_tempfile, fs, environ
 ):
     mock_pyscopg2_call_to_return(
@@ -98,9 +98,9 @@ def test_backup_baserow_dumps_database_in_batches(
     )
 
     with freeze_time("2020-01-02 12:00"):
-        runner.backup_baserow()
+        runner.backup_jadawel()
 
-    assert os.path.exists(f"baserow_backup_{dbname}_2020-01-02_12-00-00.tar.gz")
+    assert os.path.exists(f"jadawel_backup_{dbname}_2020-01-02_12-00-00.tar.gz")
 
     assert mock_check_output.call_count == 2
     mock_check_output.assert_has_calls(
@@ -145,7 +145,7 @@ def test_backup_baserow_dumps_database_in_batches(
 @patch("tempfile.TemporaryDirectory")
 @patch("psycopg.connect" if is_psycopg3 else "psycopg2.connect")
 @patch("subprocess.check_output")
-def test_can_change_num_jobs_and_insert_extra_args_for_baserow_backup(
+def test_can_change_num_jobs_and_insert_extra_args_for_jadawel_backup(
     mock_check_output, mock_connect, mock_tempfile, fs, environ
 ):
     mock_pyscopg2_call_to_return(
@@ -177,7 +177,7 @@ def test_can_change_num_jobs_and_insert_extra_args_for_baserow_backup(
     )
 
     with freeze_time("2020-01-02 12:00"):
-        runner.backup_baserow(
+        runner.backup_jadawel(
             backup_file_name="test_backup.tar.gz",
             additional_pg_dump_args=[extra_arg],
         )
@@ -231,7 +231,7 @@ def test_can_change_num_jobs_and_insert_extra_args_for_baserow_backup(
 @patch("tempfile.TemporaryDirectory")
 @patch("psycopg.connect" if is_psycopg3 else "psycopg2.connect")
 @patch("subprocess.check_output")
-def test_backup_baserow_table_batches_includes_all_tables_when_final_batch_small(
+def test_backup_jadawel_table_batches_includes_all_tables_when_final_batch_small(
     mock_check_output, mock_connect, mock_tempfile, fs, environ
 ):
     mock_pyscopg2_call_to_return(
@@ -259,7 +259,7 @@ def test_backup_baserow_table_batches_includes_all_tables_when_final_batch_small
     )
 
     with freeze_time("2020-01-02 12:00"):
-        runner.backup_baserow(batch_size=3)
+        runner.backup_jadawel(batch_size=3)
 
     assert mock_check_output.call_count == 3
     mock_check_output.assert_has_calls(
@@ -290,7 +290,7 @@ def test_backup_baserow_table_batches_includes_all_tables_when_final_batch_small
 @patch("tempfile.TemporaryDirectory")
 @patch("psycopg.connect" if is_psycopg3 else "psycopg2.connect")
 @patch("subprocess.check_output")
-def test_backup_baserow_includes_all_tables_when_batch_size_matches_num_tables(
+def test_backup_jadawel_includes_all_tables_when_batch_size_matches_num_tables(
     mock_check_output, mock_connect, mock_tempfile, fs, environ
 ):
     tables_returned_by_sql = [
@@ -318,7 +318,7 @@ def test_backup_baserow_includes_all_tables_when_batch_size_matches_num_tables(
     )
 
     with freeze_time("2020-01-02 12:00"):
-        runner.backup_baserow(batch_size=len(tables_returned_by_sql))
+        runner.backup_jadawel(batch_size=len(tables_returned_by_sql))
 
     assert mock_check_output.call_count == 2
     mock_check_output.assert_has_calls(
@@ -341,7 +341,7 @@ def test_backup_baserow_includes_all_tables_when_batch_size_matches_num_tables(
 @patch("tempfile.TemporaryDirectory")
 @patch("psycopg.connect" if is_psycopg3 else "psycopg2.connect")
 @patch("subprocess.check_output")
-def test_backup_baserow_does_no_table_batches_when_no_user_tables_found(
+def test_backup_jadawel_does_no_table_batches_when_no_user_tables_found(
     mock_check_output, mock_connect, mock_tempfile, fs, environ
 ):
     mock_pyscopg2_call_to_return(
@@ -364,7 +364,7 @@ def test_backup_baserow_does_no_table_batches_when_no_user_tables_found(
     )
 
     with freeze_time("2020-01-02 12:00"):
-        runner.backup_baserow()
+        runner.backup_jadawel()
 
     assert mock_check_output.call_count == 1
     mock_check_output.assert_has_calls(
@@ -377,7 +377,7 @@ def test_backup_baserow_does_no_table_batches_when_no_user_tables_found(
 @patch("tempfile.TemporaryDirectory")
 @patch("subprocess.check_output")
 @patch("tarfile.open")
-def test_restore_baserow_restores_contained_dumps_in_batches(
+def test_restore_jadawel_restores_contained_dumps_in_batches(
     mock_tarfile_open, mock_check_output, mock_tempfile, fs, environ
 ):
     mock_tempdir_to_be(fs, mock_tempfile, "/fake_tmp_dir/")
@@ -397,7 +397,7 @@ def test_restore_baserow_restores_contained_dumps_in_batches(
         jobs=1,
     )
 
-    runner.restore_baserow("backup.tar.gz")
+    runner.restore_jadawel("backup.tar.gz")
 
     assert mock_check_output.call_count == 2
 
@@ -440,7 +440,7 @@ def test_restore_baserow_restores_contained_dumps_in_batches(
 @patch("tempfile.TemporaryDirectory")
 @patch("subprocess.check_output")
 @patch("tarfile.open")
-def test_restore_baserow_passes_extra_args_to_all_pg_restores_and_can_set_jobs(
+def test_restore_jadawel_passes_extra_args_to_all_pg_restores_and_can_set_jobs(
     mock_tarfile_open, mock_check_output, mock_tempfile, fs, environ
 ):
     mock_tempdir_to_be(fs, mock_tempfile, "/fake_tmp_dir/")
@@ -462,7 +462,7 @@ def test_restore_baserow_passes_extra_args_to_all_pg_restores_and_can_set_jobs(
     )
 
     extra_arg = "--extra-arg"
-    runner.restore_baserow("backup.tar.gz", [extra_arg])
+    runner.restore_jadawel("backup.tar.gz", [extra_arg])
 
     assert mock_check_output.call_count == 2
 
@@ -507,7 +507,7 @@ def test_restore_baserow_passes_extra_args_to_all_pg_restores_and_can_set_jobs(
 @patch("tempfile.TemporaryDirectory")
 @patch("subprocess.check_output")
 @patch("tarfile.open")
-def test_restore_baserow_only_does_first_restore_if_no_user_tables(
+def test_restore_jadawel_only_does_first_restore_if_no_user_tables(
     mock_tarfile_open, mock_check_output, mock_tempfile, fs, environ
 ):
     mock_tempdir_to_be(fs, mock_tempfile, "/fake_tmp_dir/")
@@ -526,7 +526,7 @@ def test_restore_baserow_only_does_first_restore_if_no_user_tables(
         jobs=1,
     )
 
-    runner.restore_baserow("backup.tar.gz")
+    runner.restore_jadawel("backup.tar.gz")
 
     assert mock_check_output.call_count == 1
 
@@ -554,7 +554,7 @@ def test_restore_baserow_only_does_first_restore_if_no_user_tables(
 @patch("tempfile.TemporaryDirectory")
 @patch("subprocess.check_output")
 @patch("tarfile.open")
-def test_restore_baserow_raises_exception_if_sub_folder_not_found_after_extract(
+def test_restore_jadawel_raises_exception_if_sub_folder_not_found_after_extract(
     mock_tarfile_open, mock_check_output, mock_tempfile, fs, environ
 ):
     mock_tempdir_to_be(fs, mock_tempfile, "/fake_tmp_dir/")
@@ -574,7 +574,7 @@ def test_restore_baserow_raises_exception_if_sub_folder_not_found_after_extract(
     )
 
     with pytest.raises(InvalidBaserowBackupArchive):
-        runner.restore_baserow("backup.tar.gz")
+        runner.restore_jadawel("backup.tar.gz")
 
     mock_check_output.assert_not_called()
 

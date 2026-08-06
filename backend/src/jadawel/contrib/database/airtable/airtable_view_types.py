@@ -22,7 +22,7 @@ from jadawel.core.utils import get_value_at_path
 
 class GridAirtableViewType(AirtableViewType):
     type = "grid"
-    baserow_view_type = GridViewType.type
+    jadawel_view_type = GridViewType.type
 
     def prepare_view_object(
         self,
@@ -74,7 +74,7 @@ class GridAirtableViewType(AirtableViewType):
 
 class GalleryAirtableViewType(AirtableViewType):
     type = "gallery"
-    baserow_view_type = GalleryViewType.type
+    jadawel_view_type = GalleryViewType.type
 
     def get_cover_column(
         self,
@@ -109,7 +109,7 @@ class GalleryAirtableViewType(AirtableViewType):
             )
             return
 
-        if cover_column["baserow_field_type"].type != FileFieldType.type:
+        if cover_column["jadawel_field_type"].type != FileFieldType.type:
             import_report.add_failed(
                 view.name,
                 SCOPE_VIEW,

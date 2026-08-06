@@ -59,7 +59,7 @@ from jadawel.core.cache import global_cache, local_cache
 from jadawel.core.exceptions import IdDoesNotExist
 from jadawel.core.registries import ImportExportConfig
 from jadawel.core.storage import ExportZipFile, get_default_storage
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.utils import (
     ChildProgressBuilder,
@@ -77,7 +77,7 @@ AUTOMATION_WORKFLOW_CACHE_LOCK_SECONDS = 5
 tracer = trace.get_tracer(__name__)
 
 
-class AutomationWorkflowHandler(metaclass=baserow_trace_methods(tracer)):
+class AutomationWorkflowHandler(metaclass=jadawel_trace_methods(tracer)):
     allowed_fields = [
         "name",
         "allow_test_run_until",

@@ -93,7 +93,7 @@ class AirtableImportReport:
             ImportReportFailedItem(object_name, scope, table, error_type, message)
         )
 
-    def get_baserow_export_table(self, order: int) -> dict:
+    def get_jadawel_export_table(self, order: int) -> dict:
         # Create an empty grid view because the importing of views doesn't work
         # yet. It's a bit quick and dirty, but it will be replaced soon.
         grid_view = GridView(pk=0, id=None, name="Grid", order=1)

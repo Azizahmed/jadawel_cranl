@@ -39,9 +39,9 @@ class SourceOption:
     order: int
 
 
-def update_baserow_field_select_options(
+def update_jadawel_field_select_options(
     source_options: List[SourceOption],
-    baserow_field: Field,
+    jadawel_field: Field,
     existing_mapping: dict,
 ) -> dict:
     """
@@ -50,8 +50,8 @@ def update_baserow_field_select_options(
     method of a DataSyncType if it should contain select options.
 
     :param source_options: A list of the options that must be created for the
-        `baserow_field`.
-    :param baserow_field: The Jadawel field where the select options must be created
+        `jadawel_field`.
+    :param jadawel_field: The Jadawel field where the select options must be created
         for.
     :param existing_mapping: A key value dict mapping the source option id with the
         created target option. Must be provided if the field already has select
@@ -71,7 +71,7 @@ def update_baserow_field_select_options(
             value=field_option.value,
             color=field_option.color,
             order=field_option.order,
-            field=baserow_field,
+            field=jadawel_field,
         )
         for field_option in source_options
     ]

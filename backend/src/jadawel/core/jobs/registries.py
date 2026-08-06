@@ -15,7 +15,7 @@ from jadawel.core.registry import (
     ModelRegistryMixin,
     Registry,
 )
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.utils import Progress
 
 from .exceptions import (
@@ -34,7 +34,7 @@ class JobType(
     ModelInstanceMixin,
     MapAPIExceptionsInstanceMixin,
     Instance,
-    metaclass=baserow_trace_methods(tracer, only="do"),
+    metaclass=jadawel_trace_methods(tracer, only="do"),
 ):
     """
     This abstract class represents a custom job type that can be added to the

@@ -18,14 +18,14 @@ class UIDICalCalendarDataSyncProperty(DataSyncProperty):
     unique_primary = True
     immutable_properties = True
 
-    def to_baserow_field(self) -> TextField:
+    def to_jadawel_field(self) -> TextField:
         return TextField(name=self.name)
 
 
 class DateStartICalCalendarDataSyncProperty(DataSyncProperty):
     immutable_properties = False
 
-    def to_baserow_field(self) -> DateField:
+    def to_jadawel_field(self) -> DateField:
         return DateField(
             name=self.name,
             date_format="ISO",
@@ -34,14 +34,14 @@ class DateStartICalCalendarDataSyncProperty(DataSyncProperty):
             date_show_tzinfo=True,
         )
 
-    def is_equal(self, baserow_row_value: Any, data_sync_row_value: Any) -> bool:
-        return compare_date(baserow_row_value, data_sync_row_value)
+    def is_equal(self, jadawel_row_value: Any, data_sync_row_value: Any) -> bool:
+        return compare_date(jadawel_row_value, data_sync_row_value)
 
 
 class DateEndICalCalendarDataSyncProperty(DataSyncProperty):
     immutable_properties = False
 
-    def to_baserow_field(self) -> DateField:
+    def to_jadawel_field(self) -> DateField:
         return DateField(
             name=self.name,
             date_format="ISO",
@@ -50,14 +50,14 @@ class DateEndICalCalendarDataSyncProperty(DataSyncProperty):
             date_show_tzinfo=True,
         )
 
-    def is_equal(self, baserow_row_value: Any, data_sync_row_value: Any) -> bool:
-        return compare_date(baserow_row_value, data_sync_row_value)
+    def is_equal(self, jadawel_row_value: Any, data_sync_row_value: Any) -> bool:
+        return compare_date(jadawel_row_value, data_sync_row_value)
 
 
 class SummaryICalCalendarDataSyncProperty(DataSyncProperty):
     immutable_properties = True
 
-    def to_baserow_field(self) -> TextField:
+    def to_jadawel_field(self) -> TextField:
         return TextField(name=self.name)
 
 

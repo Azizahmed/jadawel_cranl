@@ -661,7 +661,7 @@ def test_query_data_sources_excludes_trashed_service(data_fixture):
 @pytest.mark.django_db
 def test_query_data_sources_with_missing_specific_service(data_fixture):
     """
-    Test that a missing specific instance of a local baserow service
+    Test that a missing specific instance of a local jadawel service
     doesn't cause an exception.
     """
 

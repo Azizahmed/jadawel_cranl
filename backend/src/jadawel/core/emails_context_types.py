@@ -16,9 +16,9 @@ class CoreEmailContextType(EmailContextType):
             "public_backend_url": settings.PUBLIC_BACKEND_URL,
             "public_web_frontend_hostname": settings.PUBLIC_WEB_FRONTEND_HOSTNAME,
             "public_web_frontend_url": settings.PUBLIC_WEB_FRONTEND_URL,
-            "baserow_embedded_share_url": settings.JADAWEL_EMBEDDED_SHARE_URL,
-            "baserow_embedded_share_hostname": settings.JADAWEL_EMBEDDED_SHARE_HOSTNAME,
+            "jadawel_embedded_share_url": settings.JADAWEL_EMBEDDED_SHARE_URL,
+            "jadawel_embedded_share_hostname": settings.JADAWEL_EMBEDDED_SHARE_HOSTNAME,
             "logo_url": settings.PUBLIC_WEB_FRONTEND_URL + "/img/logo.svg",
             "logo_additional_text": "",
-            "show_baserow_description": True,
+            "show_jadawel_description": True,
         }

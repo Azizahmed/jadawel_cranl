@@ -348,7 +348,7 @@ class FieldFixtures:
             self.create_model_field(kwargs["table"], field)
             if calculate_cell_values:
                 model = field.table.get_model()
-                expr = FormulaHandler.baserow_expression_to_update_django_expression(
+                expr = FormulaHandler.jadawel_expression_to_update_django_expression(
                     field.cached_typed_internal_expression, model
                 )
                 model.objects_and_trash.all().update(**{f"{field.db_column}": expr})

@@ -160,7 +160,7 @@ def test_exporting_empty_workspace(
             json_data = json.load(json_file)
             assert json_data == {
                 "version": EXPORT_FORMAT_VERSION,
-                "baserow_version": VERSION,
+                "jadawel_version": VERSION,
                 "checksums": {},
                 "applications": {},
                 "configuration": {"only_structure": False},
@@ -238,7 +238,7 @@ def test_exporting_workspace_with_single_empty_database(
         with zip_ref.open(MANIFEST_NAME) as json_file:
             json_data = json.load(json_file)
             assert json_data["version"] == EXPORT_FORMAT_VERSION
-            assert json_data["baserow_version"] == VERSION
+            assert json_data["jadawel_version"] == VERSION
             assert json_data["configuration"] == {"only_structure": False}
             assert len(json_data["applications"]["database"]["items"]) == 1
             assert (

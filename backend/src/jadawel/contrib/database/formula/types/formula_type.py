@@ -28,7 +28,7 @@ EVERY_TYPE_INTERNAL_FIELDS = ["nullable"]
 
 class BaserowFormulaTypeHasEmptyBaserowExpression(abc.ABC):
     @abc.abstractmethod
-    def placeholder_empty_baserow_expression(self) -> Expression:
+    def placeholder_empty_jadawel_expression(self) -> Expression:
         """
         :return: A Django expression that can be used to represent an empty value for
         this type. This is used when a formula field is nullable and the formula
@@ -51,15 +51,15 @@ class BaserowFormulaTypeHasEmptyBaserowExpression(abc.ABC):
         equal_expr = formula_function_registry.get("equal")
         return equal_expr(
             self.try_coerce_to_not_null(arg),
-            self.placeholder_empty_baserow_expression(),
+            self.placeholder_empty_jadawel_expression(),
         )
 
     def try_coerce_to_not_null(
         self, expr: "tree.BaserowExpression[BaserowFormulaValidType]"
     ):
-        placeholder_empty_baserow_expr = self.placeholder_empty_baserow_expression()
+        placeholder_empty_jadawel_expr = self.placeholder_empty_jadawel_expression()
         return formula_function_registry.get("when_empty")(
-            expr, placeholder_empty_baserow_expr
+            expr, placeholder_empty_jadawel_expr
         )
 
 
@@ -76,7 +76,7 @@ class BaserowFormulaType(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def baserow_field_type(self) -> str:
+    def jadawel_field_type(self) -> str:
         """
         The Jadawel field type that corresponds to this formula type and should be
         used to do various Jadawel operations for a formula field of this type.
@@ -407,12 +407,12 @@ class BaserowFormulaType(abc.ABC):
                 default_field_value = None if field_attr.null else field_attr.default
                 setattr(formula_field, attr, default_field_value)
 
-    def get_baserow_field_instance_and_type(self) -> "tuple[Model, FieldType]":
+    def get_jadawel_field_instance_and_type(self) -> "tuple[Model, FieldType]":
         from jadawel.contrib.database.fields.registries import field_type_registry
 
-        baserow_field_type = field_type_registry.get(self.baserow_field_type)
-        field_instance = baserow_field_type.from_baserow_formula_type(self)
-        return field_instance, baserow_field_type
+        jadawel_field_type = field_type_registry.get(self.jadawel_field_type)
+        field_instance = jadawel_field_type.from_jadawel_formula_type(self)
+        return field_instance, jadawel_field_type
 
     def should_recreate_when_old_type_was(self, old_type: "BaserowFormulaType") -> bool:
         """
@@ -467,7 +467,7 @@ class BaserowFormulaType(abc.ABC):
         behavior is to return the expression as is. Override this method if the
         type can be coerced to a not null type or extends
         BaserowFormulaTypeHasEmptyBaserowExpression and has a
-        placeholder_empty_baserow_expression method.
+        placeholder_empty_jadawel_expression method.
         """
 
         return expr
@@ -538,7 +538,7 @@ class BaserowFormulaType(abc.ABC):
         (
             field_instance,
             field_type,
-        ) = self.get_baserow_field_instance_and_type()
+        ) = self.get_jadawel_field_instance_and_type()
         # Ensure the fake field_instance can have db_column called on it
         field_instance.id = field.id
         return field_type.get_search_expression(field_instance, queryset)
@@ -550,7 +550,7 @@ class BaserowFormulaType(abc.ABC):
         (
             field_instance,
             field_type,
-        ) = self.get_baserow_field_instance_and_type()
+        ) = self.get_jadawel_field_instance_and_type()
         # Ensure the fake field_instance can have db_column called on it
         field_instance.id = field.id
         return field_type.is_searchable(field_instance)
@@ -563,7 +563,7 @@ class BaserowFormulaType(abc.ABC):
         (
             field_instance,
             field_type,
-        ) = self.get_baserow_field_instance_and_type()
+        ) = self.get_jadawel_field_instance_and_type()
         return field_type.parse_filter_value(field_instance, model_field, value)
 
 
@@ -575,7 +575,7 @@ class BaserowFormulaInvalidType(BaserowFormulaType):
     comparable_types = []
     limit_comparable_types = []
     type = "invalid"
-    baserow_field_type = "text"
+    jadawel_field_type = "text"
     internal_fields = ["error"]
 
     text_default = ""

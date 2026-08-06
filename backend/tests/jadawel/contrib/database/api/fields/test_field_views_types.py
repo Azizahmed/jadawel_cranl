@@ -1490,7 +1490,7 @@ def test_formula_field_type(api_client, data_fixture):
     # You cannot create a field with an invalid formula
     response = api_client.post(
         reverse("api:database:fields:list", kwargs={"table_id": table.id}),
-        {"name": "Formula2", "type": "formula", "formula": "drop database baserow;"},
+        {"name": "Formula2", "type": "formula", "formula": "drop database jadawel;"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )

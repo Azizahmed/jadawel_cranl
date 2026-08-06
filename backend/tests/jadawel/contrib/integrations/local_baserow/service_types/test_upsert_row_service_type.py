@@ -789,7 +789,7 @@ def test_dispatch_transform_passes_field_ids(
     service_type = LocalBaserowUpsertRowServiceType()
 
     dispatch_data = {
-        "baserow_table_model": MagicMock(),
+        "jadawel_table_model": MagicMock(),
         "data": [],
     }
     dispatch_data["public_formula_fields"] = field_names
@@ -798,7 +798,7 @@ def test_dispatch_transform_passes_field_ids(
 
     assert results.data == mock_serializer.data
     mock_get_serializer.assert_called_once_with(
-        dispatch_data["baserow_table_model"],
+        dispatch_data["jadawel_table_model"],
         RowSerializer,
         is_response=True,
         field_ids=expected,

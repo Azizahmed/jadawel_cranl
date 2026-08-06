@@ -34,7 +34,7 @@ class BaserowFormulaArrayFilterSupportMixin(
     """
 
     def empty_query(self, field_name, model_field, field):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_all_empty_query(
             field_name=field_name,
             model_field=model_field,
@@ -43,29 +43,29 @@ class BaserowFormulaArrayFilterSupportMixin(
         )
 
     def get_in_array_empty_value(self, field):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_in_array_empty_value(field_instance)
 
     def get_in_array_empty_query(self, field_name, model_field, field):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_in_array_empty_query(
             field_name, model_field, field_instance
         )
 
     def get_in_array_is_query(self, field_name, value, model_field, field):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_in_array_is_query(
             field_name, value, model_field, field_instance
         )
 
     def get_in_array_contains_query(self, field_name, value, model_field, field):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_in_array_contains_query(
             field_name, value, model_field, field_instance
         )
 
     def get_in_array_contains_word_query(self, field_name, value, model_field, field):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_in_array_contains_word_query(
             field_name, value, model_field, field_instance
         )
@@ -73,7 +73,7 @@ class BaserowFormulaArrayFilterSupportMixin(
     def get_in_array_length_is_lower_than_query(
         self, field_name, value, model_field, field
     ):
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_in_array_length_is_lower_than_query(
             field_name, value, model_field, field_instance
         )
@@ -81,7 +81,7 @@ class BaserowFormulaArrayFilterSupportMixin(
     def get_has_all_values_equal_query(
         self, field_name: str, value: str, model_field: models.Field, field: "Field"
     ) -> "OptionallyAnnotatedQ":
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_has_all_values_equal_query(
             field_name, value, model_field, field_instance
         )
@@ -94,7 +94,7 @@ class BaserowFormulaArrayFilterSupportMixin(
         field: "Field",
         comparison_op: ComparisonOperator,
     ) -> "OptionallyAnnotatedQ":
-        field_instance, _ = self.sub_type.get_baserow_field_instance_and_type()
+        field_instance, _ = self.sub_type.get_jadawel_field_instance_and_type()
         return self.sub_type.get_has_numeric_value_comparable_to_filter_query(
             field_name, value, model_field, field_instance, comparison_op
         )

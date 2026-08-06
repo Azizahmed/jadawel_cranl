@@ -50,7 +50,7 @@ from jadawel.core.registry import Instance, Registry
 
 
 class AirtableColumnType(Instance):
-    def to_baserow_field(
+    def to_jadawel_field(
         self,
         raw_airtable_table: dict,
         raw_airtable_column: dict,
@@ -73,12 +73,12 @@ class AirtableColumnType(Instance):
             provided, then the column is ignored in the conversion.
         """
 
-        raise NotImplementedError("The `to_baserow_field` must be implemented.")
+        raise NotImplementedError("The `to_jadawel_field` must be implemented.")
 
     def after_field_objects_prepared(
         self,
         field_mapping_per_table: Dict[str, Dict[str, Any]],
-        baserow_field: Field,
+        jadawel_field: Field,
         raw_airtable_column: dict,
     ):
         """
@@ -87,13 +87,13 @@ class AirtableColumnType(Instance):
         other.
         """
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping: Dict[str, Dict[str, int]],
         raw_airtable_table: dict,
         raw_airtable_row: dict,
         raw_airtable_column: dict,
-        baserow_field: Field,
+        jadawel_field: Field,
         value: Any,
         files_to_download: Dict[str, DownloadFile],
         config: AirtableImportConfig,
@@ -110,7 +110,7 @@ class AirtableColumnType(Instance):
         :param raw_airtable_table: The original Airtable table object.
         :param raw_airtable_row: The original row object.
         :param raw_airtable_column: A dict containing the raw Airtable column values.
-        :param baserow_field: The Jadawel field that the column has been converted to.
+        :param jadawel_field: The Jadawel field that the column has been converted to.
         :param value: The raw Airtable value that must be converted.
         :param files_to_download: A dict that contains all the user file URLs that must
             be downloaded. The key is the file name and the value the URL. Additional
@@ -123,13 +123,13 @@ class AirtableColumnType(Instance):
 
         return value
 
-    def to_baserow_export_empty_value(
+    def to_jadawel_export_empty_value(
         self,
         row_id_mapping: Dict[str, Dict[str, int]],
         raw_airtable_table: dict,
         raw_airtable_row: dict,
         raw_airtable_column: dict,
-        baserow_field: Field,
+        jadawel_field: Field,
         files_to_download: Dict[str, DownloadFile],
         config: AirtableImportConfig,
         import_report: AirtableImportReport,
@@ -184,20 +184,20 @@ class AirtableColumnTypeRegistry(Registry):
         try:
             type_name = raw_airtable_column.get("type", "")
             airtable_column_type = self.get(type_name)
-            baserow_field = airtable_column_type.to_baserow_field(
+            jadawel_field = airtable_column_type.to_jadawel_field(
                 raw_airtable_table, raw_airtable_column, config, import_report
             )
 
-            if baserow_field is None:
+            if jadawel_field is None:
                 return None, None
             else:
-                return baserow_field, airtable_column_type
+                return jadawel_field, airtable_column_type
         except self.does_not_exist_exception_class:
             return None, None
 
 
 class AirtableViewType(Instance):
-    baserow_view_type: Optional[str] = None
+    jadawel_view_type: Optional[str] = None
 
     def get_sorts(
         self,
@@ -237,19 +237,19 @@ class AirtableViewType(Instance):
                 continue
 
             mapping_entry = field_mapping[sort["columnId"]]
-            baserow_field_type = mapping_entry["baserow_field_type"]
-            baserow_field = mapping_entry["baserow_field"]
-            can_order_by = baserow_field_type.check_can_order_by(
-                baserow_field, DEFAULT_SORT_TYPE_KEY
+            jadawel_field_type = mapping_entry["jadawel_field_type"]
+            jadawel_field = mapping_entry["jadawel_field"]
+            can_order_by = jadawel_field_type.check_can_order_by(
+                jadawel_field, DEFAULT_SORT_TYPE_KEY
             )
 
             if not can_order_by:
                 import_report.add_failed(
-                    f'View "{raw_airtable_view["name"]}", Field "{baserow_field.name}"',
+                    f'View "{raw_airtable_view["name"]}", Field "{jadawel_field.name}"',
                     SCOPE_VIEW_SORT,
                     raw_airtable_table["name"],
                     ERROR_TYPE_UNSUPPORTED_FEATURE,
-                    f'The sort on field "{baserow_field.name}" was ignored in view'
+                    f'The sort on field "{jadawel_field.name}" was ignored in view'
                     f" {raw_airtable_view['name']} because it's not possible to "
                     f"order by that field type.",
                 )
@@ -300,19 +300,19 @@ class AirtableViewType(Instance):
                 continue
 
             mapping_entry = field_mapping[group["columnId"]]
-            baserow_field_type = mapping_entry["baserow_field_type"]
-            baserow_field = mapping_entry["baserow_field"]
-            can_order_by = baserow_field_type.check_can_group_by(
-                baserow_field, DEFAULT_SORT_TYPE_KEY
+            jadawel_field_type = mapping_entry["jadawel_field_type"]
+            jadawel_field = mapping_entry["jadawel_field"]
+            can_order_by = jadawel_field_type.check_can_group_by(
+                jadawel_field, DEFAULT_SORT_TYPE_KEY
             )
 
             if not can_order_by:
                 import_report.add_failed(
-                    f'View "{raw_airtable_view["name"]}", Field "{baserow_field.name}"',
+                    f'View "{raw_airtable_view["name"]}", Field "{jadawel_field.name}"',
                     SCOPE_VIEW_GROUP_BY,
                     raw_airtable_table["name"],
                     ERROR_TYPE_UNSUPPORTED_FEATURE,
-                    f'The group by on field "{baserow_field.name}" was ignored in view {raw_airtable_view["name"]} because it\'s not possible to group by that field type.',
+                    f'The group by on field "{jadawel_field.name}" was ignored in view {raw_airtable_view["name"]} because it\'s not possible to group by that field type.',
                 )
                 continue
 
@@ -320,11 +320,11 @@ class AirtableViewType(Instance):
 
             if ascending is None:
                 import_report.add_failed(
-                    f'View "{raw_airtable_view["name"]}", Field "{baserow_field.name}"',
+                    f'View "{raw_airtable_view["name"]}", Field "{jadawel_field.name}"',
                     SCOPE_VIEW_GROUP_BY,
                     raw_airtable_table["name"],
                     ERROR_TYPE_UNSUPPORTED_FEATURE,
-                    f'The group by on field "{baserow_field.name}" was ignored in view {raw_airtable_view["name"]} because the order {group["order"]} is incompatible.',
+                    f'The group by on field "{jadawel_field.name}" was ignored in view {raw_airtable_view["name"]} because the order {group["order"]} is incompatible.',
                 )
                 continue
 
@@ -372,20 +372,20 @@ class AirtableViewType(Instance):
             return None
 
         mapping_entry = field_mapping[filter_object["columnId"]]
-        baserow_field_type = mapping_entry["baserow_field_type"]
-        baserow_field = mapping_entry["baserow_field"]
+        jadawel_field_type = mapping_entry["jadawel_field_type"]
+        jadawel_field = mapping_entry["jadawel_field"]
         raw_airtable_column = mapping_entry["raw_airtable_column"]
-        can_filter_by = baserow_field_type.check_can_filter_by(baserow_field)
+        can_filter_by = jadawel_field_type.check_can_filter_by(jadawel_field)
 
         if not can_filter_by:
             filter_value = unknown_value_to_human_readable(filter_object["value"])
             import_report.add_failed(
-                f'View "{raw_airtable_view["name"]}", Field "{baserow_field.name}"',
+                f'View "{raw_airtable_view["name"]}", Field "{jadawel_field.name}"',
                 SCOPE_VIEW_FILTER,
                 raw_airtable_table["name"],
                 ERROR_TYPE_UNSUPPORTED_FEATURE,
                 f'The "{filter_object["operator"]}" filter with value '
-                f'"{filter_value}" on field "{baserow_field.name}" was '
+                f'"{filter_value}" on field "{jadawel_field.name}" was '
                 f"ignored in view {raw_airtable_view['name']} because it's not "
                 f"possible to filter by that field type.",
             )
@@ -395,33 +395,33 @@ class AirtableViewType(Instance):
             filter_operator = airtable_filter_operator_registry.get(
                 filter_object["operator"]
             )
-            filter_type, value = filter_operator.to_baserow_filter_and_value(
+            filter_type, value = filter_operator.to_jadawel_filter_and_value(
                 row_id_mapping,
                 raw_airtable_table,
                 raw_airtable_column,
-                baserow_field,
+                jadawel_field,
                 import_report,
                 filter_object["value"],
             )
 
-            if not filter_type.field_is_compatible(baserow_field):
+            if not filter_type.field_is_compatible(jadawel_field):
                 raise AirtableSkipFilter
         except (
             airtable_filter_operator_registry.does_not_exist_exception_class,
             # If the `AirtableSkipFilter` exception is raised, then the Airtable
             # filter existing, but is not compatible with the Jadawel filters. This
-            # can be raised in the `to_baserow_filter_and_value`, but also if it
+            # can be raised in the `to_jadawel_filter_and_value`, but also if it
             # appears to not be compatible afterward.
             AirtableSkipFilter,
         ):
             filter_value = unknown_value_to_human_readable(filter_object["value"])
             import_report.add_failed(
-                f'View "{raw_airtable_view["name"]}", Field "{baserow_field.name}"',
+                f'View "{raw_airtable_view["name"]}", Field "{jadawel_field.name}"',
                 SCOPE_VIEW_FILTER,
                 raw_airtable_table["name"],
                 ERROR_TYPE_UNSUPPORTED_FEATURE,
                 f'The "{filter_object["operator"]}" filter with value '
-                f'"{filter_value}" on field "{baserow_field.name}" was '
+                f'"{filter_value}" on field "{jadawel_field.name}" was '
                 f"ignored in view {raw_airtable_view['name']} because not no "
                 f"compatible filter exists.",
             )
@@ -491,7 +491,7 @@ class AirtableViewType(Instance):
 
             return filters, filter_groups
         elif column_id:
-            baserow_filter = self.get_filter(
+            jadawel_filter = self.get_filter(
                 field_mapping,
                 row_id_mapping,
                 raw_airtable_view,
@@ -501,10 +501,10 @@ class AirtableViewType(Instance):
                 parent_group,
             )
 
-            if baserow_filter is None:
+            if jadawel_filter is None:
                 return [], []
             else:
-                return [baserow_filter], []
+                return [jadawel_filter], []
 
         return [], []
 
@@ -558,7 +558,7 @@ class AirtableViewType(Instance):
             color_config.get("defaultColor", ""),
             "",
         )
-        baserow_colors = []
+        jadawel_colors = []
 
         for color_definition in color_definitions:
             filters, filter_groups = self.get_filters(
@@ -577,7 +577,7 @@ class AirtableViewType(Instance):
                 color_definition.get("color", ""),
                 "blue",
             )
-            baserow_colors.append(
+            jadawel_colors.append(
                 {
                     "filter_groups": [
                         {
@@ -611,7 +611,7 @@ class AirtableViewType(Instance):
             )
 
         if default_color != "":
-            baserow_colors.append(
+            jadawel_colors.append(
                 {
                     "filter_groups": [],
                     "filters": [],
@@ -625,7 +625,7 @@ class AirtableViewType(Instance):
             view_id=raw_airtable_view["id"],
             type="left_border_color",
             value_provider_type="conditional_color",
-            value_provider_conf={"colors": baserow_colors},
+            value_provider_conf={"colors": jadawel_colors},
             order=1,
         )
 
@@ -707,7 +707,7 @@ class AirtableViewType(Instance):
 
         return view_name
 
-    def to_serialized_baserow_view(
+    def to_serialized_jadawel_view(
         self,
         field_mapping,
         row_id_mapping,
@@ -717,9 +717,9 @@ class AirtableViewType(Instance):
         config,
         import_report,
     ):
-        if self.baserow_view_type is None:
+        if self.jadawel_view_type is None:
             raise NotImplementedError(
-                "The `baserow_view_type` must be implemented for the AirtableViewType."
+                "The `jadawel_view_type` must be implemented for the AirtableViewType."
             )
 
         view_id = raw_airtable_view["id"]
@@ -743,7 +743,7 @@ class AirtableViewType(Instance):
             else:
                 flattened_view_order.append(view)
 
-        view_type = view_type_registry.get(self.baserow_view_type)
+        view_type = view_type_registry.get(self.jadawel_view_type)
         view = view_type.model_class(
             id=raw_airtable_view["id"],
             pk=raw_airtable_view["id"],
@@ -848,7 +848,7 @@ class AirtableViewType(Instance):
         """
 
         raise NotImplementedError(
-            "The `to_serialized_baserow_view` must be implemented."
+            "The `to_serialized_jadawel_view` must be implemented."
         )
 
 
@@ -886,7 +886,7 @@ class AirtableViewTypeRegistry(Registry):
         try:
             type_name = raw_airtable_view.get("type", "")
             airtable_view_type = self.get(type_name)
-            serialized_view = airtable_view_type.to_serialized_baserow_view(
+            serialized_view = airtable_view_type.to_serialized_jadawel_view(
                 field_mapping,
                 row_id_mapping,
                 raw_airtable_table,
@@ -904,12 +904,12 @@ class AirtableViewTypeRegistry(Registry):
 
 
 class AirtableFilterOperator(Instance):
-    def to_baserow_filter_and_value(
+    def to_jadawel_filter_and_value(
         self,
         row_id_mapping: Dict[str, Dict[str, int]],
         raw_airtable_table: dict,
         raw_airtable_column: dict,
-        baserow_field: Field,
+        jadawel_field: Field,
         import_report: AirtableImportReport,
         value: str,
     ) -> Union[ViewFilterType, str]:
@@ -921,7 +921,7 @@ class AirtableFilterOperator(Instance):
             per table ID.
         :param raw_airtable_table: The raw Airtable table data related to the filter.
         :param raw_airtable_column: The raw Airtable column data related to the filter.
-        :param baserow_field: The Jadawel field related to the filter.
+        :param jadawel_field: The Jadawel field related to the filter.
         :param import_report: Used to collect what wasn't imported to report to the
             user.
         :param value: The value that must be converted.
@@ -930,7 +930,7 @@ class AirtableFilterOperator(Instance):
         """
 
         raise NotImplementedError(
-            f"The `to_baserow_filter` must be implemented for {self.type}."
+            f"The `to_jadawel_filter` must be implemented for {self.type}."
         )
 
 

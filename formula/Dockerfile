@@ -7,7 +7,7 @@ ENV GID=${GID:-1000}
 
 # We might be running as a user which already exists in this image. In that situation
 # Everything is OK and we should just continue on.
-RUN groupadd -g $GID baserow_docker_group || exit 0
+RUN groupadd -g $GID jadawel_docker_group || exit 0
 RUN useradd -l --shell /bin/bash -u $UID -g $GID -o -c "" -m jadawel_docker_user || exit 0
 
 RUN mkdir -p /workspace/src && chown -R $UID:$GID /workspace

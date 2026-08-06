@@ -81,7 +81,7 @@ from jadawel.core.exceptions import (
 from jadawel.core.handler import CoreHandler
 from jadawel.core.psycopg import is_index_row_size_error, is_unique_violation_error, sql
 from jadawel.core.registries import OperationType
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.trash.registries import trash_item_type_registry
 from jadawel.core.types import PermissionCheck
@@ -235,7 +235,7 @@ class RowM2MChangeTracker:
         }
 
 
-class RowHandler(metaclass=baserow_trace_methods(tracer)):
+class RowHandler(metaclass=jadawel_trace_methods(tracer)):
     def prepare_values(self, fields, values):
         """
         Prepares a set of values so that they can be created or updated in the database.
@@ -462,7 +462,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
                 # calculate an intermediate fraction. Therefore, must reset all the
                 # orders of the table (while respecting their original order),
                 # so that we can then can find the fraction any many more after.
-                self.recalculate_row_orders(model.baserow_table, model)
+                self.recalculate_row_orders(model.jadawel_table, model)
                 # Refresh the row element as its order might have changed
                 before_row.refresh_from_db()
                 return get_unique_orders_before_item(
@@ -928,7 +928,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
                     ViewIndexingHandler,
                 )
 
-                ViewIndexingHandler.handle_index_row_size_error(model.baserow_table_id)
+                ViewIndexingHandler.handle_index_row_size_error(model.jadawel_table_id)
                 safe_save_instance()
             else:
                 raise exc
@@ -1012,7 +1012,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
         :param field_objects: The field objects for a model.
         :param values: A dictionary keyed by user field names to values.
         :return: A dictionary with the same values but the keys converted to the
-            corresponding internal baserow field name (field_1,field_2 etc)
+            corresponding internal jadawel field name (field_1,field_2 etc)
         """
 
         to_internal_name = {}
@@ -1187,7 +1187,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
                     ViewIndexingHandler,
                 )
 
-                ViewIndexingHandler.handle_index_row_size_error(model.baserow_table_id)
+                ViewIndexingHandler.handle_index_row_size_error(model.jadawel_table_id)
                 safe_save_row()
             else:
                 raise exc
@@ -1420,7 +1420,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
                     ViewIndexingHandler,
                 )
 
-                ViewIndexingHandler.handle_index_row_size_error(model.baserow_table_id)
+                ViewIndexingHandler.handle_index_row_size_error(model.jadawel_table_id)
                 inserted_rows = safe_bulk_create()
             else:
                 raise exc
@@ -1609,7 +1609,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
         """
 
         row_ids = [row.id for row in created_rows]
-        table = model.baserow_table
+        table = model.jadawel_table
         update_collector = FieldUpdateCollector(table, starting_row_ids=row_ids)
 
         field_cache = FieldCache()
@@ -2176,7 +2176,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
             for fo in model.get_field_objects(include_trash=True)
             if fo["field"].id in field_ids
         ]
-        table = model.baserow_table
+        table = model.jadawel_table
         perm_checks = [
             PermissionCheck(user, WriteFieldValuesOperationType.type, field)
             for field in fields
@@ -2511,7 +2511,7 @@ class RowHandler(metaclass=baserow_trace_methods(tracer)):
                     )
 
                     ViewIndexingHandler.handle_index_row_size_error(
-                        model.baserow_table_id
+                        model.jadawel_table_id
                     )
                     safe_bulk_update()
                 else:

@@ -33,9 +33,9 @@ def get_webhook_request_function() -> Callable:
         from advocate import request
 
         addr_validator = get_advocate_address_validator()
-        baserow_advocate = RequestsAPIWrapper(addr_validator)
+        jadawel_advocate = RequestsAPIWrapper(addr_validator)
 
-        return baserow_advocate.request
+        return jadawel_advocate.request
 
 
 def get_advocate_address_validator() -> AddrValidator:
@@ -53,7 +53,7 @@ def get_advocate_address_validator() -> AddrValidator:
 def url_validator(value):
     """
     This is a custom url validation, needed in order to make sure that users will not
-    enter a url which could be in the network of where baserow is running. It makes
+    enter a url which could be in the network of where jadawel is running. It makes
     use of the advocate libraries own address validation.
 
     :param value: The URL that must be validated.

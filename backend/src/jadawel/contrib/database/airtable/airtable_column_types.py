@@ -60,7 +60,7 @@ from .utils import get_airtable_row_primary_value, quill_to_markdown
 class TextAirtableColumnType(AirtableColumnType):
     type = "text"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         validator_name = raw_airtable_column.get("typeOptions", {}).get("validatorName")
@@ -71,21 +71,21 @@ class TextAirtableColumnType(AirtableColumnType):
         else:
             return TextField(text_default=raw_airtable_column.get("default", ""))
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
         import_report,
     ):
-        if isinstance(baserow_field, (EmailField, URLField)):
+        if isinstance(jadawel_field, (EmailField, URLField)):
             try:
-                field_type = field_type_registry.get_by_model(baserow_field)
+                field_type = field_type_registry.get_by_model(jadawel_field)
                 field_type.validator(value)
             except ValidationError:
                 row_name = get_airtable_row_primary_value(
@@ -102,13 +102,13 @@ class TextAirtableColumnType(AirtableColumnType):
 
         return value
 
-    def to_baserow_export_empty_value(
+    def to_jadawel_export_empty_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         files_to_download,
         config,
         import_report,
@@ -116,7 +116,7 @@ class TextAirtableColumnType(AirtableColumnType):
         # If the `text_default` is set, then we must return an empty string. If we
         # don't, the value is omitted in the export, resulting in the default value
         # automatically being set, while it's actually empty in Airtable.
-        if isinstance(baserow_field, TextField) and baserow_field.text_default != "":
+        if isinstance(jadawel_field, TextField) and jadawel_field.text_default != "":
             return ""
         else:
             raise AirtableSkipCellValue
@@ -125,7 +125,7 @@ class TextAirtableColumnType(AirtableColumnType):
 class MultilineTextAirtableColumnType(AirtableColumnType):
     type = "multilineText"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         return LongTextField()
@@ -134,18 +134,18 @@ class MultilineTextAirtableColumnType(AirtableColumnType):
 class RichTextTextAirtableColumnType(AirtableColumnType):
     type = "richText"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         return LongTextField(long_text_enable_rich_text=True)
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -157,7 +157,7 @@ class RichTextTextAirtableColumnType(AirtableColumnType):
 class NumberAirtableColumnType(AirtableColumnType):
     type = "number"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         default_value = raw_airtable_column.get("default")
@@ -239,13 +239,13 @@ class NumberAirtableColumnType(AirtableColumnType):
             number_default=default_value,
         )
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -303,18 +303,18 @@ class NumberAirtableColumnType(AirtableColumnType):
         if "percent" in options_format:
             value = value * 100
 
-        if not baserow_field.number_negative and value < 0:
+        if not jadawel_field.number_negative and value < 0:
             return None
 
         return str(value)
 
-    def to_baserow_export_empty_value(
+    def to_jadawel_export_empty_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         files_to_download,
         config,
         import_report,
@@ -326,8 +326,8 @@ class NumberAirtableColumnType(AirtableColumnType):
         # Airtable.
         # Default value can be set only on NumberField
         if (
-            isinstance(baserow_field, NumberField)
-            and baserow_field.number_default is not None
+            isinstance(jadawel_field, NumberField)
+            and jadawel_field.number_default is not None
         ):
             return None
         else:
@@ -337,7 +337,7 @@ class NumberAirtableColumnType(AirtableColumnType):
 class RatingAirtableColumnType(AirtableColumnType):
     type = "rating"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         type_options = raw_airtable_column.get("typeOptions", {})
@@ -379,7 +379,7 @@ class RatingAirtableColumnType(AirtableColumnType):
 class CheckboxAirtableColumnType(AirtableColumnType):
     type = "checkbox"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         type_options = raw_airtable_column.get("typeOptions", {})
@@ -407,13 +407,13 @@ class CheckboxAirtableColumnType(AirtableColumnType):
         default = raw_airtable_column.get("default", None) or False
         return BooleanField(boolean_default=default)
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -421,13 +421,13 @@ class CheckboxAirtableColumnType(AirtableColumnType):
     ):
         return "true" if value else "false"
 
-    def to_baserow_export_empty_value(
+    def to_jadawel_export_empty_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         files_to_download,
         config,
         import_report,
@@ -437,7 +437,7 @@ class CheckboxAirtableColumnType(AirtableColumnType):
         # Jadawel. Otherwise, the value would be omitted in the export, resulting in
         # the default value automatically being set, while it's actually empty in
         # Airtable.
-        if baserow_field.boolean_default:
+        if jadawel_field.boolean_default:
             return "false"
         else:
             raise AirtableSkipCellValue
@@ -446,7 +446,7 @@ class CheckboxAirtableColumnType(AirtableColumnType):
 class DateAirtableColumnType(AirtableColumnType):
     type = "date"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         self.add_import_report_failed_if_default_is_provided(
@@ -472,13 +472,13 @@ class DateAirtableColumnType(AirtableColumnType):
             **import_airtable_date_type_options(type_options),
         )
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -504,7 +504,7 @@ class DateAirtableColumnType(AirtableColumnType):
             )
             return None
 
-        if baserow_field.date_include_time:
+        if jadawel_field.date_include_time:
             return f"{value.isoformat()}"
         else:
             # WORKAROUND: if the year value is < 1000, Python has a bug that will not
@@ -521,7 +521,7 @@ class DateAirtableColumnType(AirtableColumnType):
 class FormulaAirtableColumnType(AirtableColumnType):
     type = "formula"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         type_options = raw_airtable_column.get("typeOptions", {})
@@ -567,24 +567,24 @@ class FormulaAirtableColumnType(AirtableColumnType):
                 **import_airtable_date_type_options(type_options),
             )
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
         import_report,
     ):
-        if isinstance(baserow_field, CreatedOnField):
+        if isinstance(jadawel_field, CreatedOnField):
             # If `None`, the value will automatically be populated from the
             # `created_on` property of the row when importing, which already contains
             # the correct value.
             return None
-        if isinstance(baserow_field, LastModifiedField):
+        if isinstance(jadawel_field, LastModifiedField):
             # Because there isn't a last modified property in the Airtable data,
             # we must use the value as provided here.
             return (
@@ -597,7 +597,7 @@ class FormulaAirtableColumnType(AirtableColumnType):
 class ForeignKeyAirtableColumnType(AirtableColumnType):
     type = "foreignKey"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         type_options = raw_airtable_column.get("typeOptions", {})
@@ -657,24 +657,24 @@ class ForeignKeyAirtableColumnType(AirtableColumnType):
         )
 
     def after_field_objects_prepared(
-        self, field_mapping_per_table, baserow_field, raw_airtable_column
+        self, field_mapping_per_table, jadawel_field, raw_airtable_column
     ):
         foreign_table_id = raw_airtable_column["typeOptions"]["foreignTableId"]
         foreign_field_mapping = field_mapping_per_table[foreign_table_id]
         foreign_primary_field = next(
-            field["baserow_field"]
+            field["jadawel_field"]
             for field in foreign_field_mapping.values()
-            if field["baserow_field"].primary
+            if field["jadawel_field"].primary
         )
-        baserow_field.link_row_table_primary_field = foreign_primary_field
+        jadawel_field.link_row_table_primary_field = foreign_primary_field
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -713,18 +713,18 @@ class ForeignKeyAirtableColumnType(AirtableColumnType):
 class MultipleAttachmentAirtableColumnType(AirtableColumnType):
     type = "multipleAttachment"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         return FileField()
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -762,13 +762,13 @@ class SelectAirtableColumnType(AirtableColumnType):
     type = "select"
     default_value_field = "single_select_default"
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping: Dict[str, Dict[str, int]],
         table: dict,
         raw_airtable_row: dict,
         raw_airtable_column: dict,
-        baserow_field: Field,
+        jadawel_field: Field,
         value: Any,
         files_to_download: Dict[str, DownloadFile],
         config: AirtableImportConfig,
@@ -777,7 +777,7 @@ class SelectAirtableColumnType(AirtableColumnType):
         # use field id and option id for uniqueness
         return to_import_select_option_id(raw_airtable_column.get("id"), value)
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         id_value = raw_airtable_column.get("id", "")
@@ -800,18 +800,18 @@ class SelectAirtableColumnType(AirtableColumnType):
             )
         return field
 
-    def to_baserow_export_empty_value(
+    def to_jadawel_export_empty_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         files_to_download,
         config,
         import_report,
     ):
-        if baserow_field.single_select_default is not None:
+        if jadawel_field.single_select_default is not None:
             return None
         else:
             raise AirtableSkipCellValue
@@ -821,13 +821,13 @@ class MultiSelectAirtableColumnType(AirtableColumnType):
     type = "multiSelect"
     default_value_field = "multiple_select_default"
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping: Dict[str, Dict[str, int]],
         table: dict,
         raw_airtable_row: dict,
         raw_airtable_column: dict,
-        baserow_field: Field,
+        jadawel_field: Field,
         value: Any,
         files_to_download: Dict[str, DownloadFile],
         config: AirtableImportConfig,
@@ -837,7 +837,7 @@ class MultiSelectAirtableColumnType(AirtableColumnType):
         column_id = raw_airtable_column.get("id")
         return [to_import_select_option_id(column_id, val) for val in value]
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         id_value = raw_airtable_column.get("id", "")
@@ -858,18 +858,18 @@ class MultiSelectAirtableColumnType(AirtableColumnType):
             ]
         return field
 
-    def to_baserow_export_empty_value(
+    def to_jadawel_export_empty_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         files_to_download,
         config,
         import_report,
     ):
-        if baserow_field.multiple_select_default is not None:
+        if jadawel_field.multiple_select_default is not None:
             return []
         else:
             raise AirtableSkipCellValue
@@ -878,25 +878,25 @@ class MultiSelectAirtableColumnType(AirtableColumnType):
 class PhoneAirtableColumnType(AirtableColumnType):
     type = "phone"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         return PhoneNumberField()
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
         import_report,
     ):
         try:
-            field_type = field_type_registry.get_by_model(baserow_field)
+            field_type = field_type_registry.get_by_model(jadawel_field)
             field_type.validator(value)
             return value
         except ValidationError:
@@ -916,19 +916,19 @@ class PhoneAirtableColumnType(AirtableColumnType):
 class CountAirtableColumnType(AirtableColumnType):
     type = "count"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         type_options = raw_airtable_column.get("typeOptions", {})
         return CountField(through_field_id=type_options.get("relationColumnId"))
 
-    def to_baserow_export_serialized_value(
+    def to_jadawel_export_serialized_value(
         self,
         row_id_mapping,
         raw_airtable_table,
         raw_airtable_row,
         raw_airtable_column,
-        baserow_field,
+        jadawel_field,
         value,
         files_to_download,
         config,
@@ -940,7 +940,7 @@ class CountAirtableColumnType(AirtableColumnType):
 class AutoNumberAirtableColumnType(AirtableColumnType):
     type = "autoNumber"
 
-    def to_baserow_field(
+    def to_jadawel_field(
         self, raw_airtable_table, raw_airtable_column, config, import_report
     ):
         return AutonumberField()

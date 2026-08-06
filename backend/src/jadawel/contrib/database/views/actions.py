@@ -2378,7 +2378,7 @@ class SubmitFormActionType(ActionType):
             model = form.table.get_model()
 
         row = ViewHandler().submit_form_view(user, form, values, model, field_options)
-        table = model.baserow_table
+        table = model.jadawel_table
         serialized_values, fields_metadata = serialize_row_for_action(row, model)
 
         workspace = table.database.workspace
@@ -2534,7 +2534,7 @@ class EditFormRowActionType(ActionType):
         row = ViewHandler().edit_form_view_row(
             user, form, row_id, values, model, field_options
         )
-        table = model.baserow_table
+        table = model.jadawel_table
         serialized_values, fields_metadata = serialize_row_for_action(row, model)
 
         workspace = table.database.workspace

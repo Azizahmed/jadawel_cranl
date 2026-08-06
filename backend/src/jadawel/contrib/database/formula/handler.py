@@ -15,9 +15,9 @@ from jadawel.contrib.database.formula.ast.tree import (
     BaserowFunctionDefinition,
 )
 from jadawel.contrib.database.formula.expression_generator.generator import (
-    baserow_expression_to_insert_django_expression,
-    baserow_expression_to_single_row_update_django_expression,
-    baserow_expression_to_update_django_expression,
+    jadawel_expression_to_insert_django_expression,
+    jadawel_expression_to_single_row_update_django_expression,
+    jadawel_expression_to_update_django_expression,
 )
 from jadawel.contrib.database.formula.migrations.migrations import (
     JADAWEL_FORMULA_VERSION,
@@ -44,7 +44,7 @@ from jadawel.contrib.database.formula.types.visitors import (
 )
 from jadawel.core.formula import BaserowFormulaException
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
-from jadawel.core.telemetry.utils import baserow_trace_methods
+from jadawel.core.telemetry.utils import jadawel_trace_methods
 
 if typing.TYPE_CHECKING:
     from jadawel.contrib.database.fields.models import FormulaField
@@ -65,7 +65,7 @@ def _expression_requires_refresh_after_insert(expression: BaserowExpression):
     WARNING: This function is directly used by migration code. Please ensure
     backwards compatibility when adding fields etc.
 
-    Some baserow expressions cannot be computed in a single INSERT xx INTO yy statement.
+    Some jadawel expressions cannot be computed in a single INSERT xx INTO yy statement.
     For example expressions which reference the rows id. This function calculates if
     the provided expression is one such expression.
 
@@ -96,18 +96,18 @@ def _has_lookup_expressions(expression):
     )
 
 
-class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
+class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
     """
     Contains all the methods used to interact with formulas and formula fields in
     Jadawel.
     """
 
     @classmethod
-    def baserow_expression_to_update_django_expression(
+    def jadawel_expression_to_update_django_expression(
         cls, expression: BaserowExpression, model: Type[Model]
     ) -> Expression:
         """
-        Converts the provided baserow expression to a django expression that can be
+        Converts the provided jadawel expression to a django expression that can be
         used in an update statement. Compared to the django expression from the
         alternate insert method below this expression will contain column references
         to other tables/non formula columns instead of directly substituted values.
@@ -118,16 +118,16 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         :return: A Django Expression for use in an update statement.
         """
 
-        return baserow_expression_to_update_django_expression(expression, model)
+        return jadawel_expression_to_update_django_expression(expression, model)
 
     @classmethod
-    def baserow_expression_to_row_update_django_expression(
+    def jadawel_expression_to_row_update_django_expression(
         cls,
         expression: BaserowExpression,
         model_instance: Model,
     ) -> Expression:
         """
-        Converts the provided baserow expression to a django expression that can be
+        Converts the provided jadawel expression to a django expression that can be
         used to update a single row for a specific model instance.
         Compared to the django expression from the alternate update method above this
         expression will contain the values taken directly from the provided model
@@ -140,18 +140,18 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         :return: A Django Expression for use in single row .save() call.
         """
 
-        return baserow_expression_to_single_row_update_django_expression(
+        return jadawel_expression_to_single_row_update_django_expression(
             expression, model_instance
         )
 
     @classmethod
-    def baserow_expression_to_insert_django_expression(
+    def jadawel_expression_to_insert_django_expression(
         cls,
         expression: BaserowExpression,
         model_instance: Model,
     ) -> Expression:
         """
-        Converts the provided baserow expression that can be used when inserting a
+        Converts the provided jadawel expression that can be used when inserting a
         new row.
         Compared to the django expression from the alternate update methods above this
         expression will contain the values taken directly from the provided model
@@ -159,7 +159,7 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         also not perform any aggregate joining to calculate lookup expressions as
         there is no row yet to join with. Instead any such expressions will evaluate
         to None and you should refresh the row using the
-        baserow_expression_to_single_row_update_django_expression after it has been
+        jadawel_expression_to_single_row_update_django_expression after it has been
         inserted if your expression does containing aggregates.
 
         :param expression: A fully typed internal Jadawel expression.
@@ -167,7 +167,7 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         :return: A Django Expression for use in an insert statement.
         """
 
-        return baserow_expression_to_insert_django_expression(
+        return jadawel_expression_to_insert_django_expression(
             expression, model_instance
         )
 
@@ -205,7 +205,7 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         references in the raw formula string to use the renamed versions. Preserves
         whitespace, comments and everything else in the formula string.
 
-        :param formula_to_update: A string containing a baserow formula expression to
+        :param formula_to_update: A string containing a jadawel formula expression to
             rename all field('xxx') references which match a key:value in field_names.
         :param field_renames: A dictionary of field names to rename references for. The
             key is the existing name used by the formula and the value is the new name
@@ -300,7 +300,7 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
     ) -> BaserowExpression[BaserowFormulaType]:
         """
         Returns a typed expression which can be directly translated to a Django
-        Expression using the two baserow_expression_to_{update,insert}_django_expression
+        Expression using the two jadawel_expression_to_{update,insert}_django_expression
         methods above.
 
         The internal typed expression differs from formula_field.formula in a number of
@@ -374,10 +374,10 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         WARNING: This function is directly used by migration code. Please ensure
         backwards compatability .
 
-        Returns the raw antlr parse tree for a formula string in the baserow formula
+        Returns the raw antlr parse tree for a formula string in the jadawel formula
         language.
 
-        :param formula: A string possibly in the baserow formula language.
+        :param formula: A string possibly in the jadawel formula language.
         :return: An Antlr parse tree for the formula.
         """
 
@@ -421,7 +421,7 @@ class FormulaHandler(metaclass=baserow_trace_methods(tracer)):
         field.save(field_cache=field_cache)
         recreate_formula_field_if_needed(field, old_field, force_recreate_column)
 
-        return FormulaHandler.baserow_expression_to_update_django_expression(
+        return FormulaHandler.jadawel_expression_to_update_django_expression(
             field.cached_typed_internal_expression,
             field_cache.get_model(field.table),
         )

@@ -190,7 +190,7 @@ class Migration(migrations.Migration):
                 (
                     "original_page",
                     models.ForeignKey(
-                        help_text="The baserow page to duplicate.",
+                        help_text="The jadawel page to duplicate.",
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="duplicated_by_jobs",

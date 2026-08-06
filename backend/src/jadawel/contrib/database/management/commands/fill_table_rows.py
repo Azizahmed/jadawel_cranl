@@ -217,17 +217,17 @@ def validate_replicated_tables(source_table_model, replicated_table_models):
         model_field_map = extract_table_fields(model)
         if model_field_map != source_field_map:
             exc_msg = (
-                f"The fields in table {model.baserow_table_id} do not match "
-                f"those in source table {source_table_model.baserow_table_id}."
+                f"The fields in table {model.jadawel_table_id} do not match "
+                f"those in source table {source_table_model.jadawel_table_id}."
             )
             subtractive_changes = dict(set(source_field_map) - set(model_field_map))
             if subtractive_changes:
-                exc_msg += f"\n\nFields missing from table {model.baserow_table_id}:\n"
+                exc_msg += f"\n\nFields missing from table {model.jadawel_table_id}:\n"
                 for field_name, field_type in subtractive_changes.items():
                     exc_msg += f"- {field_name} (type: {field_type})"
             additive_changes = dict(set(model_field_map) - set(source_field_map))
             if additive_changes:
-                exc_msg += f"\n\nFields added in table {model.baserow_table_id}:\n"
+                exc_msg += f"\n\nFields added in table {model.jadawel_table_id}:\n"
                 for field_name, field_type in additive_changes.items():
                     exc_msg += f"- {field_name} (type: {field_type})"
             raise ValueError(exc_msg)
@@ -247,7 +247,7 @@ def generate_values_for_one_or_more_tables(models, fake, cache):
             field_type = field_object["type"].type
             field_name = underscore(field_object["field"].name.lower())
             key = f"{field_type}_{field_name}"
-            field_object["baserow_table_id"] = model.baserow_table_id
+            field_object["jadawel_table_id"] = model.jadawel_table_id
             grouped_fields_by_name_and_type[key]["field_objects"].append(field_object)
 
     fields_grouped_by_table = defaultdict(dict)
@@ -261,7 +261,7 @@ def generate_values_for_one_or_more_tables(models, fake, cache):
                     field_object["field"], fake, cache
                 )
             field_id = field_object["field"].id
-            table_id = field_object["baserow_table_id"]
+            table_id = field_object["jadawel_table_id"]
             fields_grouped_by_table[table_id][f"field_{field_id}"] = random_value
 
     return fields_grouped_by_table
@@ -380,18 +380,18 @@ def fill_table_rows(
                 )
 
                 for model in models:
-                    values = values_grouped_by_table[model.baserow_table_id]
+                    values = values_grouped_by_table[model.jadawel_table_id]
                     instance, relations = create_row_instance_and_relations(
                         values, table, model, fake, cache, order
                     )
-                    rows[model.baserow_table_id].append((instance, relations))
+                    rows[model.jadawel_table_id].append((instance, relations))
                     progress.increment(1)
 
             for model in models:
                 pbar.refresh()
-                created_rows = bulk_create_rows(model, rows[model.baserow_table_id])
+                created_rows = bulk_create_rows(model, rows[model.jadawel_table_id])
                 RowHandler().update_dependencies_of_rows_created(model, created_rows)
-                table_row_ids_map[model.baserow_table].extend(
+                table_row_ids_map[model.jadawel_table].extend(
                     [r.id for r in created_rows]
                 )
 

@@ -51,7 +51,7 @@ def test_dispatch_slack_write_message_basic(data_fixture):
         "ok": True,
         "channel": "C123456",
         "ts": "1503435956.000247",
-        "message": {"text": "Hello from Baserow!", "username": "baserow_bot"},
+        "message": {"text": "Hello from Baserow!", "username": "jadawel_bot"},
     }
 
     mock_request = Mock(return_value=mock_response)

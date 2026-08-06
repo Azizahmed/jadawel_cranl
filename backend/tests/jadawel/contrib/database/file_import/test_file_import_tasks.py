@@ -1085,7 +1085,7 @@ def prepare_upsert_data(
     # upsert_file_name contains almost-full file import job structure. The only thing
     # missing is configuration.upsert_fields, which is calculated in code from args.
     with open_test_file(
-        f"baserow/database/file_import/upsert_{upsert_file_name}_data.json", "rt"
+        f"jadawel/database/file_import/upsert_{upsert_file_name}_data.json", "rt"
     ) as f:
         update_data = json.load(f)
         update_data["configuration"]["upsert_fields"] = [u.id for u in upsert_fields]

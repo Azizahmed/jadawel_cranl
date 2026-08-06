@@ -25,7 +25,7 @@ class Command(BaseCommand):
         template_file_name = options["template_file_name"]
         from_export_file_name = options["from_export"]
         template_json = {
-            "baserow_template_version": 1,
+            "jadawel_template_version": 1,
             "name": template_file_name,
             "icon": "iconoir-user",
             "keywords": ["Template"],

@@ -63,17 +63,21 @@ Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
   `web-frontend/modules/arabase/`. The backend hooks into Baserow's registries from
   `ArabaseConfig.ready()`, and its API mounts under `/api/arabase/` through
   `ArabasePlugin`, so a new feature needs no core edit.
-- Editing an upstream `baserow` core file is the last resort, and every such edit is
-  logged in `PATCHES.md` with its reason and merge risk. Files you create under
-  `arabase/`, `docs/` or `.github/` are additive and stay out of that log.
-- The `baserow` name is load-bearing. The Python distribution, the `baserow.*` import
-  namespace, `src/jadawel`, `uv.lock`, and the `baserow` container, service and volume
-  names all depend on it. Rebrand user-facing surfaces to Jadawel / جداول only.
+- Editing an upstream-derived core file under `backend/src/jadawel/` is the last
+  resort, and every such edit is logged in `PATCHES.md` with its reason. Files you
+  create under `arabase/`, `docs/` or `.github/` are additive and stay out of that log.
+- The code is named `jadawel` throughout: the Python distribution, the `jadawel.*`
+  import namespace, `src/jadawel`, the `@jadawel` frontend alias, `JADAWEL_*`
+  environment variables and the `/jadawel` image paths. A handful of names keep
+  `baserow` on purpose because they are wire contracts, not module paths — the
+  Celery task names, the OpenTelemetry metric names, the `local_baserow` service
+  types, the `templates/baserow` loader directory and the Postgres role. See
+  `docs/RENAME_TO_JADAWEL.md` for the full list and the reason behind each.
 
 ## Coding style
 
 Python 3.14, 4-space indentation, Ruff (`ruff check`, `ruff format`) at 88 columns,
-with `baserow` and `arabase` both first-party for isort. Name tests `test_*.py`.
+with `jadawel` and `arabase` both first-party for isort. Name tests `test_*.py`.
 
 Vue 3 and Nuxt 3 with ESLint, Stylelint and Prettier. SCSS class names follow the BEM
 pattern Stylelint enforces. Render functions use Vue 3 semantics — import `h` from

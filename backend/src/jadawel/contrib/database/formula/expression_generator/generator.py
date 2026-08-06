@@ -37,33 +37,33 @@ from jadawel.core.formula.exceptions import formula_exception_handler
 from jadawel.core.formula.parser.exceptions import MaximumFormulaSizeError
 
 
-def baserow_expression_to_update_django_expression(
-    baserow_expression: BaserowExpression[BaserowFormulaType],
+def jadawel_expression_to_update_django_expression(
+    jadawel_expression: BaserowExpression[BaserowFormulaType],
     model: Type[Model],
 ):
-    return _baserow_expression_to_django_expression(baserow_expression, model, None)
+    return _jadawel_expression_to_django_expression(jadawel_expression, model, None)
 
 
-def baserow_expression_to_single_row_update_django_expression(
-    baserow_expression: BaserowExpression[BaserowFormulaType],
+def jadawel_expression_to_single_row_update_django_expression(
+    jadawel_expression: BaserowExpression[BaserowFormulaType],
     model_instance: Model,
 ):
-    return _baserow_expression_to_django_expression(
-        baserow_expression, type(model_instance), model_instance, insert=False
+    return _jadawel_expression_to_django_expression(
+        jadawel_expression, type(model_instance), model_instance, insert=False
     )
 
 
-def baserow_expression_to_insert_django_expression(
-    baserow_expression: BaserowExpression[BaserowFormulaType],
+def jadawel_expression_to_insert_django_expression(
+    jadawel_expression: BaserowExpression[BaserowFormulaType],
     model_instance: Model,
 ):
-    return _baserow_expression_to_django_expression(
-        baserow_expression, type(model_instance), model_instance, insert=True
+    return _jadawel_expression_to_django_expression(
+        jadawel_expression, type(model_instance), model_instance, insert=True
     )
 
 
-def _baserow_expression_to_django_expression(
-    baserow_expression: BaserowExpression[BaserowFormulaType],
+def _jadawel_expression_to_django_expression(
+    jadawel_expression: BaserowExpression[BaserowFormulaType],
     model: Type[Model],
     model_instance: Optional[Model],
     insert=False,
@@ -80,7 +80,7 @@ def _baserow_expression_to_django_expression(
     as you cannot reference a column for a row that does not yet exist. Instead the
     initial defaults will be found and substituted in.
 
-    :param baserow_expression: The BaserowExpression to convert.
+    :param jadawel_expression: The BaserowExpression to convert.
     :param model: The Django model that the expression is being generated for.
     :param model_instance: If provided the expression will calculate the result for
         this single instance. If not provided then the expression will use F() column
@@ -93,23 +93,23 @@ def _baserow_expression_to_django_expression(
     """
 
     try:
-        if isinstance(baserow_expression.expression_type, BaserowFormulaInvalidType):
+        if isinstance(jadawel_expression.expression_type, BaserowFormulaInvalidType):
             return Value(None)
         else:
             inserting_aggregate = (
-                baserow_expression.aggregate and model_instance is not None and insert
+                jadawel_expression.aggregate and model_instance is not None and insert
             )
             if inserting_aggregate:
                 # When inserting a row we can't possibly calculate the aggregate result
                 # as there is no row id that can be used to connect it to other tables.
                 # Instead we need to insert a placeholder empty value which will then
                 # get replaced later on with the correct value by an UPDATE statement.
-                return baserow_expression.expression_type.placeholder_empty_value()
+                return jadawel_expression.expression_type.placeholder_empty_value()
             else:
                 generator = BaserowExpressionToDjangoExpressionGenerator(
                     model, model_instance
                 )
-                return baserow_expression.accept(generator).expression
+                return jadawel_expression.accept(generator).expression
     except RecursionError:
         raise MaximumFormulaSizeError()
     except Exception as e:

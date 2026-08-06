@@ -42,7 +42,7 @@ def test_run_periodic_fields_updates_if_necessary(data_fixture, settings):
             data_fixture, workspace
         )
         row = RowHandler().create_row(
-            user=user, table=table_model.baserow_table, model=table_model
+            user=user, table=table_model.jadawel_table, model=table_model
         )
 
         workspace_2 = data_fixture.create_workspace(user=user)
@@ -50,7 +50,7 @@ def test_run_periodic_fields_updates_if_necessary(data_fixture, settings):
             data_fixture, workspace_2
         )
         row_2 = RowHandler().create_row(
-            user=user, table=table_model_2.baserow_table, model=table_model_2
+            user=user, table=table_model_2.jadawel_table, model=table_model_2
         )
 
         workspace_3 = data_fixture.create_workspace(user=user)
@@ -58,7 +58,7 @@ def test_run_periodic_fields_updates_if_necessary(data_fixture, settings):
             data_fixture, workspace_3
         )
         row_3 = RowHandler().create_row(
-            user=user, table=table_model_3.baserow_table, model=table_model_3
+            user=user, table=table_model_3.jadawel_table, model=table_model_3
         )
 
         # workspace 1 will be "recently used" and marked as updated
@@ -121,13 +121,13 @@ def test_run_periodic_fields_updates(data_fixture, settings):
         workspace = data_fixture.create_workspace(user=user)
         table_model, formula_field = create_table_with_row_in_workspace(workspace)
         row = RowHandler().create_row(
-            user=user, table=table_model.baserow_table, model=table_model
+            user=user, table=table_model.jadawel_table, model=table_model
         )
 
         workspace_2 = data_fixture.create_workspace(user=user)
         table_model_2, formula_field_2 = create_table_with_row_in_workspace(workspace_2)
         row_2 = RowHandler().create_row(
-            user=user, table=table_model_2.baserow_table, model=table_model_2
+            user=user, table=table_model_2.jadawel_table, model=table_model_2
         )
 
     assert getattr(row, f"field_{formula_field.id}") == datetime(
@@ -314,7 +314,7 @@ def test_one_formula_failing_doesnt_block_others(data_fixture, settings):
         second_updated_workspace
     )
     row = RowHandler().create_row(
-        user=user, table=table_model.baserow_table, model=table_model
+        user=user, table=table_model.jadawel_table, model=table_model
     )
 
     a_day_ago = datetime.now(tz=timezone.utc) - timedelta(days=1)
@@ -325,7 +325,7 @@ def test_one_formula_failing_doesnt_block_others(data_fixture, settings):
         first_updated_workspace
     )
     row_2 = RowHandler().create_row(
-        user=user, table=table_model_2.baserow_table, model=table_model_2
+        user=user, table=table_model_2.jadawel_table, model=table_model_2
     )
     broken_first_formula.internal_formula = "broken"
     broken_first_formula.save(recalculate=False)

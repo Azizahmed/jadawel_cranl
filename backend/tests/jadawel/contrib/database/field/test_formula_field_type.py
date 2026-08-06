@@ -2249,7 +2249,7 @@ def test_formula_number_type_without_decimal_places(data_fixture):
     formula_field.number_decimal_places = None
     formula_field.save()
 
-    # the fix in NumerFieldType.from_baserow_formula_type replaces `None` with `0`,
+    # the fix in NumerFieldType.from_jadawel_formula_type replaces `None` with `0`,
     # otherwise the operation below would fail.
     FieldHandler().duplicate_field(user, formula_field, duplicate_data=True)
 

@@ -97,12 +97,12 @@ CACHES = {
                 "server": FakeServer(),
             }
         },
-        "KEY_PREFIX": "baserow-default-cache",
+        "KEY_PREFIX": "jadawel-default-cache",
         "VERSION": VERSION,
     },
     GENERATED_MODEL_CACHE_NAME: {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "KEY_PREFIX": f"baserow-{GENERATED_MODEL_CACHE_NAME}-cache",
+        "KEY_PREFIX": f"jadawel-{GENERATED_MODEL_CACHE_NAME}-cache",
         "VERSION": None,
     },
 }
@@ -159,7 +159,7 @@ CACHALOT_ENABLED = str_to_bool(os.getenv("CACHALOT_ENABLED", "false"))
 if CACHALOT_ENABLED:
     CACHES[CACHALOT_CACHE] = {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "KEY_PREFIX": f"baserow-{CACHALOT_CACHE}-cache",
+        "KEY_PREFIX": f"jadawel-{CACHALOT_CACHE}-cache",
         "VERSION": None,
     }
 

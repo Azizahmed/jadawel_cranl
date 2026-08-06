@@ -26,9 +26,9 @@ from jadawel.core.workflow_actions.registries import WorkflowActionType
 def local_baserow_service_backed_workflow_actions():
     """
     Responsible for returning all workflow action types which are backed by a local
-    baserow service.
+    jadawel service.
 
-    :return: A list of workflow action types backed by a local baserow service.
+    :return: A list of workflow action types backed by a local jadawel service.
     """
 
     return [

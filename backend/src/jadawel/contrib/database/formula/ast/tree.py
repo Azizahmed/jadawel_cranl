@@ -60,7 +60,7 @@ class BaserowExpression(abc.ABC, Generic[A]):
     stages of parsing and typing using the python type system to help us.
 
     For example, imagine I parse a raw input string and have yet to figure out the types
-    of a baserow expression. Then the type of the `expression_type` attached to each
+    of a jadawel expression. Then the type of the `expression_type` attached to each
     node in the BaserowExpression tree is None as we don't know it yet. And so we can
     write for the formula `concat('a', 'b')`:
 

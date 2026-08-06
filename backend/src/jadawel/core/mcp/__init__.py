@@ -174,11 +174,11 @@ class BaserowMCPServer:
         )
 
 
-_baserow_mcp = None
+_jadawel_mcp = None
 
 
-def get_baserow_mcp_server() -> BaserowMCPServer:
-    global _baserow_mcp
-    if _baserow_mcp is None:
-        _baserow_mcp = BaserowMCPServer()
-    return _baserow_mcp
+def get_jadawel_mcp_server() -> BaserowMCPServer:
+    global _jadawel_mcp
+    if _jadawel_mcp is None:
+        _jadawel_mcp = BaserowMCPServer()
+    return _jadawel_mcp

@@ -638,7 +638,7 @@ class FieldType(
         Can return an SQL statement to convert the `p_in` variable to a readable text
         format for the new field.
         This SQL will not be run when converting between two fields of the same
-        baserow type which share the same underlying database column type.
+        jadawel type which share the same underlying database column type.
         If you require this then implement force_same_type_alter_column.
 
         Example: return "p_in = lower(p_in);"
@@ -662,7 +662,7 @@ class FieldType(
         Can return a SQL statement to convert the `p_in` variable from text to a
         desired format for the new field.
         This SQL will not be run when converting between two fields of the same
-        baserow type which share the same underlying database column type.
+        jadawel type which share the same underlying database column type.
         If you require this then implement force_same_type_alter_column.
 
         Example: when a string is converted to a number, to statement could be:
@@ -959,7 +959,7 @@ class FieldType(
         You only need to implement this when you have validation and/or data
         manipulation running as part of your alter_column_prepare SQL which must be
         run even when from_field and to_field are the same Jadawel field type and sql
-        column type. If your field has the same baserow type but will convert into
+        column type. If your field has the same jadawel type but will convert into
         different sql column types then the alter sql will be run automatically and you
         do not need to use this override.
 
@@ -1301,7 +1301,7 @@ class FieldType(
         self, value: Any, field_object: "FieldObject", rich_value: bool = False
     ) -> Any:
         """
-        Should convert this field type's internal baserow value to a form suitable
+        Should convert this field type's internal jadawel value to a form suitable
         for exporting to a standalone file.
 
         :param value: The internal value to convert to a suitable export format
@@ -1355,7 +1355,7 @@ class FieldType(
 
         return []
 
-    def to_baserow_formula_type(self, field: Field):
+    def to_jadawel_formula_type(self, field: Field):
         """
         Should return the Jadawel Formula Type to use when referencing a field of this
         type in a formula.
@@ -1371,7 +1371,7 @@ class FieldType(
             f"A field of type {self.type} cannot be referenced in a Jadawel formula."
         )
 
-    def from_baserow_formula_type(self, formula_type) -> Field:
+    def from_jadawel_formula_type(self, formula_type) -> Field:
         """
         Should return the Jadawel Field Type when converting a formula type back
         to a field type.
@@ -1385,21 +1385,21 @@ class FieldType(
             f"A field of type {self.type} cannot be referenced in a Jadawel formula."
         )
 
-    def to_baserow_formula_expression(self, field):
+    def to_jadawel_formula_expression(self, field):
         """
         Should return a Typed Jadawel Formula Expression to use when referencing the
         field in a formula.
 
         :param field: The specific instance of the field that a typed formula
             expression should be created for.
-        :return: A typed baserow formula expression which when evaluated represents a
+        :return: A typed jadawel formula expression which when evaluated represents a
             reference to field.
         """
 
         from jadawel.contrib.database.formula import FormulaHandler
 
         return FormulaHandler.get_normal_field_reference_expression(
-            field, self.to_baserow_formula_type(field)
+            field, self.to_jadawel_formula_type(field)
         )
 
     def get_field_dependencies(

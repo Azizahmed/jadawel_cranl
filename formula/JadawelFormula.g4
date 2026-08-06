@@ -1,6 +1,6 @@
-parser grammar BaserowFormula;
+parser grammar JadawelFormula;
 
-options { tokenVocab=BaserowFormulaLexer; }
+options { tokenVocab=JadawelFormulaLexer; }
 
 // ANTLR's starting point when parsing a given string. Can be read as
 // "Parse a string that fits the 'expr' grammar definition followed by the end of the
@@ -9,14 +9,14 @@ root
     : expr EOF
     ;
 
-// The core recursive grammar definition for the Baserow Formula language. Given a
+// The core recursive grammar definition for the Jadawel Formula language. Given a
 // string ANTLR will work down through the rules separated by |s and seeing if the
 // string matches any (matching the first one that fits).
 
 // Notice that expr is defined by referencing itself letting users construct complex
 // arbitrarily nested expressions.
 
-// The CAPITAL_LETTER_VARIABLES are tokens defined in the BaserowFormulaLexer.g4 file.
+// The CAPITAL_LETTER_VARIABLES are tokens defined in the JadawelFormulaLexer.g4 file.
 
 // The '# StringLiteral' postfixes label separate rules into the same "labels".
 // When the code gen then runs the resulting Visitor will have a visitLabel

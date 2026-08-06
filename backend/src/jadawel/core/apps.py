@@ -583,7 +583,7 @@ class CoreConfig(AppConfig):
         post_migrate.connect(
             try_migrate_vector_fields,
             sender=self,
-            dispatch_uid="baserow_core_pgvector_post_migrate",
+            dispatch_uid="jadawel_core_pgvector_post_migrate",
         )
 
 

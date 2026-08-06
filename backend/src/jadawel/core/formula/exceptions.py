@@ -46,7 +46,7 @@ def formula_exception_handler(e):
         raise e
     exception_capturer(e)
     logger.error(
-        f"Formula related error occurred: {e}. Please send this error to the baserow "
+        f"Formula related error occurred: {e}. Please send this error to the jadawel "
         f"developers."
     )
     logger.exception(e)

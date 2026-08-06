@@ -726,7 +726,7 @@ class LocalBaserowGroupedAggregateRowsUserServiceType(
                 "truncated": truncated,
                 "group_alias": group_alias,
             },
-            "baserow_table_model": model,
+            "jadawel_table_model": model,
             "series": series,
             "group_bys": group_bys,
             "agg_types": agg_types,

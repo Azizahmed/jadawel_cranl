@@ -8,7 +8,7 @@ class ArabasePlugin(Plugin):
 
     Baserow's `plugin_registry` contributes its members' urls to the root
     urlconf, so registering here adds `/api/arabase/...` without editing
-    `baserow/config/urls.py` or `baserow/api/urls.py`. Keeping our routes on a
+    `jadawel/config/urls.py` or `jadawel/api/urls.py`. Keeping our routes on a
     separate prefix also means an upstream route can never collide with ours.
     """
 

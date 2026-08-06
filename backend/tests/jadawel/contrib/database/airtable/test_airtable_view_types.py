@@ -47,18 +47,18 @@ RAW_AIRTABLE_TABLE = {
 ROW_ID_MAPPING = {}
 FIELD_MAPPING = {
     "fldwSc9PqedIhTSqhi1": {
-        "baserow_field": TextField(
+        "jadawel_field": TextField(
             id="fldwSc9PqedIhTSqhi1", pk="fldwSc9PqedIhTSqhi1", name="Single line text"
         ),
-        "baserow_field_type": TextFieldType(),
+        "jadawel_field_type": TextFieldType(),
         "raw_airtable_column": RAW_AIRTABLE_TABLE["columns"][0],
         "airtable_column_type": None,
     },
     "fldwSc9PqedIhTSqhi2": {
-        "baserow_field": TextField(
+        "jadawel_field": TextField(
             id="fldwSc9PqedIhTSqhi2", pk="fldwSc9PqedIhTSqhi2", name="Single line text"
         ),
-        "baserow_field_type": TextFieldType(),
+        "jadawel_field_type": TextFieldType(),
         "raw_airtable_column": RAW_AIRTABLE_TABLE["columns"][1],
         "airtable_column_type": None,
     },
@@ -218,7 +218,7 @@ RAW_VIEW_COLOR_CONFIG_COLOR_DEFINITIONS = {
 
 def test_import_grid_view():
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -276,7 +276,7 @@ def test_import_personal_view():
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -311,7 +311,7 @@ def test_import_locked_view():
 
     import_report = AirtableImportReport()
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -333,7 +333,7 @@ def test_import_grid_view_xlarge_row_height():
     view_data["metadata"]["grid"]["rowHeight"] = "xlarge"
 
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -351,7 +351,7 @@ def test_import_grid_view_unknown_row_height():
     view_data["metadata"]["grid"]["rowHeight"] = "unknown"
 
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -368,7 +368,7 @@ def test_import_grid_view_sorts():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     view_data["lastSortsApplied"] = RAW_VIEW_DATA_SORTS
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -383,7 +383,7 @@ def test_import_grid_view_sorts():
 
     view_data["lastSortsApplied"]["sortSet"][0]["ascending"] = False
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -402,7 +402,7 @@ def test_import_grid_view_sort_field_not_found():
     view_data["lastSortsApplied"] = RAW_VIEW_DATA_SORTS
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         {},
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -424,12 +424,12 @@ def test_import_grid_view_sort_field_not_found():
 def test_import_grid_view_sort_field_unsupported():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
-    field_mapping["fldwSc9PqedIhTSqhi1"]["baserow_field_type"]._can_order_by_types = []
+    field_mapping["fldwSc9PqedIhTSqhi1"]["jadawel_field_type"]._can_order_by_types = []
 
     view_data["lastSortsApplied"] = RAW_VIEW_DATA_SORTS
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -452,7 +452,7 @@ def test_import_grid_view_group_bys():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     view_data["groupLevels"] = RAW_VIEW_DATA_GROUPS
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -467,7 +467,7 @@ def test_import_grid_view_group_bys():
 
     view_data["groupLevels"][0]["order"] = "descending"
     airtable_view_type = airtable_view_type_registry.get("grid")
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -486,7 +486,7 @@ def test_import_grid_view_group_by_field_not_found():
     view_data["groupLevels"] = RAW_VIEW_DATA_GROUPS
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         {},
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -508,12 +508,12 @@ def test_import_grid_view_group_by_field_not_found():
 def test_import_grid_view_group_by_field_unsupported():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
-    field_mapping["fldwSc9PqedIhTSqhi1"]["baserow_field_type"]._can_group_by = False
+    field_mapping["fldwSc9PqedIhTSqhi1"]["jadawel_field_type"]._can_group_by = False
 
     view_data["groupLevels"] = RAW_VIEW_DATA_GROUPS
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -540,7 +540,7 @@ def test_import_grid_view_group_by_order_unsupported():
 
     view_data["groupLevels"][0]["order"] = "UNKNOWN"
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -565,7 +565,7 @@ def test_import_grid_view_field_order_and_visibility():
     airtable_view_type = airtable_view_type_registry.get("grid")
 
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -602,15 +602,15 @@ def test_import_grid_view_filters_and_groups():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
     for field_object in field_mapping.values():
-        field_object["baserow_field"].content_type = ContentType.objects.get_for_model(
-            field_object["baserow_field"]
+        field_object["jadawel_field"].content_type = ContentType.objects.get_for_model(
+            field_object["jadawel_field"]
         )
 
     view_data["filters"] = RAW_VIEW_DATA_FILTERS
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -656,15 +656,15 @@ def test_import_grid_view_empty_filters():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
     for field_object in field_mapping.values():
-        field_object["baserow_field"].content_type = ContentType.objects.get_for_model(
-            field_object["baserow_field"]
+        field_object["jadawel_field"].content_type = ContentType.objects.get_for_model(
+            field_object["jadawel_field"]
         )
 
     view_data["filters"] = {"filterSet": [], "conjunction": "and"}
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -685,8 +685,8 @@ def test_import_grid_view_color_config_select_column_not_existing_column():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
     for field_object in field_mapping.values():
-        field_object["baserow_field"].content_type = ContentType.objects.get_for_model(
-            field_object["baserow_field"]
+        field_object["jadawel_field"].content_type = ContentType.objects.get_for_model(
+            field_object["jadawel_field"]
         )
 
     view_data["colorConfig"] = deepcopy(RAW_VIEW_COLOR_CONFIG_SELECT_COLUMN)
@@ -694,7 +694,7 @@ def test_import_grid_view_color_config_select_column_not_existing_column():
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -714,15 +714,15 @@ def test_import_grid_view_color_config_select_column():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
     for field_object in field_mapping.values():
-        field_object["baserow_field"].content_type = ContentType.objects.get_for_model(
-            field_object["baserow_field"]
+        field_object["jadawel_field"].content_type = ContentType.objects.get_for_model(
+            field_object["jadawel_field"]
         )
 
     view_data["colorConfig"] = RAW_VIEW_COLOR_CONFIG_SELECT_COLUMN
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -749,15 +749,15 @@ def test_import_grid_view_color_config_color_definitions():
     view_data = deepcopy(RAW_AIRTABLE_GRID_VIEW_DATA)
     field_mapping = deepcopy(FIELD_MAPPING)
     for field_object in field_mapping.values():
-        field_object["baserow_field"].content_type = ContentType.objects.get_for_model(
-            field_object["baserow_field"]
+        field_object["jadawel_field"].content_type = ContentType.objects.get_for_model(
+            field_object["jadawel_field"]
         )
 
     view_data["colorConfig"] = RAW_VIEW_COLOR_CONFIG_COLOR_DEFINITIONS
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -844,7 +844,7 @@ def test_import_gallery_view():
     raw_airtable_view["type"] = "gallery"
 
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         RAW_AIRTABLE_TABLE,
@@ -904,16 +904,16 @@ def test_import_gallery_view_with_cover_column():
 
     field_mapping = deepcopy(FIELD_MAPPING)
     field_mapping["fldwSc9PqedIhTSqhi3"] = {
-        "baserow_field": FileField(
+        "jadawel_field": FileField(
             id="fldwSc9PqedIhTSqhi3", pk="fldwSc9PqedIhTSqhi3", name="File"
         ),
-        "baserow_field_type": FileFieldType(),
+        "jadawel_field_type": FileFieldType(),
         "raw_airtable_column": raw_airtable_table["columns"][2],
         "airtable_column_type": None,
     }
 
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -940,7 +940,7 @@ def test_import_gallery_view_with_unknown_cover_column():
     raw_airtable_table = deepcopy(RAW_AIRTABLE_TABLE)
 
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -970,7 +970,7 @@ def test_import_gallery_view_with_incompatible_cover_column():
     raw_airtable_table = deepcopy(RAW_AIRTABLE_TABLE)
 
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -1005,16 +1005,16 @@ def test_import_gallery_view_with_cover_column_type_fit():
 
     field_mapping = deepcopy(FIELD_MAPPING)
     field_mapping["fldwSc9PqedIhTSqhi3"] = {
-        "baserow_field": FileField(
+        "jadawel_field": FileField(
             id="fldwSc9PqedIhTSqhi3", pk="fldwSc9PqedIhTSqhi3", name="File"
         ),
-        "baserow_field_type": FileFieldType(),
+        "jadawel_field_type": FileFieldType(),
         "raw_airtable_column": raw_airtable_table["columns"][2],
         "airtable_column_type": None,
     }
 
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         field_mapping,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -1053,7 +1053,7 @@ def test_import_view_in_section_order():
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         raw_airtable_table,
@@ -1088,7 +1088,7 @@ def test_import_view_in_section_name():
 
     airtable_view_type = airtable_view_type_registry.get("grid")
     import_report = AirtableImportReport()
-    serialized_view = airtable_view_type.to_serialized_baserow_view(
+    serialized_view = airtable_view_type.to_serialized_jadawel_view(
         FIELD_MAPPING,
         ROW_ID_MAPPING,
         raw_airtable_table,

@@ -84,10 +84,10 @@ def setup_interesting_test_table(
 ):
     """
     Constructs a testing table with every field type, their sub types and any other
-    interesting baserow edge cases worth testing when writing a comprehensive "does this
-    feature work with all the baserow fields" test.
+    interesting jadawel edge cases worth testing when writing a comprehensive "does this
+    feature work with all the jadawel fields" test.
 
-    :param data_fixture: The baserow testing data_fixture object
+    :param data_fixture: The jadawel testing data_fixture object
     :return:
     """
 

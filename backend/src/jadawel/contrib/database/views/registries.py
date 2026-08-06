@@ -1117,7 +1117,7 @@ class ViewFilterType(Instance):
         :type value: str
         :param model_field: The field extracted from the model.
         :type model_field: models.Field
-        :param field: The instance of the underlying baserow field.
+        :param field: The instance of the underlying jadawel field.
         :type field: Field
         :return: A Q or AnnotatedQ filter for this specific field, which will be then
             later combined with other filters to generate the final total view filter.
@@ -1258,7 +1258,7 @@ class ViewAggregationType(Instance):
         :type field_name: str
         :param model_field: The field extracted from the model.
         :type model_field: django_models.Field
-        :param field: The instance of the underlying baserow field.
+        :param field: The instance of the underlying jadawel field.
         :type field: Field
         :return: A django aggregation object for this specific field.
         """

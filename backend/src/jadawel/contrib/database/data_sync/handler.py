@@ -168,28 +168,28 @@ class DataSyncHandler:
                     f"{data_sync_type.type}.",
                 )
 
-            baserow_field = data_sync_property.to_baserow_field()
-            baserow_field.name = field_handler.find_next_unused_field_name(
+            jadawel_field = data_sync_property.to_jadawel_field()
+            jadawel_field.name = field_handler.find_next_unused_field_name(
                 table,
-                [baserow_field.name],
+                [jadawel_field.name],
             )
-            baserow_field.order = index
-            baserow_field.table = table
-            baserow_field.read_only = (
+            jadawel_field.order = index
+            jadawel_field.table = table
+            jadawel_field.read_only = (
                 data_sync_property.unique_primary or not values.get("two_way_sync")
             )
-            baserow_field.immutable_type = True
-            baserow_field.immutable_properties = data_sync_property.immutable_properties
+            jadawel_field.immutable_type = True
+            jadawel_field.immutable_properties = data_sync_property.immutable_properties
             if data_sync_property.unique_primary and not has_primary:
                 has_primary = True
-                baserow_field.primary = True
-            baserow_field.save()
-            metadata = data_sync_property.get_metadata(baserow_field)
+                jadawel_field.primary = True
+            jadawel_field.save()
+            metadata = data_sync_property.get_metadata(jadawel_field)
 
             properties_to_create.append(
                 DataSyncSyncedProperty(
                     data_sync=data_sync_instance,
-                    field=baserow_field,
+                    field=jadawel_field,
                     key=synced_property,
                     unique_primary=data_sync_property.unique_primary,
                     metadata=metadata,
@@ -438,9 +438,9 @@ class DataSyncHandler:
                 for enabled_property in enabled_properties:
                     key = enabled_property.key
                     value = new_record_data[key]
-                    baserow_row_value = existing_record[key_to_field_id[key]]
+                    jadawel_row_value = existing_record[key_to_field_id[key]]
                     data_sync_property = key_to_property[key]
-                    if not data_sync_property.is_equal(baserow_row_value, value):
+                    if not data_sync_property.is_equal(jadawel_row_value, value):
                         existing_record[key_to_field_id[key]] = value
                         changed = True
                 if changed:
@@ -591,7 +591,7 @@ class DataSyncHandler:
             elif synced_property in enabled_property_keys:
                 enabled_property = enabled_properties_per_key[synced_property]
                 existing_field_class = enabled_property.field.specific_class
-                new_field = data_sync_property.to_baserow_field()
+                new_field = data_sync_property.to_jadawel_field()
 
                 existing_metadata = enabled_property.metadata
                 new_metadata = data_sync_property.get_metadata(
@@ -651,9 +651,9 @@ class DataSyncHandler:
         has_primary = data_sync.table.field_set.filter(primary=True).exists()
 
         for data_sync_property in properties_to_be_added:
-            baserow_field = data_sync_property.to_baserow_field()
-            baserow_field_type = field_type_registry.get_by_model(baserow_field)
-            field_kwargs = baserow_field.__dict__
+            jadawel_field = data_sync_property.to_jadawel_field()
+            jadawel_field_type = field_type_registry.get_by_model(jadawel_field)
+            field_kwargs = jadawel_field.__dict__
             field_kwargs["read_only"] = (
                 data_sync_property.unique_primary or not data_sync.two_way_sync
             )
@@ -674,7 +674,7 @@ class DataSyncHandler:
             field = handler.create_field(
                 user=user,
                 table=data_sync.table,
-                type_name=baserow_field_type.type,
+                type_name=jadawel_field_type.type,
                 name=new_name,
                 **field_kwargs,
             )
@@ -689,9 +689,9 @@ class DataSyncHandler:
 
         for data_sync_property, new_metadata in properties_to_be_updated:
             enabled_property = enabled_properties_per_key[data_sync_property.key]
-            baserow_field = data_sync_property.to_baserow_field()
-            baserow_field_type = field_type_registry.get_by_model(baserow_field)
-            field_kwargs = baserow_field.__dict__
+            jadawel_field = data_sync_property.to_jadawel_field()
+            jadawel_field_type = field_type_registry.get_by_model(jadawel_field)
+            field_kwargs = jadawel_field.__dict__
             field_kwargs["read_only"] = (
                 data_sync_property.unique_primary or not data_sync.two_way_sync
             )
@@ -702,7 +702,7 @@ class DataSyncHandler:
             enabled_property.field = handler.update_field(
                 user=user,
                 field=enabled_property.field.specific,
-                new_type_name=baserow_field_type.type,
+                new_type_name=jadawel_field_type.type,
                 **field_kwargs,
             )
             enabled_property.unique_primary = data_sync_property.unique_primary
