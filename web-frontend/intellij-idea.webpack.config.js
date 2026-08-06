@@ -14,22 +14,6 @@ module.exports = {
     root: path.resolve(__dirname),
     alias: {
       '@jadawel': path.resolve(__dirname),
-      '@jadawel_premium': path.resolve(
-        __dirname,
-        '../premium/web-frontend/modules/baserow_premium'
-      ),
-      '@jadawel_premium_test': path.resolve(
-        __dirname,
-        '../premium/web-frontend/test'
-      ),
-      '@jadawel_enterprise': path.resolve(
-        __dirname,
-        '../enterprise/web-frontend/modules/baserow_enterprise'
-      ),
-      '@jadawel_enterprise_test': path.resolve(
-        __dirname,
-        '../enterprise/web-frontend/test'
-      ),
       '@jadawel_test_cases': path.resolve(__dirname, '../tests/cases'),
     },
   },
