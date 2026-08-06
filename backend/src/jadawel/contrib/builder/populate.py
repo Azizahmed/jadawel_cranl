@@ -53,7 +53,7 @@ def load_test_data():
         builder=builder, domain_name="test3.getbaserow.io", order=3
     )
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     try:
         integration = Integration.objects.get(
@@ -198,7 +198,7 @@ def load_test_data():
         )
 
         # Data source creation
-        service_type = service_type_registry.get("local_baserow_get_row")
+        service_type = service_type_registry.get("local_jadawel_get_row")
         table = Table.objects.get(
             name="Products",
             database__workspace=workspace,
@@ -237,7 +237,7 @@ def load_test_data():
         products = PageHandler().create_page(builder, "Products", "/products")
 
         # Data source creation
-        service_type = service_type_registry.get("local_baserow_list_rows")
+        service_type = service_type_registry.get("local_jadawel_list_rows")
 
         view = GridView.objects.create(table=table, order=0, name="Products Grid 2")
 

@@ -237,7 +237,7 @@ export default {
       return this.viewAggregationTypes.map((aggType) => aggType.getType())
     },
     unsupportedAggregationTypes() {
-      return this.$registry.get('service', 'local_baserow_aggregate_rows')
+      return this.$registry.get('service', 'local_jadawel_aggregate_rows')
         .unsupportedAggregationTypes
     },
   },

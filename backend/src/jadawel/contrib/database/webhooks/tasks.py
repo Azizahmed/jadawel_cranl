@@ -49,7 +49,7 @@ def schedule_next_task_in_queue(webhook_id):
 
 
 @app.task(
-    name="baserow.contrib.database.webhooks.tasks.call_webhook",
+    name="jadawel.contrib.database.webhooks.tasks.call_webhook",
     bind=True,
     max_retries=settings.JADAWEL_WEBHOOKS_MAX_RETRIES_PER_CALL,
     queue="export",

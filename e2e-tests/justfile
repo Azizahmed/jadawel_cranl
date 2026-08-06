@@ -120,9 +120,9 @@ up: _ensure-images
     if ! docker ps --format '{{ '{{.Names}}' }}' | grep -q "^e2e-db$"; then
         echo "Starting PostgreSQL..."
         docker run -d --network={{ network }} --name e2e-db \
-            -e POSTGRES_USER=baserow \
-            -e POSTGRES_PASSWORD=baserow \
-            -e POSTGRES_DB=baserow \
+            -e POSTGRES_USER=jadawel \
+            -e POSTGRES_PASSWORD=jadawel \
+            -e POSTGRES_DB=jadawel \
             --tmpfs /var/lib/postgresql/data:size=2G \
             {{ db_image }}
     fi
@@ -143,7 +143,7 @@ up: _ensure-images
     # Wait for PostgreSQL to be ready
     echo "Waiting for PostgreSQL..."
     for i in {1..30}; do
-        if docker exec e2e-db pg_isready -U baserow > /dev/null 2>&1; then
+        if docker exec e2e-db pg_isready -U jadawel > /dev/null 2>&1; then
             break
         fi
         sleep 1
@@ -162,9 +162,9 @@ up: _ensure-images
         docker run -d --network={{ network }} --name e2e-backend \
             -v e2e-media:/jadawel/media \
             -e DATABASE_HOST=e2e-db \
-            -e DATABASE_NAME=baserow \
-            -e DATABASE_USER=baserow \
-            -e DATABASE_PASSWORD=baserow \
+            -e DATABASE_NAME=jadawel \
+            -e DATABASE_USER=jadawel \
+            -e DATABASE_PASSWORD=jadawel \
             -e REDIS_URL=redis://e2e-redis:6379 \
             -e SECRET_KEY=test \
             -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.e2e \
@@ -181,9 +181,9 @@ up: _ensure-images
         docker run -d --network={{ network }} --name e2e-celery \
             -v e2e-media:/jadawel/media \
             -e DATABASE_HOST=e2e-db \
-            -e DATABASE_NAME=baserow \
-            -e DATABASE_USER=baserow \
-            -e DATABASE_PASSWORD=baserow \
+            -e DATABASE_NAME=jadawel \
+            -e DATABASE_USER=jadawel \
+            -e DATABASE_PASSWORD=jadawel \
             -e REDIS_URL=redis://e2e-redis:6379 \
             -e SECRET_KEY=test \
             -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.e2e \
@@ -307,15 +307,15 @@ db-dump:
     # Start PostgreSQL with pgvector
     echo "Starting PostgreSQL..."
     docker run -d --network={{ dump_network }} --name {{ dump_db }} \
-        -e POSTGRES_USER=baserow \
-        -e POSTGRES_PASSWORD=baserow \
-        -e POSTGRES_DB=baserow \
+        -e POSTGRES_USER=jadawel \
+        -e POSTGRES_PASSWORD=jadawel \
+        -e POSTGRES_DB=jadawel \
         {{ db_image }}
 
     # Wait for PostgreSQL
     echo "Waiting for PostgreSQL to be ready..."
     for i in {1..30}; do
-        if docker exec {{ dump_db }} pg_isready -U baserow > /dev/null 2>&1; then
+        if docker exec {{ dump_db }} pg_isready -U jadawel > /dev/null 2>&1; then
             break
         fi
         sleep 1
@@ -336,9 +336,9 @@ db-dump:
     echo "Running migrations..."
     docker run --rm --network={{ dump_network }} --name e2e-dump-backend \
         -e DATABASE_HOST={{ dump_db }} \
-        -e DATABASE_NAME=baserow \
-        -e DATABASE_USER=baserow \
-        -e DATABASE_PASSWORD=baserow \
+        -e DATABASE_NAME=jadawel \
+        -e DATABASE_USER=jadawel \
+        -e DATABASE_PASSWORD=jadawel \
         -e REDIS_URL=redis://e2e-dump-redis:6379 \
         -e SECRET_KEY=dump-generation \
         -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.test \

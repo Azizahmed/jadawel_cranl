@@ -20,7 +20,7 @@ class WrongTemplateEmail(BaseEmailMessage):
 
 class SimpleResetPasswordEmail(BaseEmailMessage):
     subject = "Reset password"
-    template_name = "baserow/core/user/reset_password.html"
+    template_name = "jadawel/core/user/reset_password.html"
 
 
 @pytest.mark.django_db

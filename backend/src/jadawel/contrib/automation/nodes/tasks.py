@@ -7,7 +7,7 @@ from jadawel.core.db import atomic_with_retry_on_deadlock
 
 
 @app.task(
-    name="baserow.contrib.automation.nodes.tasks.dispatch_node_celery_task",
+    name="jadawel.contrib.automation.nodes.tasks.dispatch_node_celery_task",
     bind=True,
     queue="automation_workflow",
 )

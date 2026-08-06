@@ -80,7 +80,7 @@ docker logs --tail 2000 "$(docker ps -a --filter 'name=jadawel-backend' --format
 
 section "Postgres: slowest statements"
 DB=$(docker ps --filter "name=jadawel-db" --format '{{.Names}}' | head -1)
-docker exec "$DB" psql -U "${DATABASE_USER:-baserow}" -d "${DATABASE_NAME:-baserow}" -c \
+docker exec "$DB" psql -U "${DATABASE_USER:-jadawel}" -d "${DATABASE_NAME:-jadawel}" -c \
   "SELECT state, count(*) FROM pg_stat_activity GROUP BY state;" 2>/dev/null ||
   echo "could not query pg_stat_activity (set DATABASE_USER/DATABASE_NAME if they are not the defaults)"
 

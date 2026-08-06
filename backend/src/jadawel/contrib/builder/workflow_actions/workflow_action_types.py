@@ -19,9 +19,9 @@ from jadawel.contrib.builder.workflow_actions.models import (
     AIAgentWorkflowAction,
     CoreHTTPRequestWorkflowAction,
     CoreSMTPEmailWorkflowAction,
-    LocalBaserowCreateRowWorkflowAction,
-    LocalBaserowDeleteRowWorkflowAction,
-    LocalBaserowUpdateRowWorkflowAction,
+    LocalJadawelCreateRowWorkflowAction,
+    LocalJadawelDeleteRowWorkflowAction,
+    LocalJadawelUpdateRowWorkflowAction,
     LogoutWorkflowAction,
     NotificationWorkflowAction,
     OpenPageWorkflowAction,
@@ -37,9 +37,9 @@ from jadawel.contrib.integrations.core.service_types import (
     CoreHTTPRequestServiceType,
     CoreSMTPEmailServiceType,
 )
-from jadawel.contrib.integrations.local_baserow.service_types import (
-    LocalBaserowDeleteRowServiceType,
-    LocalBaserowUpsertRowServiceType,
+from jadawel.contrib.integrations.local_jadawel.service_types import (
+    LocalJadawelDeleteRowServiceType,
+    LocalJadawelUpsertRowServiceType,
 )
 from jadawel.contrib.integrations.slack.service_types import (
     SlackWriteMessageServiceType,
@@ -355,7 +355,7 @@ class BuilderWorkflowServiceActionType(BuilderWorkflowActionType):
         values: Dict[str, Any],
         user: AbstractUser,
         instance: Union[
-            LocalBaserowCreateRowWorkflowAction, LocalBaserowUpdateRowWorkflowAction
+            LocalJadawelCreateRowWorkflowAction, LocalJadawelUpdateRowWorkflowAction
         ] = None,
     ):
         """
@@ -433,36 +433,36 @@ class BuilderWorkflowServiceActionType(BuilderWorkflowActionType):
         )
 
 
-class LocalBaserowWorkflowActionType(BuilderWorkflowServiceActionType):
+class LocalJadawelWorkflowActionType(BuilderWorkflowServiceActionType):
     pass
 
 
-class UpsertRowWorkflowActionType(LocalBaserowWorkflowActionType):
+class UpsertRowWorkflowActionType(LocalJadawelWorkflowActionType):
     type = "upsert_row"
-    service_type = LocalBaserowUpsertRowServiceType.type
+    service_type = LocalJadawelUpsertRowServiceType.type
 
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, int]:
-        service = pytest_data_fixture.create_local_baserow_upsert_row_service()
+        service = pytest_data_fixture.create_local_jadawel_upsert_row_service()
         return {"service": service}
 
 
 class CreateRowWorkflowActionType(UpsertRowWorkflowActionType):
     type = "create_row"
-    model_class = LocalBaserowCreateRowWorkflowAction
+    model_class = LocalJadawelCreateRowWorkflowAction
 
 
 class UpdateRowWorkflowActionType(UpsertRowWorkflowActionType):
     type = "update_row"
-    model_class = LocalBaserowUpdateRowWorkflowAction
+    model_class = LocalJadawelUpdateRowWorkflowAction
 
 
-class DeleteRowWorkflowActionType(LocalBaserowWorkflowActionType):
+class DeleteRowWorkflowActionType(LocalJadawelWorkflowActionType):
     type = "delete_row"
-    model_class = LocalBaserowDeleteRowWorkflowAction
-    service_type = LocalBaserowDeleteRowServiceType.type
+    model_class = LocalJadawelDeleteRowWorkflowAction
+    service_type = LocalJadawelDeleteRowServiceType.type
 
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, int]:
-        service = pytest_data_fixture.create_local_baserow_delete_row_service()
+        service = pytest_data_fixture.create_local_jadawel_delete_row_service()
         return {"service": service}
 
 

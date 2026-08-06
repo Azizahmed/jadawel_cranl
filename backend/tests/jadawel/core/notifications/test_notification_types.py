@@ -241,7 +241,7 @@ def test_notification_creation_on_rejecting_group_invitation(
 
 @pytest.mark.django_db
 @patch("jadawel.core.notifications.signals.notification_created.send")
-def test_baserow_version_upgrade_is_sent_as_broadcast_notification(
+def test_jadawel_version_upgrade_is_sent_as_broadcast_notification(
     mocked_notification_created, api_client, data_fixture
 ):
     user_1, token_1 = data_fixture.create_user_and_token()

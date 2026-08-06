@@ -66,7 +66,7 @@ def test_import_context_addition_sets_schema_property(data_fixture):
     workspace = data_fixture.create_workspace(user=user)
     builder = data_fixture.create_builder_application(workspace=workspace)
     page = data_fixture.create_builder_page(builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     outer_repeat = data_fixture.create_builder_repeat_element(

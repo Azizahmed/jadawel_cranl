@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, Mock, PropertyMock
 
 import pytest
-from baserow_premium.integrations.local_baserow.service_types import DispatchResult
+from baserow_premium.integrations.local_jadawel.service_types import DispatchResult
 from rest_framework.exceptions import ValidationError
 
 from jadawel.core.services.models import Service
@@ -105,15 +105,15 @@ def test_service_type_prepare_values(data_fixture):
     service_type_cls.model_class = Mock()
 
     application_a = data_fixture.create_builder_application(user=user)
-    integration_a = data_fixture.create_local_baserow_integration(
+    integration_a = data_fixture.create_local_jadawel_integration(
         application=application_a
     )
     instance = Service.objects.create(integration=integration_a)
     application_b = data_fixture.create_builder_application(user=user)
-    integration_b = data_fixture.create_local_baserow_integration(
+    integration_b = data_fixture.create_local_jadawel_integration(
         application=application_b
     )
-    integration_c = data_fixture.create_local_baserow_integration(
+    integration_c = data_fixture.create_local_jadawel_integration(
         application=application_a
     )
 

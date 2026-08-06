@@ -9,80 +9,80 @@ from jadawel.contrib.integrations.core.models import (
     CoreRouterService,
     CoreSMTPEmailService,
 )
-from jadawel.contrib.integrations.local_baserow.models import (
-    LocalBaserowAggregateRows,
-    LocalBaserowDeleteRow,
-    LocalBaserowGetRow,
-    LocalBaserowListRows,
-    LocalBaserowRowsCreated,
-    LocalBaserowRowsDeleted,
-    LocalBaserowRowsUpdated,
-    LocalBaserowTableServiceFilter,
-    LocalBaserowTableServiceSort,
-    LocalBaserowUpsertRow,
+from jadawel.contrib.integrations.local_jadawel.models import (
+    LocalJadawelAggregateRows,
+    LocalJadawelDeleteRow,
+    LocalJadawelGetRow,
+    LocalJadawelListRows,
+    LocalJadawelRowsCreated,
+    LocalJadawelRowsDeleted,
+    LocalJadawelRowsUpdated,
+    LocalJadawelTableServiceFilter,
+    LocalJadawelTableServiceSort,
+    LocalJadawelUpsertRow,
 )
 from jadawel.contrib.integrations.slack.models import SlackWriteMessageService
 from jadawel.core.services.registries import service_type_registry
 
 
 class ServiceFixtures:
-    def create_local_baserow_get_row_service(self, **kwargs) -> LocalBaserowGetRow:
-        service = self.create_service(LocalBaserowGetRow, **kwargs)
+    def create_local_jadawel_get_row_service(self, **kwargs) -> LocalJadawelGetRow:
+        service = self.create_service(LocalJadawelGetRow, **kwargs)
         return service
 
-    def create_local_baserow_list_rows_service(self, **kwargs) -> LocalBaserowListRows:
-        service = self.create_service(LocalBaserowListRows, **kwargs)
+    def create_local_jadawel_list_rows_service(self, **kwargs) -> LocalJadawelListRows:
+        service = self.create_service(LocalJadawelListRows, **kwargs)
         return service
 
-    def create_local_baserow_upsert_row_service(
+    def create_local_jadawel_upsert_row_service(
         self, **kwargs
-    ) -> LocalBaserowUpsertRow:
-        service = self.create_service(LocalBaserowUpsertRow, **kwargs)
+    ) -> LocalJadawelUpsertRow:
+        service = self.create_service(LocalJadawelUpsertRow, **kwargs)
         return service
 
-    def create_local_baserow_delete_row_service(
+    def create_local_jadawel_delete_row_service(
         self, **kwargs
-    ) -> LocalBaserowDeleteRow:
-        service = self.create_service(LocalBaserowDeleteRow, **kwargs)
+    ) -> LocalJadawelDeleteRow:
+        service = self.create_service(LocalJadawelDeleteRow, **kwargs)
         return service
 
-    def create_local_baserow_aggregate_rows_service(
+    def create_local_jadawel_aggregate_rows_service(
         self, **kwargs
-    ) -> LocalBaserowAggregateRows:
-        service = self.create_service(LocalBaserowAggregateRows, **kwargs)
+    ) -> LocalJadawelAggregateRows:
+        service = self.create_service(LocalJadawelAggregateRows, **kwargs)
         return service
 
-    def create_local_baserow_rows_created_service(
+    def create_local_jadawel_rows_created_service(
         self, **kwargs
-    ) -> LocalBaserowRowsCreated:
-        service = self.create_service(LocalBaserowRowsCreated, **kwargs)
+    ) -> LocalJadawelRowsCreated:
+        service = self.create_service(LocalJadawelRowsCreated, **kwargs)
         return service
 
-    def create_local_baserow_rows_updated_service(
+    def create_local_jadawel_rows_updated_service(
         self, **kwargs
-    ) -> LocalBaserowRowsUpdated:
-        service = self.create_service(LocalBaserowRowsUpdated, **kwargs)
+    ) -> LocalJadawelRowsUpdated:
+        service = self.create_service(LocalJadawelRowsUpdated, **kwargs)
         return service
 
-    def create_local_baserow_rows_deleted_service(
+    def create_local_jadawel_rows_deleted_service(
         self, **kwargs
-    ) -> LocalBaserowRowsDeleted:
-        service = self.create_service(LocalBaserowRowsDeleted, **kwargs)
+    ) -> LocalJadawelRowsDeleted:
+        service = self.create_service(LocalJadawelRowsDeleted, **kwargs)
         return service
 
-    def create_local_baserow_table_service_filter(
+    def create_local_jadawel_table_service_filter(
         self, **kwargs
-    ) -> LocalBaserowTableServiceFilter:
+    ) -> LocalJadawelTableServiceFilter:
         if "type" not in kwargs:
             kwargs["type"] = "equal"
         if "order" not in kwargs:
             kwargs["order"] = 0
-        return LocalBaserowTableServiceFilter.objects.create(**kwargs)
+        return LocalJadawelTableServiceFilter.objects.create(**kwargs)
 
-    def create_local_baserow_table_service_sort(
+    def create_local_jadawel_table_service_sort(
         self, **kwargs
-    ) -> LocalBaserowTableServiceSort:
-        return LocalBaserowTableServiceSort.objects.create(**kwargs)
+    ) -> LocalJadawelTableServiceSort:
+        return LocalJadawelTableServiceSort.objects.create(**kwargs)
 
     def create_core_http_request_service(self, **kwargs) -> CoreHTTPRequestService:
         service = self.create_service(CoreHTTPRequestService, **kwargs)
@@ -125,7 +125,7 @@ class ServiceFixtures:
 
         if output_node is None and not skip_output_node:
             router_node = service.automation_workflow_node
-            self.create_local_baserow_create_row_action_node(
+            self.create_local_jadawel_create_row_action_node(
                 reference_node=router_node,
                 output=edge.uid,
                 position="south",

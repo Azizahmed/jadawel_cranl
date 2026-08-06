@@ -13,7 +13,7 @@ from jadawel.contrib.dashboard.data_sources.exceptions import (
 from jadawel.contrib.dashboard.data_sources.handler import DashboardDataSourceHandler
 from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
 from jadawel.contrib.database.rows.handler import RowHandler
-from jadawel.contrib.integrations.local_baserow.models import LocalBaserowAggregateRows
+from jadawel.contrib.integrations.local_jadawel.models import LocalJadawelAggregateRows
 from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
 )
@@ -24,7 +24,7 @@ from jadawel.core.services.registries import service_type_registry
 @pytest.mark.django_db
 def test_get_data_source(data_fixture, django_assert_num_queries):
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
@@ -50,12 +50,12 @@ def test_get_data_source_does_not_exist(data_fixture):
 @pytest.mark.django_db
 def test_get_data_source_with_base_queryset(data_fixture):
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 2"
         )
     )
@@ -75,17 +75,17 @@ def test_get_data_sources(data_fixture, django_assert_num_queries):
     dashboard = data_fixture.create_dashboard_application()
     dashboard_2 = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 2"
         )
     )
     data_source_other_dashboard = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard_2, name="Data source dashboard 2"
         )
     )
@@ -116,17 +116,17 @@ def test_get_data_sources_specific_services(data_fixture, django_assert_num_quer
     dashboard = data_fixture.create_dashboard_application()
     dashboard_2 = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 2"
         )
     )
     data_source_other_dashboard = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard_2, name="Data source dashboard 2"
         )
     )
@@ -141,12 +141,12 @@ def test_get_data_sources_specific_services(data_fixture, django_assert_num_quer
         assert data_sources[0].dashboard.id == data_source.dashboard.id
         assert data_sources[0].order == data_source.order
         assert data_sources[0].service.id == data_source.service.id
-        assert isinstance(data_sources[0].service, LocalBaserowAggregateRows)
+        assert isinstance(data_sources[0].service, LocalJadawelAggregateRows)
         assert data_sources[1].name == data_source_2.name
         assert data_sources[1].dashboard.id == data_source_2.dashboard.id
         assert data_sources[1].order == data_source_2.order
         assert data_sources[1].service.id == data_source_2.service.id
-        assert isinstance(data_sources[1].service, LocalBaserowAggregateRows)
+        assert isinstance(data_sources[1].service, LocalJadawelAggregateRows)
         data_sources[0].dashboard.workspace.id
         data_sources[0].service.integration.id
         data_sources[0].service.integration.application.id
@@ -157,22 +157,22 @@ def test_get_data_sources_with_base_queryset(data_fixture):
     dashboard = data_fixture.create_dashboard_application()
     dashboard_2 = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 1"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="XYZ"
         )
     )
     data_source_3 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Different name"
         )
     )
     data_source_other_dashboard = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard_2, name="Data source dashboard 2"
         )
     )
@@ -188,7 +188,7 @@ def test_get_data_sources_with_base_queryset(data_fixture):
 @pytest.mark.django_db(transaction=True, databases=["default", "default-copy"])
 def test_get_data_source_for_update(data_fixture):
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
@@ -216,12 +216,12 @@ def test_get_data_source_for_update_does_not_exist(data_fixture):
 @pytest.mark.django_db
 def test_get_data_source_for_update_with_base_queryset(data_fixture):
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 2"
         )
     )
@@ -241,7 +241,7 @@ def test_get_data_source_for_update_with_base_queryset(data_fixture):
 @pytest.mark.django_db
 def test_find_unused_data_source_name(data_fixture):
     dashboard = data_fixture.create_dashboard_application()
-    service_type = service_type_registry.get("local_baserow_aggregate_rows")
+    service_type = service_type_registry.get("local_jadawel_aggregate_rows")
     data_source = DashboardDataSourceHandler().create_data_source(
         dashboard=dashboard, name="Data source", service_type=service_type
     )
@@ -262,7 +262,7 @@ def test_find_unused_data_source_name(data_fixture):
 @pytest.mark.django_db
 def test_create_data_source(data_fixture):
     dashboard = data_fixture.create_dashboard_application()
-    service_type = service_type_registry.get("local_baserow_aggregate_rows")
+    service_type = service_type_registry.get("local_jadawel_aggregate_rows")
 
     data_source = DashboardDataSourceHandler().create_data_source(
         dashboard=dashboard, name="Data source", service_type=service_type
@@ -270,7 +270,7 @@ def test_create_data_source(data_fixture):
 
     assert data_source.dashboard.id == dashboard.id
     assert data_source.order == 1
-    assert isinstance(data_source.service, LocalBaserowAggregateRows)
+    assert isinstance(data_source.service, LocalJadawelAggregateRows)
     assert data_source.name == "Data source"
     assert DashboardDataSource.objects.count() == 1
 
@@ -279,7 +279,7 @@ def test_create_data_source(data_fixture):
 def test_update_data_source_name(data_fixture):
     dashboard = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 1"
         )
     )
@@ -294,10 +294,10 @@ def test_update_data_source_name(data_fixture):
 @pytest.mark.django_db
 def test_update_data_source_change_type(data_fixture):
     dashboard = data_fixture.create_dashboard_application()
-    data_source = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard
     )
-    new_service_type = service_type_registry.get("local_baserow_aggregate_rows")
+    new_service_type = service_type_registry.get("local_jadawel_aggregate_rows")
 
     updated_data_source = DashboardDataSourceHandler().update_data_source(
         data_source, service_type=new_service_type
@@ -305,14 +305,14 @@ def test_update_data_source_change_type(data_fixture):
 
     assert (
         service_type_registry.get_by_model(updated_data_source.data_source.service).type
-        == "local_baserow_aggregate_rows"
+        == "local_jadawel_aggregate_rows"
     )
 
 
 @pytest.mark.django_db
 def test_delete_data_source(data_fixture):
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
@@ -341,14 +341,14 @@ def test_dispatch_data_source(data_fixture):
         ],
     )
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
-    service = data_fixture.create_local_baserow_aggregate_rows_service(
+    service = data_fixture.create_local_jadawel_aggregate_rows_service(
         integration=integration, table=table, field=field, aggregation_type="sum"
     )
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1", user=user, dashboard=dashboard, service=service
         )
     )
@@ -381,14 +381,14 @@ def test_dispatch_data_source_improperly_configured(data_fixture):
         ],
     )
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
-    service = data_fixture.create_local_baserow_aggregate_rows_service(
+    service = data_fixture.create_local_jadawel_aggregate_rows_service(
         integration=integration, table=table, field=None, aggregation_type="sum"
     )
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1", user=user, dashboard=dashboard, service=service
         )
     )

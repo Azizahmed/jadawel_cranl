@@ -64,7 +64,7 @@ def test_delete_workflow_action_with_service(data_fixture):
     page = data_fixture.create_builder_page()
     element = data_fixture.create_builder_button_element(page=page)
     event = EventTypes.CLICK
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=event
     )
 
@@ -259,15 +259,15 @@ def test_dispatch_workflow_action_doesnt_trigger_formula_recursion(data_fixture)
     )
     page = data_fixture.create_builder_page(builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user, authorized_user=user
     )
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         integration=integration,
         page=page,
         table=table,
     )
-    service = data_fixture.create_local_baserow_upsert_row_service(
+    service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table,
         integration=integration,
     )
@@ -276,7 +276,7 @@ def test_dispatch_workflow_action_doesnt_trigger_formula_recursion(data_fixture)
         value=f'concat(get("data_source.{data_source.id}.0.{fields[0].db_column}"), '
         f'get("data_source.{data_source.id}.0.{fields[1].db_column}"))',
     )
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, service=service, element=element, event=EventTypes.CLICK
     )
 

@@ -89,7 +89,7 @@ class BuilderApplicationTypeInitApplication:
 
     def create_integration(self) -> "Integration":
         return IntegrationHandler().create_integration(
-            integration_type_registry.get("local_baserow"),
+            integration_type_registry.get("local_jadawel"),
             self.application,
             authorized_user=self.user,
             name=self.first_integration_name,
@@ -128,7 +128,7 @@ class BuilderApplicationTypeInitApplication:
         data_source = DataSourceHandler().create_data_source(
             page,
             self.first_data_source_name,
-            service_type_registry.get("local_baserow_list_rows"),
+            service_type_registry.get("local_jadawel_list_rows"),
             table=table,
             integration=integration,
         )
@@ -220,7 +220,7 @@ class BuilderApplicationTypeInitApplication:
             form_container.save()
 
             service = ServiceHandler().create_service(
-                service_type_registry.get("local_baserow_upsert_row"),
+                service_type_registry.get("local_jadawel_upsert_row"),
                 table=table,
                 integration=integration,
             )

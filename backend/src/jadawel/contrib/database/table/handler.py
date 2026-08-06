@@ -12,7 +12,7 @@ from django.utils.translation import gettext as _
 from opentelemetry import trace
 
 from jadawel.contrib.database.db.schema import safe_django_schema_editor
-from jadawel.contrib.database.fields.constants import RESERVED_BASEROW_FIELD_NAMES
+from jadawel.contrib.database.fields.constants import RESERVED_JADAWEL_FIELD_NAMES
 from jadawel.contrib.database.fields.dependencies.models import FieldDependency
 from jadawel.contrib.database.fields.exceptions import (
     InvalidJadawelFieldName,
@@ -554,7 +554,7 @@ class TableHandler(metaclass=jadawel_trace_methods(tracer)):
         if len(long_field_names) > 0:
             raise MaxFieldNameLengthExceeded(max_field_name_length)
 
-        if len(field_name_set.intersection(RESERVED_BASEROW_FIELD_NAMES)) > 0:
+        if len(field_name_set.intersection(RESERVED_JADAWEL_FIELD_NAMES)) > 0:
             raise ReservedJadawelFieldNameException()
 
         if "" in field_name_set:

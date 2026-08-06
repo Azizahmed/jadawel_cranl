@@ -20,10 +20,10 @@ from jadawel.api.schemas import (
 )
 from jadawel.api.trash.errors import ERROR_CANNOT_DELETE_ALREADY_DELETED_ITEM
 from jadawel.contrib.database.api.fields.errors import (
-    ERROR_INVALID_BASEROW_FIELD_NAME,
+    ERROR_INVALID_JADAWEL_FIELD_NAME,
     ERROR_MAX_FIELD_COUNT_EXCEEDED,
     ERROR_MAX_FIELD_NAME_LENGTH_EXCEEDED,
-    ERROR_RESERVED_BASEROW_FIELD_NAME,
+    ERROR_RESERVED_JADAWEL_FIELD_NAME,
 )
 from jadawel.contrib.database.api.tokens.authentications import TokenAuthentication
 from jadawel.contrib.database.fields.exceptions import (
@@ -245,9 +245,9 @@ class TablesView(APIView):
                     "ERROR_REQUEST_BODY_VALIDATION",
                     "ERROR_INVALID_INITIAL_TABLE_DATA",
                     "ERROR_INITIAL_TABLE_DATA_LIMIT_EXCEEDED",
-                    "ERROR_RESERVED_BASEROW_FIELD_NAME",
+                    "ERROR_RESERVED_JADAWEL_FIELD_NAME",
                     "ERROR_INITIAL_TABLE_DATA_HAS_DUPLICATE_NAMES",
-                    "ERROR_INVALID_BASEROW_FIELD_NAME",
+                    "ERROR_INVALID_JADAWEL_FIELD_NAME",
                     "ERROR_MAX_JOB_COUNT_EXCEEDED",
                 ]
             ),
@@ -265,8 +265,8 @@ class TablesView(APIView):
             MaxFieldLimitExceeded: ERROR_MAX_FIELD_COUNT_EXCEEDED,
             MaxFieldNameLengthExceeded: ERROR_MAX_FIELD_NAME_LENGTH_EXCEEDED,
             InitialTableDataDuplicateName: ERROR_INITIAL_TABLE_DATA_HAS_DUPLICATE_NAMES,
-            ReservedJadawelFieldNameException: ERROR_RESERVED_BASEROW_FIELD_NAME,
-            InvalidJadawelFieldName: ERROR_INVALID_BASEROW_FIELD_NAME,
+            ReservedJadawelFieldNameException: ERROR_RESERVED_JADAWEL_FIELD_NAME,
+            InvalidJadawelFieldName: ERROR_INVALID_JADAWEL_FIELD_NAME,
             MaxJobCountExceeded: ERROR_MAX_JOB_COUNT_EXCEEDED,
         }
     )

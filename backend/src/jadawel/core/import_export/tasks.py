@@ -24,7 +24,7 @@ DELETE_MARKED_IMPORT_EXPORT_RESOURCES_TIME_LIMIT = (
 
 
 @app.task(
-    name="baserow.core.import_export.tasks.mark_import_export_resources_for_deletion",
+    name="jadawel.core.import_export.tasks.mark_import_export_resources_for_deletion",
     bind=True,
     queue="export",
 )
@@ -48,7 +48,7 @@ def mark_import_export_resources_for_deletion(
 
 
 @app.task(
-    name="baserow.core.import_export.tasks.delete_marked_import_export_resources",
+    name="jadawel.core.import_export.tasks.delete_marked_import_export_resources",
     base=Singleton,
     bind=True,
     queue="export",

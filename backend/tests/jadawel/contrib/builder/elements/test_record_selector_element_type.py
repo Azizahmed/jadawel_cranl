@@ -19,7 +19,7 @@ def test_record_selector_element_extract_properties(data_fixture):
 
     # If the record selector has a data source *without* a table then the
     # formula properties just include "id"
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source()
     element = data_fixture.create_builder_record_selector_element(
         data_source=data_source
     )
@@ -29,7 +29,7 @@ def test_record_selector_element_extract_properties(data_fixture):
     # If the record selector has a data source *with* a table that does not
     # define a name property, then the formula properties just include "id"
     table = data_fixture.create_database_table(user=user)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table
     )
     element = data_fixture.create_builder_record_selector_element(
@@ -42,7 +42,7 @@ def test_record_selector_element_extract_properties(data_fixture):
     # then the formula properties includes the "id" and the field name
     table = data_fixture.create_database_table(user=user)
     field = data_fixture.create_text_field(name="Name", table=table, primary=True)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table
     )
     element = data_fixture.create_builder_record_selector_element(
@@ -69,7 +69,7 @@ def test_export_import_record_selector_element(data_fixture):
     # Setup application builder page with a record selector element
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
     element = data_fixture.create_builder_record_selector_element(

@@ -5,7 +5,7 @@ from rest_framework.status import (
     HTTP_409_CONFLICT,
 )
 
-from jadawel.contrib.database.fields.constants import RESERVED_BASEROW_FIELD_NAMES
+from jadawel.contrib.database.fields.constants import RESERVED_JADAWEL_FIELD_NAMES
 
 ERROR_FIELD_DOES_NOT_EXIST = (
     "ERROR_FIELD_DOES_NOT_EXIST",
@@ -75,14 +75,14 @@ ERROR_FIELD_WITH_SAME_NAME_ALREADY_EXISTS = (
     "You cannot have two fields with the same name in the same table, please choose a "
     "unique name for each field.",
 )
-ERROR_RESERVED_BASEROW_FIELD_NAME = (
-    "ERROR_RESERVED_BASEROW_FIELD_NAME",
+ERROR_RESERVED_JADAWEL_FIELD_NAME = (
+    "ERROR_RESERVED_JADAWEL_FIELD_NAME",
     HTTP_400_BAD_REQUEST,
-    f"The field names {','.join(RESERVED_BASEROW_FIELD_NAMES)} are reserved and cannot "
+    f"The field names {','.join(RESERVED_JADAWEL_FIELD_NAMES)} are reserved and cannot "
     f"and cannot be used for a user created field, please choose different field name.",
 )
-ERROR_INVALID_BASEROW_FIELD_NAME = (
-    "ERROR_INVALID_BASEROW_FIELD_NAME",
+ERROR_INVALID_JADAWEL_FIELD_NAME = (
+    "ERROR_INVALID_JADAWEL_FIELD_NAME",
     HTTP_400_BAD_REQUEST,
     "Fields must not be blank or only consist of whitespace.",
 )

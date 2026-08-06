@@ -26,7 +26,7 @@ class BaseEmailMessage(EmailMultiAlternatives):
     Example:
         class TestEmail(BaseEmailMessage):
             subject = 'Example subject'
-            template_name = 'baserow/core/example.html'
+            template_name = 'jadawel/core/example.html'
 
         email = TestEmail(['test@localhost'])
         email.send()
@@ -87,7 +87,7 @@ class BaseEmailMessage(EmailMultiAlternatives):
 
 
 class EmailPendingVerificationEmail(BaseEmailMessage):
-    template_name = "baserow/core/user/email_pending_verification.html"
+    template_name = "jadawel/core/user/email_pending_verification.html"
 
     def __init__(self, confirm_url, *args, **kwargs):
         self.confirm_url = confirm_url
@@ -103,7 +103,7 @@ class EmailPendingVerificationEmail(BaseEmailMessage):
 
 
 class WorkspaceInvitationEmail(BaseEmailMessage):
-    template_name = "baserow/core/workspace_invitation.html"
+    template_name = "jadawel/core/workspace_invitation.html"
 
     def __init__(self, invitation, public_accept_url, *args, **kwargs):
         self.public_accept_url = public_accept_url
@@ -127,7 +127,7 @@ class WorkspaceInvitationEmail(BaseEmailMessage):
 
 
 class NotificationsSummaryEmail(BaseEmailMessage):
-    template_name = "baserow/core/notifications_summary.html"
+    template_name = "jadawel/core/notifications_summary.html"
 
     def __init__(
         self,

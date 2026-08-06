@@ -37,8 +37,8 @@ x-backend-variables:
   JADAWEL_EMBEDDED_SHARE_URL:
 
   # Set these if you want to use an external postgres instead of the db service below.
-  DATABASE_USER: ${DATABASE_USER:-baserow}
-  DATABASE_NAME: ${DATABASE_NAME:-baserow}
+  DATABASE_USER: ${DATABASE_USER:-jadawel}
+  DATABASE_NAME: ${DATABASE_NAME:-jadawel}
   DATABASE_HOST:
   DATABASE_PORT:
   DATABASE_OPTIONS:
@@ -256,7 +256,7 @@ services:
       JADAWEL_PG_FULLTEXT_SEARCH_UPDATE_DATA_THROTTLE_SECONDS:
       JADAWEL_UNIQUE_ROW_VALUES_SIZE_LIMIT:
       JADAWEL_ROW_PAGE_SIZE_LIMIT:
-      JADAWEL_INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT:
+      JADAWEL_INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT:
       JADAWEL_INTEGRATION_ALLOW_SMTP_SERVICE_TO_USE_INSTANCE_SETTINGS:
       JADAWEL_INTEGRATIONS_PERIODIC_MINUTE_MIN:
       JADAWEL_BUILDER_DOMAINS:
@@ -338,14 +338,14 @@ services:
     image: pgvector/pgvector:pg15
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=${DATABASE_USER:-baserow}
+      - POSTGRES_USER=${DATABASE_USER:-jadawel}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD:?}
-      - POSTGRES_DB=${DATABASE_NAME:-baserow}
+      - POSTGRES_DB=${DATABASE_NAME:-jadawel}
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          'su postgres -c "pg_isready -U ${DATABASE_USER:-baserow}"',
+          'su postgres -c "pg_isready -U ${DATABASE_USER:-jadawel}"',
         ]
       interval: 10s
       timeout: 5s

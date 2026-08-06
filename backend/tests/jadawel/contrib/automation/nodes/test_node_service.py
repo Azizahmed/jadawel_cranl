@@ -7,7 +7,7 @@ from jadawel.contrib.automation.nodes.exceptions import (
     AutomationNodeNotMovable,
     AutomationNodeReferenceNodeInvalid,
 )
-from jadawel.contrib.automation.nodes.models import LocalBaserowCreateRowActionNode
+from jadawel.contrib.automation.nodes.models import LocalJadawelCreateRowActionNode
 from jadawel.contrib.automation.nodes.registries import automation_node_type_registry
 from jadawel.contrib.automation.nodes.service import AutomationNodeService
 from jadawel.contrib.automation.nodes.trash_types import AutomationNodeTrashableItemType
@@ -25,7 +25,7 @@ SERVICE_PATH = "jadawel.contrib.automation.nodes.service"
 def test_create_node(mocked_signal, data_fixture: Fixtures):
     user = data_fixture.create_user()
     workflow = data_fixture.create_automation_workflow(user)
-    node_type = automation_node_type_registry.get("local_baserow_create_row")
+    node_type = automation_node_type_registry.get("local_jadawel_create_row")
 
     service = AutomationNodeService()
     node = service.create_node(
@@ -39,13 +39,13 @@ def test_create_node(mocked_signal, data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_create_row": {},
-            "local_baserow_rows_created": {"next": {"": ["local_baserow_create_row"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_create_row": {},
+            "local_jadawel_rows_created": {"next": {"": ["local_jadawel_create_row"]}},
         }
     )
 
-    assert isinstance(node, LocalBaserowCreateRowActionNode)
+    assert isinstance(node, LocalJadawelCreateRowActionNode)
 
     mocked_signal.send.assert_called_once_with(service, node=node, user=user)
 
@@ -56,7 +56,7 @@ def test_create_node_as_child(mocked_signal, data_fixture: Fixtures):
     user = data_fixture.create_user()
     workflow = data_fixture.create_automation_workflow(user)
     iterator = data_fixture.create_core_iterator_action_node(workflow=workflow)
-    node_type = automation_node_type_registry.get("local_baserow_create_row")
+    node_type = automation_node_type_registry.get("local_jadawel_create_row")
 
     service = AutomationNodeService()
     node = service.create_node(
@@ -70,14 +70,14 @@ def test_create_node_as_child(mocked_signal, data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_create_row": {},
-            "iterator": {"children": ["local_baserow_create_row"]},
-            "local_baserow_rows_created": {"next": {"": ["iterator"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_create_row": {},
+            "iterator": {"children": ["local_jadawel_create_row"]},
+            "local_jadawel_rows_created": {"next": {"": ["iterator"]}},
         }
     )
 
-    assert isinstance(node, LocalBaserowCreateRowActionNode)
+    assert isinstance(node, LocalJadawelCreateRowActionNode)
     mocked_signal.send.assert_called_once_with(service, node=node, user=user)
 
 
@@ -85,11 +85,11 @@ def test_create_node_as_child(mocked_signal, data_fixture: Fixtures):
 def test_create_node_as_child_not_in_container(data_fixture: Fixtures):
     user = data_fixture.create_user()
     workflow = data_fixture.create_automation_workflow(user)
-    create_row = data_fixture.create_local_baserow_create_row_action_node(
+    create_row = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow
     )
 
-    node_type = automation_node_type_registry.get("local_baserow_create_row")
+    node_type = automation_node_type_registry.get("local_jadawel_create_row")
 
     service = AutomationNodeService()
 
@@ -114,7 +114,7 @@ def test_create_node_reference_node_invalid(data_fixture: Fixtures):
     node1_b = workflow_b.get_trigger()
     node2_b = data_fixture.create_automation_node(workflow=workflow_b)
 
-    node_type = automation_node_type_registry.get("local_baserow_create_row")
+    node_type = automation_node_type_registry.get("local_jadawel_create_row")
 
     with pytest.raises(AutomationNodeReferenceNodeInvalid) as exc:
         AutomationNodeService().create_node(
@@ -132,7 +132,7 @@ def test_create_node_reference_node_invalid(data_fixture: Fixtures):
 @pytest.mark.django_db
 def test_create_node_permission_error(data_fixture: Fixtures):
     workflow = data_fixture.create_automation_workflow()
-    node_type = automation_node_type_registry.get("local_baserow_create_row")
+    node_type = automation_node_type_registry.get("local_jadawel_create_row")
     another_user = data_fixture.create_user()
 
     with pytest.raises(UserNotInWorkspace) as e:
@@ -309,8 +309,8 @@ def test_duplicate_node(mocked_signal, data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["test"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["test"]}},
             "test": {"next": {"": ["test-"]}},
             "test-": {},
         }
@@ -344,7 +344,7 @@ def test_replace_simple_node(data_fixture: Fixtures):
     trigger = workflow.get_trigger()
     original_node = data_fixture.create_automation_node(workflow=workflow)
 
-    node_type = automation_node_type_registry.get("local_baserow_update_row")
+    node_type = automation_node_type_registry.get("local_jadawel_update_row")
 
     replace_result = AutomationNodeService().replace_node(
         user, original_node.id, node_type.type
@@ -355,9 +355,9 @@ def test_replace_simple_node(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["local_baserow_update_row"]}},
-            "local_baserow_update_row": {},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["local_jadawel_update_row"]}},
+            "local_jadawel_update_row": {},
         }
     )
 
@@ -377,7 +377,7 @@ def test_replace_node_in_first(data_fixture: Fixtures):
         workflow=workflow,
     )
 
-    node_type = automation_node_type_registry.get("local_baserow_update_row")
+    node_type = automation_node_type_registry.get("local_jadawel_update_row")
 
     service = AutomationNodeService()
     replace_result = service.replace_node(user, first_node.id, node_type.type)
@@ -386,11 +386,11 @@ def test_replace_node_in_first(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["local_baserow_update_row"]}},
-            "local_baserow_update_row": {"next": {"": ["local_baserow_create_row"]}},
-            "local_baserow_create_row": {"next": {"": ["local_baserow_create_row-"]}},
-            "local_baserow_create_row-": {},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["local_jadawel_update_row"]}},
+            "local_jadawel_update_row": {"next": {"": ["local_jadawel_create_row"]}},
+            "local_jadawel_create_row": {"next": {"": ["local_jadawel_create_row-"]}},
+            "local_jadawel_create_row-": {},
         }
     )
 
@@ -404,7 +404,7 @@ def test_replace_node_in_middle(data_fixture: Fixtures):
     node_to_replace = data_fixture.create_automation_node(workflow=workflow)
     last_node = data_fixture.create_automation_node(workflow=workflow, label="last")
 
-    node_type = automation_node_type_registry.get("local_baserow_update_row")
+    node_type = automation_node_type_registry.get("local_jadawel_update_row")
 
     replace_result = AutomationNodeService().replace_node(
         user, node_to_replace.id, node_type.type
@@ -412,10 +412,10 @@ def test_replace_node_in_middle(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["first"]}},
-            "first": {"next": {"": ["local_baserow_update_row"]}},
-            "local_baserow_update_row": {"next": {"": ["last"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["first"]}},
+            "first": {"next": {"": ["local_jadawel_update_row"]}},
+            "local_jadawel_update_row": {"next": {"": ["last"]}},
             "last": {},
         }
     )
@@ -432,7 +432,7 @@ def test_replace_node_in_last(data_fixture: Fixtures):
     second_node = data_fixture.create_automation_node(workflow=workflow)
     last_node = data_fixture.create_automation_node(workflow=workflow)
 
-    node_type = automation_node_type_registry.get("local_baserow_update_row")
+    node_type = automation_node_type_registry.get("local_jadawel_update_row")
 
     replace_result = AutomationNodeService().replace_node(
         user, last_node.id, node_type.type
@@ -440,11 +440,11 @@ def test_replace_node_in_last(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["local_baserow_create_row"]}},
-            "local_baserow_create_row": {"next": {"": ["local_baserow_create_row-"]}},
-            "local_baserow_create_row-": {"next": {"": ["local_baserow_update_row"]}},
-            "local_baserow_update_row": {},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["local_jadawel_create_row"]}},
+            "local_jadawel_create_row": {"next": {"": ["local_jadawel_create_row-"]}},
+            "local_jadawel_create_row-": {"next": {"": ["local_jadawel_update_row"]}},
+            "local_jadawel_update_row": {},
         }
     )
 
@@ -484,12 +484,12 @@ def test_move_simple_node(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
+            "0": "local_jadawel_rows_created",
             "action1": {"next": {"": ["action3"]}},
             "action3": {"next": {"": ["action2"]}},
             "action2": {"next": {"": ["action4"]}},
             "action4": {},
-            "local_baserow_rows_created": {"next": {"": ["action1"]}},
+            "local_jadawel_rows_created": {"next": {"": ["action1"]}},
         }
     )
 
@@ -527,8 +527,8 @@ def test_move_node_to_edge_above_existing_output(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["router"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["router"]}},
             "router": {
                 "next": {
                     "Do this": ["output edge 2"],
@@ -569,8 +569,8 @@ def test_move_node_in_container(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["action1"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["action1"]}},
             "action1": {"next": {"": ["iterator"]}},
             "iterator": {"children": ["action3"], "next": {"": ["action2"]}},
             "action3": {},
@@ -602,8 +602,8 @@ def test_move_node_outside_of_container(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["action1"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["action1"]}},
             "action1": {"next": {"": ["iterator"]}},
             "iterator": {"children": ["action2"], "next": {"": ["action3"]}},
             "action2": {},
@@ -619,8 +619,8 @@ def test_move_node_outside_of_container(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["action1"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["action1"]}},
             "action1": {"next": {"": ["iterator"]}},
             "iterator": {"next": {"": ["action3"]}},
             "action2": {"next": {"": ["action4"]}},
@@ -654,8 +654,8 @@ def test_move_container_after_itself(data_fixture: Fixtures):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["action1"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["action1"]}},
             "action1": {"next": {"": ["action2"]}},
             "action2": {"next": {"": ["action3"]}},
             "action3": {"next": {"": ["action4"]}},
@@ -797,7 +797,7 @@ def test_create_node_updates_workflow_dirty_cache(data_fixture):
 
     AutomationNodeService().create_node(
         user,
-        node_type=automation_node_type_registry.get("local_baserow_create_row"),
+        node_type=automation_node_type_registry.get("local_jadawel_create_row"),
         workflow=workflow,
         reference_node_id=node.id,
         position="south",
@@ -816,7 +816,7 @@ def test_duplicate_node_updates_workflow_dirty_cache(data_fixture):
     """
 
     user = data_fixture.create_user()
-    node = data_fixture.create_local_baserow_create_row_action_node(user=user)
+    node = data_fixture.create_local_jadawel_create_row_action_node(user=user)
 
     cache_key = WORKFLOW_DIRTY_CACHE_KEY.format(node.workflow.id)
 

@@ -71,7 +71,7 @@ class AutomationApplicationType(ApplicationType):
 
         automation_init = AutomationApplicationTypeInitApplication(user, application)
         automation_init.create_workflow(automation_init.workflow_name)
-        automation_init.create_local_baserow_integration()
+        automation_init.create_local_jadawel_integration()
 
     def export_serialized(
         self,

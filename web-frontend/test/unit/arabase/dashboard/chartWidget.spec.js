@@ -41,7 +41,7 @@ describe('ChartWidget', () => {
   const dashboard = { id: 1, workspace: { id: 1 } }
 
   const mountWidget = async ({ widget = {}, data = RESULT, error = false }) => {
-    const dataSource = { id: 7, type: 'local_baserow_grouped_aggregate_rows' }
+    const dataSource = { id: 7, type: 'local_jadawel_grouped_aggregate_rows' }
     const store = {
       getters: {
         'dashboardApplication/getDataSourceById': () => dataSource,

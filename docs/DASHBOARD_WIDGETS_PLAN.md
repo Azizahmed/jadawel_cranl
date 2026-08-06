@@ -47,8 +47,8 @@ no locked tiles are shown.
 
 | Piece | Path |
 |---|---|
-| Grouped aggregation models / service type / serializers | `backend/src/arabase/integrations/local_baserow/` |
-| Upcoming-rows service | `backend/src/arabase/integrations/local_baserow/upcoming_rows.py` |
+| Grouped aggregation models / service type / serializers | `backend/src/arabase/integrations/local_jadawel/` |
+| Upcoming-rows service | `backend/src/arabase/integrations/local_jadawel/upcoming_rows.py` |
 | All four widget models + types | `backend/src/arabase/dashboard/widgets/` (`base.py` holds what they share) |
 | Migrations | `backend/src/arabase/migrations/` (`0001` charts, `0002` phase D) |
 | Registry hooks | `backend/src/arabase/apps.py` |
@@ -69,7 +69,7 @@ no locked tiles are shown.
 3. **Sorts are modelled and honoured but have no UI yet.** The API accepts
    `aggregation_sorts`; the settings panel does not expose them.
 4. **The grouped service is not offered in the application builder's data source
-   picker.** Its frontend type extends `LocalBaserowTableServiceType` rather than
+   picker.** Its frontend type extends `LocalJadawelTableServiceType` rather than
    the data-source mixin, because its only form is dashboard-shaped. Exposing it
    to the builder is a follow-up.
 5. **`series_config` supports `color` and `label` only** (no per-series chart type
@@ -79,7 +79,7 @@ no locked tiles are shown.
    prints its label, link rows and collaborators print a comma-joined list. Using
    the grid's field components instead would drag editing, selection and row
    context into a read-only list.
-7. **`local_baserow_upcoming_rows` is hidden from the application builder's data
+7. **`local_jadawel_upcoming_rows` is hidden from the application builder's data
    source picker** (`isDataSource` returns false). It inherits the list-rows form,
    which has no date-field control, so a builder user could otherwise create one
    that can never dispatch.
@@ -106,8 +106,8 @@ how Jadawel is actually used (Arabic-first business dashboards):
 | Polymorphic `Widget` base + registry | `backend/src/jadawel/contrib/dashboard/widgets/models.py`, `registries.py` | Open registry; `SummaryWidget` is the only registration (`contrib/dashboard/apps.py:72`) |
 | Widget CRUD API | `contrib/dashboard/api/widgets/` | Registry-driven, polymorphic — new types need **no new endpoints** |
 | Data sources + dispatch | `contrib/dashboard/data_sources/`, frontend `store/dashboardApplication.js` (`dispatchDataSource`) | Generic; any service type wrapped in a data source flows through it |
-| Aggregation service | `LocalBaserowAggregateRowsUserServiceType` (`contrib/integrations/local_baserow/service_types.py:1184`) | Single value, **no grouping** — fine for Summary/Progress, insufficient for charts |
-| Row-listing service | `LocalBaserowListRowsUserServiceType` | Exists — Records list and Upcoming dates reuse it as-is |
+| Aggregation service | `LocalJadawelAggregateRowsUserServiceType` (`contrib/integrations/local_jadawel/service_types.py:1184`) | Single value, **no grouping** — fine for Summary/Progress, insufficient for charts |
+| Row-listing service | `LocalJadawelListRowsUserServiceType` | Exists — Records list and Upcoming dates reuse it as-is |
 | Frontend widget registry | `web-frontend/modules/dashboard/widgetTypes.js` | `WidgetType.variations` getter already supports the one-type-many-tiles picker UX |
 | Chart rendering | `chart.js 3.9.1`, `chartjs-adapter-moment`, `vue-chartjs 5.3.3` in `web-frontend/package.json` | **Already dependencies** (admin dashboard uses them) — zero new packages |
 | Fork-specific app | `backend/src/arabase/`, `web-frontend/modules/arabase/` | Exists, currently has no models/migrations |
@@ -125,7 +125,7 @@ upstream merge. `arabase` is fork-owned, so its migration sequence is safe.
 Widget models FK to `dashboard.Dashboard` across apps without issue.
 
 **D2 — Keep upstream premium's public type names.**
-Widget type `chart`, service type `local_baserow_grouped_aggregate_rows`.
+Widget type `chart`, service type `local_jadawel_grouped_aggregate_rows`.
 Template/export files reference registry type strings, not app labels — using
 upstream's names means upstream dashboard templates containing charts import
 instead of being skipped by `sync_templates` (the same skip mechanism we see
@@ -157,18 +157,18 @@ New in `backend/src/arabase/integrations/` (registered into the existing
 `service_type_registry`):
 
 **Models**
-- `LocalBaserowGroupedAggregateRows(LocalBaserowViewService)` — table/view ref,
-  filters (reuse `LocalBaserowTableServiceFilterableMixin`)
-- `LocalBaserowTableServiceAggregationSeries` — FK to service, `field`,
+- `LocalJadawelGroupedAggregateRows(LocalJadawelViewService)` — table/view ref,
+  filters (reuse `LocalJadawelTableServiceFilterableMixin`)
+- `LocalJadawelTableServiceAggregationSeries` — FK to service, `field`,
   `aggregation_type`, `order` (start with the aggregation types the existing
   service supports; same `unsupported_aggregation_types` exclusion)
-- `LocalBaserowTableServiceAggregationGroupBy` — FK to service, `field`
+- `LocalJadawelTableServiceAggregationGroupBy` — FK to service, `field`
   (nullable ⇒ no grouping = single-bucket chart). v1: **one** group-by;
   the model still holds them as a list for forward compatibility.
-- `LocalBaserowTableServiceAggregationSortBy` — sort on group label or series
+- `LocalJadawelTableServiceAggregationSortBy` — sort on group label or series
   value, asc/desc
 
-**Service type** `local_baserow_grouped_aggregate_rows`
+**Service type** `local_jadawel_grouped_aggregate_rows`
 - `dispatch_data`: build the table model queryset, apply view/service filters,
   `.values(group_field).annotate(...)` one annotation per series; cap at
   `ARABASE_CHART_MAX_BUCKETS` (default 100, largest-N-plus-"other" beyond it)
@@ -230,7 +230,7 @@ Estimate: **4–5 days**. Charts total: **~2 weeks** including review slack.
 All three are implemented. What was built, and where it departed from the sketch:
 
 ### D1. Records list widget (`records_list`)
-The latest rows of a table or view. Reuses `local_baserow_list_rows` unchanged.
+The latest rows of a table or view. Reuses `local_jadawel_list_rows` unchanged.
 The row limit is the **service's** `default_result_count` rather than a widget
 field as originally planned — duplicating a limit that the service already owns
 would have meant two places to keep in step. The widget stores `field_ids`
@@ -239,7 +239,7 @@ fields so a new widget is never a blank frame.
 
 ### D2. Progress widget (`progress`)
 An aggregation over a target, as a bar or a ring, coloured by two thresholds.
-Reuses the existing ungrouped `local_baserow_aggregate_rows`, and reuses
+Reuses the existing ungrouped `local_jadawel_aggregate_rows`, and reuses
 upstream's `AggregateRowsDataSourceForm` verbatim for the data half of its
 settings. Overshooting the target reads as ">100%" in the number but the bar
 stops at full, because a fill wider than its track escapes the widget.
@@ -247,7 +247,7 @@ stops at full, because a fill wider than its track escapes the widget.
 ### D3. Upcoming dates widget (`upcoming_dates`)
 An agenda of rows due within 7/14/30 days, soonest first, overdue flagged and
 counted in the header. This needed the one new service in Phase D —
-`local_baserow_upcoming_rows`, a subclass of the list-rows service adding
+`local_jadawel_upcoming_rows`, a subclass of the list-rows service adding
 `date_field`, `days_ahead` and `include_overdue`. The alternative considered was a
 relative-date *service filter*, which was rejected: those filter values are an
 encoded string (timezone, amount, unit) that a widget settings panel has no

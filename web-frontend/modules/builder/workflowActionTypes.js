@@ -8,10 +8,10 @@ import {
   CoreSMTPEmailServiceType,
 } from '@jadawel/modules/integrations/core/serviceTypes'
 import {
-  LocalBaserowCreateRowWorkflowServiceType,
-  LocalBaserowUpdateRowWorkflowServiceType,
-  LocalBaserowDeleteRowWorkflowServiceType,
-} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+  LocalJadawelCreateRowWorkflowServiceType,
+  LocalJadawelUpdateRowWorkflowServiceType,
+  LocalJadawelDeleteRowWorkflowServiceType,
+} from '@jadawel/modules/integrations/localJadawel/serviceTypes'
 import { AIAgentServiceType } from '@jadawel/modules/integrations/ai/serviceTypes'
 
 import { DataProviderType } from '@jadawel/modules/core/dataProviderTypes'
@@ -361,7 +361,7 @@ export class CreateRowWorkflowActionType extends WorkflowActionServiceType {
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowCreateRowWorkflowServiceType.getType()
+      LocalJadawelCreateRowWorkflowServiceType.getType()
     )
   }
 }
@@ -374,7 +374,7 @@ export class UpdateRowWorkflowActionType extends WorkflowActionServiceType {
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowUpdateRowWorkflowServiceType.getType()
+      LocalJadawelUpdateRowWorkflowServiceType.getType()
     )
   }
 }
@@ -387,7 +387,7 @@ export class DeleteRowWorkflowActionType extends WorkflowActionServiceType {
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowDeleteRowWorkflowServiceType.getType()
+      LocalJadawelDeleteRowWorkflowServiceType.getType()
     )
   }
 }

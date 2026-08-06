@@ -168,11 +168,11 @@ def test_data_source_data_provider_get_data_chunk(data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -213,11 +213,11 @@ def test_data_source_data_provider_get_data_chunk_with_list_data_source(data_fix
         ],
     )
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -275,11 +275,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula(data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -346,11 +346,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_datasource(
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -360,7 +360,7 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_datasource(
         name="Id source",
     )
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -427,11 +427,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_list_dataso
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -439,7 +439,7 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_list_dataso
         table=table2,
         name="List source",
     )
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -507,11 +507,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula_to_missing_dataso
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -573,11 +573,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula_recursion(
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -651,12 +651,12 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_another_dat
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -666,7 +666,7 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_another_dat
         name="Id source",
     )
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -723,11 +723,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_datasource_
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -736,7 +736,7 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_datasource_
         row_id="",
         name="Item",
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -777,11 +777,11 @@ def test_data_source_data_provider_get_data_chunk_with_formula_using_datasource_
 
 @pytest.mark.django_db
 def test_data_source_formula_import_only_datasource(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         row_id="",
         name="Item",
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         row_id="",
         name="Item",
     )
@@ -799,11 +799,11 @@ def test_data_source_formula_import_only_datasource(data_fixture):
 
 @pytest.mark.django_db
 def test_data_source_formula_import_get_row_datasource_and_field(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         row_id="",
         name="Item",
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         row_id="",
         name="Item",
     )
@@ -828,10 +828,10 @@ def test_data_source_formula_import_get_row_datasource_and_field(data_fixture):
 
 @pytest.mark.django_db
 def test_data_source_formula_import_list_row_datasource_and_field(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         name="Item",
     )
-    data_source2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         name="Item",
     )
     field_1 = data_fixture.create_text_field(order=1)
@@ -899,7 +899,7 @@ def test_data_source_context_data_provider_get_data_chunk(data_fixture):
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         table=table,
@@ -947,7 +947,7 @@ def test_data_source_context_data_provider_get_data_chunk(data_fixture):
 
 @pytest.mark.django_db
 def test_data_source_data_context_data_provider_import_path(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source()
     data_source_context_provider = DataSourceContextDataProviderType()
 
     assert data_source_context_provider.import_path(["1"], {}) == ["1"]
@@ -985,12 +985,12 @@ def test_table_element_formula_migration_with_current_row_provider(data_fixture)
 
     page = data_fixture.create_builder_page(user=user)
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page,
         table=table,
     )
 
-    data_source2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table2,
     )
 
@@ -1083,7 +1083,7 @@ def test_previous_action_data_provider_get_data_chunk_returns_cached_result(
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     button_element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         element=button_element, page=page
     )
 
@@ -1368,7 +1368,7 @@ def test_current_record_provider_get_data_chunk_without_record_index(data_fixtur
 
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, event=EventTypes.CLICK, user=user
     )
 
@@ -1405,7 +1405,7 @@ def test_current_record_provider_get_data_chunk(data_fixture):
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page, table=table, integration_args={"authorized_user": user}
     )
     repeat_element = data_fixture.create_builder_repeat_element(
@@ -1415,7 +1415,7 @@ def test_current_record_provider_get_data_chunk(data_fixture):
         page=page, parent_element=repeat_element
     )
 
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=button_element, event=EventTypes.CLICK, user=user
     )
 
@@ -1448,7 +1448,7 @@ def test_current_record_provider_type_import_path(data_fixture):
         "__idx__"
     ]
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source()
     field_1 = data_fixture.create_text_field(order=1)
     field_2 = data_fixture.create_text_field(order=2)
 
@@ -1585,7 +1585,7 @@ def test_data_source_data_extract_properties_returns_expected_results(data_fixtu
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         table=table,
@@ -1697,7 +1697,7 @@ def test_data_source_context_extract_properties_returns_expected_results(data_fi
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         table=table,
@@ -1987,7 +1987,7 @@ def test_current_record_extract_properties_returns_expected_results(data_fixture
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -2091,7 +2091,7 @@ def test_previous_action_extract_properties_returns_service_id_and_field_id(
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     button_element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         element=button_element, page=page
     )
     path = [f"{workflow_action.id}", f"field_{fields[0].id}"]

@@ -7,7 +7,7 @@ from jadawel.config.celery import app
 
 # noinspection PyUnusedLocal
 @app.task(
-    name="baserow.core.trash.tasks.mark_old_trash_for_permanent_deletion",
+    name="jadawel.core.trash.tasks.mark_old_trash_for_permanent_deletion",
     bind=True,
 )
 def mark_old_trash_for_permanent_deletion(self):
@@ -18,7 +18,7 @@ def mark_old_trash_for_permanent_deletion(self):
 
 # noinspection PyUnusedLocal
 @app.task(
-    name="baserow.core.trash.tasks.permanently_delete_marked_trash",
+    name="jadawel.core.trash.tasks.permanently_delete_marked_trash",
     bind=True,
 )
 def permanently_delete_marked_trash(self):

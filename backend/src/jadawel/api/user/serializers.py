@@ -45,7 +45,7 @@ User = get_user_model()
 
 meter = metrics.get_meter(__name__)
 token_refreshes_counter = meter.create_counter(
-    "baserow.token_refreshes",
+    "jadawel.token_refreshes",
     unit="1",
     description="The number of token refreshes.",
 )

@@ -39,13 +39,13 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_USER: baserow
-          POSTGRES_PASSWORD: baserow
-          POSTGRES_DB: baserow
+          POSTGRES_USER: jadawel
+          POSTGRES_PASSWORD: jadawel
+          POSTGRES_DB: jadawel
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U baserow"
+          --health-cmd "pg_isready -U jadawel"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -53,9 +53,9 @@ jobs:
       DJANGO_SETTINGS_MODULE: jadawel.config.settings.test
       DATABASE_HOST: localhost
       DATABASE_PORT: "5432"
-      DATABASE_NAME: baserow
-      DATABASE_USER: baserow
-      DATABASE_PASSWORD: baserow
+      DATABASE_NAME: jadawel
+      DATABASE_USER: jadawel
+      DATABASE_PASSWORD: jadawel
       PYTHONPATH: src:tests
     steps:
       - uses: actions/checkout@v4

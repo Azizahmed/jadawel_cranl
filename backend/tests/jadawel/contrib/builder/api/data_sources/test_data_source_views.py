@@ -47,7 +47,7 @@ def data_source_fixture(data_fixture):
         ],
     )
     builder = data_fixture.create_builder_application(workspace=workspace, user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
@@ -80,13 +80,13 @@ def data_source_fixture(data_fixture):
 def test_get_data_sources(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
@@ -101,12 +101,12 @@ def test_get_data_sources(api_client, data_fixture):
     assert response.status_code == HTTP_200_OK
     assert len(response_json) == 3
     assert response_json[0]["id"] == data_source1.id
-    assert response_json[0]["type"] == "local_baserow_get_row"
+    assert response_json[0]["type"] == "local_jadawel_get_row"
     assert "row_id" in response_json[0]
     assert response_json[1]["id"] == data_source2.id
-    assert response_json[1]["type"] == "local_baserow_get_row"
+    assert response_json[1]["type"] == "local_jadawel_get_row"
     assert response_json[2]["id"] == data_source3.id
-    assert response_json[2]["type"] == "local_baserow_list_rows"
+    assert response_json[2]["type"] == "local_jadawel_list_rows"
     assert "row_id" not in response_json[2]
 
 
@@ -118,14 +118,14 @@ def test_create_data_source(api_client, data_fixture):
     url = reverse("api:builder:data_source:list", kwargs={"page_id": page.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow_get_row"},
+        {"type": "local_jadawel_get_row"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
 
     response_json = response.json()
     assert response.status_code == HTTP_200_OK
-    assert response_json["type"] == "local_baserow_get_row"
+    assert response_json["type"] == "local_jadawel_get_row"
     assert response_json["view_id"] is None
     assert response_json["table_id"] is None
 
@@ -134,7 +134,7 @@ def test_create_data_source(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow_get_row",
+            "type": "local_jadawel_get_row",
             "table_id": table.id,
         },
         format="json",
@@ -155,7 +155,7 @@ def test_create_data_source_bad_request(api_client, data_fixture):
     url = reverse("api:builder:data_source:list", kwargs={"page_id": page.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow_get_row", "table_id": []},
+        {"type": "local_jadawel_get_row", "table_id": []},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -169,7 +169,7 @@ def test_create_data_source_bad_request(api_client, data_fixture):
 def test_create_data_source_with_with_name_conflict(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, name="Blog posts"
     )
 
@@ -178,7 +178,7 @@ def test_create_data_source_with_with_name_conflict(api_client, data_fixture):
         url,
         {
             "name": data_source.name,
-            "type": "local_baserow_list_rows",
+            "type": "local_jadawel_list_rows",
         },
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
@@ -201,7 +201,7 @@ def test_create_data_source_permission_denied(
     with stub_check_permissions(raise_permission_denied=True):
         response = api_client.post(
             url,
-            {"type": "local_baserow_get_row"},
+            {"type": "local_jadawel_get_row"},
             format="json",
             HTTP_AUTHORIZATION=f"JWT {token}",
         )
@@ -217,7 +217,7 @@ def test_create_data_source_page_does_not_exist(api_client, data_fixture):
     url = reverse("api:builder:data_source:list", kwargs={"page_id": 0})
     response = api_client.post(
         url,
-        {"type": "local_baserow_get_row"},
+        {"type": "local_jadawel_get_row"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -231,7 +231,7 @@ def test_update_data_source(api_client, data_fixture):
     page = data_fixture.create_builder_page(user=user)
     table = data_fixture.create_database_table(user=user)
     view = data_fixture.create_grid_view(user, table=table)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -264,7 +264,7 @@ def test_updating_data_source_with_invalid_formula_arguments_throws_error(
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
     table = data_fixture.create_database_table(user=user)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
     url = reverse(
@@ -299,7 +299,7 @@ def test_update_data_source_page(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
     page2 = data_fixture.create_builder_page(user=user, builder=page.builder)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, name="name"
     )
 
@@ -324,10 +324,10 @@ def test_update_data_source_with_with_name_conflict_is_disallowed_on_same_pages(
 ):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, name="Blog posts"
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, name="Posts"
     )
 
@@ -353,10 +353,10 @@ def test_update_data_source_with_with_name_conflict(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
     page2 = data_fixture.create_builder_page(user=user, builder=page.builder)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, name="Conflict"
     )
-    data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page2, name="Conflict"
     )
 
@@ -382,7 +382,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
     table = data_fixture.create_database_table(user=user)
     text_field = data_fixture.create_text_field(table=table)
     formula_field = data_fixture.create_text_field(table=table)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -463,7 +463,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
     assert response.json()["filters"] == []
 
     # Given an existing filter, we delete it if it's not in the payload.
-    data_fixture.create_local_baserow_table_service_filter(
+    data_fixture.create_local_jadawel_table_service_filter(
         service=data_source1.service, field=text_field, value="baz", order=0
     )
     response = api_client.patch(
@@ -511,7 +511,7 @@ def test_update_data_source_change_type(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
     table = data_fixture.create_database_table(user=user)
-    service = data_fixture.create_local_baserow_aggregate_rows_service(
+    service = data_fixture.create_local_jadawel_aggregate_rows_service(
         table_id=table.id,
     )
     data_source1 = data_fixture.create_builder_data_source(service=service, page=page)
@@ -522,7 +522,7 @@ def test_update_data_source_change_type(api_client, data_fixture):
 
     response = api_client.patch(
         url,
-        {"type": "local_baserow_list_rows", "field_id": None, "table_id": table.id},
+        {"type": "local_jadawel_list_rows", "field_id": None, "table_id": table.id},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -536,7 +536,7 @@ def test_update_data_source_with_service_type_for_different_dispatch_type(
 ):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -546,7 +546,7 @@ def test_update_data_source_with_service_type_for_different_dispatch_type(
 
     response = api_client.patch(
         url,
-        {"type": "local_baserow_upsert_row"},
+        {"type": "local_jadawel_upsert_row"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -561,7 +561,7 @@ def test_update_data_source_compatible_integration_is_persisted(
 ):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -571,7 +571,7 @@ def test_update_data_source_compatible_integration_is_persisted(
 
     response = api_client.patch(
         url,
-        {"type": "local_baserow_list_rows"},
+        {"type": "local_jadawel_list_rows"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -585,7 +585,7 @@ def test_update_data_source_compatible_integration_is_persisted(
 def test_update_data_source_bad_request(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -621,13 +621,13 @@ def test_update_data_source_does_not_exist(api_client, data_fixture):
 def test_move_data_source_empty_payload(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -649,13 +649,13 @@ def test_move_data_source_empty_payload(api_client, data_fixture):
 def test_move_data_source_null_before_id(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -677,13 +677,13 @@ def test_move_data_source_null_before_id(api_client, data_fixture):
 def test_move_data_source_before(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -707,13 +707,13 @@ def test_move_data_source_before_not_in_same_page(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
     page2 = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page2
     )
 
@@ -741,7 +741,7 @@ def test_create_data_source_with_service_type_for_different_dispatch_type(
     url = reverse("api:builder:data_source:list", kwargs={"page_id": page.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow_upsert_row"},
+        {"type": "local_jadawel_upsert_row"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -754,7 +754,7 @@ def test_create_data_source_with_service_type_for_different_dispatch_type(
 def test_move_data_source_bad_before_id(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -774,7 +774,7 @@ def test_move_data_source_bad_before_id(api_client, data_fixture):
 def test_delete_data_source(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -799,7 +799,7 @@ def test_delete_data_source_permission_denied(
 ):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -849,11 +849,11 @@ def test_dispatch_data_source(api_client, data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -892,17 +892,17 @@ def test_dispatch_data_source_with_refinements_referencing_trashed_field(
     table = data_fixture.create_database_table(database=database)
     trashed_field = data_fixture.create_text_field(table=table, trashed=True)
     builder = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
         table=table,
     )
-    service_filter = data_fixture.create_local_baserow_table_service_filter(
+    service_filter = data_fixture.create_local_jadawel_table_service_filter(
         service=data_source.service, field=trashed_field, value="abc", order=0
     )
 
@@ -920,7 +920,7 @@ def test_dispatch_data_source_with_refinements_referencing_trashed_field(
 
     service_filter.delete()
 
-    data_fixture.create_local_baserow_table_service_sort(
+    data_fixture.create_local_jadawel_table_service_sort(
         service=data_source.service,
         field=trashed_field,
         order_by=SORT_ORDER_ASC,
@@ -970,24 +970,24 @@ def test_dispatch_data_sources_perf(api_client, data_fixture, profiler):
 
     view = data_fixture.create_grid_view(user, table=table1)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
         view=view,
         table=table1,
     )
-    data_source2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
         table=table2,
     )
-    data_source3 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1026,11 +1026,11 @@ def test_dispatch_data_source_with_adhoc_filters(api_client, data_fixture):
     private_field = table.field_set.get(name="SSN")
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1136,11 +1136,11 @@ def test_dispatch_data_source_with_adhoc_sortings(api_client, data_fixture):
     private_field = table.field_set.get(name="SSN")
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1244,11 +1244,11 @@ def test_dispatch_data_source_with_adhoc_search(api_client, data_fixture):
     private_field = table.field_set.get(name="SSN")
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1328,7 +1328,7 @@ def test_dispatch_data_source_with_element_from_different_page(
     page_with_element = data_fixture.create_builder_page(user=user)
     element = data_fixture.create_builder_table_element(page=page_with_element)
     page_with_data_source = data_fixture.create_builder_page(user=user)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page_with_data_source
     )
 
@@ -1365,14 +1365,14 @@ def test_dispatch_data_source_with_element_from_shared_page(api_client, data_fix
     )
 
     page_with_element = data_fixture.create_builder_page(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=page_with_element.builder
     )
 
     element = data_fixture.create_builder_table_element(page=page_with_element)
 
     shared_page = page_with_element.builder.shared_page
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=shared_page,
         integration=integration,
         table=table,
@@ -1394,7 +1394,7 @@ def test_dispatch_data_source_with_non_collection_element(api_client, data_fixtu
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     builder = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(builder=builder)
@@ -1404,7 +1404,7 @@ def test_dispatch_data_source_with_non_collection_element(api_client, data_fixtu
     field = data_fixture.create_text_field(table=table, primary=True)
     row = RowHandler().create_row(user, table, values={field.db_column: "a"})
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page, table=table, integration=integration
     )
     url = reverse(
@@ -1438,11 +1438,11 @@ def test_dispatch_data_source_permission_denied(api_client, data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1481,11 +1481,11 @@ def test_dispatch_data_source_using_formula(api_client, data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1537,11 +1537,11 @@ def test_dispatch_data_source_raises_service_improperly_configured(
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source0 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source0 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1551,13 +1551,13 @@ def test_dispatch_data_source_raises_service_improperly_configured(
         name="Working",
     )
 
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
         row_id='get("page_parameter.id")',
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         view=view,
@@ -1565,7 +1565,7 @@ def test_dispatch_data_source_raises_service_improperly_configured(
         integration=None,
         row_id='get("page_parameter.id")',
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1573,7 +1573,7 @@ def test_dispatch_data_source_raises_service_improperly_configured(
         table=table,
         row_id='get("page_parameter.id")',
     )
-    data_source4 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source4 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1666,11 +1666,11 @@ def test_dispatch_data_sources(api_client, data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1678,7 +1678,7 @@ def test_dispatch_data_sources(api_client, data_fixture):
         table=table,
         row_id="2",
     )
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1686,7 +1686,7 @@ def test_dispatch_data_sources(api_client, data_fixture):
         table=table,
         row_id="3",
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1694,7 +1694,7 @@ def test_dispatch_data_sources(api_client, data_fixture):
         table=table,
         row_id="4",
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1702,7 +1702,7 @@ def test_dispatch_data_sources(api_client, data_fixture):
         table=table,
         row_id="bad",
     )
-    data_source4 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source4 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user, integration=integration, view=view, table=table, row_id="4"
     )
 
@@ -1776,12 +1776,12 @@ def test_dispatch_data_sources_with_formula_using_datasource_calling_an_other(
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1791,7 +1791,7 @@ def test_dispatch_data_sources_with_formula_using_datasource_calling_an_other(
         name="Id source",
     )
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1865,13 +1865,13 @@ def test_dispatch_data_sources_with_formula_using_datasource_calling_a_shared_da
     )
     view2 = data_fixture.create_grid_view(user, table=table2)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     shared_page = builder.shared_page
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=shared_page,
         integration=integration,
@@ -1881,7 +1881,7 @@ def test_dispatch_data_sources_with_formula_using_datasource_calling_a_shared_da
         name="Id source",
     )
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1935,13 +1935,13 @@ def test_dispatch_only_shared_data_sources(data_fixture, api_client):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     shared_page = builder.shared_page
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    shared_data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    shared_data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=shared_page,
         integration=integration,
@@ -1993,7 +1993,7 @@ def test_dispatch_only_shared_data_sources(data_fixture, api_client):
 def test_get_record_names(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
 
@@ -2009,7 +2009,7 @@ def test_get_record_names(api_client, data_fixture):
         str(model.objects.create(name="Tesla").id): "Tesla",
     }
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         table=table,
         integration=integration,
@@ -2038,7 +2038,7 @@ def test_get_record_names(api_client, data_fixture):
 
     # If the data source is not a list data source, it should raise an error
     non_list_data_source = (
-        data_fixture.create_builder_local_baserow_get_row_data_source(
+        data_fixture.create_builder_local_jadawel_get_row_data_source(
             user=user,
             table=table,
             integration=integration,
@@ -2066,7 +2066,7 @@ def test_dispatch_data_sources_list_rows_with_elements(
     referenced in an element via a formula.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -2150,7 +2150,7 @@ def test_dispatch_data_sources_get_row_with_elements(
     referenced in an element via a formula.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -2228,7 +2228,7 @@ def test_dispatch_data_sources_get_and_list_rows_with_elements(
             ["Palak Paneer", "Paneer Pakora"],
         ],
     )
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -2245,7 +2245,7 @@ def test_dispatch_data_sources_get_and_list_rows_with_elements(
             ["Kiwi", "Cherry"],
         ],
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -2395,11 +2395,11 @@ def test_private_dispatch_data_source_view_returns_all_fields(api_client, data_f
         ],
     )
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,

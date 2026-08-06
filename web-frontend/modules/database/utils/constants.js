@@ -1,5 +1,5 @@
 // Please keep in sync with src/jadawel/contrib/database/fields/constants.py::5
-export const RESERVED_BASEROW_FIELD_NAMES = ['id', 'order']
+export const RESERVED_JADAWEL_FIELD_NAMES = ['id', 'order']
 export const MAX_FIELD_NAME_LENGTH = 255
 
 // Please keep in sync with

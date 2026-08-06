@@ -96,7 +96,7 @@ def unsubscribe_subject_from_tables_currently_subscribed_to(
 
 
 @app.task(
-    name="baserow.contrib.database.table.tasks.unsubscribe_user_from_tables_when_removed_from_workspace",
+    name="jadawel.contrib.database.table.tasks.unsubscribe_user_from_tables_when_removed_from_workspace",
     bind=True,
 )
 def unsubscribe_user_from_tables_when_removed_from_workspace(
@@ -122,7 +122,7 @@ def unsubscribe_user_from_tables_when_removed_from_workspace(
 
 
 @app.task(
-    name="baserow.contrib.database.table.tasks.setup_created_by_and_last_modified_by_column",
+    name="jadawel.contrib.database.table.tasks.setup_created_by_and_last_modified_by_column",
     bind=True,
     queue="export",
 )
@@ -135,7 +135,7 @@ def setup_created_by_and_last_modified_by_column(self, table_id: int):
 
 
 @app.task(
-    name="baserow.contrib.database.table.tasks.setup_m2m_field_indexes_if_not_exist",
+    name="jadawel.contrib.database.table.tasks.setup_m2m_field_indexes_if_not_exist",
     bind=True,
     queue="export",
 )
@@ -157,7 +157,7 @@ def setup_m2m_field_indexes_if_not_exist(self, table_id: int):
         table.save(update_fields=["missing_m2m_indexes_added"])
 
 
-@app.task(name="baserow.contrib.database.table.tasks.update_table_usage", bind=True)
+@app.task(name="jadawel.contrib.database.table.tasks.update_table_usage", bind=True)
 def update_table_usage(self, table_id: int, row_count: int = 0):
     from jadawel.contrib.database.table.handler import TableUsageHandler
 
@@ -167,7 +167,7 @@ def update_table_usage(self, table_id: int, row_count: int = 0):
 
 
 @app.task(
-    name="baserow.contrib.database.table.tasks.create_tables_usage_for_new_database",
+    name="jadawel.contrib.database.table.tasks.create_tables_usage_for_new_database",
     bind=True,
 )
 def create_tables_usage_for_new_database(self, database_id: int):

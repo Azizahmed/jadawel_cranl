@@ -206,7 +206,7 @@ import FieldConstraintsSubForm from '@jadawel/modules/database/components/field/
 import { getNextAvailableNameInSequence } from '@jadawel/modules/core/utils/string'
 import form from '@jadawel/modules/core/mixins/form'
 import {
-  RESERVED_BASEROW_FIELD_NAMES,
+  RESERVED_JADAWEL_FIELD_NAMES,
   MAX_FIELD_NAME_LENGTH,
 } from '@jadawel/modules/database/utils/constants'
 import { FIELD_CONSTRAINT_ERROR_CODES } from '@jadawel/modules/database/constants'
@@ -393,7 +393,7 @@ export default {
       return !fields.map((f) => f.name).includes(param?.trim())
     },
     mustNotClashWithReservedName(param) {
-      return !RESERVED_BASEROW_FIELD_NAMES.includes(param?.trim())
+      return !RESERVED_JADAWEL_FIELD_NAMES.includes(param?.trim())
     },
     getFormComponent(type) {
       const fieldType = this.$registry.get('field', type)

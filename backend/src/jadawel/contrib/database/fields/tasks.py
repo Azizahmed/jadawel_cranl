@@ -46,7 +46,7 @@ def filter_distinct_workspace_ids_per_fields(
 
 
 @app.task(
-    name="baserow.contrib.database.fields.tasks.run_periodic_fields_updates",
+    name="jadawel.contrib.database.fields.tasks.run_periodic_fields_updates",
     bind=True,
     queue=settings.PERIODIC_FIELD_UPDATE_QUEUE_NAME,
     soft_time_limit=settings.PERIODIC_FIELD_UPDATE_TIMEOUT_MINUTES * 60,
@@ -140,7 +140,7 @@ def _run_periodic_field_type_update_per_workspace(
 
 
 @app.task(
-    name="baserow.contrib.database.fields.tasks.notify_table_views_updates", bind=True
+    name="jadawel.contrib.database.fields.tasks.notify_table_views_updates", bind=True
 )
 def notify_table_views_updates(self, table_ids):
     """
@@ -171,7 +171,7 @@ def notify_table_views_updates(self, table_ids):
 
 
 @app.task(
-    name="baserow.contrib.database.fields.tasks.delete_mentions_marked_for_deletion",
+    name="jadawel.contrib.database.fields.tasks.delete_mentions_marked_for_deletion",
     bind=True,
 )
 def delete_mentions_marked_for_deletion(self):

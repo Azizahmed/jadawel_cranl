@@ -856,7 +856,45 @@ someone else's copyright, so renaming it would need its own migration rather tha
 text edit: the 53 Celery task names and 7 `CELERY_TASK_ROUTES` keys, the OpenTelemetry
 metric and attribute names, `local_baserow*` service type discriminators and
 `LocalBaserow*` model (table) names, the `get_baserow_table_*` Postgres functions,
-`core_settings.show_baserow_help_request`, the `baserow_version_upgrade` notification
+`core_settings.show_baserow_help_request`, the `jadawel_version_upgrade` notification
 type, the `templates/baserow` loader directory, the `baserow` Postgres role and
 database, `baserow.io` hostnames in fixtures, upstream's Docker Hub images and issue
 URLs, and the `Baserow B.V.` copyright notice the MIT licence requires us to retain.
+
+---
+
+## Phase 3 — Finish the rename: schema, wire names and discriminators (2026-08-06)
+
+**Context:** Phase 2 deliberately left every name that was persisted state or a
+published contract, because renaming those needs a migration rather than a text edit.
+With the application not yet live and no real data in the database, that constraint no
+longer applies, so the remainder was renamed properly — with migrations, not by editing
+history.
+
+| Change | How |
+|--------|-----|
+| 53 Celery task names and the 7 `CELERY_TASK_ROUTES` keys | `baserow.*` → `jadawel.*`. Names stay explicit so a future module move cannot rename a task |
+| OpenTelemetry metric and span names, and the `baserow.` attribute prefix | Now `jadawel.*` |
+| `templates/baserow` → `templates/jadawel`, and `tests/test_data/baserow` → `.../jadawel` | Directory moves plus the 14 `template_name` strings |
+| `core_settings.show_baserow_help_request` | `RenameField` in `core/0117` |
+| 29 `LocalBaserow*` models across `integrations`, `automation`, `builder`, `arabase` | `RenameModel` in four hand-written migrations, so the tables are renamed in place |
+| 3 Postgres functions from `get_baserow_table_*` | Recreated under `get_jadawel_table_*` and dropped, in `database/0211` |
+| 13 `local_baserow*` service type discriminators | Renamed in code and in the 1,103 occurrences inside the 63 bundled template JSON fixtures |
+| `baserow_version_upgrade` notification type, `ERROR_*_BASEROW_FIELD_NAME` API error codes, `RESERVED_BASEROW_FIELD_NAMES` | Renamed on both sides |
+| Postgres role, database and password defaults | `baserow` → `jadawel` across settings, compose, CI and the documented examples |
+
+The historical migrations were **not** rewritten. Their `CreateModel(name="LocalBaserow…")`
+operations and their `NNNN_…` dependency labels still read `baserow`, which is what makes
+the `RenameModel` operations valid. Only their *import paths* moved, because Python has
+to be able to import them.
+
+**Still `baserow`, permanently:**
+
+- `Copyright (c) 2019-present Baserow B.V.` — the MIT licence requires the notice, and
+  the Apache 2.0 notices from Jack Linke and Tal Shprecher likewise.
+- Upstream's Docker Hub images (`baserow/baserow-pgautoupgrade`, `baserow/baserow-pg11`),
+  its published Helm chart repository and its issue URLs — third-party coordinates.
+- `baserow_premium` and `baserow_enterprise` in `test_fork_hygiene.py`, which asserts
+  those proprietary packages are *not* importable. Renaming them would void the guardrail.
+- Sample data inside `backend/templates/*.json` (author emails, hosted URLs, form links)
+  and `e2e-tests/fixtures/e2e-db.dump`, which are upstream's content.

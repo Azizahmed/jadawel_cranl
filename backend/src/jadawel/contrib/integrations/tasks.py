@@ -5,7 +5,7 @@ from jadawel.core.services.registries import service_type_registry
 
 
 @app.task(
-    name="baserow.contrib.integrations.tasks.call_periodic_services_that_are_due",
+    name="jadawel.contrib.integrations.tasks.call_periodic_services_that_are_due",
     bind=True,
     queue="export",
 )

@@ -38,11 +38,11 @@ services:
     # sync with this major version so pg_dump remains compatible.
     image: postgres:16
     environment:
-      - POSTGRES_USER=${DATABASE_USER:-baserow}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-baserow}
-      - POSTGRES_DB=${DATABASE_NAME:-baserow}
+      - POSTGRES_USER=${DATABASE_USER:-jadawel}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-jadawel}
+      - POSTGRES_DB=${DATABASE_NAME:-jadawel}
     healthcheck:
-      test: [ "CMD-SHELL", "su postgres -c \"pg_isready -U ${DATABASE_USER:-baserow}\"" ]
+      test: [ "CMD-SHELL", "su postgres -c \"pg_isready -U ${DATABASE_USER:-jadawel}\"" ]
       interval: 10s
       timeout: 5s
       retries: 5

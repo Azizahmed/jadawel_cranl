@@ -6,8 +6,8 @@ from jadawel.contrib.dashboard.data_sources.handler import DashboardDataSourceHa
 from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
 from jadawel.contrib.dashboard.types import WidgetDict
 from jadawel.contrib.dashboard.widgets.models import Widget
-from jadawel.contrib.integrations.local_baserow.service_types import (
-    LocalBaserowAggregateRowsUserServiceType,
+from jadawel.contrib.integrations.local_jadawel.service_types import (
+    LocalJadawelAggregateRowsUserServiceType,
 )
 from jadawel.core.services.registries import service_type_registry
 
@@ -44,7 +44,7 @@ class SummaryWidgetType(WidgetType):
                 dashboard=values["dashboard"],
                 name=available_name,
                 service_type=service_type_registry.get(
-                    LocalBaserowAggregateRowsUserServiceType.type
+                    LocalJadawelAggregateRowsUserServiceType.type
                 ),
             )
             values["data_source"] = data_source

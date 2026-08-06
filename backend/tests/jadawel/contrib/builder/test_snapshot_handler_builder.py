@@ -58,7 +58,7 @@ def test_can_restore_a_snapshot_with_integration(data_fixture):
 
     user = data_fixture.create_user()
     builder = data_fixture.create_builder_application(user)
-    data_fixture.create_local_baserow_integration(user=user, application=builder)
+    data_fixture.create_local_jadawel_integration(user=user, application=builder)
 
     snapshot = data_fixture.create_snapshot(
         snapshot_from_application=builder,

@@ -17,7 +17,7 @@ class LogGuruCompatibleLoggerHandler(LoggingHandler):
         # the extra log context developers can add on the extra dict. Here unnest
         # them as attributes on the record itself so otel can export them properly.
         for k, v in record.extra.items():
-            setattr(record, f"baserow.{k}", v)
+            setattr(record, f"jadawel.{k}", v)
         del record.extra
 
         # by default otel doesn't send funcName, rename it so it does.
@@ -131,7 +131,7 @@ def _setup_log_exporting(logger):
 
 meter = metrics.get_meter("celery_tasks")
 task_counter = meter.create_counter(
-    name="baserow.celery_task_scheduled",
+    name="jadawel.celery_task_scheduled",
     description="Number of times each Celery task has been scheduled",
     unit="1",
 )

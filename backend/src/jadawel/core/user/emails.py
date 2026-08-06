@@ -5,7 +5,7 @@ from jadawel.core.emails import BaseEmailMessage
 
 
 class ResetPasswordEmail(BaseEmailMessage):
-    template_name = "baserow/core/user/reset_password.html"
+    template_name = "jadawel/core/user/reset_password.html"
 
     def __init__(self, user, reset_url, *args, **kwargs):
         self.reset_url = reset_url
@@ -26,7 +26,7 @@ class ResetPasswordEmail(BaseEmailMessage):
 
 
 class PasswordChangedEmail(BaseEmailMessage):
-    template_name = "baserow/core/user/password_changed.html"
+    template_name = "jadawel/core/user/password_changed.html"
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -42,7 +42,7 @@ class PasswordChangedEmail(BaseEmailMessage):
 
 
 class AccountDeletionScheduled(BaseEmailMessage):
-    template_name = "baserow/core/user/account_deletion_scheduled.html"
+    template_name = "jadawel/core/user/account_deletion_scheduled.html"
 
     def __init__(self, user, days_left, *args, **kwargs):
         self.days_left = days_left
@@ -62,7 +62,7 @@ class AccountDeletionScheduled(BaseEmailMessage):
 
 
 class AccountDeleted(BaseEmailMessage):
-    template_name = "baserow/core/user/account_deleted.html"
+    template_name = "jadawel/core/user/account_deleted.html"
 
     def __init__(self, username, *args, **kwargs):
         self.username = username
@@ -80,7 +80,7 @@ class AccountDeleted(BaseEmailMessage):
 
 
 class AccountDeletionCanceled(BaseEmailMessage):
-    template_name = "baserow/core/user/account_deletion_cancelled.html"
+    template_name = "jadawel/core/user/account_deletion_cancelled.html"
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -98,7 +98,7 @@ class AccountDeletionCanceled(BaseEmailMessage):
 
 
 class ChangeEmailConfirmationEmail(BaseEmailMessage):
-    template_name = "baserow/core/user/change_email_confirmation.html"
+    template_name = "jadawel/core/user/change_email_confirmation.html"
 
     def __init__(self, user, new_email, confirmation_url, *args, **kwargs):
         self.user = user

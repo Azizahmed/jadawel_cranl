@@ -5,8 +5,8 @@ import pytest
 from jadawel.contrib.automation.application_types import AutomationApplicationType
 from jadawel.contrib.automation.models import Automation
 from jadawel.contrib.automation.nodes.models import (
-    LocalBaserowCreateRowActionNode,
-    LocalBaserowRowsCreatedTriggerNode,
+    LocalJadawelCreateRowActionNode,
+    LocalJadawelRowsCreatedTriggerNode,
 )
 from jadawel.core.registries import ImportExportConfig
 
@@ -20,7 +20,7 @@ SAMPLE_WORKFLOW_IMPORT_REFERENCE = {
             "id": 1,
             "name": "Local Baserow",
             "order": "1.00000000000000000000",
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "authorized_user": "test@baserow.io",
         }
     ],
@@ -33,23 +33,23 @@ SAMPLE_WORKFLOW_IMPORT_REFERENCE = {
             "nodes": [
                 {
                     "id": 1,
-                    "type": "local_baserow_rows_created",
+                    "type": "local_jadawel_rows_created",
                     "workflow_id": 1,
                     "service": {
                         "id": 549,
                         "integration_id": 1,
-                        "type": "local_baserow_rows_created",
+                        "type": "local_jadawel_rows_created",
                         "table_id": 705,
                     },
                 },
                 {
                     "id": 2,
-                    "type": "local_baserow_create_row",
+                    "type": "local_jadawel_create_row",
                     "workflow_id": 1,
                     "service": {
                         "id": 550,
                         "integration_id": 1,
-                        "type": "local_baserow_upsert_row",
+                        "type": "local_jadawel_upsert_row",
                         "table_id": 123,
                         "row_id": "",
                         "field_mappings": [
@@ -77,7 +77,7 @@ def test_automation_export_serialized(data_fixture):
     workflow = data_fixture.create_automation_workflow(user, automation=automation)
     trigger = workflow.get_trigger()
     integration = trigger.service.specific.integration
-    first_action = data_fixture.create_local_baserow_create_row_action_node(
+    first_action = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow
     )
     serialized = AutomationApplicationType().export_serialized(
@@ -95,7 +95,7 @@ def test_automation_export_serialized(data_fixture):
                 "id": integration.id,
                 "name": integration.name,
                 "order": str(integration.order),
-                "type": "local_baserow",
+                "type": "local_jadawel",
                 "authorized_user": None,
             }
         ],
@@ -110,12 +110,12 @@ def test_automation_export_serialized(data_fixture):
                     {
                         "id": trigger.id,
                         "label": trigger.label,
-                        "type": "local_baserow_rows_created",
+                        "type": "local_jadawel_rows_created",
                         "workflow_id": trigger.workflow_id,
                         "service": {
                             "id": trigger.service_id,
                             "integration_id": trigger.service.specific.integration_id,
-                            "type": "local_baserow_rows_created",
+                            "type": "local_jadawel_rows_created",
                             "table_id": trigger.service.specific.table_id,
                             "sample_data": None,
                         },
@@ -123,12 +123,12 @@ def test_automation_export_serialized(data_fixture):
                     {
                         "id": first_action.id,
                         "label": first_action.label,
-                        "type": "local_baserow_create_row",
+                        "type": "local_jadawel_create_row",
                         "workflow_id": first_action.workflow_id,
                         "service": {
                             "id": first_action.service_id,
                             "integration_id": first_action.service.specific.integration_id,
-                            "type": "local_baserow_upsert_row",
+                            "type": "local_jadawel_upsert_row",
                             "table_id": first_action.service.specific.table_id,
                             "row_id": {
                                 "formula": "",
@@ -201,16 +201,16 @@ def test_automation_application_import(data_fixture):
     assert workflow.automation_workflow_nodes.count() == 2
     [trigger, action_node] = workflow.automation_workflow_nodes.order_by("id")
 
-    assert isinstance(trigger.specific, LocalBaserowRowsCreatedTriggerNode)
+    assert isinstance(trigger.specific, LocalJadawelRowsCreatedTriggerNode)
 
     create_row_node = action_node.specific
-    assert isinstance(create_row_node, LocalBaserowCreateRowActionNode)
+    assert isinstance(create_row_node, LocalJadawelCreateRowActionNode)
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["local_baserow_create_row"]}},
-            "local_baserow_create_row": {},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["local_jadawel_create_row"]}},
+            "local_jadawel_create_row": {},
         }
     )
 

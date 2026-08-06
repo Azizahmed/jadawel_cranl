@@ -39,7 +39,7 @@ describe('RecordSelectorElement', () => {
       dataSources: [
         {
           id: 1,
-          type: 'local_baserow_list_rows',
+          type: 'local_jadawel_list_rows',
           table_id: 1,
           schema: {
             type: 'array',
@@ -151,7 +151,7 @@ describe('RecordSelectorElement', () => {
       dataSources: [
         {
           id: 1,
-          type: 'local_baserow_list_rows',
+          type: 'local_jadawel_list_rows',
           table_id: 1,
           schema: {
             type: 'array',

@@ -4,15 +4,15 @@
     "multipleRows": "multiple rows"
   },
   "integrationType": {
-    "localBaserow": "Local Jadawel",
+    "localJadawel": "Local Jadawel",
     "smtp": "SMTP Email",
     "slackBot": "Slack Bot",
     "ai": "AI"
   },
-  "localBaserowIntegrationType": {
-    "localBaserowSummary": "Local Jadawel - {name}, {username}",
-    "localBaserowNoUser": "Local Jadawel - Not configured",
-    "localBaserowWarning": "Authorizing your account gives everyone who has edit permissions to the application full access to the data you have access to. It's possible to create a second user, give the right permissions and use that one."
+  "localJadawelIntegrationType": {
+    "localJadawelSummary": "Local Jadawel - {name}, {username}",
+    "localJadawelNoUser": "Local Jadawel - Not configured",
+    "localJadawelWarning": "Authorizing your account gives everyone who has edit permissions to the application full access to the data you have access to. It's possible to create a second user, give the right permissions and use that one."
   },
   "aiIntegrationType": {
     "inheritingWorkspace": "Inheriting workspace AI settings",
@@ -23,24 +23,24 @@
     "slackBotNoToken": "Slack Bot - Not configured"
   },
   "serviceType": {
-    "localBaserowGetRow": "Get single row",
-    "localBaserowGetRowDescription": "Read a single row from a Jadawel table.",
-    "localBaserowListRows": "List multiple rows",
-    "localBaserowListRowsDescription": "Reads multiple rows from a Jadawel table.",
-    "localBaserowAggregateRows": "Summarize field",
-    "localBaserowAggregateRowsDescription": "Summarizes a field in a Jadawel table.",
-    "localBaserowCreateRow": "Create a row",
-    "localBaserowCreateRowDescription": "Creates a new row in a Jadawel table.",
-    "localBaserowUpdateRow": "Update a row",
-    "localBaserowUpdateRowDescription": "Updates an existing row in a Jadawel table.",
-    "localBaserowDeleteRow": "Delete a row",
-    "localBaserowDeleteRowDescription": "Deletes a row in a Jadawel table.",
-    "localBaserowRowsCreated": "Rows are created",
-    "localBaserowRowsCreatedDescription": "Triggered when rows are created in a Jadawel table.",
-    "localBaserowRowsUpdated": "Rows are updated",
-    "localBaserowRowsUpdatedDescription": "Triggered when rows are updated in a Jadawel table.",
-    "localBaserowRowsDeleted": "Rows are deleted",
-    "localBaserowRowsDeletedDescription": "Triggered when rows are deleted in a Jadawel table.",
+    "localJadawelGetRow": "Get single row",
+    "localJadawelGetRowDescription": "Read a single row from a Jadawel table.",
+    "localJadawelListRows": "List multiple rows",
+    "localJadawelListRowsDescription": "Reads multiple rows from a Jadawel table.",
+    "localJadawelAggregateRows": "Summarize field",
+    "localJadawelAggregateRowsDescription": "Summarizes a field in a Jadawel table.",
+    "localJadawelCreateRow": "Create a row",
+    "localJadawelCreateRowDescription": "Creates a new row in a Jadawel table.",
+    "localJadawelUpdateRow": "Update a row",
+    "localJadawelUpdateRowDescription": "Updates an existing row in a Jadawel table.",
+    "localJadawelDeleteRow": "Delete a row",
+    "localJadawelDeleteRowDescription": "Deletes a row in a Jadawel table.",
+    "localJadawelRowsCreated": "Rows are created",
+    "localJadawelRowsCreatedDescription": "Triggered when rows are created in a Jadawel table.",
+    "localJadawelRowsUpdated": "Rows are updated",
+    "localJadawelRowsUpdatedDescription": "Triggered when rows are updated in a Jadawel table.",
+    "localJadawelRowsDeleted": "Rows are deleted",
+    "localJadawelRowsDeletedDescription": "Triggered when rows are deleted in a Jadawel table.",
     "coreHTTPTrigger": "Receive an HTTP Request",
     "coreHTTPTriggerDescription": "Triggered when an HTTP request is received.",
     "coreHTTPRequest": "Send an HTTP request",
@@ -82,9 +82,9 @@
     "slackWriteMessageMissingIntegration": "No Slack integration selected."
   },
   "userSourceType": {
-    "localBaserow": "Jadawel table authentication"
+    "localJadawel": "Jadawel table authentication"
   },
-  "localBaserowForm": {
+  "localJadawelForm": {
     "user": "User",
     "userMessage": "By creating this connection, you're authorizing the application to use your account to make changes in your local Jadawel workspace."
   },
@@ -116,7 +116,7 @@
     "addChoice": "Add choice",
     "choicesRequired": "At least one choice is required"
   },
-  "localBaserowGetRowForm": {
+  "localJadawelGetRowForm": {
     "rowFieldLabel": "Row ID",
     "invalidFormula": "The formula is invalid",
     "rowFieldPlaceHolder": "Choose a single row ID",
@@ -125,7 +125,7 @@
     "noTableChosenForFiltering": "Choose a table to begin using data source filters.",
     "noTableChosenForSorting": "Choose a table to begin using data source sorts."
   },
-  "localBaserowListRowsForm": {
+  "localJadawelListRowsForm": {
     "searchFieldPlaceHolder": "Enter a search term...",
     "noTableChosenForFiltering": "Choose a table to begin using data source filters.",
     "noTableChosenForSorting": "Choose a table to begin using data source sorts.",
@@ -143,13 +143,13 @@
     "noTableChosenForSorting": "Choose a table to begin using data source sorts.",
     "refinements": "Refinements"
   },
-  "localBaserowAggregateRowsForm": {
+  "localJadawelAggregateRowsForm": {
     "aggregationFieldLabel": "Field",
     "aggregationTypeLabel": "Aggregation",
     "searchFieldPlaceHolder": "Enter a search term...",
     "noTableChosenForFiltering": "Choose a table to begin using data source filters."
   },
-  "localBaserowTableServiceConditionalForm": {
+  "localJadawelTableServiceConditionalForm": {
     "addFilter": "Add additional filter",
     "noFilterTitle": "You have not yet created a data source filter",
     "noFilterText": "Data source filters allow you to show Jadawel table rows that apply to your conditions.",
@@ -162,7 +162,7 @@
     "useFormulaForValue": "Use a formula for this filter",
     "useDefaultForValue": "Use the default filter for this field"
   },
-  "localBaserowTableServiceSortForm": {
+  "localJadawelTableServiceSortForm": {
     "noSortTitle": "You have not yet created a data source sort",
     "noSortText": "Sorts allow you to sort rows by a field.",
     "sortBy": "Sort by",
@@ -225,7 +225,7 @@
     "messagePlaceholder": "Enter a message...",
     "channelNoPrefix": "Remove the '#' before the channel name."
   },
-  "localBaserowTableSelector": {
+  "localJadawelTableSelector": {
     "viewFieldLabel": "View",
     "tableFieldLabel": "Table",
     "chooseNoView": "Not selected",
@@ -314,12 +314,12 @@
     "deactivatedTitle": "Periodic trigger deactivated",
     "deactivatedText": "This periodic trigger has been automatically deactivated due to consecutive failures."
   },
-  "localBaserowServiceForm": {
+  "localJadawelServiceForm": {
     "integrationDropdownLabel": "Integration",
     "rowIdLabel": "Row ID",
     "rowIdPlaceholder": "Choose a single row ID"
   },
-  "localBaserowUpsertRowServiceForm": {
+  "localJadawelUpsertRowServiceForm": {
     "fieldMappingPlaceholderArray": "Choose an array value, e.g [42]",
     "fieldMappingPlaceholderString": "Choose a string value, e.g. \\'jadawel\\'",
     "fieldMappingPlaceholderNumber": "Choose a number value, e.g. 42",

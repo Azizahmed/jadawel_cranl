@@ -6,18 +6,18 @@ from jadawel.contrib.automation.nodes.models import (
     AutomationNode,
     CoreIteratorActionNode,
     CoreRouterActionNode,
-    LocalBaserowCreateRowActionNode,
+    LocalJadawelCreateRowActionNode,
 )
 from jadawel.contrib.automation.nodes.node_types import (
     CoreHTTPTriggerNodeType,
     CoreIteratorNodeType,
     CorePeriodicTriggerNodeType,
     CoreRouterActionNodeType,
-    LocalBaserowCreateRowNodeType,
-    LocalBaserowDeleteRowNodeType,
-    LocalBaserowGetRowNodeType,
-    LocalBaserowRowsCreatedNodeTriggerType,
-    LocalBaserowUpdateRowNodeType,
+    LocalJadawelCreateRowNodeType,
+    LocalJadawelDeleteRowNodeType,
+    LocalJadawelGetRowNodeType,
+    LocalJadawelRowsCreatedNodeTriggerType,
+    LocalJadawelUpdateRowNodeType,
 )
 from jadawel.contrib.automation.nodes.registries import automation_node_type_registry
 from jadawel.contrib.automation.workflows.constants import WorkflowState
@@ -82,40 +82,40 @@ class AutomationNodeFixtures:
 
         return created_node
 
-    def create_local_baserow_rows_created_trigger_node(self, user=None, **kwargs):
+    def create_local_jadawel_rows_created_trigger_node(self, user=None, **kwargs):
         return self.create_automation_node(
             user=user,
-            type=LocalBaserowRowsCreatedNodeTriggerType.type,
+            type=LocalJadawelRowsCreatedNodeTriggerType.type,
             **kwargs,
         )
 
-    def create_local_baserow_create_row_action_node(
+    def create_local_jadawel_create_row_action_node(
         self, user=None, **kwargs
-    ) -> LocalBaserowCreateRowActionNode:
+    ) -> LocalJadawelCreateRowActionNode:
         return self.create_automation_node(
             user=user,
-            type=LocalBaserowCreateRowNodeType.type,
+            type=LocalJadawelCreateRowNodeType.type,
             **kwargs,
         )
 
-    def create_local_baserow_update_row_action_node(self, user=None, **kwargs):
+    def create_local_jadawel_update_row_action_node(self, user=None, **kwargs):
         return self.create_automation_node(
             user=user,
-            type=LocalBaserowUpdateRowNodeType.type,
+            type=LocalJadawelUpdateRowNodeType.type,
             **kwargs,
         )
 
-    def create_local_baserow_delete_row_action_node(self, user=None, **kwargs):
+    def create_local_jadawel_delete_row_action_node(self, user=None, **kwargs):
         return self.create_automation_node(
             user=user,
-            type=LocalBaserowDeleteRowNodeType.type,
+            type=LocalJadawelDeleteRowNodeType.type,
             **kwargs,
         )
 
-    def create_local_baserow_get_row_action_node(self, user=None, **kwargs):
+    def create_local_jadawel_get_row_action_node(self, user=None, **kwargs):
         return self.create_automation_node(
             user=user,
-            type=LocalBaserowGetRowNodeType.type,
+            type=LocalJadawelGetRowNodeType.type,
             **kwargs,
         )
 
@@ -164,7 +164,7 @@ class AutomationNodeFixtures:
             reference_node=router, position="south", output=edge2.uid
         )
 
-        fallback_output_node = self.create_local_baserow_create_row_action_node(
+        fallback_output_node = self.create_local_jadawel_create_row_action_node(
             workflow=workflow, reference_node=router, label="fallback node"
         )
 
@@ -230,12 +230,12 @@ class AutomationNodeFixtures:
             rows=[],
         )
 
-        integration = self.create_local_baserow_integration(user=user)
+        integration = self.create_local_jadawel_integration(user=user)
 
         workflow = self.create_automation_workflow(
             user=user,
             state=WorkflowState.LIVE,
-            trigger_type="local_baserow_rows_created",
+            trigger_type="local_jadawel_rows_created",
             trigger_service_kwargs={
                 "table": trigger_table,
                 "integration": integration,
@@ -269,7 +269,7 @@ class AutomationNodeFixtures:
             },
         )
 
-        iterator_child_1_node = self.create_local_baserow_create_row_action_node(
+        iterator_child_1_node = self.create_local_jadawel_create_row_action_node(
             workflow=workflow,
             reference_node=iterator_node,
             position="child",
@@ -285,7 +285,7 @@ class AutomationNodeFixtures:
             value=f'get("current_iteration.{iterator_node.id}.item.{trigger_table_fields[0].name}")',
         )
 
-        iterator_child_2_node = self.create_local_baserow_create_row_action_node(
+        iterator_child_2_node = self.create_local_jadawel_create_row_action_node(
             workflow=workflow,
             reference_node=iterator_child_1_node,
             position="south",
@@ -302,7 +302,7 @@ class AutomationNodeFixtures:
         )
 
         if create_after_iteration_node:
-            after_iteration_node = self.create_local_baserow_create_row_action_node(
+            after_iteration_node = self.create_local_jadawel_create_row_action_node(
                 workflow=workflow,
                 reference_node=iterator_node,
                 position="south",
@@ -393,12 +393,12 @@ class AutomationNodeFixtures:
             rows=[],
         )
 
-        integration = self.create_local_baserow_integration(user=user)
+        integration = self.create_local_jadawel_integration(user=user)
 
         workflow = self.create_automation_workflow(
             user=user,
             state=WorkflowState.LIVE,
-            trigger_type="local_baserow_rows_created",
+            trigger_type="local_jadawel_rows_created",
             trigger_service_kwargs={
                 "table": trigger_table,
                 "integration": integration,
@@ -449,7 +449,7 @@ class AutomationNodeFixtures:
             },
         )
 
-        child_iterator_child_1_node = self.create_local_baserow_create_row_action_node(
+        child_iterator_child_1_node = self.create_local_jadawel_create_row_action_node(
             workflow=workflow,
             reference_node=child_iterator_node,
             position="child",
@@ -465,7 +465,7 @@ class AutomationNodeFixtures:
             value=f'get("current_iteration.{child_iterator_node.id}.item.Name")',
         )
 
-        child_iterator_child_2_node = self.create_local_baserow_create_row_action_node(
+        child_iterator_child_2_node = self.create_local_jadawel_create_row_action_node(
             workflow=workflow,
             reference_node=child_iterator_child_1_node,
             position="south",
@@ -482,7 +482,7 @@ class AutomationNodeFixtures:
         )
 
         if create_after_iteration_node:
-            after_iteration_node = self.create_local_baserow_create_row_action_node(
+            after_iteration_node = self.create_local_jadawel_create_row_action_node(
                 workflow=workflow,
                 reference_node=parent_iterator_node,
                 position="south",

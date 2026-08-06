@@ -205,7 +205,7 @@ class CoreHandler(metaclass=jadawel_trace_methods(tracer, exclude="clear_context
                 "allow_global_workspace_creation",
                 "account_deletion_grace_delay",
                 "track_workspace_usage",
-                "show_baserow_help_request",
+                "show_jadawel_help_request",
                 "co_branding_logo",
                 "email_verification",
                 "verify_import_signature",

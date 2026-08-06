@@ -11,7 +11,7 @@ services:
     environment:
       - PORT=80
       - JADAWEL_PUBLIC_URL=http://localhost
-      - DATABASE_URL=postgresql://baserow:baserow@db:5432/baserow
+      - DATABASE_URL=postgresql://jadawel:jadawel@db:5432/jadawel
       - HEROKU_APP_NAME=test
       - REDIS_URL=redis://:baserow@redis:6379
       - MAILGUN_DOMAIN=mailhog
@@ -37,11 +37,11 @@ services:
     # sync with this major version so pg_dump remains compatible.
     image: postgres:15
     environment:
-      - POSTGRES_USER=${DATABASE_USER:-baserow}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-baserow}
-      - POSTGRES_DB=${DATABASE_NAME:-baserow}
+      - POSTGRES_USER=${DATABASE_USER:-jadawel}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-jadawel}
+      - POSTGRES_DB=${DATABASE_NAME:-jadawel}
     healthcheck:
-      test: [ "CMD-SHELL", "su postgres -c \"pg_isready -U ${DATABASE_USER:-baserow}\"" ]
+      test: [ "CMD-SHELL", "su postgres -c \"pg_isready -U ${DATABASE_USER:-jadawel}\"" ]
       interval: 10s
       timeout: 5s
       retries: 5

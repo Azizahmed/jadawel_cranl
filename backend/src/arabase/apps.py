@@ -27,18 +27,18 @@ class ArabaseConfig(AppConfig):
 
         plugin_registry.register(ArabasePlugin())
 
-        from arabase.integrations.local_baserow.service_types import (
-            LocalBaserowGroupedAggregateRowsUserServiceType,
+        from arabase.integrations.local_jadawel.service_types import (
+            LocalJadawelGroupedAggregateRowsUserServiceType,
         )
-        from arabase.integrations.local_baserow.upcoming_rows import (
-            LocalBaserowUpcomingRowsUserServiceType,
+        from arabase.integrations.local_jadawel.upcoming_rows import (
+            LocalJadawelUpcomingRowsUserServiceType,
         )
         from jadawel.core.services.registries import service_type_registry
 
         service_type_registry.register(
-            LocalBaserowGroupedAggregateRowsUserServiceType()
+            LocalJadawelGroupedAggregateRowsUserServiceType()
         )
-        service_type_registry.register(LocalBaserowUpcomingRowsUserServiceType())
+        service_type_registry.register(LocalJadawelUpcomingRowsUserServiceType())
 
         from arabase.dashboard.widgets.widget_types import (
             ChartWidgetType,

@@ -28,8 +28,8 @@ from jadawel.contrib.database.fields.field_constraints import (
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.contrib.database.table.handler import TableHandler
-from jadawel.contrib.integrations.local_baserow.service_types import (
-    LocalBaserowUpsertRowServiceType,
+from jadawel.contrib.integrations.local_jadawel.service_types import (
+    LocalJadawelUpsertRowServiceType,
 )
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.serializers import FormulaSerializerField
@@ -402,7 +402,7 @@ def test_create_create_row_workflow_action(api_client, data_fixture):
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
-        "type": LocalBaserowUpsertRowServiceType.type,
+        "type": LocalJadawelUpsertRowServiceType.type,
         "schema": None,
         "table_id": None,
         "field_mappings": [],
@@ -426,7 +426,7 @@ def test_update_create_row_workflow_action(api_client, data_fixture):
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, user=user
     )
     service = workflow_action.service
@@ -503,7 +503,7 @@ def test_create_update_row_workflow_action(api_client, data_fixture):
     assert response_json["service"] == {
         "id": workflow_action.service_id,
         "integration_id": None,
-        "type": LocalBaserowUpsertRowServiceType.type,
+        "type": LocalJadawelUpsertRowServiceType.type,
         "schema": None,
         "row_id": JadawelFormulaObject(
             formula="",
@@ -536,7 +536,7 @@ def test_update_update_row_workflow_action(api_client, data_fixture):
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, user=user
     )
     service = workflow_action.service
@@ -591,7 +591,7 @@ def test_update_update_row_workflow_action(api_client, data_fixture):
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_create_row_workflow_action(api_client, data_fixture):
+def test_dispatch_local_jadawel_create_row_workflow_action(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     table, fields, rows = data_fixture.build_table(
         user=user,
@@ -606,7 +606,7 @@ def test_dispatch_local_baserow_create_row_workflow_action(api_client, data_fixt
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, user=user
     )
     service = workflow_action.service.specific
@@ -643,7 +643,7 @@ def test_dispatch_local_baserow_create_row_workflow_action(api_client, data_fixt
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_create_row_workflow_action_field_constraint(
+def test_dispatch_local_jadawel_create_row_workflow_action_field_constraint(
     api_client, data_fixture
 ):
     user, token = data_fixture.create_user_and_token()
@@ -666,7 +666,7 @@ def test_dispatch_local_baserow_create_row_workflow_action_field_constraint(
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, user=user
     )
     service = workflow_action.service.specific
@@ -695,7 +695,7 @@ def test_dispatch_local_baserow_create_row_workflow_action_field_constraint(
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_update_row_workflow_action(api_client, data_fixture):
+def test_dispatch_local_jadawel_update_row_workflow_action(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     table, fields, rows = data_fixture.build_table(
         user=user,
@@ -712,7 +712,7 @@ def test_dispatch_local_baserow_update_row_workflow_action(api_client, data_fixt
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         page=page,
         element=element,
         event=EventTypes.CLICK,
@@ -753,7 +753,7 @@ def test_dispatch_local_baserow_update_row_workflow_action(api_client, data_fixt
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_update_row_workflow_action_field_constraint(
+def test_dispatch_local_jadawel_update_row_workflow_action_field_constraint(
     api_client, data_fixture
 ):
     user, token = data_fixture.create_user_and_token()
@@ -778,7 +778,7 @@ def test_dispatch_local_baserow_update_row_workflow_action_field_constraint(
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, user=user
     )
     service = workflow_action.service.specific
@@ -808,7 +808,7 @@ def test_dispatch_local_baserow_update_row_workflow_action_field_constraint(
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_upsert_row_workflow_action_with_current_record(
+def test_dispatch_local_jadawel_upsert_row_workflow_action_with_current_record(
     api_client, data_fixture
 ):
     user, token = data_fixture.create_user_and_token()
@@ -826,17 +826,17 @@ def test_dispatch_local_baserow_upsert_row_workflow_action_with_current_record(
     index = table.field_set.get(name="Index")
     page = data_fixture.create_builder_page(builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user, authorized_user=user
     )
-    service = data_fixture.create_local_baserow_upsert_row_service(
+    service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table,
         integration=integration,
     )
     service.field_mappings.create(
         field=index, value='concat("Index ", get("current_record.__idx__"))'
     )
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, service=service, element=element, event=EventTypes.CLICK
     )
 
@@ -868,7 +868,7 @@ def test_dispatch_local_baserow_upsert_row_workflow_action_with_current_record(
 
 
 @pytest.mark.django_db(transaction=True)
-def test_dispatch_local_baserow_upsert_row_workflow_action_with_unmatching_index_and_record_id(
+def test_dispatch_local_jadawel_upsert_row_workflow_action_with_unmatching_index_and_record_id(
     api_client, data_fixture
 ):
     with transaction.atomic():
@@ -903,10 +903,10 @@ def test_dispatch_local_baserow_upsert_row_workflow_action_with_unmatching_index
 
     builder = data_fixture.create_builder_application(workspace=workspace)
     page = data_fixture.create_builder_page(builder=builder)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user, authorized_user=user
     )
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -930,7 +930,7 @@ def test_dispatch_local_baserow_upsert_row_workflow_action_with_unmatching_index
         searchable=True,
     )
 
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         page=page,
         element=table_element,
         event=EventTypes.CLICK,
@@ -1002,7 +1002,7 @@ def test_dispatch_local_baserow_upsert_row_workflow_action_with_unmatching_index
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_update_row_workflow_action_using_formula_with_data_source(
+def test_dispatch_local_jadawel_update_row_workflow_action_using_formula_with_data_source(
     api_client, data_fixture
 ):
     user, token = data_fixture.create_user_and_token()
@@ -1022,7 +1022,7 @@ def test_dispatch_local_baserow_update_row_workflow_action_using_formula_with_da
     page = data_fixture.create_builder_page(user=user, builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
 
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         page=page,
         element=element,
         event=EventTypes.CLICK,
@@ -1054,12 +1054,12 @@ def test_dispatch_local_baserow_update_row_workflow_action_using_formula_with_da
             ["45"],
         ],
     )
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     shared_page = builder.shared_page
 
-    shared_data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    shared_data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=shared_page,
         integration=integration,
@@ -1069,7 +1069,7 @@ def test_dispatch_local_baserow_update_row_workflow_action_using_formula_with_da
     )
 
     # This data source use the shared data source
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1144,7 +1144,7 @@ def test_dispatch_workflow_action_with_invalid_form_data(api_client, data_fixtur
     input_text_element = data_fixture.create_builder_input_text_element(
         page=page, required=True
     )
-    workflow_action = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_update_row_workflow_action(
         page=page, element=button_element, event=EventTypes.CLICK, user=user
     )
     service = workflow_action.service.specific
@@ -1226,7 +1226,7 @@ def test_update_delete_row_workflow_action(api_client, data_fixture):
     builder = data_fixture.create_builder_application(workspace=workspace)
     page = data_fixture.create_builder_page(builder=builder)
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_delete_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_delete_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK
     )
     service = workflow_action.service
@@ -1280,7 +1280,7 @@ def workflow_action_hidden_fields_fixture(data_fixture):
         ],
     )
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(builder=builder)
@@ -1288,7 +1288,7 @@ def workflow_action_hidden_fields_fixture(data_fixture):
     # Create the button and workflow actions
     button = data_fixture.create_builder_button_element(page=page)
 
-    service = data_fixture.create_local_baserow_upsert_row_service(
+    service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table,
         integration=integration,
     )
@@ -1330,7 +1330,7 @@ def test_workflow_action_dispatch_does_not_return_fields(
     button = workflow_action_hidden_fields_fixture["button"]
     token = workflow_action_hidden_fields_fixture["token"]
 
-    action = data_fixture.create_local_baserow_create_row_workflow_action(
+    action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page,
         service=service,
         element=button,
@@ -1376,7 +1376,7 @@ def test_notification_action_can_access_the_field_of_previous_action(
     fields = workflow_action_hidden_fields_fixture["fields"]
     token = workflow_action_hidden_fields_fixture["token"]
 
-    action_1 = data_fixture.create_local_baserow_create_row_workflow_action(
+    action_1 = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page,
         service=service,
         element=button,
@@ -1434,7 +1434,7 @@ def test_create_row_action_can_access_the_field_of_previous_action(
     token = workflow_action_hidden_fields_fixture["token"]
     integration = workflow_action_hidden_fields_fixture["integration"]
 
-    action_1 = data_fixture.create_local_baserow_create_row_workflow_action(
+    action_1 = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page,
         service=service,
         element=button,
@@ -1448,7 +1448,7 @@ def test_create_row_action_can_access_the_field_of_previous_action(
         ],
         rows=[],
     )
-    service_2 = data_fixture.create_local_baserow_upsert_row_service(
+    service_2 = data_fixture.create_local_jadawel_upsert_row_service(
         table=table_2,
         integration=integration,
     )
@@ -1458,7 +1458,7 @@ def test_create_row_action_can_access_the_field_of_previous_action(
     )
     # This second workflow action references the field that was just created
     # by the first workflow action.
-    action_2 = data_fixture.create_local_baserow_create_row_workflow_action(
+    action_2 = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page,
         element=button,
         service=service_2,

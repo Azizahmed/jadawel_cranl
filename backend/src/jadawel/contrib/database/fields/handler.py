@@ -32,7 +32,7 @@ from jadawel.contrib.database.db.sql_queries import (
     sql_drop_try_cast,
 )
 from jadawel.contrib.database.fields.constants import (
-    RESERVED_BASEROW_FIELD_NAMES,
+    RESERVED_JADAWEL_FIELD_NAMES,
     UPSERT_OPTION_DICT_KEY,
     DeleteFieldStrategyEnum,
 )
@@ -151,7 +151,7 @@ def _validate_field_name(
             f"A field already exists for table '{table.name}' with the name '{name}'."
         )
 
-    if name in RESERVED_BASEROW_FIELD_NAMES:
+    if name in RESERVED_JADAWEL_FIELD_NAMES:
         raise ReservedJadawelFieldNameException(
             f"A field named {name} cannot be created as it already exists as a "
             f"reserved Jadawel field name."
@@ -1257,7 +1257,7 @@ class FieldHandler(metaclass=jadawel_trace_methods(tracer)):
             field_names_to_try,
             existing_field_name_collisions,
             max_length=max_field_name_length,
-            reserved_names=RESERVED_BASEROW_FIELD_NAMES,
+            reserved_names=RESERVED_JADAWEL_FIELD_NAMES,
         )
 
     def restore_field(

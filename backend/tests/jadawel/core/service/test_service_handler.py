@@ -1,7 +1,7 @@
 import pytest
 
 from jadawel.contrib.database.table.handler import TableHandler
-from jadawel.contrib.integrations.local_baserow.models import LocalBaserowGetRow
+from jadawel.contrib.integrations.local_jadawel.models import LocalJadawelGetRow
 from jadawel.core.services.exceptions import (
     ServiceDoesNotExist,
     ServiceImproperlyConfiguredDispatchException,
@@ -14,9 +14,9 @@ from jadawel.core.services.registries import service_type_registry
 @pytest.mark.django_db
 def test_create_service(data_fixture):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     service = ServiceHandler().create_service(service_type, integration=integration)
 
@@ -31,7 +31,7 @@ def test_create_service(data_fixture):
 
 @pytest.mark.django_db
 def test_get_service(data_fixture):
-    service = data_fixture.create_local_baserow_get_row_service()
+    service = data_fixture.create_local_jadawel_get_row_service()
     assert ServiceHandler().get_service(service.id).id == service.id
 
 
@@ -43,14 +43,14 @@ def test_get_service_does_not_exist(data_fixture):
 
 @pytest.mark.django_db
 def test_get_services(data_fixture):
-    integration = data_fixture.create_local_baserow_integration()
-    service1 = data_fixture.create_local_baserow_get_row_service(
+    integration = data_fixture.create_local_jadawel_integration()
+    service1 = data_fixture.create_local_jadawel_get_row_service(
         integration=integration
     )
-    service2 = data_fixture.create_local_baserow_get_row_service(
+    service2 = data_fixture.create_local_jadawel_get_row_service(
         integration=integration
     )
-    service3 = data_fixture.create_local_baserow_get_row_service(
+    service3 = data_fixture.create_local_jadawel_get_row_service(
         integration=integration
     )
 
@@ -62,15 +62,15 @@ def test_get_services(data_fixture):
         service3.id,
     ]
 
-    assert isinstance(services[0], LocalBaserowGetRow)
+    assert isinstance(services[0], LocalJadawelGetRow)
 
 
 @pytest.mark.django_db
 def test_update_service(data_fixture):
-    service = data_fixture.create_local_baserow_get_row_service()
+    service = data_fixture.create_local_jadawel_get_row_service()
     view = data_fixture.create_grid_view()
 
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     search_query = "cheese"
     service_updated = ServiceHandler().update_service(
@@ -97,8 +97,8 @@ def test_update_service_filters(data_fixture):
     )
     name_field = table.field_set.get(name="Name")
     rating_field = table.field_set.get(name="Rating")
-    service = data_fixture.create_local_baserow_list_rows_service(table=table)
-    service_type = service_type_registry.get("local_baserow_list_rows")
+    service = data_fixture.create_local_jadawel_list_rows_service(table=table)
+    service_type = service_type_registry.get("local_jadawel_list_rows")
 
     # Create our initial 2 filters.
     ServiceHandler().update_service(
@@ -167,8 +167,8 @@ def test_update_service_sortings(data_fixture):
     )
     name_field = table.field_set.get(name="Name")
     rating_field = table.field_set.get(name="Rating")
-    service = data_fixture.create_local_baserow_list_rows_service(table=table)
-    service_type = service_type_registry.get("local_baserow_list_rows")
+    service = data_fixture.create_local_jadawel_list_rows_service(table=table)
+    service_type = service_type_registry.get("local_jadawel_list_rows")
 
     # Create our initial 2 sortings.
     ServiceHandler().update_service(
@@ -214,9 +214,9 @@ def test_update_service_sortings(data_fixture):
 
 @pytest.mark.django_db
 def test_update_service_invalid_values(data_fixture):
-    service = data_fixture.create_local_baserow_get_row_service()
+    service = data_fixture.create_local_jadawel_get_row_service()
 
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     service_updated = ServiceHandler().update_service(
         service_type, service, nonsense="hello"
@@ -227,8 +227,8 @@ def test_update_service_invalid_values(data_fixture):
 
 @pytest.mark.django_db
 def test_delete_service(data_fixture):
-    service = data_fixture.create_local_baserow_get_row_service()
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service = data_fixture.create_local_jadawel_get_row_service()
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     ServiceHandler().delete_service(service_type, service)
 
@@ -236,8 +236,8 @@ def test_delete_service(data_fixture):
 
 
 @pytest.mark.django_db
-def test_dispatch_local_baserow_get_row_service_missing_integration(data_fixture):
-    service = data_fixture.create_local_baserow_get_row_service(integration=None)
+def test_dispatch_local_jadawel_get_row_service_missing_integration(data_fixture):
+    service = data_fixture.create_local_jadawel_get_row_service(integration=None)
 
     with pytest.raises(ServiceImproperlyConfiguredDispatchException):
         ServiceHandler().dispatch_service(service, {})

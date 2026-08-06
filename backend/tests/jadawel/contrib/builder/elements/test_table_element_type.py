@@ -24,7 +24,7 @@ from jadawel.core.utils import MirrorDict
 def test_create_table_element_without_fields(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
@@ -44,7 +44,7 @@ def test_create_table_element_without_fields(data_fixture):
 def test_create_table_element_with_fields(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
@@ -75,7 +75,7 @@ def test_create_table_element_with_fields(data_fixture):
 def test_update_table_element_without_fields(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     table_element = data_fixture.create_builder_table_element(page=page)
@@ -188,7 +188,7 @@ def test_duplicate_table_element_with_current_record_formulas(data_fixture):
         ],
     )
 
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
 
@@ -264,7 +264,7 @@ def test_import_table_element_with_current_record_formulas_with_update(data_fixt
         ],
     )
 
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
     uuids = [str(uuid.uuid4()), str(uuid.uuid4()), str(uuid.uuid4())]
@@ -364,7 +364,7 @@ def test_import_table_element_with_current_record_formulas_with_update(data_fixt
 def test_delete_table_element_removes_associated_workflow_actions(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     table_element = data_fixture.create_builder_table_element(
@@ -394,7 +394,7 @@ def test_delete_table_element_removes_associated_workflow_actions(data_fixture):
 def test_delete_table_field_removes_associated_workflow_actions(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     table_element = data_fixture.create_builder_table_element(
@@ -424,7 +424,7 @@ def test_delete_table_field_removes_associated_workflow_actions(data_fixture):
 def test_table_element_import_export(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     table_element = data_fixture.create_builder_table_element(
@@ -464,7 +464,7 @@ def test_table_element_import_export(data_fixture):
 def test_table_element_import_fields_with_no_uid(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
@@ -507,7 +507,7 @@ def test_table_element_import_field_with_formula_with_current_record(data_fixtur
         ],
     )
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page, table=table
     )
 
@@ -549,7 +549,7 @@ def test_import_context_addition_returns_data_source_id(data_fixture):
     Ensure the data_source_id is included in the returned dict.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source()
     table_element = data_fixture.create_builder_table_element(
         data_source=data_source,
     )
@@ -562,7 +562,7 @@ def test_import_context_addition_returns_data_source_id(data_fixture):
 
 @pytest.mark.django_db
 def test_table_element_duplication_regenerates_collection_field_uids(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source()
     source_table_element = data_fixture.create_builder_table_element(
         data_source=data_source,
         fields=[

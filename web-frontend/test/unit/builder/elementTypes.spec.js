@@ -297,7 +297,7 @@ describe('elementTypes tests', () => {
         id: 1,
         name: 'Contact Us',
         dataSources: [
-          { id: 1, type: 'local_baserow_list_rows', name: 'Customers' },
+          { id: 1, type: 'local_jadawel_list_rows', name: 'Customers' },
         ],
       }
 

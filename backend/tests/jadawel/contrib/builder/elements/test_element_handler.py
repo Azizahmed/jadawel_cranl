@@ -715,11 +715,11 @@ def property_options_fixture(data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,

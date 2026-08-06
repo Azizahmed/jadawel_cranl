@@ -12,11 +12,11 @@ def test_data_source_created(mock_broadcast_to_permitted_users, data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
     table = data_fixture.create_database_table(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=page.builder, user=user
     )
 
-    service_type = service_type_registry.get("local_baserow_list_rows")
+    service_type = service_type_registry.get("local_jadawel_list_rows")
     data_source = DataSourceService().create_data_source(
         user=user,
         page=page,
@@ -40,7 +40,7 @@ def test_data_source_created_before(mock_broadcast_to_permitted_users, data_fixt
     page = data_fixture.create_builder_page(user=user)
     existing_data_source = data_fixture.create_builder_data_source(page=page)
 
-    service_type = service_type_registry.get("local_baserow_list_rows")
+    service_type = service_type_registry.get("local_jadawel_list_rows")
     data_source = DataSourceService().create_data_source(
         user=user,
         page=page,
@@ -60,11 +60,11 @@ def test_data_source_created_before(mock_broadcast_to_permitted_users, data_fixt
 def test_data_source_updated(mock_broadcast_to_permitted_users, data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
-    service_type = service_type_registry.get("local_baserow_list_rows")
+    service_type = service_type_registry.get("local_jadawel_list_rows")
     DataSourceService().update_data_source(
         user=user,
         data_source=data_source,
@@ -85,7 +85,7 @@ def test_data_source_updated(mock_broadcast_to_permitted_users, data_fixture):
 def test_data_source_deleted(mock_broadcast_to_permitted_users, data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     data_source_id = data_source.id

@@ -275,7 +275,7 @@ def test_upload_user_file_with_unsupported_image_format(
     storage = FileSystemStorage(location=str(tmpdir), base_url="http://localhost")
     handler = UserFileHandler()
 
-    image_bytes = open_test_file("baserow/core/user_file/jadawel.logo.psd")
+    image_bytes = open_test_file("jadawel/core/user_file/jadawel.logo.psd")
 
     user_file = handler.upload_user_file(
         user, "truncated_image.psd", image_bytes, storage=storage

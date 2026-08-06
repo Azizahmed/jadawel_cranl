@@ -303,7 +303,7 @@ export default {
     unsupportedAggregationTypes() {
       return this.$registry.get(
         'service',
-        'local_baserow_grouped_aggregate_rows'
+        'local_jadawel_grouped_aggregate_rows'
       ).unsupportedAggregationTypes
     },
   },

@@ -1,19 +1,19 @@
 from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
-from jadawel.contrib.integrations.local_baserow.models import (
-    LocalBaserowAggregateRows,
-    LocalBaserowListRows,
+from jadawel.contrib.integrations.local_jadawel.models import (
+    LocalJadawelAggregateRows,
+    LocalJadawelListRows,
 )
 
 
 class DashboardDataSourceFixtures:
-    def create_dashboard_local_baserow_list_rows_data_source(self, **kwargs):
+    def create_dashboard_local_jadawel_list_rows_data_source(self, **kwargs):
         return self.create_dashboard_data_source(
-            service_model_class=LocalBaserowListRows, **kwargs
+            service_model_class=LocalJadawelListRows, **kwargs
         )
 
-    def create_dashboard_local_baserow_aggregate_rows_data_source(self, **kwargs):
+    def create_dashboard_local_jadawel_aggregate_rows_data_source(self, **kwargs):
         return self.create_dashboard_data_source(
-            service_model_class=LocalBaserowAggregateRows, **kwargs
+            service_model_class=LocalJadawelAggregateRows, **kwargs
         )
 
     def create_dashboard_data_source(
@@ -34,7 +34,7 @@ class DashboardDataSourceFixtures:
 
         if service is None:
             if not service_model_class:
-                service_model_class = LocalBaserowAggregateRows
+                service_model_class = LocalJadawelAggregateRows
 
             integrations_args = kwargs.pop("integration_args", {})
             integrations_args["application"] = dashboard

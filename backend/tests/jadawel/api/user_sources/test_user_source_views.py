@@ -41,11 +41,11 @@ def test_get_user_sources(api_client, data_fixture):
     assert response.status_code == HTTP_200_OK
     assert len(response_json) == 3
     assert response_json[0]["id"] == user_source1.id
-    assert response_json[0]["type"] == "local_baserow"
+    assert response_json[0]["type"] == "local_jadawel"
     assert response_json[1]["id"] == user_source2.id
-    assert response_json[1]["type"] == "local_baserow"
+    assert response_json[1]["type"] == "local_jadawel"
     assert response_json[2]["id"] == user_source3.id
-    assert response_json[2]["type"] == "local_baserow"
+    assert response_json[2]["type"] == "local_jadawel"
 
 
 @pytest.mark.django_db
@@ -80,7 +80,7 @@ def test_get_user_sources_w_auth_providers(api_client, data_fixture):
     assert response.status_code == HTTP_200_OK
     assert len(response_json) == 3
     assert response_json[0]["id"] == user_source1.id
-    assert response_json[0]["type"] == "local_baserow"
+    assert response_json[0]["type"] == "local_jadawel"
     assert response_json[0]["auth_providers"] == [
         {
             "domain": "A",
@@ -90,7 +90,7 @@ def test_get_user_sources_w_auth_providers(api_client, data_fixture):
         },
     ]
     assert response_json[1]["id"] == user_source2.id
-    assert response_json[1]["type"] == "local_baserow"
+    assert response_json[1]["type"] == "local_jadawel"
     assert response_json[1]["auth_providers"] == [
         {
             "domain": "A",
@@ -100,7 +100,7 @@ def test_get_user_sources_w_auth_providers(api_client, data_fixture):
         },
     ]
     assert response_json[2]["id"] == user_source3.id
-    assert response_json[2]["type"] == "local_baserow"
+    assert response_json[2]["type"] == "local_jadawel"
     assert response_json[2]["auth_providers"] == []
 
 
@@ -109,19 +109,19 @@ def test_create_user_source(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "name": "test", "integration_id": integration.id},
+        {"type": "local_jadawel", "name": "test", "integration_id": integration.id},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
 
     response_json = response.json()
     assert response.status_code == HTTP_200_OK
-    assert response_json["type"] == "local_baserow"
+    assert response_json["type"] == "local_jadawel"
     assert response_json["user_count"] is None
     assert response_json["user_count_updated_at"] is None
 
@@ -131,12 +131,12 @@ def test_create_user_source_missing_properties(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "integration_id": integration.id},
+        {"type": "local_jadawel", "integration_id": integration.id},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -148,7 +148,7 @@ def test_create_user_source_missing_properties(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
         },
         format="json",
@@ -165,7 +165,7 @@ def test_create_user_source_missing_type(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
@@ -185,18 +185,18 @@ def test_create_user_source_w_auth_providers(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
             "integration_id": integration.id,
             "auth_providers": [
                 {
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "enabled": False,
                 },
             ],
@@ -215,7 +215,7 @@ def test_create_user_source_w_auth_providers(api_client, data_fixture):
         {
             "id": first.id,
             "password_field_id": None,
-            "type": "local_baserow_password",
+            "type": "local_jadawel_password",
             "domain": None,
         },
     ]
@@ -226,19 +226,19 @@ def test_create_user_source_w_auth_providers_w_domain(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
             "integration_id": integration.id,
             "auth_providers": [
                 {
                     "domain": "domain.com",
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "enabled": False,
                 },
             ],
@@ -257,7 +257,7 @@ def test_create_user_source_w_auth_providers_w_domain(api_client, data_fixture):
         {
             "id": first.id,
             "password_field_id": None,
-            "type": "local_baserow_password",
+            "type": "local_jadawel_password",
             "domain": "domain.com",
         },
     ]
@@ -268,19 +268,19 @@ def test_create_user_source_w_auth_providers_w_wrong_domain(api_client, data_fix
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
             "integration_id": integration.id,
             "auth_providers": [
                 {
                     "domain": "baddomain",
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "enabled": False,
                 },
             ],
@@ -299,7 +299,7 @@ def test_create_user_source_w_auth_provider_wrong_type(api_client, data_fixture)
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     app_auth_provider_type = list(app_auth_provider_type_registry.get_all())[0]
 
@@ -310,7 +310,7 @@ def test_create_user_source_w_auth_provider_wrong_type(api_client, data_fixture)
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
             "integration_id": integration.id,
             "auth_providers": [
@@ -336,13 +336,13 @@ def test_create_user_source_w_auth_provider_missing_type(api_client, data_fixtur
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
             "integration_id": integration.id,
             "auth_providers": [
@@ -367,13 +367,13 @@ def test_create_user_source_permission_denied(
 ):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     with stub_check_permissions(raise_permission_denied=True):
         response = api_client.post(
             url,
-            {"type": "local_baserow", "name": "test", "integration_id": integration.id},
+            {"type": "local_jadawel", "name": "test", "integration_id": integration.id},
             format="json",
             HTTP_AUTHORIZATION=f"JWT {token}",
         )
@@ -389,7 +389,7 @@ def test_create_user_source_application_does_not_exist(api_client, data_fixture)
     url = reverse("api:user_sources:list", kwargs={"application_id": 0})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "name": "test", "integration_id": 42},
+        {"type": "local_jadawel", "name": "test", "integration_id": 42},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -401,12 +401,12 @@ def test_create_user_source_application_does_not_exist(api_client, data_fixture)
 def test_create_user_source_bad_application_type(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_database_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
     url = reverse("api:user_sources:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "name": "test", "integration_id": integration.id},
+        {"type": "local_jadawel", "name": "test", "integration_id": integration.id},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -423,7 +423,7 @@ def test_update_user_source(api_client, data_fixture):
     user_source1 = data_fixture.create_user_source_with_first_type(
         application=application
     )
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=application, authorized_user=user
     )
 
@@ -481,7 +481,7 @@ def test_update_user_source_w_auth_providers(api_client, data_fixture):
         {
             "auth_providers": [
                 {
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "enabled": False,
                     "domain": "test2.com",
                 },
@@ -501,7 +501,7 @@ def test_update_user_source_w_auth_providers(api_client, data_fixture):
             "domain": "test2.com",
             "id": first.id,
             "password_field_id": None,
-            "type": "local_baserow_password",
+            "type": "local_jadawel_password",
         },
     ]
 
@@ -510,7 +510,7 @@ def test_update_user_source_w_auth_providers(api_client, data_fixture):
         {
             "auth_providers": [
                 {
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "enabled": False,
                     "domain": "test3.com",
                 },
@@ -528,7 +528,7 @@ def test_update_user_source_w_auth_providers(api_client, data_fixture):
             "domain": "test3.com",
             "id": first.id,
             "password_field_id": None,
-            "type": "local_baserow_password",
+            "type": "local_jadawel_password",
         },
     ]
 
@@ -547,7 +547,7 @@ def test_update_user_source_with_bad_auth_providers(api_client, data_fixture):
         {
             "auth_providers": [
                 {
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "enabled": [],
                     "domain": [],
                 },
@@ -564,7 +564,7 @@ def test_update_user_source_with_bad_auth_providers(api_client, data_fixture):
         {
             "auth_providers": [
                 {
-                    "type": "local_baserow_password",
+                    "type": "local_jadawel_password",
                     "password_field_id": [],
                 },
             ],

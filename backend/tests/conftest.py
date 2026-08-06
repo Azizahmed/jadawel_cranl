@@ -67,7 +67,7 @@ def open_test_file(test_data_dir):
     usage:
 
     def test_me(open_test_file):
-        with open_test_file('baserow/core/test.data', 'rt') as f:
+        with open_test_file('jadawel/core/test.data', 'rt') as f:
             assert not f.closed
 
     Note: the caller can treat this as a context manager factory.

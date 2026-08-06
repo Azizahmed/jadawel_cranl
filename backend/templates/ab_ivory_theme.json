@@ -4317,7 +4317,7 @@
               "service": {
                 "id": 491,
                 "integration_id": 37,
-                "type": "local_baserow_list_rows",
+                "type": "local_jadawel_list_rows",
                 "table_id": 743,
                 "view_id": null,
                 "sortings": [],
@@ -4349,7 +4349,7 @@
           "id": 37,
           "name": "Local Baserow",
           "order": "1.00000000000000000000",
-          "type": "local_baserow",
+          "type": "local_jadawel",
           "authorized_user": null
         }
       ],

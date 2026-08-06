@@ -9,8 +9,8 @@ from django.core.files.storage import FileSystemStorage
 
 import pytest
 import zipstream
-from baserow_enterprise.integrations.local_baserow.user_source_types import (
-    LocalBaserowUserSourceType,
+from baserow_enterprise.integrations.local_jadawel.user_source_types import (
+    LocalJadawelUserSourceType,
 )
 from PIL import Image
 
@@ -147,7 +147,7 @@ def test_builder_application_export(data_fixture):
         page=page1, parent_element=element_container, place_in_container="0"
     )
 
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, authorized_user=user, name="test"
     )
 
@@ -159,16 +159,16 @@ def test_builder_application_export(data_fixture):
         user_source=user_source
     )
 
-    shared_datasource = data_fixture.create_builder_local_baserow_get_row_data_source(
+    shared_datasource = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=shared_page, user=user, name="Shared", integration=integration
     )
-    datasource1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    datasource1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page1, user=user, name="source 1", integration=integration
     )
-    datasource2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    datasource2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page2, user=user, name="source 2", integration=integration
     )
-    datasource3 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    datasource3 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page2, user=user, name="source 3", integration=integration
     )
 
@@ -221,7 +221,7 @@ def test_builder_application_export(data_fixture):
                     "view_id": None,
                     "table_id": None,
                     "search_query": datasource2.service.search_query,
-                    "type": "local_baserow_get_row",
+                    "type": "local_jadawel_get_row",
                 },
             },
             {
@@ -239,7 +239,7 @@ def test_builder_application_export(data_fixture):
                     "table_id": None,
                     "search_query": datasource3.service.search_query,
                     "filter_type": "AND",
-                    "type": "local_baserow_list_rows",
+                    "type": "local_jadawel_list_rows",
                 },
             },
         ],
@@ -388,7 +388,7 @@ def test_builder_application_export(data_fixture):
                             "view_id": None,
                             "table_id": None,
                             "search_query": shared_datasource.service.search_query,
-                            "type": "local_baserow_get_row",
+                            "type": "local_jadawel_get_row",
                         },
                     },
                 ],
@@ -432,7 +432,7 @@ def test_builder_application_export(data_fixture):
                             "view_id": None,
                             "table_id": None,
                             "search_query": datasource1.service.search_query,
-                            "type": "local_baserow_get_row",
+                            "type": "local_jadawel_get_row",
                         },
                     },
                 ],
@@ -620,7 +620,7 @@ def test_builder_application_export(data_fixture):
                 "id": integration.id,
                 "name": "test",
                 "order": "1.00000000000000000000",
-                "type": "local_baserow",
+                "type": "local_jadawel",
             },
         ],
         "user_sources": [
@@ -633,7 +633,7 @@ def test_builder_application_export(data_fixture):
                 "order": "1.00000000000000000000",
                 "role_field_id": None,
                 "table_id": None,
-                "type": "local_baserow",
+                "type": "local_jadawel",
                 "uid": AnyStr(),
                 "auth_providers": [
                     {
@@ -821,7 +821,7 @@ PAGE_2_IMPORT_REFERENCE = {
                 "table_id": None,
                 "search_query": "",
                 "filter_type": "AND",
-                "type": "local_baserow_get_row",
+                "type": "local_jadawel_get_row",
             },
         },
         {
@@ -836,7 +836,7 @@ PAGE_2_IMPORT_REFERENCE = {
                 "table_id": None,
                 "search_query": "",
                 "filter_type": "AND",
-                "type": "local_baserow_list_rows",
+                "type": "local_jadawel_list_rows",
             },
         },
     ],
@@ -1030,7 +1030,7 @@ IMPORT_REFERENCE = {
                         "table_id": None,
                         "search_query": "",
                         "filter_type": "AND",
-                        "type": "local_baserow_list_rows",
+                        "type": "local_jadawel_list_rows",
                     },
                 },
             ],
@@ -1043,7 +1043,7 @@ IMPORT_REFERENCE = {
             "id": 42,
             "name": "test",
             "order": "1.00000000000000000000",
-            "type": "local_baserow",
+            "type": "local_jadawel",
         },
     ],
     "user_sources": [
@@ -1056,7 +1056,7 @@ IMPORT_REFERENCE = {
             "name_field_id": None,
             "order": "1.00000000000000000000",
             "table_id": None,
-            "type": "local_baserow",
+            "type": "local_jadawel",
         },
     ],
     "theme": {
@@ -1234,7 +1234,7 @@ IMPORT_REFERENCE_COMPLEX = {
                         "table_id": None,
                         "search_query": "",
                         "filter_type": "AND",
-                        "type": "local_baserow_get_row",
+                        "type": "local_jadawel_get_row",
                     },
                 },
                 {
@@ -1248,7 +1248,7 @@ IMPORT_REFERENCE_COMPLEX = {
                         "table_id": None,
                         "search_query": "",
                         "filter_type": "AND",
-                        "type": "local_baserow_list_rows",
+                        "type": "local_jadawel_list_rows",
                     },
                 },
             ],
@@ -1260,7 +1260,7 @@ IMPORT_REFERENCE_COMPLEX = {
             "id": 42,
             "name": "test",
             "order": "1.00000000000000000000",
-            "type": "local_baserow",
+            "type": "local_jadawel",
         },
     ],
     "user_sources": [
@@ -1273,7 +1273,7 @@ IMPORT_REFERENCE_COMPLEX = {
             "name_field_id": None,
             "order": "1.00000000000000000000",
             "table_id": None,
-            "type": "local_baserow",
+            "type": "local_jadawel",
         },
     ],
     "theme": {
@@ -1570,7 +1570,7 @@ def test_ensure_new_element_roles_are_sanitized_during_import_for_default_roles(
     workspace = data_fixture.create_workspace(user=user)
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
     page = data_fixture.create_builder_page(builder=builder)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, authorized_user=user, name="test"
     )
     user_source = data_fixture.create_user_source_with_first_type(
@@ -1664,7 +1664,7 @@ def test_ensure_new_element_roles_are_sanitized_during_import_for_roles(
     workspace = data_fixture.create_workspace(user=user)
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
     page = data_fixture.create_builder_page(builder=builder)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, authorized_user=user, name="test"
     )
     user_source = data_fixture.create_user_source_with_first_type(
@@ -1680,7 +1680,7 @@ def test_ensure_new_element_roles_are_sanitized_during_import_for_roles(
     config = ImportExportConfig(include_permission_data=True)
     serialized = BuilderApplicationType().export_serialized(builder, config)
 
-    with patch.object(LocalBaserowUserSourceType, "get_roles") as m:
+    with patch.object(LocalJadawelUserSourceType, "get_roles") as m:
         m.return_value = user_source_roles
         builder = BuilderApplicationType().import_serialized(
             workspace, serialized, config, {}

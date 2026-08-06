@@ -17,11 +17,11 @@ def test_get_dashboard_data_sources(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source1 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )
-    data_source2 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, name="Name 2"
     )
 
@@ -52,7 +52,7 @@ def test_get_dashboard_data_sources(api_client, data_fixture):
         "schema": None,
         "search_query": {"formula": "", "mode": "simple", "version": "0.1"},
         "table_id": None,
-        "type": "local_baserow_aggregate_rows",
+        "type": "local_jadawel_aggregate_rows",
         "view_id": None,
         "sample_data": None,
     }
@@ -71,7 +71,7 @@ def test_get_dashboard_data_sources(api_client, data_fixture):
         "schema": None,
         "search_query": {"formula": "", "mode": "simple", "version": "0.1"},
         "table_id": None,
-        "type": "local_baserow_list_rows",
+        "type": "local_jadawel_list_rows",
         "view_id": None,
         "sample_data": None,
     }
@@ -113,7 +113,7 @@ def test_get_dashboard_data_sources_permission_denied(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application()
     data_source1 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )
@@ -138,7 +138,7 @@ def test_update_data_source(api_client, data_fixture):
     table = data_fixture.create_database_table(user=user)
     view = data_fixture.create_grid_view(user, table=table)
     data_source1 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
@@ -167,7 +167,7 @@ def test_update_data_source_bad_request(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source1 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
@@ -202,7 +202,7 @@ def test_update_data_source_does_not_exist(api_client, data_fixture):
 @pytest.mark.django_db
 def test_update_data_source_unauthorized(api_client, data_fixture):
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
@@ -222,7 +222,7 @@ def test_update_data_source_unauthorized(api_client, data_fixture):
 def test_update_data_source_permission_denied(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1"
         )
     )
@@ -244,7 +244,7 @@ def test_update_data_source_change_type(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
@@ -253,7 +253,7 @@ def test_update_data_source_change_type(api_client, data_fixture):
     )
     response = api_client.patch(
         url,
-        {"type": "local_baserow_list_rows"},
+        {"type": "local_jadawel_list_rows"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -267,7 +267,7 @@ def test_update_data_source_service_type_doesnt_exist(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
@@ -290,7 +290,7 @@ def test_update_data_source_service_type_none(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
@@ -313,11 +313,11 @@ def test_update_data_source_integration_id(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
-    new_integration = data_fixture.create_local_baserow_integration()
+    new_integration = data_fixture.create_local_jadawel_integration()
     url = reverse(
         "api:dashboard:data_sources:item", kwargs={"data_source_id": data_source.id}
     )
@@ -339,7 +339,7 @@ def test_update_data_source_with_service_type_for_different_dispatch_type(
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard
         )
     )
@@ -350,7 +350,7 @@ def test_update_data_source_with_service_type_for_different_dispatch_type(
 
     response = api_client.patch(
         url,
-        {"type": "local_baserow_upsert_row"},
+        {"type": "local_jadawel_upsert_row"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -379,14 +379,14 @@ def test_dispatch_dashboard_data_source(api_client, data_fixture):
         ],
     )
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
-    service = data_fixture.create_local_baserow_aggregate_rows_service(
+    service = data_fixture.create_local_jadawel_aggregate_rows_service(
         integration=integration, table=table, field=field, aggregation_type="sum"
     )
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1", user=user, dashboard=dashboard, service=service
         )
     )
@@ -424,7 +424,7 @@ def test_dispatch_dashboard_data_source_data_source_doesnt_exist(
 def test_dispatch_dashboard_data_source_unauthorized(api_client, data_fixture):
     dashboard = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )
@@ -446,7 +446,7 @@ def test_dispatch_dashboard_data_source_permission_denied(api_client, data_fixtu
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )
@@ -480,11 +480,11 @@ def test_dispatch_data_source_improperly_configured(api_client, data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     dashboard = data_fixture.create_dashboard_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=dashboard
     )
     data_source_missing_field = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             user=user,
             dashboard=dashboard,
             integration=integration,
@@ -513,7 +513,7 @@ def test_dispatch_data_source_improperly_configured(api_client, data_fixture):
     )
 
     data_source_missing_integration = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             user=user,
             dashboard=dashboard,
             integration=None,

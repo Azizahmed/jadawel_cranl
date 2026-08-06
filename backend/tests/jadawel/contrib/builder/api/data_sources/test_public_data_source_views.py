@@ -34,7 +34,7 @@ def data_source_fixture(data_fixture):
     data_fixture.create_builder_custom_domain(builder=builder, published_to=builder_to)
     public_page = data_fixture.create_builder_page(builder=builder_to)
 
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
 
@@ -101,7 +101,7 @@ def test_dispatch_data_sources_list_rows_no_elements(
     field specific data.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -141,7 +141,7 @@ def test_dispatch_data_sources_get_row_no_elements(
     field specific data.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -177,7 +177,7 @@ def test_dispatch_data_sources_list_rows_with_elements(
     referenced in an element via a formula.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -250,7 +250,7 @@ def test_dispatch_data_sources_get_row_with_elements(
     referenced in an element via a formula.
     """
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -323,7 +323,7 @@ def test_dispatch_data_sources_get_and_list_rows_with_elements(
             ["Palak Paneer", "Paneer Pakora"],
         ],
     )
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=data_source_fixture["user"],
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -340,7 +340,7 @@ def test_dispatch_data_sources_get_and_list_rows_with_elements(
             ["Kiwi", "Cherry"],
         ],
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=data_source_fixture["page"],
         integration=data_source_fixture["integration"],
@@ -455,7 +455,7 @@ def test_dispatch_data_sources_list_rows_with_elements_and_role(
     )
     token = user_source_user.get_refresh_token().access_token
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_element_roles_fixture["user"],
         page=page,
         integration=integration,
@@ -529,7 +529,7 @@ def test_dispatch_data_sources_page_visibility_all_returns_elements(
     page.visibility = Page.VISIBILITY_TYPES.ALL
     page.save()
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_fixture["user"],
         page=page,
         integration=data_source_fixture["integration"],
@@ -604,7 +604,7 @@ def test_dispatch_data_sources_page_visibility_logged_in_allow_all_returns_eleme
     )
     user_token = user_source_user.get_refresh_token().access_token
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_fixture["user"],
         page=page,
         integration=data_source_fixture["integration"],
@@ -658,7 +658,7 @@ def test_dispatch_data_sources_page_visibility_logged_in_returns_no_elements_for
     page.visibility = Page.VISIBILITY_TYPES.LOGGED_IN
     page.save()
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=data_source_fixture["user"],
         page=page,
         integration=data_source_fixture["integration"],
@@ -788,7 +788,7 @@ def test_dispatch_data_sources_page_visibility_logged_in_allow_all_except(
     )
     user_token = user_source_user.get_refresh_token().access_token
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,

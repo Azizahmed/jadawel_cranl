@@ -1,17 +1,17 @@
 from jadawel.contrib.integrations.core.models import SMTPIntegration
-from jadawel.contrib.integrations.local_baserow.models import LocalBaserowIntegration
+from jadawel.contrib.integrations.local_jadawel.models import LocalJadawelIntegration
 from jadawel.core.integrations.registries import integration_type_registry
 
 
 class IntegrationFixtures:
-    def create_local_baserow_integration(self, **kwargs):
+    def create_local_jadawel_integration(self, **kwargs):
         if not kwargs.get("authorized_user", None):
             if not kwargs.get("user", None):
                 kwargs["user"] = self.create_user()
 
             kwargs["authorized_user"] = kwargs["user"]
 
-        integration = self.create_integration(LocalBaserowIntegration, **kwargs)
+        integration = self.create_integration(LocalJadawelIntegration, **kwargs)
         return integration
 
     def create_smtp_integration(self, **kwargs):

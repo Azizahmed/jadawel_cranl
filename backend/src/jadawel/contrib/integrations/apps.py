@@ -9,8 +9,8 @@ class IntegrationsConfig(AppConfig):
         from jadawel.contrib.integrations.core.integration_types import (
             SMTPIntegrationType,
         )
-        from jadawel.contrib.integrations.local_baserow.integration_types import (
-            LocalBaserowIntegrationType,
+        from jadawel.contrib.integrations.local_jadawel.integration_types import (
+            LocalJadawelIntegrationType,
         )
         from jadawel.contrib.integrations.slack.integration_types import (
             SlackBotIntegrationType,
@@ -18,30 +18,30 @@ class IntegrationsConfig(AppConfig):
         from jadawel.core.integrations.registries import integration_type_registry
         from jadawel.core.services.registries import service_type_registry
 
-        integration_type_registry.register(LocalBaserowIntegrationType())
+        integration_type_registry.register(LocalJadawelIntegrationType())
         integration_type_registry.register(SMTPIntegrationType())
         integration_type_registry.register(AIIntegrationType())
         integration_type_registry.register(SlackBotIntegrationType())
 
-        from jadawel.contrib.integrations.local_baserow.service_types import (
-            LocalBaserowAggregateRowsUserServiceType,
-            LocalBaserowDeleteRowServiceType,
-            LocalBaserowGetRowUserServiceType,
-            LocalBaserowListRowsUserServiceType,
-            LocalBaserowRowsCreatedServiceType,
-            LocalBaserowRowsDeletedServiceType,
-            LocalBaserowRowsUpdatedServiceType,
-            LocalBaserowUpsertRowServiceType,
+        from jadawel.contrib.integrations.local_jadawel.service_types import (
+            LocalJadawelAggregateRowsUserServiceType,
+            LocalJadawelDeleteRowServiceType,
+            LocalJadawelGetRowUserServiceType,
+            LocalJadawelListRowsUserServiceType,
+            LocalJadawelRowsCreatedServiceType,
+            LocalJadawelRowsDeletedServiceType,
+            LocalJadawelRowsUpdatedServiceType,
+            LocalJadawelUpsertRowServiceType,
         )
 
-        service_type_registry.register(LocalBaserowGetRowUserServiceType())
-        service_type_registry.register(LocalBaserowListRowsUserServiceType())
-        service_type_registry.register(LocalBaserowAggregateRowsUserServiceType())
-        service_type_registry.register(LocalBaserowUpsertRowServiceType())
-        service_type_registry.register(LocalBaserowDeleteRowServiceType())
-        service_type_registry.register(LocalBaserowRowsCreatedServiceType())
-        service_type_registry.register(LocalBaserowRowsUpdatedServiceType())
-        service_type_registry.register(LocalBaserowRowsDeletedServiceType())
+        service_type_registry.register(LocalJadawelGetRowUserServiceType())
+        service_type_registry.register(LocalJadawelListRowsUserServiceType())
+        service_type_registry.register(LocalJadawelAggregateRowsUserServiceType())
+        service_type_registry.register(LocalJadawelUpsertRowServiceType())
+        service_type_registry.register(LocalJadawelDeleteRowServiceType())
+        service_type_registry.register(LocalJadawelRowsCreatedServiceType())
+        service_type_registry.register(LocalJadawelRowsUpdatedServiceType())
+        service_type_registry.register(LocalJadawelRowsDeletedServiceType())
 
         from jadawel.contrib.integrations.slack.service_types import (
             SlackWriteMessageServiceType,

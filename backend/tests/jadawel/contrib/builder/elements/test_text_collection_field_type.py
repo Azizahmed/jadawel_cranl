@@ -112,7 +112,7 @@ def test_import_export_text_collection_field_type(data_fixture):
         ],
     )
     text_field = fields[0]
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
     table_element = data_fixture.create_builder_table_element(

@@ -6,7 +6,7 @@ from jadawel.config.celery import app
 
 
 @app.task(
-    name="baserow.contrib.database.rows.tasks.clean_up_row_history_entries",
+    name="jadawel.contrib.database.rows.tasks.clean_up_row_history_entries",
     bind=True,
     queue="export",
 )

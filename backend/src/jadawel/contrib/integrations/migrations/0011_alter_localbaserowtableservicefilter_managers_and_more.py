@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-import jadawel.contrib.integrations.local_baserow.models
+import jadawel.contrib.integrations.local_jadawel.models
 
 
 class Migration(migrations.Migration):
@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             managers=[
                 (
                     "objects",
-                    jadawel.contrib.integrations.local_baserow.models.LocalBaserowTableServiceRefinementManager(),
+                    jadawel.contrib.integrations.local_jadawel.models.LocalJadawelTableServiceRefinementManager(),
                 ),
             ],
         ),
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
             managers=[
                 (
                     "objects",
-                    jadawel.contrib.integrations.local_baserow.models.LocalBaserowTableServiceRefinementManager(),
+                    jadawel.contrib.integrations.local_jadawel.models.LocalJadawelTableServiceRefinementManager(),
                 ),
             ],
         ),

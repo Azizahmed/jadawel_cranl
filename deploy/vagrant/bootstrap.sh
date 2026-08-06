@@ -5,7 +5,7 @@ apt-get update
 apt-get install git -y
 
 cd ~
-cp /local_baserow_repo/docs/guides/installation/old-install-on-ubuntu.md install-on-ubuntu.md
+cp /local_jadawel_repo/docs/guides/installation/old-install-on-ubuntu.md install-on-ubuntu.md
 
 # Process the guide to only extract the bash we want
 sed -n '/## HTTPS \/ SSL Support/q;p' install-on-ubuntu.md | # We don't want to setup https or do any upgrade scripts which follow
@@ -13,7 +13,7 @@ sed -n '/^```bash$/,/^```$/p' | # Extract bash code from markdown code blocks
 sed '/^```/ d' | # Get rid of the backticks left in by the previous sed
 sed 's/^\$ //' | # Get rid of the bash command $ prefixes
 sed 's/^sudo passwd baserow/echo -e "yourpassword\nyourpassword" | sudo passwd baserow/' | # Enter a password non interactively
-sed "s/git clone --branch master.*/cp -r \/local_baserow_repo baserow/" | # Copy your local repo over instead of checking out master
+sed "s/git clone --branch master.*/cp -r \/local_jadawel_repo baserow/" | # Copy your local repo over instead of checking out master
 sed 's/https:\\\/\\\/api.domain.com/http:\\\/\\\/api.baserow.vagrant.test/g' | # Fixup the sed commands for the URL env vars
 sed 's/https:\\\/\\\/jadawel.domain.com/http:\\\/\\\/jadawel.vagrant.test/g' |
 sed 's/https:\\\/\\\/media.domain.com/http:\\\/\\\/media.baserow.vagrant.test/g' |

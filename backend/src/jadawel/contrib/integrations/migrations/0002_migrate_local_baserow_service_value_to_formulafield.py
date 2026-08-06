@@ -1,7 +1,7 @@
 import django.db.models.manager
 from django.db import migrations
 
-import jadawel.contrib.integrations.local_baserow.models
+import jadawel.contrib.integrations.local_jadawel.models
 import jadawel.core.formula.field
 
 
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ("objects_and_trash", django.db.models.manager.Manager()),
                 (
                     "objects",
-                    jadawel.contrib.integrations.local_baserow.models.LocalBaserowTableServiceRefinementManager(),
+                    jadawel.contrib.integrations.local_jadawel.models.LocalJadawelTableServiceRefinementManager(),
                 ),
             ],
         ),
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ("objects_and_trash", django.db.models.manager.Manager()),
                 (
                     "objects",
-                    jadawel.contrib.integrations.local_baserow.models.LocalBaserowTableServiceRefinementManager(),
+                    jadawel.contrib.integrations.local_jadawel.models.LocalJadawelTableServiceRefinementManager(),
                 ),
             ],
         ),

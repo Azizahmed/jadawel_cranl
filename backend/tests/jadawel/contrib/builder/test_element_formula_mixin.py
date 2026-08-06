@@ -37,8 +37,8 @@ from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 def formula_generator_fixture(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page(user=user)
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     formula_1 = f"get('data_source.{data_source_1.id}.field_1')"
     formula_2 = f"get('data_source.{data_source_2.id}.field_1')"
     id_mapping = {"builder_data_sources": {data_source_1.id: data_source_2.id}}
@@ -173,7 +173,7 @@ def test_table_element_formula_generator(data_fixture, formula_generator_fixture
         ],
     )
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=formula_generator_fixture["page"],
         table=table,
     )

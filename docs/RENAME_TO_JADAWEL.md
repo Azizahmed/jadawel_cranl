@@ -28,10 +28,49 @@ Two things this plan predicted and one it missed:
   left them resolving to the empty string — an empty share link and a vanished
   description, with nothing in the log. Fixed in `fc0c861`.
 
+### Phase 6 — the names the plan had ringfenced (same day)
+
+The original plan left every name that was persisted state or a published contract,
+because renaming those needs a migration rather than a text edit. The application is
+not yet live and the database holds no real data, so that constraint was lifted and
+the remainder was renamed properly — with migrations, not by rewriting history.
+
+| Surface | How |
+|---|---|
+| 53 Celery task names + 7 route keys | `jadawel.*`, kept explicit |
+| OpenTelemetry metric, span and attribute names | `jadawel.*` |
+| `templates/baserow`, `tests/test_data/baserow` | directory moves + 14 `template_name` strings |
+| `core_settings.show_baserow_help_request` | `RenameField`, `core/0117` |
+| 29 `LocalBaserow*` models | `RenameModel` × 29 across four hand-written migrations |
+| 3 Postgres functions | recreated as `get_jadawel_table_*`, `database/0211` |
+| 13 `local_baserow*` discriminators | code + 1,103 occurrences in 63 bundled template fixtures |
+| notification type, API error codes, Postgres role | renamed on both sides |
+
+Historical migrations keep their `CreateModel(name="LocalBaserow…")` operations and
+their `NNNN_…` dependency labels — that is exactly what makes the `RenameModel`
+operations valid. Only their import paths moved.
+
+Two traps worth recording:
+
+- **Never answer `yes` to `makemigrations` rename prompts in bulk.** Django asks one
+  question per candidate pair and matches them in the order the answers arrive, so
+  piping `yes y` mispaired them: `LocalBaserowRowsDeleted` → `LocalJadawelRowsCreated`,
+  `LocalBaserowRowsCreated` → `LocalJadawelRowsUpdated`, and three models degraded to a
+  destructive delete-then-create. The 29 renames were written by hand from Django's own
+  migration state instead.
+- **Uppercase and lowercase spellings drift apart.** `INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT`
+  was renamed at its use sites but not at its definition, because the file list had been
+  built from a lowercase pattern. That broke 17 tests until the definition caught up.
+
+Verified: `makemigrations --check` reports no changes, a from-zero `migrate` produces
+29 `localjadawel*` tables and 0 `localbaserow*`, the three `get_jadawel_table_*`
+functions exist, and the backend selection covering the renamed surfaces returns the
+same 7 pre-existing failures as the pre-round tree — no regressions.
+
 Still open, deliberately: the CranL dashboard still sets the five `BASEROW_*` names,
-which the shims accept. Cut those over to `JADAWEL_*` in a separate deploy, verify,
-then delete the three shims. The pre-existing test failures listed below are unrelated
-to the rename and reproduce identically on a pre-rename tree.
+which the shims accept. The published image predates the rename and reads those names,
+so the dashboard must be cut over to `JADAWEL_*` **in the same deploy that ships this
+image**, after which the three shims can be deleted.
 
 ## Decisions
 
@@ -286,7 +325,7 @@ contract, or someone else's copyright.
 | `formula/BaserowFormulaLexer.g4:1-21` | Third-party notice, Tal Shprecher |
 | 22 `local_baserow*` registry type strings | Polymorphic discriminators serialised into application exports, bundled templates and API payloads |
 | ~40 `LocalBaserow*` model class names | They *are* the table names — `integrations_localbaserowgetrow` etc. Renaming means real `RenameModel` migrations |
-| `baserow_version_upgrade` notification type | Persisted in notification rows |
+| `jadawel_version_upgrade` notification type | Persisted in notification rows |
 | PG functions `get_baserow_table_row_count`, `_get_baserow_table_file_uniques`, `get_distinct_baserow_table_file_uniques` | Live in the production database (`database/migrations/0151_…`). A rename needs its own forward migration |
 | `core_settings.show_baserow_help_request` | Real column, and a REST payload key |
 | `DATABASE_NAME` / `USER` / `PASSWORD` defaulting to `baserow` | The managed Postgres role and database name |

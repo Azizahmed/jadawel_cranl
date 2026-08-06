@@ -6314,7 +6314,7 @@
                             "service": {
                                 "id": 379,
                                 "integration_id": 33,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 1888,
                                 "view_id": 7316,
                                 "sortings": [],
@@ -6330,7 +6330,7 @@
                             "service": {
                                 "id": 382,
                                 "integration_id": 33,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 1888,
                                 "view_id": 7331,
                                 "sortings": [],
@@ -7119,7 +7119,7 @@
                             "service": {
                                 "id": 380,
                                 "integration_id": 33,
-                                "type": "local_baserow_get_row",
+                                "type": "local_jadawel_get_row",
                                 "table_id": 1888,
                                 "view_id": 7199,
                                 "search_query": "",
@@ -7135,7 +7135,7 @@
                             "service": {
                                 "id": 381,
                                 "integration_id": 33,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 1928,
                                 "view_id": 7310,
                                 "sortings": [],
@@ -7158,7 +7158,7 @@
                             "service": {
                                 "id": 385,
                                 "integration_id": 33,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 1928,
                                 "view_id": 7310,
                                 "sortings": [],
@@ -7186,7 +7186,7 @@
                             "service": {
                                 "id": 383,
                                 "integration_id": 33,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 1889,
                                 "row_id": "",
                                 "field_mappings": [
@@ -7237,7 +7237,7 @@
                     "id": 33,
                     "name": "Local Baserow",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "authorized_user": "frederik@baserow.io"
                 }
             ],

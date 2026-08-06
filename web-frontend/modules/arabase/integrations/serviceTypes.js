@@ -1,22 +1,22 @@
 import {
-  LocalBaserowListRowsServiceType,
-  LocalBaserowTableServiceType,
-} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+  LocalJadawelListRowsServiceType,
+  LocalJadawelTableServiceType,
+} from '@jadawel/modules/integrations/localJadawel/serviceTypes'
 import { DistributionViewAggregationType } from '@jadawel/modules/database/viewAggregationTypes'
 
 /**
  * The frontend half of `arabase`'s grouped aggregation service.
  *
- * It deliberately extends `LocalBaserowTableServiceType` rather than the
+ * It deliberately extends `LocalJadawelTableServiceType` rather than the
  * `DataSourceServiceTypeMixin` version: the application builder lists every
  * service whose `isDataSource` is true in its data source picker, and this
  * service's only form is shaped for a dashboard widget. Making it selectable
  * there would show an empty form. Exposing it to the builder is a follow-up,
  * not an oversight.
  */
-export class LocalBaserowGroupedAggregateRowsServiceType extends LocalBaserowTableServiceType {
+export class LocalJadawelGroupedAggregateRowsServiceType extends LocalJadawelTableServiceType {
   static getType() {
-    return 'local_baserow_grouped_aggregate_rows'
+    return 'local_jadawel_grouped_aggregate_rows'
   }
 
   get name() {
@@ -75,9 +75,9 @@ export class LocalBaserowGroupedAggregateRowsServiceType extends LocalBaserowTab
  * handling all come for free — the window is the only difference, and it is
  * configured on the widget's own settings form rather than the builder's.
  */
-export class LocalBaserowUpcomingRowsServiceType extends LocalBaserowListRowsServiceType {
+export class LocalJadawelUpcomingRowsServiceType extends LocalJadawelListRowsServiceType {
   static getType() {
-    return 'local_baserow_upcoming_rows'
+    return 'local_jadawel_upcoming_rows'
   }
 
   get name() {

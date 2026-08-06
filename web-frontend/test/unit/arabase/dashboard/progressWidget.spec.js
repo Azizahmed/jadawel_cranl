@@ -6,7 +6,7 @@ describe('ProgressWidget', () => {
   const dashboard = { id: 1, workspace: { id: 1 } }
 
   const mountWidget = async ({ widget = {}, result = '50', error = false }) => {
-    const dataSource = { id: 7, type: 'local_baserow_aggregate_rows' }
+    const dataSource = { id: 7, type: 'local_jadawel_aggregate_rows' }
     const store = {
       getters: {
         'dashboardApplication/getDataSourceById': () => dataSource,

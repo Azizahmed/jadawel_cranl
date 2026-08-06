@@ -215,7 +215,7 @@ msgid "Applications \"%(application_names)s\" (%(application_ids)s) imported"
 msgstr ""
 
 #: src/jadawel/core/emails.py:97
-#: src/jadawel/core/templates/baserow/core/user/email_pending_verification.html:173
+#: src/jadawel/core/templates/jadawel/core/user/email_pending_verification.html:173
 msgid "Please confirm email"
 msgstr ""
 
@@ -323,126 +323,126 @@ msgid ""
 "\"%(application_name)s\" (%(application_id)s)."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/notifications_summary.html:173
+#: src/jadawel/core/templates/jadawel/core/notifications_summary.html:173
 #, python-format
 msgid "You have %(counter)s new notification"
 msgid_plural "You have %(counter)s new notifications"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/jadawel/core/templates/baserow/core/notifications_summary.html:214
+#: src/jadawel/core/templates/jadawel/core/notifications_summary.html:214
 #, python-format
 msgid "Plus %(counter)s more notification."
 msgid_plural "Plus %(counter)s more notifications."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/jadawel/core/templates/baserow/core/notifications_summary.html:220
-#: src/jadawel/core/templates/baserow/core/user/account_deleted.html:184
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_cancelled.html:184
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_scheduled.html:189
-#: src/jadawel/core/templates/baserow/core/user/change_email_confirmation.html:207
-#: src/jadawel/core/templates/baserow/core/user/reset_password.html:207
-#: src/jadawel/core/templates/baserow/core/workspace_invitation.html:209
+#: src/jadawel/core/templates/jadawel/core/notifications_summary.html:220
+#: src/jadawel/core/templates/jadawel/core/user/account_deleted.html:184
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_cancelled.html:184
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_scheduled.html:189
+#: src/jadawel/core/templates/jadawel/core/user/change_email_confirmation.html:207
+#: src/jadawel/core/templates/jadawel/core/user/reset_password.html:207
+#: src/jadawel/core/templates/jadawel/core/workspace_invitation.html:209
 msgid ""
 "جداول is an open source no-code database tool which allows you to "
 "collaborate on projects, customers and more. It gives you the powers of a "
 "developer without leaving your browser."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deleted.html:173
+#: src/jadawel/core/templates/jadawel/core/user/account_deleted.html:173
 msgid "Account permanently deleted"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deleted.html:178
+#: src/jadawel/core/templates/jadawel/core/user/account_deleted.html:178
 #, python-format
 msgid ""
-"Your account (%(username)s) on جداول (%(baserow_embedded_share_hostname)s) "
+"Your account (%(username)s) on جداول (%(jadawel_embedded_share_hostname)s) "
 "has been permanently deleted."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_cancelled.html:173
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_cancelled.html:173
 msgid "Account deletion cancelled"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_cancelled.html:178
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_cancelled.html:178
 #, python-format
 msgid ""
-"Your account (%(username)s) on جداول (%(baserow_embedded_share_hostname)s) "
+"Your account (%(username)s) on جداول (%(jadawel_embedded_share_hostname)s) "
 "was pending deletion, but you've logged in so this operation has been "
 "cancelled."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_scheduled.html:173
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_scheduled.html:173
 msgid "Account pending deletion"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_scheduled.html:178
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_scheduled.html:178
 #, python-format
 msgid ""
-"Your account (%(username)s) on جداول (%(baserow_embedded_share_hostname)s) "
+"Your account (%(username)s) on جداول (%(jadawel_embedded_share_hostname)s) "
 "will be permanently deleted in %(days_left)s days."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/account_deletion_scheduled.html:183
+#: src/jadawel/core/templates/jadawel/core/user/account_deletion_scheduled.html:183
 msgid ""
 "If you've changed your mind and want to cancel your account deletion, you "
 "just have to login again."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/change_email_confirmation.html:173
+#: src/jadawel/core/templates/jadawel/core/user/change_email_confirmation.html:173
 msgid "Confirm email address change"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/change_email_confirmation.html:178
+#: src/jadawel/core/templates/jadawel/core/user/change_email_confirmation.html:178
 #, python-format
 msgid ""
 "A request was made to change the email address for your جداول account from "
 "%(old_email)s to %(new_email)s on جداول "
-"(%(baserow_embedded_share_hostname)s). If you did not authorize this, you "
+"(%(jadawel_embedded_share_hostname)s). If you did not authorize this, you "
 "may simply ignore this email."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/change_email_confirmation.html:183
+#: src/jadawel/core/templates/jadawel/core/user/change_email_confirmation.html:183
 #, python-format
 msgid ""
 "To confirm your email address change, simply click the button below. This "
 "link will expire in %(hours)s hours."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/change_email_confirmation.html:192
+#: src/jadawel/core/templates/jadawel/core/user/change_email_confirmation.html:192
 msgid "Confirm email change"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/email_pending_verification.html:178
+#: src/jadawel/core/templates/jadawel/core/user/email_pending_verification.html:178
 msgid "Thank you for using جداول"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/email_pending_verification.html:183
+#: src/jadawel/core/templates/jadawel/core/user/email_pending_verification.html:183
 msgid ""
 "To keep your account secure, please take a moment to verify your email by "
 "clicking the button below. Your email address will be used to assist you in "
 "changing your جداول password should you ever need to in the future."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/email_pending_verification.html:192
+#: src/jadawel/core/templates/jadawel/core/user/email_pending_verification.html:192
 msgid "Confirm"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/reset_password.html:173
-#: src/jadawel/core/templates/baserow/core/user/reset_password.html:192
+#: src/jadawel/core/templates/jadawel/core/user/reset_password.html:173
+#: src/jadawel/core/templates/jadawel/core/user/reset_password.html:192
 msgid "Reset password"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/reset_password.html:178
+#: src/jadawel/core/templates/jadawel/core/user/reset_password.html:178
 #, python-format
 msgid ""
 "A password reset was requested for your account (%(username)s) on جداول "
-"(%(baserow_embedded_share_hostname)s). If you did not authorize this, you "
+"(%(jadawel_embedded_share_hostname)s). If you did not authorize this, you "
 "may simply ignore this email."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/user/reset_password.html:183
+#: src/jadawel/core/templates/jadawel/core/user/reset_password.html:183
 #, python-format
 msgid ""
 "To continue with your password reset, simply click the button below, and you "
@@ -450,18 +450,18 @@ msgid ""
 "hours."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/workspace_invitation.html:173
+#: src/jadawel/core/templates/jadawel/core/workspace_invitation.html:173
 msgid "Invitation"
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/workspace_invitation.html:178
+#: src/jadawel/core/templates/jadawel/core/workspace_invitation.html:178
 #, python-format
 msgid ""
 "<strong>%(first_name)s</strong> has invited you to collaborate on "
 "<strong>%(workspace_name)s</strong>."
 msgstr ""
 
-#: src/jadawel/core/templates/baserow/core/workspace_invitation.html:194
+#: src/jadawel/core/templates/jadawel/core/workspace_invitation.html:194
 msgid "Accept invitation"
 msgstr ""
 

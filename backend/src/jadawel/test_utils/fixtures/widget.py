@@ -8,7 +8,7 @@ class WidgetFixtures:
             dashboard = self.create_dashboard_application(**dashboard_args)
         if "data_source" not in kwargs:
             data_source = (
-                self.create_dashboard_local_baserow_aggregate_rows_data_source(
+                self.create_dashboard_local_jadawel_aggregate_rows_data_source(
                     dashboard=dashboard
                 )
             )

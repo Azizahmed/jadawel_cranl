@@ -19,12 +19,12 @@ def test_get_widgets(api_client, data_fixture):
     dashboard = data_fixture.create_dashboard_application(user=user)
     dashboard_2 = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 2"
         )
     )
@@ -253,12 +253,12 @@ def test_update_widget(api_client, data_fixture):
     dashboard = data_fixture.create_dashboard_application(user=user)
     dashboard_2 = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 1"
         )
     )
     data_source_2 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 2"
         )
     )
@@ -302,7 +302,7 @@ def test_update_widget_permissions_denied(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 1"
         )
     )
@@ -346,7 +346,7 @@ def test_update_widget_empty_title(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Data source 1"
         )
     )
@@ -405,7 +405,7 @@ def test_delete_widget(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application(user=user)
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )
@@ -429,7 +429,7 @@ def test_delete_widget_permissions_denied(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     dashboard = data_fixture.create_dashboard_application()
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, name="Name 1"
         )
     )

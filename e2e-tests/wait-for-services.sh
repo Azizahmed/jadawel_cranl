@@ -7,7 +7,7 @@ set -Eeo pipefail
 # Keep in sync with src/jadawel/config/settings/base.py:594
 DEFAULT_APPLICATION_TEMPLATES=("project-tracker" "ab_ivory_theme")
 
-baserow_ready() {
+jadawel_ready() {
     curlf() {
       HTTP_CODE=$(curl --silent -o /dev/null --write-out "%{http_code}" --max-time 10 "$@")
       if [[ ${HTTP_CODE} -lt 200 || ${HTTP_CODE} -gt 299 ]] ; then
@@ -38,7 +38,7 @@ baserow_ready() {
 for _ in $(seq 1 "${JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-60}")
 do
   echo 'Waiting for backend, web-frontend and synced templates to be ready'
-  if baserow_ready; then
+  if jadawel_ready; then
     echo 'Jadawel is ready! Exiting with success code.'
     exit 0
   fi

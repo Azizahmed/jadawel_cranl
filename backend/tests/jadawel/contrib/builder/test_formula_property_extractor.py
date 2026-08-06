@@ -80,11 +80,11 @@ def test_get_builder_used_property_names_returns_all_property_names(data_fixture
         ],
     )
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page,
         integration=integration,
         table=table,
@@ -143,11 +143,11 @@ def test_get_builder_used_property_names_returns_some_property_names(data_fixtur
         ],
     )
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page,
         integration=integration,
         table=table,
@@ -274,12 +274,12 @@ def test_get_element_property_names_returns_property_names(data_fixture):
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source_1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -433,12 +433,12 @@ def test_get_workflow_action_property_names_returns_property_names(data_fixture)
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source_1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -512,7 +512,7 @@ def test_get_workflow_action_property_names_returns_external_property_names(
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -584,7 +584,7 @@ def test_get_workflow_action_property_names_returns_internal_property_names(
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -664,17 +664,17 @@ def test_get_data_source_property_names_returns_empty_if_invalid_formula(
         ],
     )
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    list_rows_service = data_fixture.create_local_baserow_list_rows_service(
+    list_rows_service = data_fixture.create_local_jadawel_list_rows_service(
         integration=integration,
         search_query="foo",
     )
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -712,22 +712,22 @@ def test_get_data_source_property_names_list_rows_returns_property_names(data_fi
         ],
     )
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    list_rows_service = data_fixture.create_local_baserow_list_rows_service(
+    list_rows_service = data_fixture.create_local_jadawel_list_rows_service(
         integration=integration,
     )
 
-    data_source_1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
     )
 
-    data_source_2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -768,22 +768,22 @@ def test_get_data_source_property_names_get_row_returns_property_names(data_fixt
         ],
     )
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    get_row_service = data_fixture.create_local_baserow_get_row_service(
+    get_row_service = data_fixture.create_local_jadawel_get_row_service(
         integration=integration
     )
 
-    data_source_1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
     )
 
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         table=table,
@@ -828,7 +828,7 @@ def test_get_data_source_property_names_skips_if_no_service(
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
     # Create a Data Source, but don't create a Service
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
@@ -901,36 +901,36 @@ def test_get_builder_used_property_names_returns_merged_property_names_integrati
         ],
     )
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     shared_page = builder.shared_page
     page = data_fixture.create_builder_page(builder=builder)
     page2 = data_fixture.create_builder_page(builder=builder)
 
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page,
         integration=integration,
         table=table,
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         table=table,
     )
-    data_source_3 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_3 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=shared_page,
         table=table,
     )
-    data_source_4 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_4 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page2,
         table=table,
     )
     # Data source using another one
     # Also unused data source
-    data_source_5 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_5 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page,
         integration=integration,
         table=table,
@@ -977,7 +977,7 @@ def test_get_builder_used_property_names_returns_merged_property_names_integrati
         title=f"get('data_source.{data_source.id}.field_{fields[0].id}')",
     )
 
-    service = data_fixture.create_local_baserow_upsert_row_service(
+    service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table,
         integration=integration,
     )
@@ -989,7 +989,7 @@ def test_get_builder_used_property_names_returns_merged_property_names_integrati
         field=fields[1],
         value=f"get('data_source.{data_source_3.id}.0.field_{fields[2].id}')",
     )
-    workflow_action2 = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action2 = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, service=service, element=button_element_2, event=EventTypes.CLICK
     )
 

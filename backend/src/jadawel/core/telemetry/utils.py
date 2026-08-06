@@ -42,7 +42,7 @@ def disable_instrumentation(wrapped_function):
 
 # attrs don't include the module name to keep them short and easier to see so we add
 # jadawel manually.
-JADAWEL_OTEL_TRACE_ATTR_PREFIX = "baserow."
+JADAWEL_OTEL_TRACE_ATTR_PREFIX = "jadawel."
 
 
 class BatchBaggageSpanProcessor(BatchSpanProcessor):

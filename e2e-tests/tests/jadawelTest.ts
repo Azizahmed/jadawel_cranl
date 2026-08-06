@@ -25,7 +25,7 @@ export const test = base.extend<JadawelFixtures>({
     // Don't show the cookie notice
     await page.context().addCookies([
       {
-        name: "baserow_dashboard_alert_closed_v2",
+        name: "jadawel_dashboard_alert_closed_v2",
         value: "true",
         domain: "localhost",
         path: "/",

@@ -61,10 +61,10 @@ def test_record_selector_element_form_submission(api_client, data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     page = data_fixture.create_builder_page(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=page.builder
     )
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -80,7 +80,7 @@ def test_record_selector_element_form_submission(api_client, data_fixture):
         parent_element=form,
     )
 
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         user=user,
         page=page,
         element=form,

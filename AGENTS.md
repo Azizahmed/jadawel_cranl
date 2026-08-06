@@ -66,13 +66,17 @@ Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
 - Editing an upstream-derived core file under `backend/src/jadawel/` is the last
   resort, and every such edit is logged in `PATCHES.md` with its reason. Files you
   create under `arabase/`, `docs/` or `.github/` are additive and stay out of that log.
-- The code is named `jadawel` throughout: the Python distribution, the `jadawel.*`
-  import namespace, `src/jadawel`, the `@jadawel` frontend alias, `JADAWEL_*`
-  environment variables and the `/jadawel` image paths. A handful of names keep
-  `baserow` on purpose because they are wire contracts, not module paths — the
-  Celery task names, the OpenTelemetry metric names, the `local_baserow` service
-  types, the `templates/baserow` loader directory and the Postgres role. See
-  `docs/RENAME_TO_JADAWEL.md` for the full list and the reason behind each.
+- The code is named `jadawel` throughout, with no compatibility aliases left in the
+  source: the Python distribution, the `jadawel.*` import namespace, `src/jadawel`,
+  the `@jadawel` frontend alias, `JADAWEL_*` environment variables, `/jadawel` image
+  paths, Celery task names, OpenTelemetry metric names, the `local_jadawel` service
+  types and `LocalJadawel*` tables, `templates/jadawel`, and the Postgres role.
+  Three things still read `baserow` and must stay: the `Baserow B.V.` copyright the
+  MIT licence requires, upstream's Docker Hub images and issue URLs, and the
+  `baserow_premium` / `baserow_enterprise` names that
+  `test_fork_hygiene.py` asserts are *not* importable. Sample data inside
+  `backend/templates/*.json` is upstream's content and is left verbatim.
+  `docs/RENAME_TO_JADAWEL.md` records how the rename was carried out.
 
 ## Coding style
 

@@ -6,18 +6,18 @@ import {
   containerNodeTypeMixin,
 } from '@jadawel/modules/automation/nodeTypeMixins'
 import {
-  LocalBaserowCreateRowWorkflowServiceType,
-  LocalBaserowUpdateRowWorkflowServiceType,
-  LocalBaserowDeleteRowWorkflowServiceType,
-  LocalBaserowRowsCreatedTriggerServiceType,
-  LocalBaserowRowsDeletedTriggerServiceType,
-  LocalBaserowRowsUpdatedTriggerServiceType,
-  LocalBaserowGetRowServiceType,
-  LocalBaserowListRowsServiceType,
-  LocalBaserowAggregateRowsServiceType,
-} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+  LocalJadawelCreateRowWorkflowServiceType,
+  LocalJadawelUpdateRowWorkflowServiceType,
+  LocalJadawelDeleteRowWorkflowServiceType,
+  LocalJadawelRowsCreatedTriggerServiceType,
+  LocalJadawelRowsDeletedTriggerServiceType,
+  LocalJadawelRowsUpdatedTriggerServiceType,
+  LocalJadawelGetRowServiceType,
+  LocalJadawelListRowsServiceType,
+  LocalJadawelAggregateRowsServiceType,
+} from '@jadawel/modules/integrations/localJadawel/serviceTypes'
 import slackIntegration from '@jadawel/modules/integrations/slack/assets/images/slack.svg?url'
-import localBaserowIntegration from '@jadawel/modules/integrations/localBaserow/assets/images/localBaserowIntegration.svg?url'
+import localJadawelIntegration from '@jadawel/modules/integrations/localJadawel/assets/images/localJadawelIntegration.svg?url'
 import {
   CoreHTTPRequestServiceType,
   CoreRouterServiceType,
@@ -262,7 +262,7 @@ export class NodeType extends Registerable {
   }
 }
 
-export class LocalBaserowNodeType extends NodeType {
+export class LocalJadawelNodeType extends NodeType {
   /**
    * Responsible for returning contextual data for a node label template.
    * At the moment we only refer to the table name.
@@ -299,11 +299,11 @@ export class LocalBaserowNodeType extends NodeType {
   }
 
   get image() {
-    return localBaserowIntegration
+    return localJadawelIntegration
   }
 }
 
-export class LocalBaserowSignalTriggerType extends LocalBaserowNodeType {
+export class LocalJadawelSignalTriggerType extends LocalJadawelNodeType {
   /**
    * All Local Jadawel signal triggers return an array of rows,
    * so we override the `dataType` method to return 'array'.
@@ -314,11 +314,11 @@ export class LocalBaserowSignalTriggerType extends LocalBaserowNodeType {
   }
 }
 
-export class LocalBaserowRowsCreatedTriggerNodeType extends TriggerNodeTypeMixin(
-  LocalBaserowSignalTriggerType
+export class LocalJadawelRowsCreatedTriggerNodeType extends TriggerNodeTypeMixin(
+  LocalJadawelSignalTriggerType
 ) {
   static getType() {
-    return 'local_baserow_rows_created'
+    return 'local_jadawel_rows_created'
   }
 
   getOrder() {
@@ -326,22 +326,22 @@ export class LocalBaserowRowsCreatedTriggerNodeType extends TriggerNodeTypeMixin
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowRowsCreatedLabel'
+    return 'nodeType.localJadawelRowsCreatedLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowRowsCreatedTriggerServiceType.getType()
+      LocalJadawelRowsCreatedTriggerServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowRowsUpdatedTriggerNodeType extends TriggerNodeTypeMixin(
-  LocalBaserowSignalTriggerType
+export class LocalJadawelRowsUpdatedTriggerNodeType extends TriggerNodeTypeMixin(
+  LocalJadawelSignalTriggerType
 ) {
   static getType() {
-    return 'local_baserow_rows_updated'
+    return 'local_jadawel_rows_updated'
   }
 
   getOrder() {
@@ -349,22 +349,22 @@ export class LocalBaserowRowsUpdatedTriggerNodeType extends TriggerNodeTypeMixin
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowRowsUpdatedLabel'
+    return 'nodeType.localJadawelRowsUpdatedLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowRowsUpdatedTriggerServiceType.getType()
+      LocalJadawelRowsUpdatedTriggerServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowRowsDeletedTriggerNodeType extends TriggerNodeTypeMixin(
-  LocalBaserowSignalTriggerType
+export class LocalJadawelRowsDeletedTriggerNodeType extends TriggerNodeTypeMixin(
+  LocalJadawelSignalTriggerType
 ) {
   static getType() {
-    return 'local_baserow_rows_deleted'
+    return 'local_jadawel_rows_deleted'
   }
 
   getOrder() {
@@ -372,13 +372,13 @@ export class LocalBaserowRowsDeletedTriggerNodeType extends TriggerNodeTypeMixin
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowRowsDeletedLabel'
+    return 'nodeType.localJadawelRowsDeletedLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowRowsDeletedTriggerServiceType.getType()
+      LocalJadawelRowsDeletedTriggerServiceType.getType()
     )
   }
 }
@@ -450,11 +450,11 @@ export class CoreHTTPTriggerNodeType extends TriggerNodeTypeMixin(NodeType) {
   }
 }
 
-export class LocalBaserowCreateRowActionNodeType extends ActionNodeTypeMixin(
-  LocalBaserowNodeType
+export class LocalJadawelCreateRowActionNodeType extends ActionNodeTypeMixin(
+  LocalJadawelNodeType
 ) {
   static getType() {
-    return 'local_baserow_create_row'
+    return 'local_jadawel_create_row'
   }
 
   getOrder() {
@@ -462,22 +462,22 @@ export class LocalBaserowCreateRowActionNodeType extends ActionNodeTypeMixin(
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowCreateRowLabel'
+    return 'nodeType.localJadawelCreateRowLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowCreateRowWorkflowServiceType.getType()
+      LocalJadawelCreateRowWorkflowServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowUpdateRowActionNodeType extends ActionNodeTypeMixin(
-  LocalBaserowNodeType
+export class LocalJadawelUpdateRowActionNodeType extends ActionNodeTypeMixin(
+  LocalJadawelNodeType
 ) {
   static getType() {
-    return 'local_baserow_update_row'
+    return 'local_jadawel_update_row'
   }
 
   getOrder() {
@@ -485,22 +485,22 @@ export class LocalBaserowUpdateRowActionNodeType extends ActionNodeTypeMixin(
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowUpdateRowLabel'
+    return 'nodeType.localJadawelUpdateRowLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowUpdateRowWorkflowServiceType.getType()
+      LocalJadawelUpdateRowWorkflowServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowDeleteRowActionNodeType extends ActionNodeTypeMixin(
-  LocalBaserowNodeType
+export class LocalJadawelDeleteRowActionNodeType extends ActionNodeTypeMixin(
+  LocalJadawelNodeType
 ) {
   static getType() {
-    return 'local_baserow_delete_row'
+    return 'local_jadawel_delete_row'
   }
 
   getOrder() {
@@ -508,22 +508,22 @@ export class LocalBaserowDeleteRowActionNodeType extends ActionNodeTypeMixin(
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowDeleteRowLabel'
+    return 'nodeType.localJadawelDeleteRowLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowDeleteRowWorkflowServiceType.getType()
+      LocalJadawelDeleteRowWorkflowServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowGetRowActionNodeType extends ActionNodeTypeMixin(
-  LocalBaserowNodeType
+export class LocalJadawelGetRowActionNodeType extends ActionNodeTypeMixin(
+  LocalJadawelNodeType
 ) {
   static getType() {
-    return 'local_baserow_get_row'
+    return 'local_jadawel_get_row'
   }
 
   getOrder() {
@@ -531,22 +531,22 @@ export class LocalBaserowGetRowActionNodeType extends ActionNodeTypeMixin(
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowGetRowLabel'
+    return 'nodeType.localJadawelGetRowLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowGetRowServiceType.getType()
+      LocalJadawelGetRowServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowListRowsActionNodeType extends ActionNodeTypeMixin(
-  LocalBaserowNodeType
+export class LocalJadawelListRowsActionNodeType extends ActionNodeTypeMixin(
+  LocalJadawelNodeType
 ) {
   static getType() {
-    return 'local_baserow_list_rows'
+    return 'local_jadawel_list_rows'
   }
 
   getOrder() {
@@ -554,7 +554,7 @@ export class LocalBaserowListRowsActionNodeType extends ActionNodeTypeMixin(
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowListRowsLabel'
+    return 'nodeType.localJadawelListRowsLabel'
   }
 
   get dataType() {
@@ -564,16 +564,16 @@ export class LocalBaserowListRowsActionNodeType extends ActionNodeTypeMixin(
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowListRowsServiceType.getType()
+      LocalJadawelListRowsServiceType.getType()
     )
   }
 }
 
-export class LocalBaserowAggregateRowsActionNodeType extends ActionNodeTypeMixin(
-  LocalBaserowNodeType
+export class LocalJadawelAggregateRowsActionNodeType extends ActionNodeTypeMixin(
+  LocalJadawelNodeType
 ) {
   static getType() {
-    return 'local_baserow_aggregate_rows'
+    return 'local_jadawel_aggregate_rows'
   }
 
   getOrder() {
@@ -581,13 +581,13 @@ export class LocalBaserowAggregateRowsActionNodeType extends ActionNodeTypeMixin
   }
 
   get labelTemplateName() {
-    return 'nodeType.localBaserowAggregateRowsLabel'
+    return 'nodeType.localJadawelAggregateRowsLabel'
   }
 
   get serviceType() {
     return this.app.$registry.get(
       'service',
-      LocalBaserowAggregateRowsServiceType.getType()
+      LocalJadawelAggregateRowsServiceType.getType()
     )
   }
 }

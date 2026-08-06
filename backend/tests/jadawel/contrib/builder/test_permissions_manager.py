@@ -43,10 +43,10 @@ def test_allow_if_template_permission_manager(data_fixture):
     application_1 = data_fixture.create_builder_application(workspace=workspace_1)
     page_1 = data_fixture.create_builder_page(builder=application_1)
     element_1 = data_fixture.create_builder_text_element(page=page_1)
-    workflow_action_1 = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action_1 = data_fixture.create_local_jadawel_update_row_workflow_action(
         element=element_1, page=page_1
     )
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         builder=application_1
     )
 
@@ -55,10 +55,10 @@ def test_allow_if_template_permission_manager(data_fixture):
     application_2 = data_fixture.create_builder_application(workspace=workspace_2)
     page_2 = data_fixture.create_builder_page(builder=application_2)
     element_2 = data_fixture.create_builder_text_element(page=page_2)
-    workflow_action_2 = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action_2 = data_fixture.create_local_jadawel_update_row_workflow_action(
         element=element_2, page=page_2
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         builder=application_2
     )
 
@@ -172,10 +172,10 @@ def test_allow_if_template_permission_manager_filter_queryset(data_fixture):
     application_1 = data_fixture.create_builder_application(workspace=workspace_1)
     page_1 = data_fixture.create_builder_page(builder=application_1)
     element_1 = data_fixture.create_builder_text_element(page=page_1)
-    workflow_action_1 = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action_1 = data_fixture.create_local_jadawel_update_row_workflow_action(
         element=element_1, page=page_1
     )
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page_1
     )
 
@@ -185,10 +185,10 @@ def test_allow_if_template_permission_manager_filter_queryset(data_fixture):
     shared_page_2 = application_2.shared_page
     page_2 = data_fixture.create_builder_page(builder=application_2)
     element_2 = data_fixture.create_builder_text_element(page=page_2)
-    workflow_action_2 = data_fixture.create_local_baserow_update_row_workflow_action(
+    workflow_action_2 = data_fixture.create_local_jadawel_update_row_workflow_action(
         element=element_2, page=page_2
     )
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page_2
     )
 

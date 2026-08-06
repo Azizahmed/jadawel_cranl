@@ -12,16 +12,16 @@ from arabase.dashboard.widgets.models import (
     RecordsListWidget,
     UpcomingDatesWidget,
 )
-from arabase.integrations.local_baserow.service_types import (
-    LocalBaserowGroupedAggregateRowsUserServiceType,
+from arabase.integrations.local_jadawel.service_types import (
+    LocalJadawelGroupedAggregateRowsUserServiceType,
 )
-from arabase.integrations.local_baserow.upcoming_rows import (
-    LocalBaserowUpcomingRowsUserServiceType,
+from arabase.integrations.local_jadawel.upcoming_rows import (
+    LocalJadawelUpcomingRowsUserServiceType,
 )
 from jadawel.contrib.dashboard.widgets.registries import WidgetType
-from jadawel.contrib.integrations.local_baserow.service_types import (
-    LocalBaserowAggregateRowsUserServiceType,
-    LocalBaserowListRowsUserServiceType,
+from jadawel.contrib.integrations.local_jadawel.service_types import (
+    LocalJadawelAggregateRowsUserServiceType,
+    LocalJadawelListRowsUserServiceType,
 )
 
 MAX_DISPLAYED_FIELDS = 6
@@ -37,7 +37,7 @@ class ChartWidgetType(DataSourceBackedWidgetType):
 
     type = "chart"
     model_class = ChartWidget
-    service_type_name = LocalBaserowGroupedAggregateRowsUserServiceType.type
+    service_type_name = LocalJadawelGroupedAggregateRowsUserServiceType.type
     allowed_fields = WidgetType.allowed_fields + [
         "chart_type",
         "series_config",
@@ -98,7 +98,7 @@ class RecordsListWidgetType(DisplayedFieldsWidgetTypeMixin, DataSourceBackedWidg
 
     type = "records_list"
     model_class = RecordsListWidget
-    service_type_name = LocalBaserowListRowsUserServiceType.type
+    service_type_name = LocalJadawelListRowsUserServiceType.type
     allowed_fields = WidgetType.allowed_fields + ["field_ids"]
     serializer_field_names = ["data_source_id", "field_ids"]
     request_serializer_field_names = ["field_ids"]
@@ -126,7 +126,7 @@ class ProgressWidgetType(DataSourceBackedWidgetType):
 
     type = "progress"
     model_class = ProgressWidget
-    service_type_name = LocalBaserowAggregateRowsUserServiceType.type
+    service_type_name = LocalJadawelAggregateRowsUserServiceType.type
     allowed_fields = WidgetType.allowed_fields + [
         "target_value",
         "display_style",
@@ -195,7 +195,7 @@ class UpcomingDatesWidgetType(
 
     type = "upcoming_dates"
     model_class = UpcomingDatesWidget
-    service_type_name = LocalBaserowUpcomingRowsUserServiceType.type
+    service_type_name = LocalJadawelUpcomingRowsUserServiceType.type
     allowed_fields = WidgetType.allowed_fields + ["field_ids"]
     serializer_field_names = ["data_source_id", "field_ids"]
     request_serializer_field_names = ["field_ids"]

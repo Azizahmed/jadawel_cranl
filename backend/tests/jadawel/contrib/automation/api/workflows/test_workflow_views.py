@@ -487,14 +487,14 @@ def test_run_workflow_in_test_mode(api_client, data_fixture):
     workflow.automation.published_from = original_workflow
     workflow.automation.save()
 
-    trigger_service = data_fixture.create_local_baserow_rows_created_service(
+    trigger_service = data_fixture.create_local_jadawel_rows_created_service(
         table=table_1,
-        integration=data_fixture.create_local_baserow_integration(user=user),
+        integration=data_fixture.create_local_jadawel_integration(user=user),
     )
     trigger_node = data_fixture.create_automation_node(
         user=user,
         workflow=workflow,
-        type="local_baserow_rows_created",
+        type="local_jadawel_rows_created",
         service=trigger_service,
     )
 
@@ -504,9 +504,9 @@ def test_run_workflow_in_test_mode(api_client, data_fixture):
         columns=[("Name", "text")],
         rows=[],
     )
-    action_service = data_fixture.create_local_baserow_upsert_row_service(
+    action_service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table_2,
-        integration=data_fixture.create_local_baserow_integration(user=user),
+        integration=data_fixture.create_local_jadawel_integration(user=user),
     )
     action_service.field_mappings.create(
         field=fields_2[0],
@@ -515,7 +515,7 @@ def test_run_workflow_in_test_mode(api_client, data_fixture):
     action_node = data_fixture.create_automation_node(
         user=user,
         workflow=workflow,
-        type="local_baserow_create_row",
+        type="local_jadawel_create_row",
         service=action_service,
     )
 
@@ -775,7 +775,7 @@ def test_get_workflow_histories_with_node_histories(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user=user)
     trigger = workflow.get_trigger()
-    action_node = data_fixture.create_local_baserow_create_row_action_node(
+    action_node = data_fixture.create_local_jadawel_create_row_action_node(
         user=user, workflow=workflow, label="My Action"
     )
 

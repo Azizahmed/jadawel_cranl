@@ -19369,7 +19369,7 @@
                             "service": {
                                 "id": 3533,
                                 "integration_id": 187,
-                                "type": "local_baserow_get_row",
+                                "type": "local_jadawel_get_row",
                                 "table_id": 3516,
                                 "view_id": null,
                                 "search_query": "",
@@ -19385,7 +19385,7 @@
                             "service": {
                                 "id": 3534,
                                 "integration_id": 187,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3517,
                                 "view_id": 14804,
                                 "sortings": [],
@@ -19408,7 +19408,7 @@
                             "service": {
                                 "id": 3535,
                                 "integration_id": 187,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3518,
                                 "view_id": null,
                                 "sortings": [],
@@ -19431,7 +19431,7 @@
                             "service": {
                                 "id": 3536,
                                 "integration_id": 187,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3518,
                                 "view_id": 14807,
                                 "sortings": [],
@@ -19460,7 +19460,7 @@
                             "service": {
                                 "id": 3537,
                                 "integration_id": 187,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3517,
                                 "row_id": "",
                                 "field_mappings": [
@@ -19502,7 +19502,7 @@
                             "service": {
                                 "id": 3538,
                                 "integration_id": 187,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3516,
                                 "row_id": "get('data_source.2758.id')",
                                 "field_mappings": [
@@ -19613,7 +19613,7 @@
                     "id": 187,
                     "name": "Local Baserow",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "authorized_user": "frederik@baserow.io"
                 }
             ],
@@ -19717,13 +19717,13 @@
                     "id": 129,
                     "name": "Children",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "uid": "9992ca42149b4d2ca41e376a999bc717",
                     "integration_id": 187,
                     "auth_providers": [
                         {
                             "id": 127,
-                            "type": "local_baserow_password",
+                            "type": "local_jadawel_password",
                             "domain": null,
                             "enabled": true,
                             "password_field_id": 34705
@@ -21569,7 +21569,7 @@
                             "service": {
                                 "id": 3539,
                                 "integration_id": 188,
-                                "type": "local_baserow_get_row",
+                                "type": "local_jadawel_get_row",
                                 "table_id": 3520,
                                 "view_id": null,
                                 "search_query": "",
@@ -21585,7 +21585,7 @@
                             "service": {
                                 "id": 3540,
                                 "integration_id": 188,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "sortings": [],
@@ -21614,7 +21614,7 @@
                             "service": {
                                 "id": 3541,
                                 "integration_id": 188,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "sortings": [],
@@ -21643,7 +21643,7 @@
                             "service": {
                                 "id": 3542,
                                 "integration_id": 188,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "sortings": [],
@@ -21672,7 +21672,7 @@
                             "service": {
                                 "id": 3543,
                                 "integration_id": 188,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "sortings": [],
@@ -21706,7 +21706,7 @@
                             "service": {
                                 "id": 3544,
                                 "integration_id": 188,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -21781,7 +21781,7 @@
                             "service": {
                                 "id": 3545,
                                 "integration_id": 188,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -21848,7 +21848,7 @@
                             "service": {
                                 "id": 3546,
                                 "integration_id": 188,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -21987,7 +21987,7 @@
                             "service": {
                                 "id": 3547,
                                 "integration_id": 188,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3524,
                                 "row_id": "",
                                 "field_mappings": [
@@ -22020,7 +22020,7 @@
                     "id": 188,
                     "name": "Local Baserow",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "authorized_user": "frederik@baserow.io"
                 }
             ],
@@ -22124,13 +22124,13 @@
                     "id": 130,
                     "name": "Elves",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "uid": "6003f742d9c1468ab81175630b075976",
                     "integration_id": 188,
                     "auth_providers": [
                         {
                             "id": 128,
-                            "type": "local_baserow_password",
+                            "type": "local_jadawel_password",
                             "domain": null,
                             "enabled": true,
                             "password_field_id": 34735
@@ -24081,7 +24081,7 @@
                             "service": {
                                 "id": 3548,
                                 "integration_id": 189,
-                                "type": "local_baserow_aggregate_rows",
+                                "type": "local_jadawel_aggregate_rows",
                                 "table_id": 3519,
                                 "view_id": 14814,
                                 "search_query": "",
@@ -24098,7 +24098,7 @@
                             "service": {
                                 "id": 3549,
                                 "integration_id": 189,
-                                "type": "local_baserow_aggregate_rows",
+                                "type": "local_jadawel_aggregate_rows",
                                 "table_id": 3519,
                                 "view_id": 14824,
                                 "search_query": "",
@@ -24115,7 +24115,7 @@
                             "service": {
                                 "id": 3550,
                                 "integration_id": 189,
-                                "type": "local_baserow_aggregate_rows",
+                                "type": "local_jadawel_aggregate_rows",
                                 "table_id": 3519,
                                 "view_id": 14826,
                                 "search_query": "",
@@ -24132,7 +24132,7 @@
                             "service": {
                                 "id": 3551,
                                 "integration_id": 189,
-                                "type": "local_baserow_aggregate_rows",
+                                "type": "local_jadawel_aggregate_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "search_query": "",
@@ -24149,7 +24149,7 @@
                             "service": {
                                 "id": 3552,
                                 "integration_id": 189,
-                                "type": "local_baserow_aggregate_rows",
+                                "type": "local_jadawel_aggregate_rows",
                                 "table_id": 3519,
                                 "view_id": 14825,
                                 "search_query": "",
@@ -24166,7 +24166,7 @@
                             "service": {
                                 "id": 3553,
                                 "integration_id": 189,
-                                "type": "local_baserow_aggregate_rows",
+                                "type": "local_jadawel_aggregate_rows",
                                 "table_id": 3519,
                                 "view_id": 14827,
                                 "search_query": "",
@@ -24183,7 +24183,7 @@
                             "service": {
                                 "id": 3554,
                                 "integration_id": 189,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3520,
                                 "view_id": 14835,
                                 "sortings": [],
@@ -24199,7 +24199,7 @@
                             "service": {
                                 "id": 3555,
                                 "integration_id": 189,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3521,
                                 "view_id": 14836,
                                 "sortings": [],
@@ -24215,7 +24215,7 @@
                             "service": {
                                 "id": 3556,
                                 "integration_id": 189,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14829,
                                 "sortings": [],
@@ -24236,7 +24236,7 @@
                             "service": {
                                 "id": 3557,
                                 "integration_id": 189,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -24313,7 +24313,7 @@
                     "id": 189,
                     "name": "Local Baserow",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "authorized_user": "frederik@baserow.io"
                 }
             ],
@@ -25256,7 +25256,7 @@
                             "service": {
                                 "id": 3558,
                                 "integration_id": 190,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3523,
                                 "view_id": 14843,
                                 "sortings": [],
@@ -25279,7 +25279,7 @@
                             "service": {
                                 "id": 3559,
                                 "integration_id": 190,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3522,
                                 "view_id": null,
                                 "sortings": [],
@@ -25307,7 +25307,7 @@
                             "service": {
                                 "id": 3564,
                                 "integration_id": 190,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3522,
                                 "row_id": "get('data_source.2777.0.id')",
                                 "field_mappings": [
@@ -26260,7 +26260,7 @@
                             "service": {
                                 "id": 3560,
                                 "integration_id": 190,
-                                "type": "local_baserow_get_row",
+                                "type": "local_jadawel_get_row",
                                 "table_id": 3523,
                                 "view_id": null,
                                 "search_query": "",
@@ -26276,7 +26276,7 @@
                             "service": {
                                 "id": 3561,
                                 "integration_id": 190,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3524,
                                 "view_id": 14851,
                                 "sortings": [],
@@ -26299,7 +26299,7 @@
                             "service": {
                                 "id": 3562,
                                 "integration_id": 190,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3524,
                                 "view_id": 14853,
                                 "sortings": [],
@@ -26322,7 +26322,7 @@
                             "service": {
                                 "id": 3563,
                                 "integration_id": 190,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3524,
                                 "view_id": 14852,
                                 "sortings": [],
@@ -26358,7 +26358,7 @@
                             "service": {
                                 "id": 3565,
                                 "integration_id": 190,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3524,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -26390,7 +26390,7 @@
                             "service": {
                                 "id": 3566,
                                 "integration_id": 190,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3524,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -26459,7 +26459,7 @@
                     "id": 190,
                     "name": "Local Baserow",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "authorized_user": "frederik@baserow.io"
                 }
             ],
@@ -26560,13 +26560,13 @@
                     "id": 131,
                     "name": "Reindeers",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "uid": "db1a68eeec1740a296969a8101887a65",
                     "integration_id": 190,
                     "auth_providers": [
                         {
                             "id": 129,
-                            "type": "local_baserow_password",
+                            "type": "local_jadawel_password",
                             "domain": null,
                             "enabled": true,
                             "password_field_id": 34747
@@ -28560,7 +28560,7 @@
                             "service": {
                                 "id": 3567,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3517,
                                 "view_id": 14806,
                                 "sortings": [],
@@ -28576,7 +28576,7 @@
                             "service": {
                                 "id": 3568,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14829,
                                 "sortings": [],
@@ -28592,7 +28592,7 @@
                             "service": {
                                 "id": 3569,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "sortings": [],
@@ -28613,7 +28613,7 @@
                             "service": {
                                 "id": 3585,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3517,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -28655,7 +28655,7 @@
                             "service": {
                                 "id": 3586,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -28722,7 +28722,7 @@
                             "service": {
                                 "id": 3587,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -28834,7 +28834,7 @@
                             "service": {
                                 "id": 3588,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3524,
                                 "row_id": "",
                                 "field_mappings": [
@@ -29110,7 +29110,7 @@
                             "service": {
                                 "id": 3570,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3516,
                                 "view_id": 14797,
                                 "sortings": [],
@@ -30199,7 +30199,7 @@
                             "service": {
                                 "id": 3571,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3520,
                                 "view_id": 14832,
                                 "sortings": [],
@@ -30215,7 +30215,7 @@
                             "service": {
                                 "id": 3572,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3521,
                                 "view_id": 14836,
                                 "sortings": [],
@@ -30231,7 +30231,7 @@
                             "service": {
                                 "id": 3573,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14828,
                                 "sortings": [],
@@ -30247,7 +30247,7 @@
                             "service": {
                                 "id": 3574,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14822,
                                 "sortings": [],
@@ -30263,7 +30263,7 @@
                             "service": {
                                 "id": 3575,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14823,
                                 "sortings": [],
@@ -30284,7 +30284,7 @@
                             "service": {
                                 "id": 3591,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -30450,7 +30450,7 @@
                             "service": {
                                 "id": 3589,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -30517,7 +30517,7 @@
                             "service": {
                                 "id": 3590,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -31371,7 +31371,7 @@
                             "service": {
                                 "id": 3576,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3523,
                                 "view_id": 14843,
                                 "sortings": [
@@ -31392,7 +31392,7 @@
                             "service": {
                                 "id": 3577,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3522,
                                 "view_id": 14839,
                                 "sortings": [],
@@ -31408,7 +31408,7 @@
                             "service": {
                                 "id": 3578,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3524,
                                 "view_id": 14848,
                                 "sortings": [],
@@ -31424,7 +31424,7 @@
                             "service": {
                                 "id": 3579,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3524,
                                 "view_id": 14851,
                                 "sortings": [
@@ -31454,7 +31454,7 @@
                             "service": {
                                 "id": 3592,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3523,
                                 "row_id": "",
                                 "field_mappings": [
@@ -31491,7 +31491,7 @@
                             "service": {
                                 "id": 3593,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3524,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -31523,7 +31523,7 @@
                             "service": {
                                 "id": 3594,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3524,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -33249,7 +33249,7 @@
                             "service": {
                                 "id": 3580,
                                 "integration_id": 191,
-                                "type": "local_baserow_get_row",
+                                "type": "local_jadawel_get_row",
                                 "table_id": 3516,
                                 "view_id": 14797,
                                 "search_query": "",
@@ -33265,7 +33265,7 @@
                             "service": {
                                 "id": 3581,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3517,
                                 "view_id": 14804,
                                 "sortings": [],
@@ -33288,7 +33288,7 @@
                             "service": {
                                 "id": 3582,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3518,
                                 "view_id": null,
                                 "sortings": [],
@@ -33311,7 +33311,7 @@
                             "service": {
                                 "id": 3583,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3518,
                                 "view_id": 14807,
                                 "sortings": [],
@@ -33334,7 +33334,7 @@
                             "service": {
                                 "id": 3584,
                                 "integration_id": 191,
-                                "type": "local_baserow_list_rows",
+                                "type": "local_jadawel_list_rows",
                                 "table_id": 3519,
                                 "view_id": 14816,
                                 "sortings": [],
@@ -33362,7 +33362,7 @@
                             "service": {
                                 "id": 3595,
                                 "integration_id": 191,
-                                "type": "local_baserow_delete_row",
+                                "type": "local_jadawel_delete_row",
                                 "table_id": 3519,
                                 "row_id": "get('current_record.id')"
                             }
@@ -33377,7 +33377,7 @@
                             "service": {
                                 "id": 3596,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "",
                                 "field_mappings": [
@@ -33444,7 +33444,7 @@
                             "service": {
                                 "id": 3597,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3516,
                                 "row_id": "get('data_source.2795.id')",
                                 "field_mappings": [
@@ -33526,7 +33526,7 @@
                             "service": {
                                 "id": 3598,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3517,
                                 "row_id": "get('current_record.id')",
                                 "field_mappings": [
@@ -33568,7 +33568,7 @@
                             "service": {
                                 "id": 3599,
                                 "integration_id": 191,
-                                "type": "local_baserow_upsert_row",
+                                "type": "local_jadawel_upsert_row",
                                 "table_id": 3519,
                                 "row_id": "",
                                 "field_mappings": [
@@ -33717,7 +33717,7 @@
                     "id": 191,
                     "name": "Local Baserow",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "authorized_user": "frederik@baserow.io"
                 }
             ],
@@ -33821,13 +33821,13 @@
                     "id": 132,
                     "name": "Children",
                     "order": "1.00000000000000000000",
-                    "type": "local_baserow",
+                    "type": "local_jadawel",
                     "uid": "dc18907348ce499cba37a3a023165c3c",
                     "integration_id": 191,
                     "auth_providers": [
                         {
                             "id": 130,
-                            "type": "local_baserow_password",
+                            "type": "local_jadawel_password",
                             "domain": null,
                             "enabled": true,
                             "password_field_id": 34705

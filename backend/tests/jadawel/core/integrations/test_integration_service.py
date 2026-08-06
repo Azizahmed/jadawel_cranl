@@ -26,10 +26,10 @@ def pytest_generate_tests(metafunc):
 def test_create_integration(integration_created_mock, data_fixture, integration_type):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application, order="1.0000"
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application, order="2.0000"
     )
 
@@ -52,14 +52,14 @@ def test_create_integration(integration_created_mock, data_fixture, integration_
 def test_create_integration_before(data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application, order="1.0000"
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application, order="2.0000"
     )
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     integration2 = IntegrationService().create_integration(
         user,
@@ -80,20 +80,20 @@ def test_get_unique_orders_before_integration_triggering_full_application_order_
 ):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration_1 = data_fixture.create_local_baserow_integration(
+    integration_1 = data_fixture.create_local_jadawel_integration(
         application=application, order="1.00000000000000000000"
     )
-    integration_2 = data_fixture.create_local_baserow_integration(
+    integration_2 = data_fixture.create_local_jadawel_integration(
         application=application, order="1.00000000000000001000"
     )
-    integration_3 = data_fixture.create_local_baserow_integration(
+    integration_3 = data_fixture.create_local_jadawel_integration(
         application=application, order="2.99999999999999999999"
     )
-    integration_4 = data_fixture.create_local_baserow_integration(
+    integration_4 = data_fixture.create_local_jadawel_integration(
         application=application, order="2.99999999999999999998"
     )
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     integration_created = IntegrationService().create_integration(
         user,
@@ -119,10 +119,10 @@ def test_get_unique_orders_before_integration_triggering_full_application_order_
 def test_recalculate_full_order(integration_orders_recalculated_mock, data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    data_fixture.create_local_baserow_integration(
+    data_fixture.create_local_jadawel_integration(
         application=application, order="1.9000"
     )
-    data_fixture.create_local_baserow_integration(
+    data_fixture.create_local_jadawel_integration(
         application=application, order="3.4000"
     )
 
@@ -139,7 +139,7 @@ def test_create_integration_permission_denied(data_fixture, stub_check_permissio
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     with (
         stub_check_permissions(raise_permission_denied=True),
@@ -153,7 +153,7 @@ def test_create_integration_permission_denied(data_fixture, stub_check_permissio
 @pytest.mark.django_db
 def test_get_integration(data_fixture):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
     assert (
         IntegrationService().get_integration(user, integration.id).id == integration.id
@@ -171,7 +171,7 @@ def test_get_integration_does_not_exist(data_fixture):
 @pytest.mark.django_db
 def test_get_integration_permission_denied(data_fixture, stub_check_permissions):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
     with (
         stub_check_permissions(raise_permission_denied=True),
@@ -184,13 +184,13 @@ def test_get_integration_permission_denied(data_fixture, stub_check_permissions)
 def test_get_integrations(data_fixture, stub_check_permissions):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -224,7 +224,7 @@ def test_get_integrations(data_fixture, stub_check_permissions):
 @patch("jadawel.core.integrations.service.integration_deleted")
 def test_delete_integration(integration_deleted_mock, data_fixture):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
     service = IntegrationService()
     service.delete_integration(user, integration)
@@ -240,7 +240,7 @@ def test_delete_integration(integration_deleted_mock, data_fixture):
 @pytest.mark.django_db(transaction=True)
 def test_delete_integration_permission_denied(data_fixture, stub_check_permissions):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
     with (
         stub_check_permissions(raise_permission_denied=True),
@@ -253,7 +253,7 @@ def test_delete_integration_permission_denied(data_fixture, stub_check_permissio
 @patch("jadawel.core.integrations.service.integration_updated")
 def test_update_integration(integration_updated_mock, data_fixture):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
     service = IntegrationService()
     integration_updated = service.update_integration(
@@ -268,7 +268,7 @@ def test_update_integration(integration_updated_mock, data_fixture):
 @pytest.mark.django_db(transaction=True)
 def test_update_integration_permission_denied(data_fixture, stub_check_permissions):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
     with (
         stub_check_permissions(raise_permission_denied=True),
@@ -282,13 +282,13 @@ def test_update_integration_permission_denied(data_fixture, stub_check_permissio
 def test_move_integration(integration_moved_mock, data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -307,13 +307,13 @@ def test_move_integration_not_same_application(data_fixture, stub_check_permissi
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
     application2 = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application2
     )
 
@@ -325,13 +325,13 @@ def test_move_integration_not_same_application(data_fixture, stub_check_permissi
 def test_move_integration_permission_denied(data_fixture, stub_check_permissions):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -349,13 +349,13 @@ def test_move_integration_trigger_order_recalculated(
 ):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application, order="2.99999999999999999998"
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application, order="2.99999999999999999999"
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application, order="3.0000"
     )
 

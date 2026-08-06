@@ -34,7 +34,7 @@ def test_repeat_element_import_child_with_formula_with_current_record(data_fixtu
 
     field = fields[0]
 
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, authorized_user=user
     )
 
@@ -127,7 +127,7 @@ def test_repeat_element_import_child_with_formula_with_current_record(data_fixtu
                 "service": {
                     "id": 4,
                     "integration_id": integration.id,
-                    "type": "local_baserow_list_rows",
+                    "type": "local_jadawel_list_rows",
                     "table_id": 424,
                     "view_id": None,
                     "search_query": "",
@@ -198,7 +198,7 @@ def test_extract_properties_includes_schema_property_for_nested_collection(
     )
 
     page = data_fixture.create_builder_page(builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
@@ -242,7 +242,7 @@ def test_extract_properties_includes_schema_property_for_single_row(
     workspace = data_fixture.create_workspace(user=user)
     builder = data_fixture.create_builder_application(workspace=workspace)
     database = data_fixture.create_database_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user
     )
 
@@ -266,11 +266,11 @@ def test_extract_properties_includes_schema_property_for_single_row(
     )
 
     page = data_fixture.create_builder_page(builder=builder)
-    get_row_service = data_fixture.create_local_baserow_get_row_service(
+    get_row_service = data_fixture.create_local_jadawel_get_row_service(
         integration=integration,
         row_id=table.get_model().objects.first().id,
     )
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         table=table,

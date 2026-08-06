@@ -244,7 +244,7 @@ _dev-start:
     # Wait for services to be ready
     echo "==> Waiting for PostgreSQL to be ready..."
     for i in {1..30}; do
-        if just dc-dev exec -T db pg_isready -U baserow >/dev/null 2>&1; then
+        if just dc-dev exec -T db pg_isready -U jadawel >/dev/null 2>&1; then
             echo "    PostgreSQL is ready!"
             break
         fi
@@ -415,7 +415,7 @@ _dev-tmux:
     create_window "frontend"  "$ROOT/web-frontend"  "just run-dev-server"
     create_window "storybook" "$ROOT/web-frontend"  "just storybook"
     create_window "celery"    "$ROOT/backend"       "just run-dev-celery"
-    create_window "db"        "$ROOT"               "just dc-dev logs -f db"       "PGPASSWORD=${DATABASE_PASSWORD:-baserow} just dc-dev exec db psql -U ${DATABASE_USER:-baserow} -d ${DATABASE_NAME:-baserow}"
+    create_window "db"        "$ROOT"               "just dc-dev logs -f db"       "PGPASSWORD=${DATABASE_PASSWORD:-jadawel} just dc-dev exec db psql -U ${DATABASE_USER:-jadawel} -d ${DATABASE_NAME:-jadawel}"
     create_window "redis"     "$ROOT"               "just dc-dev logs -f redis"    "just dc-dev exec redis redis-cli -a ${REDIS_PASSWORD:-baserow}"
 
     # Kill the temporary window
@@ -1064,7 +1064,7 @@ test-db cmd="":
             echo ""
             echo "Example:"
             echo "  just test-db up"
-            echo "  DATABASE_URL=postgres://baserow:baserow@localhost:{{ test_db_port }}/baserow just b test -n=auto"
+            echo "  DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/baserow just b test -n=auto"
             echo "  just test-db down"
             ;;
     esac
@@ -1081,9 +1081,9 @@ _test-db-start:
     echo "Creating test database container with tmpfs (ramdisk)..."
     docker run -d \
         --name {{ test_db_name }} \
-        -e POSTGRES_USER=baserow \
-        -e POSTGRES_PASSWORD=baserow \
-        -e POSTGRES_DB=baserow \
+        -e POSTGRES_USER=jadawel \
+        -e POSTGRES_PASSWORD=jadawel \
+        -e POSTGRES_DB=jadawel \
         -p {{ test_db_port }}:5432 \
         --tmpfs /var/lib/postgresql/data:size=8G \
         {{ test_db_image }} \
@@ -1115,7 +1115,7 @@ _test-db-start:
     echo "Test database running on port {{ test_db_port }}"
     echo ""
     echo "Run tests with:"
-    echo "  DATABASE_URL=postgres://baserow:baserow@localhost:{{ test_db_port }}/baserow just b test -n=auto"
+    echo "  DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/baserow just b test -n=auto"
 
 [private]
 _test-db-stop:
@@ -1127,7 +1127,7 @@ _test-db-ps:
     if docker ps --format '{{ '{{.Names}}' }}' | grep -q "^{{ test_db_name }}$"; then
         echo "Test database is running on port {{ test_db_port }}"
         echo ""
-        echo "DATABASE_URL=postgres://baserow:baserow@localhost:{{ test_db_port }}/baserow"
+        echo "DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/baserow"
     elif docker ps -a --format '{{ '{{.Names}}' }}' | grep -q "^{{ test_db_name }}$"; then
         echo "Test database exists but is stopped"
         echo "Run 'just test-db up' to start it"
@@ -1263,9 +1263,9 @@ ci cmd="" target="":
 
         echo "Starting PostgreSQL..."
         docker run -d --name ci-test-db --network "$NETWORK" \
-            -e POSTGRES_USER=baserow \
-            -e POSTGRES_PASSWORD=baserow \
-            -e POSTGRES_DB=baserow \
+            -e POSTGRES_USER=jadawel \
+            -e POSTGRES_PASSWORD=jadawel \
+            -e POSTGRES_DB=jadawel \
             ${test_db_image}
 
         echo "Starting Redis..."
@@ -1275,7 +1275,7 @@ ci cmd="" target="":
         # Wait for postgres to be ready
         echo "Waiting for PostgreSQL to be ready..."
         for i in {1..30}; do
-            if docker exec ci-test-db pg_isready -U baserow > /dev/null 2>&1; then
+            if docker exec ci-test-db pg_isready -U jadawel > /dev/null 2>&1; then
                 echo "PostgreSQL is ready!"
                 break
             fi
@@ -1305,9 +1305,9 @@ ci cmd="" target="":
         docker run --rm --network "$NETWORK" \
             -e DATABASE_HOST=ci-test-db \
             -e DATABASE_PORT=5432 \
-            -e DATABASE_NAME=baserow \
-            -e DATABASE_USER=baserow \
-            -e DATABASE_PASSWORD=baserow \
+            -e DATABASE_NAME=jadawel \
+            -e DATABASE_USER=jadawel \
+            -e DATABASE_PASSWORD=jadawel \
             -e REDIS_HOST=ci-test-redis \
             -e REDIS_PORT=6379 \
             -e REDIS_PASSWORD=baserow \

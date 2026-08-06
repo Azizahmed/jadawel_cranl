@@ -332,7 +332,7 @@ def test_dispatch_workflow_action_no_permissions(data_fixture):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page()
     element = data_fixture.create_builder_button_element(page=page)
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, user=user
     )
 

@@ -80,7 +80,7 @@ export class WorkspaceInvitationRejectedNotificationType extends NotificationTyp
 
 export class JadawelVersionUpgradeNotificationType extends NotificationType {
   static getType() {
-    return 'baserow_version_upgrade'
+    return 'jadawel_version_upgrade'
   }
 
   getIconComponent() {

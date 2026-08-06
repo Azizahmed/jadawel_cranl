@@ -4,7 +4,7 @@ import pytest
 
 from jadawel.core.integrations.receivers import execute_integration_post_import_hooks
 
-MOCK_LOCAL_BASEROW_PATH = "jadawel.contrib.integrations.local_baserow.integration_types.LocalBaserowIntegrationType"
+MOCK_LOCAL_JADAWEL_PATH = "jadawel.contrib.integrations.local_jadawel.integration_types.LocalJadawelIntegrationType"
 
 
 @pytest.mark.django_db
@@ -16,9 +16,9 @@ def test_execute_integration_post_import_hooks_returns_early(data_fixture):
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    data_fixture.create_local_baserow_integration(application=application)
+    data_fixture.create_local_jadawel_integration(application=application)
 
-    with patch(f"{MOCK_LOCAL_BASEROW_PATH}.after_import") as mock_after_import:
+    with patch(f"{MOCK_LOCAL_JADAWEL_PATH}.after_import") as mock_after_import:
         result = execute_integration_post_import_hooks("", application, None)
 
     assert result is None
@@ -34,9 +34,9 @@ def test_execute_integration_post_import_hooks_calls_after_import(data_fixture):
 
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(application=application)
+    integration = data_fixture.create_local_jadawel_integration(application=application)
 
-    with patch(f"{MOCK_LOCAL_BASEROW_PATH}.after_import") as mock_after_import:
+    with patch(f"{MOCK_LOCAL_JADAWEL_PATH}.after_import") as mock_after_import:
         result = execute_integration_post_import_hooks("", application, user)
 
     assert result is None

@@ -17,7 +17,7 @@ from jadawel.core.db import atomic_with_retry_on_deadlock
 
 
 @app.task(
-    name="baserow.contrib.automation.workflows.tasks.start_workflow_celery_task",
+    name="jadawel.contrib.automation.workflows.tasks.start_workflow_celery_task",
     queue="automation_workflow",
 )
 def start_workflow_celery_task(
@@ -45,7 +45,7 @@ def start_workflow_celery_task(
 
 
 @app.task(
-    name="baserow.contrib.automation.workflows.tasks.handle_workflow_dispatch_done"
+    name="jadawel.contrib.automation.workflows.tasks.handle_workflow_dispatch_done"
 )
 def handle_workflow_dispatch_done(
     history_id: int,
@@ -84,7 +84,7 @@ def handle_workflow_dispatch_done(
 
 
 @app.task(
-    name="baserow.contrib.automation.workflows.tasks.automation_periodic_cleanup",
+    name="jadawel.contrib.automation.workflows.tasks.automation_periodic_cleanup",
     queue="automation_workflow",
 )
 def automation_periodic_cleanup():

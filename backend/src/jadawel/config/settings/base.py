@@ -194,15 +194,15 @@ JADAWEL_ROLE_USAGE_QUEUE = os.getenv("JADAWEL_GROUP_STORAGE_USAGE_QUEUE", "expor
 
 CELERY_BROKER_URL = REDIS_URL
 CELERY_TASK_ROUTES = {
-    "baserow.contrib.database.export.tasks.run_export_job": {"queue": "export"},
-    "baserow.contrib.database.export.tasks.clean_up_old_jobs": {"queue": "export"},
-    "baserow.core.trash.tasks.mark_old_trash_for_permanent_deletion": {
+    "jadawel.contrib.database.export.tasks.run_export_job": {"queue": "export"},
+    "jadawel.contrib.database.export.tasks.clean_up_old_jobs": {"queue": "export"},
+    "jadawel.core.trash.tasks.mark_old_trash_for_permanent_deletion": {
         "queue": "export"
     },
-    "baserow.core.trash.tasks.permanently_delete_marked_trash": {"queue": "export"},
-    "baserow.core.usage.tasks": {"queue": JADAWEL_GROUP_STORAGE_USAGE_QUEUE},
-    "baserow.contrib.database.table.tasks.run_row_count_job": {"queue": "export"},
-    "baserow.core.jobs.tasks.clean_up_jobs": {"queue": "export"},
+    "jadawel.core.trash.tasks.permanently_delete_marked_trash": {"queue": "export"},
+    "jadawel.core.usage.tasks": {"queue": JADAWEL_GROUP_STORAGE_USAGE_QUEUE},
+    "jadawel.contrib.database.table.tasks.run_row_count_job": {"queue": "export"},
+    "jadawel.core.jobs.tasks.clean_up_jobs": {"queue": "export"},
 }
 CELERY_TASK_SOFT_TIME_LIMIT = int(
     os.getenv("CELERY_TASK_SOFT_TIME_LIMIT") or 60 * 5
@@ -864,8 +864,8 @@ BATCH_ROWS_SIZE_LIMIT = int(
 FIELD_RULE_ROWS_LIMIT = int(os.getenv("FIELD_RULE_ROWS_LIMIT", BATCH_ROWS_SIZE_LIMIT))
 
 # Maximum count of records returned by local jadawel data source
-INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT = int(
-    os.getenv("JADAWEL_INTEGRATION_LOCAL_BASEROW_PAGE_SIZE_LIMIT", 200)
+INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT = int(
+    os.getenv("JADAWEL_INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT", 200)
 )
 INTEGRATION_ALLOW_SMTP_SERVICE_TO_USE_INSTANCE_SETTINGS = str_to_bool(
     os.getenv("JADAWEL_INTEGRATION_ALLOW_SMTP_SERVICE_TO_USE_INSTANCE_SETTINGS", "true")

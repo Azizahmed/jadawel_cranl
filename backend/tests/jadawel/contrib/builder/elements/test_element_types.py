@@ -178,8 +178,8 @@ def test_link_collection_field_import_export_formula(data_fixture):
     """
 
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
 
     table_element = TableElement.objects.create(
         order=1,
@@ -243,8 +243,8 @@ def test_link_element_import_export_formula(data_fixture):
     """Test the import/export of the LinkElement."""
 
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = LinkElementType()
 
     exported_element = data_fixture.create_builder_element(
@@ -287,8 +287,8 @@ def test_form_container_element_import_export_formula(data_fixture):
     """Test the import/export of the FormContainerElement."""
 
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = FormContainerElementType()
 
     exported_element = data_fixture.create_builder_element(
@@ -326,8 +326,8 @@ def test_text_element_import_export_formula(data_fixture):
     """Test the import/export of the TextElementType."""
 
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = TextElementType()
 
     exported_text_element = data_fixture.create_builder_element(
@@ -348,8 +348,8 @@ def test_text_element_import_export_formula(data_fixture):
 @pytest.mark.django_db
 def test_input_text_element_import_export_formula(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = InputTextElementType()
 
     exported_input_text_element = data_fixture.create_builder_element(
@@ -374,8 +374,8 @@ def test_input_text_element_import_export_formula(data_fixture):
 @pytest.mark.django_db
 def test_image_element_import_export_formula(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = ImageElementType()
 
     exported_image_element = data_fixture.create_builder_element(
@@ -398,8 +398,8 @@ def test_image_element_import_export_formula(data_fixture):
 @pytest.mark.django_db
 def test_button_element_import_export_formula(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = ButtonElementType()
 
     exported_image_element = data_fixture.create_builder_element(
@@ -483,8 +483,8 @@ def test_rating_input_element_type_is_valid_edge_cases():
 @pytest.mark.django_db
 def test_choice_element_import_export_formula(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = ChoiceElementType()
 
     exported_choice_element = data_fixture.create_builder_element(
@@ -698,11 +698,11 @@ def test_choice_element_is_valid_formula_data_source(data_fixture):
         rows=[["BMW"], ["Audi"], ["Seat"], ["Volvo"]],
     )
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -757,11 +757,11 @@ def test_choice_element_is_valid_formula_context(data_fixture):
         ],
     )
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -832,8 +832,8 @@ def test_page_with_element_using_form_data_has_dependencies_import_first(data_fi
 @pytest.mark.django_db
 def test_checkbox_element_import_export_formula(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = CheckboxElementType()
 
     exported_input_element = data_fixture.create_builder_element(
@@ -890,8 +890,8 @@ def test_checkbox_text_element_is_valid(data_fixture):
 @pytest.mark.django_db
 def test_iframe_element_import_export_formula(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = IFrameElementType()
 
     exported_element = data_fixture.create_builder_element(
@@ -920,8 +920,8 @@ def test_iframe_element_import_export_formula(data_fixture):
 def test_image_element_import_export(data_fixture, fake, storage):
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = ImageElementType()
 
     zip_buffer = BytesIO()
@@ -971,7 +971,7 @@ def test_image_element_import_export(data_fixture, fake, storage):
 @pytest.mark.django_db
 def test_choice_element_import_export(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     element_type = ChoiceElementType()
 
     exported_element = data_fixture.create_builder_element(
@@ -1250,16 +1250,16 @@ def test_collection_element_type_prepare_value_for_db(
     different_page = data_fixture.create_builder_page(user=user, builder=builder)
     element = collection_element_type.model_class.objects.create(page=page)
 
-    multiple_rows = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    multiple_rows = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
     )
-    single_row = data_fixture.create_builder_local_baserow_get_row_data_source(
+    single_row = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user, page=page
     )
 
     multiple_rows_different_page = (
-        data_fixture.create_builder_local_baserow_list_rows_data_source(
+        data_fixture.create_builder_local_jadawel_list_rows_data_source(
             user=user,
             page=different_page,
         )
@@ -1405,10 +1405,10 @@ def test_choice_element_integer_option_values(data_fixture):
     )
     builder = data_fixture.create_builder_application(user=user)
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1470,11 +1470,11 @@ def test_record_element_is_valid(data_fixture):
     ]
 
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -1578,7 +1578,7 @@ def test_repeat_element_import_export(data_fixture):
     )
 
     page = data_fixture.create_builder_page(builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 

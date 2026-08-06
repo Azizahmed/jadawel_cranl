@@ -14,9 +14,9 @@ from jadawel.contrib.builder.data_sources.builder_dispatch_context import (
 from jadawel.contrib.builder.data_sources.exceptions import DataSourceDoesNotExist
 from jadawel.contrib.builder.data_sources.handler import DataSourceHandler
 from jadawel.contrib.builder.data_sources.models import DataSource
-from jadawel.contrib.integrations.local_baserow.models import (
-    LocalBaserowGetRow,
-    LocalBaserowListRows,
+from jadawel.contrib.integrations.local_jadawel.models import (
+    LocalJadawelGetRow,
+    LocalJadawelListRows,
 )
 from jadawel.core.exceptions import CannotCalculateIntermediateOrder
 from jadawel.core.services.registries import service_type_registry
@@ -28,7 +28,7 @@ from jadawel.test_utils.helpers import AnyStr
 def test_create_data_source(data_fixture):
     page = data_fixture.create_builder_page()
 
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     data_source = DataSourceHandler().create_data_source(page=page, name="Data source")
 
@@ -42,14 +42,14 @@ def test_create_data_source(data_fixture):
     )
 
     assert data_source.order == 2
-    assert isinstance(data_source.service, LocalBaserowGetRow)
+    assert isinstance(data_source.service, LocalJadawelGetRow)
     assert data_source.name == "Data source 1"
     assert DataSource.objects.count() == 2
 
 
 @pytest.mark.django_db
 def test_get_data_source(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source()
     assert DataSourceHandler().get_data_source(data_source.id).id == data_source.id
 
 
@@ -63,13 +63,13 @@ def test_get_data_source_does_not_exist(data_fixture):
 @pytest.mark.parametrize("specific", [True, False])
 def test_get_data_sources(data_fixture, specific):
     page = data_fixture.create_builder_page()
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
     data_source4 = data_fixture.create_builder_data_source(page=page)
@@ -87,8 +87,8 @@ def test_get_data_sources(data_fixture, specific):
     assert [e.id for e in data_sources] == expected_ids
 
     if specific:
-        assert isinstance(data_sources[0].service, LocalBaserowGetRow)
-        assert isinstance(data_sources[2].service, LocalBaserowListRows)
+        assert isinstance(data_sources[0].service, LocalJadawelGetRow)
+        assert isinstance(data_sources[2].service, LocalJadawelListRows)
         assert list(data_sources)[-1].service is not None
     else:
         assert list(data_sources)[-1].service is None
@@ -98,24 +98,24 @@ def test_get_data_sources(data_fixture, specific):
 def test_get_data_sources_with_shared(data_fixture):
     page = data_fixture.create_builder_page()
     shared_page = page.builder.shared_page
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
-    data_source4 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source4 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page
     )
 
-    shared_data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    shared_data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=shared_page
     )
     shared_data_source2 = (
-        data_fixture.create_builder_local_baserow_list_rows_data_source(
+        data_fixture.create_builder_local_jadawel_list_rows_data_source(
             page=shared_page
         )
     )
@@ -131,13 +131,13 @@ def test_get_data_sources_with_shared(data_fixture):
         data_source4.id,
     ]
 
-    assert isinstance(data_sources[2].service, LocalBaserowGetRow)
-    assert isinstance(data_sources[3].service, LocalBaserowListRows)
+    assert isinstance(data_sources[2].service, LocalJadawelGetRow)
+    assert isinstance(data_sources[3].service, LocalJadawelListRows)
 
 
 @pytest.mark.django_db
 def test_delete_data_source(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source()
 
     DataSourceHandler().delete_data_source(data_source)
 
@@ -147,11 +147,11 @@ def test_delete_data_source(data_fixture):
 @pytest.mark.django_db
 def test_update_data_source(data_fixture):
     user = data_fixture.create_user()
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user
     )
 
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     data_source_updated = DataSourceHandler().update_data_source(
         data_source, service_type, name="newValue"
@@ -163,12 +163,12 @@ def test_update_data_source(data_fixture):
 @pytest.mark.django_db
 def test_update_data_source_change_type(data_fixture):
     user = data_fixture.create_user()
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user
     )
 
-    service_type = service_type_registry.get("local_baserow_get_row")
-    new_service_type = service_type_registry.get("local_baserow_list_rows")
+    service_type = service_type_registry.get("local_jadawel_get_row")
+    new_service_type = service_type_registry.get("local_jadawel_list_rows")
 
     data_source_updated = DataSourceHandler().update_data_source(
         data_source, service_type, new_service_type=new_service_type
@@ -176,7 +176,7 @@ def test_update_data_source_change_type(data_fixture):
 
     assert (
         service_type_registry.get_by_model(data_source_updated.service).type
-        == "local_baserow_list_rows"
+        == "local_jadawel_list_rows"
     )
 
     data_source_updated = DataSourceHandler().update_data_source(
@@ -188,7 +188,7 @@ def test_update_data_source_change_type(data_fixture):
 
 @pytest.mark.django_db
 def test_update_data_source_change_page(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         name="No conflict"
     )
     page_dest = data_fixture.create_builder_page(builder=data_source.page.builder)
@@ -205,11 +205,11 @@ def test_update_data_source_change_page(data_fixture):
 
 @pytest.mark.django_db
 def test_update_data_source_change_page_with_conflict(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         name="Conflict"
     )
     page_dest = data_fixture.create_builder_page(builder=data_source.page.builder)
-    data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page_dest, name="Conflict"
     )
 
@@ -225,11 +225,11 @@ def test_update_data_source_change_page_with_conflict(data_fixture):
 
 @pytest.mark.django_db
 def test_update_data_source_change_page_with_conflict_but_name(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         name="Conflict"
     )
     page_dest = data_fixture.create_builder_page(builder=data_source.page.builder)
-    data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page_dest, name="Conflict"
     )
 
@@ -261,11 +261,11 @@ def test_dispatch_data_source(data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -305,11 +305,11 @@ def test_dispatch_data_sources(data_fixture):
     )
     view = data_fixture.create_grid_view(user, table=table)
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -317,7 +317,7 @@ def test_dispatch_data_sources(data_fixture):
         table=table,
         row_id="2",
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -325,7 +325,7 @@ def test_dispatch_data_sources(data_fixture):
         table=table,
         row_id="3",
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -360,9 +360,9 @@ def test_dispatch_data_sources(data_fixture):
 
 @pytest.mark.django_db
 def test_update_data_source_invalid_values(data_fixture):
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source()
 
-    service_type = service_type_registry.get("local_baserow_get_row")
+    service_type = service_type_registry.get("local_jadawel_get_row")
 
     data_source_updated = DataSourceHandler().update_data_source(
         data_source, service_type=service_type, nonsense="hello"
@@ -374,13 +374,13 @@ def test_update_data_source_invalid_values(data_fixture):
 @pytest.mark.django_db
 def test_move_data_source_end_of_page(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -392,13 +392,13 @@ def test_move_data_source_end_of_page(data_fixture):
 @pytest.mark.django_db
 def test_move_data_source_before(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page
     )
 
@@ -414,13 +414,13 @@ def test_move_data_source_before(data_fixture):
 @pytest.mark.django_db
 def test_move_data_source_before_fails(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="2.99999999999999999998"
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="2.99999999999999999999"
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="3.0000"
     )
 
@@ -431,37 +431,37 @@ def test_move_data_source_before_fails(data_fixture):
 @pytest.mark.django_db
 def test_recalculate_full_orders(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source1 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source1 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="1.99999999999999999999"
     )
-    data_source2 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source2 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="2.00000000000000000000"
     )
-    data_source3 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source3 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="1.99999999999999999999"
     )
-    data_source4 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source4 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="2.10000000000000000000"
     )
-    data_source5 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source5 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="3.00000000000000000000"
     )
-    data_source6 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source6 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="1.00000000000000000001"
     )
-    data_source7 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source7 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="3.99999999999999999999"
     )
-    data_source8 = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source8 = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, order="4.00000000000000000001"
     )
 
     page2 = data_fixture.create_builder_page()
 
-    data_sourceA = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_sourceA = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page2, order="1.99999999999999999999"
     )
-    data_sourceB = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_sourceB = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page2, order="2.00300000000000000000"
     )
 
@@ -526,7 +526,7 @@ def test_dispatch_data_source_doesnt_return_formula_field_names(
         ],
     )
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
@@ -542,7 +542,7 @@ def test_dispatch_data_source_doesnt_return_formula_field_names(
     )
     user_source_user_token = user_source_user.get_refresh_token().access_token
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -621,23 +621,23 @@ def test_query_data_sources_excludes_trashed_service(data_fixture):
     view = data_fixture.create_grid_view(user, table=table)
 
     builder = data_fixture.create_builder_application(user=user)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=builder, user=user
     )
     page = data_fixture.create_builder_page(builder=builder)
 
     # Create two data sources
-    service_1 = data_fixture.create_local_baserow_list_rows_service(
+    service_1 = data_fixture.create_local_jadawel_list_rows_service(
         integration=integration, table=table, view=view
     )
-    data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page, service=service_1
     )
 
-    service_2 = data_fixture.create_local_baserow_list_rows_service(
+    service_2 = data_fixture.create_local_jadawel_list_rows_service(
         integration=integration, table=table, view=view
     )
-    data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_fixture.create_builder_local_jadawel_list_rows_data_source(
         page=page, service=service_2
     )
 
@@ -667,29 +667,29 @@ def test_query_data_sources_with_missing_specific_service(data_fixture):
 
     user = data_fixture.create_user()
     page = data_fixture.create_builder_page()
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=page.builder
     )
 
-    service_1 = data_fixture.create_local_baserow_get_row_service(
+    service_1 = data_fixture.create_local_jadawel_get_row_service(
         integration=integration
     )
-    data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, service=service_1
     )
-    service_2 = data_fixture.create_local_baserow_get_row_service(
+    service_2 = data_fixture.create_local_jadawel_get_row_service(
         integration=integration
     )
-    data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, service=service_2
     )
 
     missing_service_id = service_2.id
 
     # Simulate a data integrity issue
-    specific_table_name = LocalBaserowGetRow._meta.db_table
+    specific_table_name = LocalJadawelGetRow._meta.db_table
     with connection.cursor() as cursor:
-        # Delete from the specific table (LocalBaserowGetRow) instead of using ORM
+        # Delete from the specific table (LocalJadawelGetRow) instead of using ORM
         # to better simulate the data integrity issue.
         cursor.execute(
             f"DELETE FROM {specific_table_name} WHERE service_ptr_id = %s",

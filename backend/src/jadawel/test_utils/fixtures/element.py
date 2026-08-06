@@ -71,7 +71,7 @@ class ElementFixtures:
 
         if "data_source" not in kwargs:
             kwargs["data_source"] = (
-                self.create_builder_local_baserow_list_rows_data_source(page=page)
+                self.create_builder_local_jadawel_list_rows_data_source(page=page)
             )
 
         element = self.create_builder_element(TableElement, user, page, **kwargs)
@@ -104,7 +104,7 @@ class ElementFixtures:
     def create_builder_repeat_element(self, user=None, page=None, **kwargs):
         if "data_source" not in kwargs:
             kwargs["data_source"] = (
-                self.create_builder_local_baserow_list_rows_data_source(page=page)
+                self.create_builder_local_jadawel_list_rows_data_source(page=page)
             )
         element = self.create_builder_element(RepeatElement, user, page, **kwargs)
         return element
@@ -112,7 +112,7 @@ class ElementFixtures:
     def create_builder_record_selector_element(self, user=None, page=None, **kwargs):
         if "data_source" not in kwargs:
             kwargs["data_source"] = (
-                self.create_builder_local_baserow_list_rows_data_source(page=page)
+                self.create_builder_local_jadawel_list_rows_data_source(page=page)
             )
         element = self.create_builder_element(
             RecordSelectorElement, user, page, **kwargs

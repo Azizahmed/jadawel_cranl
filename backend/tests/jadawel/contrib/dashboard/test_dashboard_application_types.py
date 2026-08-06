@@ -12,9 +12,9 @@ from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceSe
 from jadawel.contrib.dashboard.models import Dashboard
 from jadawel.contrib.dashboard.widgets.models import SummaryWidget, Widget
 from jadawel.contrib.dashboard.widgets.service import WidgetService
-from jadawel.contrib.integrations.local_baserow.models import (
-    LocalBaserowAggregateRows,
-    LocalBaserowIntegration,
+from jadawel.contrib.integrations.local_jadawel.models import (
+    LocalJadawelAggregateRows,
+    LocalJadawelIntegration,
 )
 from jadawel.core.handler import CoreHandler
 from jadawel.core.integrations.models import Integration
@@ -102,7 +102,7 @@ def test_dashboard_export_serialized_with_widgets(data_fixture):
                 "id": integration.id,
                 "name": "",
                 "order": "1.00000000000000000000",
-                "type": "local_baserow",
+                "type": "local_jadawel",
             },
         ],
         "data_sources": [
@@ -119,7 +119,7 @@ def test_dashboard_export_serialized_with_widgets(data_fixture):
                     "integration_id": integration.id,
                     "search_query": {"formula": "", "mode": "simple", "version": "0.1"},
                     "table_id": None,
-                    "type": "local_baserow_aggregate_rows",
+                    "type": "local_jadawel_aggregate_rows",
                     "view_id": None,
                     "sample_data": None,
                 },
@@ -137,7 +137,7 @@ def test_dashboard_export_serialized_with_widgets(data_fixture):
                     "integration_id": integration.id,
                     "search_query": {"formula": "", "mode": "simple", "version": "0.1"},
                     "table_id": table.id,
-                    "type": "local_baserow_aggregate_rows",
+                    "type": "local_jadawel_aggregate_rows",
                     "view_id": view.id,
                     "sample_data": None,
                 },
@@ -219,7 +219,7 @@ def test_dashboard_import_serialized_with_widgets(data_fixture):
                 "id": 1,
                 "name": "IntegrationName",
                 "order": "1.00000000000000000000",
-                "type": "local_baserow",
+                "type": "local_jadawel",
             },
         ],
         "data_sources": [
@@ -236,7 +236,7 @@ def test_dashboard_import_serialized_with_widgets(data_fixture):
                     "integration_id": 1,
                     "search_query": "",
                     "table_id": None,
-                    "type": "local_baserow_aggregate_rows",
+                    "type": "local_jadawel_aggregate_rows",
                     "view_id": None,
                 },
             },
@@ -253,7 +253,7 @@ def test_dashboard_import_serialized_with_widgets(data_fixture):
                     "integration_id": 1,
                     "search_query": "",
                     "table_id": 1,
-                    "type": "local_baserow_aggregate_rows",
+                    "type": "local_jadawel_aggregate_rows",
                     "view_id": 1,
                 },
             },
@@ -298,7 +298,7 @@ def test_dashboard_import_serialized_with_widgets(data_fixture):
     integration = integrations[0].specific
     assert integrations.count() == 1
     assert integration.content_type == ContentType.objects.get_for_model(
-        LocalBaserowIntegration
+        LocalJadawelIntegration
     )
     assert integration.authorized_user.id == user.id
     assert integration.name == "IntegrationName"
@@ -312,7 +312,7 @@ def test_dashboard_import_serialized_with_widgets(data_fixture):
     ds1.order = Decimal("1.0")
     ds1_service = ds1.service.specific
     assert ds1_service.content_type == ContentType.objects.get_for_model(
-        LocalBaserowAggregateRows
+        LocalJadawelAggregateRows
     )
     assert ds1_service.integration_id == integration.id
     assert ds1_service.aggregation_type == ""
@@ -328,7 +328,7 @@ def test_dashboard_import_serialized_with_widgets(data_fixture):
     ds2_service = ds2.service.specific
 
     assert ds2_service.content_type == ContentType.objects.get_for_model(
-        LocalBaserowAggregateRows
+        LocalJadawelAggregateRows
     )
     assert ds2_service.integration_id == integration.id
     assert ds2_service.aggregation_type == "sum"

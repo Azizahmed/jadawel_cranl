@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { baserowConfig } from './playwright.config'
+import { jadawelConfig } from './playwright.config'
 import { User } from './fixtures/user'
 
 export function getClient(user?: User) {
-  const baseURL = `${baserowConfig.PUBLIC_BACKEND_URL}/api/`
+  const baseURL = `${jadawelConfig.PUBLIC_BACKEND_URL}/api/`
   const instance = axios.create({
     baseURL,
     headers: {

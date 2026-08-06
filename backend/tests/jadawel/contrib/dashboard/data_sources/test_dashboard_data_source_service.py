@@ -73,14 +73,14 @@ def test_get_data_sources(data_fixture, stub_check_permissions):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    data_source1 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, user=user
     )
-    data_source2 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, user=user
     )
     data_source3 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, user=user
         )
     )
@@ -122,14 +122,14 @@ def test_get_data_sources_trashed(data_fixture):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    data_source1 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, user=user
     )
-    data_source2 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, user=user, trashed=True
     )
     data_source3 = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             dashboard=dashboard, user=user, trashed=True
         )
     )
@@ -148,10 +148,10 @@ def test_get_data_sources_dashboard_trashed(data_fixture):
     dashboard = data_fixture.create_dashboard_application(
         workspace=workspace, trashed=True
     )
-    data_source1 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source1 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, user=user
     )
-    data_source2 = data_fixture.create_dashboard_local_baserow_list_rows_data_source(
+    data_source2 = data_fixture.create_dashboard_local_jadawel_list_rows_data_source(
         dashboard=dashboard, user=user
     )
 
@@ -212,7 +212,7 @@ def test_create_data_source(dashboard_data_source_created, data_fixture):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    service_type = service_type_registry.get("local_baserow_aggregate_rows")
+    service_type = service_type_registry.get("local_jadawel_aggregate_rows")
 
     service = DashboardDataSourceService()
     created_data_source = service.create_data_source(
@@ -232,7 +232,7 @@ def test_create_data_source_permission_denied(data_fixture):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace()
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    service_type = service_type_registry.get("local_baserow_aggregate_rows")
+    service_type = service_type_registry.get("local_jadawel_aggregate_rows")
 
     with pytest.raises(PermissionException):
         DashboardDataSourceService().create_data_source(
@@ -247,7 +247,7 @@ def test_create_data_source_dashboard_trashed(data_fixture):
     dashboard = data_fixture.create_dashboard_application(
         workspace=workspace, trashed=True
     )
-    service_type = service_type_registry.get("local_baserow_aggregate_rows")
+    service_type = service_type_registry.get("local_jadawel_aggregate_rows")
 
     with pytest.raises(DashboardDoesNotExist):
         DashboardDataSourceService().create_data_source(
@@ -332,14 +332,14 @@ def test_dispatch_data_source(data_fixture):
         ],
     )
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
-    service = data_fixture.create_local_baserow_aggregate_rows_service(
+    service = data_fixture.create_local_jadawel_aggregate_rows_service(
         integration=integration, table=table, field=field, aggregation_type="sum"
     )
     data_source = (
-        data_fixture.create_dashboard_local_baserow_aggregate_rows_data_source(
+        data_fixture.create_dashboard_local_jadawel_aggregate_rows_data_source(
             name="Name 1", user=user, dashboard=dashboard, service=service
         )
     )

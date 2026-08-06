@@ -44,16 +44,16 @@ def test_element_visibility_permission_manager_check_permission(data_fixture):
         page=public_page, visibility=Element.VISIBILITY_TYPES.NOT_LOGGED
     )
 
-    workflow_action_all = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action_all = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=public_page, element=element_all
     )
     workflow_action_logged_in = (
-        data_fixture.create_local_baserow_create_row_workflow_action(
+        data_fixture.create_local_jadawel_create_row_workflow_action(
             page=public_page, element=element_logged_in
         )
     )
     workflow_action_not_logged = (
-        data_fixture.create_local_baserow_create_row_workflow_action(
+        data_fixture.create_local_jadawel_create_row_workflow_action(
             page=public_page, element=element_not_logged
         )
     )
@@ -166,16 +166,16 @@ def test_element_visibility_permission_manager_filter_queryset(
         page=public_page, visibility=Element.VISIBILITY_TYPES.NOT_LOGGED
     )
 
-    workflow_action_all = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action_all = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=public_page, element=element_all
     )
     workflow_action_logged_in = (
-        data_fixture.create_local_baserow_create_row_workflow_action(
+        data_fixture.create_local_jadawel_create_row_workflow_action(
             page=public_page, element=element_logged_in
         )
     )
     workflow_action_not_logged = (
-        data_fixture.create_local_baserow_create_row_workflow_action(
+        data_fixture.create_local_jadawel_create_row_workflow_action(
             page=public_page, element=element_not_logged
         )
     )
@@ -412,7 +412,7 @@ def test_permission_check_fails_if_logged_in_and_role_not_allowed(
 
     # Create workflow action connected to the element that requires the role
     workflow_action_logged_in = (
-        data_fixture.create_local_baserow_create_row_workflow_action(
+        data_fixture.create_local_jadawel_create_row_workflow_action(
             page=public_page, element=element
         )
     )
@@ -591,7 +591,7 @@ def test_queryset_only_includes_elements_allowed_by_role(
     )
 
     # Create a workflow action connected to the element that requires the role
-    data_fixture.create_local_baserow_create_row_workflow_action(
+    data_fixture.create_local_jadawel_create_row_workflow_action(
         page=public_page, element=element
     )
 
@@ -721,7 +721,7 @@ def test_queryset_excludes_all_child_elements(
 
     # Create a workflow action connected to the element that requires the role
     workflow_action_logged_in = (
-        data_fixture.create_local_baserow_create_row_workflow_action(
+        data_fixture.create_local_jadawel_create_row_workflow_action(
             page=public_page, element=element
         )
     )
@@ -1116,7 +1116,7 @@ def test_page_visibility_applied_to_workflow_actions_queryset(
     )
 
     # Create a workflow action connected to the element that requires the role
-    data_fixture.create_local_baserow_create_row_workflow_action(
+    data_fixture.create_local_jadawel_create_row_workflow_action(
         page=public_page, element=element
     )
 

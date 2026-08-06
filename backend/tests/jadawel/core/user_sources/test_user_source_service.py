@@ -136,7 +136,7 @@ def test_get_unique_orders_before_user_source_triggering_full_application_order_
         application=application, order="2.99999999999999999998"
     )
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = user_source_type_registry.get("local_jadawel")
 
     user_source_created = UserSourceService().create_user_source(
         user,
@@ -182,7 +182,7 @@ def test_create_user_source_permission_denied(data_fixture, stub_check_permissio
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = user_source_type_registry.get("local_jadawel")
 
     with (
         stub_check_permissions(raise_permission_denied=True),

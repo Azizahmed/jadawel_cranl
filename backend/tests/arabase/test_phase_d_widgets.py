@@ -19,9 +19,9 @@ from arabase.dashboard.widgets.widget_types import (
     RecordsListWidgetType,
     UpcomingDatesWidgetType,
 )
-from arabase.integrations.local_baserow.models import LocalBaserowUpcomingRows
-from arabase.integrations.local_baserow.upcoming_rows import (
-    LocalBaserowUpcomingRowsUserServiceType,
+from arabase.integrations.local_jadawel.models import LocalJadawelUpcomingRows
+from arabase.integrations.local_jadawel.upcoming_rows import (
+    LocalJadawelUpcomingRowsUserServiceType,
 )
 from jadawel.contrib.dashboard.data_sources.dispatch_context import (
     DashboardDispatchContext,
@@ -31,9 +31,9 @@ from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceSe
 from jadawel.contrib.dashboard.widgets.service import WidgetService
 from jadawel.contrib.dashboard.widgets.trash_types import WidgetTrashableItemType
 from jadawel.contrib.database.rows.handler import RowHandler
-from jadawel.contrib.integrations.local_baserow.models import (
-    LocalBaserowAggregateRows,
-    LocalBaserowListRows,
+from jadawel.contrib.integrations.local_jadawel.models import (
+    LocalJadawelAggregateRows,
+    LocalJadawelListRows,
 )
 from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
@@ -81,7 +81,7 @@ def dashboard_setup(data_fixture):
     )
 
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    data_fixture.create_local_baserow_integration(
+    data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
 
@@ -132,7 +132,7 @@ def test_records_list_widget_creates_a_list_rows_data_source(dashboard_setup):
     widget = create_widget(dashboard_setup, "records_list")
 
     assert widget.data_source.service.content_type == ContentType.objects.get_for_model(
-        LocalBaserowListRows
+        LocalJadawelListRows
     )
     assert widget.field_ids == []
 
@@ -143,7 +143,7 @@ def test_records_list_widget_dispatches_rows(dashboard_setup):
     configure(
         dashboard_setup,
         widget,
-        "local_baserow_list_rows",
+        "local_jadawel_list_rows",
         table_id=dashboard_setup["table"].id,
     )
 
@@ -204,7 +204,7 @@ def test_progress_widget_creates_an_aggregate_rows_data_source(dashboard_setup):
     widget = create_widget(dashboard_setup, "progress")
 
     assert widget.data_source.service.content_type == ContentType.objects.get_for_model(
-        LocalBaserowAggregateRows
+        LocalJadawelAggregateRows
     )
     assert widget.display_style == "bar"
     assert widget.target_value == 100
@@ -218,7 +218,7 @@ def test_progress_widget_dispatches_the_aggregation(dashboard_setup):
     configure(
         dashboard_setup,
         widget,
-        "local_baserow_aggregate_rows",
+        "local_jadawel_aggregate_rows",
         table_id=dashboard_setup["table"].id,
         field_id=dashboard_setup["amount_field"].id,
         aggregation_type="sum",
@@ -286,7 +286,7 @@ def test_upcoming_dates_widget_creates_an_upcoming_rows_data_source(dashboard_se
     widget = create_widget(dashboard_setup, "upcoming_dates")
 
     assert widget.data_source.service.content_type == ContentType.objects.get_for_model(
-        LocalBaserowUpcomingRows
+        LocalJadawelUpcomingRows
     )
     assert UpcomingDatesWidget.objects.filter(id=widget.id).exists()
 
@@ -295,7 +295,7 @@ def configure_upcoming(setup, widget, **kwargs):
     configure(
         setup,
         widget,
-        LocalBaserowUpcomingRowsUserServiceType.type,
+        LocalJadawelUpcomingRowsUserServiceType.type,
         table_id=setup["table"].id,
         date_field_id=setup["due_field"].id,
         **kwargs,
@@ -340,7 +340,7 @@ def test_upcoming_dates_without_a_date_field_is_a_configuration_error(dashboard_
     configure(
         dashboard_setup,
         widget,
-        LocalBaserowUpcomingRowsUserServiceType.type,
+        LocalJadawelUpcomingRowsUserServiceType.type,
         table_id=dashboard_setup["table"].id,
     )
 
@@ -356,7 +356,7 @@ def test_upcoming_dates_rejects_a_non_date_field(dashboard_setup):
         configure(
             dashboard_setup,
             widget,
-            LocalBaserowUpcomingRowsUserServiceType.type,
+            LocalJadawelUpcomingRowsUserServiceType.type,
             table_id=dashboard_setup["table"].id,
             date_field_id=dashboard_setup["name_field"].id,
         )
@@ -390,7 +390,7 @@ def test_upcoming_dates_handles_a_datetime_field(dashboard_setup, data_fixture):
     configure(
         dashboard_setup,
         widget,
-        LocalBaserowUpcomingRowsUserServiceType.type,
+        LocalJadawelUpcomingRowsUserServiceType.type,
         table_id=dashboard_setup["table"].id,
         date_field_id=datetime_field.id,
         days_ahead=7,
@@ -407,7 +407,7 @@ def test_upcoming_dates_date_field_is_remapped_on_import(dashboard_setup):
     )
     assert remapped == [70]
 
-    service_type = LocalBaserowUpcomingRowsUserServiceType()
+    service_type = LocalJadawelUpcomingRowsUserServiceType()
     assert (
         service_type.deserialize_property(
             "date_field_id", 7, {"database_fields": {7: 70}}
@@ -427,7 +427,7 @@ def test_changing_the_table_drops_the_date_field(dashboard_setup, data_fixture):
     configure(
         dashboard_setup,
         widget,
-        LocalBaserowUpcomingRowsUserServiceType.type,
+        LocalJadawelUpcomingRowsUserServiceType.type,
         table_id=other_table.id,
     )
 

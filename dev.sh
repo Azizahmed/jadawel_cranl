@@ -359,7 +359,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
 export REDIS_PASSWORD=baserow
-export DATABASE_PASSWORD=baserow
+export DATABASE_PASSWORD=jadawel
 export SECRET_KEY=baserow
 if [[ "$dev" = true ]]; then
   # Caddy will just be the media server so change its port to match the MEDIA_URL

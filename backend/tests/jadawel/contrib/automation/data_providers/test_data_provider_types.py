@@ -34,7 +34,7 @@ def test_previous_node_data_provider_get_data_chunk(data_fixture):
         result={"results": [{"field_1": "Horse"}]},
     )
 
-    first_action = data_fixture.create_local_baserow_create_row_action_node(
+    first_action = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
     )
     first_action_node_history = AutomationHistoryHandler().create_node_history(
@@ -47,7 +47,7 @@ def test_previous_node_data_provider_get_data_chunk(data_fixture):
         result={"field_2": "Badger"},
     )
 
-    data_fixture.create_local_baserow_create_row_action_node(
+    data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
     )
 
@@ -114,7 +114,7 @@ def test_previous_node_data_provider_get_data_chunk(data_fixture):
 def test_previous_node_data_provider_import_path(data_fixture):
     data_provider = PreviousNodeProviderType()
 
-    node = data_fixture.create_local_baserow_create_row_action_node()
+    node = data_fixture.create_local_jadawel_create_row_action_node()
 
     valid_id_mapping = {"automation_workflow_nodes": {1: node.id}}
     invalid_id_mapping = {"automation_workflow_nodes": {3: 4}}
@@ -142,7 +142,7 @@ def test_current_iteration_data_provider_get_data_chunk(data_fixture):
     iterator = data_fixture.create_core_iterator_action_node(
         workflow=workflow,
     )
-    data_fixture.create_local_baserow_create_row_action_node(
+    data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
     )
     node_history = AutomationHistoryHandler().create_node_history(

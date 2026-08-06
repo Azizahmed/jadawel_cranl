@@ -119,12 +119,12 @@ def test_public_allowed_properties_is_cached(data_fixture, django_assert_num_que
         user_source, None, 1, "foo_username", "foo@bar.com", role="foo_user_role"
     )
 
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(user=user, builder=builder)
 
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         user=user,
         page=page,
         integration=integration,
@@ -161,7 +161,7 @@ def test_aggregate_user_source_counts(data_fixture):
 
     # A builder with no domains.
     builder_no_domains = data_fixture.create_builder_application(workspace=workspace)
-    data_fixture.create_local_baserow_table_user_source(application=builder_no_domains)
+    data_fixture.create_local_jadawel_table_user_source(application=builder_no_domains)
     assert BuilderHandler().aggregate_user_source_counts() == 0
 
     # A builder with a domain, but it hasn't been published to.
@@ -171,7 +171,7 @@ def test_aggregate_user_source_counts(data_fixture):
     data_fixture.create_builder_custom_domain(
         builder=builder_with_unpublished_domains, published_to=None
     )
-    data_fixture.create_local_baserow_table_user_source(
+    data_fixture.create_local_jadawel_table_user_source(
         application=builder_with_unpublished_domains
     )
     assert BuilderHandler().aggregate_user_source_counts() == 0
@@ -184,7 +184,7 @@ def test_aggregate_user_source_counts(data_fixture):
     data_fixture.create_builder_custom_domain(
         builder=builder_with_published_domains, published_to=published_builder
     )
-    data_fixture.create_local_baserow_table_user_source(
+    data_fixture.create_local_jadawel_table_user_source(
         application=builder_with_published_domains
     )
     assert BuilderHandler().aggregate_user_source_counts() == 5

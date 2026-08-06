@@ -3,7 +3,7 @@ import { devices } from "@playwright/test";
 
 require("dotenv").config();
 
-export const baserowConfig = {
+export const jadawelConfig = {
   PUBLIC_WEB_FRONTEND_URL: process.env.PUBLIC_WEB_FRONTEND_URL
     ? process.env.PUBLIC_WEB_FRONTEND_URL
     : "http://localhost:3000",
@@ -43,7 +43,7 @@ const config: PlaywrightTestConfig = {
     trace: "on-first-retry",
     video: "on-first-retry",
     nuxt: {
-      host: baserowConfig.PUBLIC_WEB_FRONTEND_URL,
+      host: jadawelConfig.PUBLIC_WEB_FRONTEND_URL,
     },
   },
   projects: [

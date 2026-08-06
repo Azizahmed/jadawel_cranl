@@ -9,7 +9,7 @@ from jadawel.contrib.builder.workflow_actions.registries import (
     builder_workflow_action_type_registry,
 )
 from jadawel.contrib.builder.workflow_actions.workflow_action_types import (
-    LocalBaserowWorkflowActionType,
+    LocalJadawelWorkflowActionType,
     LogoutWorkflowActionType,
     NotificationWorkflowActionType,
     OpenPageWorkflowActionType,
@@ -23,7 +23,7 @@ from jadawel.core.utils import MirrorDict
 from jadawel.core.workflow_actions.registries import WorkflowActionType
 
 
-def local_baserow_service_backed_workflow_actions():
+def local_jadawel_service_backed_workflow_actions():
     """
     Responsible for returning all workflow action types which are backed by a local
     jadawel service.
@@ -34,7 +34,7 @@ def local_baserow_service_backed_workflow_actions():
     return [
         workflow_action_type
         for workflow_action_type in builder_workflow_action_type_registry.get_all()
-        if issubclass(workflow_action_type.__class__, LocalBaserowWorkflowActionType)
+        if issubclass(workflow_action_type.__class__, LocalJadawelWorkflowActionType)
     ]
 
 
@@ -114,8 +114,8 @@ def test_export_import_upsert_row_workflow_action_type(data_fixture):
         ],
         rows=[],
     )
-    integration = data_fixture.create_local_baserow_integration(user=user)
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    integration = data_fixture.create_local_jadawel_integration(user=user)
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
     duplicated_page = PageService().duplicate_page(user, page)
@@ -123,13 +123,13 @@ def test_export_import_upsert_row_workflow_action_type(data_fixture):
 
     field = table.field_set.get(name="Animal")
     element = data_fixture.create_builder_button_element(page=page)
-    service = data_fixture.create_local_baserow_upsert_row_service(
+    service = data_fixture.create_local_jadawel_upsert_row_service(
         integration=integration, table=table
     )
     field_mapping = service.field_mappings.create(
         field=field, value=f"get('data_source.{data_source.id}.{field.db_column}')"
     )
-    workflow_action = data_fixture.create_local_baserow_create_row_workflow_action(
+    workflow_action = data_fixture.create_local_jadawel_create_row_workflow_action(
         page=page, element=element, event=EventTypes.CLICK, service=service
     )
 
@@ -146,7 +146,7 @@ def test_export_import_upsert_row_workflow_action_type(data_fixture):
         "service": {
             "id": service.id,
             "integration_id": integration.id,
-            "type": "local_baserow_upsert_row",
+            "type": "local_jadawel_upsert_row",
             "row_id": JadawelFormulaObject(
                 formula="",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -199,24 +199,24 @@ def test_export_import_upsert_row_workflow_action_type(data_fixture):
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "local_baserow_builder_workflow_action_type",
-    local_baserow_service_backed_workflow_actions(),
+    "local_jadawel_builder_workflow_action_type",
+    local_jadawel_service_backed_workflow_actions(),
 )
-def test_builder_local_baserow_workflow_service_type_prepare_values_with_instance(
-    local_baserow_builder_workflow_action_type,
+def test_builder_local_jadawel_workflow_service_type_prepare_values_with_instance(
+    local_jadawel_builder_workflow_action_type,
     data_fixture,
 ):
     user, token = data_fixture.create_user_and_token()
     page = data_fixture.create_builder_page(user=user)
     workspace = page.builder.workspace
     element = data_fixture.create_builder_button_element(page=page)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         application=page.builder
     )
     database = data_fixture.create_database_application(workspace=workspace)
     table = data_fixture.create_database_table(database=database)
     workflow_action = data_fixture.create_builder_workflow_service_action(
-        local_baserow_builder_workflow_action_type.model_class,
+        local_jadawel_builder_workflow_action_type.model_class,
         page=page,
         element=element,
         event=EventTypes.CLICK,
@@ -228,7 +228,7 @@ def test_builder_local_baserow_workflow_service_type_prepare_values_with_instanc
     field = data_fixture.create_text_field(table=table)
     model = table.get_model()
     row2 = model.objects.create(**{f"field_{field.id}": "Cheese"})
-    local_baserow_builder_workflow_action_type.prepare_values(
+    local_jadawel_builder_workflow_action_type.prepare_values(
         {
             "service": {
                 "row_id": row2.id,
@@ -315,8 +315,8 @@ def test_refresh_data_source_returns_value_from_super_method(
 @pytest.mark.django_db
 def test_import_notification_workflow_action(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     workflow_action_type = NotificationWorkflowActionType()
     button_1 = data_fixture.create_builder_button_element(page=page)
     button_2 = data_fixture.create_builder_button_element(page=page)
@@ -348,8 +348,8 @@ def test_import_notification_workflow_action(data_fixture):
 @pytest.mark.django_db
 def test_import_open_page_workflow_action(data_fixture):
     page = data_fixture.create_builder_page()
-    data_source_1 = data_fixture.create_builder_local_baserow_get_row_data_source()
-    data_source_2 = data_fixture.create_builder_local_baserow_get_row_data_source()
+    data_source_1 = data_fixture.create_builder_local_jadawel_get_row_data_source()
+    data_source_2 = data_fixture.create_builder_local_jadawel_get_row_data_source()
     workflow_action_type = OpenPageWorkflowActionType()
     button_1 = data_fixture.create_builder_button_element(page=page)
     button_2 = data_fixture.create_builder_button_element(page=page)

@@ -62,11 +62,11 @@ class UserSourceFixtures:
         )
         email_field, name_field, password_field, role_field = user_fields
 
-        integration = integration or self.create_local_baserow_integration(
+        integration = integration or self.create_local_jadawel_integration(
             user=user, application=builder
         )
         user_source = self.create_user_source(
-            user_source_type_registry.get("local_baserow").model_class,
+            user_source_type_registry.get("local_jadawel").model_class,
             application=builder,
             integration=integration,
             table=user_table,
@@ -77,7 +77,7 @@ class UserSourceFixtures:
 
         return user_source, integration
 
-    def create_local_baserow_table_user_source(
+    def create_local_jadawel_table_user_source(
         self, application=None, integration=None, table=None, user=None, **kwargs
     ):
         if not application:
@@ -87,7 +87,7 @@ class UserSourceFixtures:
             application = self.create_builder_application(user=user, **application_args)
 
         if not integration:
-            integration = self.create_local_baserow_integration(application=application)
+            integration = self.create_local_jadawel_integration(application=application)
 
         if not table:
             table, fields, rows = self.build_table(
@@ -111,9 +111,9 @@ class UserSourceFixtures:
             name_field = table.field_set.get(name="Name")
             role_field = table.field_set.get(name="Role")
 
-        local_baserow_user_source_type = user_source_type_registry.get("local_baserow")
+        local_jadawel_user_source_type = user_source_type_registry.get("local_jadawel")
         return self.create_user_source(
-            local_baserow_user_source_type.model_class,
+            local_jadawel_user_source_type.model_class,
             application=application,
             integration=integration,
             table=table,

@@ -20,7 +20,7 @@ class SettingsSerializer(serializers.ModelSerializer):
             "account_deletion_grace_delay",
             "show_admin_signup_page",
             "track_workspace_usage",
-            "show_baserow_help_request",
+            "show_jadawel_help_request",
             "co_branding_logo",
             "email_verification",
             "verify_import_signature",
@@ -32,7 +32,7 @@ class SettingsSerializer(serializers.ModelSerializer):
             "allow_global_workspace_creation": {"required": False},
             "account_deletion_grace_delay": {"required": False},
             "track_workspace_usage": {"required": False},
-            "show_baserow_help_request": {"required": False},
+            "show_jadawel_help_request": {"required": False},
             "email_verification": {"required": False},
             "verify_import_signature": {"required": False},
         }

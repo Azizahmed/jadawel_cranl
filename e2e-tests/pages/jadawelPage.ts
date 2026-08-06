@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { baserowConfig } from "../playwright.config";
+import { jadawelConfig } from "../playwright.config";
 import { User } from "../fixtures/user";
 
 import { GotoOptions } from "@nuxt/test-utils/e2e";
@@ -11,7 +11,7 @@ export type PageConfig = { page: Page; goto: GotoFn };
 export class JadawelPage {
   readonly page: Page;
   readonly _goto: any;
-  readonly baseUrl = baserowConfig.PUBLIC_WEB_FRONTEND_URL;
+  readonly baseUrl = jadawelConfig.PUBLIC_WEB_FRONTEND_URL;
   pageUrl: string;
 
   constructor({ page, goto }: PageConfig) {

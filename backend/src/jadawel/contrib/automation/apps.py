@@ -25,15 +25,15 @@ class AutomationConfig(AppConfig):
             CorePeriodicTriggerNodeType,
             CoreRouterActionNodeType,
             CoreSMTPEmailNodeType,
-            LocalBaserowAggregateRowsNodeType,
-            LocalBaserowCreateRowNodeType,
-            LocalBaserowDeleteRowNodeType,
-            LocalBaserowGetRowNodeType,
-            LocalBaserowListRowsNodeType,
-            LocalBaserowRowsCreatedNodeTriggerType,
-            LocalBaserowRowsDeletedNodeTriggerType,
-            LocalBaserowRowsUpdatedNodeTriggerType,
-            LocalBaserowUpdateRowNodeType,
+            LocalJadawelAggregateRowsNodeType,
+            LocalJadawelCreateRowNodeType,
+            LocalJadawelDeleteRowNodeType,
+            LocalJadawelGetRowNodeType,
+            LocalJadawelListRowsNodeType,
+            LocalJadawelRowsCreatedNodeTriggerType,
+            LocalJadawelRowsDeletedNodeTriggerType,
+            LocalJadawelRowsUpdatedNodeTriggerType,
+            LocalJadawelUpdateRowNodeType,
             SlackWriteMessageActionNodeType,
         )
         from jadawel.contrib.automation.nodes.object_scopes import (
@@ -166,19 +166,19 @@ class AutomationConfig(AppConfig):
             AllowIfTemplatePermissionManagerType(prev_manager)
         )
 
-        automation_node_type_registry.register(LocalBaserowCreateRowNodeType())
-        automation_node_type_registry.register(LocalBaserowUpdateRowNodeType())
-        automation_node_type_registry.register(LocalBaserowDeleteRowNodeType())
-        automation_node_type_registry.register(LocalBaserowGetRowNodeType())
-        automation_node_type_registry.register(LocalBaserowListRowsNodeType())
-        automation_node_type_registry.register(LocalBaserowAggregateRowsNodeType())
+        automation_node_type_registry.register(LocalJadawelCreateRowNodeType())
+        automation_node_type_registry.register(LocalJadawelUpdateRowNodeType())
+        automation_node_type_registry.register(LocalJadawelDeleteRowNodeType())
+        automation_node_type_registry.register(LocalJadawelGetRowNodeType())
+        automation_node_type_registry.register(LocalJadawelListRowsNodeType())
+        automation_node_type_registry.register(LocalJadawelAggregateRowsNodeType())
         automation_node_type_registry.register(CoreHttpRequestNodeType())
         automation_node_type_registry.register(CoreIteratorNodeType())
         automation_node_type_registry.register(CoreSMTPEmailNodeType())
         automation_node_type_registry.register(CoreRouterActionNodeType())
-        automation_node_type_registry.register(LocalBaserowRowsCreatedNodeTriggerType())
-        automation_node_type_registry.register(LocalBaserowRowsUpdatedNodeTriggerType())
-        automation_node_type_registry.register(LocalBaserowRowsDeletedNodeTriggerType())
+        automation_node_type_registry.register(LocalJadawelRowsCreatedNodeTriggerType())
+        automation_node_type_registry.register(LocalJadawelRowsUpdatedNodeTriggerType())
+        automation_node_type_registry.register(LocalJadawelRowsDeletedNodeTriggerType())
         automation_node_type_registry.register(CorePeriodicTriggerNodeType())
         automation_node_type_registry.register(CoreHTTPTriggerNodeType())
         automation_node_type_registry.register(AIAgentActionNodeType())

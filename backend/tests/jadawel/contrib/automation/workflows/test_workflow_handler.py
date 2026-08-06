@@ -17,7 +17,7 @@ from jadawel.contrib.automation.history.models import (
 from jadawel.contrib.automation.models import Automation, AutomationWorkflow
 from jadawel.contrib.automation.nodes.node_types import (
     CorePeriodicTriggerNodeType,
-    LocalBaserowRowsCreatedNodeTriggerType,
+    LocalJadawelRowsCreatedNodeTriggerType,
 )
 from jadawel.contrib.automation.workflows.constants import (
     ALLOW_TEST_RUN_MINUTES,
@@ -352,7 +352,7 @@ def test_duplicate_workflow_with_nodes(data_fixture):
     )
 
     reference = {
-        "0": "local_baserow_rows_created",
+        "0": "local_jadawel_rows_created",
         "fallback node": {},
         "output edge 1": {},
         "output edge 2": {},
@@ -363,7 +363,7 @@ def test_duplicate_workflow_with_nodes(data_fixture):
                 "Do this": ["output edge 1"],
             }
         },
-        "local_baserow_rows_created": {"next": {"": ["router"]}},
+        "local_jadawel_rows_created": {"next": {"": ["router"]}},
     }
 
     workflow.assert_reference(reference)
@@ -1267,7 +1267,7 @@ def test_toggle_test_mode_on(
     mock_async_start_workflow, mock_automation_workflow_updated, data_fixture
 ):
     workflow = data_fixture.create_automation_workflow(
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type
     )
 
     frozen_time = "2025-06-04 11:00"
@@ -1318,7 +1318,7 @@ def test_toggle_test_mode_off(
 ):
     workflow = data_fixture.create_automation_workflow(
         allow_test_run_until=datetime.datetime.now(),
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type,
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type,
     )
 
     AutomationWorkflowHandler().toggle_test_run(workflow, None)
@@ -1339,7 +1339,7 @@ def test_toggle_simulate_mode_on(
     mock_async_start_workflow, mock_automation_workflow_updated, data_fixture
 ):
     workflow = data_fixture.create_automation_workflow(
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type
     )
 
     AutomationWorkflowHandler().toggle_test_run(
@@ -1362,7 +1362,7 @@ def test_toggle_simulate_mode_off(
     mock_async_start_workflow, mock_automation_workflow_updated, data_fixture
 ):
     workflow = data_fixture.create_automation_workflow(
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type
     )
     trigger = workflow.get_trigger()
 

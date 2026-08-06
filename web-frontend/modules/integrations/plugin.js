@@ -1,19 +1,19 @@
 import { defineNuxtPlugin } from '#app'
 
-import { LocalBaserowIntegrationType } from '@jadawel/modules/integrations/localBaserow/integrationTypes'
+import { LocalJadawelIntegrationType } from '@jadawel/modules/integrations/localJadawel/integrationTypes'
 import { SMTPIntegrationType } from '@jadawel/modules/integrations/core/integrationTypes'
 import { AIIntegrationType } from '@jadawel/modules/integrations/ai/integrationTypes'
 import {
-  LocalBaserowGetRowServiceType,
-  LocalBaserowListRowsServiceType,
-  LocalBaserowAggregateRowsServiceType,
-  LocalBaserowCreateRowWorkflowServiceType,
-  LocalBaserowDeleteRowWorkflowServiceType,
-  LocalBaserowUpdateRowWorkflowServiceType,
-  LocalBaserowRowsCreatedTriggerServiceType,
-  LocalBaserowRowsUpdatedTriggerServiceType,
-  LocalBaserowRowsDeletedTriggerServiceType,
-} from '@jadawel/modules/integrations/localBaserow/serviceTypes'
+  LocalJadawelGetRowServiceType,
+  LocalJadawelListRowsServiceType,
+  LocalJadawelAggregateRowsServiceType,
+  LocalJadawelCreateRowWorkflowServiceType,
+  LocalJadawelDeleteRowWorkflowServiceType,
+  LocalJadawelUpdateRowWorkflowServiceType,
+  LocalJadawelRowsCreatedTriggerServiceType,
+  LocalJadawelRowsUpdatedTriggerServiceType,
+  LocalJadawelRowsDeletedTriggerServiceType,
+} from '@jadawel/modules/integrations/localJadawel/serviceTypes'
 import {
   CoreHTTPRequestServiceType,
   PeriodicTriggerServiceType,
@@ -33,28 +33,28 @@ export default defineNuxtPlugin({
 
     const context = { app: nuxtApp }
 
-    $registry.register('integration', new LocalBaserowIntegrationType(context))
+    $registry.register('integration', new LocalJadawelIntegrationType(context))
     $registry.register('integration', new SMTPIntegrationType(context))
     $registry.register('integration', new AIIntegrationType(context))
     $registry.register('integration', new SlackBotIntegrationType(context))
 
-    $registry.register('service', new LocalBaserowGetRowServiceType(context))
-    $registry.register('service', new LocalBaserowListRowsServiceType(context))
+    $registry.register('service', new LocalJadawelGetRowServiceType(context))
+    $registry.register('service', new LocalJadawelListRowsServiceType(context))
     $registry.register(
       'service',
-      new LocalBaserowAggregateRowsServiceType(context)
+      new LocalJadawelAggregateRowsServiceType(context)
     )
     $registry.register(
       'service',
-      new LocalBaserowCreateRowWorkflowServiceType(context)
+      new LocalJadawelCreateRowWorkflowServiceType(context)
     )
     $registry.register(
       'service',
-      new LocalBaserowUpdateRowWorkflowServiceType(context)
+      new LocalJadawelUpdateRowWorkflowServiceType(context)
     )
     $registry.register(
       'service',
-      new LocalBaserowDeleteRowWorkflowServiceType(context)
+      new LocalJadawelDeleteRowWorkflowServiceType(context)
     )
     $registry.register('service', new CoreHTTPRequestServiceType(context))
     $registry.register('service', new CoreSMTPEmailServiceType(context))
@@ -66,15 +66,15 @@ export default defineNuxtPlugin({
     $registry.register('service', new SlackWriteMessageServiceType(context))
     $registry.register(
       'service',
-      new LocalBaserowRowsCreatedTriggerServiceType(context)
+      new LocalJadawelRowsCreatedTriggerServiceType(context)
     )
     $registry.register(
       'service',
-      new LocalBaserowRowsUpdatedTriggerServiceType(context)
+      new LocalJadawelRowsUpdatedTriggerServiceType(context)
     )
     $registry.register(
       'service',
-      new LocalBaserowRowsDeletedTriggerServiceType(context)
+      new LocalJadawelRowsDeletedTriggerServiceType(context)
     )
   },
 })

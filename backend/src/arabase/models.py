@@ -11,12 +11,12 @@ from arabase.dashboard.widgets.models import (
     RecordsListWidget,
     UpcomingDatesWidget,
 )
-from arabase.integrations.local_baserow.models import (
-    LocalBaserowGroupedAggregateRows,
-    LocalBaserowTableServiceAggregationGroupBy,
-    LocalBaserowTableServiceAggregationSeries,
-    LocalBaserowTableServiceAggregationSortBy,
-    LocalBaserowUpcomingRows,
+from arabase.integrations.local_jadawel.models import (
+    LocalJadawelGroupedAggregateRows,
+    LocalJadawelTableServiceAggregationGroupBy,
+    LocalJadawelTableServiceAggregationSeries,
+    LocalJadawelTableServiceAggregationSortBy,
+    LocalJadawelUpcomingRows,
 )
 
 __all__ = [
@@ -24,9 +24,9 @@ __all__ = [
     "ProgressWidget",
     "RecordsListWidget",
     "UpcomingDatesWidget",
-    "LocalBaserowGroupedAggregateRows",
-    "LocalBaserowTableServiceAggregationGroupBy",
-    "LocalBaserowTableServiceAggregationSeries",
-    "LocalBaserowTableServiceAggregationSortBy",
-    "LocalBaserowUpcomingRows",
+    "LocalJadawelGroupedAggregateRows",
+    "LocalJadawelTableServiceAggregationGroupBy",
+    "LocalJadawelTableServiceAggregationSeries",
+    "LocalJadawelTableServiceAggregationSortBy",
+    "LocalJadawelUpcomingRows",
 ]

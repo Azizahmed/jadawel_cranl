@@ -76,7 +76,7 @@ export default defineNuxtModule({
         posthogHost: '',
         jadawelEmbeddedShareUrl: 'http://localhost:3000',
         jadawelUsePgFulltextSearch: 'true',
-        integrationLocalBaserowPageSizeLimit: 200,
+        integrationLocalJadawelPageSizeLimit: 200,
         extraPublicWebFrontendHostnames: [],
         jadawelBuilderDomains: [],
         jadawelRowPageSizeLimit: 200,

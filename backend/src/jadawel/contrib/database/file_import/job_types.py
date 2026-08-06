@@ -8,10 +8,10 @@ from rest_framework import serializers
 
 from jadawel.contrib.database.api.fields.errors import (
     ERROR_FIELD_NOT_IN_TABLE,
-    ERROR_INVALID_BASEROW_FIELD_NAME,
+    ERROR_INVALID_JADAWEL_FIELD_NAME,
     ERROR_MAX_FIELD_COUNT_EXCEEDED,
     ERROR_MAX_FIELD_NAME_LENGTH_EXCEEDED,
-    ERROR_RESERVED_BASEROW_FIELD_NAME,
+    ERROR_RESERVED_JADAWEL_FIELD_NAME,
     ERROR_SELECT_OPTION_DOES_NOT_BELONG_TO_FIELD,
 )
 from jadawel.contrib.database.api.tables.errors import (
@@ -60,8 +60,8 @@ class FileImportJobType(JobType):
         MaxFieldLimitExceeded: ERROR_MAX_FIELD_COUNT_EXCEEDED,
         MaxFieldNameLengthExceeded: ERROR_MAX_FIELD_NAME_LENGTH_EXCEEDED[2],
         InitialTableDataDuplicateName: ERROR_INITIAL_TABLE_DATA_HAS_DUPLICATE_NAMES[2],
-        ReservedJadawelFieldNameException: ERROR_RESERVED_BASEROW_FIELD_NAME[2],
-        InvalidJadawelFieldName: ERROR_INVALID_BASEROW_FIELD_NAME[2],
+        ReservedJadawelFieldNameException: ERROR_RESERVED_JADAWEL_FIELD_NAME[2],
+        InvalidJadawelFieldName: ERROR_INVALID_JADAWEL_FIELD_NAME[2],
         FieldNotInTable: ERROR_FIELD_NOT_IN_TABLE[2],
         SelectOptionDoesNotBelongToField: ERROR_SELECT_OPTION_DOES_NOT_BELONG_TO_FIELD[
             2

@@ -272,16 +272,16 @@ def create_test_context(data_fixture):
     ]
 
     builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(
+    integration = data_fixture.create_local_jadawel_integration(
         user=user, application=builder
     )
     page = data_fixture.create_builder_page(builder=builder)
     data_source_list_rows = (
-        data_fixture.create_builder_local_baserow_list_rows_data_source(
+        data_fixture.create_builder_local_jadawel_list_rows_data_source(
             page=page, integration=integration, table=table
         )
     )
-    data_source_get_row = data_fixture.create_builder_local_baserow_get_row_data_source(
+    data_source_get_row = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=page, integration=integration, table=table, row_id=rows[0].id
     )
 

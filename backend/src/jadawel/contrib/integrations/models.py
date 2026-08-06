@@ -1,11 +1,11 @@
-from .local_baserow.models import (
-    LocalBaserowGetRow,
-    LocalBaserowIntegration,
-    LocalBaserowListRows,
+from .local_jadawel.models import (
+    LocalJadawelGetRow,
+    LocalJadawelIntegration,
+    LocalJadawelListRows,
 )
 
 __all__ = [
-    "LocalBaserowIntegration",
-    "LocalBaserowGetRow",
-    "LocalBaserowListRows",
+    "LocalJadawelIntegration",
+    "LocalJadawelGetRow",
+    "LocalJadawelListRows",
 ]

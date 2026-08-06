@@ -14,7 +14,7 @@ from rest_framework.status import (
 from jadawel.contrib.automation.nodes.models import AutomationNode
 from jadawel.contrib.automation.nodes.node_types import (
     CorePeriodicTriggerNodeType,
-    LocalBaserowRowsCreatedNodeTriggerType,
+    LocalJadawelRowsCreatedNodeTriggerType,
 )
 from jadawel.test_utils.helpers import AnyDict, AnyInt, AnyStr
 from tests.jadawel.contrib.automation.api.utils import get_api_kwargs
@@ -36,7 +36,7 @@ def test_create_node(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user)
     trigger = workflow.get_trigger()
-    node_before = data_fixture.create_local_baserow_create_row_action_node(
+    node_before = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow
     )
 
@@ -44,7 +44,7 @@ def test_create_node(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow_update_row",
+            "type": "local_jadawel_update_row",
             "reference_node_id": trigger.id,
             "position": "south",
             "output": "",
@@ -57,7 +57,7 @@ def test_create_node(api_client, data_fixture):
         "id": AnyInt(),
         "label": "",
         "service": AnyDict(),
-        "type": "local_baserow_update_row",
+        "type": "local_jadawel_update_row",
         "workflow": workflow.id,
     }
 
@@ -66,10 +66,10 @@ def test_create_node(api_client, data_fixture):
     workflow.refresh_from_db()
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_create_row": {},
-            "local_baserow_rows_created": {"next": {"": ["local_baserow_update_row"]}},
-            "local_baserow_update_row": {"next": {"": ["local_baserow_create_row"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_create_row": {},
+            "local_jadawel_rows_created": {"next": {"": ["local_jadawel_update_row"]}},
+            "local_jadawel_update_row": {"next": {"": ["local_jadawel_create_row"]}},
         }
     )
 
@@ -80,7 +80,7 @@ def test_create_node_reference_node_invalid(api_client, data_fixture):
     workflow_a = data_fixture.create_automation_workflow(user)
     trigger_a = workflow_a.get_trigger()
     workflow_b = data_fixture.create_automation_workflow(user)
-    node2_b = data_fixture.create_local_baserow_create_row_action_node(
+    node2_b = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow_b
     )
 
@@ -89,7 +89,7 @@ def test_create_node_reference_node_invalid(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow_create_row",
+            "type": "local_jadawel_create_row",
             "reference_node_id": 99999999999,
             "position": "south",
             "output": "",
@@ -105,7 +105,7 @@ def test_create_node_reference_node_invalid(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow_create_row",
+            "type": "local_jadawel_create_row",
             "reference_node_id": node2_b.id,
             "position": "south",
             "output": "",
@@ -152,7 +152,7 @@ def test_create_node_invalid_workflow(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow_create_row",
+            "type": "local_jadawel_create_row",
             "reference_node_id": 0,
             "position": "south",
             "output": "",
@@ -179,7 +179,7 @@ def test_create_node_undo_redo(api_client, data_fixture):
     response = api_client.post(
         url,
         {
-            "type": "local_baserow_create_row",
+            "type": "local_jadawel_create_row",
             "reference_node_id": workflow.get_trigger().id,
             "position": "south",
             "output": "",
@@ -224,14 +224,14 @@ def test_get_nodes(api_client, data_fixture):
             "id": trigger.id,
             "label": trigger.label,
             "service": AnyDict(),
-            "type": "local_baserow_rows_created",
+            "type": "local_jadawel_rows_created",
             "workflow": workflow.id,
         },
         {
             "id": node.id,
             "label": node.label,
             "service": AnyDict(),
-            "type": "local_baserow_create_row",
+            "type": "local_jadawel_create_row",
             "workflow": node.workflow.id,
         },
     ]
@@ -263,7 +263,7 @@ def test_delete_trigger_node_disallowed(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user)
     trigger = workflow.get_trigger()
-    data_fixture.create_local_baserow_create_row_action_node(workflow=workflow)
+    data_fixture.create_local_jadawel_create_row_action_node(workflow=workflow)
 
     delete_url = reverse(API_URL_ITEM, kwargs={"node_id": trigger.id})
     response = api_client.delete(delete_url, **get_api_kwargs(token))
@@ -316,7 +316,7 @@ def test_delete_node_undo_redo(api_client, data_fixture):
 def test_duplicate_node(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user)
-    action = data_fixture.create_local_baserow_create_row_action_node(
+    action = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow, label="To duplicate"
     )
 
@@ -332,8 +332,8 @@ def test_duplicate_node(api_client, data_fixture):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["To duplicate"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["To duplicate"]}},
             "To duplicate": {"next": {"": ["To duplicate-"]}},
             "To duplicate-": {},
         }
@@ -399,7 +399,7 @@ def test_updating_node_with_invalid_formula_arguments_throws_error(
 ):
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user)
-    node = data_fixture.create_local_baserow_get_row_action_node(
+    node = data_fixture.create_local_jadawel_get_row_action_node(
         user=user, workflow=workflow
     )
     service_type = node.service.get_type()
@@ -431,7 +431,7 @@ def test_update_node_invalid_node(api_client, data_fixture):
 
     api_kwargs = get_api_kwargs(token)
     update_url = reverse(API_URL_ITEM, kwargs={"node_id": 100})
-    payload = {"type": "local_baserow_update_row"}
+    payload = {"type": "local_jadawel_update_row"}
     response = api_client.patch(update_url, payload, **api_kwargs)
 
     assert response.status_code == HTTP_404_NOT_FOUND
@@ -480,8 +480,8 @@ def test_replace_node_type_with_irreplaceable_type(
     data_fixture,
 ):
     original_type, irreplaceable_type = [
-        "local_baserow_create_row",
-        "local_baserow_rows_created",
+        "local_jadawel_create_row",
+        "local_jadawel_rows_created",
     ]
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user)
@@ -507,8 +507,8 @@ def test_replace_node_type_with_replaceable_type_trigger(
     data_fixture,
 ):
     original_type, replaceable_type = [
-        "local_baserow_rows_created",
-        "local_baserow_rows_updated",
+        "local_jadawel_rows_created",
+        "local_jadawel_rows_updated",
     ]
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user, trigger_type=original_type)
@@ -536,8 +536,8 @@ def test_replace_node_type_with_replaceable_type(
     data_fixture,
 ):
     original_type, replaceable_type = [
-        "local_baserow_update_row",
-        "local_baserow_delete_row",
+        "local_jadawel_update_row",
+        "local_jadawel_delete_row",
     ]
     user, token = data_fixture.create_user_and_token()
     workflow = data_fixture.create_automation_workflow(user)
@@ -793,7 +793,7 @@ def test_replacing_router_node_with_output_nodes_disallowed(api_client, data_fix
 
     response = api_client.post(
         reverse(API_URL_REPLACE, kwargs={"node_id": router.id}),
-        {"new_type": "local_baserow_create_row"},
+        {"new_type": "local_jadawel_create_row"},
         **get_api_kwargs(token),
     )
     assert response.status_code == HTTP_400_BAD_REQUEST
@@ -837,7 +837,7 @@ def test_simulate_dispatch_trigger_node(
     )
     workflow = data_fixture.create_automation_workflow(
         user=user,
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type,
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type,
         trigger_service_kwargs={"table": table},
     )
 
@@ -911,10 +911,10 @@ def test_simulate_dispatch_trigger_node_with_sample_data(
 
     workflow = data_fixture.create_automation_workflow(
         user=user,
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type,
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type,
         trigger_service_kwargs={
             "table": table,
-            "integration": data_fixture.create_local_baserow_integration(user=user),
+            "integration": data_fixture.create_local_jadawel_integration(user=user),
         },
     )
     trigger_node = workflow.get_trigger()
@@ -957,7 +957,7 @@ def test_simulate_dispatch_action_node(
     workflow = data_fixture.create_automation_workflow(
         user=user,
         trigger_service_kwargs={"table": table_1},
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type,
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type,
     )
 
     # Create an action node with service
@@ -967,9 +967,9 @@ def test_simulate_dispatch_action_node(
         rows=[],
     )
 
-    action_service = data_fixture.create_local_baserow_upsert_row_service(
+    action_service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table_2,
-        integration=data_fixture.create_local_baserow_integration(user=user),
+        integration=data_fixture.create_local_jadawel_integration(user=user),
     )
     action_service.field_mappings.create(
         field=fields_2[0],
@@ -978,7 +978,7 @@ def test_simulate_dispatch_action_node(
     action_node = data_fixture.create_automation_node(
         user=user,
         workflow=workflow,
-        type="local_baserow_create_row",
+        type="local_jadawel_create_row",
         service=action_service,
     )
 
@@ -1013,7 +1013,7 @@ def test_simulate_dispatch_action_node_with_sample_data(
     workflow = data_fixture.create_automation_workflow(
         user=user,
         trigger_service_kwargs={"table": table_1},
-        trigger_type=LocalBaserowRowsCreatedNodeTriggerType.type,
+        trigger_type=LocalJadawelRowsCreatedNodeTriggerType.type,
     )
 
     # Create an action node with service
@@ -1023,9 +1023,9 @@ def test_simulate_dispatch_action_node_with_sample_data(
         rows=[],
     )
 
-    action_service = data_fixture.create_local_baserow_upsert_row_service(
+    action_service = data_fixture.create_local_jadawel_upsert_row_service(
         table=table_2,
-        integration=data_fixture.create_local_baserow_integration(user=user),
+        integration=data_fixture.create_local_jadawel_integration(user=user),
     )
     action_service.field_mappings.create(
         field=fields_2[0],
@@ -1034,7 +1034,7 @@ def test_simulate_dispatch_action_node_with_sample_data(
     action_node = data_fixture.create_automation_node(
         user=user,
         workflow=workflow,
-        type="local_baserow_create_row",
+        type="local_jadawel_create_row",
         service=action_service,
     )
 

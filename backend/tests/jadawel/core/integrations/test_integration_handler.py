@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import pytest
 
-from jadawel.contrib.integrations.local_baserow.models import LocalBaserowIntegration
+from jadawel.contrib.integrations.local_jadawel.models import LocalJadawelIntegration
 from jadawel.core.exceptions import (
     ApplicationOperationNotSupported,
     CannotCalculateIntermediateOrder,
@@ -46,7 +46,7 @@ def test_create_integration_bad_application(data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_database_application(user=user)
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     with pytest.raises(ApplicationOperationNotSupported):
         IntegrationHandler().create_integration(
@@ -58,7 +58,7 @@ def test_create_integration_bad_application(data_fixture):
 
 @pytest.mark.django_db
 def test_get_integration(data_fixture):
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
     assert IntegrationHandler().get_integration(integration.id).id == integration.id
 
 
@@ -71,9 +71,9 @@ def test_get_integration_does_not_exist(data_fixture):
 @pytest.mark.django_db
 def test_get_integrations(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration1 = data_fixture.create_local_baserow_integration(application=builder)
-    integration2 = data_fixture.create_local_baserow_integration(application=builder)
-    integration3 = data_fixture.create_local_baserow_integration(application=builder)
+    integration1 = data_fixture.create_local_jadawel_integration(application=builder)
+    integration2 = data_fixture.create_local_jadawel_integration(application=builder)
+    integration3 = data_fixture.create_local_jadawel_integration(application=builder)
 
     integrations = IntegrationHandler().get_integrations(application=builder)
 
@@ -83,12 +83,12 @@ def test_get_integrations(data_fixture):
         integration3.id,
     ]
 
-    assert isinstance(integrations[0], LocalBaserowIntegration)
+    assert isinstance(integrations[0], LocalJadawelIntegration)
 
 
 @pytest.mark.django_db
 def test_delete_integration(data_fixture):
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
 
     IntegrationHandler().delete_integration(integration)
 
@@ -99,9 +99,9 @@ def test_delete_integration(data_fixture):
 def test_update_integration(data_fixture):
     user = data_fixture.create_user()
     user2 = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     integration_updated = IntegrationHandler().update_integration(
         integration_type, integration, authorized_user=user2
@@ -112,9 +112,9 @@ def test_update_integration(data_fixture):
 
 @pytest.mark.django_db
 def test_update_integration_invalid_values(data_fixture):
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
 
-    integration_type = integration_type_registry.get("local_baserow")
+    integration_type = integration_type_registry.get("local_jadawel")
 
     integration_updated = IntegrationHandler().update_integration(
         integration_type, integration, nonsense="hello"
@@ -126,9 +126,9 @@ def test_update_integration_invalid_values(data_fixture):
 @pytest.mark.django_db
 def test_move_integration_end_of_application(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration1 = data_fixture.create_local_baserow_integration(application=builder)
-    integration2 = data_fixture.create_local_baserow_integration(application=builder)
-    integration3 = data_fixture.create_local_baserow_integration(application=builder)
+    integration1 = data_fixture.create_local_jadawel_integration(application=builder)
+    integration2 = data_fixture.create_local_jadawel_integration(application=builder)
+    integration3 = data_fixture.create_local_jadawel_integration(application=builder)
 
     integration_moved = IntegrationHandler().move_integration(integration1)
 
@@ -141,9 +141,9 @@ def test_move_integration_end_of_application(data_fixture):
 @pytest.mark.django_db
 def test_move_integration_before(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration1 = data_fixture.create_local_baserow_integration(application=builder)
-    integration2 = data_fixture.create_local_baserow_integration(application=builder)
-    integration3 = data_fixture.create_local_baserow_integration(application=builder)
+    integration1 = data_fixture.create_local_jadawel_integration(application=builder)
+    integration2 = data_fixture.create_local_jadawel_integration(application=builder)
+    integration3 = data_fixture.create_local_jadawel_integration(application=builder)
 
     IntegrationHandler().move_integration(integration3, before=integration2)
 
@@ -157,13 +157,13 @@ def test_move_integration_before(data_fixture):
 @pytest.mark.django_db
 def test_move_integration_before_fails(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=builder, order="2.99999999999999999998"
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=builder, order="2.99999999999999999999"
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=builder, order="3.0000"
     )
 
@@ -174,37 +174,37 @@ def test_move_integration_before_fails(data_fixture):
 @pytest.mark.django_db
 def test_recalculate_full_orders(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=builder, order="1.99999999999999999999"
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=builder, order="2.00000000000000000000"
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=builder, order="1.99999999999999999999"
     )
-    integration4 = data_fixture.create_local_baserow_integration(
+    integration4 = data_fixture.create_local_jadawel_integration(
         application=builder, order="2.10000000000000000000"
     )
-    integration5 = data_fixture.create_local_baserow_integration(
+    integration5 = data_fixture.create_local_jadawel_integration(
         application=builder, order="3.00000000000000000000"
     )
-    integration6 = data_fixture.create_local_baserow_integration(
+    integration6 = data_fixture.create_local_jadawel_integration(
         application=builder, order="1.00000000000000000001"
     )
-    integration7 = data_fixture.create_local_baserow_integration(
+    integration7 = data_fixture.create_local_jadawel_integration(
         application=builder, order="3.99999999999999999999"
     )
-    integration8 = data_fixture.create_local_baserow_integration(
+    integration8 = data_fixture.create_local_jadawel_integration(
         application=builder, order="4.00000000000000000001"
     )
 
     builder2 = data_fixture.create_builder_application()
 
-    integrationA = data_fixture.create_local_baserow_integration(
+    integrationA = data_fixture.create_local_jadawel_integration(
         application=builder2, order="1.99999999999999999999"
     )
-    integrationB = data_fixture.create_local_baserow_integration(
+    integrationB = data_fixture.create_local_jadawel_integration(
         application=builder2, order="2.00300000000000000000"
     )
 

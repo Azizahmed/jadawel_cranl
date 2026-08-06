@@ -2,7 +2,7 @@
  * Mixin that introduces helper methods for the importer form component.
  */
 import {
-  RESERVED_BASEROW_FIELD_NAMES,
+  RESERVED_JADAWEL_FIELD_NAMES,
   MAX_FIELD_NAME_LENGTH,
 } from '@jadawel/modules/database/utils/constants'
 
@@ -166,7 +166,7 @@ export default {
     makeColumnNameUniqueAndValidIfNotAlready(column, nextFreeIndexMap) {
       if (column === '') {
         return this.findNextFreeName('Field', nextFreeIndexMap, 1)
-      } else if (RESERVED_BASEROW_FIELD_NAMES.includes(column)) {
+      } else if (RESERVED_JADAWEL_FIELD_NAMES.includes(column)) {
         return this.findNextFreeName(column, nextFreeIndexMap, 2)
       } else if (nextFreeIndexMap.get(column) > 0) {
         return this.findNextFreeName(column, nextFreeIndexMap, 2)

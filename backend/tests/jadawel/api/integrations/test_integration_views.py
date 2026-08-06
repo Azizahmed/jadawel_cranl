@@ -19,16 +19,16 @@ def test_get_integrations(api_client, data_fixture):
     application = data_fixture.create_builder_application(workspace=workspace)
     database = data_fixture.create_database_application(workspace=workspace)
     data_fixture.create_database_table(database=database)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application, authorized_user=user
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application, authorized_user=user
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application, authorized_user=user
     )
-    data_fixture.create_local_baserow_integration()
+    data_fixture.create_local_jadawel_integration()
 
     url = reverse("api:integrations:list", kwargs={"application_id": application.id})
     response = api_client.get(
@@ -41,14 +41,14 @@ def test_get_integrations(api_client, data_fixture):
     assert response.status_code == HTTP_200_OK
     assert len(response_json) == 3
     assert response_json[0]["id"] == integration1.id
-    assert response_json[0]["type"] == "local_baserow"
+    assert response_json[0]["type"] == "local_jadawel"
     assert response_json[0]["context_data"]["databases"][0]["id"] == database.id
     assert "authorized_user" in response_json[0]
     assert response_json[1]["id"] == integration2.id
-    assert response_json[1]["type"] == "local_baserow"
+    assert response_json[1]["type"] == "local_jadawel"
     assert response_json[1]["context_data"]["databases"][0]["id"] == database.id
     assert response_json[2]["id"] == integration3.id
-    assert response_json[2]["type"] == "local_baserow"
+    assert response_json[2]["type"] == "local_jadawel"
     assert response_json[2]["context_data"]["databases"][0]["id"] == database.id
 
 
@@ -63,21 +63,21 @@ def test_create_integration(api_client, data_fixture):
     url = reverse("api:integrations:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "name": "test"},
+        {"type": "local_jadawel", "name": "test"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
 
     response_json = response.json()
     assert response.status_code == HTTP_200_OK
-    assert response_json["type"] == "local_baserow"
+    assert response_json["type"] == "local_jadawel"
     assert response_json["authorized_user"]["username"] == user.username
     assert response_json["context_data"]["databases"][0]["id"] == database.id
 
     response = api_client.post(
         url,
         {
-            "type": "local_baserow",
+            "type": "local_jadawel",
             "name": "test",
             "authorized_user_id": 17,
         },
@@ -101,7 +101,7 @@ def test_create_integration_permission_denied(
     with stub_check_permissions(raise_permission_denied=True):
         response = api_client.post(
             url,
-            {"type": "local_baserow", "name": "test"},
+            {"type": "local_jadawel", "name": "test"},
             format="json",
             HTTP_AUTHORIZATION=f"JWT {token}",
         )
@@ -117,7 +117,7 @@ def test_create_integration_application_does_not_exist(api_client, data_fixture)
     url = reverse("api:integrations:list", kwargs={"application_id": 0})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "name": "test"},
+        {"type": "local_jadawel", "name": "test"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -133,7 +133,7 @@ def test_create_integration_bad_application_type(api_client, data_fixture):
     url = reverse("api:integrations:list", kwargs={"application_id": application.id})
     response = api_client.post(
         url,
-        {"type": "local_baserow", "name": "test"},
+        {"type": "local_jadawel", "name": "test"},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
@@ -146,7 +146,7 @@ def test_create_integration_bad_application_type(api_client, data_fixture):
 def test_update_integration(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -167,7 +167,7 @@ def test_update_integration(api_client, data_fixture):
 def test_update_integration_bad_request(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -201,13 +201,13 @@ def test_update_integration_does_not_exist(api_client, data_fixture):
 def test_move_integration_empty_payload(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -227,13 +227,13 @@ def test_move_integration_empty_payload(api_client, data_fixture):
 def test_move_integration_null_before_id(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -253,13 +253,13 @@ def test_move_integration_null_before_id(api_client, data_fixture):
 def test_move_integration_before(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -281,13 +281,13 @@ def test_move_integration_before_not_in_same_application(api_client, data_fixtur
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
     application2 = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration2 = data_fixture.create_local_baserow_integration(
+    integration2 = data_fixture.create_local_jadawel_integration(
         application=application
     )
-    integration3 = data_fixture.create_local_baserow_integration(
+    integration3 = data_fixture.create_local_jadawel_integration(
         application=application2
     )
 
@@ -307,7 +307,7 @@ def test_move_integration_before_not_in_same_application(api_client, data_fixtur
 def test_move_integration_bad_before_id(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -325,7 +325,7 @@ def test_move_integration_bad_before_id(api_client, data_fixture):
 def test_delete_integration(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 
@@ -344,7 +344,7 @@ def test_delete_integration_permission_denied(
 ):
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
-    integration1 = data_fixture.create_local_baserow_integration(
+    integration1 = data_fixture.create_local_jadawel_integration(
         application=application
     )
 

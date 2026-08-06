@@ -43,11 +43,11 @@ def test_allow_public_builder_manager_type(data_fixture):
     public_page = data_fixture.create_builder_page(builder=builder_to)
     non_public_page = data_fixture.create_builder_page(builder=builder)
 
-    public_data_source = data_fixture.create_builder_local_baserow_get_row_data_source(
+    public_data_source = data_fixture.create_builder_local_jadawel_get_row_data_source(
         page=public_page
     )
     non_public_data_source = (
-        data_fixture.create_builder_local_baserow_get_row_data_source(
+        data_fixture.create_builder_local_jadawel_get_row_data_source(
             page=non_public_page
         )
     )

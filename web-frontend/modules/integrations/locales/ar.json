@@ -25,12 +25,12 @@
     "deactivatedTitle": "تم تعطيل الزناد الدوري",
     "deactivatedText": "تم إلغاء تنشيط هذا المشغل الدوري تلقائيًا بسبب حالات الفشل المتتالية."
   },
-  "localBaserowServiceForm": {
+  "localJadawelServiceForm": {
     "integrationDropdownLabel": "اندماج",
     "rowIdLabel": "معرف الصف",
     "rowIdPlaceholder": "اختر معرف صف واحد"
   },
-  "localBaserowUpsertRowServiceForm": {
+  "localJadawelUpsertRowServiceForm": {
     "fieldMappingPlaceholderArray": "اختر قيمة مصفوفة، على سبيل المثال [42]",
     "fieldMappingPlaceholderString": "اختر قيمة سلسلة، على سبيل المثال. \\'جداول\\'",
     "fieldMappingPlaceholderNumber": "اختر قيمة رقمية، على سبيل المثال. 42",
@@ -109,7 +109,7 @@
     "messagePlaceholder": "أدخل رسالة...",
     "channelNoPrefix": "أزِل \"#\" قبل اسم القناة."
   },
-  "localBaserowTableSelector": {
+  "localJadawelTableSelector": {
     "viewFieldLabel": "طريقة العرض",
     "tableFieldLabel": "الجدول",
     "chooseNoView": "لم يتم التحديد",
@@ -131,7 +131,7 @@
     "password": "كلمة المرور",
     "passwordPlaceholder": "كلمة المرور الخاصة بك"
   },
-  "localBaserowTableServiceConditionalForm": {
+  "localJadawelTableServiceConditionalForm": {
     "addFilter": "إضافة عامل تصفية إضافي",
     "noFilterTitle": "لم تقم بعد بإنشاء عامل تصفية مصدر البيانات",
     "noFilterText": "تسمح لك عوامل تصفية مصدر البيانات بإظهار صفوف جدول جداول التي تنطبق على شروطك.",
@@ -144,7 +144,7 @@
     "useFormulaForValue": "استخدم صيغة لهذا عامل التصفية",
     "useDefaultForValue": "استخدم عامل التصفية الافتراضي لهذا الحقل"
   },
-  "localBaserowTableServiceSortForm": {
+  "localJadawelTableServiceSortForm": {
     "noSortTitle": "لم تقم بعد بإنشاء فرز مصدر البيانات",
     "noSortText": "تتيح لك عمليات الفرز فرز الصفوف حسب الحقل.",
     "sortBy": "الترتيب حسب",
@@ -181,9 +181,9 @@
     "timeout": "مهلة الانتظار"
   },
   "userSourceType": {
-    "localBaserow": "مصادقة الجدول جداول"
+    "localJadawel": "مصادقة الجدول جداول"
   },
-  "localBaserowForm": {
+  "localJadawelForm": {
     "user": "مستخدم",
     "userMessage": "من خلال إنشاء هذا الاتصال، فإنك تسمح للتطبيق باستخدام حسابك لإجراء تغييرات في مساحة عمل جداول المحلية الخاصة بك."
   },
@@ -215,7 +215,7 @@
     "addChoice": "إضافة خيار",
     "choicesRequired": "مطلوب خيار واحد على الأقل"
   },
-  "localBaserowGetRowForm": {
+  "localJadawelGetRowForm": {
     "rowFieldLabel": "معرف الصف",
     "invalidFormula": "الصيغة غير صالحة",
     "rowFieldPlaceHolder": "اختر معرف صف واحد",
@@ -224,7 +224,7 @@
     "noTableChosenForFiltering": "اختر جدولاً لبدء استخدام عوامل تصفية مصدر البيانات.",
     "noTableChosenForSorting": "اختر جدولاً لبدء استخدام عمليات فرز مصادر البيانات."
   },
-  "localBaserowListRowsForm": {
+  "localJadawelListRowsForm": {
     "searchFieldPlaceHolder": "أدخل مصطلح البحث...",
     "noTableChosenForFiltering": "اختر جدولاً لبدء استخدام عوامل تصفية مصدر البيانات.",
     "noTableChosenForSorting": "اختر جدولاً لبدء استخدام عمليات فرز مصادر البيانات.",
@@ -242,31 +242,31 @@
     "noTableChosenForSorting": "اختر جدولاً لبدء استخدام عمليات فرز مصادر البيانات.",
     "refinements": "التحسينات"
   },
-  "localBaserowAggregateRowsForm": {
+  "localJadawelAggregateRowsForm": {
     "aggregationFieldLabel": "الحقل",
     "aggregationTypeLabel": "تجميع",
     "searchFieldPlaceHolder": "أدخل مصطلح البحث...",
     "noTableChosenForFiltering": "اختر جدولاً لبدء استخدام عوامل تصفية مصدر البيانات."
   },
   "serviceType": {
-    "localBaserowGetRow": "الحصول على صف واحد",
-    "localBaserowGetRowDescription": "قراءة صف واحد من جدول جداول.",
-    "localBaserowListRows": "قائمة صفوف متعددة",
-    "localBaserowListRowsDescription": "قراءة صفوف متعددة من جدول جداول.",
-    "localBaserowAggregateRows": "تلخيص الحقل",
-    "localBaserowAggregateRowsDescription": "يلخص حقلاً في جدول جداول.",
-    "localBaserowCreateRow": "إنشاء صف",
-    "localBaserowCreateRowDescription": "إنشاء صف جديد في جدول جداول.",
-    "localBaserowUpdateRow": "تحديث صف",
-    "localBaserowUpdateRowDescription": "يقوم بتحديث صف موجود في جدول جداول.",
-    "localBaserowDeleteRow": "حذف صف",
-    "localBaserowDeleteRowDescription": "حذف صف في جدول جداول.",
-    "localBaserowRowsCreated": "يتم إنشاء الصفوف",
-    "localBaserowRowsCreatedDescription": "يتم تشغيله عند إنشاء صفوف في جدول جداول.",
-    "localBaserowRowsUpdated": "يتم تحديث الصفوف",
-    "localBaserowRowsUpdatedDescription": "يتم تشغيله عند تحديث الصفوف في جدول جداول.",
-    "localBaserowRowsDeleted": "يتم حذف الصفوف",
-    "localBaserowRowsDeletedDescription": "يتم تشغيله عند حذف الصفوف في جدول جداول.",
+    "localJadawelGetRow": "الحصول على صف واحد",
+    "localJadawelGetRowDescription": "قراءة صف واحد من جدول جداول.",
+    "localJadawelListRows": "قائمة صفوف متعددة",
+    "localJadawelListRowsDescription": "قراءة صفوف متعددة من جدول جداول.",
+    "localJadawelAggregateRows": "تلخيص الحقل",
+    "localJadawelAggregateRowsDescription": "يلخص حقلاً في جدول جداول.",
+    "localJadawelCreateRow": "إنشاء صف",
+    "localJadawelCreateRowDescription": "إنشاء صف جديد في جدول جداول.",
+    "localJadawelUpdateRow": "تحديث صف",
+    "localJadawelUpdateRowDescription": "يقوم بتحديث صف موجود في جدول جداول.",
+    "localJadawelDeleteRow": "حذف صف",
+    "localJadawelDeleteRowDescription": "حذف صف في جدول جداول.",
+    "localJadawelRowsCreated": "يتم إنشاء الصفوف",
+    "localJadawelRowsCreatedDescription": "يتم تشغيله عند إنشاء صفوف في جدول جداول.",
+    "localJadawelRowsUpdated": "يتم تحديث الصفوف",
+    "localJadawelRowsUpdatedDescription": "يتم تشغيله عند تحديث الصفوف في جدول جداول.",
+    "localJadawelRowsDeleted": "يتم حذف الصفوف",
+    "localJadawelRowsDeletedDescription": "يتم تشغيله عند حذف الصفوف في جدول جداول.",
     "coreHTTPTrigger": "تلقي طلب HTTP",
     "coreHTTPTriggerDescription": "يتم تشغيله عند تلقي طلب HTTP.",
     "coreHTTPRequest": "إرسال طلب HTTP",
@@ -312,15 +312,15 @@
     "multipleRows": "صفوف متعددة"
   },
   "integrationType": {
-    "localBaserow": "جداول المحلي",
+    "localJadawel": "جداول المحلي",
     "smtp": "البريد الإلكتروني SMTP",
     "slackBot": "سلاك بوت",
     "ai": "منظمة العفو الدولية"
   },
-  "localBaserowIntegrationType": {
-    "localBaserowSummary": "جداول المحلي - {name}، {username}",
-    "localBaserowNoUser": "جداول المحلي - لم يتم تكوينه",
-    "localBaserowWarning": "يمنح ترخيص حسابك كل من لديه أذونات تحرير التطبيق حق الوصول الكامل إلى البيانات التي يمكنك الوصول إليها. من الممكن إنشاء مستخدم ثانٍ ومنح الأذونات الصحيحة واستخدام ذلك المستخدم."
+  "localJadawelIntegrationType": {
+    "localJadawelSummary": "جداول المحلي - {name}، {username}",
+    "localJadawelNoUser": "جداول المحلي - لم يتم تكوينه",
+    "localJadawelWarning": "يمنح ترخيص حسابك كل من لديه أذونات تحرير التطبيق حق الوصول الكامل إلى البيانات التي يمكنك الوصول إليها. من الممكن إنشاء مستخدم ثانٍ ومنح الأذونات الصحيحة واستخدام ذلك المستخدم."
   },
   "aiIntegrationType": {
     "inheritingWorkspace": "وراثة إعدادات الذكاء الاصطناعي لمساحة العمل",

@@ -1,8 +1,8 @@
 from jadawel.contrib.builder.workflow_actions.models import (
     CoreHTTPRequestWorkflowAction,
-    LocalBaserowCreateRowWorkflowAction,
-    LocalBaserowDeleteRowWorkflowAction,
-    LocalBaserowUpdateRowWorkflowAction,
+    LocalJadawelCreateRowWorkflowAction,
+    LocalJadawelDeleteRowWorkflowAction,
+    LocalJadawelUpdateRowWorkflowAction,
     NotificationWorkflowAction,
     OpenPageWorkflowAction,
 )
@@ -18,10 +18,10 @@ class WorkflowActionFixture:
     def create_builder_workflow_service_action(self, model_class, **kwargs):
         if "service" not in kwargs:
             user = kwargs.pop("user", self.create_user())
-            integration = self.create_local_baserow_integration(
+            integration = self.create_local_jadawel_integration(
                 application=kwargs["page"].builder, user=user
             )
-            kwargs["service"] = self.create_local_baserow_upsert_row_service(
+            kwargs["service"] = self.create_local_jadawel_upsert_row_service(
                 integration=integration,
             )
         return self.create_workflow_action(model_class, **kwargs)
@@ -31,19 +31,19 @@ class WorkflowActionFixture:
             CoreHTTPRequestWorkflowAction, **kwargs
         )
 
-    def create_local_baserow_create_row_workflow_action(self, **kwargs):
+    def create_local_jadawel_create_row_workflow_action(self, **kwargs):
         return self.create_builder_workflow_service_action(
-            LocalBaserowCreateRowWorkflowAction, **kwargs
+            LocalJadawelCreateRowWorkflowAction, **kwargs
         )
 
-    def create_local_baserow_update_row_workflow_action(self, **kwargs):
+    def create_local_jadawel_update_row_workflow_action(self, **kwargs):
         return self.create_builder_workflow_service_action(
-            LocalBaserowUpdateRowWorkflowAction, **kwargs
+            LocalJadawelUpdateRowWorkflowAction, **kwargs
         )
 
-    def create_local_baserow_delete_row_workflow_action(self, **kwargs):
+    def create_local_jadawel_delete_row_workflow_action(self, **kwargs):
         return self.create_builder_workflow_service_action(
-            LocalBaserowDeleteRowWorkflowAction, **kwargs
+            LocalJadawelDeleteRowWorkflowAction, **kwargs
         )
 
     def create_workflow_action(self, model_class, **kwargs):

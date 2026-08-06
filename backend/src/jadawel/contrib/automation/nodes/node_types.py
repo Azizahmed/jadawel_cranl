@@ -25,15 +25,15 @@ from jadawel.contrib.automation.nodes.models import (
     CorePeriodicTriggerNode,
     CoreRouterActionNode,
     CoreSMTPEmailActionNode,
-    LocalBaserowAggregateRowsActionNode,
-    LocalBaserowCreateRowActionNode,
-    LocalBaserowDeleteRowActionNode,
-    LocalBaserowGetRowActionNode,
-    LocalBaserowListRowsActionNode,
-    LocalBaserowRowsCreatedTriggerNode,
-    LocalBaserowRowsDeletedTriggerNode,
-    LocalBaserowRowsUpdatedTriggerNode,
-    LocalBaserowUpdateRowActionNode,
+    LocalJadawelAggregateRowsActionNode,
+    LocalJadawelCreateRowActionNode,
+    LocalJadawelDeleteRowActionNode,
+    LocalJadawelGetRowActionNode,
+    LocalJadawelListRowsActionNode,
+    LocalJadawelRowsCreatedTriggerNode,
+    LocalJadawelRowsDeletedTriggerNode,
+    LocalJadawelRowsUpdatedTriggerNode,
+    LocalJadawelUpdateRowActionNode,
     SlackWriteMessageActionNode,
 )
 from jadawel.contrib.automation.nodes.registries import AutomationNodeType
@@ -49,15 +49,15 @@ from jadawel.contrib.integrations.core.service_types import (
     CoreRouterServiceType,
     CoreSMTPEmailServiceType,
 )
-from jadawel.contrib.integrations.local_baserow.service_types import (
-    LocalBaserowAggregateRowsUserServiceType,
-    LocalBaserowDeleteRowServiceType,
-    LocalBaserowGetRowUserServiceType,
-    LocalBaserowListRowsUserServiceType,
-    LocalBaserowRowsCreatedServiceType,
-    LocalBaserowRowsDeletedServiceType,
-    LocalBaserowRowsUpdatedServiceType,
-    LocalBaserowUpsertRowServiceType,
+from jadawel.contrib.integrations.local_jadawel.service_types import (
+    LocalJadawelAggregateRowsUserServiceType,
+    LocalJadawelDeleteRowServiceType,
+    LocalJadawelGetRowUserServiceType,
+    LocalJadawelListRowsUserServiceType,
+    LocalJadawelRowsCreatedServiceType,
+    LocalJadawelRowsDeletedServiceType,
+    LocalJadawelRowsUpdatedServiceType,
+    LocalJadawelUpsertRowServiceType,
 )
 from jadawel.contrib.integrations.slack.service_types import (
     SlackWriteMessageServiceType,
@@ -117,54 +117,54 @@ class ContainerNodeTypeMixin:
         super().before_move(node, reference_node, position, output)
 
 
-class LocalBaserowUpsertRowNodeType(AutomationNodeActionNodeType):
-    type = "local_baserow_upsert_row"
+class LocalJadawelUpsertRowNodeType(AutomationNodeActionNodeType):
+    type = "local_jadawel_upsert_row"
     compat_type = "upsert_row"
-    service_type = LocalBaserowUpsertRowServiceType.type
+    service_type = LocalJadawelUpsertRowServiceType.type
 
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, int]:
-        service = pytest_data_fixture.create_local_baserow_upsert_row_service()
+        service = pytest_data_fixture.create_local_jadawel_upsert_row_service()
         return {"service": service}
 
 
-class LocalBaserowCreateRowNodeType(LocalBaserowUpsertRowNodeType):
-    type = "local_baserow_create_row"
+class LocalJadawelCreateRowNodeType(LocalJadawelUpsertRowNodeType):
+    type = "local_jadawel_create_row"
     compat_type = "create_row"
-    model_class = LocalBaserowCreateRowActionNode
+    model_class = LocalJadawelCreateRowActionNode
 
 
-class LocalBaserowUpdateRowNodeType(LocalBaserowUpsertRowNodeType):
-    type = "local_baserow_update_row"
+class LocalJadawelUpdateRowNodeType(LocalJadawelUpsertRowNodeType):
+    type = "local_jadawel_update_row"
     compat_type = "update_row"
-    model_class = LocalBaserowUpdateRowActionNode
+    model_class = LocalJadawelUpdateRowActionNode
 
 
-class LocalBaserowDeleteRowNodeType(AutomationNodeActionNodeType):
-    type = "local_baserow_delete_row"
+class LocalJadawelDeleteRowNodeType(AutomationNodeActionNodeType):
+    type = "local_jadawel_delete_row"
     compat_type = "delete_row"
-    model_class = LocalBaserowDeleteRowActionNode
-    service_type = LocalBaserowDeleteRowServiceType.type
+    model_class = LocalJadawelDeleteRowActionNode
+    service_type = LocalJadawelDeleteRowServiceType.type
 
 
-class LocalBaserowGetRowNodeType(AutomationNodeActionNodeType):
-    type = "local_baserow_get_row"
+class LocalJadawelGetRowNodeType(AutomationNodeActionNodeType):
+    type = "local_jadawel_get_row"
     compat_type = "get_row"
-    model_class = LocalBaserowGetRowActionNode
-    service_type = LocalBaserowGetRowUserServiceType.type
+    model_class = LocalJadawelGetRowActionNode
+    service_type = LocalJadawelGetRowUserServiceType.type
 
 
-class LocalBaserowListRowsNodeType(AutomationNodeActionNodeType):
-    type = "local_baserow_list_rows"
+class LocalJadawelListRowsNodeType(AutomationNodeActionNodeType):
+    type = "local_jadawel_list_rows"
     compat_type = "list_rows"
-    model_class = LocalBaserowListRowsActionNode
-    service_type = LocalBaserowListRowsUserServiceType.type
+    model_class = LocalJadawelListRowsActionNode
+    service_type = LocalJadawelListRowsUserServiceType.type
 
 
-class LocalBaserowAggregateRowsNodeType(AutomationNodeActionNodeType):
-    type = "local_baserow_aggregate_rows"
+class LocalJadawelAggregateRowsNodeType(AutomationNodeActionNodeType):
+    type = "local_jadawel_aggregate_rows"
     compat_type = "aggregate_rows"
-    model_class = LocalBaserowAggregateRowsActionNode
-    service_type = LocalBaserowAggregateRowsUserServiceType.type
+    model_class = LocalJadawelAggregateRowsActionNode
+    service_type = LocalJadawelAggregateRowsUserServiceType.type
 
 
 class CoreHttpRequestNodeType(AutomationNodeActionNodeType):
@@ -385,25 +385,25 @@ class AutomationNodeTriggerType(AutomationNodeType):
             AutomationWorkflowHandler().reset_workflow_temporary_states(workflow)
 
 
-class LocalBaserowRowsCreatedNodeTriggerType(AutomationNodeTriggerType):
-    type = "local_baserow_rows_created"
+class LocalJadawelRowsCreatedNodeTriggerType(AutomationNodeTriggerType):
+    type = "local_jadawel_rows_created"
     compat_type = "rows_created"
-    model_class = LocalBaserowRowsCreatedTriggerNode
-    service_type = LocalBaserowRowsCreatedServiceType.type
+    model_class = LocalJadawelRowsCreatedTriggerNode
+    service_type = LocalJadawelRowsCreatedServiceType.type
 
 
-class LocalBaserowRowsUpdatedNodeTriggerType(AutomationNodeTriggerType):
-    type = "local_baserow_rows_updated"
+class LocalJadawelRowsUpdatedNodeTriggerType(AutomationNodeTriggerType):
+    type = "local_jadawel_rows_updated"
     compat_type = "rows_updated"
-    model_class = LocalBaserowRowsUpdatedTriggerNode
-    service_type = LocalBaserowRowsUpdatedServiceType.type
+    model_class = LocalJadawelRowsUpdatedTriggerNode
+    service_type = LocalJadawelRowsUpdatedServiceType.type
 
 
-class LocalBaserowRowsDeletedNodeTriggerType(AutomationNodeTriggerType):
-    type = "local_baserow_rows_deleted"
+class LocalJadawelRowsDeletedNodeTriggerType(AutomationNodeTriggerType):
+    type = "local_jadawel_rows_deleted"
     compat_type = "rows_deleted"
-    model_class = LocalBaserowRowsDeletedTriggerNode
-    service_type = LocalBaserowRowsDeletedServiceType.type
+    model_class = LocalJadawelRowsDeletedTriggerNode
+    service_type = LocalJadawelRowsDeletedServiceType.type
 
 
 class CorePeriodicTriggerNodeType(

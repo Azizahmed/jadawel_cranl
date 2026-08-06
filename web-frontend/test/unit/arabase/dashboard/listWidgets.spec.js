@@ -17,7 +17,7 @@ const mountListWidget = async (
   component,
   { widget = {}, dataSource = {}, results = [], error = false }
 ) => {
-  const source = { id: 7, type: 'local_baserow_list_rows', schema: SCHEMA, ...dataSource }
+  const source = { id: 7, type: 'local_jadawel_list_rows', schema: SCHEMA, ...dataSource }
   const store = {
     getters: {
       'dashboardApplication/getDataSourceById': () => source,
@@ -102,7 +102,7 @@ describe('UpcomingDatesWidget', () => {
   const mountAgenda = (options = {}) =>
     mountListWidget(UpcomingDatesWidget, {
       dataSource: {
-        type: 'local_baserow_upcoming_rows',
+        type: 'local_jadawel_upcoming_rows',
         date_field_id: 3,
         ...(options.dataSource || {}),
       },

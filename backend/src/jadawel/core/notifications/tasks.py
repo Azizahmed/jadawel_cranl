@@ -20,7 +20,7 @@ from jadawel.ws.tasks import broadcast_to_users
 
 
 @app.task(
-    name="baserow.core.notifications.tasks.send_queued_notifications_to_users",
+    name="jadawel.core.notifications.tasks.send_queued_notifications_to_users",
     bind=True,
 )
 def send_queued_notifications_to_users(self):
@@ -94,7 +94,7 @@ def send_queued_notifications_to_users(self):
 
 
 @app.task(
-    name="baserow.core.notifications.tasks.beat_send_instant_notifications_summary_by_email",
+    name="jadawel.core.notifications.tasks.beat_send_instant_notifications_summary_by_email",
     bind=True,
     queue="export",
 )
@@ -116,7 +116,7 @@ def beat_send_instant_notifications_summary_by_email(self):
 
 
 @app.task(
-    name="baserow.core.notifications.tasks.singleton_send_instant_notifications_summary_by_email",
+    name="jadawel.core.notifications.tasks.singleton_send_instant_notifications_summary_by_email",
     base=Singleton,
     bind=True,
     queue="export",
@@ -229,7 +229,7 @@ def send_weekly_notifications_email_to_users(now: Optional[datetime] = None):
 
 
 @app.task(
-    name="baserow.core.notifications.tasks.send_daily_and_weekly_notifications_summary_by_email",
+    name="jadawel.core.notifications.tasks.send_daily_and_weekly_notifications_summary_by_email",
     bind=True,
     queue="export",
     autoretry_for=(SoftTimeLimitExceeded,),

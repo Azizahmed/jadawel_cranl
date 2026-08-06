@@ -10,16 +10,16 @@ import automationWorkflowStore from '@jadawel/modules/automation/store/automatio
 import automationWorkflowNodeStore from '@jadawel/modules/automation/store/automationWorkflowNode'
 import automationHistoryStore from '@jadawel/modules/automation/store/automationHistory'
 import {
-  LocalBaserowCreateRowActionNodeType,
-  LocalBaserowUpdateRowActionNodeType,
-  LocalBaserowDeleteRowActionNodeType,
-  LocalBaserowGetRowActionNodeType,
-  LocalBaserowListRowsActionNodeType,
-  LocalBaserowRowsCreatedTriggerNodeType,
-  LocalBaserowRowsUpdatedTriggerNodeType,
-  LocalBaserowRowsDeletedTriggerNodeType,
+  LocalJadawelCreateRowActionNodeType,
+  LocalJadawelUpdateRowActionNodeType,
+  LocalJadawelDeleteRowActionNodeType,
+  LocalJadawelGetRowActionNodeType,
+  LocalJadawelListRowsActionNodeType,
+  LocalJadawelRowsCreatedTriggerNodeType,
+  LocalJadawelRowsUpdatedTriggerNodeType,
+  LocalJadawelRowsDeletedTriggerNodeType,
   CoreHTTPTriggerNodeType,
-  LocalBaserowAggregateRowsActionNodeType,
+  LocalJadawelAggregateRowsActionNodeType,
   CoreHttpRequestNodeType,
   CoreIteratorNodeType,
   CoreSMTPEmailNodeType,
@@ -87,30 +87,30 @@ export default defineNuxtPlugin({
     // Automation node types
     $registry.register(
       'node',
-      new LocalBaserowRowsCreatedTriggerNodeType(context)
+      new LocalJadawelRowsCreatedTriggerNodeType(context)
     )
     $registry.register(
       'node',
-      new LocalBaserowRowsUpdatedTriggerNodeType(context)
+      new LocalJadawelRowsUpdatedTriggerNodeType(context)
     )
     $registry.register(
       'node',
-      new LocalBaserowRowsDeletedTriggerNodeType(context)
+      new LocalJadawelRowsDeletedTriggerNodeType(context)
     )
     $registry.register('node', new CoreHTTPTriggerNodeType(context))
-    $registry.register('node', new LocalBaserowCreateRowActionNodeType(context))
-    $registry.register('node', new LocalBaserowUpdateRowActionNodeType(context))
+    $registry.register('node', new LocalJadawelCreateRowActionNodeType(context))
+    $registry.register('node', new LocalJadawelUpdateRowActionNodeType(context))
     $registry.register('node', new CoreHttpRequestNodeType(context))
     $registry.register('node', new CoreSMTPEmailNodeType(context))
     $registry.register('node', new CoreRouterNodeType(context))
     $registry.register('node', new CoreIteratorNodeType(context))
     $registry.register('node', new SlackWriteMessageNodeType(context))
-    $registry.register('node', new LocalBaserowDeleteRowActionNodeType(context))
-    $registry.register('node', new LocalBaserowGetRowActionNodeType(context))
-    $registry.register('node', new LocalBaserowListRowsActionNodeType(context))
+    $registry.register('node', new LocalJadawelDeleteRowActionNodeType(context))
+    $registry.register('node', new LocalJadawelGetRowActionNodeType(context))
+    $registry.register('node', new LocalJadawelListRowsActionNodeType(context))
     $registry.register(
       'node',
-      new LocalBaserowAggregateRowsActionNodeType(context)
+      new LocalJadawelAggregateRowsActionNodeType(context)
     )
     $registry.register('node', new CorePeriodicTriggerNodeType(context))
     $registry.register('node', new AIAgentActionNodeType(context))

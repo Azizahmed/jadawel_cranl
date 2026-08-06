@@ -321,7 +321,7 @@ def test_create_field(api_client, data_fixture):
         HTTP_AUTHORIZATION=f"JWT {jwt_token}",
     )
     assert response.status_code == HTTP_400_BAD_REQUEST
-    assert response.json()["error"] == "ERROR_RESERVED_BASEROW_FIELD_NAME"
+    assert response.json()["error"] == "ERROR_RESERVED_JADAWEL_FIELD_NAME"
 
     # Test creating field with too long name
     too_long_field_name = "x" * 256
@@ -518,7 +518,7 @@ def test_update_field(api_client, data_fixture):
         url, {"name": "id"}, format="json", HTTP_AUTHORIZATION=f"JWT {token}"
     )
     assert response.status_code == HTTP_400_BAD_REQUEST
-    assert response.json()["error"] == "ERROR_RESERVED_BASEROW_FIELD_NAME"
+    assert response.json()["error"] == "ERROR_RESERVED_JADAWEL_FIELD_NAME"
 
     url = reverse("api:database:fields:item", kwargs={"field_id": text.id})
     response = api_client.patch(

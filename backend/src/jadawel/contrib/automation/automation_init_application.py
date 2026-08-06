@@ -4,8 +4,8 @@ from django.utils import translation
 from django.utils.translation import gettext as _
 
 from jadawel.contrib.automation.workflows.service import AutomationWorkflowService
-from jadawel.contrib.integrations.local_baserow.integration_types import (
-    LocalBaserowIntegrationType,
+from jadawel.contrib.integrations.local_jadawel.integration_types import (
+    LocalJadawelIntegrationType,
 )
 from jadawel.core.integrations.service import IntegrationService
 
@@ -34,10 +34,10 @@ class AutomationApplicationTypeInitApplication:
             self.user, self.application.id, name
         )
 
-    def create_local_baserow_integration(self) -> "Integration":
+    def create_local_jadawel_integration(self) -> "Integration":
         return IntegrationService().create_integration(
             self.user,
-            LocalBaserowIntegrationType(),
+            LocalJadawelIntegrationType(),
             self.application,
             name=self.integration_name,
         )

@@ -37,7 +37,7 @@ class AutomationHistoryFixtures:
 
         is_test_run = kwargs.pop("status", False)
 
-        self.create_local_baserow_create_row_action_node(
+        self.create_local_jadawel_create_row_action_node(
             user=user, workflow=original_workflow
         )
 

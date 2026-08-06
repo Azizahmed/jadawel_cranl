@@ -16936,7 +16936,7 @@
               "service": {
                 "id": 15000,
                 "integration_id": 898,
-                "type": "local_baserow_get_row",
+                "type": "local_jadawel_get_row",
                 "table_id": 5679,
                 "view_id": null,
                 "search_query": "",
@@ -16957,7 +16957,7 @@
           "id": 898,
           "name": "Local Baserow",
           "order": "1.00000000000000000000",
-          "type": "local_baserow",
+          "type": "local_jadawel",
           "authorized_user": null
         }
       ],
@@ -17990,7 +17990,7 @@
               "service": {
                 "id": 15001,
                 "integration_id": 899,
-                "type": "local_baserow_get_row",
+                "type": "local_jadawel_get_row",
                 "table_id": 5681,
                 "view_id": null,
                 "search_query": "",
@@ -18006,7 +18006,7 @@
               "service": {
                 "id": 15002,
                 "integration_id": 899,
-                "type": "local_baserow_list_rows",
+                "type": "local_jadawel_list_rows",
                 "table_id": 5683,
                 "view_id": 26424,
                 "sortings": [],
@@ -18029,7 +18029,7 @@
               "service": {
                 "id": 15003,
                 "integration_id": 899,
-                "type": "local_baserow_list_rows",
+                "type": "local_jadawel_list_rows",
                 "table_id": 5683,
                 "view_id": 26425,
                 "sortings": [],
@@ -18057,7 +18057,7 @@
           "id": 899,
           "name": "Local Baserow",
           "order": "1.00000000000000000000",
-          "type": "local_baserow",
+          "type": "local_jadawel",
           "authorized_user": null
         }
       ],

@@ -2,9 +2,9 @@ import pytest
 
 from jadawel.contrib.automation.nodes.exceptions import AutomationNodeDoesNotExist
 from jadawel.contrib.automation.nodes.handler import AutomationNodeHandler
-from jadawel.contrib.automation.nodes.models import LocalBaserowRowsCreatedTriggerNode
+from jadawel.contrib.automation.nodes.models import LocalJadawelRowsCreatedTriggerNode
 from jadawel.contrib.automation.nodes.registries import automation_node_type_registry
-from jadawel.contrib.integrations.local_baserow.models import LocalBaserowRowsCreated
+from jadawel.contrib.integrations.local_jadawel.models import LocalJadawelRowsCreated
 from jadawel.core.cache import local_cache
 from jadawel.core.trash.handler import TrashHandler
 from jadawel.core.utils import MirrorDict
@@ -16,12 +16,12 @@ def test_create_node(data_fixture):
     user = data_fixture.create_user()
     workflow = data_fixture.create_automation_workflow(create_trigger=False)
 
-    node_type = automation_node_type_registry.get("local_baserow_rows_created")
+    node_type = automation_node_type_registry.get("local_jadawel_rows_created")
     prepared_values = node_type.prepare_values({"workflow": workflow}, user)
 
     node = AutomationNodeHandler().create_node(node_type, **prepared_values)
 
-    assert isinstance(node, LocalBaserowRowsCreatedTriggerNode)
+    assert isinstance(node, LocalJadawelRowsCreatedTriggerNode)
 
 
 @pytest.mark.django_db
@@ -38,7 +38,7 @@ def test_get_nodes(data_fixture, django_assert_num_queries):
     with django_assert_num_queries(6):
         nodes = AutomationNodeHandler().get_nodes(workflow, specific=True)
         assert [n.id for n in nodes] == [trigger.id]
-        assert isinstance(nodes[0].service, LocalBaserowRowsCreated)
+        assert isinstance(nodes[0].service, LocalJadawelRowsCreated)
 
 
 @pytest.mark.django_db
@@ -107,7 +107,7 @@ def test_export_prepared_values(data_fixture):
 @pytest.mark.django_db
 def test_duplicate_node(data_fixture):
     workflow = data_fixture.create_automation_workflow()
-    action1 = data_fixture.create_local_baserow_create_row_action_node(
+    action1 = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow, label="test"
     )
     duplicated_node = AutomationNodeHandler().duplicate_node(action1)
@@ -128,7 +128,7 @@ def test_export_node(data_fixture):
         "id": node.id,
         "label": node.label,
         "service": AnyDict(),
-        "type": "local_baserow_create_row",
+        "type": "local_jadawel_create_row",
         "workflow_id": node.workflow.id,
     }
 

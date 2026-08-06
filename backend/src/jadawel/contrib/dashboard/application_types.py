@@ -9,8 +9,8 @@ from jadawel.contrib.dashboard.data_sources.handler import DashboardDataSourceHa
 from jadawel.contrib.dashboard.models import Dashboard
 from jadawel.contrib.dashboard.types import DashboardDict
 from jadawel.contrib.dashboard.widgets.handler import WidgetHandler
-from jadawel.contrib.integrations.local_baserow.integration_types import (
-    LocalBaserowIntegrationType,
+from jadawel.contrib.integrations.local_jadawel.integration_types import (
+    LocalJadawelIntegrationType,
 )
 from jadawel.core.integrations.handler import IntegrationHandler
 from jadawel.core.integrations.registries import integration_type_registry
@@ -41,7 +41,7 @@ class DashboardApplicationType(ApplicationType):
     def init_application(self, user, application: "Application") -> None:
         IntegrationHandler().create_integration(
             integration_type=integration_type_registry.get(
-                LocalBaserowIntegrationType.type
+                LocalJadawelIntegrationType.type
             ),
             application=application,
             authorized_user=user,

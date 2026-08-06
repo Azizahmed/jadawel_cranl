@@ -202,18 +202,18 @@ def test_update_co_branding_logo(api_client, data_fixture):
 
 
 @pytest.mark.django_db
-def test_update_show_baserow_help_request(api_client, data_fixture):
+def test_update_show_jadawel_help_request(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token(is_staff=True)
 
     response = api_client.patch(
         reverse("api:settings:update"),
-        {"show_baserow_help_request": False},
+        {"show_jadawel_help_request": False},
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
     )
     assert response.status_code == HTTP_200_OK
     response_json = response.json()
-    assert response_json["show_baserow_help_request"] is False
+    assert response_json["show_jadawel_help_request"] is False
 
     response = api_client.patch(
         reverse("api:settings:update"),
@@ -223,7 +223,7 @@ def test_update_show_baserow_help_request(api_client, data_fixture):
     )
     assert response.status_code == HTTP_200_OK
     response_json = response.json()
-    assert response_json["show_baserow_help_request"] is False
+    assert response_json["show_jadawel_help_request"] is False
 
 
 @pytest.mark.django_db

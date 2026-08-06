@@ -7,7 +7,7 @@ from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
 from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
 from jadawel.contrib.dashboard.widgets.service import WidgetService
 from jadawel.contrib.dashboard.widgets.trash_types import WidgetTrashableItemType
-from jadawel.contrib.integrations.local_baserow.models import LocalBaserowAggregateRows
+from jadawel.contrib.integrations.local_jadawel.models import LocalJadawelAggregateRows
 from jadawel.core.trash.handler import TrashHandler
 
 
@@ -24,7 +24,7 @@ def test_create_summary_widget_creates_data_source(data_fixture):
     assert created_widget.data_source is not None
     assert (
         created_widget.data_source.service.content_type
-        == ContentType.objects.get_for_model(LocalBaserowAggregateRows)
+        == ContentType.objects.get_for_model(LocalJadawelAggregateRows)
     )
 
 

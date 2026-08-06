@@ -66,7 +66,7 @@ def test_get_previous_service_outputs(data_fixture):
         skip_output_node=True,
     )
 
-    data_fixture.create_local_baserow_create_row_action_node(
+    data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
         reference_node=router_a,
         position="south",
@@ -74,14 +74,14 @@ def test_get_previous_service_outputs(data_fixture):
         label="action a",
     )
 
-    data_fixture.create_local_baserow_create_row_action_node(
+    data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
         reference_node=router_b,
         position="south",
         output="",
         label="action b",
     )
-    node_c_2 = data_fixture.create_local_baserow_create_row_action_node(
+    node_c_2 = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
         reference_node=router_b,
         position="south",
@@ -93,8 +93,8 @@ def test_get_previous_service_outputs(data_fixture):
 
     workflow.assert_reference(
         {
-            "0": "local_baserow_rows_created",
-            "local_baserow_rows_created": {"next": {"": ["router a"]}},
+            "0": "local_jadawel_rows_created",
+            "local_jadawel_rows_created": {"next": {"": ["router a"]}},
             "router a": {"next": {"": ["action a"], "Router A, Edge 1": ["router b"]}},
             "action a": {},
             "router b": {

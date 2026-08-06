@@ -69,7 +69,7 @@ def test_create_user_source_bad_application(data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_database_application(user=user)
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = user_source_type_registry.get("local_jadawel")
 
     with pytest.raises(ApplicationOperationNotSupported):
         UserSourceHandler().create_user_source(
@@ -123,8 +123,8 @@ def test_delete_user_source(data_fixture):
 @pytest.mark.django_db
 def test_update_user_source(data_fixture, stub_user_source_registry):
     user = data_fixture.create_user()
-    integration = data_fixture.create_local_baserow_integration(user=user)
-    integration2 = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
+    integration2 = data_fixture.create_local_jadawel_integration(user=user)
 
     user_source = data_fixture.create_user_source_with_first_type(
         user=user, integration=integration
@@ -134,7 +134,7 @@ def test_update_user_source(data_fixture, stub_user_source_registry):
         return f"{user_source.id}_test"
 
     with stub_user_source_registry(gen_uid_return=gen_uid):
-        user_source_type = user_source_type_registry.get("local_baserow")
+        user_source_type = user_source_type_registry.get("local_jadawel")
 
         user_source_updated = UserSourceHandler().update_user_source(
             user_source_type, user_source, integration=integration2
@@ -148,7 +148,7 @@ def test_update_user_source(data_fixture, stub_user_source_registry):
 def test_update_user_source_invalid_values(data_fixture):
     user_source = data_fixture.create_user_source_with_first_type()
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = user_source_type_registry.get("local_jadawel")
 
     user_source_updated = UserSourceHandler().update_user_source(
         user_source_type, user_source, nonsense="hello"
@@ -280,7 +280,7 @@ def test_recalculate_full_orders(data_fixture):
 @pytest.mark.django_db
 def test_export_user_source(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
 
     user_source = data_fixture.create_user_source_with_first_type(
         application=builder, integration=integration, name="Test name"
@@ -304,7 +304,7 @@ def test_export_user_source(data_fixture):
         "order": "1.00000000000000000000",
         "role_field_id": None,
         "table_id": None,
-        "type": "local_baserow",
+        "type": "local_jadawel",
         "uid": AnyStr(),
         "auth_providers": [
             {
@@ -312,14 +312,14 @@ def test_export_user_source(data_fixture):
                 "enabled": True,
                 "id": app_auth_provider1.id,
                 "password_field_id": None,
-                "type": "local_baserow_password",
+                "type": "local_jadawel_password",
             },
             {
                 "domain": None,
                 "enabled": True,
                 "id": app_auth_provider2.id,
                 "password_field_id": None,
-                "type": "local_baserow_password",
+                "type": "local_jadawel_password",
             },
         ],
     }
@@ -328,7 +328,7 @@ def test_export_user_source(data_fixture):
 @pytest.mark.django_db
 def test_import_user_source(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
 
     TO_IMPORT = {
         "email_field_id": None,
@@ -338,21 +338,21 @@ def test_import_user_source(data_fixture):
         "name_field_id": None,
         "order": "1.00000000000000000000",
         "table_id": None,
-        "type": "local_baserow",
+        "type": "local_jadawel",
         "auth_providers": [
             {
                 "domain": None,
                 "enabled": True,
                 "id": 42,
                 "password_field_id": None,
-                "type": "local_baserow_password",
+                "type": "local_jadawel_password",
             },
             {
                 "domain": None,
                 "enabled": True,
                 "id": 43,
                 "password_field_id": None,
-                "type": "local_baserow_password",
+                "type": "local_jadawel_password",
             },
         ],
     }
@@ -370,7 +370,7 @@ def test_import_user_source(data_fixture):
 @pytest.mark.django_db
 def test_import_user_source_with_migrated_integration(data_fixture):
     builder = data_fixture.create_builder_application()
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
 
     TO_IMPORT = {
         "email_field_id": None,
@@ -380,7 +380,7 @@ def test_import_user_source_with_migrated_integration(data_fixture):
         "name_field_id": None,
         "order": "1.00000000000000000000",
         "table_id": None,
-        "type": "local_baserow",
+        "type": "local_jadawel",
     }
 
     id_mapping = defaultdict(MirrorDict)
@@ -401,7 +401,7 @@ def test_export_then_import_user_source(data_fixture, stub_user_source_registry)
     """
 
     builder = data_fixture.create_builder_application()
-    integration = data_fixture.create_local_baserow_integration()
+    integration = data_fixture.create_local_jadawel_integration()
 
     first_user_source_type = list(user_source_type_registry.get_all())[0]
 
@@ -616,7 +616,7 @@ def test_update_all_user_source_counts_in_chunks(data_fixture):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
     builder = data_fixture.create_builder_application(workspace=workspace)
-    integration = data_fixture.create_local_baserow_integration(application=builder)
+    integration = data_fixture.create_local_jadawel_integration(application=builder)
     table, fields, rows = data_fixture.build_table(
         user=user,
         columns=[
@@ -691,11 +691,11 @@ def test_aggregate_user_counts(data_fixture):
     # Workspace1 has two builder applications, with two user sources,
     # pointing to the same table.
     builder1a = data_fixture.create_builder_application(workspace=workspace1)
-    user_source1a = data_fixture.create_local_baserow_table_user_source(
+    user_source1a = data_fixture.create_local_jadawel_table_user_source(
         application=builder1a
     )
     builder1b = data_fixture.create_builder_application(workspace=workspace1)
-    data_fixture.create_local_baserow_table_user_source(
+    data_fixture.create_local_jadawel_table_user_source(
         application=builder1b, table=user_source1a.table
     )
 
@@ -704,7 +704,7 @@ def test_aggregate_user_counts(data_fixture):
 
     workspace2 = data_fixture.create_workspace(user=user)
     builder2 = data_fixture.create_builder_application(workspace=workspace2)
-    data_fixture.create_local_baserow_table_user_source(application=builder2)
+    data_fixture.create_local_jadawel_table_user_source(application=builder2)
 
     # The table contains 5 rows, and is used once, so the usage is 5.
     assert UserSourceHandler().aggregate_user_counts(workspace2) == 5

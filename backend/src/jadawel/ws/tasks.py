@@ -3,7 +3,7 @@ from typing import Any, Dict, Iterable, List, Optional
 from jadawel.config.celery import app
 
 
-@app.task(name="baserow.ws.tasks.force_disconnect_users", bind=True)
+@app.task(name="jadawel.ws.tasks.force_disconnect_users", bind=True)
 def force_disconnect_users(
     self, user_ids: List[int], ignore_web_socket_ids: Optional[List[str]] = None
 ):
@@ -53,7 +53,7 @@ async def send_message_to_channel_group(
         await channel_layer.close_pools()
 
 
-@app.task(name="baserow.ws.tasks.broadcast_to_users", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_to_users", bind=True)
 def broadcast_to_users(
     self,
     user_ids: List[int],
@@ -92,7 +92,7 @@ def broadcast_to_users(
     )
 
 
-@app.task(name="baserow.ws.tasks.broadcast_to_permitted_users", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_to_permitted_users", bind=True)
 def broadcast_to_permitted_users(
     self,
     workspace_id: int,
@@ -162,7 +162,7 @@ def broadcast_to_permitted_users(
     broadcast_to_users(user_ids, payload, ignore_web_socket_id=ignore_web_socket_id)
 
 
-@app.task(name="baserow.ws.tasks.broadcast_to_users_individual_payloads", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_to_users_individual_payloads", bind=True)
 def broadcast_to_users_individual_payloads(
     self, payload_map: Dict[str, any], ignore_web_socket_id: Optional[int] = None
 ):
@@ -192,7 +192,7 @@ def broadcast_to_users_individual_payloads(
     )
 
 
-@app.task(name="baserow.ws.tasks.broadcast_many_to_channel_group", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_many_to_channel_group", bind=True)
 def broadcast_many_to_channel_group(
     self,
     payloads: list[tuple[str, dict]],
@@ -230,7 +230,7 @@ def broadcast_many_to_channel_group(
         )
 
 
-@app.task(name="baserow.ws.tasks.broadcast_to_channel_group", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_to_channel_group", bind=True)
 def broadcast_to_channel_group(
     self,
     channel_group_name,
@@ -272,7 +272,7 @@ def broadcast_to_channel_group(
     )
 
 
-@app.task(name="baserow.ws.tasks.broadcast_to_group", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_to_group", bind=True)
 def broadcast_to_group(self, workspace_id, payload, ignore_web_socket_id=None):
     """
     Broadcasts a JSON payload to all users that are in provided workspace (Workspace
@@ -303,7 +303,7 @@ def broadcast_to_group(self, workspace_id, payload, ignore_web_socket_id=None):
     broadcast_to_users(user_ids, payload, ignore_web_socket_id)
 
 
-@app.task(name="baserow.ws.tasks.broadcast_to_groups", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_to_groups", bind=True)
 def broadcast_to_groups(
     self, workspace_ids: Iterable[int], payload: dict, ignore_web_socket_id: str = None
 ):
@@ -332,7 +332,7 @@ def broadcast_to_groups(
     broadcast_to_users(user_ids, payload, ignore_web_socket_id)
 
 
-@app.task(name="baserow.ws.tasks.broadcast_application_created", bind=True)
+@app.task(name="jadawel.ws.tasks.broadcast_application_created", bind=True)
 def broadcast_application_created(
     self, application_id: int, ignore_web_socket_id: Optional[int] = None
 ):

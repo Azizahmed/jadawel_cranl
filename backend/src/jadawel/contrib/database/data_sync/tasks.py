@@ -21,7 +21,7 @@ def call_strategy_method(self, method_name, **kwargs):
 
 
 @app.task(
-    name="baserow.contrib.database.data_sync.tasks.two_way_sync_row_created",
+    name="jadawel.contrib.database.data_sync.tasks.two_way_sync_row_created",
     bind=True,
     queue="export",
 )
@@ -30,7 +30,7 @@ def two_way_sync_row_created(self, **kwargs):
 
 
 @app.task(
-    name="baserow.contrib.database.data_sync.tasks.two_way_sync_row_updated",
+    name="jadawel.contrib.database.data_sync.tasks.two_way_sync_row_updated",
     bind=True,
     queue="export",
 )
@@ -39,7 +39,7 @@ def two_way_sync_row_updated(self, **kwargs):
 
 
 @app.task(
-    name="baserow.contrib.database.data_sync.tasks.two_way_sync_row_deleted",
+    name="jadawel.contrib.database.data_sync.tasks.two_way_sync_row_deleted",
     bind=True,
     queue="export",
 )

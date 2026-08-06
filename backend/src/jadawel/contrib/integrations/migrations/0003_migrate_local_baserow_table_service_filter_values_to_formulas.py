@@ -1,6 +1,6 @@
 from django.db import migrations
 
-from jadawel.contrib.integrations.migrations.helpers.migrate_local_baserow_table_service_filter_values_to_formulas import (
+from jadawel.contrib.integrations.migrations.helpers.migrate_local_jadawel_table_service_filter_values_to_formulas import (
     reduce_to_filter_types_to_migrate,
 )
 from jadawel.core.formula.parser.parser import convert_string_to_string_literal_token

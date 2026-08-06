@@ -7,7 +7,7 @@ import pytest
 
 from arabase.dashboard.widgets.models import ChartWidget
 from arabase.dashboard.widgets.widget_types import ChartWidgetType
-from arabase.integrations.local_baserow.models import LocalBaserowGroupedAggregateRows
+from arabase.integrations.local_jadawel.models import LocalJadawelGroupedAggregateRows
 from jadawel.contrib.dashboard.data_sources.models import DashboardDataSource
 from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
 from jadawel.contrib.dashboard.widgets.service import WidgetService
@@ -20,7 +20,7 @@ def create_chart(data_fixture, user=None, **kwargs):
     dashboard = kwargs.pop(
         "dashboard", None
     ) or data_fixture.create_dashboard_application(user=user)
-    data_fixture.create_local_baserow_integration(
+    data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
     widget = WidgetService().create_widget(
@@ -35,7 +35,7 @@ def test_create_chart_widget_creates_a_grouped_data_source(data_fixture):
 
     assert widget.data_source is not None
     assert widget.data_source.service.content_type == ContentType.objects.get_for_model(
-        LocalBaserowGroupedAggregateRows
+        LocalJadawelGroupedAggregateRows
     )
 
 

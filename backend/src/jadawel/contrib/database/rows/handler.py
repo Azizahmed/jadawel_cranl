@@ -127,17 +127,17 @@ BATCH_SIZE = 1024
 
 meter = metrics.get_meter(__name__)
 rows_created_counter = meter.create_counter(
-    "baserow.rows_created",
+    "jadawel.rows_created",
     unit="1",
     description="The number of rows created in user tables.",
 )
 rows_updated_counter = meter.create_counter(
-    "baserow.rows_updated",
+    "jadawel.rows_updated",
     unit="1",
     description="The number of rows updated in user tables.",
 )
 rows_deleted_counter = meter.create_counter(
-    "baserow.rows_deleted",
+    "jadawel.rows_deleted",
     unit="1",
     description="The number of rows deleted in user tables.",
 )

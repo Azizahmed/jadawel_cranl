@@ -1030,7 +1030,7 @@ def prepare_upsert_data(
     table = data_fixture.create_database_table(user=user, database=database)
 
     with open_test_file(
-        "baserow/database/file_import/upsert_base_data_list.json", "rt"
+        "jadawel/database/file_import/upsert_base_data_list.json", "rt"
     ) as f:
         init_data = json.load(f)
 

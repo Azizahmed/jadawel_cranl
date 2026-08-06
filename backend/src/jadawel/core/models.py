@@ -134,7 +134,7 @@ class Settings(models.Model):
         help_text="Runs a job once per day which calculates per workspace row counts "
         "and file storage usage, displayed on the admin workspace page.",
     )
-    show_baserow_help_request = models.BooleanField(
+    show_jadawel_help_request = models.BooleanField(
         default=True,
         help_text=(
             "Indicates whether the `We need your help!` message will be shown on the "

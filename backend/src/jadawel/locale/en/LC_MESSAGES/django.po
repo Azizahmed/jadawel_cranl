@@ -225,7 +225,7 @@ msgstr ""
 msgid "Next scheduled run"
 msgstr ""
 
-#: src/jadawel/contrib/integrations/local_baserow/service_types.py:1688
+#: src/jadawel/contrib/integrations/local_jadawel/service_types.py:1688
 msgid "No rows found"
 msgstr ""
 

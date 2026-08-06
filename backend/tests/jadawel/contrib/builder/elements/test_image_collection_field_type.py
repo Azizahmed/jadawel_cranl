@@ -40,7 +40,7 @@ def test_import_export_image_collection_field_type(data_fixture, fake, storage):
 
     # Create a new builder table element and connect it to the previous
     # created database table
-    data_source_1 = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source_1 = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
     table_element = data_fixture.create_builder_table_element(

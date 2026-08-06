@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 @app.task(
-    name="baserow.core.user.tasks.check_pending_account_deletion",
+    name="jadawel.core.user.tasks.check_pending_account_deletion",
     bind=True,
     queue="export",
 )
@@ -25,7 +25,7 @@ def check_pending_account_deletion(self):
 
 
 @app.task(
-    name="baserow.core.user.tasks.flush_expired_tokens", bind=True, queue="export"
+    name="jadawel.core.user.tasks.flush_expired_tokens", bind=True, queue="export"
 )
 def flush_expired_tokens(self):
     """
@@ -40,7 +40,7 @@ def flush_expired_tokens(self):
 
 
 @app.task(
-    name="baserow.core.user.tasks.clean_up_user_log_entry", bind=True, queue="export"
+    name="jadawel.core.user.tasks.clean_up_user_log_entry", bind=True, queue="export"
 )
 def clean_up_user_log_entry(self):
     """

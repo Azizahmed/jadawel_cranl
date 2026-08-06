@@ -7,7 +7,7 @@ from jadawel.core.models import Application
 
 
 @app.task(
-    name="baserow.core.snapshots.tasks.delete_application_snapshot",
+    name="jadawel.core.snapshots.tasks.delete_application_snapshot",
     bind=True,
     queue="export",
 )
@@ -30,7 +30,7 @@ def delete_application_snapshot(self, application_id: int):
 
 
 @app.task(
-    name="baserow.core.snapshots.tasks.delete_expired_snapshots",
+    name="jadawel.core.snapshots.tasks.delete_expired_snapshots",
     bind=True,
     queue="export",
 )

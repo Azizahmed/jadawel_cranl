@@ -25,8 +25,8 @@ describe('dataSource store', () => {
       id: 42,
       dataSources: [
         { type: null },
-        { type: 'local_baserow_list_rows' },
-        { type: 'local_baserow_get_row' },
+        { type: 'local_jadawel_list_rows' },
+        { type: 'local_jadawel_get_row' },
       ],
     }
 
@@ -48,8 +48,8 @@ describe('dataSource store', () => {
       .onGet(`builder/page/42/data-sources/`)
       .replyOnce(200, [
         { type: null },
-        { type: 'local_baserow_list_rows' },
-        { type: 'local_baserow_get_row' },
+        { type: 'local_jadawel_list_rows' },
+        { type: 'local_jadawel_get_row' },
       ])
 
     await store.dispatch('dataSource/fetch', {

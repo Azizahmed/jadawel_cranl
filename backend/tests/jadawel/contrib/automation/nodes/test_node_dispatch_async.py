@@ -16,7 +16,7 @@ from jadawel.core.services.exceptions import UnexpectedDispatchException
 from jadawel.test_utils.helpers import AnyInt, AnyStr
 
 TRIGGER_NODE_TYPE_PATH = (
-    "jadawel.contrib.automation.nodes.node_types.LocalBaserowRowsCreatedNodeTriggerType"
+    "jadawel.contrib.automation.nodes.node_types.LocalJadawelRowsCreatedNodeTriggerType"
 )
 NODE_HANDLER_PATH = "jadawel.contrib.automation.nodes.handler"
 TASKS_PATH = "jadawel.contrib.automation.workflows.tasks"
@@ -70,7 +70,7 @@ def create_workflow(
         user = data_fixture.create_user()
 
     workspace = data_fixture.create_workspace(user=user)
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
     database = data_fixture.create_database_application(workspace=workspace)
     trigger_table = data_fixture.create_database_table(database=database)
     trigger_table_field_a = data_fixture.create_text_field(table=trigger_table)
@@ -79,7 +79,7 @@ def create_workflow(
     action_table_field = data_fixture.create_text_field(table=action_table)
 
     workflow = data_fixture.create_automation_workflow(
-        user, trigger_type="local_baserow_rows_created"
+        user, trigger_type="local_jadawel_rows_created"
     )
     trigger = workflow.get_trigger()
     trigger_service = trigger.service.specific
@@ -90,10 +90,10 @@ def create_workflow(
     action_table_row = None
 
     if action_node_type == "create_row":
-        action_node = data_fixture.create_local_baserow_create_row_action_node(
+        action_node = data_fixture.create_local_jadawel_create_row_action_node(
             workflow=workflow,
             previous_node=trigger,
-            service=data_fixture.create_local_baserow_upsert_row_service(
+            service=data_fixture.create_local_jadawel_upsert_row_service(
                 table=action_table,
                 integration=integration,
             ),
@@ -102,10 +102,10 @@ def create_workflow(
         action_table_row = action_table.get_model().objects.create(
             **{f"field_{action_table_field.id}": action_node_service_value}
         )
-        action_node = data_fixture.create_local_baserow_update_row_action_node(
+        action_node = data_fixture.create_local_jadawel_update_row_action_node(
             workflow=workflow,
             previous_node=trigger,
-            service=data_fixture.create_local_baserow_upsert_row_service(
+            service=data_fixture.create_local_jadawel_upsert_row_service(
                 table=action_table,
                 integration=integration,
                 row_id=action_table_row.id,
@@ -115,10 +115,10 @@ def create_workflow(
         action_table_row = action_table.get_model().objects.create(
             **{f"field_{action_table_field.id}": action_node_service_value}
         )
-        action_node = data_fixture.create_local_baserow_delete_row_action_node(
+        action_node = data_fixture.create_local_jadawel_delete_row_action_node(
             workflow=workflow,
             previous_node=trigger,
-            service=data_fixture.create_local_baserow_delete_row_service(
+            service=data_fixture.create_local_jadawel_delete_row_service(
                 table=action_table,
                 integration=integration,
                 row_id=action_table_row.id,
@@ -178,11 +178,11 @@ def create_workflow_history(data_fixture, workflow, trigger_table_fields):
 @pytest.mark.django_db
 def test_dispatch_node_service_error(data_fixture):
     user = data_fixture.create_user()
-    trigger_node = data_fixture.create_local_baserow_rows_created_trigger_node(
+    trigger_node = data_fixture.create_local_jadawel_rows_created_trigger_node(
         user=user
     )
     # create action node without any table configured
-    data_fixture.create_local_baserow_create_row_action_node(
+    data_fixture.create_local_jadawel_create_row_action_node(
         workflow=trigger_node.workflow
     )
     original_workflow = trigger_node.workflow.get_original()
@@ -1112,7 +1112,7 @@ def test_dispatch_node_dispatches_action_router(data_fixture):
         condition="'true'",
         skip_output_node=True,
     )
-    edge_2_node = data_fixture.create_local_baserow_update_row_action_node(
+    edge_2_node = data_fixture.create_local_jadawel_update_row_action_node(
         workflow=workflow,
         reference_node=router_node,
         position="south",
@@ -1175,7 +1175,7 @@ def test_dispatch_node_dispatches_action_router(data_fixture):
 def test_dispatch_node_with_advanced_formulas(data_fixture):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
     database = data_fixture.create_database_application(workspace=workspace)
 
     trigger_table, trigger_table_fields, _ = data_fixture.build_table(
@@ -1202,9 +1202,9 @@ def test_dispatch_node_with_advanced_formulas(data_fixture):
     trigger_service.table = trigger_table
     trigger_service.integration = integration
     trigger_service.save()
-    action_node = data_fixture.create_local_baserow_create_row_action_node(
+    action_node = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
-        service=data_fixture.create_local_baserow_upsert_row_service(
+        service=data_fixture.create_local_jadawel_upsert_row_service(
             table=action_table,
             integration=integration,
         ),
@@ -1268,13 +1268,13 @@ def test_dispatch_node_dispatches_router_edge_simulation(
 ):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
-    integration = data_fixture.create_local_baserow_integration(user=user)
+    integration = data_fixture.create_local_jadawel_integration(user=user)
     database = data_fixture.create_database_application(workspace=workspace)
 
     # Create trigger
     workflow = data_fixture.create_automation_workflow(
         user=user,
-        trigger_type="local_baserow_rows_created",
+        trigger_type="local_jadawel_rows_created",
     )
     trigger_node = workflow.get_trigger()
     trigger_table = data_fixture.create_database_table(database=database)
@@ -1327,7 +1327,7 @@ def test_dispatch_node_dispatches_router_edge_simulation(
     # Create action node on edge_2 of router_b
     action_table = data_fixture.create_database_table(database=database)
     action_table_field = data_fixture.create_text_field(table=action_table)
-    action_node = data_fixture.create_local_baserow_create_row_action_node(
+    action_node = data_fixture.create_local_jadawel_create_row_action_node(
         workflow=workflow,
         reference_node=router_b,
         position="south",

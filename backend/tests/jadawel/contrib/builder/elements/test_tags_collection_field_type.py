@@ -29,7 +29,7 @@ def test_import_export_tags_collection_field_type(data_fixture):
         ],
     )
     name_field, color_field = fields
-    data_source = data_fixture.create_builder_local_baserow_list_rows_data_source(
+    data_source = data_fixture.create_builder_local_jadawel_list_rows_data_source(
         table=table, page=page
     )
     table_element = data_fixture.create_builder_table_element(

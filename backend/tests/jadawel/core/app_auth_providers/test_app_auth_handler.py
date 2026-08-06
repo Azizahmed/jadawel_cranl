@@ -137,7 +137,7 @@ def test_export_app_auth_provider(data_fixture):
         "domain": "Test domain",
         "password_field_id": None,
         "enabled": True,
-        "type": "local_baserow_password",
+        "type": "local_jadawel_password",
     }
 
 
@@ -148,7 +148,7 @@ def test_import_app_auth_provider(data_fixture):
 
     TO_IMPORT = {
         "id": 28,
-        "type": "local_baserow_password",
+        "type": "local_jadawel_password",
     }
 
     id_mapping = defaultdict(MirrorDict)
@@ -165,7 +165,7 @@ def test_import_app_auth_provider_with_migrated_user_source(data_fixture):
     user = data_fixture.create_user()
     user_source = data_fixture.create_user_source_with_first_type(user=user)
 
-    TO_IMPORT = {"id": 28, "type": "local_baserow_password"}
+    TO_IMPORT = {"id": 28, "type": "local_jadawel_password"}
 
     id_mapping = defaultdict(MirrorDict)
 

@@ -3,14 +3,14 @@ from django.db.models import BooleanField, Func, IntegerField, TextField
 
 
 class JadawelTableRowCount(Func):
-    function = "get_baserow_table_row_count"
+    function = "get_jadawel_table_row_count"
     output_field = IntegerField()
     arity = 1
 
 
 class JadawelTableFileUniques(Func):
     template = "(SELECT UNNEST(%(function)s(%(expressions)s)))"
-    function = "get_distinct_baserow_table_file_uniques"
+    function = "get_distinct_jadawel_table_file_uniques"
     output_field = ArrayField(TextField())
     arity = 1
 

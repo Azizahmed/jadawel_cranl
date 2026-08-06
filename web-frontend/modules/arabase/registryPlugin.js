@@ -5,8 +5,8 @@ import {
   UpcomingDatesWidgetType,
 } from '@jadawel/modules/arabase/dashboard/widgetTypes'
 import {
-  LocalBaserowGroupedAggregateRowsServiceType,
-  LocalBaserowUpcomingRowsServiceType,
+  LocalJadawelGroupedAggregateRowsServiceType,
+  LocalJadawelUpcomingRowsServiceType,
 } from '@jadawel/modules/arabase/integrations/serviceTypes'
 
 /**
@@ -26,11 +26,11 @@ export default defineNuxtPlugin({
 
     $registry.register(
       'service',
-      new LocalBaserowGroupedAggregateRowsServiceType(context)
+      new LocalJadawelGroupedAggregateRowsServiceType(context)
     )
     $registry.register(
       'service',
-      new LocalBaserowUpcomingRowsServiceType(context)
+      new LocalJadawelUpcomingRowsServiceType(context)
     )
 
     $registry.register('dashboardWidget', new ChartWidgetType(context))

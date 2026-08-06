@@ -5,8 +5,8 @@ from jadawel.contrib.dashboard.data_sources.actions import (
 )
 from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
 from jadawel.contrib.dashboard.widgets.service import WidgetService
-from jadawel.contrib.integrations.local_baserow.service_types import (
-    LocalBaserowAggregateRowsUserServiceType,
+from jadawel.contrib.integrations.local_jadawel.service_types import (
+    LocalJadawelAggregateRowsUserServiceType,
 )
 from jadawel.core.action.handler import ActionHandler
 from jadawel.core.action.registries import action_type_registry
@@ -37,7 +37,7 @@ def test_can_undo_redo_update_data_source(data_fixture):
         description="Widget description",
     )
     service_type = service_type_registry.get(
-        LocalBaserowAggregateRowsUserServiceType.type
+        LocalJadawelAggregateRowsUserServiceType.type
     )
     result = DashboardDataSourceService().update_data_source(
         user,

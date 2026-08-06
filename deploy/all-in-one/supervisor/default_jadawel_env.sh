@@ -31,8 +31,8 @@ export LANG=C.UTF-8
 export TMPDIR=${TMPDIR:-/dev/shm}
 
 export DATABASE_PASSWORD="${DATABASE_PASSWORD:-}"
-export DATABASE_NAME="${DATABASE_NAME:-baserow}"
-export DATABASE_USER="${DATABASE_USER:-baserow}"
+export DATABASE_NAME="${DATABASE_NAME:-jadawel}"
+export DATABASE_USER="${DATABASE_USER:-jadawel}"
 export DATABASE_HOST="${DATABASE_HOST:-embed}"
 export DATABASE_PORT="${DATABASE_PORT:-5432}"
 export PGDATA="$DATA_DIR/postgres/"

@@ -22,7 +22,7 @@ def _get_singleton_autoreschedule_flag(table_id: int) -> SingletonAutoReschedule
 
 
 @app.task(
-    name="baserow.contrib.database.search.tasks.schedule_update_search_data",
+    name="jadawel.contrib.database.search.tasks.schedule_update_search_data",
     queue="export",
 )
 def schedule_update_search_data(
@@ -77,7 +77,7 @@ def schedule_update_search_data(
 
 
 @app.task(
-    name="baserow.contrib.database.search.tasks.update_search_data",
+    name="jadawel.contrib.database.search.tasks.update_search_data",
     queue="export",
     base=Singleton,
     unique_on="table_id",
@@ -136,7 +136,7 @@ def update_search_data(table_id: int):
 
 
 @app.task(
-    name="baserow.contrib.database.search.tasks.periodic_check_pending_search_data",
+    name="jadawel.contrib.database.search.tasks.periodic_check_pending_search_data",
     queue="export",
     base=Singleton,
     raise_on_duplicate=False,

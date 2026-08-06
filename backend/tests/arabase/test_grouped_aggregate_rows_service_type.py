@@ -1,7 +1,7 @@
 """Tests for the fork's grouped aggregation service.
 
 This is the service behind every dashboard chart: it returns one number per
-bucket, which the core `local_baserow_aggregate_rows` service cannot do.
+bucket, which the core `local_jadawel_aggregate_rows` service cannot do.
 """
 
 from django.http import HttpRequest
@@ -9,11 +9,11 @@ from django.http import HttpRequest
 import pytest
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
-from arabase.integrations.local_baserow.models import (
-    LocalBaserowGroupedAggregateRows,
+from arabase.integrations.local_jadawel.models import (
+    LocalJadawelGroupedAggregateRows,
 )
-from arabase.integrations.local_baserow.service_types import (
-    LocalBaserowGroupedAggregateRowsUserServiceType,
+from arabase.integrations.local_jadawel.service_types import (
+    LocalJadawelGroupedAggregateRowsUserServiceType,
 )
 from jadawel.contrib.dashboard.data_sources.dispatch_context import (
     DashboardDispatchContext,
@@ -50,7 +50,7 @@ def chart_setup(data_fixture):
     )
 
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
-    data_fixture.create_local_baserow_integration(
+    data_fixture.create_local_jadawel_integration(
         authorized_user=user, application=dashboard
     )
     widget = WidgetService().create_widget(
@@ -69,7 +69,7 @@ def chart_setup(data_fixture):
 
 def configure(setup, **kwargs):
     service_type = service_type_registry.get(
-        LocalBaserowGroupedAggregateRowsUserServiceType.type
+        LocalJadawelGroupedAggregateRowsUserServiceType.type
     )
     DashboardDataSourceService().update_data_source(
         setup["user"], setup["widget"].data_source_id, service_type, **kwargs
@@ -92,7 +92,7 @@ def dispatch(setup):
 
 @pytest.mark.django_db
 def test_chart_widget_data_source_uses_the_grouped_service(chart_setup):
-    assert isinstance(reload_service(chart_setup), LocalBaserowGroupedAggregateRows)
+    assert isinstance(reload_service(chart_setup), LocalJadawelGroupedAggregateRows)
 
 
 @pytest.mark.django_db

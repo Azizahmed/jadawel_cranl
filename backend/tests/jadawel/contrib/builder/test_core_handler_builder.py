@@ -26,7 +26,7 @@ def test_duplicated_application_imports_integration(data_fixture):
 
     user = data_fixture.create_user()
     builder = data_fixture.create_builder_application(user)
-    data_fixture.create_local_baserow_integration(user=user, application=builder)
+    data_fixture.create_local_jadawel_integration(user=user, application=builder)
 
     new_builder = CoreHandler().duplicate_application(user, builder)
 

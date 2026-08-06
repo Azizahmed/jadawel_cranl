@@ -1,19 +1,19 @@
 from jadawel.contrib.builder.data_sources.models import DataSource
-from jadawel.contrib.integrations.local_baserow.models import (
-    LocalBaserowGetRow,
-    LocalBaserowListRows,
+from jadawel.contrib.integrations.local_jadawel.models import (
+    LocalJadawelGetRow,
+    LocalJadawelListRows,
 )
 
 
 class DataSourceFixtures:
-    def create_builder_local_baserow_get_row_data_source(self, **kwargs):
+    def create_builder_local_jadawel_get_row_data_source(self, **kwargs):
         return self.create_builder_data_source(
-            service_model_class=LocalBaserowGetRow, **kwargs
+            service_model_class=LocalJadawelGetRow, **kwargs
         )
 
-    def create_builder_local_baserow_list_rows_data_source(self, **kwargs):
+    def create_builder_local_jadawel_list_rows_data_source(self, **kwargs):
         return self.create_builder_data_source(
-            service_model_class=LocalBaserowListRows, **kwargs
+            service_model_class=LocalJadawelListRows, **kwargs
         )
 
     def create_builder_data_source(
