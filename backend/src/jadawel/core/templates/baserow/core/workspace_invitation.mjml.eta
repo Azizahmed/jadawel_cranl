@@ -15,7 +15,7 @@
     <mj-text mj-class="button-url">
       {{ public_accept_url }}
     </mj-text>
-    <mj-raw><!-- htmlmin:ignore -->{% if show_baserow_description %}<!-- htmlmin:ignore --></mj-raw>
+    <mj-raw><!-- htmlmin:ignore -->{% if show_jadawel_description %}<!-- htmlmin:ignore --></mj-raw>
       <mj-text mj-class="text">
         {% blocktrans trimmed %}
           جداول is an Arabic-first online database and spreadsheet tool that lets your team collaborate on projects, customers and more.

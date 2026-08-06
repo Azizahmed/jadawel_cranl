@@ -4,9 +4,9 @@
   <mj-column>
     <mj-text mj-class="title">{% trans "Confirm email address change" %}</mj-text>
     <mj-text mj-class="text">
-      {% blocktrans trimmed with user.username as old_email and new_email as new_email and baserow_embedded_share_hostname as baserow_embedded_share_hostname %}
+      {% blocktrans trimmed with user.username as old_email and new_email as new_email and jadawel_embedded_share_hostname as jadawel_embedded_share_hostname %}
         A request was made to change the email address for your جداول account from
-        {{ old_email }} to {{ new_email }} on جداول ({{ baserow_embedded_share_hostname }}).
+        {{ old_email }} to {{ new_email }} on جداول ({{ jadawel_embedded_share_hostname }}).
         If you did not authorize this, you may simply ignore this email.
       {% endblocktrans %}
     </mj-text>
@@ -22,7 +22,7 @@
     <mj-text mj-class="button-url">
       {{ confirmation_url }}
     </mj-text>
-    <mj-raw><!-- htmlmin:ignore -->{% if show_baserow_description %}<!-- htmlmin:ignore --></mj-raw>
+    <mj-raw><!-- htmlmin:ignore -->{% if show_jadawel_description %}<!-- htmlmin:ignore --></mj-raw>
       <mj-text mj-class="text">
         {% blocktrans trimmed %}
           جداول is an Arabic-first online database and spreadsheet tool that lets your team collaborate on projects, customers and more.
