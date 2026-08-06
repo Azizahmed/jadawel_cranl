@@ -17,11 +17,20 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-05 by run 31003766162, digest
-# sha256:fe80827c582f8e39db8b2329b9cb7265895c50b145d7c22354bd16bb6695c460
-# Enables the create_table MCP tool (was implemented but hidden behind
-# enabled=False). No migrations, no schema changes.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.4.1
+# Published 2026-08-06, digest
+# sha256:ccac318f493988e982574821acc8c55fb00636c1b088a4cd8a8ff2fbbc8b031e
+# Built locally rather than by publish-image.yml: GitHub Actions was in a major
+# outage and never acquired a runner. Same three builds the workflow runs.
+#
+# Completes the baserow -> jadawel rename. Carries seven migrations: the
+# LocalJadawel RenameModel set, the show_jadawel_help_request field, the
+# get_jadawel_table_* functions, and the sweep of the Postgres constraint,
+# index and sequence names RenameModel left behind.
+#
+# Set JADAWEL_* in the dashboard before deploying. The BASEROW_* shims still
+# accept the old names, but JADAWEL_JWT_SIGNING_KEY must carry the same value
+# as BASEROW_JWT_SIGNING_KEY or every issued session is invalidated.
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.5.0
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
