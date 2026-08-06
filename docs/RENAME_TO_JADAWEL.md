@@ -14,10 +14,10 @@ All six phases are in `main`, one commit each. What actually shipped, and the ev
 | 0 Copyright | `80b18c0` | `git grep "Jadawel B.V."` empty, `LICENSE` unmodified |
 | Celery pre-step | `5c83ec1` | 53 decorators pinned; runtime reports 53 `baserow.`-named tasks, 0 drifted |
 | 1 Backend package | `8743a5b` | `manage.py check` clean, `makemigrations --check` → **No changes detected**, 8,029 tests collect |
-| 2 Frontend alias | `9641f22` | 1,448 alias specifiers resolve; vitest shows **0 new failures** vs a pre-rename worktree |
-| 3 Environment | `2cb0370` | Booting with only `BASEROW_JWT_SIGNING_KEY` set reports it in `LEGACY_ENV_NAMES_IN_USE` and does not fall back to `SECRET_KEY` |
-| 4 Image internals | `9cf2e5e` | `bash -n` clean on every deploy script, 14/14 compose files valid, `helm lint` passes on the renamed subchart |
-| 5 Grammar + residuals | `20e5604`, `d52aee2`, `3d0c6ec` | Regenerated parsers byte-identical after name normalisation; 291 backend and 749 frontend formula tests pass |
+| 2 Frontend alias | `c9e314d` | 1,448 alias specifiers resolve; vitest shows **0 new failures** vs a pre-rename worktree |
+| 3 Environment | `814e478` | Booting with only `BASEROW_JWT_SIGNING_KEY` set reports it in `LEGACY_ENV_NAMES_IN_USE` and does not fall back to `SECRET_KEY` |
+| 4 Image internals | `3c8cca0` | `bash -n` clean on every deploy script, 14/14 compose files valid, `helm lint` passes on the renamed subchart |
+| 5 Grammar + residuals | `24ab1c5`, `e64e342`, `fc0c861` | Regenerated parsers byte-identical after name normalisation; 291 backend and 749 frontend formula tests pass |
 
 Two things this plan predicted and one it missed:
 
@@ -26,7 +26,7 @@ Two things this plan predicted and one it missed:
 - **Missed.** The 18 email templates read `baserow_embedded_share_url` and
   `show_baserow_description` from the Django context. Renaming the Python side alone
   left them resolving to the empty string — an empty share link and a vanished
-  description, with nothing in the log. Fixed in `3d0c6ec`.
+  description, with nothing in the log. Fixed in `fc0c861`.
 
 Still open, deliberately: the CranL dashboard still sets the five `BASEROW_*` names,
 which the shims accept. Cut those over to `JADAWEL_*` in a separate deploy, verify,
