@@ -6,8 +6,8 @@ from jadawel.contrib.builder.data_providers.registries import (
     builder_data_provider_type_registry,
 )
 from jadawel.contrib.builder.elements.models import Element
-from jadawel.contrib.builder.formula_importer import BaserowFormulaImporter
-from jadawel.core.formula import BaserowFormula
+from jadawel.contrib.builder.formula_importer import JadawelFormulaImporter
+from jadawel.core.formula import JadawelFormula
 from jadawel.core.formula.exceptions import InvalidRuntimeFormula
 from jadawel.core.user_sources.user_source_user import UserSourceUser
 from jadawel.core.utils import merge_dicts_no_duplicates, to_path
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from jadawel.core.workflow_actions.models import WorkflowAction
 
 
-class FormulaFieldVisitor(BaserowFormulaImporter):
+class FormulaFieldVisitor(JadawelFormulaImporter):
     """
     This visitor will visit all nodes of a formula and return its properties.
     """
@@ -46,7 +46,7 @@ class FormulaFieldVisitor(BaserowFormulaImporter):
         super().visit(tree)
         return self.results
 
-    def visitFunctionCall(self, ctx: BaserowFormula.FunctionCallContext):
+    def visitFunctionCall(self, ctx: JadawelFormula.FunctionCallContext):
         """
         Visits all nodes of the formula and stores its Field IDs in the
         self.results instance attribute.
@@ -58,7 +58,7 @@ class FormulaFieldVisitor(BaserowFormulaImporter):
         parts = [expr.accept(self) for expr in function_argument_expressions]
 
         if function_name == "get" and isinstance(
-            function_argument_expressions[0], BaserowFormula.StringLiteralContext
+            function_argument_expressions[0], JadawelFormula.StringLiteralContext
         ):
             # This is the formula with the function name stripped
             # e.g. "'current_record.property_33'"
@@ -82,7 +82,7 @@ class FormulaFieldVisitor(BaserowFormulaImporter):
                 # we can ignore it. Maybe the related data source is gone.
                 pass
 
-    def visitBinaryOp(self, ctx: BaserowFormula.BinaryOpContext):
+    def visitBinaryOp(self, ctx: JadawelFormula.BinaryOpContext):
         return self.visitChildren(ctx)
 
 

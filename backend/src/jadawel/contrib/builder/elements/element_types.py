@@ -90,7 +90,7 @@ from jadawel.core.constants import (
 )
 from jadawel.core.datetime import FormattedDate, FormattedDateTime
 from jadawel.core.formula import (
-    BaserowFormulaSyntaxError,
+    JadawelFormulaSyntaxError,
     get_parse_tree_for_formula,
     resolve_formula,
 )
@@ -98,8 +98,8 @@ from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.registries import formula_runtime_function_registry
 from jadawel.core.formula.types import (
     JADAWEL_FORMULA_MODE_SIMPLE,
-    BaserowFormula,
-    BaserowFormulaObject,
+    JadawelFormula,
+    JadawelFormulaObject,
 )
 from jadawel.core.formula.validator import (
     ensure_array,
@@ -232,12 +232,12 @@ class FormContainerElementType(ContainerElementTypeMixin, ElementType):
     simple_formula_fields = ["submit_button_label"]
 
     class SerializedDict(ContainerElementTypeMixin.SerializedDict):
-        submit_button_label: BaserowFormulaObject
+        submit_button_label: JadawelFormulaObject
         reset_initial_values_post_submission: bool
 
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, Any]:
         return {
-            "submit_button_label": BaserowFormulaObject(
+            "submit_button_label": JadawelFormulaObject(
                 formula="'Submit'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -353,7 +353,7 @@ class TableElementType(CollectionElementWithFieldsTypeMixin, ElementType):
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, Any]:
         return {
             "data_source_id": None,
-            "button_load_more_label": BaserowFormulaObject(
+            "button_load_more_label": JadawelFormulaObject(
                 formula="'test'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -420,7 +420,7 @@ class RepeatElementType(
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, Any]:
         return {
             "data_source_id": None,
-            "button_load_more_label": BaserowFormulaObject(
+            "button_load_more_label": JadawelFormulaObject(
                 formula="'test'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -447,11 +447,11 @@ class RecordSelectorElementType(
 
     class SerializedDict(CollectionElementTypeMixin.SerializedDict):
         required: bool
-        label: BaserowFormulaObject
-        default_value: BaserowFormulaObject
-        placeholder: BaserowFormulaObject
+        label: JadawelFormulaObject
+        default_value: JadawelFormulaObject
+        placeholder: JadawelFormulaObject
         multiple: bool
-        option_name_suffix: BaserowFormulaObject
+        option_name_suffix: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -565,7 +565,7 @@ class RecordSelectorElementType(
                     properties,
                     FormulaFieldVisitor(**formula_context).visit(tree),
                 )
-            except BaserowFormulaSyntaxError:
+            except JadawelFormulaSyntaxError:
                 # If there is a syntax error within the formula we ignore it as
                 # there will be no properties to extract
                 pass
@@ -597,23 +597,23 @@ class RecordSelectorElementType(
         return {
             "data_source_id": None,
             "required": False,
-            "label": BaserowFormulaObject(
+            "label": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "default_value": BaserowFormulaObject(
+            "default_value": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "placeholder": BaserowFormulaObject(
+            "placeholder": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "multiple": False,
-            "option_name_suffix": BaserowFormulaObject(
+            "option_name_suffix": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -688,7 +688,7 @@ class HeadingElementType(ElementType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(ElementDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
         level: int
 
     @property
@@ -723,7 +723,7 @@ class HeadingElementType(ElementType):
 
     def get_pytest_params(self, pytest_data_fixture):
         return {
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="'Corporis perspiciatis'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -744,12 +744,12 @@ class TextElementType(ElementType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(ElementDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
         format: str
 
     def get_pytest_params(self, pytest_data_fixture):
         return {
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="'Suscipit maxime eos ea vel commodi dolore. "
                 "Eum dicta sit rerum animi. Sint sapiente eum cupiditate nobis vel. "
                 "Maxime qui nam consequatur. "
@@ -820,7 +820,7 @@ class NavigationElementManager:
         navigate_to_page_id: int
         page_parameters: List
         query_parameters: List
-        navigate_to_url: BaserowFormulaObject
+        navigate_to_url: JadawelFormulaObject
         target: str
 
     def deserialize_property(
@@ -897,7 +897,7 @@ class NavigationElementManager:
         return {
             "navigation_type": "custom",
             "navigate_to_page_id": None,
-            "navigate_to_url": BaserowFormulaObject(
+            "navigate_to_url": JadawelFormulaObject(
                 formula='"http://example.com"',
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -995,7 +995,7 @@ class LinkElementType(ElementType):
         )
 
     class SerializedDict(ElementDict, NavigationElementManager.SerializedDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
         variant: str
 
     def formula_generator(
@@ -1011,13 +1011,13 @@ class LinkElementType(ElementType):
         yield from super().formula_generator(element)
 
         for index, data in enumerate(element.page_parameters):
-            new_formula = yield BaserowFormulaObject.to_formula(data["value"])
+            new_formula = yield JadawelFormulaObject.to_formula(data["value"])
             if new_formula is not None:
                 element.page_parameters[index]["value"] = new_formula
                 yield element
 
         for index, data in enumerate(element.query_parameters or []):
-            new_formula = yield BaserowFormulaObject.to_formula(data["value"])
+            new_formula = yield JadawelFormulaObject.to_formula(data["value"])
             if new_formula is not None:
                 element.query_parameters[index]["value"] = new_formula
                 yield element
@@ -1083,7 +1083,7 @@ class LinkElementType(ElementType):
 
     def get_pytest_params(self, pytest_data_fixture):
         return NavigationElementManager().get_pytest_params(pytest_data_fixture) | {
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="'test'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1130,19 +1130,19 @@ class ImageElementType(ElementType):
     class SerializedDict(ElementDict):
         image_source_type: str
         image_file_id: int
-        image_url: BaserowFormulaObject
-        alt_text: BaserowFormulaObject
+        image_url: JadawelFormulaObject
+        alt_text: JadawelFormulaObject
 
     def get_pytest_params(self, pytest_data_fixture):
         return {
             "image_source_type": ImageElement.IMAGE_SOURCE_TYPES.UPLOAD,
             "image_file_id": None,
-            "image_url": BaserowFormulaObject(
+            "image_url": JadawelFormulaObject(
                 formula="'https://test.com/image.png'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "alt_text": BaserowFormulaObject(
+            "alt_text": JadawelFormulaObject(
                 formula="'some alt text'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1220,7 +1220,7 @@ class ImageElementType(ElementType):
     def serialize_property(
         self,
         element: Element,
-        prop_name: BaserowFormula,
+        prop_name: JadawelFormula,
         files_zip=None,
         storage=None,
         cache=None,
@@ -1285,7 +1285,7 @@ class RatingElementType(ElementType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(ElementDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
         max_value: str
         color: str
         rating_style: str
@@ -1293,7 +1293,7 @@ class RatingElementType(ElementType):
     def get_pytest_params(self, pytest_data_fixture):
         return {
             "max_value": 5,
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="5",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1335,9 +1335,9 @@ class RatingInputElementType(InputElementType):
     simple_formula_fields = ["value", "label"]
 
     class SerializedDict(ElementDict):
-        label: BaserowFormulaObject
+        label: JadawelFormulaObject
         required: bool
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
         max_value: str
         color: str
         rating_style: str
@@ -1345,14 +1345,14 @@ class RatingInputElementType(InputElementType):
     def get_pytest_params(self, pytest_data_fixture):
         return {
             "max_value": 5,
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="5",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "color": "dark-orange",
             "rating_style": "star",
-            "label": BaserowFormulaObject(
+            "label": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1424,11 +1424,11 @@ class InputTextElementType(InputElementType):
     simple_formula_fields = ["label", "default_value", "placeholder"]
 
     class SerializedDict(ElementDict):
-        label: BaserowFormulaObject
+        label: JadawelFormulaObject
         required: bool
         validation_type: str
         placeholder: str
-        default_value: BaserowFormulaObject
+        default_value: JadawelFormulaObject
         is_multiline: bool
         rows: int
         input_type: str
@@ -1488,18 +1488,18 @@ class InputTextElementType(InputElementType):
 
     def get_pytest_params(self, pytest_data_fixture):
         return {
-            "label": BaserowFormulaObject(
+            "label": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
-            "placeholder": BaserowFormulaObject(
+            "placeholder": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "default_value": BaserowFormulaObject(
+            "default_value": JadawelFormulaObject(
                 formula="'Corporis perspiciatis'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1545,7 +1545,7 @@ class ButtonElementType(ElementType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(ElementDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -1573,7 +1573,7 @@ class ButtonElementType(ElementType):
 
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, Any]:
         return {
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="'Some value'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1589,9 +1589,9 @@ class CheckboxElementType(InputElementType):
     simple_formula_fields = ["label", "default_value"]
 
     class SerializedDict(ElementDict):
-        label: BaserowFormulaObject
+        label: JadawelFormulaObject
         required: bool
-        default_value: BaserowFormulaObject
+        default_value: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -1640,13 +1640,13 @@ class CheckboxElementType(InputElementType):
 
     def get_pytest_params(self, pytest_data_fixture):
         return {
-            "label": BaserowFormulaObject(
+            "label": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
-            "default_value": BaserowFormulaObject(
+            "default_value": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1701,16 +1701,16 @@ class ChoiceElementType(FormElementTypeMixin, ElementType):
     ]
 
     class SerializedDict(ElementDict):
-        label: BaserowFormulaObject
+        label: JadawelFormulaObject
         required: bool
-        placeholder: BaserowFormulaObject
-        default_value: BaserowFormulaObject
+        placeholder: JadawelFormulaObject
+        default_value: JadawelFormulaObject
         options: List
         multiple: bool
         show_as_dropdown: bool
         option_type: str
-        formula_value: BaserowFormulaObject
-        formula_name: BaserowFormulaObject
+        formula_value: JadawelFormulaObject
+        formula_name: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -1858,18 +1858,18 @@ class ChoiceElementType(FormElementTypeMixin, ElementType):
 
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, Any]:
         return {
-            "label": BaserowFormulaObject(
+            "label": JadawelFormulaObject(
                 formula="'test'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "default_value": BaserowFormulaObject(
+            "default_value": JadawelFormulaObject(
                 formula="'option 1'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
             "required": False,
-            "placeholder": BaserowFormulaObject(
+            "placeholder": JadawelFormulaObject(
                 formula="'some placeholder'",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1877,12 +1877,12 @@ class ChoiceElementType(FormElementTypeMixin, ElementType):
             "multiple": False,
             "show_as_dropdown": True,
             "option_type": ChoiceElement.OPTION_TYPE.MANUAL,
-            "formula_value": BaserowFormulaObject(
+            "formula_value": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "formula_name": BaserowFormulaObject(
+            "formula_name": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -1975,8 +1975,8 @@ class IFrameElementType(ElementType):
 
     class SerializedDict(ElementDict):
         source_type: str
-        url: BaserowFormulaObject
-        embed: BaserowFormulaObject
+        url: JadawelFormulaObject
+        embed: JadawelFormulaObject
         height: int
 
     @property
@@ -2010,12 +2010,12 @@ class IFrameElementType(ElementType):
     def get_pytest_params(self, pytest_data_fixture):
         return {
             "source_type": IFrameElement.IFRAME_SOURCE_TYPE.URL,
-            "url": BaserowFormulaObject(
+            "url": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "embed": BaserowFormulaObject(
+            "embed": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -2049,9 +2049,9 @@ class DateTimePickerElementType(FormElementTypeMixin, ElementType):
     ]
 
     class SerializedDict(ElementDict):
-        label: BaserowFormulaObject
+        label: JadawelFormulaObject
         required: bool
-        default_value: BaserowFormulaObject
+        default_value: JadawelFormulaObject
         date_format: str
         include_time: bool
         time_format: str
@@ -2134,12 +2134,12 @@ class DateTimePickerElementType(FormElementTypeMixin, ElementType):
     def get_pytest_params(self, pytest_data_fixture) -> Dict[str, Any]:
         return {
             "required": False,
-            "label": BaserowFormulaObject(
+            "label": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),
-            "default_value": BaserowFormulaObject(
+            "default_value": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -2500,19 +2500,19 @@ class MenuElementType(ElementType):
 
         for item in element.menu_items.all():
             for index, data in enumerate(item.page_parameters or []):
-                new_formula = yield BaserowFormulaObject.to_formula(data["value"])
+                new_formula = yield JadawelFormulaObject.to_formula(data["value"])
                 if new_formula is not None:
                     item.page_parameters[index]["value"] = new_formula
                     yield item
 
             for index, data in enumerate(item.query_parameters or []):
-                new_formula = yield BaserowFormulaObject.to_formula(data["value"])
+                new_formula = yield JadawelFormulaObject.to_formula(data["value"])
                 if new_formula is not None:
                     item.query_parameters[index]["value"] = new_formula
                     yield item
 
             for formula_field in NavigationElementManager.simple_formula_fields:
-                new_formula = yield BaserowFormulaObject.to_formula(
+                new_formula = yield JadawelFormulaObject.to_formula(
                     getattr(item, formula_field, "")
                 )
                 if new_formula is not None:

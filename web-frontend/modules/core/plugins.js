@@ -5,7 +5,7 @@ import { Registerable } from '@jadawel/modules/core/registry'
  * this is not the same. A plugin can contain hooks for certain events such as when
  * a user account is created.
  */
-export class BaserowPlugin extends Registerable {
+export class JadawelPlugin extends Registerable {
   constructor(...args) {
     super(...args)
     this.type = this.getType()

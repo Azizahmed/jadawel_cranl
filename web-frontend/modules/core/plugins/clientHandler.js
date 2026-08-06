@@ -227,7 +227,7 @@ export class ErrorHandler {
     this.detail = detail
   }
 
-  hasBaserowAPIError() {
+  hasJadawelAPIError() {
     return this.response !== undefined && this.code != null
   }
 
@@ -409,7 +409,7 @@ export class ErrorHandler {
     if (this.hasNetworkError()) {
       return this.getNetworkErrorMessage()
     }
-    if (this.hasBaserowAPIError()) {
+    if (this.hasJadawelAPIError()) {
       if (this.hasRequestBodyValidationError()) {
         const matchingRequestBodyError =
           this.getRequestBodyErrorMessage(requestBodyErrorMap)
@@ -440,7 +440,7 @@ export class ErrorHandler {
   notifyIf(name = null, message = null) {
     if (
       !(
-        this.hasBaserowAPIError() ||
+        this.hasJadawelAPIError() ||
         this.hasNetworkError() ||
         this.isNotFound()
       ) ||

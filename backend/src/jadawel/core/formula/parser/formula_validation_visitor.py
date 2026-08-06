@@ -7,9 +7,9 @@ from jadawel.core.formula.parser.exceptions import (
     InvalidNumberOfArguments,
     UnknownOperator,
 )
-from jadawel.core.formula.parser.generated.BaserowFormula import BaserowFormula
-from jadawel.core.formula.parser.generated.BaserowFormulaVisitor import (
-    BaserowFormulaVisitor,
+from jadawel.core.formula.parser.generated.JadawelFormula import JadawelFormula
+from jadawel.core.formula.parser.generated.JadawelFormulaVisitor import (
+    JadawelFormulaVisitor,
 )
 
 if TYPE_CHECKING:
@@ -30,7 +30,7 @@ class DeferredValue:
     pass
 
 
-class BaserowFormulaValidationVisitor(BaserowFormulaVisitor):
+class JadawelFormulaValidationVisitor(JadawelFormulaVisitor):
     """
     A Jadawel formula visitor which is responsible for validating a formula's
     function and its arguments.
@@ -44,14 +44,14 @@ class BaserowFormulaValidationVisitor(BaserowFormulaVisitor):
         self.functions = functions
         self.data_provider_type_registry = data_provider_type_registry
 
-    def visitRoot(self, ctx: BaserowFormula.RootContext):
+    def visitRoot(self, ctx: JadawelFormula.RootContext):
         return ctx.expr().accept(self)
 
-    def visitStringLiteral(self, ctx: BaserowFormula.StringLiteralContext):
+    def visitStringLiteral(self, ctx: JadawelFormula.StringLiteralContext):
         # noinspection PyTypeChecker
         return self.process_string(ctx)
 
-    def visitBinaryOp(self, ctx: BaserowFormula.BinaryOpContext):
+    def visitBinaryOp(self, ctx: JadawelFormula.BinaryOpContext):
         if ctx.PLUS():
             op = "add"
         elif ctx.MINUS():
@@ -89,35 +89,35 @@ class BaserowFormulaValidationVisitor(BaserowFormulaVisitor):
             literal = literal_without_outer_quotes.replace('\\"', '"')
         return literal
 
-    def visitDecimalLiteral(self, ctx: BaserowFormula.DecimalLiteralContext):
+    def visitDecimalLiteral(self, ctx: JadawelFormula.DecimalLiteralContext):
         return float(ctx.getText())
 
-    def visitBooleanLiteral(self, ctx: BaserowFormula.BooleanLiteralContext):
+    def visitBooleanLiteral(self, ctx: JadawelFormula.BooleanLiteralContext):
         return ctx.TRUE() is not None
 
-    def visitBrackets(self, ctx: BaserowFormula.BracketsContext):
+    def visitBrackets(self, ctx: JadawelFormula.BracketsContext):
         return ctx.expr().accept(self)
 
-    def visitIdentifier(self, ctx: BaserowFormula.IdentifierContext):
+    def visitIdentifier(self, ctx: JadawelFormula.IdentifierContext):
         return ctx.getText()
 
-    def visitIntegerLiteral(self, ctx: BaserowFormula.IntegerLiteralContext):
+    def visitIntegerLiteral(self, ctx: JadawelFormula.IntegerLiteralContext):
         return int(ctx.getText())
 
-    def visitFieldByIdReference(self, ctx: BaserowFormula.FieldByIdReferenceContext):
+    def visitFieldByIdReference(self, ctx: JadawelFormula.FieldByIdReferenceContext):
         raise FieldByIdReferencesAreDeprecated()
 
     def visitLeftWhitespaceOrComments(
-        self, ctx: BaserowFormula.LeftWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.LeftWhitespaceOrCommentsContext
     ):
         return ctx.expr().accept(self)
 
     def visitRightWhitespaceOrComments(
-        self, ctx: BaserowFormula.RightWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.RightWhitespaceOrCommentsContext
     ):
         return ctx.expr().accept(self)
 
-    def visitFieldReference(self, ctx: BaserowFormula.FieldReferenceContext):
+    def visitFieldReference(self, ctx: JadawelFormula.FieldReferenceContext):
         """
         Handle field('name') syntax. There is no native support for this function
         in non-database formulas, so we raise an error.
@@ -155,7 +155,7 @@ class BaserowFormulaValidationVisitor(BaserowFormulaVisitor):
         return result
 
     def visitFunctionCall(
-        self, ctx: BaserowFormula.FunctionCallContext, function_name: str = None
+        self, ctx: JadawelFormula.FunctionCallContext, function_name: str = None
     ):
         """
         Visits a function call node in the parse tree. For each function we encounter,

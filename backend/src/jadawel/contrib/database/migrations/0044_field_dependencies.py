@@ -3,7 +3,7 @@ import django.db.models.deletion
 from django.db import migrations, models
 
 from jadawel.contrib.database.formula import FormulaHandler
-from jadawel.core.formula import BaserowFormula, BaserowFormulaVisitor
+from jadawel.core.formula import JadawelFormula, JadawelFormulaVisitor
 
 # noinspection PyPep8Naming
 
@@ -28,54 +28,54 @@ def convert_string_literal_token_to_string(string_literal, is_single_q):
     return literal_without_outer_quotes.replace("\\" + quote, quote)
 
 
-class BaserowFieldReferenceVisitor(BaserowFormulaVisitor):
-    def visitRoot(self, ctx: BaserowFormula.RootContext):
+class JadawelFieldReferenceVisitor(JadawelFormulaVisitor):
+    def visitRoot(self, ctx: JadawelFormula.RootContext):
         return ctx.expr().accept(self)
 
-    def visitStringLiteral(self, ctx: BaserowFormula.StringLiteralContext):
+    def visitStringLiteral(self, ctx: JadawelFormula.StringLiteralContext):
         return set()
 
-    def visitDecimalLiteral(self, ctx: BaserowFormula.DecimalLiteralContext):
+    def visitDecimalLiteral(self, ctx: JadawelFormula.DecimalLiteralContext):
         return set()
 
-    def visitBooleanLiteral(self, ctx: BaserowFormula.BooleanLiteralContext):
+    def visitBooleanLiteral(self, ctx: JadawelFormula.BooleanLiteralContext):
         return set()
 
-    def visitBrackets(self, ctx: BaserowFormula.BracketsContext):
+    def visitBrackets(self, ctx: JadawelFormula.BracketsContext):
         return ctx.expr().accept(self)
 
-    def visitFunctionCall(self, ctx: BaserowFormula.FunctionCallContext):
+    def visitFunctionCall(self, ctx: JadawelFormula.FunctionCallContext):
         args = set()
         for expr in ctx.expr():
             args.update(expr.accept(self))
         return args
 
-    def visitFunc_name(self, ctx: BaserowFormula.Func_nameContext):
+    def visitFunc_name(self, ctx: JadawelFormula.Func_nameContext):
         return set()
 
-    def visitIdentifier(self, ctx: BaserowFormula.IdentifierContext):
+    def visitIdentifier(self, ctx: JadawelFormula.IdentifierContext):
         return set()
 
-    def visitIntegerLiteral(self, ctx: BaserowFormula.IntegerLiteralContext):
+    def visitIntegerLiteral(self, ctx: JadawelFormula.IntegerLiteralContext):
         return set()
 
-    def visitFieldReference(self, ctx: BaserowFormula.FieldReferenceContext):
+    def visitFieldReference(self, ctx: JadawelFormula.FieldReferenceContext):
         reference = ctx.field_reference()
         field_name = convert_string_literal_token_to_string(
             reference.getText(), reference.SINGLEQ_STRING_LITERAL()
         )
         return {field_name}
 
-    def visitFieldByIdReference(self, ctx: BaserowFormula.FieldByIdReferenceContext):
+    def visitFieldByIdReference(self, ctx: JadawelFormula.FieldByIdReferenceContext):
         return set()
 
     def visitLeftWhitespaceOrComments(
-        self, ctx: BaserowFormula.LeftWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.LeftWhitespaceOrCommentsContext
     ):
         return ctx.expr().accept(self)
 
     def visitRightWhitespaceOrComments(
-        self, ctx: BaserowFormula.RightWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.RightWhitespaceOrCommentsContext
     ):
         return ctx.expr().accept(self)
 
@@ -92,7 +92,7 @@ def _build_graph_from_scratch(FieldDependency, FormulaField, LinkRowField, Field
 
     for formula in FormulaField.objects.filter(trashed=False).all():
         tree = FormulaHandler.get_parse_tree_for_formula(formula.formula)
-        dependency_field_names = tree.accept(BaserowFieldReferenceVisitor()) or set()
+        dependency_field_names = tree.accept(JadawelFieldReferenceVisitor()) or set()
         table = formula.table
         for new_dependency_field_name in dependency_field_names:
             try:

@@ -16,36 +16,36 @@ from django.db.models.functions import Cast, JSONObject
 
 from jadawel.contrib.database.formula.ast.exceptions import UnknownFieldReference
 from jadawel.contrib.database.formula.ast.tree import (
-    BaserowBooleanLiteral,
-    BaserowDecimalLiteral,
-    BaserowExpression,
-    BaserowExpressionContext,
-    BaserowFieldReference,
-    BaserowFunctionCall,
-    BaserowIntegerLiteral,
-    BaserowStringLiteral,
+    JadawelBooleanLiteral,
+    JadawelDecimalLiteral,
+    JadawelExpression,
+    JadawelExpressionContext,
+    JadawelFieldReference,
+    JadawelFunctionCall,
+    JadawelIntegerLiteral,
+    JadawelStringLiteral,
 )
-from jadawel.contrib.database.formula.ast.visitors import BaserowFormulaASTVisitor
+from jadawel.contrib.database.formula.ast.visitors import JadawelFormulaASTVisitor
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
     JSONArray,
 )
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaInvalidType,
-    BaserowFormulaType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaType,
 )
 from jadawel.core.formula.exceptions import formula_exception_handler
 from jadawel.core.formula.parser.exceptions import MaximumFormulaSizeError
 
 
 def jadawel_expression_to_update_django_expression(
-    jadawel_expression: BaserowExpression[BaserowFormulaType],
+    jadawel_expression: JadawelExpression[JadawelFormulaType],
     model: Type[Model],
 ):
     return _jadawel_expression_to_django_expression(jadawel_expression, model, None)
 
 
 def jadawel_expression_to_single_row_update_django_expression(
-    jadawel_expression: BaserowExpression[BaserowFormulaType],
+    jadawel_expression: JadawelExpression[JadawelFormulaType],
     model_instance: Model,
 ):
     return _jadawel_expression_to_django_expression(
@@ -54,7 +54,7 @@ def jadawel_expression_to_single_row_update_django_expression(
 
 
 def jadawel_expression_to_insert_django_expression(
-    jadawel_expression: BaserowExpression[BaserowFormulaType],
+    jadawel_expression: JadawelExpression[JadawelFormulaType],
     model_instance: Model,
 ):
     return _jadawel_expression_to_django_expression(
@@ -63,13 +63,13 @@ def jadawel_expression_to_insert_django_expression(
 
 
 def _jadawel_expression_to_django_expression(
-    jadawel_expression: BaserowExpression[BaserowFormulaType],
+    jadawel_expression: JadawelExpression[JadawelFormulaType],
     model: Type[Model],
     model_instance: Optional[Model],
     insert=False,
 ) -> Expression:
     """
-    Takes a BaserowExpression and converts it to a Django Expression which calculates
+    Takes a JadawelExpression and converts it to a Django Expression which calculates
     the result of the expression when run on the provided model_instance or for the
     entire table when a model_instance is not provided.
 
@@ -80,7 +80,7 @@ def _jadawel_expression_to_django_expression(
     as you cannot reference a column for a row that does not yet exist. Instead the
     initial defaults will be found and substituted in.
 
-    :param jadawel_expression: The BaserowExpression to convert.
+    :param jadawel_expression: The JadawelExpression to convert.
     :param model: The Django model that the expression is being generated for.
     :param model_instance: If provided the expression will calculate the result for
         this single instance. If not provided then the expression will use F() column
@@ -93,7 +93,7 @@ def _jadawel_expression_to_django_expression(
     """
 
     try:
-        if isinstance(jadawel_expression.expression_type, BaserowFormulaInvalidType):
+        if isinstance(jadawel_expression.expression_type, JadawelFormulaInvalidType):
             return Value(None)
         else:
             inserting_aggregate = (
@@ -106,7 +106,7 @@ def _jadawel_expression_to_django_expression(
                 # get replaced later on with the correct value by an UPDATE statement.
                 return jadawel_expression.expression_type.placeholder_empty_value()
             else:
-                generator = BaserowExpressionToDjangoExpressionGenerator(
+                generator = JadawelExpressionToDjangoExpressionGenerator(
                     model, model_instance
                 )
                 return jadawel_expression.accept(generator).expression
@@ -155,11 +155,11 @@ class WrappedExpressionWithMetadata:
         )
 
 
-class BaserowExpressionToDjangoExpressionGenerator(
-    BaserowFormulaASTVisitor[BaserowFormulaType, WrappedExpressionWithMetadata]
+class JadawelExpressionToDjangoExpressionGenerator(
+    JadawelFormulaASTVisitor[JadawelFormulaType, WrappedExpressionWithMetadata]
 ):
     """
-    Visits a BaserowExpression replacing it with the equivalent Django Expression.
+    Visits a JadawelExpression replacing it with the equivalent Django Expression.
 
     If a model_instance is provided then any field references will be replaced with
     direct Value() expressions of those fields on that model_instance. If one is not
@@ -173,10 +173,10 @@ class BaserowExpressionToDjangoExpressionGenerator(
     ):
         self.model_instance = model_instance
         self.model = model
-        self.context = BaserowExpressionContext(model, model_instance)
+        self.context = JadawelExpressionContext(model, model_instance)
 
     def visit_field_reference(
-        self, field_reference: BaserowFieldReference[BaserowFormulaType]
+        self, field_reference: JadawelFieldReference[JadawelFormulaType]
     ) -> WrappedExpressionWithMetadata:
         db_column = field_reference.referenced_field_name
         generating_update_expression = self.model_instance is None
@@ -255,7 +255,7 @@ class BaserowExpressionToDjangoExpressionGenerator(
 
     # noinspection PyProtectedMember
     def _setup_lookup_expression(
-        self, field_reference: BaserowFieldReference
+        self, field_reference: JadawelFieldReference
     ) -> WrappedExpressionWithMetadata:
         path_to_lookup_from_lookup_table = field_reference.target_field
         m2m_to_lookup_table = field_reference.referenced_field_name
@@ -368,7 +368,7 @@ class BaserowExpressionToDjangoExpressionGenerator(
         return unique_annotation_path_name, join_ids, pre_annotations
 
     def visit_function_call(
-        self, function_call: BaserowFunctionCall[BaserowFormulaType]
+        self, function_call: JadawelFunctionCall[JadawelFormulaType]
     ) -> WrappedExpressionWithMetadata:
         args: List[WrappedExpressionWithMetadata] = [
             expr.accept(self) for expr in function_call.args
@@ -376,7 +376,7 @@ class BaserowExpressionToDjangoExpressionGenerator(
         return function_call.to_django_expression_given_args(args, self.context)
 
     def visit_string_literal(
-        self, string_literal: BaserowStringLiteral[BaserowFormulaType]
+        self, string_literal: JadawelStringLiteral[JadawelFormulaType]
     ) -> WrappedExpressionWithMetadata:
         # We need to cast and be super explicit this is a text field so postgres
         # does not get angry and claim this is an unknown type.
@@ -388,7 +388,7 @@ class BaserowExpressionToDjangoExpressionGenerator(
         )
 
     def visit_int_literal(
-        self, int_literal: BaserowIntegerLiteral[BaserowFormulaType]
+        self, int_literal: JadawelIntegerLiteral[JadawelFormulaType]
     ) -> WrappedExpressionWithMetadata:
         return WrappedExpressionWithMetadata(
             Value(
@@ -398,7 +398,7 @@ class BaserowExpressionToDjangoExpressionGenerator(
         )
 
     def visit_decimal_literal(
-        self, decimal_literal: BaserowDecimalLiteral
+        self, decimal_literal: JadawelDecimalLiteral
     ) -> WrappedExpressionWithMetadata:
         return WrappedExpressionWithMetadata(
             Value(
@@ -410,7 +410,7 @@ class BaserowExpressionToDjangoExpressionGenerator(
         )
 
     def visit_boolean_literal(
-        self, boolean_literal: BaserowBooleanLiteral
+        self, boolean_literal: JadawelBooleanLiteral
     ) -> WrappedExpressionWithMetadata:
         return WrappedExpressionWithMetadata(
             Value(boolean_literal.literal, output_field=BooleanField())

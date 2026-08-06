@@ -8,11 +8,11 @@ from rest_framework.exceptions import ValidationError
 from jadawel.core.exceptions import InstanceTypeDoesNotExist
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.parser.exceptions import (
-    BaserowFormulaSyntaxError,
     InvalidNumberOfArguments,
+    JadawelFormulaSyntaxError,
 )
 from jadawel.core.formula.parser.formula_validation_visitor import (
-    BaserowFormulaValidationVisitor,
+    JadawelFormulaValidationVisitor,
 )
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 from jadawel.core.formula.registries import formula_runtime_function_registry
@@ -20,7 +20,7 @@ from jadawel.core.formula.types import (
     JADAWEL_FORMULA_MODE_ADVANCED,
     JADAWEL_FORMULA_MODE_RAW,
     JADAWEL_FORMULA_MODE_SIMPLE,
-    BaserowFormulaObject,
+    JadawelFormulaObject,
 )
 from jadawel.core.registry import Registry
 
@@ -52,7 +52,7 @@ def collect_json_formula_field_properties(registry: Type[Registry]) -> List[str]
     return list(set(properties))
 
 
-class BaserowFormulaObjectSerializer(serializers.Serializer):
+class JadawelFormulaObjectSerializer(serializers.Serializer):
     formula = serializers.CharField(required=True, allow_blank=True)
     version = serializers.CharField(
         required=False, default=JADAWEL_FORMULA_VERSION_INITIAL
@@ -77,7 +77,7 @@ class FormulaSerializerField(serializers.JSONField):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.required = False
-        self.default = BaserowFormulaObject(
+        self.default = JadawelFormulaObject(
             formula="",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -100,18 +100,18 @@ class FormulaSerializerField(serializers.JSONField):
             data = str(data)
         else:
             # It's a dictionary, so validate its structure.
-            bfo_serializer = BaserowFormulaObjectSerializer(data=data)
+            bfo_serializer = JadawelFormulaObjectSerializer(data=data)
             bfo_serializer.is_valid(raise_exception=True)
             data = bfo_serializer.validated_data
 
         # For compatibility reasons: if we receive a string, we will
-        # construct a BaserowFormulaObject with it, and assume the
+        # construct a JadawelFormulaObject with it, and assume the
         # mode is 'simple', and the version is the initial version.
         # TODO: we should infer the `mode` differently, once we know
         #   what an advanced/raw formula looks like. Or: just force the
         #   user to tell us?
         if isinstance(data, str):
-            data = BaserowFormulaObject(
+            data = JadawelFormulaObject(
                 formula=data,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -134,14 +134,14 @@ class FormulaSerializerField(serializers.JSONField):
         try:
             tree = get_parse_tree_for_formula(data["formula"])
             try:
-                BaserowFormulaValidationVisitor(
+                JadawelFormulaValidationVisitor(
                     formula_runtime_function_registry,
                     data_provider_type_registry=self.context.get(
                         "application_type"
                     )().data_provider_type_registry,
                 ).visit(tree)
             except (
-                BaserowFormulaSyntaxError,
+                JadawelFormulaSyntaxError,
                 InvalidNumberOfArguments,
                 InstanceTypeDoesNotExist,
             ) as exc:
@@ -150,5 +150,5 @@ class FormulaSerializerField(serializers.JSONField):
                     code="invalid_formula_argument",
                 ) from exc
             return data
-        except BaserowFormulaSyntaxError as e:
+        except JadawelFormulaSyntaxError as e:
             raise ValidationError(f"The formula is invalid: {e}", code="invalid")

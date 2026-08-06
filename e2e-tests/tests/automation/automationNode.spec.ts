@@ -1,4 +1,4 @@
-import { expect, test } from "../baserowTest";
+import { expect, test } from "../jadawelTest";
 
 import { createAutomationNode } from "../../fixtures/automation/automationNode";
 

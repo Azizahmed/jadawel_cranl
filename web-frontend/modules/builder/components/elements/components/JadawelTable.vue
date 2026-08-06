@@ -87,7 +87,7 @@
 import { ORIENTATIONS } from '@jadawel/modules/builder/enums'
 
 export default {
-  name: 'BaserowTable',
+  name: 'JadawelTable',
   inject: ['mode'],
   props: {
     fields: {

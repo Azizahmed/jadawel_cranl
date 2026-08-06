@@ -273,7 +273,7 @@ def optional_atomic(atomic=True):
         yield
 
 
-class SafeBaserowPostgresSchemaEditor:
+class SafeJadawelPostgresSchemaEditor:
     """
     Overrides the create/delete_model methods to work with our link_row fields which
     link back to the same table.
@@ -410,22 +410,22 @@ def safe_django_schema_editor(atomic=True, name=None, classes=None, **kwargs):
     """
 
     if name is None:
-        name = "BaserowSafeDjangoPostgresSchemaEditor"
+        name = "JadawelSafeDjangoPostgresSchemaEditor"
 
     if classes is None:
         classes = []
 
-    classes.append(SafeBaserowPostgresSchemaEditor)
+    classes.append(SafeJadawelPostgresSchemaEditor)
 
     regular_schema_editor = connection.SchemaEditorClass
 
-    if not issubclass(regular_schema_editor, SafeBaserowPostgresSchemaEditor):
+    if not issubclass(regular_schema_editor, SafeJadawelPostgresSchemaEditor):
         # Only override the connections schema editor if we haven't already done it
         # in an outer safe schema editor context.
-        BaserowSafeDjangoPostgresSchemaEditor = _build_schema_editor_class(
+        JadawelSafeDjangoPostgresSchemaEditor = _build_schema_editor_class(
             name, classes
         )
-        connection.SchemaEditorClass = BaserowSafeDjangoPostgresSchemaEditor
+        connection.SchemaEditorClass = JadawelSafeDjangoPostgresSchemaEditor
 
     kwargs.setdefault("connection", connection)
 

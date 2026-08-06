@@ -22,9 +22,9 @@ from jadawel.contrib.builder.workflow_actions.workflow_action_types import (
     OpenPageWorkflowActionType,
     UpdateRowWorkflowActionType,
 )
-from jadawel.core.formula import BaserowFormula
+from jadawel.core.formula import JadawelFormula
 from jadawel.core.formula.exceptions import InvalidRuntimeFormula
-from jadawel.core.formula.parser.exceptions import BaserowFormulaSyntaxError
+from jadawel.core.formula.parser.exceptions import JadawelFormulaSyntaxError
 from jadawel.core.formula.registries import DataProviderType
 from jadawel.core.formula.runtime_formula_context import RuntimeFormulaContext
 
@@ -243,7 +243,7 @@ def test_get_element_property_names_returns_empty_if_invalid_formula(
     )
 
     # Simulate an "invalid formula" error
-    mock_parse_tree.side_effect = BaserowFormulaSyntaxError("Invalid formula!")
+    mock_parse_tree.side_effect = JadawelFormulaSyntaxError("Invalid formula!")
 
     result = get_element_property_names([heading_element], {})
 
@@ -403,7 +403,7 @@ def test_get_workflow_action_property_names_returns_empty_if_invalid_formula(
     )
 
     # Simulate an "invalid formula" error
-    mock_parse_tree.side_effect = BaserowFormulaSyntaxError("Invalid formula!")
+    mock_parse_tree.side_effect = JadawelFormulaSyntaxError("Invalid formula!")
 
     results = get_workflow_action_property_names([workflow_action], {})
 
@@ -682,7 +682,7 @@ def test_get_data_source_property_names_returns_empty_if_invalid_formula(
     )
 
     # Simulate an "invalid formula" error
-    mock_parse_tree.side_effect = BaserowFormulaSyntaxError("Invalid formula!")
+    mock_parse_tree.side_effect = JadawelFormulaSyntaxError("Invalid formula!")
 
     results = get_data_source_property_names([data_source])
 
@@ -858,7 +858,7 @@ def test_formula_property_visitor_visit_function_call_handles_formula_error(
     mock_data_provider_type.extract_properties.side_effect = InvalidRuntimeFormula()
     mock_data_provider_registry.get.return_value = mock_data_provider_type
 
-    mock_expression = MagicMock(spec=BaserowFormula.StringLiteralContext)
+    mock_expression = MagicMock(spec=JadawelFormula.StringLiteralContext)
     mock_expression.accept.return_value = "'current_record.field_999'"
 
     mock_func = MagicMock()

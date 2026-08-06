@@ -79,7 +79,7 @@ class TimezoneExpr(BinaryOpExpr):
     arg_joiner = " at time zone "
 
 
-class BaserowStringAgg(OrderableAggMixin, Aggregate):
+class JadawelStringAgg(OrderableAggMixin, Aggregate):
     function = "STRING_AGG"
     template = "%(function)s(%(distinct)s%(expressions)s %(order_by)s)"
     allow_distinct = True
@@ -263,7 +263,7 @@ class JSONBArraySlice(Expression):
         )
 
 
-class BaserowFilterExpression(Expression):
+class JadawelFilterExpression(Expression):
     """
     Jadawel expression that works with field_name and value
     to provide expressions for filters. To use, subclass and
@@ -322,7 +322,7 @@ class BaserowFilterExpression(Expression):
         return sql_query, sql_params
 
 
-class FileNameContainsExpr(BaserowFilterExpression):
+class FileNameContainsExpr(JadawelFilterExpression):
     # fmt: off
     template = (
         f"""
@@ -336,7 +336,7 @@ class FileNameContainsExpr(BaserowFilterExpression):
     # fmt: on
 
 
-class JSONArrayContainsValueLengthLowerThanExpr(BaserowFilterExpression):
+class JSONArrayContainsValueLengthLowerThanExpr(JadawelFilterExpression):
     # fmt: off
     template = (
         f"""
@@ -350,7 +350,7 @@ class JSONArrayContainsValueLengthLowerThanExpr(BaserowFilterExpression):
     # fmt: on
 
 
-class JSONArrayAllAreExpr(BaserowFilterExpression):
+class JSONArrayAllAreExpr(JadawelFilterExpression):
     # fmt: off
     template = (
         f"""
@@ -376,7 +376,7 @@ class ComparisonOperator(Enum):
     HIGHER_THAN_OR_EQUAL = ">="
 
 
-class JSONArrayCompareNumericValueExpr(BaserowFilterExpression):
+class JSONArrayCompareNumericValueExpr(JadawelFilterExpression):
     """
     Base class for expressions that compare a numeric value in a JSON array.
     Together with the field_name and value, a comparison operator must be provided to be
@@ -415,7 +415,7 @@ class JSONArrayCompareNumericValueExpr(BaserowFilterExpression):
         return data
 
 
-class JSONArrayCompareIntervalValueExpr(BaserowFilterExpression):
+class JSONArrayCompareIntervalValueExpr(JadawelFilterExpression):
     """
     Base class for expressions that compare an interval value in a JSON array.
     Together with the field_name and value, a comparison operator must be provided to be

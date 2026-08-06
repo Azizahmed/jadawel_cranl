@@ -1,4 +1,4 @@
-# Generated from BaserowFormulaLexer.g4 by ANTLR 4.9
+# Generated from JadawelFormulaLexer.g4 by ANTLR 4.9
 from antlr4 import *
 from io import StringIO
 from typing import TextIO
@@ -294,7 +294,7 @@ def serializedATN():
         return buf.getvalue()
 
 
-class BaserowFormulaLexer(Lexer):
+class JadawelFormulaLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -440,7 +440,7 @@ class BaserowFormulaLexer(Lexer):
                   "TIL_LTE_TIL", "TIL_LT_TIL", "TIL_STAR", "TIL_TIL", "SEMI", 
                   "ErrorCharacter" ]
 
-    grammarFileName = "BaserowFormulaLexer.g4"
+    grammarFileName = "JadawelFormulaLexer.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)

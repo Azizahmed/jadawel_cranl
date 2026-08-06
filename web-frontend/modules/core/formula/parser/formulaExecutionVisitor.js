@@ -1,4 +1,4 @@
-import BaserowFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/BaserowFormulaVisitor'
+import JadawelFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/JadawelFormulaVisitor'
 import { InvalidFormulaType, UnknownOperatorError } from '@jadawel/modules/core/formula/parser/errors'
 
 export class FunctionCollection {
@@ -11,7 +11,7 @@ export class FunctionCollection {
   }
 }
 
-export default class BaserowFormulaExecutionVisitor extends BaserowFormulaVisitor {
+export default class JadawelFormulaExecutionVisitor extends JadawelFormulaVisitor {
   constructor(functions, formulaContext = {}) {
     super()
     this.functions = functions

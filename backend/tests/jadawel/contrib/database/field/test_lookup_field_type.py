@@ -13,9 +13,9 @@ from jadawel.contrib.database.fields.models import FormulaField, LookupField
 from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.fields.utils import DeferredForeignKeyUpdater
 from jadawel.contrib.database.formula import (
-    BaserowFormulaArrayType,
-    BaserowFormulaInvalidType,
-    BaserowFormulaNumberType,
+    JadawelFormulaArrayType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaNumberType,
 )
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.contrib.database.views.handler import ViewHandler
@@ -471,7 +471,7 @@ def test_import_export_lookup_field_when_through_field_trashed(
     assert lookup_field_imported.through_field_name == link_field.name
     assert lookup_field_imported.target_field is None
     assert lookup_field_imported.target_field_name == lookup.target_field_name
-    assert lookup_field_imported.formula_type == BaserowFormulaInvalidType.type
+    assert lookup_field_imported.formula_type == JadawelFormulaInvalidType.type
     assert lookup_field_imported.error == "references the deleted or unknown field link"
 
 
@@ -526,7 +526,7 @@ def test_import_export_lookup_field_trashed_target_field(data_fixture, api_clien
     assert lookup_field_imported.through_field_name == link_field.name
     assert lookup_field_imported.target_field is None
     assert lookup_field_imported.target_field_name == lookup.target_field_name
-    assert lookup_field_imported.formula_type == BaserowFormulaInvalidType.type
+    assert lookup_field_imported.formula_type == JadawelFormulaInvalidType.type
     assert (
         lookup_field_imported.error
         == "references the deleted or unknown field target in table table_b"
@@ -612,8 +612,8 @@ def test_import_export_tables_with_lookup_fields(
         name=customer_age.name
     ).specific
     assert imported_lookup_field.formula == lookup_field.formula
-    assert imported_lookup_field.formula_type == BaserowFormulaArrayType.type
-    assert imported_lookup_field.array_formula_type == BaserowFormulaNumberType.type
+    assert imported_lookup_field.formula_type == JadawelFormulaArrayType.type
+    assert imported_lookup_field.array_formula_type == JadawelFormulaNumberType.type
     assert imported_lookup_field.through_field.name == link_row_field.name
     assert imported_lookup_field.target_field.name == customer_age.name
     assert imported_lookup_field.through_field_name == link_row_field.name

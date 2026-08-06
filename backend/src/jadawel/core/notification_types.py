@@ -149,7 +149,7 @@ def handle_workspace_invitation_rejected(sender, invitation, user, **kwargs):
     )
 
 
-class BaserowVersionUpgradeNotificationType(CliNotificationTypeMixin, NotificationType):
+class JadawelVersionUpgradeNotificationType(CliNotificationTypeMixin, NotificationType):
     type = "baserow_version_upgrade"
 
     @classmethod

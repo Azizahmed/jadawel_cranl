@@ -4,10 +4,10 @@ from subprocess import CalledProcessError  # nosec
 from django.core.management.base import BaseCommand, CommandError
 
 from jadawel.core.management.backup.backup_runner import (
-    BaserowBackupRunner,
+    JadawelBackupRunner,
     add_shared_postgres_command_args,
 )
-from jadawel.core.management.backup.exceptions import InvalidBaserowBackupArchive
+from jadawel.core.management.backup.exceptions import InvalidJadawelBackupArchive
 
 
 class Command(BaseCommand):
@@ -103,7 +103,7 @@ class Command(BaseCommand):
         jobs = options["jobs"]
         additional_args = options["additional_pg_dump_args"]
 
-        runner = BaserowBackupRunner(
+        runner = JadawelBackupRunner(
             host,
             database,
             username,
@@ -128,7 +128,7 @@ class Command(BaseCommand):
                 + " ".join(e.cmd)
                 + f"\nIt failed with a return code of: {e.returncode}"
             )
-        except InvalidBaserowBackupArchive:
+        except InvalidJadawelBackupArchive:
             raise CommandError(
                 "Please ensure the provided back-up file is a valid "
                 "Jadawel backup file produced by ./jadawel "

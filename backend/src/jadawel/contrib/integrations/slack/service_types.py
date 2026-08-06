@@ -9,7 +9,7 @@ from rest_framework import serializers
 from jadawel.contrib.integrations.slack.integration_types import SlackBotIntegrationType
 from jadawel.contrib.integrations.slack.models import SlackWriteMessageService
 from jadawel.contrib.integrations.utils import get_http_request_function
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.validator import ensure_string
 from jadawel.core.services.dispatch_context import DispatchContext
 from jadawel.core.services.exceptions import (
@@ -33,7 +33,7 @@ class SlackWriteMessageServiceType(ServiceType):
 
     class SerializedDict(ServiceDict):
         channel: str
-        text: BaserowFormulaObject
+        text: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):

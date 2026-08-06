@@ -8,7 +8,7 @@ import {
 } from '@jadawel/modules/core/utils/validator'
 import moment from '@jadawel/modules/core/moment'
 
-export class BaserowRuntimeFormulaArgumentType {
+export class JadawelRuntimeFormulaArgumentType {
   constructor({ optional = false } = {}) {
     this.optional = optional
   }
@@ -36,7 +36,7 @@ export class BaserowRuntimeFormulaArgumentType {
   }
 }
 
-export class NumberBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class NumberJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   constructor(options = {}) {
     super(options)
     this.castToInt = options.castToInt ?? false
@@ -67,7 +67,7 @@ export class NumberBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormu
   }
 }
 
-export class TextBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class TextJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     return typeof value.toString === 'function'
   }
@@ -77,7 +77,7 @@ export class TextBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormula
   }
 }
 
-export class DateTimeBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class DateTimeJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     if (value instanceof Date) {
       return true
@@ -95,7 +95,7 @@ export class DateTimeBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFor
   }
 }
 
-export class ObjectBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class ObjectJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     if (value instanceof Object) {
       return true
@@ -114,7 +114,7 @@ export class ObjectBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormu
   }
 }
 
-export class ArrayBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class ArrayJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     try {
       ensureArray(value)
@@ -129,7 +129,7 @@ export class ArrayBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormul
   }
 }
 
-export class ArrayOfNumbersBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class ArrayOfNumbersJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     try {
       value = ensureArray(value)
@@ -150,7 +150,7 @@ export class ArrayOfNumbersBaserowRuntimeFormulaArgumentType extends BaserowRunt
   }
 }
 
-export class BooleanBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class BooleanJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     try {
       ensureBoolean(value, { useStrict: false })
@@ -165,7 +165,7 @@ export class BooleanBaserowRuntimeFormulaArgumentType extends BaserowRuntimeForm
   }
 }
 
-export class TimezoneBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class TimezoneJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     if (value == null || typeof value.toString !== 'function') {
       return false
@@ -179,7 +179,7 @@ export class TimezoneBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFor
   }
 }
 
-export class AnyBaserowRuntimeFormulaArgumentType extends BaserowRuntimeFormulaArgumentType {
+export class AnyJadawelRuntimeFormulaArgumentType extends JadawelRuntimeFormulaArgumentType {
   test(value) {
     return true
   }

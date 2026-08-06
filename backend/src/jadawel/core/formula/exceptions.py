@@ -2,11 +2,11 @@ from django.conf import settings
 
 from loguru import logger
 
-from jadawel.core.formula.parser.exceptions import BaserowFormulaException
+from jadawel.core.formula.parser.exceptions import JadawelFormulaException
 from jadawel.core.utils import exception_capturer
 
 
-class RuntimeFormulaException(BaserowFormulaException):
+class RuntimeFormulaException(JadawelFormulaException):
     """Raised when manipulating an invalid formula"""
 
 

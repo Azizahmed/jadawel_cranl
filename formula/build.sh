@@ -70,6 +70,14 @@ rm -f "$BACKEND_OUTPUT_DIR"JadawelFormula*
 cp out/backend_parser/* $BACKEND_OUTPUT_DIR
 touch "$BACKEND_OUTPUT_DIR"__init__.py
 
+# ANTLR 4.9 emits `from typing.io import TextIO` in the lexer. `typing.io` was
+# removed in Python 3.13, so the import raises ModuleNotFoundError on the 3.14 we
+# run. Rewrite it to the real location. The parser file guards the same import
+# behind `sys.version_info[1] > 5` and so never reaches it; leave that one alone
+# to keep the generated output faithful.
+sed -i 's/^from typing\.io import TextIO$/from typing import TextIO/' \
+    "$BACKEND_OUTPUT_DIR"JadawelFormulaLexer.py
+
 echo "Moving tokens next to grammar files.."
 # Place the generated tokens next to the grammar files also so IDE plugins can use them
 # to show more details about the grammar files themselves.

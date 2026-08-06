@@ -1,6 +1,6 @@
-import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
-import BaserowFormulaExecutionVisitor from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
-import BaserowFormulaValidationVisitor from '@jadawel/modules/core/formula/parser/formulaValidationVisitor.js'
+import parseJadawelFormula from '@jadawel/modules/core/formula/parser/parser'
+import JadawelFormulaExecutionVisitor from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
+import JadawelFormulaValidationVisitor from '@jadawel/modules/core/formula/parser/formulaValidationVisitor.js'
 import { FORMULA_TYPE } from '@jadawel/modules/core/enums'
 
 /**
@@ -27,8 +27,8 @@ export const resolveFormula = (
   }
 
   try {
-    const tree = parseBaserowFormula(formulaCtx.formula)
-    return new BaserowFormulaExecutionVisitor(
+    const tree = parseJadawelFormula(formulaCtx.formula)
+    return new JadawelFormulaExecutionVisitor(
       functions,
       RuntimeFormulaContext
     ).visit(tree)
@@ -62,9 +62,9 @@ export const isFormulaValid = (
     return { scope: null, valid: true, errors: [] }
   }
   try {
-    const tree = parseBaserowFormula(formula)
+    const tree = parseJadawelFormula(formula)
     if (!syntaxOnly) {
-      new BaserowFormulaValidationVisitor(functions, validationContext).visit(
+      new JadawelFormulaValidationVisitor(functions, validationContext).visit(
         tree
       )
     }
@@ -284,18 +284,18 @@ export const buildFormulaFunctionNodes = (app) => {
               let type = 'any'
               const argClassName = arg.constructor.name
 
-              if (argClassName === 'NumberBaserowRuntimeFormulaArgumentType') {
+              if (argClassName === 'NumberJadawelRuntimeFormulaArgumentType') {
                 type = 'number'
               } else if (
-                argClassName === 'TextBaserowRuntimeFormulaArgumentType'
+                argClassName === 'TextJadawelRuntimeFormulaArgumentType'
               ) {
                 type = 'text'
               } else if (
-                argClassName === 'DateTimeBaserowRuntimeFormulaArgumentType'
+                argClassName === 'DateTimeJadawelRuntimeFormulaArgumentType'
               ) {
                 type = 'date'
               } else if (
-                argClassName === 'ObjectBaserowRuntimeFormulaArgumentType'
+                argClassName === 'ObjectJadawelRuntimeFormulaArgumentType'
               ) {
                 type = 'object'
               }
@@ -404,19 +404,19 @@ export const buildFormulaFunctionNodes = (app) => {
                 const argClassName = arg.constructor.name
 
                 if (
-                  argClassName === 'NumberBaserowRuntimeFormulaArgumentType'
+                  argClassName === 'NumberJadawelRuntimeFormulaArgumentType'
                 ) {
                   type = 'number'
                 } else if (
-                  argClassName === 'TextBaserowRuntimeFormulaArgumentType'
+                  argClassName === 'TextJadawelRuntimeFormulaArgumentType'
                 ) {
                   type = 'text'
                 } else if (
-                  argClassName === 'DateTimeBaserowRuntimeFormulaArgumentType'
+                  argClassName === 'DateTimeJadawelRuntimeFormulaArgumentType'
                 ) {
                   type = 'date'
                 } else if (
-                  argClassName === 'ObjectBaserowRuntimeFormulaArgumentType'
+                  argClassName === 'ObjectJadawelRuntimeFormulaArgumentType'
                 ) {
                   type = 'object'
                 }

@@ -15,10 +15,10 @@ from jadawel.contrib.database.db.schema import safe_django_schema_editor
 from jadawel.contrib.database.fields.constants import RESERVED_BASEROW_FIELD_NAMES
 from jadawel.contrib.database.fields.dependencies.models import FieldDependency
 from jadawel.contrib.database.fields.exceptions import (
-    InvalidBaserowFieldName,
+    InvalidJadawelFieldName,
     MaxFieldLimitExceeded,
     MaxFieldNameLengthExceeded,
-    ReservedBaserowFieldNameException,
+    ReservedJadawelFieldNameException,
 )
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.fields.models import Field
@@ -31,8 +31,8 @@ from jadawel.contrib.database.operations import (
 )
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.contrib.database.table.expressions import (
-    BaserowTableFileUniques,
-    BaserowTableRowCount,
+    JadawelTableFileUniques,
+    JadawelTableRowCount,
 )
 from jadawel.contrib.database.views.handler import ViewHandler
 from jadawel.contrib.database.views.models import View
@@ -77,7 +77,7 @@ class TableUsageHandler:
     @classmethod
     def calculate_table_storage_usage(cls, table_id):
         return UserFile.objects.filter(
-            unique__in=BaserowTableFileUniques(table_id)
+            unique__in=JadawelTableFileUniques(table_id)
         ).aggregate(tot_MB=Coalesce(Sum("size"), 0) / USAGE_UNIT_MB)["tot_MB"]
 
     @classmethod
@@ -122,7 +122,7 @@ class TableUsageHandler:
 
         entries = [
             TableUsageUpdate(
-                table_id=table.id, row_count=BaserowTableRowCount(table.id)
+                table_id=table.id, row_count=JadawelTableRowCount(table.id)
             )
             for table in tables_in_database
         ]
@@ -170,7 +170,7 @@ class TableUsageHandler:
         for table_id in table_ids:
             table_usage = TableUsage(
                 table_id=table_id,
-                row_count=BaserowTableRowCount(table_id),
+                row_count=JadawelTableRowCount(table_id),
                 row_count_updated_at=Now(),
                 storage_usage=cls.calculate_table_storage_usage(table_id),
                 storage_usage_updated_at=Now(),
@@ -508,9 +508,9 @@ class TableHandler(metaclass=jadawel_trace_methods(tracer)):
         :raises InvalidInitialTableData: When the data doesn't contain a column or row.
         :raises MaxFieldNameLengthExceeded: When the provided name is too long.
         :raises InitialTableDataDuplicateName: When duplicates exit in field names.
-        :raises ReservedBaserowFieldNameException: When the field name is reserved by
+        :raises ReservedJadawelFieldNameException: When the field name is reserved by
             Jadawel.
-        :raises InvalidBaserowFieldName: When the field name is invalid (empty).
+        :raises InvalidJadawelFieldName: When the field name is invalid (empty).
         :return: A list containing the field names with a type and a list containing all
             the rows.
         """
@@ -555,10 +555,10 @@ class TableHandler(metaclass=jadawel_trace_methods(tracer)):
             raise MaxFieldNameLengthExceeded(max_field_name_length)
 
         if len(field_name_set.intersection(RESERVED_BASEROW_FIELD_NAMES)) > 0:
-            raise ReservedBaserowFieldNameException()
+            raise ReservedJadawelFieldNameException()
 
         if "" in field_name_set:
-            raise InvalidBaserowFieldName()
+            raise InvalidJadawelFieldName()
 
         fields_with_type = [(field_name, "text", {}) for field_name in fields]
         result = [[str(value) for value in row] for row in data]

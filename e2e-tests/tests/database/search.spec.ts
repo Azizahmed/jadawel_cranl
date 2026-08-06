@@ -1,4 +1,4 @@
-import { expect, test } from "../baserowTest";
+import { expect, test } from "../jadawelTest";
 import { TablePage } from "../../pages/database/tablePage";
 import { createUser, deleteUser, User } from "../../fixtures/user";
 import { createWorkspace, Workspace } from "../../fixtures/workspace";

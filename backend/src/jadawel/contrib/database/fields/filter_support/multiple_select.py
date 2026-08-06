@@ -19,7 +19,7 @@ from .base import (
 )
 
 if TYPE_CHECKING:
-    from jadawel.contrib.database.fields.models import Field as BaserowField
+    from jadawel.contrib.database.fields.models import Field as JadawelField
 
 
 class MultipleSelectFormulaTypeFilterSupport(
@@ -32,7 +32,7 @@ class MultipleSelectFormulaTypeFilterSupport(
         self,
         field_name: str,
         model_field: Field,
-        field: "BaserowField",
+        field: "JadawelField",
         in_array: bool = True,
     ) -> OptionallyAnnotatedQ:
         any_not_empty = get_jsonb_has_any_in_value_filter_expr(
@@ -48,7 +48,7 @@ class MultipleSelectFormulaTypeFilterSupport(
         )
 
     def get_in_array_empty_query(
-        self, field_name, model_field, field: "BaserowField"
+        self, field_name, model_field, field: "JadawelField"
     ) -> OptionallyAnnotatedQ:
         # Use get_jsonb_has_any_in_value_filter_expr with size() to check if the array
         # is empty.
@@ -61,19 +61,19 @@ class MultipleSelectFormulaTypeFilterSupport(
         field_name: str,
         value: List[int],
         model_field: Field,
-        field: "BaserowField",
+        field: "JadawelField",
     ) -> OptionallyAnnotatedQ:
         return get_jsonb_has_exact_value_filter_expr(model_field, value)
 
     def get_in_array_contains_query(
-        self, field_name: str, value: str, model_field: Field, field: "BaserowField"
+        self, field_name: str, value: str, model_field: Field, field: "JadawelField"
     ) -> OptionallyAnnotatedQ:
         return get_jsonb_contains_filter_expr(
             model_field, value, query_path="$[*].value.value"
         )
 
     def get_in_array_contains_word_query(
-        self, field_name: str, value: str, model_field: Field, field: "BaserowField"
+        self, field_name: str, value: str, model_field: Field, field: "JadawelField"
     ) -> OptionallyAnnotatedQ:
         return get_jsonb_contains_word_filter_expr(
             model_field, value, query_path="$[*].value.value"

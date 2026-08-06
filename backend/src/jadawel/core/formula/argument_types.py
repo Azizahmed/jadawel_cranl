@@ -14,7 +14,7 @@ from jadawel.core.formula.validator import (
 )
 
 
-class BaserowRuntimeFormulaArgumentType:
+class JadawelRuntimeFormulaArgumentType:
     def __init__(self, optional: Optional[bool] = False):
         self.optional = optional
 
@@ -25,7 +25,7 @@ class BaserowRuntimeFormulaArgumentType:
         return value
 
 
-class NumberBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class NumberJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def __init__(self, *args, **kwargs):
         self.cast_to_int = kwargs.pop("cast_to_int", False)
         self.cast_to_float = kwargs.pop("cast_to_float", False)
@@ -48,7 +48,7 @@ class NumberBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType)
             return value
 
 
-class TextBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class TextJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def test(self, value):
         try:
             ensure_string(value)
@@ -60,7 +60,7 @@ class TextBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
         return ensure_string(value)
 
 
-class DateTimeBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class DateTimeJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def test(self, value):
         try:
             ensure_datetime(value)
@@ -72,7 +72,7 @@ class DateTimeBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentTyp
         return ensure_datetime(value)
 
 
-class DictBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class DictJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def test(self, value):
         try:
             ensure_object(value)
@@ -84,7 +84,7 @@ class DictBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
         return ensure_object(value)
 
 
-class BooleanBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class BooleanJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def test(self, value):
         try:
             ensure_boolean(value, False)
@@ -96,7 +96,7 @@ class BooleanBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType
         return ensure_boolean(value, False)
 
 
-class TimezoneBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class TimezoneJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def test(self, value):
         if not isinstance(value, str):
             return False
@@ -107,7 +107,7 @@ class TimezoneBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentTyp
         return ensure_string(value)
 
 
-class AnyBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
+class AnyJadawelRuntimeFormulaArgumentType(JadawelRuntimeFormulaArgumentType):
     def test(self, value):
         return True
 
@@ -115,8 +115,8 @@ class AnyBaserowRuntimeFormulaArgumentType(BaserowRuntimeFormulaArgumentType):
         return value
 
 
-class ArrayOfNumbersBaserowRuntimeFormulaArgumentType(
-    BaserowRuntimeFormulaArgumentType
+class ArrayOfNumbersJadawelRuntimeFormulaArgumentType(
+    JadawelRuntimeFormulaArgumentType
 ):
     def test(self, value):
         try:

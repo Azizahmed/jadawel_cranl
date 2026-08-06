@@ -1,5 +1,5 @@
 import { createBuilderElement } from "../../../fixtures/builder/builderElement";
-import { expect, test } from "../../baserowTest";
+import { expect, test } from "../../jadawelTest";
 
 test.describe("Builder page button element test suite", () => {
   let element1, element2;

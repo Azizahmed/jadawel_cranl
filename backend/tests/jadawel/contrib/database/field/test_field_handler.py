@@ -29,7 +29,7 @@ from jadawel.contrib.database.fields.exceptions import (
     MaxFieldLimitExceeded,
     MaxFieldNameLengthExceeded,
     PrimaryFieldAlreadyExists,
-    ReservedBaserowFieldNameException,
+    ReservedJadawelFieldNameException,
     TableHasNoPrimaryField,
 )
 from jadawel.contrib.database.fields.field_constraints import (
@@ -527,10 +527,10 @@ def test_create_field(send_mock, data_fixture):
             user=user, table=table, type_name="boolean", name=boolean_field.name
         )
 
-    with pytest.raises(ReservedBaserowFieldNameException):
+    with pytest.raises(ReservedJadawelFieldNameException):
         handler.create_field(user=user, table=table, type_name="boolean", name="order")
 
-    with pytest.raises(ReservedBaserowFieldNameException):
+    with pytest.raises(ReservedJadawelFieldNameException):
         handler.create_field(user=user, table=table, type_name="boolean", name="id")
 
     field_limit = settings.MAX_FIELD_LIMIT
@@ -712,10 +712,10 @@ def test_update_field(send_mock, data_fixture):
     assert getattr(row_1, f"field_{field.id}") is False
     assert getattr(row_2, f"field_{field.id}") is False
 
-    with pytest.raises(ReservedBaserowFieldNameException):
+    with pytest.raises(ReservedJadawelFieldNameException):
         handler.update_field(user=user, field=field, name="order")
 
-    with pytest.raises(ReservedBaserowFieldNameException):
+    with pytest.raises(ReservedJadawelFieldNameException):
         handler.update_field(user=user, field=field, name="id")
 
     field_2 = data_fixture.create_text_field(table=table, order=1)

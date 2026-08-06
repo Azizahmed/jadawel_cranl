@@ -32,16 +32,16 @@ if is_psycopg3:
             except DataError:
                 return None
 
-    class BaserowDateLoader(_DateOverflowLoaderMixin, DateLoader):
+    class JadawelDateLoader(_DateOverflowLoaderMixin, DateLoader):
         pass
 
-    class BaserowDateBinaryLoader(_DateOverflowLoaderMixin, DateBinaryLoader):
+    class JadawelDateBinaryLoader(_DateOverflowLoaderMixin, DateBinaryLoader):
         pass
 
-    class BaserowTimestampLoader(_DateOverflowLoaderMixin, TimestampLoader):
+    class JadawelTimestampLoader(_DateOverflowLoaderMixin, TimestampLoader):
         pass
 
-    class BaserowTimestampBinaryLoader(_DateOverflowLoaderMixin, TimestampBinaryLoader):
+    class JadawelTimestampBinaryLoader(_DateOverflowLoaderMixin, TimestampBinaryLoader):
         pass
 
     def pg_init():
@@ -49,11 +49,11 @@ if is_psycopg3:
         Registers loaders for psycopg3 to handle date overflow.
         """
 
-        psycopg.adapters.register_loader("date", BaserowDateLoader)
-        psycopg.adapters.register_loader("date", BaserowDateBinaryLoader)
+        psycopg.adapters.register_loader("date", JadawelDateLoader)
+        psycopg.adapters.register_loader("date", JadawelDateBinaryLoader)
 
-        psycopg.adapters.register_loader("timestamp", BaserowTimestampLoader)
-        psycopg.adapters.register_loader("timestamp", BaserowTimestampBinaryLoader)
+        psycopg.adapters.register_loader("timestamp", JadawelTimestampLoader)
+        psycopg.adapters.register_loader("timestamp", JadawelTimestampBinaryLoader)
 
         # psycopg3 and timezones allow per-connection / per-cursor adapting. This is
         # done in django/db/backends/postgresql/psycopg_any.py in a hook that

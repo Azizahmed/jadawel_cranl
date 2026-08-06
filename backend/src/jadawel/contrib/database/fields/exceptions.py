@@ -131,14 +131,14 @@ class FieldWithSameNameAlreadyExists(Exception):
     """
 
 
-class ReservedBaserowFieldNameException(Exception):
+class ReservedJadawelFieldNameException(Exception):
     """
     Raised when a field is created or updated with a name that matches a reserved
     Jadawel field name.
     """
 
 
-class InvalidBaserowFieldName(Exception):
+class InvalidJadawelFieldName(Exception):
     """
     Raised when a field name is not provided or an invalid blank field name is
     provided.

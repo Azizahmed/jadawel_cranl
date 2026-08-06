@@ -4,11 +4,11 @@ from typing import Any, Dict, List, Optional, Union
 
 from django.db import connection, models
 
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.types import (
     JADAWEL_FORMULA_MODE_SIMPLE,
-    BaserowFormulaMinified,
     FormulaFieldDatabaseValue,
+    JadawelFormulaMinified,
     JSONFormulaFieldDatabaseValue,
     JSONFormulaFieldResult,
 )
@@ -67,19 +67,19 @@ class FormulaField(models.TextField):
 
     def _transform_db_value_to_dict(
         self, value: FormulaFieldDatabaseValue
-    ) -> BaserowFormulaObject:
+    ) -> JadawelFormulaObject:
         """
         Responsible for taking a `value` from our database, which could be a string
-        or dictionary, and transforming it into a `BaserowFormulaObject`.
+        or dictionary, and transforming it into a `JadawelFormulaObject`.
 
         :param value: The value from the database, either a string or dictionary.
-        :return: A `BaserowFormulaObject`.
+        :return: A `JadawelFormulaObject`.
         """
 
         # If the column type is "text", then we haven't yet migrated the schema.
         if self.db_type(connection) == "text":
             if value is None:
-                return BaserowFormulaObject.create("")
+                return JadawelFormulaObject.create("")
 
             if isinstance(value, int):
                 # A small hack for our backend tests: if we
@@ -87,21 +87,21 @@ class FormulaField(models.TextField):
                 value = str(value)
             # We could encounter a serialized object...
             if context := self._deserialize_jadawel_object(value):
-                # If we have, then we can parse it and return the `BaserowFormulaObject`
-                return BaserowFormulaObject(
+                # If we have, then we can parse it and return the `JadawelFormulaObject`
+                return JadawelFormulaObject(
                     mode=context["m"], version=context["v"], formula=context["f"]
                 )
             elif isinstance(value, str):
                 # Otherwise, it's a raw formula string, which we can wrap in a
-                # `BaserowFormulaObject` and return.
-                return BaserowFormulaObject(
+                # `JadawelFormulaObject` and return.
+                return JadawelFormulaObject(
                     formula=value,
                     mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     version=JADAWEL_FORMULA_VERSION_INITIAL,
                 )
             # It's a dictionary, so we can assume it's already a formula context.
-            # We just wrap it in a `BaserowFormulaObject` for typing purposes.
-            return BaserowFormulaObject(**value)
+            # We just wrap it in a `JadawelFormulaObject` for typing purposes.
+            return JadawelFormulaObject(**value)
         else:
             # We either have a serialized formula context, or a raw formula string.
             # Either way, we need to load it as JSON as the `FormulaField` does not
@@ -114,20 +114,20 @@ class FormulaField(models.TextField):
                     f"value '{value}' when the column type was `json`.",
                     exc_info=True,
                 )
-                return BaserowFormulaObject(
+                return JadawelFormulaObject(
                     mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     version=JADAWEL_FORMULA_VERSION_INITIAL,
                     formula="",
                 )
 
             if isinstance(value, str):
-                return BaserowFormulaObject(
+                return JadawelFormulaObject(
                     formula=value,
                     mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     version=JADAWEL_FORMULA_VERSION_INITIAL,
                 )
 
-            return BaserowFormulaObject(
+            return JadawelFormulaObject(
                 mode=value["m"], version=value["v"], formula=value["f"]
             )
 
@@ -156,44 +156,44 @@ class FormulaField(models.TextField):
 
         cls.save = save_with_to_python
 
-    def to_python(self, value: FormulaFieldDatabaseValue) -> BaserowFormulaObject:
+    def to_python(self, value: FormulaFieldDatabaseValue) -> JadawelFormulaObject:
         """
         Called during create/update and deserialization. We will call
         `_transform_db_value_to_dict` to ensure we always return a
-        `BaserowFormulaObject`.
+        `JadawelFormulaObject`.
 
         :param value: The value from the database, either a string or dictionary.
-        :return: A `BaserowFormulaObject`.
+        :return: A `JadawelFormulaObject`.
         """
 
         return self._transform_db_value_to_dict(value)
 
     def from_db_value(
         self, value: FormulaFieldDatabaseValue, *args
-    ) -> BaserowFormulaObject:
+    ) -> JadawelFormulaObject:
         """
         Called when reading from the database. We will call
         `_transform_db_value_to_dict` to ensure we always return a
-        `BaserowFormulaObject`.
+        `JadawelFormulaObject`.
 
         :param value: The value from the database, either a string or dictionary.
-        :return: A `BaserowFormulaObject`.
+        :return: A `JadawelFormulaObject`.
         """
 
         return self._transform_db_value_to_dict(value)
 
     def get_prep_value(
-        self, value: Union[str, BaserowFormulaObject]
-    ) -> Union[str, BaserowFormulaMinified]:
+        self, value: Union[str, JadawelFormulaObject]
+    ) -> Union[str, JadawelFormulaMinified]:
         """
         Responsible for converting a Python value to database value. Our Python
-        value could be a string (a raw formula string), or a `BaserowFormulaObject`.
-        We need to convert both of these into a `BaserowFormulaMinified` object
+        value could be a string (a raw formula string), or a `JadawelFormulaObject`.
+        We need to convert both of these into a `JadawelFormulaMinified` object
         (or its JSON-serialized string representation, depending on the column type).
 
-        :param value: The value to convert, either a string or `BaserowFormulaObject`.
+        :param value: The value to convert, either a string or `JadawelFormulaObject`.
         :return: Either a JSON-serialized string (if the column type is `text`)
-            or a `BaserowFormulaMinified` object (if the column type is `json`).
+            or a `JadawelFormulaMinified` object (if the column type is `json`).
         """
 
         # Mainly for defensive programming purposes: if we
@@ -201,7 +201,7 @@ class FormulaField(models.TextField):
         # We should always be receiving a string or dictionary here.
         if value is None:
             return json.dumps(
-                BaserowFormulaMinified(
+                JadawelFormulaMinified(
                     m=JADAWEL_FORMULA_MODE_SIMPLE,
                     v=JADAWEL_FORMULA_VERSION_INITIAL,
                     f="",
@@ -218,14 +218,14 @@ class FormulaField(models.TextField):
             # v2: the column type is `text`, so we need to
             # serialize the object and store it in our text field.
             if self.db_type(connection) == "text":
-                return json.dumps(BaserowFormulaMinified(m=mode, v=version, f=formula))
+                return json.dumps(JadawelFormulaMinified(m=mode, v=version, f=formula))
             # v2.1: the column type is `json`, so we can store a dict.
-            return BaserowFormulaMinified(m=mode, v=version, f=formula)
+            return JadawelFormulaMinified(m=mode, v=version, f=formula)
 
         # In v1.x the frontend will keep sending a formula ,
         # string so we need to convert it to the new format.
         return json.dumps(
-            BaserowFormulaMinified(
+            JadawelFormulaMinified(
                 f=str(value),
                 m=JADAWEL_FORMULA_MODE_SIMPLE,
                 v=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -275,30 +275,30 @@ class JSONFormulaField(models.JSONField):
 
     def _transform_db_property(
         self,
-        value: Union[str, BaserowFormulaMinified, BaserowFormulaObject],
-    ) -> BaserowFormulaObject:
+        value: Union[str, JadawelFormulaMinified, JadawelFormulaObject],
+    ) -> JadawelFormulaObject:
         """
         Responsible for taking a `value` from our database, which will be a string or
-        `BaserowFormulaMinified`, and transforming it into a `BaserowFormulaObject`.
+        `JadawelFormulaMinified`, and transforming it into a `JadawelFormulaObject`.
 
         - We will receive a formula string if we've got a legacy `JSONField` which
           hasn't yet been migrated to an object.
-        - We will receive a `BaserowFormulaMinified` if we've got a migrated object
+        - We will receive a `JadawelFormulaMinified` if we've got a migrated object
           which we've persisted to the database.
-        - We will receive a `BaserowFormulaObject` if we're being called via
+        - We will receive a `JadawelFormulaObject` if we're being called via
           `to_python`.
 
         :param value: The value from the database, either a string or dictionary.
-        :return: A `BaserowFormulaObject`.
+        :return: A `JadawelFormulaObject`.
         """
 
         if not isinstance(value, dict):
-            return BaserowFormulaObject(
+            return JadawelFormulaObject(
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 formula=value,
             )
-        return BaserowFormulaObject(
+        return JadawelFormulaObject(
             mode=value.get("m", value.get("mode")),
             version=value.get("v", value.get("version")),
             formula=value.get("f", value.get("formula")),
@@ -310,8 +310,8 @@ class JSONFormulaField(models.JSONField):
         """
         Responsible for taking a `value` from our database, which could be a
         string, dictionary, or list of dictionaries, and transforming it into a
-        `JSONFormulaFieldResult` (either a `BaserowFormulaObject` or list
-        of dictionaries containing `BaserowFormulaObject`s) at their designated paths.
+        `JSONFormulaFieldResult` (either a `JadawelFormulaObject` or list
+        of dictionaries containing `JadawelFormulaObject`s) at their designated paths.
 
         :param value: The value from the database.
         :return: A `JSONFormulaFieldResult`.
@@ -339,12 +339,12 @@ class JSONFormulaField(models.JSONField):
             # If we have a list of values to work with...
             if isinstance(property_value, list):
                 # Iterate over each item in this list, transforming the
-                # relevant property to a `BaserowFormulaObject`.
+                # relevant property to a `JadawelFormulaObject`.
                 object_list_value = []
                 for item in property_value:
                     # If there's no `child_path` (i.e. it's just "parent"),
                     # then we transform the `item[parent_path]` value. E.g.
-                    # [{parent: "formula"}] > [{parent: BaserowFormulaObject}]
+                    # [{parent: "formula"}] > [{parent: JadawelFormulaObject}]
                     if child_path is None:
                         object_value = self._transform_db_property(item[parent_path])
                         object_list_value.append(item | {parent_path: object_value})
@@ -352,7 +352,7 @@ class JSONFormulaField(models.JSONField):
                         # However if we have a `child_path` (i.e. it's "parent.child"),
                         # then we transform the `item[child_path]` value. E.g.
                         # [{parent: {child: "'formula'"}}] >
-                        #   [{parent: {child: BaserowFormulaObject}}]
+                        #   [{parent: {child: JadawelFormulaObject}}]
                         object_value = self._transform_db_property(item[child_path])
                         # Rebuild the item with the transformed value, making sure
                         # we preserve any other keys in the item.
@@ -402,40 +402,40 @@ class JSONFormulaField(models.JSONField):
         return self._transform_db_properties(value)
 
     def _transform_python_property(
-        self, value: Union[str, BaserowFormulaObject]
-    ) -> BaserowFormulaMinified:
+        self, value: Union[str, JadawelFormulaObject]
+    ) -> JadawelFormulaMinified:
         """
         Responsible for taking a `value`, which could be a string
-        or dictionary, and transforming it into a `BaserowFormulaMinified`
+        or dictionary, and transforming it into a `JadawelFormulaMinified`
         for `get_prep_value` to persist in our database.
 
         :param value: The value from the database, either a string or dictionary.
-        :return: A `BaserowFormulaMinified`.
+        :return: A `JadawelFormulaMinified`.
         """
 
         if not isinstance(value, dict):
-            return BaserowFormulaMinified(
+            return JadawelFormulaMinified(
                 m=JADAWEL_FORMULA_MODE_SIMPLE,
                 v=JADAWEL_FORMULA_VERSION_INITIAL,
                 f=value,
             )
-        return BaserowFormulaMinified(
+        return JadawelFormulaMinified(
             m=value.get("mode", JADAWEL_FORMULA_MODE_SIMPLE),
             v=value.get("version", JADAWEL_FORMULA_VERSION_INITIAL),
             f=value.get("formula", ""),
         )
 
     def get_prep_value(
-        self, value: Union[BaserowFormulaObject, List[Dict[str, BaserowFormulaObject]]]
+        self, value: Union[JadawelFormulaObject, List[Dict[str, JadawelFormulaObject]]]
     ) -> JSONFormulaFieldDatabaseValue:
         """
         Responsible for converting a Python value to database value. Our Python
-        value could be a dictionary (a `BaserowFormulaObject`), or a list
-        of dictionaries (a list of `BaserowFormulaObject`s). We need to convert
-        both of these into a `BaserowFormulaMinified` object, or a list of
-        `BaserowFormulaMinified` objects at their designated paths.
+        value could be a dictionary (a `JadawelFormulaObject`), or a list
+        of dictionaries (a list of `JadawelFormulaObject`s). We need to convert
+        both of these into a `JadawelFormulaMinified` object, or a list of
+        `JadawelFormulaMinified` objects at their designated paths.
 
-        :param value: The value to convert, either a string or `BaserowFormulaObject`.
+        :param value: The value to convert, either a string or `JadawelFormulaObject`.
         :return: A `JSONFormulaFieldDatabaseValue`.
         """
 
@@ -462,7 +462,7 @@ class JSONFormulaField(models.JSONField):
             )
             # If `value` is a dictionary, we'll extract the nested value from it.
             # However, if it's a list, then the `value` itself is our property value.
-            property_value: Union[BaserowFormulaObject, List] = (
+            property_value: Union[JadawelFormulaObject, List] = (
                 value.get(parent_path) if isinstance(value, dict) else value
             )
 
@@ -473,13 +473,13 @@ class JSONFormulaField(models.JSONField):
             # If we have a list of values to work with...
             if isinstance(property_value, list):
                 # Iterate over each item in this list, transforming the
-                # relevant property to a `BaserowFormulaMinified`.
+                # relevant property to a `JadawelFormulaMinified`.
                 minified_list_value = []
                 for item in property_value:
                     # If there's no `child_path` (i.e. it's just "parent"),
                     # then we transform the `item[parent_path]` value. E.g.
-                    # [{parent: BaserowFormulaObject}] ->
-                    #   [{parent: BaserowFormulaMinified}]
+                    # [{parent: JadawelFormulaObject}] ->
+                    #   [{parent: JadawelFormulaMinified}]
                     if child_path is None:
                         minified_value = self._transform_python_property(
                             item[parent_path]
@@ -488,8 +488,8 @@ class JSONFormulaField(models.JSONField):
                     else:
                         # However if we have a `child_path` (i.e. it's "parent.child"),
                         # then we transform the `item[child_path]` value. E.g.
-                        # [{parent: {child: BaserowFormulaObject}}] ->
-                        #   [{parent: {child: BaserowFormulaMinified}}]
+                        # [{parent: {child: JadawelFormulaObject}}] ->
+                        #   [{parent: {child: JadawelFormulaMinified}}]
                         minified_value = self._transform_python_property(
                             item[child_path]
                         )

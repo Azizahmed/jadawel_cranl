@@ -1,4 +1,4 @@
-const { unsupportedBaserowFieldTypes } = require('./constants')
+const { unsupportedJadawelFieldTypes } = require('./constants')
 
 /**
  * Fetches the fields of a table and converts them to an array with valid Zapier
@@ -19,14 +19,14 @@ const getRowInputValues = async (z, bundle) => {
   })
 
   return fieldsGetRequest.json.map(v => {
-    return mapBaserowFieldTypesToZapierTypes(v)
+    return mapJadawelFieldTypesToZapierTypes(v)
   })
 }
 
 /**
  * Fetches the fields and converts the input data to Baserow row compatible data.
  */
-const prepareInputDataForBaserow = async (z, bundle) => {
+const prepareInputDataForJadawel = async (z, bundle) => {
   if (!bundle.inputData.tableID) {
     throw new Error('The `tableID` must be provided.')
   }
@@ -46,7 +46,7 @@ const prepareInputDataForBaserow = async (z, bundle) => {
     .filter(
       (baserowField) =>
         baserowField.read_only
-          || !unsupportedBaserowFieldTypes.includes(baserowField.type)
+          || !unsupportedJadawelFieldTypes.includes(baserowField.type)
     )
     .filter((baserowField) => bundle.inputData.hasOwnProperty(baserowField.name))
     .forEach(baserowField => {
@@ -67,7 +67,7 @@ const prepareInputDataForBaserow = async (z, bundle) => {
 /**
  * Converts the provided Baserow field type object to a Zapier compatible object.
  */
-const mapBaserowFieldTypesToZapierTypes = (baserowField) => {
+const mapJadawelFieldTypesToZapierTypes = (baserowField) => {
   const zapType = {
     key: baserowField.name,
     label: baserowField.name,
@@ -137,7 +137,7 @@ const mapBaserowFieldTypesToZapierTypes = (baserowField) => {
 
   if (
     baserowField.read_only
-    || unsupportedBaserowFieldTypes.includes(baserowField.type)
+    || unsupportedJadawelFieldTypes.includes(baserowField.type)
   ) {
     // Read only and the file field are not supported.
     return
@@ -148,6 +148,6 @@ const mapBaserowFieldTypesToZapierTypes = (baserowField) => {
 
 module.exports = {
   getRowInputValues,
-  prepareInputDataForBaserow,
-  mapBaserowFieldTypesToZapierTypes,
+  prepareInputDataForJadawel,
+  mapJadawelFieldTypesToZapierTypes,
 }

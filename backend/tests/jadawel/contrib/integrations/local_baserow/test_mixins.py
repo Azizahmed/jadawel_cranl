@@ -17,7 +17,7 @@ from jadawel.contrib.integrations.local_baserow.mixins import (
 from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowTableServiceType,
 )
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.handler import CoreHandler
 from jadawel.core.registries import ImportExportConfig
 from jadawel.core.services.exceptions import (
@@ -475,7 +475,7 @@ def test_local_baserow_table_service_searchable_mixin_get_table_queryset(
     ] == [alessia.id, alex.id, alastair.id, alexandra.id]
 
     # Add a service level search query
-    service.search_query = BaserowFormulaObject(
+    service.search_query = JadawelFormulaObject(
         formula="'Ale'", mode="simple", version="0.1"
     )
 

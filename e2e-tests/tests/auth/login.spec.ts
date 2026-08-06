@@ -1,4 +1,4 @@
-import { test } from "../baserowTest";
+import { test } from "../jadawelTest";
 import { LoginPage } from "../../pages/loginPage";
 import { WorkspacePage } from "../../pages/workspacePage";
 import { createUser, deleteUser, User } from "../../fixtures/user";

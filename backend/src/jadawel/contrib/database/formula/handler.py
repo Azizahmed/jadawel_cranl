@@ -7,12 +7,12 @@ from opentelemetry import trace
 
 from jadawel.contrib.database.fields.dependencies.types import FieldDependencies
 from jadawel.contrib.database.fields.field_cache import FieldCache
-from jadawel.contrib.database.formula.ast.function import CollapseManyBaserowFunction
+from jadawel.contrib.database.formula.ast.function import CollapseManyJadawelFunction
 from jadawel.contrib.database.formula.ast.tree import (
-    BaserowExpression,
-    BaserowFieldReference,
-    BaserowFunctionCall,
-    BaserowFunctionDefinition,
+    JadawelExpression,
+    JadawelFieldReference,
+    JadawelFunctionCall,
+    JadawelFunctionDefinition,
 )
 from jadawel.contrib.database.formula.expression_generator.generator import (
     jadawel_expression_to_insert_django_expression,
@@ -23,13 +23,13 @@ from jadawel.contrib.database.formula.migrations.migrations import (
     JADAWEL_FORMULA_VERSION,
 )
 from jadawel.contrib.database.formula.parser.ast_mapper import (
-    BaserowFieldReferenceVisitor,
+    JadawelFieldReferenceVisitor,
     raw_formula_to_untyped_expression,
 )
 from jadawel.contrib.database.formula.parser.update_field_names import (
     update_field_names,
 )
-from jadawel.contrib.database.formula.types.formula_type import BaserowFormulaType
+from jadawel.contrib.database.formula.types.formula_type import JadawelFormulaType
 from jadawel.contrib.database.formula.types.formula_types import (
     _lookup_formula_type_from_string,
     literal,
@@ -42,7 +42,7 @@ from jadawel.contrib.database.formula.types.visitors import (
     FieldDependencyExtractingVisitor,
     FunctionsUsedVisitor,
 )
-from jadawel.core.formula import BaserowFormulaException
+from jadawel.core.formula import JadawelFormulaException
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 from jadawel.core.telemetry.utils import jadawel_trace_methods
 
@@ -53,14 +53,14 @@ if typing.TYPE_CHECKING:
 tracer = trace.get_tracer(__name__)
 
 
-def _needs_periodic_update(expression: BaserowExpression):
-    functions_used: Set[BaserowFunctionDefinition] = expression.accept(
+def _needs_periodic_update(expression: JadawelExpression):
+    functions_used: Set[JadawelFunctionDefinition] = expression.accept(
         FunctionsUsedVisitor()
     )
     return any(getattr(f, "needs_periodic_update", False) for f in functions_used)
 
 
-def _expression_requires_refresh_after_insert(expression: BaserowExpression):
+def _expression_requires_refresh_after_insert(expression: JadawelExpression):
     """
     WARNING: This function is directly used by migration code. Please ensure
     backwards compatibility when adding fields etc.
@@ -80,7 +80,7 @@ def _expression_requires_refresh_after_insert(expression: BaserowExpression):
         # this in the insert statement as it doesn't have an id yet.
         return True
 
-    functions_used: Set[BaserowFunctionDefinition] = expression.accept(
+    functions_used: Set[JadawelFunctionDefinition] = expression.accept(
         FunctionsUsedVisitor()
     )
     return any(f.requires_refresh_after_insert for f in functions_used)
@@ -91,8 +91,8 @@ def _has_lookup_expressions(expression):
     if expr.is_wrapper:
         expr = expr.args[0]
 
-    return isinstance(expr, BaserowFunctionCall) and isinstance(
-        expr.function_def, CollapseManyBaserowFunction
+    return isinstance(expr, JadawelFunctionCall) and isinstance(
+        expr.function_def, CollapseManyJadawelFunction
     )
 
 
@@ -104,7 +104,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
 
     @classmethod
     def jadawel_expression_to_update_django_expression(
-        cls, expression: BaserowExpression, model: Type[Model]
+        cls, expression: JadawelExpression, model: Type[Model]
     ) -> Expression:
         """
         Converts the provided jadawel expression to a django expression that can be
@@ -123,7 +123,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
     @classmethod
     def jadawel_expression_to_row_update_django_expression(
         cls,
-        expression: BaserowExpression,
+        expression: JadawelExpression,
         model_instance: Model,
     ) -> Expression:
         """
@@ -147,7 +147,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
     @classmethod
     def jadawel_expression_to_insert_django_expression(
         cls,
-        expression: BaserowExpression,
+        expression: JadawelExpression,
         model_instance: Model,
     ) -> Expression:
         """
@@ -173,8 +173,8 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
 
     @classmethod
     def get_normal_field_reference_expression(
-        cls, field, formula_type: BaserowFormulaType
-    ) -> BaserowExpression:
+        cls, field, formula_type: JadawelFormulaType
+    ) -> JadawelExpression:
         """
         Returns the Jadawel Expression that represents internally a normal Jadawel
         field in a formula. Non normal fields are link row fields and any field type
@@ -187,7 +187,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
             a reference to field.
         """
 
-        return BaserowFieldReference[BaserowFormulaType](
+        return JadawelFieldReference[JadawelFormulaType](
             f"field_{field.id}", None, formula_type
         )
 
@@ -230,7 +230,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
 
     @classmethod
     def get_field_dependencies_from_expression(
-        cls, source_field, expression: BaserowExpression, table, field_cache
+        cls, source_field, expression: JadawelExpression, table, field_cache
     ) -> FieldDependencies:
         """
         Helper method that returns a the field dependencies of a given expression.
@@ -268,7 +268,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
     @classmethod
     def raw_formula_to_untyped_expression(cls, formula_string):
         """
-        Converts the provided formula string to an untyped BaserowExpression which is
+        Converts the provided formula string to an untyped JadawelExpression which is
         an intermediate representation of the formula consisting of a tree of python
         objects. This form is much easier to inspect, transform and perform calculations
         on compared to the raw string.
@@ -280,14 +280,14 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
         return raw_formula_to_untyped_expression(formula_string)
 
     @classmethod
-    def get_formula_type_from_field(cls, formula_field) -> BaserowFormulaType:
+    def get_formula_type_from_field(cls, formula_field) -> JadawelFormulaType:
         """
         Looks up the formula type stored in the database for the provided formula field
         and returns it.
 
         :param formula_field: An instance of a formula field whose type stored in the
             database should be looked up and returned.
-        :return: Returns a populated instance of a BaserowFormulaType object which
+        :return: Returns a populated instance of a JadawelFormulaType object which
             represents the stored type for the formula field.
         """
 
@@ -297,7 +297,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
     @classmethod
     def get_typed_internal_expression_from_field(
         cls, formula_field
-    ) -> BaserowExpression[BaserowFormulaType]:
+    ) -> JadawelExpression[JadawelFormulaType]:
         """
         Returns a typed expression which can be directly translated to a Django
         Expression using the two jadawel_expression_to_{update,insert}_django_expression
@@ -350,7 +350,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
 
         try:
             expression = calculate_typed_expression(formula_field, field_cache)
-        except BaserowFormulaException as e:
+        except JadawelFormulaException as e:
             expression = literal("").with_invalid_type(str(e))
 
         expression_type = expression.expression_type
@@ -392,7 +392,7 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
         """
 
         tree = get_parse_tree_for_formula(formula)
-        dependency_field_names = tree.accept(BaserowFieldReferenceVisitor()) or set()
+        dependency_field_names = tree.accept(JadawelFieldReferenceVisitor()) or set()
         return dependency_field_names
 
     @classmethod
@@ -432,4 +432,4 @@ class FormulaHandler(metaclass=jadawel_trace_methods(tracer)):
             db_column = "unknown"
         else:
             db_column = primary_field.db_column
-        return BaserowFieldReference(field.db_column, db_column, formula_type)
+        return JadawelFieldReference(field.db_column, db_column, formula_type)

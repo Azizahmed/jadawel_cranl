@@ -6,13 +6,13 @@ from mcp.shared.memory import (
     create_connected_server_and_client_session as client_session,
 )
 
-from jadawel.core.mcp import BaserowMCPServer, current_key
+from jadawel.core.mcp import JadawelMCPServer, current_key
 
 
 @pytest.mark.django_db
 def test_create_server():
     async def inner():
-        mcp = BaserowMCPServer()
+        mcp = JadawelMCPServer()
         assert mcp._mcp_server.name == "Baserow MCP"
         assert "Baserow" in mcp._mcp_server.instructions
 
@@ -22,7 +22,7 @@ def test_create_server():
 
 @pytest.mark.django_db
 def test_get_endpoint_invalid_key(data_fixture):
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
 
     key_token = current_key.set("test-key")
 
@@ -44,7 +44,7 @@ def test_get_endpoint_user_not_part_of_workspace(data_fixture):
     workspace = data_fixture.create_workspace()
     endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
 
     key_token = current_key.set(endpoint.key)
 
@@ -67,7 +67,7 @@ def test_get_valid_endpoint(data_fixture):
     workspace = data_fixture.create_workspace(user=user)
     endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
 
     key_token = current_key.set(endpoint.key)
 
@@ -86,7 +86,7 @@ def test_get_valid_endpoint(data_fixture):
 
 @pytest.mark.django_db
 def test_list_tools_without_endpoint_key(data_fixture):
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set("test-key")
 
     try:
@@ -107,7 +107,7 @@ def test_list_tools_without_endpoint_key(data_fixture):
 @pytest.mark.django_db
 def test_list_tools_with_valid_endpoint_key(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint()
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -127,7 +127,7 @@ def test_list_tools_with_valid_endpoint_key(data_fixture):
 
 @pytest.mark.django_db
 def test_call_tool_without_endpoint_key(data_fixture):
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
 
     key_token = current_key.set("test-key")
 

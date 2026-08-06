@@ -1,9 +1,9 @@
 from typing import Dict, Optional
 
 from jadawel.core.formula.parser.exceptions import MaximumFormulaSizeError
-from jadawel.core.formula.parser.generated.BaserowFormula import BaserowFormula
-from jadawel.core.formula.parser.generated.BaserowFormulaVisitor import (
-    BaserowFormulaVisitor,
+from jadawel.core.formula.parser.generated.JadawelFormula import JadawelFormula
+from jadawel.core.formula.parser.generated.JadawelFormulaVisitor import (
+    JadawelFormulaVisitor,
 )
 from jadawel.core.formula.parser.parser import (
     convert_string_literal_token_to_string,
@@ -13,9 +13,9 @@ from jadawel.core.formula.parser.parser import (
 
 
 # noinspection DuplicatedCode
-class UpdateFieldNameFormulaVisitor(BaserowFormulaVisitor):
+class UpdateFieldNameFormulaVisitor(JadawelFormulaVisitor):
     """
-    Visits nodes of the BaserowFormula antlr parse tree returning the formula in string
+    Visits nodes of the JadawelFormula antlr parse tree returning the formula in string
     form, but with field(name) and field_by_id(id) references replaced according to the
     input dictionaries.
     """
@@ -39,42 +39,42 @@ class UpdateFieldNameFormulaVisitor(BaserowFormulaVisitor):
         self.field_ids_to_replace_with_name_refs = field_ids_to_replace_with_name_refs
         self.via_field = via_field
 
-    def visitRoot(self, ctx: BaserowFormula.RootContext):
+    def visitRoot(self, ctx: JadawelFormula.RootContext):
         return ctx.expr().accept(self)
 
-    def visitStringLiteral(self, ctx: BaserowFormula.StringLiteralContext):
+    def visitStringLiteral(self, ctx: JadawelFormula.StringLiteralContext):
         return ctx.getText()
 
-    def visitDecimalLiteral(self, ctx: BaserowFormula.DecimalLiteralContext):
+    def visitDecimalLiteral(self, ctx: JadawelFormula.DecimalLiteralContext):
         return ctx.getText()
 
-    def visitBooleanLiteral(self, ctx: BaserowFormula.BooleanLiteralContext):
+    def visitBooleanLiteral(self, ctx: JadawelFormula.BooleanLiteralContext):
         return ctx.getText()
 
-    def visitBrackets(self, ctx: BaserowFormula.BracketsContext):
+    def visitBrackets(self, ctx: JadawelFormula.BracketsContext):
         inner_expr = ctx.expr().accept(self)
         return f"({inner_expr})"
 
-    def visitFunctionCall(self, ctx: BaserowFormula.FunctionCallContext):
+    def visitFunctionCall(self, ctx: JadawelFormula.FunctionCallContext):
         function_name = ctx.func_name().getText()
         args = [expr.accept(self) for expr in (ctx.expr())]
         args_with_any_field_names_replaced = ",".join(args)
         return f"{function_name}({args_with_any_field_names_replaced})"
 
-    def visitBinaryOp(self, ctx: BaserowFormula.BinaryOpContext):
+    def visitBinaryOp(self, ctx: JadawelFormula.BinaryOpContext):
         args = [expr.accept(self) for expr in (ctx.expr())]
         return args[0] + ctx.op.text + args[1]
 
-    def visitFunc_name(self, ctx: BaserowFormula.Func_nameContext):
+    def visitFunc_name(self, ctx: JadawelFormula.Func_nameContext):
         return ctx.getText()
 
-    def visitIdentifier(self, ctx: BaserowFormula.IdentifierContext):
+    def visitIdentifier(self, ctx: JadawelFormula.IdentifierContext):
         return ctx.getText()
 
-    def visitIntegerLiteral(self, ctx: BaserowFormula.IntegerLiteralContext):
+    def visitIntegerLiteral(self, ctx: JadawelFormula.IntegerLiteralContext):
         return ctx.getText()
 
-    def visitFieldReference(self, ctx: BaserowFormula.FieldReferenceContext):
+    def visitFieldReference(self, ctx: JadawelFormula.FieldReferenceContext):
         reference = ctx.field_reference()
         is_single_quote_ref = reference.SINGLEQ_STRING_LITERAL()
         field_name = convert_string_literal_token_to_string(
@@ -96,7 +96,7 @@ class UpdateFieldNameFormulaVisitor(BaserowFormulaVisitor):
             return ctx.getText()
 
     def visitLookupFieldReference(
-        self, ctx: BaserowFormula.LookupFieldReferenceContext
+        self, ctx: JadawelFormula.LookupFieldReferenceContext
     ):
         reference = ctx.field_reference(0)
         is_single_quote_ref = reference.SINGLEQ_STRING_LITERAL()
@@ -141,7 +141,7 @@ class UpdateFieldNameFormulaVisitor(BaserowFormulaVisitor):
         )
         return escaped_new_name
 
-    def visitFieldByIdReference(self, ctx: BaserowFormula.FieldByIdReferenceContext):
+    def visitFieldByIdReference(self, ctx: JadawelFormula.FieldByIdReferenceContext):
         field_id = int(str(ctx.INTEGER_LITERAL()))
         if field_id not in self.field_ids_to_replace_with_name_refs:
             return f"field('unknown field {field_id}')"
@@ -150,13 +150,13 @@ class UpdateFieldNameFormulaVisitor(BaserowFormulaVisitor):
         return f"field({escaped_new_name})"
 
     def visitLeftWhitespaceOrComments(
-        self, ctx: BaserowFormula.LeftWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.LeftWhitespaceOrCommentsContext
     ):
         updated_expr = ctx.expr().accept(self)
         return ctx.ws_or_comment().getText() + updated_expr
 
     def visitRightWhitespaceOrComments(
-        self, ctx: BaserowFormula.RightWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.RightWhitespaceOrCommentsContext
     ):
         updated_expr = ctx.expr().accept(self)
         return updated_expr + ctx.ws_or_comment().getText()

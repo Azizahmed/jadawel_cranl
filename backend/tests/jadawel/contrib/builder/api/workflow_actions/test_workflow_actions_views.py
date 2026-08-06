@@ -33,7 +33,7 @@ from jadawel.contrib.integrations.local_baserow.service_types import (
 )
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, BaserowFormulaObject
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, JadawelFormulaObject
 
 
 @pytest.mark.django_db
@@ -397,7 +397,7 @@ def test_create_create_row_workflow_action(api_client, data_fixture):
     assert response_json["service"] == {
         "id": workflow_action.service_id,
         "integration_id": None,
-        "row_id": BaserowFormulaObject(
+        "row_id": JadawelFormulaObject(
             formula="",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -463,7 +463,7 @@ def test_update_create_row_workflow_action(api_client, data_fixture):
     assert response_json["service"]["field_mappings"] == [
         {
             "field_id": field.id,
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="'Pony'",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -505,7 +505,7 @@ def test_create_update_row_workflow_action(api_client, data_fixture):
         "integration_id": None,
         "type": LocalBaserowUpsertRowServiceType.type,
         "schema": None,
-        "row_id": BaserowFormulaObject(
+        "row_id": JadawelFormulaObject(
             formula="",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -580,7 +580,7 @@ def test_update_update_row_workflow_action(api_client, data_fixture):
     assert response_json["service"]["field_mappings"] == [
         {
             "field_id": field.id,
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="'Pony'",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -1203,7 +1203,7 @@ def test_create_delete_row_workflow_action(api_client, data_fixture):
     assert response_json["service"] == {
         "id": workflow_action.service_id,
         "integration_id": None,
-        "row_id": BaserowFormulaObject(
+        "row_id": JadawelFormulaObject(
             formula="",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,

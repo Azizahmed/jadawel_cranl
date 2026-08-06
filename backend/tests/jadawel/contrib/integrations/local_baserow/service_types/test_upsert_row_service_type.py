@@ -19,7 +19,7 @@ from jadawel.contrib.integrations.local_baserow.models import (
 from jadawel.contrib.integrations.local_baserow.service_types import (
     LocalBaserowUpsertRowServiceType,
 )
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.handler import CoreHandler
@@ -591,7 +591,7 @@ def test_local_baserow_upsert_row_service_resolve_service_formulas(
     dispatch_context = FakeDispatchContext()
 
     # We're creating a row.
-    service.row_id = BaserowFormulaObject(
+    service.row_id = JadawelFormulaObject(
         formula="",
         mode=JADAWEL_FORMULA_MODE_SIMPLE,
         version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -599,7 +599,7 @@ def test_local_baserow_upsert_row_service_resolve_service_formulas(
     assert service_type.resolve_service_formulas(service, dispatch_context) == {}
 
     # We're updating a row, but the ID isn't an integer
-    service.row_id = BaserowFormulaObject(
+    service.row_id = JadawelFormulaObject(
         formula="'horse'",
         mode=JADAWEL_FORMULA_MODE_SIMPLE,
         version=JADAWEL_FORMULA_VERSION_INITIAL,

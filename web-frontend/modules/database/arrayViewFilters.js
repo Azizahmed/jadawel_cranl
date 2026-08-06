@@ -9,8 +9,8 @@ import {
 import viewFilterTypeText from '@jadawel/modules/database/components/view/ViewFilterTypeText.vue'
 import ViewFilterTypeMultipleSelectOptions from '@jadawel/modules/database/components/view/ViewFilterTypeMultipleSelectOptions'
 import {
-  BaserowFormulaDurationType,
-  BaserowFormulaNumberType,
+  JadawelFormulaDurationType,
+  JadawelFormulaNumberType,
 } from '@jadawel/modules/database/formula/formulaTypes'
 import { ComparisonOperator } from '@jadawel/modules/database//utils/fieldFilters'
 import { mix } from '@jadawel/modules/core/mixins'
@@ -384,8 +384,8 @@ export class HasValueHigherThanViewFilterType extends ViewFilterType {
   getCompatibleFieldTypes() {
     return [
       FormulaFieldType.compatibleWithFormulaTypes(
-        FormulaFieldType.arrayOf(BaserowFormulaNumberType.getType()),
-        FormulaFieldType.arrayOf(BaserowFormulaDurationType.getType())
+        FormulaFieldType.arrayOf(JadawelFormulaNumberType.getType()),
+        FormulaFieldType.arrayOf(JadawelFormulaDurationType.getType())
       ),
     ]
   }
@@ -448,8 +448,8 @@ export class HasValueHigherThanOrEqualViewFilterType extends ViewFilterType {
   getCompatibleFieldTypes() {
     return [
       FormulaFieldType.compatibleWithFormulaTypes(
-        FormulaFieldType.arrayOf(BaserowFormulaNumberType.getType()),
-        FormulaFieldType.arrayOf(BaserowFormulaDurationType.getType())
+        FormulaFieldType.arrayOf(JadawelFormulaNumberType.getType()),
+        FormulaFieldType.arrayOf(JadawelFormulaDurationType.getType())
       ),
     ]
   }
@@ -512,8 +512,8 @@ export class HasValueLowerThanViewFilterType extends ViewFilterType {
   getCompatibleFieldTypes() {
     return [
       FormulaFieldType.compatibleWithFormulaTypes(
-        FormulaFieldType.arrayOf(BaserowFormulaNumberType.getType()),
-        FormulaFieldType.arrayOf(BaserowFormulaDurationType.getType())
+        FormulaFieldType.arrayOf(JadawelFormulaNumberType.getType()),
+        FormulaFieldType.arrayOf(JadawelFormulaDurationType.getType())
       ),
     ]
   }
@@ -576,8 +576,8 @@ export class HasValueLowerThanOrEqualViewFilterType extends ViewFilterType {
   getCompatibleFieldTypes() {
     return [
       FormulaFieldType.compatibleWithFormulaTypes(
-        FormulaFieldType.arrayOf(BaserowFormulaNumberType.getType()),
-        FormulaFieldType.arrayOf(BaserowFormulaDurationType.getType())
+        FormulaFieldType.arrayOf(JadawelFormulaNumberType.getType()),
+        FormulaFieldType.arrayOf(JadawelFormulaDurationType.getType())
       ),
     ]
   }

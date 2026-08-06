@@ -1,7 +1,7 @@
-import { BaserowPlugin } from '@jadawel/modules/core/plugins'
+import { JadawelPlugin } from '@jadawel/modules/core/plugins'
 import DatabaseDashboardResourceLinks from '@jadawel/modules/database/components/dashboard/DatabaseDashboardResourceLinks'
 
-export class DatabasePlugin extends BaserowPlugin {
+export class DatabasePlugin extends JadawelPlugin {
   static getType() {
     return 'database'
   }

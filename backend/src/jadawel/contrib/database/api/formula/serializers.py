@@ -23,7 +23,7 @@ class TypeFormulaResultSerializer(serializers.ModelSerializer):
         )
 
 
-class BaserowFormulaSelectOptionsSerializer(serializers.ListField):
+class JadawelFormulaSelectOptionsSerializer(serializers.ListField):
     def to_representation(self, data):
         from jadawel.contrib.database.fields.models import SelectOption
 

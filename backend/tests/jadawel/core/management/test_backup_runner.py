@@ -8,8 +8,8 @@ from django.db import connection
 import pytest
 from freezegun import freeze_time
 
-from jadawel.core.management.backup.backup_runner import BaserowBackupRunner
-from jadawel.core.management.backup.exceptions import InvalidBaserowBackupArchive
+from jadawel.core.management.backup.backup_runner import JadawelBackupRunner
+from jadawel.core.management.backup.exceptions import InvalidJadawelBackupArchive
 from jadawel.core.psycopg import is_psycopg3, psycopg
 from jadawel.test_utils.helpers import setup_interesting_test_table
 
@@ -26,7 +26,7 @@ def test_can_backup_and_restore_jadawel_reverting_changes(
     password = connection.settings_dict["PASSWORD"]
     environ["PGPASSWORD"] = password
 
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=username,
@@ -45,7 +45,7 @@ def test_can_backup_and_restore_jadawel_reverting_changes(
         runner.backup_jadawel(backup_loc, batch_size=1)
         assert Path(backup_loc).is_file()
 
-        restore_runner = BaserowBackupRunner(
+        restore_runner = JadawelBackupRunner(
             host=host,
             database=temporary_database,
             username=username,
@@ -89,7 +89,7 @@ def test_backup_jadawel_dumps_database_in_batches(
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
 
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -168,7 +168,7 @@ def test_can_change_num_jobs_and_insert_extra_args_for_jadawel_backup(
     num_jobs = 5
     extra_arg = "--should_appear_in_all_pg_dump_calls"
 
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -250,7 +250,7 @@ def test_backup_jadawel_table_batches_includes_all_tables_when_final_batch_small
     host = connection.settings_dict["HOST"]
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -309,7 +309,7 @@ def test_backup_jadawel_includes_all_tables_when_batch_size_matches_num_tables(
     host = connection.settings_dict["HOST"]
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -355,7 +355,7 @@ def test_backup_jadawel_does_no_table_batches_when_no_user_tables_found(
     host = connection.settings_dict["HOST"]
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -389,7 +389,7 @@ def test_restore_jadawel_restores_contained_dumps_in_batches(
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
 
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -453,7 +453,7 @@ def test_restore_jadawel_passes_extra_args_to_all_pg_restores_and_can_set_jobs(
     port = str(connection.settings_dict["PORT"])
 
     num_jobs = 5
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -518,7 +518,7 @@ def test_restore_jadawel_only_does_first_restore_if_no_user_tables(
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
 
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -565,7 +565,7 @@ def test_restore_jadawel_raises_exception_if_sub_folder_not_found_after_extract(
     user = connection.settings_dict["USER"]
     port = str(connection.settings_dict["PORT"])
 
-    runner = BaserowBackupRunner(
+    runner = JadawelBackupRunner(
         host=host,
         database=dbname,
         username=user,
@@ -573,7 +573,7 @@ def test_restore_jadawel_raises_exception_if_sub_folder_not_found_after_extract(
         jobs=1,
     )
 
-    with pytest.raises(InvalidBaserowBackupArchive):
+    with pytest.raises(InvalidJadawelBackupArchive):
         runner.restore_jadawel("backup.tar.gz")
 
     mock_check_output.assert_not_called()

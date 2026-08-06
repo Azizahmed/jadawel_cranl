@@ -1365,9 +1365,9 @@ class FieldType(
         :return: The Jadawel Formula Type that represents this field in a formula.
         """
 
-        from jadawel.contrib.database.formula import BaserowFormulaInvalidType
+        from jadawel.contrib.database.formula import JadawelFormulaInvalidType
 
-        return BaserowFormulaInvalidType(
+        return JadawelFormulaInvalidType(
             f"A field of type {self.type} cannot be referenced in a Jadawel formula."
         )
 

@@ -1,4 +1,4 @@
-# Generated from BaserowFormula.g4 by ANTLR 4.9
+# Generated from JadawelFormula.g4 by ANTLR 4.9
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -48,9 +48,9 @@ def serializedATN():
         return buf.getvalue()
 
 
-class BaserowFormula ( Parser ):
+class JadawelFormula ( Parser ):
 
-    grammarFileName = "BaserowFormula.g4"
+    grammarFileName = "JadawelFormula.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -204,14 +204,14 @@ class BaserowFormula ( Parser ):
             self.parser = parser
 
         def expr(self):
-            return self.getTypedRuleContext(BaserowFormula.ExprContext,0)
+            return self.getTypedRuleContext(JadawelFormula.ExprContext,0)
 
 
         def EOF(self):
-            return self.getToken(BaserowFormula.EOF, 0)
+            return self.getToken(JadawelFormula.EOF, 0)
 
         def getRuleIndex(self):
-            return BaserowFormula.RULE_root
+            return JadawelFormula.RULE_root
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRoot" ):
@@ -232,14 +232,14 @@ class BaserowFormula ( Parser ):
 
     def root(self):
 
-        localctx = BaserowFormula.RootContext(self, self._ctx, self.state)
+        localctx = JadawelFormula.RootContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_root)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 12
             self.expr(0)
             self.state = 13
-            self.match(BaserowFormula.EOF)
+            self.match(JadawelFormula.EOF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -257,7 +257,7 @@ class BaserowFormula ( Parser ):
 
 
         def getRuleIndex(self):
-            return BaserowFormula.RULE_expr
+            return JadawelFormula.RULE_expr
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -266,19 +266,19 @@ class BaserowFormula ( Parser ):
 
     class FieldReferenceContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FIELD(self):
-            return self.getToken(BaserowFormula.FIELD, 0)
+            return self.getToken(JadawelFormula.FIELD, 0)
         def OPEN_PAREN(self):
-            return self.getToken(BaserowFormula.OPEN_PAREN, 0)
+            return self.getToken(JadawelFormula.OPEN_PAREN, 0)
         def field_reference(self):
-            return self.getTypedRuleContext(BaserowFormula.Field_referenceContext,0)
+            return self.getTypedRuleContext(JadawelFormula.Field_referenceContext,0)
 
         def CLOSE_PAREN(self):
-            return self.getToken(BaserowFormula.CLOSE_PAREN, 0)
+            return self.getToken(JadawelFormula.CLOSE_PAREN, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFieldReference" ):
@@ -297,14 +297,14 @@ class BaserowFormula ( Parser ):
 
     class StringLiteralContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def SINGLEQ_STRING_LITERAL(self):
-            return self.getToken(BaserowFormula.SINGLEQ_STRING_LITERAL, 0)
+            return self.getToken(JadawelFormula.SINGLEQ_STRING_LITERAL, 0)
         def DOUBLEQ_STRING_LITERAL(self):
-            return self.getToken(BaserowFormula.DOUBLEQ_STRING_LITERAL, 0)
+            return self.getToken(JadawelFormula.DOUBLEQ_STRING_LITERAL, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStringLiteral" ):
@@ -323,17 +323,17 @@ class BaserowFormula ( Parser ):
 
     class BracketsContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def OPEN_PAREN(self):
-            return self.getToken(BaserowFormula.OPEN_PAREN, 0)
+            return self.getToken(JadawelFormula.OPEN_PAREN, 0)
         def expr(self):
-            return self.getTypedRuleContext(BaserowFormula.ExprContext,0)
+            return self.getTypedRuleContext(JadawelFormula.ExprContext,0)
 
         def CLOSE_PAREN(self):
-            return self.getToken(BaserowFormula.CLOSE_PAREN, 0)
+            return self.getToken(JadawelFormula.CLOSE_PAREN, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBrackets" ):
@@ -352,14 +352,14 @@ class BaserowFormula ( Parser ):
 
     class BooleanLiteralContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def TRUE(self):
-            return self.getToken(BaserowFormula.TRUE, 0)
+            return self.getToken(JadawelFormula.TRUE, 0)
         def FALSE(self):
-            return self.getToken(BaserowFormula.FALSE, 0)
+            return self.getToken(JadawelFormula.FALSE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBooleanLiteral" ):
@@ -378,15 +378,15 @@ class BaserowFormula ( Parser ):
 
     class RightWhitespaceOrCommentsContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(BaserowFormula.ExprContext,0)
+            return self.getTypedRuleContext(JadawelFormula.ExprContext,0)
 
         def ws_or_comment(self):
-            return self.getTypedRuleContext(BaserowFormula.Ws_or_commentContext,0)
+            return self.getTypedRuleContext(JadawelFormula.Ws_or_commentContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -406,12 +406,12 @@ class BaserowFormula ( Parser ):
 
     class DecimalLiteralContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def NUMERIC_LITERAL(self):
-            return self.getToken(BaserowFormula.NUMERIC_LITERAL, 0)
+            return self.getToken(JadawelFormula.NUMERIC_LITERAL, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDecimalLiteral" ):
@@ -430,15 +430,15 @@ class BaserowFormula ( Parser ):
 
     class LeftWhitespaceOrCommentsContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def ws_or_comment(self):
-            return self.getTypedRuleContext(BaserowFormula.Ws_or_commentContext,0)
+            return self.getTypedRuleContext(JadawelFormula.Ws_or_commentContext,0)
 
         def expr(self):
-            return self.getTypedRuleContext(BaserowFormula.ExprContext,0)
+            return self.getTypedRuleContext(JadawelFormula.ExprContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -458,28 +458,28 @@ class BaserowFormula ( Parser ):
 
     class FunctionCallContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def func_name(self):
-            return self.getTypedRuleContext(BaserowFormula.Func_nameContext,0)
+            return self.getTypedRuleContext(JadawelFormula.Func_nameContext,0)
 
         def OPEN_PAREN(self):
-            return self.getToken(BaserowFormula.OPEN_PAREN, 0)
+            return self.getToken(JadawelFormula.OPEN_PAREN, 0)
         def CLOSE_PAREN(self):
-            return self.getToken(BaserowFormula.CLOSE_PAREN, 0)
+            return self.getToken(JadawelFormula.CLOSE_PAREN, 0)
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(BaserowFormula.ExprContext)
+                return self.getTypedRuleContexts(JadawelFormula.ExprContext)
             else:
-                return self.getTypedRuleContext(BaserowFormula.ExprContext,i)
+                return self.getTypedRuleContext(JadawelFormula.ExprContext,i)
 
         def COMMA(self, i:int=None):
             if i is None:
-                return self.getTokens(BaserowFormula.COMMA)
+                return self.getTokens(JadawelFormula.COMMA)
             else:
-                return self.getToken(BaserowFormula.COMMA, i)
+                return self.getToken(JadawelFormula.COMMA, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunctionCall" ):
@@ -498,18 +498,18 @@ class BaserowFormula ( Parser ):
 
     class FieldByIdReferenceContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def FIELDBYID(self):
-            return self.getToken(BaserowFormula.FIELDBYID, 0)
+            return self.getToken(JadawelFormula.FIELDBYID, 0)
         def OPEN_PAREN(self):
-            return self.getToken(BaserowFormula.OPEN_PAREN, 0)
+            return self.getToken(JadawelFormula.OPEN_PAREN, 0)
         def INTEGER_LITERAL(self):
-            return self.getToken(BaserowFormula.INTEGER_LITERAL, 0)
+            return self.getToken(JadawelFormula.INTEGER_LITERAL, 0)
         def CLOSE_PAREN(self):
-            return self.getToken(BaserowFormula.CLOSE_PAREN, 0)
+            return self.getToken(JadawelFormula.CLOSE_PAREN, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFieldByIdReference" ):
@@ -528,26 +528,26 @@ class BaserowFormula ( Parser ):
 
     class LookupFieldReferenceContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LOOKUP(self):
-            return self.getToken(BaserowFormula.LOOKUP, 0)
+            return self.getToken(JadawelFormula.LOOKUP, 0)
         def OPEN_PAREN(self):
-            return self.getToken(BaserowFormula.OPEN_PAREN, 0)
+            return self.getToken(JadawelFormula.OPEN_PAREN, 0)
         def field_reference(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(BaserowFormula.Field_referenceContext)
+                return self.getTypedRuleContexts(JadawelFormula.Field_referenceContext)
             else:
-                return self.getTypedRuleContext(BaserowFormula.Field_referenceContext,i)
+                return self.getTypedRuleContext(JadawelFormula.Field_referenceContext,i)
 
         def COMMA(self):
-            return self.getToken(BaserowFormula.COMMA, 0)
+            return self.getToken(JadawelFormula.COMMA, 0)
         def CLOSE_PAREN(self):
-            return self.getToken(BaserowFormula.CLOSE_PAREN, 0)
+            return self.getToken(JadawelFormula.CLOSE_PAREN, 0)
         def WHITESPACE(self):
-            return self.getToken(BaserowFormula.WHITESPACE, 0)
+            return self.getToken(JadawelFormula.WHITESPACE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLookupFieldReference" ):
@@ -566,12 +566,12 @@ class BaserowFormula ( Parser ):
 
     class IntegerLiteralContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def INTEGER_LITERAL(self):
-            return self.getToken(BaserowFormula.INTEGER_LITERAL, 0)
+            return self.getToken(JadawelFormula.INTEGER_LITERAL, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIntegerLiteral" ):
@@ -590,41 +590,41 @@ class BaserowFormula ( Parser ):
 
     class BinaryOpContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a BaserowFormula.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a JadawelFormula.ExprContext
             super().__init__(parser)
             self.op = None # Token
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(BaserowFormula.ExprContext)
+                return self.getTypedRuleContexts(JadawelFormula.ExprContext)
             else:
-                return self.getTypedRuleContext(BaserowFormula.ExprContext,i)
+                return self.getTypedRuleContext(JadawelFormula.ExprContext,i)
 
         def SLASH(self):
-            return self.getToken(BaserowFormula.SLASH, 0)
+            return self.getToken(JadawelFormula.SLASH, 0)
         def STAR(self):
-            return self.getToken(BaserowFormula.STAR, 0)
+            return self.getToken(JadawelFormula.STAR, 0)
         def PLUS(self):
-            return self.getToken(BaserowFormula.PLUS, 0)
+            return self.getToken(JadawelFormula.PLUS, 0)
         def MINUS(self):
-            return self.getToken(BaserowFormula.MINUS, 0)
+            return self.getToken(JadawelFormula.MINUS, 0)
         def GT(self):
-            return self.getToken(BaserowFormula.GT, 0)
+            return self.getToken(JadawelFormula.GT, 0)
         def LT(self):
-            return self.getToken(BaserowFormula.LT, 0)
+            return self.getToken(JadawelFormula.LT, 0)
         def GTE(self):
-            return self.getToken(BaserowFormula.GTE, 0)
+            return self.getToken(JadawelFormula.GTE, 0)
         def LTE(self):
-            return self.getToken(BaserowFormula.LTE, 0)
+            return self.getToken(JadawelFormula.LTE, 0)
         def EQUAL(self):
-            return self.getToken(BaserowFormula.EQUAL, 0)
+            return self.getToken(JadawelFormula.EQUAL, 0)
         def BANG_EQUAL(self):
-            return self.getToken(BaserowFormula.BANG_EQUAL, 0)
+            return self.getToken(JadawelFormula.BANG_EQUAL, 0)
         def AMP_AMP(self):
-            return self.getToken(BaserowFormula.AMP_AMP, 0)
+            return self.getToken(JadawelFormula.AMP_AMP, 0)
         def PIPE_PIPE(self):
-            return self.getToken(BaserowFormula.PIPE_PIPE, 0)
+            return self.getToken(JadawelFormula.PIPE_PIPE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinaryOp" ):
@@ -645,7 +645,7 @@ class BaserowFormula ( Parser ):
     def expr(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = BaserowFormula.ExprContext(self, self._ctx, _parentState)
+        localctx = JadawelFormula.ExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 2
         self.enterRecursionRule(localctx, 2, self.RULE_expr, _p)
@@ -655,49 +655,49 @@ class BaserowFormula ( Parser ):
             self.state = 61
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [BaserowFormula.SINGLEQ_STRING_LITERAL]:
-                localctx = BaserowFormula.StringLiteralContext(self, localctx)
+            if token in [JadawelFormula.SINGLEQ_STRING_LITERAL]:
+                localctx = JadawelFormula.StringLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
 
                 self.state = 16
-                self.match(BaserowFormula.SINGLEQ_STRING_LITERAL)
+                self.match(JadawelFormula.SINGLEQ_STRING_LITERAL)
                 pass
-            elif token in [BaserowFormula.DOUBLEQ_STRING_LITERAL]:
-                localctx = BaserowFormula.StringLiteralContext(self, localctx)
+            elif token in [JadawelFormula.DOUBLEQ_STRING_LITERAL]:
+                localctx = JadawelFormula.StringLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 17
-                self.match(BaserowFormula.DOUBLEQ_STRING_LITERAL)
+                self.match(JadawelFormula.DOUBLEQ_STRING_LITERAL)
                 pass
-            elif token in [BaserowFormula.INTEGER_LITERAL]:
-                localctx = BaserowFormula.IntegerLiteralContext(self, localctx)
+            elif token in [JadawelFormula.INTEGER_LITERAL]:
+                localctx = JadawelFormula.IntegerLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 18
-                self.match(BaserowFormula.INTEGER_LITERAL)
+                self.match(JadawelFormula.INTEGER_LITERAL)
                 pass
-            elif token in [BaserowFormula.NUMERIC_LITERAL]:
-                localctx = BaserowFormula.DecimalLiteralContext(self, localctx)
+            elif token in [JadawelFormula.NUMERIC_LITERAL]:
+                localctx = JadawelFormula.DecimalLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 19
-                self.match(BaserowFormula.NUMERIC_LITERAL)
+                self.match(JadawelFormula.NUMERIC_LITERAL)
                 pass
-            elif token in [BaserowFormula.TRUE, BaserowFormula.FALSE]:
-                localctx = BaserowFormula.BooleanLiteralContext(self, localctx)
+            elif token in [JadawelFormula.TRUE, JadawelFormula.FALSE]:
+                localctx = JadawelFormula.BooleanLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 20
                 _la = self._input.LA(1)
-                if not(_la==BaserowFormula.TRUE or _la==BaserowFormula.FALSE):
+                if not(_la==JadawelFormula.TRUE or _la==JadawelFormula.FALSE):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
                 pass
-            elif token in [BaserowFormula.BLOCK_COMMENT, BaserowFormula.LINE_COMMENT, BaserowFormula.WHITESPACE]:
-                localctx = BaserowFormula.LeftWhitespaceOrCommentsContext(self, localctx)
+            elif token in [JadawelFormula.BLOCK_COMMENT, JadawelFormula.LINE_COMMENT, JadawelFormula.WHITESPACE]:
+                localctx = JadawelFormula.LeftWhitespaceOrCommentsContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 21
@@ -705,88 +705,88 @@ class BaserowFormula ( Parser ):
                 self.state = 22
                 self.expr(13)
                 pass
-            elif token in [BaserowFormula.OPEN_PAREN]:
-                localctx = BaserowFormula.BracketsContext(self, localctx)
+            elif token in [JadawelFormula.OPEN_PAREN]:
+                localctx = JadawelFormula.BracketsContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 24
-                self.match(BaserowFormula.OPEN_PAREN)
+                self.match(JadawelFormula.OPEN_PAREN)
                 self.state = 25
                 self.expr(0)
                 self.state = 26
-                self.match(BaserowFormula.CLOSE_PAREN)
+                self.match(JadawelFormula.CLOSE_PAREN)
                 pass
-            elif token in [BaserowFormula.FIELD]:
-                localctx = BaserowFormula.FieldReferenceContext(self, localctx)
+            elif token in [JadawelFormula.FIELD]:
+                localctx = JadawelFormula.FieldReferenceContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 28
-                self.match(BaserowFormula.FIELD)
+                self.match(JadawelFormula.FIELD)
                 self.state = 29
-                self.match(BaserowFormula.OPEN_PAREN)
+                self.match(JadawelFormula.OPEN_PAREN)
                 self.state = 30
                 self.field_reference()
                 self.state = 31
-                self.match(BaserowFormula.CLOSE_PAREN)
+                self.match(JadawelFormula.CLOSE_PAREN)
                 pass
-            elif token in [BaserowFormula.FIELDBYID]:
-                localctx = BaserowFormula.FieldByIdReferenceContext(self, localctx)
+            elif token in [JadawelFormula.FIELDBYID]:
+                localctx = JadawelFormula.FieldByIdReferenceContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 33
-                self.match(BaserowFormula.FIELDBYID)
+                self.match(JadawelFormula.FIELDBYID)
                 self.state = 34
-                self.match(BaserowFormula.OPEN_PAREN)
+                self.match(JadawelFormula.OPEN_PAREN)
                 self.state = 35
-                self.match(BaserowFormula.INTEGER_LITERAL)
+                self.match(JadawelFormula.INTEGER_LITERAL)
                 self.state = 36
-                self.match(BaserowFormula.CLOSE_PAREN)
+                self.match(JadawelFormula.CLOSE_PAREN)
                 pass
-            elif token in [BaserowFormula.LOOKUP]:
-                localctx = BaserowFormula.LookupFieldReferenceContext(self, localctx)
+            elif token in [JadawelFormula.LOOKUP]:
+                localctx = JadawelFormula.LookupFieldReferenceContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 37
-                self.match(BaserowFormula.LOOKUP)
+                self.match(JadawelFormula.LOOKUP)
                 self.state = 38
-                self.match(BaserowFormula.OPEN_PAREN)
+                self.match(JadawelFormula.OPEN_PAREN)
                 self.state = 39
                 self.field_reference()
                 self.state = 40
-                self.match(BaserowFormula.COMMA)
+                self.match(JadawelFormula.COMMA)
                 self.state = 42
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==BaserowFormula.WHITESPACE:
+                if _la==JadawelFormula.WHITESPACE:
                     self.state = 41
-                    self.match(BaserowFormula.WHITESPACE)
+                    self.match(JadawelFormula.WHITESPACE)
 
 
                 self.state = 44
                 self.field_reference()
                 self.state = 45
-                self.match(BaserowFormula.CLOSE_PAREN)
+                self.match(JadawelFormula.CLOSE_PAREN)
                 pass
-            elif token in [BaserowFormula.IDENTIFIER, BaserowFormula.IDENTIFIER_UNICODE]:
-                localctx = BaserowFormula.FunctionCallContext(self, localctx)
+            elif token in [JadawelFormula.IDENTIFIER, JadawelFormula.IDENTIFIER_UNICODE]:
+                localctx = JadawelFormula.FunctionCallContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 47
                 self.func_name()
                 self.state = 48
-                self.match(BaserowFormula.OPEN_PAREN)
+                self.match(JadawelFormula.OPEN_PAREN)
                 self.state = 57
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BaserowFormula.BLOCK_COMMENT) | (1 << BaserowFormula.LINE_COMMENT) | (1 << BaserowFormula.WHITESPACE) | (1 << BaserowFormula.TRUE) | (1 << BaserowFormula.FALSE) | (1 << BaserowFormula.FIELD) | (1 << BaserowFormula.FIELDBYID) | (1 << BaserowFormula.LOOKUP) | (1 << BaserowFormula.OPEN_PAREN) | (1 << BaserowFormula.NUMERIC_LITERAL) | (1 << BaserowFormula.INTEGER_LITERAL) | (1 << BaserowFormula.SINGLEQ_STRING_LITERAL) | (1 << BaserowFormula.DOUBLEQ_STRING_LITERAL) | (1 << BaserowFormula.IDENTIFIER) | (1 << BaserowFormula.IDENTIFIER_UNICODE))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JadawelFormula.BLOCK_COMMENT) | (1 << JadawelFormula.LINE_COMMENT) | (1 << JadawelFormula.WHITESPACE) | (1 << JadawelFormula.TRUE) | (1 << JadawelFormula.FALSE) | (1 << JadawelFormula.FIELD) | (1 << JadawelFormula.FIELDBYID) | (1 << JadawelFormula.LOOKUP) | (1 << JadawelFormula.OPEN_PAREN) | (1 << JadawelFormula.NUMERIC_LITERAL) | (1 << JadawelFormula.INTEGER_LITERAL) | (1 << JadawelFormula.SINGLEQ_STRING_LITERAL) | (1 << JadawelFormula.DOUBLEQ_STRING_LITERAL) | (1 << JadawelFormula.IDENTIFIER) | (1 << JadawelFormula.IDENTIFIER_UNICODE))) != 0):
                     self.state = 49
                     self.expr(0)
                     self.state = 54
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==BaserowFormula.COMMA:
+                    while _la==JadawelFormula.COMMA:
                         self.state = 50
-                        self.match(BaserowFormula.COMMA)
+                        self.match(JadawelFormula.COMMA)
                         self.state = 51
                         self.expr(0)
                         self.state = 56
@@ -796,7 +796,7 @@ class BaserowFormula ( Parser ):
 
 
                 self.state = 59
-                self.match(BaserowFormula.CLOSE_PAREN)
+                self.match(JadawelFormula.CLOSE_PAREN)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -814,7 +814,7 @@ class BaserowFormula ( Parser ):
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
                     if la_ == 1:
-                        localctx = BaserowFormula.BinaryOpContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.BinaryOpContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 63
                         if not self.precpred(self._ctx, 10):
@@ -823,7 +823,7 @@ class BaserowFormula ( Parser ):
                         self.state = 64
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
-                        if not(_la==BaserowFormula.STAR or _la==BaserowFormula.SLASH):
+                        if not(_la==JadawelFormula.STAR or _la==JadawelFormula.SLASH):
                             localctx.op = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -833,7 +833,7 @@ class BaserowFormula ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = BaserowFormula.BinaryOpContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.BinaryOpContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 66
                         if not self.precpred(self._ctx, 9):
@@ -842,7 +842,7 @@ class BaserowFormula ( Parser ):
                         self.state = 67
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
-                        if not(_la==BaserowFormula.MINUS or _la==BaserowFormula.PLUS):
+                        if not(_la==JadawelFormula.MINUS or _la==JadawelFormula.PLUS):
                             localctx.op = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -852,7 +852,7 @@ class BaserowFormula ( Parser ):
                         pass
 
                     elif la_ == 3:
-                        localctx = BaserowFormula.BinaryOpContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.BinaryOpContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 69
                         if not self.precpred(self._ctx, 8):
@@ -861,7 +861,7 @@ class BaserowFormula ( Parser ):
                         self.state = 70
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BaserowFormula.GT) | (1 << BaserowFormula.GTE) | (1 << BaserowFormula.LT) | (1 << BaserowFormula.LTE))) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JadawelFormula.GT) | (1 << JadawelFormula.GTE) | (1 << JadawelFormula.LT) | (1 << JadawelFormula.LTE))) != 0)):
                             localctx.op = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -871,7 +871,7 @@ class BaserowFormula ( Parser ):
                         pass
 
                     elif la_ == 4:
-                        localctx = BaserowFormula.BinaryOpContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.BinaryOpContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 72
                         if not self.precpred(self._ctx, 7):
@@ -880,7 +880,7 @@ class BaserowFormula ( Parser ):
                         self.state = 73
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
-                        if not(_la==BaserowFormula.BANG_EQUAL or _la==BaserowFormula.EQUAL):
+                        if not(_la==JadawelFormula.BANG_EQUAL or _la==JadawelFormula.EQUAL):
                             localctx.op = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -890,33 +890,33 @@ class BaserowFormula ( Parser ):
                         pass
 
                     elif la_ == 5:
-                        localctx = BaserowFormula.BinaryOpContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.BinaryOpContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 75
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                         self.state = 76
-                        localctx.op = self.match(BaserowFormula.AMP_AMP)
+                        localctx.op = self.match(JadawelFormula.AMP_AMP)
                         self.state = 77
                         self.expr(7)
                         pass
 
                     elif la_ == 6:
-                        localctx = BaserowFormula.BinaryOpContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.BinaryOpContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 78
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
                         self.state = 79
-                        localctx.op = self.match(BaserowFormula.PIPE_PIPE)
+                        localctx.op = self.match(JadawelFormula.PIPE_PIPE)
                         self.state = 80
                         self.expr(6)
                         pass
 
                     elif la_ == 7:
-                        localctx = BaserowFormula.RightWhitespaceOrCommentsContext(self, BaserowFormula.ExprContext(self, _parentctx, _parentState))
+                        localctx = JadawelFormula.RightWhitespaceOrCommentsContext(self, JadawelFormula.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 81
                         if not self.precpred(self._ctx, 12):
@@ -947,16 +947,16 @@ class BaserowFormula ( Parser ):
             self.parser = parser
 
         def BLOCK_COMMENT(self):
-            return self.getToken(BaserowFormula.BLOCK_COMMENT, 0)
+            return self.getToken(JadawelFormula.BLOCK_COMMENT, 0)
 
         def LINE_COMMENT(self):
-            return self.getToken(BaserowFormula.LINE_COMMENT, 0)
+            return self.getToken(JadawelFormula.LINE_COMMENT, 0)
 
         def WHITESPACE(self):
-            return self.getToken(BaserowFormula.WHITESPACE, 0)
+            return self.getToken(JadawelFormula.WHITESPACE, 0)
 
         def getRuleIndex(self):
-            return BaserowFormula.RULE_ws_or_comment
+            return JadawelFormula.RULE_ws_or_comment
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterWs_or_comment" ):
@@ -977,14 +977,14 @@ class BaserowFormula ( Parser ):
 
     def ws_or_comment(self):
 
-        localctx = BaserowFormula.Ws_or_commentContext(self, self._ctx, self.state)
+        localctx = JadawelFormula.Ws_or_commentContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_ws_or_comment)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 88
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BaserowFormula.BLOCK_COMMENT) | (1 << BaserowFormula.LINE_COMMENT) | (1 << BaserowFormula.WHITESPACE))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JadawelFormula.BLOCK_COMMENT) | (1 << JadawelFormula.LINE_COMMENT) | (1 << JadawelFormula.WHITESPACE))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1005,11 +1005,11 @@ class BaserowFormula ( Parser ):
             self.parser = parser
 
         def identifier(self):
-            return self.getTypedRuleContext(BaserowFormula.IdentifierContext,0)
+            return self.getTypedRuleContext(JadawelFormula.IdentifierContext,0)
 
 
         def getRuleIndex(self):
-            return BaserowFormula.RULE_func_name
+            return JadawelFormula.RULE_func_name
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunc_name" ):
@@ -1030,7 +1030,7 @@ class BaserowFormula ( Parser ):
 
     def func_name(self):
 
-        localctx = BaserowFormula.Func_nameContext(self, self._ctx, self.state)
+        localctx = JadawelFormula.Func_nameContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_func_name)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1052,13 +1052,13 @@ class BaserowFormula ( Parser ):
             self.parser = parser
 
         def SINGLEQ_STRING_LITERAL(self):
-            return self.getToken(BaserowFormula.SINGLEQ_STRING_LITERAL, 0)
+            return self.getToken(JadawelFormula.SINGLEQ_STRING_LITERAL, 0)
 
         def DOUBLEQ_STRING_LITERAL(self):
-            return self.getToken(BaserowFormula.DOUBLEQ_STRING_LITERAL, 0)
+            return self.getToken(JadawelFormula.DOUBLEQ_STRING_LITERAL, 0)
 
         def getRuleIndex(self):
-            return BaserowFormula.RULE_field_reference
+            return JadawelFormula.RULE_field_reference
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterField_reference" ):
@@ -1079,14 +1079,14 @@ class BaserowFormula ( Parser ):
 
     def field_reference(self):
 
-        localctx = BaserowFormula.Field_referenceContext(self, self._ctx, self.state)
+        localctx = JadawelFormula.Field_referenceContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_field_reference)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 92
             _la = self._input.LA(1)
-            if not(_la==BaserowFormula.SINGLEQ_STRING_LITERAL or _la==BaserowFormula.DOUBLEQ_STRING_LITERAL):
+            if not(_la==JadawelFormula.SINGLEQ_STRING_LITERAL or _la==JadawelFormula.DOUBLEQ_STRING_LITERAL):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1107,13 +1107,13 @@ class BaserowFormula ( Parser ):
             self.parser = parser
 
         def IDENTIFIER(self):
-            return self.getToken(BaserowFormula.IDENTIFIER, 0)
+            return self.getToken(JadawelFormula.IDENTIFIER, 0)
 
         def IDENTIFIER_UNICODE(self):
-            return self.getToken(BaserowFormula.IDENTIFIER_UNICODE, 0)
+            return self.getToken(JadawelFormula.IDENTIFIER_UNICODE, 0)
 
         def getRuleIndex(self):
-            return BaserowFormula.RULE_identifier
+            return JadawelFormula.RULE_identifier
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIdentifier" ):
@@ -1134,14 +1134,14 @@ class BaserowFormula ( Parser ):
 
     def identifier(self):
 
-        localctx = BaserowFormula.IdentifierContext(self, self._ctx, self.state)
+        localctx = JadawelFormula.IdentifierContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_identifier)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 94
             _la = self._input.LA(1)
-            if not(_la==BaserowFormula.IDENTIFIER or _la==BaserowFormula.IDENTIFIER_UNICODE):
+            if not(_la==JadawelFormula.IDENTIFIER or _la==JadawelFormula.IDENTIFIER_UNICODE):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

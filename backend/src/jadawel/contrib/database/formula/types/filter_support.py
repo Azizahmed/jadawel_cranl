@@ -20,7 +20,7 @@ if typing.TYPE_CHECKING:
     from jadawel.contrib.database.fields.models import Field
 
 
-class BaserowFormulaArrayFilterSupportMixin(
+class JadawelFormulaArrayFilterSupportMixin(
     HasAllValuesEqualFilterSupport,
     HasValueEmptyFilterSupport,
     HasValueEqualFilterSupport,

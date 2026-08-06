@@ -105,7 +105,7 @@ from jadawel.contrib.integrations.local_baserow.utils import (
     guess_json_type_from_response_serializer_field,
 )
 from jadawel.core.cache import global_cache
-from jadawel.core.formula.types import BaserowFormulaObject
+from jadawel.core.formula.types import JadawelFormulaObject
 from jadawel.core.handler import CoreHandler
 from jadawel.core.registry import Instance
 from jadawel.core.services.dispatch_context import DispatchContext
@@ -1864,7 +1864,7 @@ class LocalBaserowUpsertRowServiceType(
 
         # Return field_mapping formulas
         for field_mapping in service.field_mappings.all():
-            new_formula = yield BaserowFormulaObject.to_formula(field_mapping.value)
+            new_formula = yield JadawelFormulaObject.to_formula(field_mapping.value)
             if new_formula is not None:
                 field_mapping.value = new_formula
                 yield field_mapping

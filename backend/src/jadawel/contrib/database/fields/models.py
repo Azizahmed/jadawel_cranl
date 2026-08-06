@@ -757,7 +757,7 @@ class FormulaField(Field):
             expression_type.raise_if_invalid()
 
     def mark_as_invalid_and_save(self, error: str):
-        from jadawel.contrib.database.formula import BaserowFormulaInvalidType
+        from jadawel.contrib.database.formula import JadawelFormulaInvalidType
 
         try:
             # noinspection PyPropertyAccess
@@ -766,7 +766,7 @@ class FormulaField(Field):
             # It has not been cached yet so nothing to deleted.
             pass
 
-        invalid_type = BaserowFormulaInvalidType(error)
+        invalid_type = JadawelFormulaInvalidType(error)
         invalid_type.persist_onto_formula_field(self)
         self.cached_formula_type = invalid_type
         self.save(recalculate=False, raise_if_invalid=False)
@@ -807,8 +807,8 @@ class CountField(FormulaField):
     )
 
     def save(self, *args, **kwargs):
-        from jadawel.contrib.database.formula.ast.function_defs import BaserowCount
-        from jadawel.contrib.database.formula.ast.tree import BaserowFieldReference
+        from jadawel.contrib.database.formula.ast.function_defs import JadawelCount
+        from jadawel.contrib.database.formula.ast.tree import JadawelFieldReference
 
         try:
             through_field = getattr(self, "through_field")
@@ -816,8 +816,8 @@ class CountField(FormulaField):
         except ObjectDoesNotExist:
             field_name = "'invalid through'"
 
-        field_ref = BaserowFieldReference(field_name, None, None)
-        self.formula = f"{BaserowCount.type}({field_ref})"
+        field_ref = JadawelFieldReference(field_name, None, None)
+        self.formula = f"{JadawelCount.type}({field_ref})"
 
         super().save(*args, **kwargs)
 
@@ -853,7 +853,7 @@ class RollupField(FormulaField):
     )
 
     def save(self, *args, **kwargs):
-        from jadawel.contrib.database.formula.ast.tree import BaserowFieldReference
+        from jadawel.contrib.database.formula.ast.tree import JadawelFieldReference
         from jadawel.contrib.database.formula.registries import (
             formula_function_registry,
         )
@@ -873,7 +873,7 @@ class RollupField(FormulaField):
             target_name = "'invalid target'"
 
         formula_function = formula_function_registry.get(self.rollup_function)
-        field_ref = BaserowFieldReference(through_name, target_name, None)
+        field_ref = JadawelFieldReference(through_name, target_name, None)
         self.formula = f"{formula_function.type}({field_ref})"
         super().save(*args, **kwargs)
 
@@ -907,10 +907,10 @@ class LookupField(FormulaField):
     target_field_name = models.CharField(max_length=255)
 
     def save(self, *args, **kwargs):
-        from jadawel.contrib.database.formula.ast.tree import BaserowFieldReference
+        from jadawel.contrib.database.formula.ast.tree import JadawelFieldReference
 
         expression = str(
-            BaserowFieldReference(self.through_field_name, self.target_field_name, None)
+            JadawelFieldReference(self.through_field_name, self.target_field_name, None)
         )
         self.formula = expression
         super().save(*args, **kwargs)

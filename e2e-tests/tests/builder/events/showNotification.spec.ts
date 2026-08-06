@@ -1,6 +1,6 @@
 import { createBuilderElement } from "../../../fixtures/builder/builderElement";
 import { createBuilderWorkflowAction } from "../../../fixtures/builder/builderWorkflowAction";
-import { expect, test } from "../../baserowTest";
+import { expect, test } from "../../jadawelTest";
 
 test.describe("Builder page show notification action test suite", () => {
   let element1, element2;

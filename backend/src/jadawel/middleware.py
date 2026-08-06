@@ -43,7 +43,7 @@ def json_is_accepted(request: HttpRequest) -> bool:
     return "application/json" in accept_headers or accept_headers in ["*/*", ""]
 
 
-class BaserowCustomHttp404Middleware:
+class JadawelCustomHttp404Middleware:
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]):
         self.get_response = get_response
 

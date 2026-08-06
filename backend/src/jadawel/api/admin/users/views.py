@@ -37,7 +37,7 @@ from jadawel.core.admin.users.handler import UserAdminHandler
 from jadawel.core.user.exceptions import DeactivatedUserException, UserAlreadyExist
 from jadawel.core.user.utils import generate_session_tokens_for_user
 
-from .serializers import BaserowImpersonateAuthTokenSerializer
+from .serializers import JadawelImpersonateAuthTokenSerializer
 
 User = get_user_model()
 
@@ -229,7 +229,7 @@ class UserAdminImpersonateView(GenericAPIView):
     """
 
     permission_classes = (IsAdminUser,)
-    serializer_class = BaserowImpersonateAuthTokenSerializer
+    serializer_class = JadawelImpersonateAuthTokenSerializer
 
     @extend_schema(
         tags=["Admin"],
@@ -239,7 +239,7 @@ class UserAdminImpersonateView(GenericAPIView):
             "JWT token and user object. The requesting user must have staff access in "
             "order to do this. It's not possible to impersonate a superuser or staff."
         ),
-        request=BaserowImpersonateAuthTokenSerializer,
+        request=JadawelImpersonateAuthTokenSerializer,
         responses={
             200: authenticate_user_schema,
         },

@@ -37,7 +37,7 @@ from jadawel.core.formula.exceptions import (
     InvalidRuntimeFormula,
 )
 from jadawel.core.formula.registries import DataProviderType
-from jadawel.core.formula.types import BaserowFormulaObject
+from jadawel.core.formula.types import JadawelFormulaObject
 from jadawel.core.services.exceptions import (
     ServiceImproperlyConfiguredDispatchException,
 )
@@ -790,7 +790,7 @@ def test_data_source_formula_import_only_datasource(data_fixture):
     id_mapping["builder_data_sources"] = {data_source.id: data_source2.id}
 
     result = import_formula(
-        BaserowFormulaObject.create(f"get('data_source.{data_source.id}.field_10')"),
+        JadawelFormulaObject.create(f"get('data_source.{data_source.id}.field_10')"),
         id_mapping,
     )
 
@@ -815,7 +815,7 @@ def test_data_source_formula_import_get_row_datasource_and_field(data_fixture):
     id_mapping["database_fields"] = {field_1.id: field_2.id}
 
     result = import_formula(
-        BaserowFormulaObject.create(
+        JadawelFormulaObject.create(
             f"get('data_source.{data_source.id}.field_{field_1.id}')"
         ),
         id_mapping,
@@ -842,7 +842,7 @@ def test_data_source_formula_import_list_row_datasource_and_field(data_fixture):
     id_mapping["database_fields"] = {field_1.id: field_2.id}
 
     result = import_formula(
-        BaserowFormulaObject.create(
+        JadawelFormulaObject.create(
             f"get('data_source.{data_source.id}.10.field_{field_1.id}')"
         ),
         id_mapping,
@@ -860,7 +860,7 @@ def test_data_source_formula_import_missing_get_row_datasource(data_fixture):
     id_mapping["builder_data_sources"] = {}
 
     result = import_formula(
-        BaserowFormulaObject.create("get('data_source.42.field_24')"), id_mapping
+        JadawelFormulaObject.create("get('data_source.42.field_24')"), id_mapping
     )
 
     assert result["formula"] == f"get('data_source.42.field_24')"
@@ -868,7 +868,7 @@ def test_data_source_formula_import_missing_get_row_datasource(data_fixture):
     id_mapping["builder_data_sources"] = {42: 42}
 
     result = import_formula(
-        BaserowFormulaObject.create("get('data_source.42.field_24')"), id_mapping
+        JadawelFormulaObject.create("get('data_source.42.field_24')"), id_mapping
     )
 
     assert result["formula"] == "get('data_source.42.field_24')"
@@ -999,7 +999,7 @@ def test_table_element_formula_migration_with_current_row_provider(data_fixture)
     id_mapping["database_fields"] = {fields[0].id: fields2[0].id}
 
     result = import_formula(
-        BaserowFormulaObject.create(f"get('current_record.field_{fields[0].id}')"),
+        JadawelFormulaObject.create(f"get('current_record.field_{fields[0].id}')"),
         id_mapping,
         data_source_id=data_source2.id,
     )

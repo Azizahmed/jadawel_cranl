@@ -3,10 +3,10 @@ from datetime import date, datetime
 import pytest
 
 from jadawel.core.formula.argument_types import (
-    DateTimeBaserowRuntimeFormulaArgumentType,
-    DictBaserowRuntimeFormulaArgumentType,
-    NumberBaserowRuntimeFormulaArgumentType,
-    TextBaserowRuntimeFormulaArgumentType,
+    DateTimeJadawelRuntimeFormulaArgumentType,
+    DictJadawelRuntimeFormulaArgumentType,
+    NumberJadawelRuntimeFormulaArgumentType,
+    TextJadawelRuntimeFormulaArgumentType,
 )
 
 
@@ -28,7 +28,7 @@ from jadawel.core.formula.argument_types import (
     ],
 )
 def test_number_test_method(value, expected):
-    assert NumberBaserowRuntimeFormulaArgumentType().test(value) is expected
+    assert NumberJadawelRuntimeFormulaArgumentType().test(value) is expected
 
 
 @pytest.mark.parametrize(
@@ -43,7 +43,7 @@ def test_number_test_method(value, expected):
     ],
 )
 def test_number_parse_method(value, expected):
-    assert NumberBaserowRuntimeFormulaArgumentType().parse(value) == expected
+    assert NumberJadawelRuntimeFormulaArgumentType().parse(value) == expected
 
 
 @pytest.mark.parametrize(
@@ -64,7 +64,7 @@ def test_number_parse_method(value, expected):
     ],
 )
 def test_text_test_method(value, expected):
-    assert TextBaserowRuntimeFormulaArgumentType().test(value) is expected
+    assert TextJadawelRuntimeFormulaArgumentType().test(value) is expected
 
 
 @pytest.mark.parametrize(
@@ -82,7 +82,7 @@ def test_text_test_method(value, expected):
     ],
 )
 def test_text_parse_method(value, expected):
-    assert TextBaserowRuntimeFormulaArgumentType().parse(value) == expected
+    assert TextJadawelRuntimeFormulaArgumentType().parse(value) == expected
 
 
 @pytest.mark.parametrize(
@@ -111,7 +111,7 @@ def test_text_parse_method(value, expected):
     ],
 )
 def test_datetime_test_method(value, expected):
-    assert DateTimeBaserowRuntimeFormulaArgumentType().test(value) == expected
+    assert DateTimeJadawelRuntimeFormulaArgumentType().test(value) == expected
 
 
 @pytest.mark.parametrize(
@@ -142,7 +142,7 @@ def test_datetime_test_method(value, expected):
     ],
 )
 def test_datetime_parse_method(value, expected):
-    assert DateTimeBaserowRuntimeFormulaArgumentType().parse(value) == expected
+    assert DateTimeJadawelRuntimeFormulaArgumentType().parse(value) == expected
 
 
 @pytest.mark.parametrize(
@@ -162,7 +162,7 @@ def test_datetime_parse_method(value, expected):
     ],
 )
 def test_dict_test_method(value, expected):
-    assert DictBaserowRuntimeFormulaArgumentType().test(value) == expected
+    assert DictJadawelRuntimeFormulaArgumentType().test(value) == expected
 
 
 @pytest.mark.parametrize(
@@ -174,4 +174,4 @@ def test_dict_test_method(value, expected):
     ],
 )
 def test_dict_parse_method(value, expected):
-    assert DictBaserowRuntimeFormulaArgumentType().parse(value) == expected
+    assert DictJadawelRuntimeFormulaArgumentType().parse(value) == expected

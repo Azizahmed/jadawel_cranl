@@ -38,7 +38,7 @@ from jadawel.core.action.models import Action
 from jadawel.core.action.registries import action_type_registry
 from jadawel.core.actions import CreateApplicationActionType
 from jadawel.core.db import specific_iterator
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.registries import ImportExportConfig, application_type_registry
@@ -251,7 +251,7 @@ def test_builder_application_export(data_fixture):
                 "parent_element_id": None,
                 "place_in_container": None,
                 "visibility": "all",
-                "visibility_condition": BaserowFormulaObject(
+                "visibility_condition": JadawelFormulaObject(
                     formula="",
                     mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -304,7 +304,7 @@ def test_builder_application_export(data_fixture):
                 "place_in_container": None,
                 "css_classes": "",
                 "visibility": "all",
-                "visibility_condition": BaserowFormulaObject(
+                "visibility_condition": JadawelFormulaObject(
                     formula="",
                     mode=JADAWEL_FORMULA_MODE_SIMPLE,
                     version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -445,7 +445,7 @@ def test_builder_application_export(data_fixture):
                         "place_in_container": None,
                         "css_classes": "",
                         "visibility": "all",
-                        "visibility_condition": BaserowFormulaObject(
+                        "visibility_condition": JadawelFormulaObject(
                             formula="",
                             mode=JADAWEL_FORMULA_MODE_SIMPLE,
                             version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -488,7 +488,7 @@ def test_builder_application_export(data_fixture):
                         "place_in_container": None,
                         "css_classes": "",
                         "visibility": "all",
-                        "visibility_condition": BaserowFormulaObject(
+                        "visibility_condition": JadawelFormulaObject(
                             formula="",
                             mode=JADAWEL_FORMULA_MODE_SIMPLE,
                             version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -530,7 +530,7 @@ def test_builder_application_export(data_fixture):
                         "place_in_container": None,
                         "css_classes": "",
                         "visibility": "all",
-                        "visibility_condition": BaserowFormulaObject(
+                        "visibility_condition": JadawelFormulaObject(
                             formula="",
                             mode=JADAWEL_FORMULA_MODE_SIMPLE,
                             version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -574,7 +574,7 @@ def test_builder_application_export(data_fixture):
                         "place_in_container": "0",
                         "css_classes": "",
                         "visibility": "all",
-                        "visibility_condition": BaserowFormulaObject(
+                        "visibility_condition": JadawelFormulaObject(
                             formula="",
                             mode=JADAWEL_FORMULA_MODE_SIMPLE,
                             version=JADAWEL_FORMULA_VERSION_INITIAL,

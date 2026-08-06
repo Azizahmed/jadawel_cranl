@@ -1,7 +1,7 @@
-import { BaserowPage } from "../baserowPage";
+import { JadawelPage } from "../jadawelPage";
 import { expect } from "@playwright/test";
 
-export class BuilderElementModal extends BaserowPage {
+export class BuilderElementModal extends JadawelPage {
   async addElementByName(elementName) {
     await this.page
       .locator(".modal__box")

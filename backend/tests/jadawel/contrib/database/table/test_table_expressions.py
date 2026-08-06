@@ -5,8 +5,8 @@ from pytest_unordered import unordered
 
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.contrib.database.table.expressions import (
-    BaserowTableFileUniques,
-    BaserowTableRowCount,
+    JadawelTableFileUniques,
+    JadawelTableRowCount,
 )
 from jadawel.contrib.database.table.models import Table
 from jadawel.core.usage.registries import USAGE_UNIT_MB
@@ -20,7 +20,7 @@ def test_get_database_table_row_count(data_fixture):
 
     RowHandler().create_rows(user, table, [{}] * 12)
 
-    counts = Table.objects.annotate(row_count=BaserowTableRowCount(F("id")))
+    counts = Table.objects.annotate(row_count=JadawelTableRowCount(F("id")))
 
     assert list(counts.values("id", "row_count")) == [{"id": table.id, "row_count": 12}]
 
@@ -51,7 +51,7 @@ def test_get_database_table_storage_usage(data_fixture):
         ],
     )
 
-    qs = UserFile.objects.filter(unique__in=BaserowTableFileUniques(table.id))
+    qs = UserFile.objects.filter(unique__in=JadawelTableFileUniques(table.id))
     assert qs.count() == 1
     assert list(qs.values_list("id", flat=True)) == [file_1.id]
 
@@ -67,7 +67,7 @@ def test_get_database_table_storage_usage(data_fixture):
         ],
     )
 
-    qs = UserFile.objects.filter(unique__in=BaserowTableFileUniques(table.id))
+    qs = UserFile.objects.filter(unique__in=JadawelTableFileUniques(table.id))
     assert qs.count() == 1
     assert list(qs.values_list("id", flat=True)) == [file_1.id]
 
@@ -84,7 +84,7 @@ def test_get_database_table_storage_usage(data_fixture):
         ],
     )
 
-    qs = UserFile.objects.filter(unique__in=BaserowTableFileUniques(table.id))
+    qs = UserFile.objects.filter(unique__in=JadawelTableFileUniques(table.id))
     assert qs.count() == 3
     assert list(qs.values_list("id", flat=True)) == unordered(
         [file_1.id, file_2.id, file_3.id]

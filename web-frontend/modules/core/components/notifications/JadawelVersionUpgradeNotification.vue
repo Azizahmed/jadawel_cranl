@@ -20,7 +20,7 @@
 import notificationContent from '@jadawel/modules/core/mixins/notificationContent'
 
 export default {
-  name: 'BaserowVersionUpgradeNotification',
+  name: 'JadawelVersionUpgradeNotification',
   mixins: [notificationContent],
 }
 </script>

@@ -3,13 +3,13 @@ from django.conf import settings
 from celery import Celery, signals
 
 from jadawel.config.helpers import check_lazy_loaded_libraries
-from jadawel.core.telemetry.tasks import BaserowTelemetryTask
+from jadawel.core.telemetry.tasks import JadawelTelemetryTask
 
 app = Celery("jadawel")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
-app.Task = BaserowTelemetryTask
+app.Task = JadawelTelemetryTask
 
 
 def clear_local(*args, **kwargs):

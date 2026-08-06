@@ -2,14 +2,14 @@ from antlr4 import CommonTokenStream, InputStream
 from antlr4.BufferedTokenStream import BufferedTokenStream
 from antlr4.error.ErrorListener import ErrorListener
 
-from jadawel.core.formula.parser.exceptions import BaserowFormulaSyntaxError
-from jadawel.core.formula.parser.generated.BaserowFormula import BaserowFormula
-from jadawel.core.formula.parser.generated.BaserowFormulaLexer import (
-    BaserowFormulaLexer,
+from jadawel.core.formula.parser.exceptions import JadawelFormulaSyntaxError
+from jadawel.core.formula.parser.generated.JadawelFormula import JadawelFormula
+from jadawel.core.formula.parser.generated.JadawelFormulaLexer import (
+    JadawelFormulaLexer,
 )
 
 
-class BaserowFormulaErrorListener(ErrorListener):
+class JadawelFormulaErrorListener(ErrorListener):
     """
     A custom error listener as ANTLR's default error listen does not raise an
     exception if a syntax error is found in a parse tree.
@@ -19,11 +19,11 @@ class BaserowFormulaErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         msg = msg.replace("<EOF>", "the end of the formula")
         message = f"Invalid syntax at line {line}, col {column}: {msg}"
-        raise BaserowFormulaSyntaxError(message)
+        raise JadawelFormulaSyntaxError(message)
 
 
 def get_token_stream_for_formula(formula: str) -> BufferedTokenStream:
-    lexer = BaserowFormulaLexer(InputStream(formula))
+    lexer = JadawelFormulaLexer(InputStream(formula))
     stream = BufferedTokenStream(lexer)
     stream.lazyInit()
     stream.fill()
@@ -36,11 +36,11 @@ def get_parse_tree_for_formula(formula: str):
     backwards compatibility .
     """
 
-    lexer = BaserowFormulaLexer(InputStream(formula))
+    lexer = JadawelFormulaLexer(InputStream(formula))
     stream = CommonTokenStream(lexer)
-    parser = BaserowFormula(stream)
+    parser = JadawelFormula(stream)
     parser.removeErrorListeners()
-    parser.addErrorListener(BaserowFormulaErrorListener())
+    parser.addErrorListener(JadawelFormulaErrorListener())
     return parser.root()
 
 

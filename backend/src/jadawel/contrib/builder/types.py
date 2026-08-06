@@ -1,7 +1,7 @@
 from typing import List, Optional, TypedDict
 
 from jadawel.contrib.builder.pages.types import PagePathParams, PageQueryParams
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.integrations.types import IntegrationDictSubClass
 from jadawel.core.services.types import ServiceDictSubClass
 from jadawel.core.user_sources.types import UserSourceDictSubClass
@@ -16,7 +16,7 @@ class ElementDict(TypedDict):
     place_in_container: str
     css_classes: str
     visibility: str
-    visibility_condition: BaserowFormulaObject
+    visibility_condition: JadawelFormulaObject
     role_type: str
     roles: list
     styles: dict

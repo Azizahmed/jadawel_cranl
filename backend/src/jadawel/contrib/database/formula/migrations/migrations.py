@@ -3,7 +3,7 @@ from typing import Callable, Union
 
 from django.db.models import Q, QuerySet
 
-from jadawel.core.formula import BaserowFormulaException
+from jadawel.core.formula import JadawelFormulaException
 
 NO_FORMULAS = Q(pk__in=[])
 ALL_FORMULAS = ~NO_FORMULAS
@@ -73,7 +73,7 @@ def all_aggregate_formulas(formulas: QuerySet) -> Q:
         try:
             if f.cached_untyped_expression.aggregate:
                 aggregate_formula_ids.append(f.id)
-        except BaserowFormulaException:
+        except JadawelFormulaException:
             continue
     return Q(id__in=aggregate_formula_ids)
 

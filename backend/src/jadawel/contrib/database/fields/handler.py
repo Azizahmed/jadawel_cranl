@@ -87,11 +87,11 @@ from .exceptions import (
     ImmutableFieldProperties,
     IncompatibleFieldTypeForUniqueValues,
     IncompatiblePrimaryFieldTypeError,
-    InvalidBaserowFieldName,
+    InvalidJadawelFieldName,
     MaxFieldLimitExceeded,
     MaxFieldNameLengthExceeded,
     PrimaryFieldAlreadyExists,
-    ReservedBaserowFieldNameException,
+    ReservedJadawelFieldNameException,
     TableHasNoPrimaryField,
 )
 from .field_cache import FieldCache
@@ -121,17 +121,17 @@ def _validate_field_name(
     :param table: The table to check that this field name is valid for.
     :param existing_field: If this is name change for an existing field then the
         existing field instance must be provided here.
-    :param raise_if_name_missing: When True raises a InvalidBaserowFieldName if the
+    :param raise_if_name_missing: When True raises a InvalidJadawelFieldName if the
         name key is not in field_values. When False does not return and immediately
         returns if the key is missing.
-    :raises InvalidBaserowFieldName: If "name" is
+    :raises InvalidJadawelFieldName: If "name" is
     :raises MaxFieldNameLengthExceeded: When a provided field name is too long.
     :return:
     """
 
     if "name" not in field_values:
         if raise_if_name_missing:
-            raise InvalidBaserowFieldName()
+            raise InvalidJadawelFieldName()
         else:
             return
 
@@ -144,7 +144,7 @@ def _validate_field_name(
         raise MaxFieldNameLengthExceeded(max_field_name_length)
 
     if name.strip() == "":
-        raise InvalidBaserowFieldName()
+        raise InvalidJadawelFieldName()
 
     if Field.objects.filter(table=table, name=name).exists():
         raise FieldWithSameNameAlreadyExists(
@@ -152,7 +152,7 @@ def _validate_field_name(
         )
 
     if name in RESERVED_BASEROW_FIELD_NAMES:
-        raise ReservedBaserowFieldNameException(
+        raise ReservedJadawelFieldNameException(
             f"A field named {name} cannot be created as it already exists as a "
             f"reserved Jadawel field name."
         )

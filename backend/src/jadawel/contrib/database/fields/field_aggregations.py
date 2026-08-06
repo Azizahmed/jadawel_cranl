@@ -23,14 +23,14 @@ from jadawel.contrib.database.fields.field_types import (
 )
 from jadawel.contrib.database.fields.registries import FieldAggregationType
 from jadawel.contrib.database.formula import (
-    BaserowFormulaBooleanType,
-    BaserowFormulaCharType,
-    BaserowFormulaDateType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaCharType,
+    JadawelFormulaDateType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowFormulaSingleFileType,
+    JadawelFormulaSingleFileType,
 )
 from jadawel.contrib.database.views.view_aggregations import (
     AverageViewAggregationType,
@@ -87,7 +87,7 @@ class CheckedFieldAggregationType(FieldAggregationType):
     compatible_field_types = [
         BooleanFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaBooleanType.type,
+            JadawelFormulaBooleanType.type,
         ),
     ]
 
@@ -102,7 +102,7 @@ class NotCheckedFieldAggregationType(FieldAggregationType):
     compatible_field_types = [
         BooleanFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaBooleanType.type,
+            JadawelFormulaBooleanType.type,
         ),
     ]
 
@@ -135,11 +135,11 @@ class EmptyPercentageFieldAggregationType(FieldAggregationType):
         MultipleSelectFieldType.type,
         PasswordFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type),
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type),
         ),
     ]
 
@@ -172,11 +172,11 @@ class NotEmptyPercentageFieldAggregationType(FieldAggregationType):
         MultipleSelectFieldType.type,
         PasswordFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type),
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type),
         ),
     ]
 
@@ -192,7 +192,7 @@ class CheckedPercentageFieldAggregationType(FieldAggregationType):
     compatible_field_types = [
         BooleanFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaBooleanType.type,
+            JadawelFormulaBooleanType.type,
         ),
     ]
 
@@ -208,7 +208,7 @@ class NotCheckedPercentageFieldAggregationType(FieldAggregationType):
     compatible_field_types = [
         BooleanFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaBooleanType.type,
+            JadawelFormulaBooleanType.type,
         ),
     ]
 
@@ -236,7 +236,7 @@ class MinFieldAggregationType(FieldAggregationType):
         AutonumberFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -254,7 +254,7 @@ class MaxFieldAggregationType(FieldAggregationType):
         AutonumberFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -271,7 +271,7 @@ class EarliestDateFieldAggregationType(FieldAggregationType):
         LastModifiedFieldType.type,
         CreatedOnFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaDateType.type,
+            JadawelFormulaDateType.type,
         ),
     ]
 
@@ -288,7 +288,7 @@ class LatestDateFieldAggregationType(FieldAggregationType):
         LastModifiedFieldType.type,
         CreatedOnFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaDateType.type,
+            JadawelFormulaDateType.type,
         ),
     ]
 

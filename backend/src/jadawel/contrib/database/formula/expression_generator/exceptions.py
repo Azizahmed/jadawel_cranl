@@ -1,2 +1,2 @@
-class BaserowToDjangoExpressionGenerationError(Exception):
+class JadawelToDjangoExpressionGenerationError(Exception):
     pass

@@ -73,7 +73,7 @@ import {
   createPasteHandler,
 } from '@jadawel/modules/core/components/formula/extensions/FormulaClipboardHandler'
 import _ from 'lodash'
-import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
+import parseJadawelFormula from '@jadawel/modules/core/formula/parser/parser'
 import { ToTipTapVisitor } from '@jadawel/modules/core/formula/tiptap/toTipTapVisitor'
 import { RuntimeFunctionCollection } from '@jadawel/modules/core/functionCollection'
 import { FromTipTapVisitor } from '@jadawel/modules/core/formula/tiptap/fromTipTapVisitor'
@@ -537,7 +537,7 @@ export default {
       }
 
       try {
-        const tree = parseBaserowFormula(formula)
+        const tree = parseJadawelFormula(formula)
         const functionCollection = new RuntimeFunctionCollection(this.$registry)
         const result = new ToTipTapVisitor(functionCollection, this.mode).visit(
           tree

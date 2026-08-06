@@ -4,7 +4,7 @@ from subprocess import CalledProcessError  # nosec
 from django.core.management.base import BaseCommand, CommandError
 
 from jadawel.core.management.backup.backup_runner import (
-    BaserowBackupRunner,
+    JadawelBackupRunner,
     add_shared_postgres_command_args,
 )
 
@@ -83,7 +83,7 @@ class Command(BaseCommand):
         jobs = options["jobs"]
         additional_args = options["additional_pg_restore_args"]
 
-        runner = BaserowBackupRunner(
+        runner = JadawelBackupRunner(
             host,
             database,
             username,

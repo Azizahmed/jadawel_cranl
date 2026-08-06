@@ -3,9 +3,9 @@ import NotificationSenderInitialsIcon from '@jadawel/modules/core/components/not
 import WorkspaceInvitationCreatedNotification from '@jadawel/modules/core/components/notifications/WorkspaceInvitationCreatedNotification'
 import WorkspaceInvitationAcceptedNotification from '@jadawel/modules/core/components/notifications/WorkspaceInvitationAcceptedNotification'
 import WorkspaceInvitationRejectedNotification from '@jadawel/modules/core/components/notifications/WorkspaceInvitationRejectedNotification'
-import BaserowVersionUpgradeNotification from '@jadawel/modules/core/components/notifications/BaserowVersionUpgradeNotification'
+import JadawelVersionUpgradeNotification from '@jadawel/modules/core/components/notifications/JadawelVersionUpgradeNotification'
 import NotificationImgIcon from '@jadawel/modules/core/components/notifications/NotificationImgIcon'
-import BaserowIcon from '@jadawel/modules/core/static/img/logoOnly.svg?url'
+import JadawelIcon from '@jadawel/modules/core/static/img/logoOnly.svg?url'
 
 export class NotificationType extends Registerable {
   getIconComponent() {
@@ -78,7 +78,7 @@ export class WorkspaceInvitationRejectedNotificationType extends NotificationTyp
   }
 }
 
-export class BaserowVersionUpgradeNotificationType extends NotificationType {
+export class JadawelVersionUpgradeNotificationType extends NotificationType {
   static getType() {
     return 'baserow_version_upgrade'
   }
@@ -88,10 +88,10 @@ export class BaserowVersionUpgradeNotificationType extends NotificationType {
   }
 
   getIconComponentProps() {
-    return { icon: BaserowIcon }
+    return { icon: JadawelIcon }
   }
 
   getContentComponent() {
-    return BaserowVersionUpgradeNotification
+    return JadawelVersionUpgradeNotification
   }
 }

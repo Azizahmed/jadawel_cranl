@@ -50,7 +50,7 @@ export default {
           newFieldCleanFormAndNewTarget || existingFieldButDifferentType
 
         const fieldType = this.$registry.get('field', newTargetField.type)
-        const formulaType = fieldType.toBaserowFormulaType(newTargetField)
+        const formulaType = fieldType.toJadawelFormulaType(newTargetField)
 
         // New field or different type, use the relevant settings from the target field
         if (shouldSuggestDefaults) {

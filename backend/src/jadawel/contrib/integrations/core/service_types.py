@@ -50,7 +50,7 @@ from jadawel.contrib.integrations.core.models import (
 )
 from jadawel.contrib.integrations.core.utils import calculate_next_periodic_run
 from jadawel.contrib.integrations.utils import get_http_request_function
-from jadawel.core.formula.types import BaserowFormulaObject
+from jadawel.core.formula.types import JadawelFormulaObject
 from jadawel.core.formula.validator import (
     ensure_array,
     ensure_boolean,
@@ -263,21 +263,21 @@ class CoreHTTPRequestServiceType(CoreServiceType):
 
         # Return form_data formulas
         for fdata in service.form_data.all():
-            new_formula = yield BaserowFormulaObject.to_formula(fdata.value)
+            new_formula = yield JadawelFormulaObject.to_formula(fdata.value)
             if new_formula is not None:
                 fdata.value = new_formula
                 yield fdata
 
         # Return headers formulas
         for header in service.headers.all():
-            new_formula = yield BaserowFormulaObject.to_formula(header.value)
+            new_formula = yield JadawelFormulaObject.to_formula(header.value)
             if new_formula is not None:
                 header.value = new_formula
                 yield header
 
         # Return headers formulas
         for query_param in service.query_params.all():
-            new_formula = yield BaserowFormulaObject.to_formula(query_param.value)
+            new_formula = yield JadawelFormulaObject.to_formula(query_param.value)
             if new_formula is not None:
                 query_param.value = new_formula
                 yield query_param

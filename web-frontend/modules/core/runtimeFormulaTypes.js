@@ -1,14 +1,14 @@
 import { Registerable } from '@jadawel/modules/core/registry'
 import {
-  NumberBaserowRuntimeFormulaArgumentType,
-  TextBaserowRuntimeFormulaArgumentType,
-  DateTimeBaserowRuntimeFormulaArgumentType,
-  ObjectBaserowRuntimeFormulaArgumentType,
-  BooleanBaserowRuntimeFormulaArgumentType,
-  TimezoneBaserowRuntimeFormulaArgumentType,
-  AnyBaserowRuntimeFormulaArgumentType,
-  ArrayBaserowRuntimeFormulaArgumentType,
-  ArrayOfNumbersBaserowRuntimeFormulaArgumentType,
+  NumberJadawelRuntimeFormulaArgumentType,
+  TextJadawelRuntimeFormulaArgumentType,
+  DateTimeJadawelRuntimeFormulaArgumentType,
+  ObjectJadawelRuntimeFormulaArgumentType,
+  BooleanJadawelRuntimeFormulaArgumentType,
+  TimezoneJadawelRuntimeFormulaArgumentType,
+  AnyJadawelRuntimeFormulaArgumentType,
+  ArrayJadawelRuntimeFormulaArgumentType,
+  ArrayOfNumbersJadawelRuntimeFormulaArgumentType,
 } from '@jadawel/modules/core/runtimeFormulaArgumentTypes'
 import {
   InvalidFormulaArgument,
@@ -47,7 +47,7 @@ export class RuntimeFormulaFunction extends Registerable {
    * Should define the arguments the function has. If null then we don't know what
    * arguments the function has any anything is accepted.
    *
-   * @returns {Array<BaserowRuntimeFormulaArgumentType> || null}
+   * @returns {Array<JadawelRuntimeFormulaArgumentType> || null}
    */
   get args() {
     return null
@@ -290,7 +290,7 @@ export class RuntimeGet extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new TextBaserowRuntimeFormulaArgumentType()]
+    return [new TextJadawelRuntimeFormulaArgumentType()]
   }
 
   get formulaComponentType() {
@@ -446,8 +446,8 @@ export class RuntimeAdd extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType(),
-      new NumberBaserowRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -493,8 +493,8 @@ export class RuntimeMinus extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType(),
-      new NumberBaserowRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -540,8 +540,8 @@ export class RuntimeMultiply extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType(),
-      new NumberBaserowRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -587,8 +587,8 @@ export class RuntimeDivide extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType(),
-      new NumberBaserowRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -634,8 +634,8 @@ export class RuntimeEqual extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -689,8 +689,8 @@ export class RuntimeNotEqual extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -744,8 +744,8 @@ export class RuntimeGreaterThan extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -810,8 +810,8 @@ export class RuntimeLessThan extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -876,8 +876,8 @@ export class RuntimeGreaterThanOrEqual extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -942,8 +942,8 @@ export class RuntimeLessThanOrEqual extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -1003,7 +1003,7 @@ export class RuntimeUpper extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new TextBaserowRuntimeFormulaArgumentType()]
+    return [new TextJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [s]) {
@@ -1039,7 +1039,7 @@ export class RuntimeLower extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new TextBaserowRuntimeFormulaArgumentType()]
+    return [new TextJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [s]) {
@@ -1075,7 +1075,7 @@ export class RuntimeCapitalize extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new TextBaserowRuntimeFormulaArgumentType()]
+    return [new TextJadawelRuntimeFormulaArgumentType()]
   }
 
   capitalize(str) {
@@ -1118,8 +1118,8 @@ export class RuntimeRound extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType(),
-      new NumberBaserowRuntimeFormulaArgumentType({
+      new NumberJadawelRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType({
         optional: true,
         castToInt: true,
       }),
@@ -1167,7 +1167,7 @@ export class RuntimeIsEven extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new NumberBaserowRuntimeFormulaArgumentType()]
+    return [new NumberJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [n]) {
@@ -1207,7 +1207,7 @@ export class RuntimeIsOdd extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new NumberBaserowRuntimeFormulaArgumentType()]
+    return [new NumberJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [n]) {
@@ -1248,9 +1248,9 @@ export class RuntimeDateTimeFormat extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new DateTimeBaserowRuntimeFormulaArgumentType(),
-      new TextBaserowRuntimeFormulaArgumentType(),
-      new TimezoneBaserowRuntimeFormulaArgumentType({ optional: true }),
+      new DateTimeJadawelRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType(),
+      new TimezoneJadawelRuntimeFormulaArgumentType({ optional: true }),
     ]
   }
 
@@ -1301,7 +1301,7 @@ export class RuntimeDay extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new DateTimeBaserowRuntimeFormulaArgumentType()]
+    return [new DateTimeJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [datetime]) {
@@ -1337,7 +1337,7 @@ export class RuntimeMonth extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new DateTimeBaserowRuntimeFormulaArgumentType()]
+    return [new DateTimeJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [datetime]) {
@@ -1374,7 +1374,7 @@ export class RuntimeYear extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new DateTimeBaserowRuntimeFormulaArgumentType()]
+    return [new DateTimeJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [datetime]) {
@@ -1410,7 +1410,7 @@ export class RuntimeHour extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new DateTimeBaserowRuntimeFormulaArgumentType()]
+    return [new DateTimeJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [datetime]) {
@@ -1446,7 +1446,7 @@ export class RuntimeMinute extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new DateTimeBaserowRuntimeFormulaArgumentType()]
+    return [new DateTimeJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [datetime]) {
@@ -1482,7 +1482,7 @@ export class RuntimeSecond extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new DateTimeBaserowRuntimeFormulaArgumentType()]
+    return [new DateTimeJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [datetime]) {
@@ -1586,8 +1586,8 @@ export class RuntimeGetProperty extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new ObjectBaserowRuntimeFormulaArgumentType(),
-      new TextBaserowRuntimeFormulaArgumentType(),
+      new ObjectJadawelRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -1625,8 +1625,8 @@ export class RuntimeRandomInt extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType({ castToInt: true }),
-      new NumberBaserowRuntimeFormulaArgumentType({ castToInt: true }),
+      new NumberJadawelRuntimeFormulaArgumentType({ castToInt: true }),
+      new NumberJadawelRuntimeFormulaArgumentType({ castToInt: true }),
     ]
   }
 
@@ -1666,8 +1666,8 @@ export class RuntimeRandomFloat extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new NumberBaserowRuntimeFormulaArgumentType({ castToFloat: true }),
-      new NumberBaserowRuntimeFormulaArgumentType({ castToFloat: true }),
+      new NumberJadawelRuntimeFormulaArgumentType({ castToFloat: true }),
+      new NumberJadawelRuntimeFormulaArgumentType({ castToFloat: true }),
     ]
   }
 
@@ -1777,9 +1777,9 @@ export class RuntimeIf extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new BooleanBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new BooleanJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -1826,8 +1826,8 @@ export class RuntimeAnd extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new BooleanBaserowRuntimeFormulaArgumentType(),
-      new BooleanBaserowRuntimeFormulaArgumentType(),
+      new BooleanJadawelRuntimeFormulaArgumentType(),
+      new BooleanJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -1873,8 +1873,8 @@ export class RuntimeOr extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new BooleanBaserowRuntimeFormulaArgumentType(),
-      new BooleanBaserowRuntimeFormulaArgumentType(),
+      new BooleanJadawelRuntimeFormulaArgumentType(),
+      new BooleanJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -1920,9 +1920,9 @@ export class RuntimeReplace extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new TextBaserowRuntimeFormulaArgumentType(),
-      new TextBaserowRuntimeFormulaArgumentType(),
-      new TextBaserowRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -1959,7 +1959,7 @@ export class RuntimeLength extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new AnyBaserowRuntimeFormulaArgumentType()]
+    return [new AnyJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [value]) {
@@ -2008,8 +2008,8 @@ export class RuntimeContains extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new AnyBaserowRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new AnyJadawelRuntimeFormulaArgumentType(),
     ]
   }
 
@@ -2061,7 +2061,7 @@ export class RuntimeReverse extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new AnyBaserowRuntimeFormulaArgumentType()]
+    return [new AnyJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [arg]) {
@@ -2114,8 +2114,8 @@ export class RuntimeJoin extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new TextBaserowRuntimeFormulaArgumentType({ optional: true }),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType({ optional: true }),
     ]
   }
 
@@ -2171,8 +2171,8 @@ export class RuntimeSplit extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new TextBaserowRuntimeFormulaArgumentType(),
-      new TextBaserowRuntimeFormulaArgumentType({ optional: true }),
+      new TextJadawelRuntimeFormulaArgumentType(),
+      new TextJadawelRuntimeFormulaArgumentType({ optional: true }),
     ]
   }
 
@@ -2217,7 +2217,7 @@ export class RuntimeIsEmpty extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new AnyBaserowRuntimeFormulaArgumentType()]
+    return [new AnyJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [arg]) {
@@ -2289,7 +2289,7 @@ export class RuntimeStrip extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new TextBaserowRuntimeFormulaArgumentType()]
+    return [new TextJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [arg]) {
@@ -2329,7 +2329,7 @@ export class RuntimeSum extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new ArrayOfNumbersBaserowRuntimeFormulaArgumentType()]
+    return [new ArrayOfNumbersJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [arg]) {
@@ -2373,7 +2373,7 @@ export class RuntimeAvg extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new ArrayOfNumbersBaserowRuntimeFormulaArgumentType()]
+    return [new ArrayOfNumbersJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [arg]) {
@@ -2414,8 +2414,8 @@ export class RuntimeAt extends RuntimeFormulaFunction {
 
   get args() {
     return [
-      new AnyBaserowRuntimeFormulaArgumentType(),
-      new NumberBaserowRuntimeFormulaArgumentType({ castToInt: true }),
+      new AnyJadawelRuntimeFormulaArgumentType(),
+      new NumberJadawelRuntimeFormulaArgumentType({ castToInt: true }),
     ]
   }
 
@@ -2465,7 +2465,7 @@ export class RuntimeToArray extends RuntimeFormulaFunction {
   }
 
   get args() {
-    return [new TextBaserowRuntimeFormulaArgumentType()]
+    return [new TextJadawelRuntimeFormulaArgumentType()]
   }
 
   execute(context, [arg]) {

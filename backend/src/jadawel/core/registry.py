@@ -37,7 +37,7 @@ from jadawel.api.utils import (
 from jadawel.core.storage import ExportZipFile
 
 from .exceptions import InstanceTypeAlreadyRegistered, InstanceTypeDoesNotExist
-from .formula import BaserowFormulaObject
+from .formula import JadawelFormulaObject
 
 if typing.TYPE_CHECKING:
     from django.contrib.contenttypes.models import ContentType
@@ -1052,7 +1052,7 @@ class InstanceWithFormulaMixin:
         """
 
         for formula_field in self.simple_formula_fields:
-            formula: BaserowFormulaObject = BaserowFormulaObject.to_formula(
+            formula: JadawelFormulaObject = JadawelFormulaObject.to_formula(
                 getattr(instance, formula_field)
             )
             new_formula = yield formula

@@ -13,7 +13,7 @@ class TestDataProviderType extends DataProviderType {
   }
 }
 
-describe('BaserowFormulaValidationVisitor', () => {
+describe('JadawelFormulaValidationVisitor', () => {
   let testApp = null
   let validationContext = null
   let functions = null

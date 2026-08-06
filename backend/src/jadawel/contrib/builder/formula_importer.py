@@ -3,12 +3,12 @@ from typing import Dict, Union
 from jadawel.contrib.builder.data_providers.registries import (
     builder_data_provider_type_registry,
 )
-from jadawel.core.formula import BaserowFormulaObject, get_parse_tree_for_formula
+from jadawel.core.formula import JadawelFormulaObject, get_parse_tree_for_formula
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW
-from jadawel.core.services.formula_importer import BaserowFormulaImporter
+from jadawel.core.services.formula_importer import JadawelFormulaImporter
 
 
-class BuilderFormulaImporter(BaserowFormulaImporter):
+class BuilderFormulaImporter(JadawelFormulaImporter):
     """
     This visitor is used to import formulas in the builder services. It updates the
     paths of the `get()` function calls to reflect the new IDs of the data sources,
@@ -20,8 +20,8 @@ class BuilderFormulaImporter(BaserowFormulaImporter):
 
 
 def import_formula(
-    formula: Union[str, BaserowFormulaObject], id_mapping: Dict[str, str], **kwargs
-) -> BaserowFormulaObject:
+    formula: Union[str, JadawelFormulaObject], id_mapping: Dict[str, str], **kwargs
+) -> JadawelFormulaObject:
     """
     When a formula is used in a service, it must be migrated when we import it because
     it could contain IDs referencing other objects. For example, the formula
@@ -39,14 +39,14 @@ def import_formula(
                 )
     ```
 
-    :param formula: The formula to import (can be a string or BaserowFormulaObject dict)
+    :param formula: The formula to import (can be a string or JadawelFormulaObject dict)
     :param id_mapping: The Id map between old and new instances used during import.
     :param kwargs: Sometimes more parameters are needed by the import formula process.
       Extra kwargs are then passed to the underlying migration process.
     :return: The updated formula (same type as input - string or object).
     """
 
-    formula = BaserowFormulaObject.to_formula(formula)
+    formula = JadawelFormulaObject.to_formula(formula)
 
     if formula["mode"] == JADAWEL_FORMULA_MODE_RAW or not formula["formula"]:
         return formula

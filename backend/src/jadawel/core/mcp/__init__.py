@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 current_key: contextvars.ContextVar[str] = contextvars.ContextVar("current_key")
 
 
-class BaserowMCPServer:
+class JadawelMCPServer:
     """
     This class is inspired by FastMCP
     (https://github.com/modelcontextprotocol/python-sdk/blob/main/src/mcp/server/fastmcp/server.py)
@@ -177,8 +177,8 @@ class BaserowMCPServer:
 _jadawel_mcp = None
 
 
-def get_jadawel_mcp_server() -> BaserowMCPServer:
+def get_jadawel_mcp_server() -> JadawelMCPServer:
     global _jadawel_mcp
     if _jadawel_mcp is None:
-        _jadawel_mcp = BaserowMCPServer()
+        _jadawel_mcp = JadawelMCPServer()
     return _jadawel_mcp

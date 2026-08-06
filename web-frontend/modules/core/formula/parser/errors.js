@@ -1,4 +1,4 @@
-export class BaserowFormulaParserError extends Error {
+export class JadawelFormulaParserError extends Error {
   constructor(offendingSymbol, line, character, message) {
     super()
     this.offendingSymbol = offendingSymbol

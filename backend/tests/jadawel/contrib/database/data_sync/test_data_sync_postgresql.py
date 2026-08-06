@@ -236,7 +236,7 @@ def test_sync_postgresql_data_sync_nothing_changed(
 
     # Because none of the values have changed in the source (interesting) table,
     # we don't expect the rows to have been updated. If they have been updated,
-    # it means that the `is_equal` method of `BaserowFieldDataSyncProperty` is not
+    # it means that the `is_equal` method of `JadawelFieldDataSyncProperty` is not
     # working as expected.
     assert row_1.updated_on == row_1_last_modified
     assert row_2.updated_on == row_2_last_modified

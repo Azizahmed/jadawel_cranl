@@ -1,10 +1,10 @@
 import { Page } from "@playwright/test";
-import { BaserowPage, PageConfig } from "../baserowPage";
+import { JadawelPage, PageConfig } from "../jadawelPage";
 import { Automation } from "../../fixtures/automation/automation";
 import { AutomationWorkflow } from "../../fixtures/automation/automationWorkflow";
 import { Workspace } from "../../fixtures/workspace";
 
-export class AutomationWorkflowPage extends BaserowPage {
+export class AutomationWorkflowPage extends JadawelPage {
   automationWorkflow: AutomationWorkflow;
   automation: Automation;
   readonly workspace: Workspace;

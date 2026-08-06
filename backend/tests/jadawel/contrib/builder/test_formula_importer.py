@@ -4,7 +4,7 @@ from typing import List
 import pytest
 
 from jadawel.contrib.builder.formula_importer import import_formula
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.registries import DataProviderType
 from jadawel.core.formula.runtime_formula_context import RuntimeFormulaContext
 from jadawel.core.utils import MirrorDict
@@ -70,7 +70,7 @@ def test_formula_import_formula(formula, mutable_builder_data_provider_registry)
 
     id_mapping = defaultdict(lambda: MirrorDict())
 
-    result = import_formula(BaserowFormulaObject.create(formula["input"]), id_mapping)
+    result = import_formula(JadawelFormulaObject.create(formula["input"]), id_mapping)
 
     assert result["formula"] == formula["output"]
 
@@ -85,6 +85,6 @@ def test_formula_import_formula_with_import(
     id_mapping["first"] = {1: 10}
     id_mapping["second"] = {10: 42}
 
-    result = import_formula(BaserowFormulaObject.create(formula["input"]), id_mapping)
+    result = import_formula(JadawelFormulaObject.create(formula["input"]), id_mapping)
 
     assert result["formula"] == formula.get("output2", formula["output"])

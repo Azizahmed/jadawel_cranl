@@ -14,7 +14,7 @@ from jadawel.core.formula.exceptions import (
     InvalidFormulaContext,
     InvalidFormulaContextContent,
 )
-from jadawel.core.formula.parser.exceptions import BaserowFormulaException
+from jadawel.core.formula.parser.exceptions import JadawelFormulaException
 from jadawel.core.formula.registries import formula_runtime_function_registry
 from jadawel.core.integrations.exceptions import IntegrationDoesNotExist
 from jadawel.core.integrations.handler import IntegrationHandler
@@ -302,7 +302,7 @@ class ServiceType(
             except ValidationError as e:
                 message = f"Value error for {label}: {e.message}"
                 raise InvalidContextContentDispatchException(message) from e
-            except BaserowFormulaException as e:
+            except JadawelFormulaException as e:
                 message = f"Error in formula for {label}: {str(e)}"
                 raise ServiceImproperlyConfiguredDispatchException(message) from e
             except DispatchException:

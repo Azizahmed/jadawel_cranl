@@ -3,7 +3,7 @@
     <p class="margin-bottom-2">
       {{ $t('propertyOptionForm.formDescription') }}
     </p>
-    <BaserowTable
+    <JadawelTable
       class="property-option-form__table"
       :fields="fields"
       :rows="rows"
@@ -48,17 +48,17 @@
       <template #empty-state>
         {{ $t('propertyOptionForm.noPropertiesAvailable') }}
       </template>
-    </BaserowTable>
+    </JadawelTable>
   </div>
 </template>
 
 <script>
-import BaserowTable from '@jadawel/modules/builder/components/elements/components/BaserowTable'
+import JadawelTable from '@jadawel/modules/builder/components/elements/components/JadawelTable'
 import form from '@jadawel/modules/core/mixins/form'
 
 export default {
   name: 'PropertyOptionForm',
-  components: { BaserowTable },
+  components: { JadawelTable },
   mixins: [form],
   props: {
     dataSource: {

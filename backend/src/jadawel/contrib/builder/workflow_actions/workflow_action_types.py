@@ -47,7 +47,7 @@ from jadawel.contrib.integrations.slack.service_types import (
 from jadawel.core.db import specific_queryset
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, BaserowFormulaObject
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE, JadawelFormulaObject
 from jadawel.core.integrations.models import Integration
 from jadawel.core.registry import Instance
 from jadawel.core.services.handler import ServiceHandler
@@ -74,21 +74,21 @@ class NotificationWorkflowActionType(BuilderWorkflowActionType):
     }
 
     class SerializedDict(BuilderWorkflowActionDict):
-        title: BaserowFormulaObject
-        description: BaserowFormulaObject
+        title: JadawelFormulaObject
+        description: JadawelFormulaObject
 
     @property
     def allowed_fields(self):
         return super().allowed_fields + ["title", "description"]
 
-    def get_pytest_params(self, pytest_data_fixture) -> Dict[str, BaserowFormulaObject]:
+    def get_pytest_params(self, pytest_data_fixture) -> Dict[str, JadawelFormulaObject]:
         return {
-            "title": BaserowFormulaObject(
+            "title": JadawelFormulaObject(
                 formula="'hello'",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
-            "description": BaserowFormulaObject(
+            "description": JadawelFormulaObject(
                 formula="'there'",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -140,7 +140,7 @@ class OpenPageWorkflowActionType(BuilderWorkflowActionType):
         yield from super().formula_generator(workflow_action)
 
         for index, page_parameter in enumerate(workflow_action.page_parameters):
-            new_formula = yield BaserowFormulaObject.to_formula(
+            new_formula = yield JadawelFormulaObject.to_formula(
                 page_parameter.get("value")
             )
             if new_formula is not None:
@@ -148,7 +148,7 @@ class OpenPageWorkflowActionType(BuilderWorkflowActionType):
                 yield workflow_action
 
         for index, query_parameter in enumerate(workflow_action.query_parameters or []):
-            new_formula = yield BaserowFormulaObject.to_formula(
+            new_formula = yield JadawelFormulaObject.to_formula(
                 query_parameter.get("value")
             )
             if new_formula is not None:

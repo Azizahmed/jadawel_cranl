@@ -55,20 +55,20 @@ from jadawel.contrib.database.fields.filter_support.base import (
 from jadawel.contrib.database.fields.models import Field, LinkRowField
 from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.formula import (
-    BaserowFormulaBooleanType,
-    BaserowFormulaCharType,
-    BaserowFormulaDateType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaCharType,
+    JadawelFormulaDateType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowFormulaDateIntervalType,
-    BaserowFormulaDurationType,
-    BaserowFormulaMultipleCollaboratorsType,
-    BaserowFormulaMultipleSelectType,
-    BaserowFormulaSingleFileType,
-    BaserowFormulaSingleSelectType,
-    BaserowFormulaURLType,
+    JadawelFormulaDateIntervalType,
+    JadawelFormulaDurationType,
+    JadawelFormulaMultipleCollaboratorsType,
+    JadawelFormulaMultipleSelectType,
+    JadawelFormulaSingleFileType,
+    JadawelFormulaSingleSelectType,
+    JadawelFormulaURLType,
 )
 from jadawel.core.datetime import get_timezones
 from jadawel.core.models import WorkspaceUser
@@ -109,11 +109,11 @@ class EqualViewFilterType(ViewFilterType):
         AutonumberFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDurationType.type,
-            BaserowFormulaURLType.type,
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDurationType.type,
+            JadawelFormulaURLType.type,
         ),
     ]
 
@@ -147,7 +147,7 @@ class FilenameContainsViewFilterType(ViewFilterType):
     compatible_field_types = [
         FileFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type)
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type)
         ),
     ]
 
@@ -171,7 +171,7 @@ class HasFileTypeViewFilterType(ViewFilterType):
     compatible_field_types = [
         FileFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type)
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type)
         ),
     ]
 
@@ -246,13 +246,13 @@ class ContainsViewFilterType(ViewFilterType):
         NumberFieldType.type,
         AutonumberFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
-            BaserowFormulaURLType.type,
-            BaserowFormulaSingleSelectType.type,
-            BaserowFormulaMultipleSelectType.type,
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
+            JadawelFormulaURLType.type,
+            JadawelFormulaSingleSelectType.type,
+            JadawelFormulaMultipleSelectType.type,
         ),
     ]
 
@@ -280,11 +280,11 @@ class ContainsWordViewFilterType(ViewFilterType):
         SingleSelectFieldType.type,
         MultipleSelectFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaURLType.type,
-            BaserowFormulaSingleSelectType.type,
-            BaserowFormulaMultipleSelectType.type,
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaURLType.type,
+            JadawelFormulaSingleSelectType.type,
+            JadawelFormulaMultipleSelectType.type,
         ),
     ]
 
@@ -321,7 +321,7 @@ class LengthIsLowerThanViewFilterType(ViewFilterType):
         EmailFieldType.type,
         PhoneNumberFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaURLType.type,
+            JadawelFormulaURLType.type,
         ),
     ]
 
@@ -351,7 +351,7 @@ class IsEvenAndWholeViewFilterType(ViewFilterType):
         NumberFieldType.type,
         AutonumberFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -376,7 +376,7 @@ class NumericComparisonViewFilterType(ViewFilterType):
         AutonumberFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type, BaserowFormulaDurationType.type
+            JadawelFormulaNumberType.type, JadawelFormulaDurationType.type
         ),
     ]
 
@@ -446,7 +446,7 @@ class TimezoneAwareDateViewFilterType(ViewFilterType):
         DateFieldType.type,
         LastModifiedFieldType.type,
         CreatedOnFieldType.type,
-        FormulaFieldType.compatible_with_formula_types(BaserowFormulaDateType.type),
+        FormulaFieldType.compatible_with_formula_types(JadawelFormulaDateType.type),
     ]
 
     def is_empty_filter(self, filter_value: str) -> bool:
@@ -1074,7 +1074,7 @@ class SingleSelectEqualViewFilterType(ViewFilterType):
     compatible_field_types = [
         SingleSelectFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaSingleSelectType.type
+            JadawelFormulaSingleSelectType.type
         ),
     ]
 
@@ -1133,7 +1133,7 @@ class SingleSelectIsAnyOfViewFilterType(ViewFilterType):
     compatible_field_types = [
         SingleSelectFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaSingleSelectType.type
+            JadawelFormulaSingleSelectType.type
         ),
     ]
 
@@ -1195,7 +1195,7 @@ class BooleanViewFilterType(ViewFilterType):
     compatible_field_types = [
         BooleanFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaBooleanType.type,
+            JadawelFormulaBooleanType.type,
         ),
     ]
 
@@ -1385,7 +1385,7 @@ class MultipleSelectHasViewFilterType(ManyToManyHasBaseViewFilter):
     compatible_field_types = [
         MultipleSelectFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaMultipleSelectType.type
+            JadawelFormulaMultipleSelectType.type
         ),
     ]
 
@@ -1602,28 +1602,28 @@ class EmptyViewFilterType(ViewFilterType):
         DurationFieldType.type,
         PasswordFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
-            BaserowFormulaBooleanType.type,
-            BaserowFormulaDateIntervalType.type,
-            BaserowFormulaDurationType.type,
-            BaserowFormulaURLType.type,
-            BaserowFormulaSingleSelectType.type,
-            BaserowFormulaMultipleSelectType.type,
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
+            JadawelFormulaBooleanType.type,
+            JadawelFormulaDateIntervalType.type,
+            JadawelFormulaDurationType.type,
+            JadawelFormulaURLType.type,
+            JadawelFormulaSingleSelectType.type,
+            JadawelFormulaMultipleSelectType.type,
             MultipleCollaboratorsFieldType.type,
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type),
-            FormulaFieldType.array_of(BaserowFormulaTextType.type),
-            FormulaFieldType.array_of(BaserowFormulaCharType.type),
-            FormulaFieldType.array_of(BaserowFormulaURLType.type),
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaBooleanType.type),
-            FormulaFieldType.array_of(BaserowFormulaDateType.type),
-            FormulaFieldType.array_of(BaserowFormulaSingleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleCollaboratorsType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type),
+            FormulaFieldType.array_of(JadawelFormulaTextType.type),
+            FormulaFieldType.array_of(JadawelFormulaCharType.type),
+            FormulaFieldType.array_of(JadawelFormulaURLType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaBooleanType.type),
+            FormulaFieldType.array_of(JadawelFormulaDateType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleCollaboratorsType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -1977,7 +1977,7 @@ class DateMultiStepViewFilterType(BaseDateMultiStepViewFilterType):
         DateFieldType.type,
         LastModifiedFieldType.type,
         CreatedOnFieldType.type,
-        FormulaFieldType.compatible_with_formula_types(BaserowFormulaDateType.type),
+        FormulaFieldType.compatible_with_formula_types(JadawelFormulaDateType.type),
     ]
 
     def get_filter_query_dict(

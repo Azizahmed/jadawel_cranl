@@ -1,4 +1,4 @@
-import { expect, test } from "../baserowTest";
+import { expect, test } from "../jadawelTest";
 
 test.describe("Automation workflow test suite", () => {
   test.beforeEach(async ({ automationWorkflowPage }) => {

@@ -1,7 +1,7 @@
 import pytest
 
 from jadawel.core.formula.parser.formula_validation_visitor import (
-    BaserowFormulaValidationVisitor,
+    JadawelFormulaValidationVisitor,
 )
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 from jadawel.core.formula.registries import (
@@ -36,7 +36,7 @@ def test_valid_formulas(test_data):
 
     tree = get_parse_tree_for_formula(formula)
     try:
-        BaserowFormulaValidationVisitor(
+        JadawelFormulaValidationVisitor(
             formula_runtime_function_registry,
             data_provider_type_registry=_test_data_provider_registry,
         ).visit(tree)
@@ -53,7 +53,7 @@ def test_invalid_formulas(test_data):
     tree = get_parse_tree_for_formula(formula)
 
     with pytest.raises(Exception) as exc_info:
-        BaserowFormulaValidationVisitor(
+        JadawelFormulaValidationVisitor(
             formula_runtime_function_registry,
             data_provider_type_registry=_test_data_provider_registry,
         ).visit(tree)

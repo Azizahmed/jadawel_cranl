@@ -18,7 +18,7 @@ from jadawel.contrib.builder.elements.models import Element
 from jadawel.contrib.builder.pages.models import Page
 from jadawel.contrib.database.views.models import SORT_ORDER_ASC
 from jadawel.core.exceptions import PermissionException
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.models import Workspace
@@ -471,7 +471,7 @@ def test_get_elements_of_public_builder(api_client, data_fixture):
         "style_width_child": "normal",
         "role_type": "allow_all",
         "roles": [],
-        "value": BaserowFormulaObject(
+        "value": JadawelFormulaObject(
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
             formula="",

@@ -77,7 +77,7 @@ import ViewFilterTypeMultipleSelectOptions from '@jadawel/modules/database/compo
 import { DEFAULT_SORT_TYPE_KEY } from '@jadawel/modules/database/constants'
 import ViewFilterTypeCollaborators from '@jadawel/modules/database/components/view/ViewFilterTypeCollaborators'
 
-export class BaserowFormulaTypeDefinition extends Registerable {
+export class JadawelFormulaTypeDefinition extends Registerable {
   getIconClass() {
     throw new Error(
       'Not implemented error. This method should return the types icon.'
@@ -274,7 +274,7 @@ export class BaserowFormulaTypeDefinition extends Registerable {
     return false
   }
 
-  toBaserowFormulaType(field) {
+  toJadawelFormulaType(field) {
     return this.getType()
   }
 
@@ -287,13 +287,13 @@ export class BaserowFormulaTypeDefinition extends Registerable {
   }
 }
 
-export class BaserowFormulaTextType extends mix(
+export class JadawelFormulaTextType extends mix(
   hasEmptyValueFilterMixin,
   hasValueEqualFilterMixin,
   hasValueContainsFilterMixin,
   hasValueContainsWordFilterMixin,
   hasValueLengthIsLowerThanFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'text'
@@ -332,13 +332,13 @@ export class BaserowFormulaTextType extends mix(
   }
 }
 
-export class BaserowFormulaCharType extends mix(
+export class JadawelFormulaCharType extends mix(
   hasEmptyValueFilterMixin,
   hasValueEqualFilterMixin,
   hasValueContainsFilterMixin,
   hasValueContainsWordFilterMixin,
   hasValueLengthIsLowerThanFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'char'
@@ -373,12 +373,12 @@ export class BaserowFormulaCharType extends mix(
   }
 }
 
-export class BaserowFormulaNumberType extends mix(
+export class JadawelFormulaNumberType extends mix(
   hasEmptyValueFilterMixin,
   hasValueContainsFilterMixin,
   hasNumericValueComparableToFilterMixin,
 
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'number'
@@ -413,7 +413,7 @@ export class BaserowFormulaNumberType extends mix(
   }
 }
 
-export class BaserowFormulaBooleanType extends BaserowFormulaTypeDefinition {
+export class JadawelFormulaBooleanType extends JadawelFormulaTypeDefinition {
   static getType() {
     return 'boolean'
   }
@@ -478,10 +478,10 @@ export class BaserowFormulaBooleanType extends BaserowFormulaTypeDefinition {
   }
 }
 
-export class BaserowFormulaDateType extends mix(
+export class JadawelFormulaDateType extends mix(
   hasEmptyValueFilterMixin,
   hasValueContainsFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'date'
@@ -524,10 +524,10 @@ export class BaserowFormulaDateType extends mix(
   }
 }
 
-export class BaserowFormulaDurationType extends mix(
+export class JadawelFormulaDurationType extends mix(
   hasEmptyValueFilterMixin,
   hasNumericValueComparableToFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'duration'
@@ -566,8 +566,8 @@ export class BaserowFormulaDurationType extends mix(
   }
 }
 
-// Deprecated, use BaserowFormulaDurationType instead.
-export class BaserowFormulaDateIntervalType extends BaserowFormulaTypeDefinition {
+// Deprecated, use JadawelFormulaDurationType instead.
+export class JadawelFormulaDateIntervalType extends JadawelFormulaTypeDefinition {
   static getType() {
     return 'date_interval'
   }
@@ -603,7 +603,7 @@ export class BaserowFormulaDateIntervalType extends BaserowFormulaTypeDefinition
 
 // This type only exists in the frontend and only is referenced by a few weird frontend
 // function defs which we want to show as a 'special' type in the GUI.
-export class BaserowFormulaSpecialType extends BaserowFormulaTypeDefinition {
+export class JadawelFormulaSpecialType extends JadawelFormulaTypeDefinition {
   static getType() {
     return 'special'
   }
@@ -629,7 +629,7 @@ export class BaserowFormulaSpecialType extends BaserowFormulaTypeDefinition {
   }
 }
 
-export class BaserowFormulaInvalidType extends BaserowFormulaTypeDefinition {
+export class JadawelFormulaInvalidType extends JadawelFormulaTypeDefinition {
   static getType() {
     return 'invalid'
   }
@@ -663,9 +663,9 @@ export class BaserowFormulaInvalidType extends BaserowFormulaTypeDefinition {
   }
 }
 
-export class BaserowFormulaArrayType extends mix(
+export class JadawelFormulaArrayType extends mix(
   jadawelFormulaArrayTypeFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'array'
@@ -856,8 +856,8 @@ export class BaserowFormulaArrayType extends mix(
     return false
   }
 
-  toBaserowFormulaType(field) {
-    return this.getSubType(field)?.toBaserowFormulaType(field)
+  toJadawelFormulaType(field) {
+    return this.getSubType(field)?.toJadawelFormulaType(field)
   }
 
   parseFromLinkedRowItemValue(field, value) {
@@ -866,7 +866,7 @@ export class BaserowFormulaArrayType extends mix(
   }
 }
 
-export class BaserowFormulaFileType extends BaserowFormulaTypeDefinition {
+export class JadawelFormulaFileType extends JadawelFormulaTypeDefinition {
   static getType() {
     return 'single_file'
   }
@@ -969,12 +969,12 @@ export class BaserowFormulaFileType extends BaserowFormulaTypeDefinition {
   }
 }
 
-export class BaserowFormulaSingleSelectType extends mix(
+export class JadawelFormulaSingleSelectType extends mix(
   hasEmptyValueFilterMixin,
   hasSelectOptionIdEqualMixin,
   hasSelectOptionValueContainsFilterMixin,
   hasSelectOptionValueContainsWordFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'single_select'
@@ -1021,12 +1021,12 @@ export class BaserowFormulaSingleSelectType extends mix(
   }
 }
 
-export class BaserowFormulaMultipleSelectType extends mix(
+export class JadawelFormulaMultipleSelectType extends mix(
   hasEmptyValueFilterMixin,
   hasNestedSelectOptionValueContainsFilterMixin,
   hasNestedSelectOptionValueContainsWordFilterMixin,
   hasMultipleSelectOptionIdEqualMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'multiple_select'
@@ -1073,12 +1073,12 @@ export class BaserowFormulaMultipleSelectType extends mix(
   }
 }
 
-export class BaserowFormulaMultipleCollaboratorsType extends mix(
+export class JadawelFormulaMultipleCollaboratorsType extends mix(
   hasEmptyValueFilterMixin,
   hasNestedSelectOptionValueContainsFilterMixin,
   hasNestedSelectOptionValueContainsWordFilterMixin,
   hasMultipleSelectOptionIdEqualMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'multiple_collaborators'
@@ -1143,7 +1143,7 @@ export class BaserowFormulaMultipleCollaboratorsType extends mix(
   }
 }
 
-export class BaserowFormulaLinkType extends BaserowFormulaTypeDefinition {
+export class JadawelFormulaLinkType extends JadawelFormulaTypeDefinition {
   static getType() {
     return 'link'
   }
@@ -1201,13 +1201,13 @@ export class BaserowFormulaLinkType extends BaserowFormulaTypeDefinition {
   }
 }
 
-export class BaserowFormulaURLType extends mix(
+export class JadawelFormulaURLType extends mix(
   hasEmptyValueFilterMixin,
   hasValueEqualFilterMixin,
   hasValueContainsFilterMixin,
   hasValueContainsWordFilterMixin,
   hasValueLengthIsLowerThanFilterMixin,
-  BaserowFormulaTypeDefinition
+  JadawelFormulaTypeDefinition
 ) {
   static getType() {
     return 'url'
@@ -1269,7 +1269,7 @@ export class BaserowFormulaURLType extends mix(
   }
 }
 
-export class BaserowFormulaButtonType extends BaserowFormulaLinkType {
+export class JadawelFormulaButtonType extends JadawelFormulaLinkType {
   static getType() {
     return 'button'
   }

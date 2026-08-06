@@ -1,5 +1,5 @@
 <template>
-  <BaserowTable
+  <JadawelTable
     :fields="fields"
     :rows="rows"
     class="ab-table"
@@ -35,16 +35,16 @@
         </template>
       </div>
     </template>
-  </BaserowTable>
+  </JadawelTable>
 </template>
 
 <script>
 import { ORIENTATIONS } from '@jadawel/modules/builder/enums'
-import BaserowTable from '@jadawel/modules/builder/components/elements/components/BaserowTable'
+import JadawelTable from '@jadawel/modules/builder/components/elements/components/JadawelTable'
 
 export default {
   name: 'ABTable',
-  components: { BaserowTable },
+  components: { JadawelTable },
   props: {
     fields: {
       type: Array,

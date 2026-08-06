@@ -22,10 +22,10 @@ from jadawel.contrib.database.api.tables.errors import (
 from jadawel.contrib.database.db.atomic import read_committed_single_table_transaction
 from jadawel.contrib.database.fields.exceptions import (
     FieldNotInTable,
-    InvalidBaserowFieldName,
+    InvalidJadawelFieldName,
     MaxFieldLimitExceeded,
     MaxFieldNameLengthExceeded,
-    ReservedBaserowFieldNameException,
+    ReservedJadawelFieldNameException,
     SelectOptionDoesNotBelongToField,
 )
 from jadawel.contrib.database.rows.actions import ImportRowsActionType
@@ -60,8 +60,8 @@ class FileImportJobType(JobType):
         MaxFieldLimitExceeded: ERROR_MAX_FIELD_COUNT_EXCEEDED,
         MaxFieldNameLengthExceeded: ERROR_MAX_FIELD_NAME_LENGTH_EXCEEDED[2],
         InitialTableDataDuplicateName: ERROR_INITIAL_TABLE_DATA_HAS_DUPLICATE_NAMES[2],
-        ReservedBaserowFieldNameException: ERROR_RESERVED_BASEROW_FIELD_NAME[2],
-        InvalidBaserowFieldName: ERROR_INVALID_BASEROW_FIELD_NAME[2],
+        ReservedJadawelFieldNameException: ERROR_RESERVED_BASEROW_FIELD_NAME[2],
+        InvalidJadawelFieldName: ERROR_INVALID_BASEROW_FIELD_NAME[2],
         FieldNotInTable: ERROR_FIELD_NOT_IN_TABLE[2],
         SelectOptionDoesNotBelongToField: ERROR_SELECT_OPTION_DOES_NOT_BELONG_TO_FIELD[
             2

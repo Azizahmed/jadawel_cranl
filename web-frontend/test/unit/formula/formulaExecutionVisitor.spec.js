@@ -1,12 +1,12 @@
-import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
-import BaserowFormulaExecutionVisitor from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
+import parseJadawelFormula from '@jadawel/modules/core/formula/parser/parser'
+import JadawelFormulaExecutionVisitor from '@jadawel/modules/core/formula/parser/formulaExecutionVisitor.js'
 import {
   VALID_FORMULA_EXECUTION_TESTS,
   INVALID_FORMULA_EXECUTION_TESTS,
 } from '@jadawel_test_cases/formula_visitor_cases'
 import { TestApp } from '@jadawel/test/helpers/testApp'
 
-describe('BaserowFormulaExecutionVisitor', () => {
+describe('JadawelFormulaExecutionVisitor', () => {
   let testApp = null
   beforeEach(() => {
     testApp = new TestApp()
@@ -15,9 +15,9 @@ describe('BaserowFormulaExecutionVisitor', () => {
   test.each(VALID_FORMULA_EXECUTION_TESTS)(
     'should correctly resolve the formula %s',
     ({ formula, result, context }) => {
-      const tree = parseBaserowFormula(formula)
+      const tree = parseJadawelFormula(formula)
       expect(
-        new BaserowFormulaExecutionVisitor(
+        new JadawelFormulaExecutionVisitor(
           {
             get(name) {
               return testApp.store.$registry.get('runtimeFormulaFunction', name)
@@ -32,9 +32,9 @@ describe('BaserowFormulaExecutionVisitor', () => {
   test.each(INVALID_FORMULA_EXECUTION_TESTS)(
     'should correctly raise an error for formula %s',
     ({ formula, context }) => {
-      const tree = parseBaserowFormula(formula)
+      const tree = parseJadawelFormula(formula)
       expect(() =>
-        new BaserowFormulaExecutionVisitor(
+        new JadawelFormulaExecutionVisitor(
           {
             get(name) {
               return testApp.store.$registry.get('runtimeFormulaFunction', name)

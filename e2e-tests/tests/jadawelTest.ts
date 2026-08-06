@@ -11,7 +11,7 @@ import { AutomationWorkflowPage } from "../pages/automation/automationWorkflowPa
 import { expect, test as base } from "@nuxt/test-utils/playwright";
 
 // Declare the types of your fixtures.
-type BaserowFixtures = {
+type JadawelFixtures = {
   workspacePage: WorkspacePage;
   builderPagePage: BuilderPagePage;
   automationWorkflowPage: AutomationWorkflowPage;
@@ -20,7 +20,7 @@ type BaserowFixtures = {
 /**
  * Fixture for all tests that need an authenticated user with an empty workspace.
  */
-export const test = base.extend<BaserowFixtures>({
+export const test = base.extend<JadawelFixtures>({
   workspacePage: async ({ page, goto }, use) => {
     // Don't show the cookie notice
     await page.context().addCookies([

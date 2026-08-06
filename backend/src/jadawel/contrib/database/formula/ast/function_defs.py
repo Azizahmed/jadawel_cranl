@@ -57,34 +57,34 @@ from django.db.models.functions.datetime import TimezoneMixin
 
 from jadawel.contrib.database.fields.models import NUMBER_MAX_DECIMAL_PLACES
 from jadawel.contrib.database.formula.ast.function import (
-    BaserowFunctionDefinition,
-    CollapseManyBaserowFunction,
+    CollapseManyJadawelFunction,
+    JadawelFunctionDefinition,
     NumOfArgsBetween,
     NumOfArgsGreaterThan,
-    OneArgumentBaserowFunction,
-    ThreeArgumentBaserowFunction,
-    TwoArgumentBaserowFunction,
-    ZeroArgumentBaserowFunction,
+    OneArgumentJadawelFunction,
+    ThreeArgumentJadawelFunction,
+    TwoArgumentJadawelFunction,
+    ZeroArgumentJadawelFunction,
     aggregate_expr_with_metadata_filters,
     aggregate_wrapper,
     construct_aggregate_wrapper_queryset,
     construct_not_null_filters_for_inner_join,
 )
 from jadawel.contrib.database.formula.ast.tree import (
-    BaserowDecimalLiteral,
-    BaserowExpression,
-    BaserowExpressionContext,
-    BaserowFunctionCall,
-    BaserowIntegerLiteral,
-    BaserowStringLiteral,
+    JadawelDecimalLiteral,
+    JadawelExpression,
+    JadawelExpressionContext,
+    JadawelFunctionCall,
+    JadawelIntegerLiteral,
+    JadawelStringLiteral,
 )
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
     AndExpr,
-    BaserowStringAgg,
     EqualsExpr,
     GreaterThanExpr,
     GreaterThanOrEqualExpr,
     IsNullExpr,
+    JadawelStringAgg,
     JSONBArrayGetElement,
     JSONBArrayJoinValues,
     JSONBArraySlice,
@@ -96,232 +96,232 @@ from jadawel.contrib.database.formula.expression_generator.django_expressions im
     OrExpr,
 )
 from jadawel.contrib.database.formula.expression_generator.exceptions import (
-    BaserowToDjangoExpressionGenerationError,
+    JadawelToDjangoExpressionGenerationError,
 )
 from jadawel.contrib.database.formula.expression_generator.generator import (
     JoinIdsType,
     WrappedExpressionWithMetadata,
 )
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaType,
-    BaserowFormulaValidType,
+    JadawelFormulaType,
+    JadawelFormulaValidType,
     UnTyped,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowFormulaArrayType,
-    BaserowFormulaBooleanType,
-    BaserowFormulaButtonType,
-    BaserowFormulaCharType,
-    BaserowFormulaDateType,
-    BaserowFormulaDurationType,
-    BaserowFormulaLinkType,
-    BaserowFormulaMultipleCollaboratorsType,
-    BaserowFormulaMultipleSelectType,
-    BaserowFormulaNumberType,
-    BaserowFormulaSingleFileType,
-    BaserowFormulaSingleSelectType,
-    BaserowFormulaTextType,
-    BaserowFormulaURLType,
-    BaserowJSONBObjectBaseType,
+    JadawelFormulaArrayType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaButtonType,
+    JadawelFormulaCharType,
+    JadawelFormulaDateType,
+    JadawelFormulaDurationType,
+    JadawelFormulaLinkType,
+    JadawelFormulaMultipleCollaboratorsType,
+    JadawelFormulaMultipleSelectType,
+    JadawelFormulaNumberType,
+    JadawelFormulaSingleFileType,
+    JadawelFormulaSingleSelectType,
+    JadawelFormulaTextType,
+    JadawelFormulaURLType,
+    JadawelJSONBObjectBaseType,
     calculate_number_type,
     literal,
 )
 from jadawel.contrib.database.formula.types.type_checker import (
-    BaserowArgumentTypeChecker,
+    JadawelArgumentTypeChecker,
     MustBeManyExprChecker,
 )
 
 
-class BaserowTimezoneMixinOverride(TimezoneMixin):
+class JadawelTimezoneMixinOverride(TimezoneMixin):
     def get_tzname(self):
         return None
 
 
-class BaserowExtract(BaserowTimezoneMixinOverride, Extract):
+class JadawelExtract(JadawelTimezoneMixinOverride, Extract):
     pass
 
 
 def register_formula_functions(registry):
     # Text functions
-    registry.register(BaserowUpper())
-    registry.register(BaserowLower())
-    registry.register(BaserowConcat())
-    registry.register(BaserowToText())
-    registry.register(BaserowToVarchar())
-    registry.register(BaserowT())
-    registry.register(BaserowReplace())
-    registry.register(BaserowSearch())
-    registry.register(BaserowLength())
-    registry.register(BaserowReverse())
-    registry.register(BaserowContains())
-    registry.register(BaserowLeft())
-    registry.register(BaserowRight())
-    registry.register(BaserowTrim())
-    registry.register(BaserowRegexReplace())
-    registry.register(BaserowEncodeUri())
-    registry.register(BaserowEncodeUriComponent())
+    registry.register(JadawelUpper())
+    registry.register(JadawelLower())
+    registry.register(JadawelConcat())
+    registry.register(JadawelToText())
+    registry.register(JadawelToVarchar())
+    registry.register(JadawelT())
+    registry.register(JadawelReplace())
+    registry.register(JadawelSearch())
+    registry.register(JadawelLength())
+    registry.register(JadawelReverse())
+    registry.register(JadawelContains())
+    registry.register(JadawelLeft())
+    registry.register(JadawelRight())
+    registry.register(JadawelTrim())
+    registry.register(JadawelRegexReplace())
+    registry.register(JadawelEncodeUri())
+    registry.register(JadawelEncodeUriComponent())
     # Number functions
-    registry.register(BaserowMultiply())
-    registry.register(BaserowDivide())
-    registry.register(BaserowToNumber())
-    registry.register(BaserowErrorToNan())
-    registry.register(BaserowGreatest())
-    registry.register(BaserowLeast())
-    registry.register(BaserowMod())
-    registry.register(BaserowRound())
-    registry.register(BaserowInt())
-    registry.register(BaserowEven())
-    registry.register(BaserowOdd())
-    registry.register(BaserowTrunc())
-    registry.register(BaserowSplitPart())
-    registry.register(BaserowLn())
-    registry.register(BaserowExp())
-    registry.register(BaserowLog())
-    registry.register(BaserowSqrt())
-    registry.register(BaserowPower())
-    registry.register(BaserowAbs())
-    registry.register(BaserowCeil())
-    registry.register(BaserowFloor())
-    registry.register(BaserowSign())
-    registry.register(BaserowIsNaN())
-    registry.register(BaserowWhenNan())
+    registry.register(JadawelMultiply())
+    registry.register(JadawelDivide())
+    registry.register(JadawelToNumber())
+    registry.register(JadawelErrorToNan())
+    registry.register(JadawelGreatest())
+    registry.register(JadawelLeast())
+    registry.register(JadawelMod())
+    registry.register(JadawelRound())
+    registry.register(JadawelInt())
+    registry.register(JadawelEven())
+    registry.register(JadawelOdd())
+    registry.register(JadawelTrunc())
+    registry.register(JadawelSplitPart())
+    registry.register(JadawelLn())
+    registry.register(JadawelExp())
+    registry.register(JadawelLog())
+    registry.register(JadawelSqrt())
+    registry.register(JadawelPower())
+    registry.register(JadawelAbs())
+    registry.register(JadawelCeil())
+    registry.register(JadawelFloor())
+    registry.register(JadawelSign())
+    registry.register(JadawelIsNaN())
+    registry.register(JadawelWhenNan())
     # Boolean functions
-    registry.register(BaserowIf())
-    registry.register(BaserowEqual())
-    registry.register(BaserowIsBlank())
-    registry.register(BaserowIsNull())
-    registry.register(BaserowNot())
-    registry.register(BaserowNotEqual())
-    registry.register(BaserowGreaterThan())
-    registry.register(BaserowGreaterThanOrEqual())
-    registry.register(BaserowLessThan())
-    registry.register(BaserowLessThanOrEqual())
-    registry.register(BaserowAnd())
-    registry.register(BaserowOr())
+    registry.register(JadawelIf())
+    registry.register(JadawelEqual())
+    registry.register(JadawelIsBlank())
+    registry.register(JadawelIsNull())
+    registry.register(JadawelNot())
+    registry.register(JadawelNotEqual())
+    registry.register(JadawelGreaterThan())
+    registry.register(JadawelGreaterThanOrEqual())
+    registry.register(JadawelLessThan())
+    registry.register(JadawelLessThanOrEqual())
+    registry.register(JadawelAnd())
+    registry.register(JadawelOr())
     # Date functions
-    registry.register(BaserowDatetimeFormat())
-    registry.register(BaserowDatetimeFormatTz())
-    registry.register(BaserowDay())
-    registry.register(BaserowMonth())
-    registry.register(BaserowYear())
-    registry.register(BaserowSecond())
-    registry.register(BaserowToDate())
-    registry.register(BaserowDateDiff())
-    registry.register(BaserowBcToNull())
-    registry.register(BaserowNow())
-    registry.register(BaserowToday())
-    registry.register(BaserowToDateTz())
+    registry.register(JadawelDatetimeFormat())
+    registry.register(JadawelDatetimeFormatTz())
+    registry.register(JadawelDay())
+    registry.register(JadawelMonth())
+    registry.register(JadawelYear())
+    registry.register(JadawelSecond())
+    registry.register(JadawelToDate())
+    registry.register(JadawelDateDiff())
+    registry.register(JadawelBcToNull())
+    registry.register(JadawelNow())
+    registry.register(JadawelToday())
+    registry.register(JadawelToDateTz())
     # Date interval functions
-    registry.register(BaserowDateInterval())
-    registry.register(BaserowSecondsToDuration())
-    registry.register(BaserowDurationToSeconds())
+    registry.register(JadawelDateInterval())
+    registry.register(JadawelSecondsToDuration())
+    registry.register(JadawelDurationToSeconds())
     # Special functions
-    registry.register(BaserowAdd())
-    registry.register(BaserowMinus())
-    registry.register(BaserowErrorToNull())
-    registry.register(BaserowRowId())
-    registry.register(BaserowWhenEmpty())
+    registry.register(JadawelAdd())
+    registry.register(JadawelMinus())
+    registry.register(JadawelErrorToNull())
+    registry.register(JadawelRowId())
+    registry.register(JadawelWhenEmpty())
     # Array functions
-    registry.register(BaserowArrayAgg())
-    registry.register(Baserow2dArrayAgg())
-    registry.register(BaserowMultipleSelectOptionsAgg())
-    registry.register(BaserowAny())
-    registry.register(BaserowEvery())
-    registry.register(BaserowMax())
-    registry.register(BaserowMin())
-    registry.register(BaserowCount())
-    registry.register(BaserowFilter())
-    registry.register(BaserowAggJoin())
-    registry.register(BaserowStdDevPop())
-    registry.register(BaserowStdDevSample())
-    registry.register(BaserowVarianceSample())
-    registry.register(BaserowVariancePop())
-    registry.register(BaserowAvg())
-    registry.register(BaserowSum())
+    registry.register(JadawelArrayAgg())
+    registry.register(Jadawel2dArrayAgg())
+    registry.register(JadawelMultipleSelectOptionsAgg())
+    registry.register(JadawelAny())
+    registry.register(JadawelEvery())
+    registry.register(JadawelMax())
+    registry.register(JadawelMin())
+    registry.register(JadawelCount())
+    registry.register(JadawelFilter())
+    registry.register(JadawelAggJoin())
+    registry.register(JadawelStdDevPop())
+    registry.register(JadawelStdDevSample())
+    registry.register(JadawelVarianceSample())
+    registry.register(JadawelVariancePop())
+    registry.register(JadawelAvg())
+    registry.register(JadawelSum())
     # Single Select functions
-    registry.register(BaserowGetSingleSelectValue())
+    registry.register(JadawelGetSingleSelectValue())
     # Multiple Select functions
-    registry.register(BaserowHasOption())
-    registry.register(BaserowMultipleSelectCount())
-    registry.register(BaserowStringAggMultipleSelectValues())
+    registry.register(JadawelHasOption())
+    registry.register(JadawelMultipleSelectCount())
+    registry.register(JadawelStringAggMultipleSelectValues())
     # Link functions
-    registry.register(BaserowLink())
-    registry.register(BaserowButton())
-    registry.register(BaserowGetLinkUrl())
-    registry.register(BaserowGetLinkLabel())
+    registry.register(JadawelLink())
+    registry.register(JadawelButton())
+    registry.register(JadawelGetLinkUrl())
+    registry.register(JadawelGetLinkLabel())
     # JSON functions
-    registry.register(BaserowJsonbExtractPathText())
-    registry.register(BaserowIndex())
+    registry.register(JadawelJsonbExtractPathText())
+    registry.register(JadawelIndex())
     # FIle functions
-    registry.register(BaserowGetFileVisibleName())
-    registry.register(BaserowGetFileMimeType())
-    registry.register(BaserowGetFileSize())
-    registry.register(BaserowGetImageWidth())
-    registry.register(BaserowGetImageHeight())
-    registry.register(BaserowIsImage())
-    registry.register(BaserowArrayAggNoNesting())
-    registry.register(BaserowGetFileCount())
-    registry.register(BaserowToURL())
+    registry.register(JadawelGetFileVisibleName())
+    registry.register(JadawelGetFileMimeType())
+    registry.register(JadawelGetFileSize())
+    registry.register(JadawelGetImageWidth())
+    registry.register(JadawelGetImageHeight())
+    registry.register(JadawelIsImage())
+    registry.register(JadawelArrayAggNoNesting())
+    registry.register(JadawelGetFileCount())
+    registry.register(JadawelToURL())
     # Array utility functions
-    registry.register(BaserowArrayUnique())
-    registry.register(BaserowArrayLength())
-    registry.register(BaserowArrayJoinValues())
-    registry.register(BaserowArraySlice())
-    registry.register(BaserowFirst())
-    registry.register(BaserowLast())
+    registry.register(JadawelArrayUnique())
+    registry.register(JadawelArrayLength())
+    registry.register(JadawelArrayJoinValues())
+    registry.register(JadawelArraySlice())
+    registry.register(JadawelFirst())
+    registry.register(JadawelLast())
     # ManyToMany functions
-    registry.register(BaserowStringAggManyToManyValues())
-    registry.register(BaserowManyToManyCount())
-    registry.register(BaserowManyToManyAgg())
+    registry.register(JadawelStringAggManyToManyValues())
+    registry.register(JadawelManyToManyCount())
+    registry.register(JadawelManyToManyAgg())
 
 
-class BaserowUpper(OneArgumentBaserowFunction):
+class JadawelUpper(OneArgumentJadawelFunction):
     type = "upper"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Upper(arg, output_field=fields.TextField())
 
 
-class BaserowLower(OneArgumentBaserowFunction):
+class JadawelLower(OneArgumentJadawelFunction):
     type = "lower"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Lower(arg, output_field=fields.TextField())
 
 
-class BaserowDatetimeFormat(TwoArgumentBaserowFunction):
+class JadawelDatetimeFormat(TwoArgumentJadawelFunction):
     type = "datetime_format"
-    arg1_type = [BaserowFormulaDateType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaDateType]
+    arg2_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg1.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg1.expression_type.nullable)
         )
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
@@ -341,20 +341,20 @@ class BaserowDatetimeFormat(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowDatetimeFormatTz(ThreeArgumentBaserowFunction):
+class JadawelDatetimeFormatTz(ThreeArgumentJadawelFunction):
     type = "datetime_format_tz"
-    arg1_type = [BaserowFormulaDateType]
-    arg2_type = [BaserowFormulaTextType]
-    arg3_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaDateType]
+    arg2_type = [JadawelFormulaTextType]
+    arg3_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaTextType(nullable=True))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaTextType(nullable=True))
 
     def to_django_expression(
         self, arg1: Expression, arg2: Expression, arg3: Expression
@@ -374,17 +374,17 @@ class BaserowDatetimeFormatTz(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowEncodeUri(OneArgumentBaserowFunction):
+class JadawelEncodeUri(OneArgumentJadawelFunction):
     type = "encode_uri"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -395,17 +395,17 @@ class BaserowEncodeUri(OneArgumentBaserowFunction):
         )
 
 
-class BaserowEncodeUriComponent(OneArgumentBaserowFunction):
+class JadawelEncodeUriComponent(OneArgumentJadawelFunction):
     type = "encode_uri_component"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -416,18 +416,18 @@ class BaserowEncodeUriComponent(OneArgumentBaserowFunction):
         )
 
 
-class BaserowToText(OneArgumentBaserowFunction):
+class JadawelToText(OneArgumentJadawelFunction):
     type = "totext"
-    arg_type = [BaserowFormulaValidType]
+    arg_type = [JadawelFormulaValidType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return arg.expression_type.cast_to_text(func_call, arg).with_valid_type(
-            BaserowFormulaTextType()
+            JadawelFormulaTextType()
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -438,67 +438,67 @@ class BaserowToText(OneArgumentBaserowFunction):
         )
 
 
-class BaserowToVarchar(OneArgumentBaserowFunction):
+class JadawelToVarchar(OneArgumentJadawelFunction):
     """
     Internal function not registered in the frontend intentionally as we don't want
-    users making char types. Used purely for working with our BaserowFormulaCharType
+    users making char types. Used purely for working with our JadawelFormulaCharType
     on internal operations.
     """
 
     type = "tovarchar"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return arg.with_valid_type(
-            BaserowFormulaCharType(nullable=arg.expression_type.nullable)
+            JadawelFormulaCharType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Cast(arg, output_field=fields.CharField())
 
 
-class BaserowT(OneArgumentBaserowFunction):
+class JadawelT(OneArgumentJadawelFunction):
     type = "t"
-    arg_type = [BaserowFormulaValidType]
+    arg_type = [JadawelFormulaValidType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        if isinstance(arg.expression_type, BaserowFormulaTextType):
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        if isinstance(arg.expression_type, JadawelFormulaTextType):
             return arg
         else:
             return func_call.with_valid_type(
-                BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+                JadawelFormulaTextType(nullable=arg.expression_type.nullable)
             )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Cast(Value(""), output_field=fields.TextField())
 
 
-class BaserowConcat(BaserowFunctionDefinition):
+class JadawelConcat(JadawelFunctionDefinition):
     type = "concat"
     num_args = NumOfArgsGreaterThan(1)
     try_coerce_nullable_args_to_not_null = False
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        return lambda _, _2: [BaserowFormulaValidType]
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        return lambda _, _2: [JadawelFormulaValidType]
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        expression: "BaserowFunctionCall[UnTyped]",
-    ) -> BaserowExpression[BaserowFormulaType]:
-        typed_args = [BaserowToText()(a) for a in args]
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        expression: "JadawelFunctionCall[UnTyped]",
+    ) -> JadawelExpression[JadawelFormulaType]:
+        typed_args = [JadawelToText()(a) for a in args]
         return expression.with_args(typed_args).with_valid_type(
-            BaserowFormulaTextType()
+            JadawelFormulaTextType()
         )
 
     def to_django_expression_given_args(
@@ -510,28 +510,28 @@ class BaserowConcat(BaserowFunctionDefinition):
         )
 
 
-class BaserowAdd(TwoArgumentBaserowFunction):
+class JadawelAdd(TwoArgumentJadawelFunction):
     type = "add"
     operator = "+"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 1:
                 return arg_types[0].addable_types
             else:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
 
         return type_checker
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return arg1.expression_type.add(func_call, arg1, arg2)
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
@@ -557,28 +557,28 @@ class BaserowAdd(TwoArgumentBaserowFunction):
         return ExpressionWrapper(arg1 + arg2, output_field=output_field)
 
 
-class BaserowMultiply(TwoArgumentBaserowFunction):
+class JadawelMultiply(TwoArgumentJadawelFunction):
     type = "multiply"
     operator = "*"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 1:
                 return arg_types[0].multipliable_types
             else:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
 
         return type_checker
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return arg1.expression_type.multiply(func_call, arg1, arg2)
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
@@ -592,30 +592,30 @@ class BaserowMultiply(TwoArgumentBaserowFunction):
             return ExpressionWrapper(arg1 * arg2, output_field=arg1.output_field)
 
 
-class BaserowMinus(TwoArgumentBaserowFunction):
+class JadawelMinus(TwoArgumentJadawelFunction):
     type = "minus"
     operator = "-"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 1:
                 # Only type check the left hand side is one of the subtractable types
                 # of the right hand side argument.
                 return arg_types[0].subtractable_types
             else:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
 
         return type_checker
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return arg1.expression_type.minus(func_call, arg1, arg2)
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
@@ -638,18 +638,18 @@ class BaserowMinus(TwoArgumentBaserowFunction):
         return ExpressionWrapper(arg1 - arg2, output_field=output_field)
 
 
-class BaserowGreatest(TwoArgumentBaserowFunction):
+class JadawelGreatest(TwoArgumentJadawelFunction):
     type = "greatest"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type]),
             nullable=arg1.expression_type.nullable and arg2.expression_type.nullable,
@@ -659,18 +659,18 @@ class BaserowGreatest(TwoArgumentBaserowFunction):
         return Greatest(arg1, arg2, output_field=arg1.output_field)
 
 
-class BaserowLeast(TwoArgumentBaserowFunction):
+class JadawelLeast(TwoArgumentJadawelFunction):
     type = "least"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type]),
             nullable=arg1.expression_type.nullable and arg2.expression_type.nullable,
@@ -680,26 +680,26 @@ class BaserowLeast(TwoArgumentBaserowFunction):
         return Least(arg1, arg2, output_field=arg1.output_field)
 
 
-class BaserowRound(TwoArgumentBaserowFunction):
+class JadawelRound(TwoArgumentJadawelFunction):
     type = "round"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        if isinstance(arg2, BaserowIntegerLiteral):
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        if isinstance(arg2, JadawelIntegerLiteral):
             guessed_number_decimal_places = arg2.literal
-        elif isinstance(arg2, BaserowDecimalLiteral):
+        elif isinstance(arg2, JadawelDecimalLiteral):
             guessed_number_decimal_places = int(arg2.literal)
         else:
             guessed_number_decimal_places = NUMBER_MAX_DECIMAL_PLACES
 
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=min(
                     max(guessed_number_decimal_places, 0), NUMBER_MAX_DECIMAL_PLACES
                 )
@@ -715,7 +715,7 @@ class BaserowRound(TwoArgumentBaserowFunction):
                     Cast(
                         arg1,
                         output_field=DecimalField(
-                            max_digits=BaserowFormulaNumberType.MAX_DIGITS,
+                            max_digits=JadawelFormulaNumberType.MAX_DIGITS,
                             decimal_places=NUMBER_MAX_DECIMAL_PLACES,
                         ),
                     ),
@@ -728,17 +728,17 @@ class BaserowRound(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowMod(TwoArgumentBaserowFunction):
+class JadawelMod(TwoArgumentJadawelFunction):
     type = "mod"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type])
         )
@@ -756,17 +756,17 @@ class BaserowMod(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowPower(TwoArgumentBaserowFunction):
+class JadawelPower(TwoArgumentJadawelFunction):
     type = "power"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type])
         )
@@ -775,17 +775,17 @@ class BaserowPower(TwoArgumentBaserowFunction):
         return Power(arg1, arg2, output_field=arg1.output_field)
 
 
-class BaserowLog(TwoArgumentBaserowFunction):
+class JadawelLog(TwoArgumentJadawelFunction):
     type = "log"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type])
         )
@@ -813,46 +813,46 @@ class BaserowLog(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowAbs(OneArgumentBaserowFunction):
+class JadawelAbs(OneArgumentJadawelFunction):
     type = "abs"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Abs(arg, output_field=arg.output_field)
 
 
-class BaserowExp(OneArgumentBaserowFunction):
+class JadawelExp(OneArgumentJadawelFunction):
     type = "exp"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Exp(arg, output_field=arg.output_field)
 
 
-class BaserowEven(OneArgumentBaserowFunction):
+class JadawelEven(OneArgumentJadawelFunction):
     type = "even"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return EqualsExpr(
@@ -862,16 +862,16 @@ class BaserowEven(OneArgumentBaserowFunction):
         )
 
 
-class BaserowOdd(OneArgumentBaserowFunction):
+class JadawelOdd(OneArgumentJadawelFunction):
     type = "odd"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return EqualsExpr(
@@ -881,15 +881,15 @@ class BaserowOdd(OneArgumentBaserowFunction):
         )
 
 
-class BaserowLn(OneArgumentBaserowFunction):
+class JadawelLn(OneArgumentJadawelFunction):
     type = "ln"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -908,15 +908,15 @@ class BaserowLn(OneArgumentBaserowFunction):
         )
 
 
-class BaserowSqrt(OneArgumentBaserowFunction):
+class JadawelSqrt(OneArgumentJadawelFunction):
     type = "sqrt"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -933,72 +933,72 @@ class BaserowSqrt(OneArgumentBaserowFunction):
         )
 
 
-class BaserowSign(OneArgumentBaserowFunction):
+class JadawelSign(OneArgumentJadawelFunction):
     type = "sign"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Sign(arg, output_field=int_like_numeric_output_field())
 
 
-class BaserowCeil(OneArgumentBaserowFunction):
+class JadawelCeil(OneArgumentJadawelFunction):
     type = "ceil"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Ceil(arg, output_field=int_like_numeric_output_field())
 
 
-class BaserowFloor(OneArgumentBaserowFunction):
+class JadawelFloor(OneArgumentJadawelFunction):
     type = "floor"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Floor(arg, output_field=int_like_numeric_output_field())
 
 
-class BaserowSplitPart(ThreeArgumentBaserowFunction):
+class JadawelSplitPart(ThreeArgumentJadawelFunction):
     type = "split_part"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
-    arg3_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
+    arg3_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaTextType],
-        arg2: BaserowExpression[BaserowFormulaTextType],
-        arg3: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaTextType],
+        arg2: JadawelExpression[JadawelFormulaTextType],
+        arg3: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(
+            JadawelFormulaTextType(
                 nullable=arg1.expression_type.nullable
                 or arg2.expression_type.nullable
                 or arg3.expression_type.nullable
@@ -1028,17 +1028,17 @@ class BaserowSplitPart(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowTrunc(OneArgumentBaserowFunction):
+class JadawelTrunc(OneArgumentJadawelFunction):
     type = "trunc"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=0, nullable=arg.expression_type.nullable
             )
         )
@@ -1049,21 +1049,21 @@ class BaserowTrunc(OneArgumentBaserowFunction):
 
 def int_like_numeric_output_field() -> fields.DecimalField:
     return fields.DecimalField(
-        max_digits=BaserowFormulaNumberType.MAX_DIGITS, decimal_places=0
+        max_digits=JadawelFormulaNumberType.MAX_DIGITS, decimal_places=0
     )
 
 
-class BaserowIsNaN(OneArgumentBaserowFunction):
+class JadawelIsNaN(OneArgumentJadawelFunction):
     type = "is_nan"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaBooleanType(nullable=arg.expression_type.nullable)
+            JadawelFormulaBooleanType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -1072,17 +1072,17 @@ class BaserowIsNaN(OneArgumentBaserowFunction):
         )
 
 
-class BaserowWhenNan(TwoArgumentBaserowFunction):
+class JadawelWhenNan(TwoArgumentJadawelFunction):
     type = "when_nan"
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type]),
         )
@@ -1091,7 +1091,7 @@ class BaserowWhenNan(TwoArgumentBaserowFunction):
         return handle_arg_being_nan(arg1, arg2, arg1)
 
 
-class BaserowInt(BaserowTrunc):
+class JadawelInt(JadawelTrunc):
     """
     Kept for backwards compatability as was introduced in v3 of formula language but
     renamed to trunc in v4.
@@ -1128,29 +1128,29 @@ def handle_arg_being_nan(
     )
 
 
-class BaserowDivide(TwoArgumentBaserowFunction):
+class JadawelDivide(TwoArgumentJadawelFunction):
     type = "divide"
     operator = "/"
 
-    arg1_type = [BaserowFormulaNumberType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaNumberType]
+    arg2_type = [JadawelFormulaNumberType]
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 1:
                 return arg_types[0].dividable_types
             else:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
 
         return type_checker
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaNumberType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaNumberType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         # Show all the decimal places we can by default if the user makes a formula
         # with a division to prevent weird results like `1/3=0`
         return arg1.expression_type.divide(func_call, arg1, arg2)
@@ -1167,7 +1167,7 @@ class BaserowDivide(TwoArgumentBaserowFunction):
             # expression to evaluate to NaN. The front-end then treats NaN values as a
             # per cell error to display to the user.
             output_field = fields.DecimalField(
-                max_digits=BaserowFormulaNumberType.MAX_DIGITS,
+                max_digits=JadawelFormulaNumberType.MAX_DIGITS,
                 decimal_places=NUMBER_MAX_DECIMAL_PLACES,
             )
             expression = arg1 / Cast(arg2, output_field=output_field)
@@ -1186,30 +1186,30 @@ class BaserowDivide(TwoArgumentBaserowFunction):
         return ExpressionWrapper(safe_expression, output_field=output_field)
 
 
-class BaserowHasOption(TwoArgumentBaserowFunction):
+class JadawelHasOption(TwoArgumentJadawelFunction):
     type = "has_option"
     arg1_type = [
-        BaserowFormulaMultipleSelectType,
-        BaserowFormulaArrayType,
-        MustBeManyExprChecker(BaserowFormulaSingleSelectType),
+        JadawelFormulaMultipleSelectType,
+        JadawelFormulaArrayType,
+        MustBeManyExprChecker(JadawelFormulaSingleSelectType),
     ]
-    arg2_type = [BaserowFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaTextType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaTextType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         arg1_type = arg1.expression_type
         # Convert a lookup to a single select field to be a JSONArray of single
         # selects to make the `to_django_expression` work.
-        if isinstance(arg1_type, BaserowFormulaSingleSelectType) and arg1.many:
-            return BaserowHasOption().call_and_type_with_args(
-                [BaserowArrayAggNoNesting().call_and_type_with_args([arg1]), arg2]
+        if isinstance(arg1_type, JadawelFormulaSingleSelectType) and arg1.many:
+            return JadawelHasOption().call_and_type_with_args(
+                [JadawelArrayAggNoNesting().call_and_type_with_args([arg1]), arg2]
             )
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return EqualsExpr(
@@ -1226,7 +1226,7 @@ class BaserowHasOption(TwoArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         expr_with_metadata = WrappedExpressionWithMetadata.from_args(
             self.to_django_expression(args[0].expression, args[1].expression), args
@@ -1248,31 +1248,31 @@ class BaserowHasOption(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowEqual(TwoArgumentBaserowFunction):
+class JadawelEqual(TwoArgumentJadawelFunction):
     type = "equal"
     operator = "="
     try_coerce_nullable_args_to_not_null = False
 
     # Overridden by the arg_types property below
-    arg1_type = [BaserowFormulaValidType]
-    arg2_type = [BaserowFormulaValidType]
+    arg1_type = [JadawelFormulaValidType]
+    arg2_type = [JadawelFormulaValidType]
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 1:
                 return arg_types[0].comparable_types
             else:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
 
         return type_checker
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         arg1_type = arg1.expression_type
         arg2_type = arg2.expression_type
         if type(arg1_type) is not type(arg2_type):
@@ -1282,11 +1282,11 @@ class BaserowEqual(TwoArgumentBaserowFunction):
             # use themselves here instead of us!
 
             return self.__class__()(
-                BaserowToText()(arg1),
-                BaserowToText()(arg2),
+                JadawelToText()(arg1),
+                JadawelToText()(arg2),
             )
         else:
-            return func_call.with_valid_type(BaserowFormulaBooleanType())
+            return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return Case(
@@ -1299,36 +1299,36 @@ class BaserowEqual(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowIf(ThreeArgumentBaserowFunction):
+class JadawelIf(ThreeArgumentJadawelFunction):
     type = "if"
     try_coerce_nullable_args_to_not_null = False
 
-    arg1_type = [BaserowFormulaBooleanType]
+    arg1_type = [JadawelFormulaBooleanType]
     # Overridden by the type function property below
-    arg2_type = [BaserowFormulaValidType]
-    arg3_type = [BaserowFormulaValidType]
+    arg2_type = [JadawelFormulaValidType]
+    arg3_type = [JadawelFormulaValidType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         arg2_type = arg2.expression_type
         arg3_type = arg3.expression_type
         if type(arg2_type) is not type(arg3_type):
             # Replace the current if func_call with one which casts both args to text
             # if they are of different types as PostgreSQL requires all cases of a case
             # statement to be of the same type.
-            return BaserowIf()(
+            return JadawelIf()(
                 arg1,
-                BaserowToText()(arg2),
-                BaserowToText()(arg3),
+                JadawelToText()(arg2),
+                JadawelToText()(arg3),
             )
         else:
-            if isinstance(arg2_type, BaserowFormulaNumberType) and isinstance(
-                arg3_type, BaserowFormulaNumberType
+            if isinstance(arg2_type, JadawelFormulaNumberType) and isinstance(
+                arg3_type, JadawelFormulaNumberType
             ):
                 resulting_type = calculate_number_type([arg2_type, arg3_type])
             else:
@@ -1349,33 +1349,33 @@ class BaserowIf(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowDurationToSeconds(OneArgumentBaserowFunction):
+class JadawelDurationToSeconds(OneArgumentJadawelFunction):
     type = "toseconds"
-    arg_type = [BaserowFormulaDurationType]
+    arg_type = [JadawelFormulaDurationType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Extract(arg, "epoch", output_field=int_like_numeric_output_field())
 
 
-class BaserowSecondsToDuration(OneArgumentBaserowFunction):
+class JadawelSecondsToDuration(OneArgumentJadawelFunction):
     type = "toduration"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaDurationType(nullable=True))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaDurationType(nullable=True))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return ExpressionWrapper(
@@ -1397,17 +1397,17 @@ class BaserowSecondsToDuration(OneArgumentBaserowFunction):
         )
 
 
-class BaserowToNumber(OneArgumentBaserowFunction):
+class JadawelToNumber(OneArgumentJadawelFunction):
     type = "tonumber"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=NUMBER_MAX_DECIMAL_PLACES)
+            JadawelFormulaNumberType(number_decimal_places=NUMBER_MAX_DECIMAL_PLACES)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -1418,16 +1418,16 @@ class BaserowToNumber(OneArgumentBaserowFunction):
         )
 
 
-class BaserowErrorToNan(OneArgumentBaserowFunction):
+class JadawelErrorToNan(OneArgumentJadawelFunction):
     type = "error_to_nan"
-    arg_type = [BaserowFormulaNumberType]
+    arg_type = [JadawelFormulaNumberType]
     is_wrapper = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -1436,16 +1436,16 @@ class BaserowErrorToNan(OneArgumentBaserowFunction):
         )
 
 
-class BaserowErrorToNull(OneArgumentBaserowFunction):
+class JadawelErrorToNull(OneArgumentJadawelFunction):
     type = "error_to_null"
-    arg_type = [BaserowFormulaValidType]
+    arg_type = [JadawelFormulaValidType]
     is_wrapper = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         # FIXME: This function should set `nullable=True` on the resulting type,
         # but since this is used as the most external wrapper function, don't
         # want to loose the real nullable state of the expression. This should
@@ -1460,15 +1460,15 @@ class BaserowErrorToNull(OneArgumentBaserowFunction):
         )
 
 
-class BaserowIsBlank(OneArgumentBaserowFunction):
+class JadawelIsBlank(OneArgumentJadawelFunction):
     type = "isblank"
-    arg_type = [BaserowFormulaValidType]
+    arg_type = [JadawelFormulaValidType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return arg.expression_type.is_blank(func_call, arg)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -1482,38 +1482,38 @@ class BaserowIsBlank(OneArgumentBaserowFunction):
         )
 
 
-class BaserowIsNull(OneArgumentBaserowFunction):
+class JadawelIsNull(OneArgumentJadawelFunction):
     type = "is_null"
-    arg_type = [BaserowFormulaValidType]
+    arg_type = [JadawelFormulaValidType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return IsNullExpr(arg, output_field=fields.BooleanField())
 
 
-class BaserowNot(OneArgumentBaserowFunction):
+class JadawelNot(OneArgumentJadawelFunction):
     type = "not"
-    arg_type = [BaserowFormulaBooleanType]
+    arg_type = [JadawelFormulaBooleanType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaBooleanType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaBooleanType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return NotExpr(arg, output_field=fields.BooleanField())
 
 
-class BaserowNotEqual(BaserowEqual):
+class JadawelNotEqual(JadawelEqual):
     type = "not_equal"
     operator = "!="
 
@@ -1525,31 +1525,31 @@ class BaserowNotEqual(BaserowEqual):
         )
 
 
-class BaseLimitComparableFunction(TwoArgumentBaserowFunction, ABC):
+class BaseLimitComparableFunction(TwoArgumentJadawelFunction, ABC):
     # Overridden by the arg_types property below
-    arg1_type = [BaserowFormulaValidType]
-    arg2_type = [BaserowFormulaValidType]
+    arg1_type = [JadawelFormulaValidType]
+    arg2_type = [JadawelFormulaValidType]
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 1:
                 return arg_types[0].limit_comparable_types
             else:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
 
         return type_checker
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
 
-class BaserowGreaterThan(BaseLimitComparableFunction):
+class JadawelGreaterThan(BaseLimitComparableFunction):
     type = "greater_than"
     operator = ">"
 
@@ -1561,7 +1561,7 @@ class BaserowGreaterThan(BaseLimitComparableFunction):
         )
 
 
-class BaserowGreaterThanOrEqual(BaseLimitComparableFunction):
+class JadawelGreaterThanOrEqual(BaseLimitComparableFunction):
     type = "greater_than_or_equal"
     operator = ">="
 
@@ -1573,7 +1573,7 @@ class BaserowGreaterThanOrEqual(BaseLimitComparableFunction):
         )
 
 
-class BaserowLessThan(BaseLimitComparableFunction):
+class JadawelLessThan(BaseLimitComparableFunction):
     type = "less_than"
     operator = "<"
 
@@ -1585,7 +1585,7 @@ class BaserowLessThan(BaseLimitComparableFunction):
         )
 
 
-class BaserowLessThanOrEqual(BaseLimitComparableFunction):
+class JadawelLessThanOrEqual(BaseLimitComparableFunction):
     type = "less_than_or_equal"
     operator = "<="
 
@@ -1597,15 +1597,15 @@ class BaserowLessThanOrEqual(BaseLimitComparableFunction):
         )
 
 
-class BaserowNow(ZeroArgumentBaserowFunction):
+class JadawelNow(ZeroArgumentJadawelFunction):
     type = "now"
     needs_periodic_update = True
 
     def type_function(
-        self, func_call: BaserowFunctionCall[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
+        self, func_call: JadawelFunctionCall[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaDateType(
+            JadawelFormulaDateType(
                 date_format="ISO", date_include_time=True, date_time_format="24"
             )
         )
@@ -1616,22 +1616,22 @@ class BaserowNow(ZeroArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         return WrappedExpressionWithMetadata(
             Value(context.get_utc_now(), output_field=fields.DateTimeField()),
         )
 
 
-class BaserowToday(ZeroArgumentBaserowFunction):
+class JadawelToday(ZeroArgumentJadawelFunction):
     type = "today"
     needs_periodic_update = True
 
     def type_function(
-        self, func_call: BaserowFunctionCall[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
+        self, func_call: JadawelFunctionCall[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaDateType(
+            JadawelFormulaDateType(
                 date_format="ISO",
                 date_include_time=False,
                 date_time_format="24",
@@ -1645,26 +1645,26 @@ class BaserowToday(ZeroArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         return WrappedExpressionWithMetadata(
             Value(context.get_utc_now(), output_field=fields.DateField()),
         )
 
 
-class BaserowToDate(TwoArgumentBaserowFunction):
+class JadawelToDate(TwoArgumentJadawelFunction):
     type = "todate"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaDateType(
+            JadawelFormulaDateType(
                 date_format="ISO",
                 date_include_time=False,
                 date_time_format="24",
@@ -1681,21 +1681,21 @@ class BaserowToDate(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowToDateTz(ThreeArgumentBaserowFunction):
+class JadawelToDateTz(ThreeArgumentJadawelFunction):
     type = "todate_tz"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
-    arg3_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
+    arg3_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaDateType(
+            JadawelFormulaDateType(
                 date_format="ISO",
                 date_include_time=True,
                 date_time_format="24",
@@ -1717,63 +1717,63 @@ class BaserowToDateTz(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowDay(OneArgumentBaserowFunction):
+class JadawelDay(OneArgumentJadawelFunction):
     type = "day"
-    arg_type = [BaserowFormulaDateType]
+    arg_type = [JadawelFormulaDateType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=0, nullable=arg.expression_type.nullable
             )
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
-        return BaserowExtract(arg, "day", output_field=int_like_numeric_output_field())
+        return JadawelExtract(arg, "day", output_field=int_like_numeric_output_field())
 
 
-class BaserowMonth(OneArgumentBaserowFunction):
+class JadawelMonth(OneArgumentJadawelFunction):
     type = "month"
-    arg_type = [BaserowFormulaDateType]
+    arg_type = [JadawelFormulaDateType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=0, nullable=arg.expression_type.nullable
             )
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
-        return BaserowExtract(
+        return JadawelExtract(
             arg, "month", output_field=int_like_numeric_output_field()
         )
 
 
-class BaserowDateDiff(ThreeArgumentBaserowFunction):
+class JadawelDateDiff(ThreeArgumentJadawelFunction):
     type = "date_diff"
 
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaDateType]
-    arg3_type = [BaserowFormulaDateType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaDateType]
+    arg3_type = [JadawelFormulaDateType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         nullable = arg2.expression_type.nullable or arg3.expression_type.nullable
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0, nullable=nullable)
+            JadawelFormulaNumberType(number_decimal_places=0, nullable=nullable)
         )
 
     def to_django_expression(
@@ -1788,51 +1788,51 @@ class BaserowDateDiff(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowAnd(TwoArgumentBaserowFunction):
+class JadawelAnd(TwoArgumentJadawelFunction):
     type = "and"
     operator = "&&"
-    arg1_type = [BaserowFormulaBooleanType]
-    arg2_type = [BaserowFormulaBooleanType]
+    arg1_type = [JadawelFormulaBooleanType]
+    arg2_type = [JadawelFormulaBooleanType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return AndExpr(arg1, arg2, output_field=fields.BooleanField())
 
 
-class BaserowOr(TwoArgumentBaserowFunction):
+class JadawelOr(TwoArgumentJadawelFunction):
     type = "or"
-    arg1_type = [BaserowFormulaBooleanType]
-    arg2_type = [BaserowFormulaBooleanType]
+    arg1_type = [JadawelFormulaBooleanType]
+    arg2_type = [JadawelFormulaBooleanType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return OrExpr(arg1, arg2, output_field=fields.BooleanField())
 
 
-class BaserowDateInterval(OneArgumentBaserowFunction):
+class JadawelDateInterval(OneArgumentJadawelFunction):
     type = "date_interval"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaDurationType(nullable=True))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaDurationType(nullable=True))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Func(
@@ -1840,20 +1840,20 @@ class BaserowDateInterval(OneArgumentBaserowFunction):
         )
 
 
-class BaserowReplace(ThreeArgumentBaserowFunction):
+class JadawelReplace(ThreeArgumentJadawelFunction):
     type = "replace"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
-    arg3_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
+    arg3_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaTextType(nullable=False))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaTextType(nullable=False))
 
     def to_django_expression(
         self, arg1: Expression, arg2: Expression, arg3: Expression
@@ -1861,37 +1861,37 @@ class BaserowReplace(ThreeArgumentBaserowFunction):
         return Replace(arg1, arg2, arg3, output_field=fields.TextField())
 
 
-class BaserowSearch(TwoArgumentBaserowFunction):
+class JadawelSearch(TwoArgumentJadawelFunction):
     type = "search"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return StrIndex(arg1, arg2, output_field=int_like_numeric_output_field())
 
 
-class BaserowContains(TwoArgumentBaserowFunction):
+class JadawelContains(TwoArgumentJadawelFunction):
     type = "contains"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaBooleanType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaBooleanType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return NotEqualsExpr(
@@ -1899,16 +1899,16 @@ class BaserowContains(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowRowId(ZeroArgumentBaserowFunction):
+class JadawelRowId(ZeroArgumentJadawelFunction):
     type = "row_id"
     requires_refresh_after_insert = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self) -> Expression:
@@ -1917,7 +1917,7 @@ class BaserowRowId(ZeroArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         if context.model_instance is None:
             return WrappedExpressionWithMetadata(
@@ -1933,50 +1933,50 @@ class BaserowRowId(ZeroArgumentBaserowFunction):
             )
 
 
-class BaserowLength(OneArgumentBaserowFunction):
+class JadawelLength(OneArgumentJadawelFunction):
     type = "length"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Length(arg, output_field=int_like_numeric_output_field())
 
 
-class BaserowReverse(OneArgumentBaserowFunction):
+class JadawelReverse(OneArgumentJadawelFunction):
     type = "reverse"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Reverse(arg, output_field=fields.TextField())
 
 
-class BaserowWhenEmpty(TwoArgumentBaserowFunction):
+class JadawelWhenEmpty(TwoArgumentJadawelFunction):
     type = "when_empty"
-    arg1_type = [BaserowFormulaValidType]
-    arg2_type = [BaserowFormulaValidType]
+    arg1_type = [JadawelFormulaValidType]
+    arg2_type = [JadawelFormulaValidType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if not isinstance(arg1.expression_type, type(arg2.expression_type)):
             return func_call.with_invalid_type(
                 "both inputs for when_empty must be the same type"
@@ -1999,7 +1999,7 @@ def _calculate_aggregate_orders(join_ids: JoinIdsType):
 
 def array_agg_expression(
     args: List["WrappedExpressionWithMetadata"],
-    context: BaserowExpressionContext,
+    context: JadawelExpressionContext,
     nest_in_value: bool,
 ):
     pre_annotations = dict()
@@ -2198,17 +2198,17 @@ def aggregate_many_to_many_values(
     )
 
 
-class BaserowArrayAgg(OneArgumentBaserowFunction, CollapseManyBaserowFunction):
+class JadawelArrayAgg(OneArgumentJadawelFunction, CollapseManyJadawelFunction):
     type = "array_agg"
-    arg_type = [MustBeManyExprChecker(BaserowFormulaValidType)]
+    arg_type = [MustBeManyExprChecker(JadawelFormulaValidType)]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaArrayType(arg.expression_type))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaArrayType(arg.expression_type))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         pass
@@ -2216,12 +2216,12 @@ class BaserowArrayAgg(OneArgumentBaserowFunction, CollapseManyBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         return array_agg_expression(args, context, nest_in_value=True)
 
 
-class BaserowArrayAggNoNesting(BaserowArrayAgg, CollapseManyBaserowFunction):
+class JadawelArrayAggNoNesting(JadawelArrayAgg, CollapseManyJadawelFunction):
     type = "array_agg_no_nesting"
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2230,26 +2230,26 @@ class BaserowArrayAggNoNesting(BaserowArrayAgg, CollapseManyBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         return array_agg_expression(args, context, nest_in_value=False)
 
 
-class BaserowManyToManyAgg(OneArgumentBaserowFunction, CollapseManyBaserowFunction):
+class JadawelManyToManyAgg(OneArgumentJadawelFunction, CollapseManyJadawelFunction):
     type = "many_to_many_agg"
     arg_type = [
         MustBeManyExprChecker(
-            BaserowFormulaMultipleSelectType, BaserowFormulaMultipleCollaboratorsType
+            JadawelFormulaMultipleSelectType, JadawelFormulaMultipleCollaboratorsType
         )
     ]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaArrayType(arg.expression_type))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaArrayType(arg.expression_type))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return arg
@@ -2257,28 +2257,28 @@ class BaserowManyToManyAgg(OneArgumentBaserowFunction, CollapseManyBaserowFuncti
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         expr = aggregate_many_to_many_values(args[0], context.model)
         return super().to_django_expression_given_args([expr], context)
 
 
-# Deprecated, use BaserowManyToManyAgg instead. This is kept for backwards compatibility
+# Deprecated, use JadawelManyToManyAgg instead. This is kept for backwards compatibility
 # and will be removed in the future with a proper formula migration.
-class BaserowMultipleSelectOptionsAgg(BaserowManyToManyAgg):
+class JadawelMultipleSelectOptionsAgg(JadawelManyToManyAgg):
     type = "multiple_select_options_agg"
 
 
-class Baserow2dArrayAgg(OneArgumentBaserowFunction, CollapseManyBaserowFunction):
+class Jadawel2dArrayAgg(OneArgumentJadawelFunction, CollapseManyJadawelFunction):
     type = "array_agg_unnesting"
-    arg_type = [MustBeManyExprChecker(BaserowFormulaArrayType)]
+    arg_type = [MustBeManyExprChecker(JadawelFormulaArrayType)]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2291,7 +2291,7 @@ class Baserow2dArrayAgg(OneArgumentBaserowFunction, CollapseManyBaserowFunction)
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         subquery = super().to_django_expression_given_args(args, context)
         return WrappedExpressionWithMetadata(
@@ -2299,26 +2299,26 @@ class Baserow2dArrayAgg(OneArgumentBaserowFunction, CollapseManyBaserowFunction)
         )
 
 
-class BaserowManyToManyCount(OneArgumentBaserowFunction):
+class JadawelManyToManyCount(OneArgumentJadawelFunction):
     type = "many_to_many_count"
     arg_type = [
-        BaserowFormulaMultipleSelectType,
-        BaserowFormulaMultipleCollaboratorsType,
+        JadawelFormulaMultipleSelectType,
+        JadawelFormulaMultipleCollaboratorsType,
     ]
     aggregate = True
 
     def can_accept_arg(self, arg):
         return isinstance(
-            arg.expression_type, BaserowFormulaMultipleSelectType
-        ) or isinstance(arg.expression_type, BaserowFormulaMultipleCollaboratorsType)
+            arg.expression_type, JadawelFormulaMultipleSelectType
+        ) or isinstance(arg.expression_type, JadawelFormulaMultipleCollaboratorsType)
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall,
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall,
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2327,7 +2327,7 @@ class BaserowManyToManyCount(OneArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         subquery = super().to_django_expression_given_args(args, context)
         return WrappedExpressionWithMetadata(
@@ -2344,21 +2344,21 @@ class BaserowManyToManyCount(OneArgumentBaserowFunction):
         )
 
 
-# Deprecated, use BaserowManyToManyAgg instead. This is kept for backwards compatibility
+# Deprecated, use JadawelManyToManyAgg instead. This is kept for backwards compatibility
 # and will be removed in the future with a proper formula migration.
-class BaserowMultipleSelectCount(BaserowManyToManyCount):
+class JadawelMultipleSelectCount(JadawelManyToManyCount):
     type = "multiple_select_count"
-    arg_type = [BaserowFormulaMultipleSelectType]
+    arg_type = [JadawelFormulaMultipleSelectType]
 
     def can_accept_arg(self, arg):
-        return isinstance(arg.expression_type, BaserowFormulaMultipleSelectType)
+        return isinstance(arg.expression_type, JadawelFormulaMultipleSelectType)
 
 
-class BaserowStringAggManyToManyValues(OneArgumentBaserowFunction):
+class JadawelStringAggManyToManyValues(OneArgumentJadawelFunction):
     type = "string_agg_many_to_many_values"
     arg_type = [
-        BaserowFormulaMultipleSelectType,
-        BaserowFormulaMultipleCollaboratorsType,
+        JadawelFormulaMultipleSelectType,
+        JadawelFormulaMultipleCollaboratorsType,
     ]
     aggregate = True
 
@@ -2369,14 +2369,14 @@ class BaserowStringAggManyToManyValues(OneArgumentBaserowFunction):
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall,
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall,
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if value_key := getattr(
             arg.expression_type, "custom_string_agg_value_key", None
         ):
             self.value_key = value_key
-        return func_call.with_valid_type(BaserowFormulaTextType())
+        return func_call.with_valid_type(JadawelFormulaTextType())
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Func(
@@ -2389,7 +2389,7 @@ class BaserowStringAggManyToManyValues(OneArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         subquery = super().to_django_expression_given_args(args, context)
         return WrappedExpressionWithMetadata(
@@ -2401,36 +2401,36 @@ class BaserowStringAggManyToManyValues(OneArgumentBaserowFunction):
         )
 
 
-# Deprecated, use BaserowManyToManyAgg instead. This is kept for backwards compatibility
+# Deprecated, use JadawelManyToManyAgg instead. This is kept for backwards compatibility
 # and will be removed in the future with a proper formula migration.
-class BaserowStringAggMultipleSelectValues(BaserowStringAggManyToManyValues):
+class JadawelStringAggMultipleSelectValues(JadawelStringAggManyToManyValues):
     type = "string_agg_multiple_select_values"
 
 
-class BaserowCount(OneArgumentBaserowFunction):
+class JadawelCount(OneArgumentJadawelFunction):
     type = "count"
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaValidType),
-        BaserowFormulaMultipleSelectType,
-        BaserowFormulaMultipleCollaboratorsType,
-        BaserowFormulaArrayType,
+        MustBeManyExprChecker(JadawelFormulaValidType),
+        JadawelFormulaMultipleSelectType,
+        JadawelFormulaMultipleCollaboratorsType,
+        JadawelFormulaArrayType,
     ]
     aggregate = True
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        if BaserowGetFileCount().can_accept_arg(arg):
-            return BaserowGetFileCount()(arg)
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        if JadawelGetFileCount().can_accept_arg(arg):
+            return JadawelGetFileCount()(arg)
 
-        if isinstance(arg.expression_type, BaserowFormulaArrayType):
-            return BaserowArrayLength()(arg)
+        if isinstance(arg.expression_type, JadawelFormulaArrayType):
+            return JadawelArrayLength()(arg)
 
         return arg.expression_type.count(func_call, arg).with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2447,25 +2447,25 @@ class BaserowCount(OneArgumentBaserowFunction):
         return Count("*", output_field=int_like_numeric_output_field())
 
 
-class BaserowGetFileCount(OneArgumentBaserowFunction):
+class JadawelGetFileCount(OneArgumentJadawelFunction):
     type = "get_file_count"
-    arg_type = [BaserowFormulaArrayType]
+    arg_type = [JadawelFormulaArrayType]
 
     def can_accept_arg(self, arg):
-        return isinstance(arg.expression_type, BaserowFormulaArrayType) and isinstance(
-            arg.expression_type.sub_type, BaserowFormulaSingleFileType
+        return isinstance(arg.expression_type, JadawelFormulaArrayType) and isinstance(
+            arg.expression_type.sub_type, JadawelFormulaSingleFileType
         )
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if not self.can_accept_arg(arg):
             return func_call.with_invalid_type("can only count file fields")
         else:
             return func_call.with_valid_type(
-                BaserowFormulaNumberType(number_decimal_places=0)
+                JadawelFormulaNumberType(number_decimal_places=0)
             )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2474,21 +2474,21 @@ class BaserowGetFileCount(OneArgumentBaserowFunction):
         )
 
 
-class BaserowArrayUnique(OneArgumentBaserowFunction):
+class JadawelArrayUnique(OneArgumentJadawelFunction):
     type = "array_unique"
-    arg_type = [BaserowFormulaValidType]
+    arg_type = [JadawelFormulaValidType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         # When referencing a lookup field, unwrap_at_field_level converts it
         # back to a "many" expression. Collapse it to an array first.
         if arg.many:
             arg = arg.expression_type.collapse_many(arg)
 
-        if not isinstance(arg.expression_type, BaserowFormulaArrayType):
+        if not isinstance(arg.expression_type, JadawelFormulaArrayType):
             return func_call.with_invalid_type(
                 "array_unique requires an array field as input."
             )
@@ -2504,23 +2504,23 @@ class BaserowArrayUnique(OneArgumentBaserowFunction):
         return JSONBArrayUniqueByValue(arg)
 
 
-class BaserowArraySlice(ThreeArgumentBaserowFunction):
+class JadawelArraySlice(ThreeArgumentJadawelFunction):
     type = "array_slice"
-    arg1_type = [BaserowFormulaValidType]
-    arg2_type = [BaserowFormulaNumberType]
-    arg3_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaValidType]
+    arg2_type = [JadawelFormulaNumberType]
+    arg3_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-        arg3: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+        arg3: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if arg1.many:
             arg1 = arg1.expression_type.collapse_many(arg1)
 
-        if not isinstance(arg1.expression_type, BaserowFormulaArrayType):
+        if not isinstance(arg1.expression_type, JadawelFormulaArrayType):
             return func_call.with_invalid_type("array_slice requires an array input.")
 
         return func_call.with_args([arg1, arg2, arg3]).with_valid_type(
@@ -2611,56 +2611,56 @@ class BaserowArraySlice(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowIndexShortcut(OneArgumentBaserowFunction):
-    arg_type = [BaserowFormulaValidType]
+class JadawelIndexShortcut(OneArgumentJadawelFunction):
+    arg_type = [JadawelFormulaValidType]
     _index: int
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if arg.many:
             arg = arg.expression_type.collapse_many(arg)
 
-        if not isinstance(arg.expression_type, BaserowFormulaArrayType):
+        if not isinstance(arg.expression_type, JadawelFormulaArrayType):
             return func_call.with_invalid_type(f"{self.type} requires an array input.")
 
         from jadawel.contrib.database.formula.registries import (
             formula_function_registry,
         )
 
-        num_type = BaserowFormulaNumberType(0)
+        num_type = JadawelFormulaNumberType(0)
         index_func = formula_function_registry.get("index")
         return index_func.call_and_type_with_args(
-            [arg, BaserowIntegerLiteral(self._index, num_type)]
+            [arg, JadawelIntegerLiteral(self._index, num_type)]
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
         raise NotImplementedError("type_function delegates to index")
 
 
-class BaserowFirst(BaserowIndexShortcut):
+class JadawelFirst(JadawelIndexShortcut):
     type = "first"
     _index = 0
 
 
-class BaserowLast(BaserowIndexShortcut):
+class JadawelLast(JadawelIndexShortcut):
     type = "last"
     _index = -1
 
 
-class BaserowArrayLength(OneArgumentBaserowFunction):
+class JadawelArrayLength(OneArgumentJadawelFunction):
     type = "array_length"
-    arg_type = [BaserowFormulaArrayType]
+    arg_type = [JadawelFormulaArrayType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2669,34 +2669,34 @@ class BaserowArrayLength(OneArgumentBaserowFunction):
         )
 
 
-class BaserowArrayJoinValues(TwoArgumentBaserowFunction):
+class JadawelArrayJoinValues(TwoArgumentJadawelFunction):
     type = "array_join_values"
-    arg1_type = [BaserowFormulaArrayType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaArrayType]
+    arg2_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaTextType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaTextType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return JSONBArrayJoinValues(arg1, arg2)
 
 
-class BaserowFilter(TwoArgumentBaserowFunction):
+class JadawelFilter(TwoArgumentJadawelFunction):
     type = "filter"
-    arg1_type = [BaserowFormulaValidType]
-    arg2_type = [BaserowFormulaBooleanType]
+    arg1_type = [JadawelFormulaValidType]
+    arg2_type = [JadawelFormulaBooleanType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if not arg1.many:
             return func_call.with_invalid_type(
                 "first input to filter must be an expression of many values ("
@@ -2715,7 +2715,7 @@ class BaserowFilter(TwoArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         result = super().to_django_expression_given_args(args, context)
         return WrappedExpressionWithMetadata(
@@ -2746,47 +2746,47 @@ def _to_django_aggregate_number_or_duration_expression(
     return ExpressionWrapper(expr, output_field=arg.output_field)
 
 
-class BaserowAny(OneArgumentBaserowFunction):
+class JadawelAny(OneArgumentJadawelFunction):
     type = "any"
-    arg_type = [MustBeManyExprChecker(BaserowFormulaBooleanType)]
+    arg_type = [MustBeManyExprChecker(JadawelFormulaBooleanType)]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Func(arg, function="bool_or", output_field=fields.BooleanField())
 
 
-class BaserowEvery(OneArgumentBaserowFunction):
+class JadawelEvery(OneArgumentJadawelFunction):
     type = "every"
-    arg_type = [MustBeManyExprChecker(BaserowFormulaBooleanType)]
+    arg_type = [MustBeManyExprChecker(JadawelFormulaBooleanType)]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Func(arg, function="every", output_field=fields.BooleanField())
 
 
-class BaserowMax(OneArgumentBaserowFunction):
+class JadawelMax(OneArgumentJadawelFunction):
     type = "max"
     arg_type = [
         MustBeManyExprChecker(
-            BaserowFormulaTextType,
-            BaserowFormulaNumberType,
-            BaserowFormulaCharType,
-            BaserowFormulaDateType,
-            BaserowFormulaDurationType,
+            JadawelFormulaTextType,
+            JadawelFormulaNumberType,
+            JadawelFormulaCharType,
+            JadawelFormulaDateType,
+            JadawelFormulaDurationType,
         ),
     ]
     aggregate = True
@@ -2794,24 +2794,24 @@ class BaserowMax(OneArgumentBaserowFunction):
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return _to_django_aggregate_number_or_duration_expression(Max, arg)
 
 
-class BaserowMin(OneArgumentBaserowFunction):
+class JadawelMin(OneArgumentJadawelFunction):
     type = "min"
     arg_type = [
         MustBeManyExprChecker(
-            BaserowFormulaTextType,
-            BaserowFormulaNumberType,
-            BaserowFormulaCharType,
-            BaserowFormulaDateType,
-            BaserowFormulaDurationType,
+            JadawelFormulaTextType,
+            JadawelFormulaNumberType,
+            JadawelFormulaCharType,
+            JadawelFormulaDateType,
+            JadawelFormulaDurationType,
         ),
     ]
     aggregate = True
@@ -2819,47 +2819,47 @@ class BaserowMin(OneArgumentBaserowFunction):
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return _to_django_aggregate_number_or_duration_expression(Min, arg)
 
 
-class BaserowAvg(OneArgumentBaserowFunction):
+class JadawelAvg(OneArgumentJadawelFunction):
     type = "avg"
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaNumberType, BaserowFormulaDurationType),
+        MustBeManyExprChecker(JadawelFormulaNumberType, JadawelFormulaDurationType),
     ]
     aggregate = True
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return _to_django_aggregate_number_or_duration_expression(Avg, arg)
 
 
-class BaserowStdDevPop(OneArgumentBaserowFunction):
+class JadawelStdDevPop(OneArgumentJadawelFunction):
     type = "stddev_pop"
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaNumberType, BaserowFormulaDurationType)
+        MustBeManyExprChecker(JadawelFormulaNumberType, JadawelFormulaDurationType)
     ]
     aggregate = True
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2868,19 +2868,19 @@ class BaserowStdDevPop(OneArgumentBaserowFunction):
         )
 
 
-class BaserowStdDevSample(OneArgumentBaserowFunction):
+class JadawelStdDevSample(OneArgumentJadawelFunction):
     type = "stddev_sample"
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaNumberType, BaserowFormulaDurationType)
+        MustBeManyExprChecker(JadawelFormulaNumberType, JadawelFormulaDurationType)
     ]
     aggregate = True
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2889,21 +2889,21 @@ class BaserowStdDevSample(OneArgumentBaserowFunction):
         )
 
 
-class BaserowAggJoin(TwoArgumentBaserowFunction):
+class JadawelAggJoin(TwoArgumentJadawelFunction):
     type = "join"
-    arg1_type = [MustBeManyExprChecker(BaserowFormulaTextType), BaserowFormulaArrayType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [MustBeManyExprChecker(JadawelFormulaTextType), JadawelFormulaArrayType]
+    arg2_type = [JadawelFormulaTextType]
     aggregate = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        if isinstance(arg1.expression_type, BaserowFormulaArrayType):
-            return BaserowArrayJoinValues()(arg1, arg2)
-        return func_call.with_valid_type(BaserowFormulaTextType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        if isinstance(arg1.expression_type, JadawelFormulaArrayType):
+            return JadawelArrayJoinValues()(arg1, arg2)
+        return func_call.with_valid_type(JadawelFormulaTextType())
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         pass
@@ -2911,7 +2911,7 @@ class BaserowAggJoin(TwoArgumentBaserowFunction):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         pre_annotations = {}
         aggregate_filters = []
@@ -2926,7 +2926,7 @@ class BaserowAggJoin(TwoArgumentBaserowFunction):
         orders = _calculate_aggregate_orders(join_ids)
         return aggregate_wrapper(
             WrappedExpressionWithMetadata(
-                BaserowStringAgg(
+                JadawelStringAgg(
                     args[0].expression,
                     args[1].expression,
                     order_by=orders,
@@ -2940,37 +2940,37 @@ class BaserowAggJoin(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowSum(OneArgumentBaserowFunction):
+class JadawelSum(OneArgumentJadawelFunction):
     type = "sum"
     aggregate = True
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaNumberType, BaserowFormulaDurationType),
+        MustBeManyExprChecker(JadawelFormulaNumberType, JadawelFormulaDurationType),
     ]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return _to_django_aggregate_number_or_duration_expression(Sum, arg)
 
 
-class BaserowVarianceSample(OneArgumentBaserowFunction):
+class JadawelVarianceSample(OneArgumentJadawelFunction):
     type = "variance_sample"
     aggregate = True
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaNumberType, BaserowFormulaDurationType)
+        MustBeManyExprChecker(JadawelFormulaNumberType, JadawelFormulaDurationType)
     ]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -2979,19 +2979,19 @@ class BaserowVarianceSample(OneArgumentBaserowFunction):
         )
 
 
-class BaserowVariancePop(OneArgumentBaserowFunction):
+class JadawelVariancePop(OneArgumentJadawelFunction):
     type = "variance_pop"
     aggregate = True
     arg_type = [
-        MustBeManyExprChecker(BaserowFormulaNumberType, BaserowFormulaDurationType)
+        MustBeManyExprChecker(JadawelFormulaNumberType, JadawelFormulaDurationType)
     ]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type)
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3000,17 +3000,17 @@ class BaserowVariancePop(OneArgumentBaserowFunction):
         )
 
 
-class BaserowGetSingleSelectValue(OneArgumentBaserowFunction):
+class JadawelGetSingleSelectValue(OneArgumentJadawelFunction):
     type = "get_single_select_value"
-    arg_type = [BaserowFormulaSingleSelectType]
+    arg_type = [JadawelFormulaSingleSelectType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3052,27 +3052,27 @@ def _unwrap_literal_value(django_expr):
     return django_expr.value
 
 
-class BaserowIndex(BaserowFunctionDefinition):
+class JadawelIndex(JadawelFunctionDefinition):
     type = "index"
     num_args = NumOfArgsBetween(2, 4)
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
+    def arg_types(self) -> JadawelArgumentTypeChecker:
         def type_checker(arg_index, arg_types):
             if arg_index == 0:
-                return [BaserowFormulaValidType]
+                return [JadawelFormulaValidType]
             elif arg_index == 1:
-                return [BaserowFormulaNumberType]
+                return [JadawelFormulaNumberType]
             else:
-                return [BaserowFormulaTextType]  # mode + sql literals
+                return [JadawelFormulaTextType]  # mode + sql literals
 
         return type_checker
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if len(args) not in (2, 4):
             return func_call.with_invalid_type(
                 "index requires exactly 2 arguments: an array and an index."
@@ -3083,7 +3083,7 @@ class BaserowIndex(BaserowFunctionDefinition):
         if arg1.many:
             arg1 = arg1.expression_type.collapse_many(arg1)
 
-        if not isinstance(arg1.expression_type, BaserowFormulaArrayType):
+        if not isinstance(arg1.expression_type, JadawelFormulaArrayType):
             return func_call.with_invalid_type("index requires an array input.")
 
         sub_type = arg1.expression_type.sub_type
@@ -3091,11 +3091,11 @@ class BaserowIndex(BaserowFunctionDefinition):
         if len(args) == 4:
             return func_call.with_args(list(args)).with_valid_type(sub_type)
 
-        mode_literal = BaserowStringLiteral(
-            sub_type.array_index_mode, BaserowFormulaTextType()
+        mode_literal = JadawelStringLiteral(
+            sub_type.array_index_mode, JadawelFormulaTextType()
         )
-        sql_literal = BaserowStringLiteral(
-            sub_type.array_index_sql, BaserowFormulaTextType()
+        sql_literal = JadawelStringLiteral(
+            sub_type.array_index_sql, JadawelFormulaTextType()
         )
 
         return func_call.with_args(
@@ -3105,7 +3105,7 @@ class BaserowIndex(BaserowFunctionDefinition):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         mode = _unwrap_literal_value(args[2].expression) or "text"
         value_sql = _unwrap_literal_value(args[3].expression) or "{elem} ->> 'value'"
@@ -3123,26 +3123,26 @@ class BaserowIndex(BaserowFunctionDefinition):
         return WrappedExpressionWithMetadata.from_args(expr, args)
 
 
-class BaserowJsonbExtractPathText(BaserowFunctionDefinition):
+class JadawelJsonbExtractPathText(JadawelFunctionDefinition):
     type = "jsonb_extract_path_text"
     num_args = NumOfArgsGreaterThan(1)
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        def type_checker(arg_index: int, arg_types: List[BaserowFormulaType]):
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        def type_checker(arg_index: int, arg_types: List[JadawelFormulaType]):
             if arg_index == 0:
-                return [BaserowJSONBObjectBaseType]
+                return [JadawelJSONBObjectBaseType]
             else:
-                return [BaserowFormulaTextType]
+                return [JadawelFormulaTextType]
 
         return type_checker
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        expression: "BaserowFunctionCall[UnTyped]",
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return expression.with_valid_type(BaserowFormulaTextType(nullable=True))
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        expression: "JadawelFunctionCall[UnTyped]",
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return expression.with_valid_type(JadawelFormulaTextType(nullable=True))
 
     def to_django_expression_given_args(
         self, expr_args: List[WrappedExpressionWithMetadata], *args, **kwargs
@@ -3157,53 +3157,53 @@ class BaserowJsonbExtractPathText(BaserowFunctionDefinition):
 
     def __call__(
         self,
-        arg: BaserowExpression[BaserowJSONBObjectBaseType],
-        *path: BaserowExpression[BaserowFormulaTextType],
-    ) -> BaserowFunctionCall[BaserowFormulaTextType]:
+        arg: JadawelExpression[JadawelJSONBObjectBaseType],
+        *path: JadawelExpression[JadawelFormulaTextType],
+    ) -> JadawelFunctionCall[JadawelFormulaTextType]:
         return self.call_and_type_with_args([arg, *path])
 
 
-class BaserowGetFileVisibleName(OneArgumentBaserowFunction):
+class JadawelGetFileVisibleName(OneArgumentJadawelFunction):
     type = "get_file_visible_name"
-    arg_type = [BaserowFormulaSingleFileType]
+    arg_type = [JadawelFormulaSingleFileType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaSingleFileType],
-    ) -> BaserowExpression[BaserowFormulaTextType]:
-        return BaserowJsonbExtractPathText()(arg, literal("visible_name"))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaSingleFileType],
+    ) -> JadawelExpression[JadawelFormulaTextType]:
+        return JadawelJsonbExtractPathText()(arg, literal("visible_name"))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return arg
 
 
-class BaserowGetFileMimeType(OneArgumentBaserowFunction):
+class JadawelGetFileMimeType(OneArgumentJadawelFunction):
     type = "get_file_mime_type"
-    arg_type = [BaserowFormulaSingleFileType]
+    arg_type = [JadawelFormulaSingleFileType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaSingleFileType],
-    ) -> BaserowExpression[BaserowFormulaTextType]:
-        return BaserowJsonbExtractPathText()(arg, literal("mime_type"))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaSingleFileType],
+    ) -> JadawelExpression[JadawelFormulaTextType]:
+        return JadawelJsonbExtractPathText()(arg, literal("mime_type"))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return arg
 
 
-class BaserowGetFileSize(OneArgumentBaserowFunction):
+class JadawelGetFileSize(OneArgumentJadawelFunction):
     type = "get_file_size"
-    arg_type = [BaserowFormulaSingleFileType]
+    arg_type = [JadawelFormulaSingleFileType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaSingleFileType],
-    ) -> BaserowExpression[BaserowFormulaNumberType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaSingleFileType],
+    ) -> JadawelExpression[JadawelFormulaNumberType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 nullable=arg.expression_type.nullable, number_decimal_places=0
             )
         )
@@ -3220,17 +3220,17 @@ class BaserowGetFileSize(OneArgumentBaserowFunction):
         )
 
 
-class BaserowGetImageWidth(OneArgumentBaserowFunction):
+class JadawelGetImageWidth(OneArgumentJadawelFunction):
     type = "get_image_width"
-    arg_type = [BaserowFormulaSingleFileType]
+    arg_type = [JadawelFormulaSingleFileType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaSingleFileType],
-    ) -> BaserowExpression[BaserowFormulaNumberType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaSingleFileType],
+    ) -> JadawelExpression[JadawelFormulaNumberType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(nullable=True, number_decimal_places=0)
+            JadawelFormulaNumberType(nullable=True, number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3245,17 +3245,17 @@ class BaserowGetImageWidth(OneArgumentBaserowFunction):
         )
 
 
-class BaserowGetImageHeight(OneArgumentBaserowFunction):
+class JadawelGetImageHeight(OneArgumentJadawelFunction):
     type = "get_image_height"
-    arg_type = [BaserowFormulaSingleFileType]
+    arg_type = [JadawelFormulaSingleFileType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaSingleFileType],
-    ) -> BaserowExpression[BaserowFormulaNumberType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaSingleFileType],
+    ) -> JadawelExpression[JadawelFormulaNumberType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(nullable=True, number_decimal_places=0)
+            JadawelFormulaNumberType(nullable=True, number_decimal_places=0)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3270,17 +3270,17 @@ class BaserowGetImageHeight(OneArgumentBaserowFunction):
         )
 
 
-class BaserowIsImage(OneArgumentBaserowFunction):
+class JadawelIsImage(OneArgumentJadawelFunction):
     type = "is_image"
-    arg_type = [BaserowFormulaSingleFileType]
+    arg_type = [JadawelFormulaSingleFileType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaSingleFileType],
-    ) -> BaserowExpression[BaserowFormulaBooleanType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaSingleFileType],
+    ) -> JadawelExpression[JadawelFormulaBooleanType]:
         return func_call.with_valid_type(
-            BaserowFormulaBooleanType(nullable=arg.expression_type.nullable)
+            JadawelFormulaBooleanType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3299,17 +3299,17 @@ class BaserowIsImage(OneArgumentBaserowFunction):
         )
 
 
-class BaserowGetLinkUrl(OneArgumentBaserowFunction):
+class JadawelGetLinkUrl(OneArgumentJadawelFunction):
     type = "get_link_url"
-    arg_type = [BaserowFormulaLinkType]
+    arg_type = [JadawelFormulaLinkType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3321,17 +3321,17 @@ class BaserowGetLinkUrl(OneArgumentBaserowFunction):
         )
 
 
-class BaserowGetLinkLabel(OneArgumentBaserowFunction):
+class JadawelGetLinkLabel(OneArgumentJadawelFunction):
     type = "get_link_label"
-    arg_type = [BaserowFormulaLinkType]
+    arg_type = [JadawelFormulaLinkType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaTextType(nullable=arg.expression_type.nullable)
+            JadawelFormulaTextType(nullable=arg.expression_type.nullable)
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
@@ -3343,17 +3343,17 @@ class BaserowGetLinkLabel(OneArgumentBaserowFunction):
         )
 
 
-class BaserowLeft(TwoArgumentBaserowFunction):
+class JadawelLeft(TwoArgumentJadawelFunction):
     type = "left"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg1.expression_type, nullable=True)
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
@@ -3366,17 +3366,17 @@ class BaserowLeft(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowRight(TwoArgumentBaserowFunction):
+class JadawelRight(TwoArgumentJadawelFunction):
     type = "right"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaNumberType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaNumberType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaNumberType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaNumberType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg1.expression_type, nullable=True)
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
@@ -3393,19 +3393,19 @@ class BaserowRight(TwoArgumentBaserowFunction):
         )
 
 
-class BaserowRegexReplace(ThreeArgumentBaserowFunction):
+class JadawelRegexReplace(ThreeArgumentJadawelFunction):
     type = "regex_replace"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
-    arg3_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
+    arg3_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg1.expression_type)
 
     def to_django_expression(
@@ -3422,23 +3422,23 @@ class BaserowRegexReplace(ThreeArgumentBaserowFunction):
         )
 
 
-class BaserowLink(BaserowFunctionDefinition):
+class JadawelLink(JadawelFunctionDefinition):
     type = "link"
     num_args = NumOfArgsBetween(1, 2, inclusive=True)
     try_coerce_nullable_args_to_not_null = False
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
-        return lambda _, _2: [BaserowFormulaTextType]
+    def arg_types(self) -> JadawelArgumentTypeChecker:
+        return lambda _, _2: [JadawelFormulaTextType]
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        expression: "BaserowFunctionCall[UnTyped]",
-    ) -> BaserowExpression[BaserowFormulaType]:
-        typed_args = [BaserowToText()(a) for a in args]
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        expression: "JadawelFunctionCall[UnTyped]",
+    ) -> JadawelExpression[JadawelFormulaType]:
+        typed_args = [JadawelToText()(a) for a in args]
         return expression.with_args(typed_args).with_valid_type(
-            BaserowFormulaLinkType(nullable=args[0].expression_type.nullable)
+            JadawelFormulaLinkType(nullable=args[0].expression_type.nullable)
         )
 
     def to_django_expression_given_args(
@@ -3454,101 +3454,101 @@ class BaserowLink(BaserowFunctionDefinition):
         )
 
 
-class BaserowButton(TwoArgumentBaserowFunction):
+class JadawelButton(TwoArgumentJadawelFunction):
     type = "button"
-    arg1_type = [BaserowFormulaTextType]
-    arg2_type = [BaserowFormulaTextType]
+    arg1_type = [JadawelFormulaTextType]
+    arg2_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaButtonType(nullable=arg1.expression_type.nullable)
+            JadawelFormulaButtonType(nullable=arg1.expression_type.nullable)
         )
 
     def to_django_expression(self, arg1: Expression, arg2: Expression) -> Expression:
         return JSONObject(url=arg1, label=arg2)
 
 
-class BaserowTrim(OneArgumentBaserowFunction):
+class JadawelTrim(OneArgumentJadawelFunction):
     type = "trim"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return BaserowRegexReplace()(arg, literal("(^\\s+|\\s+$)"), literal(""))
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return JadawelRegexReplace()(arg, literal("(^\\s+|\\s+$)"), literal(""))
 
     def to_django_expression(self, arg: Expression) -> Expression:
         # This function should always be completely substituted when typing and replaced
-        # with BaserowRegexReplace and hence this should never be called.
-        raise BaserowToDjangoExpressionGenerationError()
+        # with JadawelRegexReplace and hence this should never be called.
+        raise JadawelToDjangoExpressionGenerationError()
 
 
-class BaserowYear(OneArgumentBaserowFunction):
+class JadawelYear(OneArgumentJadawelFunction):
     type = "year"
-    arg_type = [BaserowFormulaDateType]
+    arg_type = [JadawelFormulaDateType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=0, nullable=arg.expression_type.nullable
             )
         )
 
     def to_django_expression(self, arg: Expression) -> Expression:
-        return BaserowExtract(arg, "year", output_field=int_like_numeric_output_field())
+        return JadawelExtract(arg, "year", output_field=int_like_numeric_output_field())
 
 
-class BaserowSecond(OneArgumentBaserowFunction):
+class JadawelSecond(OneArgumentJadawelFunction):
     type = "second"
-    arg_type = [BaserowFormulaDateType]
+    arg_type = [JadawelFormulaDateType]
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaDateType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaDateType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         if not arg.expression_type.date_include_time:
             return func_call.with_invalid_type(
                 "cannot extract seconds from a date without time"
             )
         else:
             return func_call.with_valid_type(
-                BaserowFormulaNumberType(
+                JadawelFormulaNumberType(
                     number_decimal_places=0, nullable=arg.expression_type.nullable
                 )
             )
 
     def to_django_expression(self, arg: Expression) -> Expression:
-        return BaserowExtract(
+        return JadawelExtract(
             arg, "second", output_field=int_like_numeric_output_field()
         )
 
 
-class BaserowBcToNull(OneArgumentBaserowFunction):
+class JadawelBcToNull(OneArgumentJadawelFunction):
     type = "bc_to_null"
-    arg_type = [BaserowFormulaDateType]
+    arg_type = [JadawelFormulaDateType]
     is_wrapper = True
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return func_call.with_valid_type(arg.expression_type, nullable=True)
 
     def to_django_expression(self, arg: Expression) -> Expression:
-        expr_to_get_year = BaserowExtract(
+        expr_to_get_year = JadawelExtract(
             arg, "year", output_field=int_like_numeric_output_field()
         )
         return Case(
@@ -3562,17 +3562,17 @@ class BaserowBcToNull(OneArgumentBaserowFunction):
         )
 
 
-class BaserowToURL(OneArgumentBaserowFunction):
+class JadawelToURL(OneArgumentJadawelFunction):
     type = "tourl"
-    arg_type = [BaserowFormulaTextType]
+    arg_type = [JadawelFormulaTextType]
     try_coerce_nullable_args_to_not_null = False
 
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return func_call.with_valid_type(BaserowFormulaURLType())
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return func_call.with_valid_type(JadawelFormulaURLType())
 
     def to_django_expression(self, arg: Expression) -> Expression:
         return Func(arg, function="try_cast_to_url", output_field=fields.CharField())

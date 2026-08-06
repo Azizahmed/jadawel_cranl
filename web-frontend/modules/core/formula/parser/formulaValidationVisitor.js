@@ -1,4 +1,4 @@
-import BaserowFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/BaserowFormulaVisitor'
+import JadawelFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/JadawelFormulaVisitor'
 import { InvalidFormulaType, UnknownOperatorError } from '@jadawel/modules/core/formula/parser/errors.js'
 
 /**
@@ -18,7 +18,7 @@ export const DeferredValue = Symbol('DeferredValue')
  * This is used to validate formulas before execution, catching errors early
  * and providing better user feedback.
  */
-export default class BaserowFormulaValidationVisitor extends BaserowFormulaVisitor {
+export default class JadawelFormulaValidationVisitor extends JadawelFormulaVisitor {
   /**
    * @param {FunctionCollection} functions - The collection of available formula functions
    * @param {Object} validationContext - Context needed for validation (e.g., dataProviderRegistry)

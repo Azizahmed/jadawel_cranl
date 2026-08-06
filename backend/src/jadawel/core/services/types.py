@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import NamedTuple, NewType, Optional, TypedDict, TypeVar
 
 from jadawel.core.formula.runtime_formula_context import RuntimeFormulaContext
-from jadawel.core.formula.types import BaserowFormulaObject
+from jadawel.core.formula.types import JadawelFormulaObject
 from jadawel.core.services.models import Service
 
 
@@ -43,7 +43,7 @@ class UpdatedService:
 
 class FormulaToResolve(NamedTuple):
     key: str
-    formula: BaserowFormulaObject
+    formula: JadawelFormulaObject
     ensurer: callable
     label: str
 

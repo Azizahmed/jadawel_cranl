@@ -7,28 +7,28 @@ from jadawel.contrib.database.fields.dependencies.exceptions import (
 from jadawel.contrib.database.fields.dependencies.models import FieldDependency
 from jadawel.contrib.database.fields.dependencies.types import FieldDependencies
 from jadawel.contrib.database.formula.ast.tree import (
-    BaserowBooleanLiteral,
-    BaserowDecimalLiteral,
-    BaserowFieldReference,
-    BaserowFunctionCall,
-    BaserowFunctionDefinition,
-    BaserowIntegerLiteral,
-    BaserowStringLiteral,
+    JadawelBooleanLiteral,
+    JadawelDecimalLiteral,
+    JadawelFieldReference,
+    JadawelFunctionCall,
+    JadawelFunctionDefinition,
+    JadawelIntegerLiteral,
+    JadawelStringLiteral,
 )
-from jadawel.contrib.database.formula.ast.visitors import BaserowFormulaASTVisitor
+from jadawel.contrib.database.formula.ast.visitors import JadawelFormulaASTVisitor
 from jadawel.contrib.database.formula.types.exceptions import (
     get_invalid_field_and_table_formula_error,
 )
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaValidType,
+    JadawelFormulaValidType,
     UnTyped,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowExpression,
-    BaserowFormulaBooleanType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
-    BaserowFormulaType,
+    JadawelExpression,
+    JadawelFormulaBooleanType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
+    JadawelFormulaType,
 )
 
 if typing.TYPE_CHECKING:
@@ -37,24 +37,24 @@ if typing.TYPE_CHECKING:
 
 
 class FunctionsUsedVisitor(
-    BaserowFormulaASTVisitor[Any, Set[BaserowFunctionDefinition]]
+    JadawelFormulaASTVisitor[Any, Set[JadawelFunctionDefinition]]
 ):
-    def visit_field_reference(self, field_reference: BaserowFieldReference):
+    def visit_field_reference(self, field_reference: JadawelFieldReference):
         return {field_reference}
 
     def visit_string_literal(
-        self, string_literal: BaserowStringLiteral
-    ) -> Set[BaserowFunctionDefinition]:
+        self, string_literal: JadawelStringLiteral
+    ) -> Set[JadawelFunctionDefinition]:
         return set()
 
     def visit_boolean_literal(
-        self, boolean_literal: BaserowBooleanLiteral
-    ) -> Set[BaserowFunctionDefinition]:
+        self, boolean_literal: JadawelBooleanLiteral
+    ) -> Set[JadawelFunctionDefinition]:
         return set()
 
     def visit_function_call(
-        self, function_call: BaserowFunctionCall
-    ) -> Set[BaserowFunctionDefinition]:
+        self, function_call: JadawelFunctionCall
+    ) -> Set[JadawelFunctionDefinition]:
         all_used_functions = {function_call.function_def}
         for expr in function_call.args:
             all_used_functions.update(expr.accept(self))
@@ -62,18 +62,18 @@ class FunctionsUsedVisitor(
         return all_used_functions
 
     def visit_int_literal(
-        self, int_literal: BaserowIntegerLiteral
-    ) -> Set[BaserowFunctionDefinition]:
+        self, int_literal: JadawelIntegerLiteral
+    ) -> Set[JadawelFunctionDefinition]:
         return set()
 
     def visit_decimal_literal(
-        self, decimal_literal: BaserowDecimalLiteral
-    ) -> Set[BaserowFunctionDefinition]:
+        self, decimal_literal: JadawelDecimalLiteral
+    ) -> Set[JadawelFunctionDefinition]:
         return set()
 
 
 class FieldDependencyExtractingVisitor(
-    BaserowFormulaASTVisitor[UnTyped, FieldDependencies]
+    JadawelFormulaASTVisitor[UnTyped, FieldDependencies]
 ):
     """
     Calculates and returns all the field dependencies that the jadawel expression has.
@@ -85,7 +85,7 @@ class FieldDependencyExtractingVisitor(
         self.table = table
 
     def visit_field_reference(
-        self, field_reference: BaserowFieldReference[UnTyped]
+        self, field_reference: JadawelFieldReference[UnTyped]
     ) -> FieldDependencies:
         from jadawel.contrib.database.fields.models import LinkRowField
 
@@ -189,12 +189,12 @@ class FieldDependencyExtractingVisitor(
                 ]
 
     def visit_string_literal(
-        self, string_literal: BaserowStringLiteral[UnTyped]
+        self, string_literal: JadawelStringLiteral[UnTyped]
     ) -> FieldDependencies:
         return []
 
     def visit_function_call(
-        self, function_call: BaserowFunctionCall[UnTyped]
+        self, function_call: JadawelFunctionCall[UnTyped]
     ) -> FieldDependencies:
         field_references: FieldDependencies = []
         for expr in function_call.args:
@@ -202,31 +202,31 @@ class FieldDependencyExtractingVisitor(
         return field_references
 
     def visit_int_literal(
-        self, int_literal: BaserowIntegerLiteral[UnTyped]
+        self, int_literal: JadawelIntegerLiteral[UnTyped]
     ) -> FieldDependencies:
         return []
 
     def visit_decimal_literal(
-        self, decimal_literal: BaserowDecimalLiteral[UnTyped]
+        self, decimal_literal: JadawelDecimalLiteral[UnTyped]
     ) -> FieldDependencies:
         return []
 
     def visit_boolean_literal(
-        self, boolean_literal: BaserowBooleanLiteral[UnTyped]
+        self, boolean_literal: JadawelBooleanLiteral[UnTyped]
     ) -> FieldDependencies:
         return []
 
 
 class FormulaTypingVisitor(
-    BaserowFormulaASTVisitor[UnTyped, BaserowExpression[BaserowFormulaType]]
+    JadawelFormulaASTVisitor[UnTyped, JadawelExpression[JadawelFormulaType]]
 ):
     def __init__(self, field_being_typed, field_cache):
         self.field_cache = field_cache
         self.field_being_typed = field_being_typed
 
     def visit_field_reference(
-        self, field_reference: BaserowFieldReference[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
+        self, field_reference: JadawelFieldReference[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
         from jadawel.contrib.database.fields.registries import field_type_registry
 
         referenced_field_name = field_reference.referenced_field_name
@@ -301,21 +301,21 @@ class FormulaTypingVisitor(
         lookup_field_type = field_type_registry.get_by_model(target_field)
         formula_type = lookup_field_type.to_jadawel_formula_type(target_field)
 
-        return BaserowFieldReference(
+        return JadawelFieldReference(
             referenced_field.db_column,
             target_field.db_column + sub_ref,
             formula_type,
         )
 
     def visit_string_literal(
-        self, string_literal: BaserowStringLiteral[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return string_literal.with_valid_type(BaserowFormulaTextType())
+        self, string_literal: JadawelStringLiteral[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return string_literal.with_valid_type(JadawelFormulaTextType())
 
     def visit_function_call(
-        self, function_call: BaserowFunctionCall[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
-        typed_args: List[BaserowExpression[BaserowFormulaValidType]] = []
+        self, function_call: JadawelFunctionCall[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
+        typed_args: List[JadawelExpression[JadawelFormulaValidType]] = []
         requires_aggregate_wrapper = []
         for index, expr in enumerate(function_call.args):
             arg_expr = expr.accept(self)
@@ -341,24 +341,24 @@ class FormulaTypingVisitor(
         return function_call.type_function_given_typed_args(typed_args)
 
     def visit_int_literal(
-        self, int_literal: BaserowIntegerLiteral[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
+        self, int_literal: JadawelIntegerLiteral[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
         return int_literal.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=0,
             ),
         )
 
     def visit_decimal_literal(
-        self, decimal_literal: BaserowDecimalLiteral[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
+        self, decimal_literal: JadawelDecimalLiteral[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
         return decimal_literal.with_valid_type(
-            BaserowFormulaNumberType(
+            JadawelFormulaNumberType(
                 number_decimal_places=decimal_literal.num_decimal_places()
             )
         )
 
     def visit_boolean_literal(
-        self, boolean_literal: BaserowBooleanLiteral[UnTyped]
-    ) -> BaserowExpression[BaserowFormulaType]:
-        return boolean_literal.with_valid_type(BaserowFormulaBooleanType())
+        self, boolean_literal: JadawelBooleanLiteral[UnTyped]
+    ) -> JadawelExpression[JadawelFormulaType]:
+        return boolean_literal.with_valid_type(JadawelFormulaBooleanType())

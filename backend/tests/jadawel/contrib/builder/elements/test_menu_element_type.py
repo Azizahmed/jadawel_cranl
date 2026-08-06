@@ -9,7 +9,7 @@ from jadawel.contrib.builder.api.elements.serializers import MenuItemSerializer
 from jadawel.contrib.builder.elements.handler import ElementHandler
 from jadawel.contrib.builder.elements.models import MenuElement, MenuItemElement
 from jadawel.contrib.builder.workflow_actions.models import NotificationWorkflowAction
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.utils import MirrorDict
@@ -186,7 +186,7 @@ def test_add_sub_link(menu_element_fixture):
         ("navigate_to_page_id", None),
         (
             "navigate_to_url",
-            BaserowFormulaObject(
+            JadawelFormulaObject(
                 formula="https://www.baserow.io",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -197,7 +197,7 @@ def test_add_sub_link(menu_element_fixture):
             [
                 {
                     "name": "foo",
-                    "value": BaserowFormulaObject(
+                    "value": JadawelFormulaObject(
                         formula="'bar'",
                         mode=JADAWEL_FORMULA_MODE_SIMPLE,
                         version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -210,7 +210,7 @@ def test_add_sub_link(menu_element_fixture):
             [
                 {
                     "name": "param",
-                    "value": BaserowFormulaObject(
+                    "value": JadawelFormulaObject(
                         formula="'baz'",
                         mode=JADAWEL_FORMULA_MODE_SIMPLE,
                         version=JADAWEL_FORMULA_VERSION_INITIAL,

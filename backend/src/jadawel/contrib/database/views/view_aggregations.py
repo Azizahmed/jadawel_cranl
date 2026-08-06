@@ -42,14 +42,14 @@ from jadawel.contrib.database.fields.field_types import (
 )
 from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.formula import (
-    BaserowFormulaBooleanType,
-    BaserowFormulaCharType,
-    BaserowFormulaDateType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaCharType,
+    JadawelFormulaDateType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowFormulaSingleFileType,
+    JadawelFormulaSingleFileType,
 )
 
 from .registries import ViewAggregationType
@@ -101,12 +101,12 @@ class CountViewAggregationType(ViewAggregationType):
         MultipleSelectFieldType.type,
         PasswordFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
-            BaserowFormulaBooleanType.type,
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type),
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
+            JadawelFormulaBooleanType.type,
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type),
         ),
     ]
 
@@ -146,12 +146,12 @@ class EmptyCountViewAggregationType(ViewAggregationType):
         MultipleSelectFieldType.type,
         PasswordFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
-            BaserowFormulaBooleanType.type,
-            FormulaFieldType.array_of(BaserowFormulaSingleFileType.type),
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
+            JadawelFormulaBooleanType.type,
+            FormulaFieldType.array_of(JadawelFormulaSingleFileType.type),
         ),
     ]
 
@@ -228,10 +228,10 @@ class UniqueCountViewAggregationType(ViewAggregationType):
         SingleSelectFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaTextType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
+            JadawelFormulaTextType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
         ),
     ]
 
@@ -259,8 +259,8 @@ class MinViewAggregationType(ViewAggregationType):
         AutonumberFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
         ),
     ]
 
@@ -285,8 +285,8 @@ class MaxViewAggregationType(ViewAggregationType):
         AutonumberFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
         ),
     ]
 
@@ -306,7 +306,7 @@ class SumViewAggregationType(ViewAggregationType):
         RatingFieldType.type,
         DurationFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -325,7 +325,7 @@ class AverageViewAggregationType(ViewAggregationType):
         NumberFieldType.type,
         RatingFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -349,7 +349,7 @@ class StdDevViewAggregationType(ViewAggregationType):
         NumberFieldType.type,
         RatingFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -368,7 +368,7 @@ class VarianceViewAggregationType(ViewAggregationType):
         NumberFieldType.type,
         RatingFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -387,7 +387,7 @@ class MedianViewAggregationType(ViewAggregationType):
         NumberFieldType.type,
         RatingFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -406,7 +406,7 @@ class DecileViewAggregationType(ViewAggregationType):
         NumberFieldType.type,
         RatingFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
+            JadawelFormulaNumberType.type,
         ),
     ]
 
@@ -429,8 +429,8 @@ class RangeViewAggregationType(ViewAggregationType):
         LastModifiedFieldType.type,
         CreatedOnFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaNumberType.type,
-            BaserowFormulaDateType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaDateType.type,
         ),
     ]
 
@@ -462,11 +462,11 @@ class DistributionViewAggregationType(ViewAggregationType):
         DurationFieldType.type,
         BooleanFieldType.type,
         FormulaFieldType.compatible_with_formula_types(
-            BaserowFormulaBooleanType.type,
-            BaserowFormulaCharType.type,
-            BaserowFormulaDateType.type,
-            BaserowFormulaNumberType.type,
-            BaserowFormulaTextType.type,
+            JadawelFormulaBooleanType.type,
+            JadawelFormulaCharType.type,
+            JadawelFormulaDateType.type,
+            JadawelFormulaNumberType.type,
+            JadawelFormulaTextType.type,
         ),
     ]
 

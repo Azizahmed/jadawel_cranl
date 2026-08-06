@@ -51,7 +51,7 @@ from jadawel.contrib.database.table.constants import (
     ROW_NEEDS_BACKGROUND_UPDATE_COLUMN_NAME,
     USER_TABLE_DATABASE_NAME_PREFIX,
 )
-from jadawel.contrib.database.table.queryset import BaserowCTEQuerySet
+from jadawel.contrib.database.table.queryset import JadawelCTEQuerySet
 from jadawel.contrib.database.views.exceptions import ViewFilterTypeNotAllowedForField
 from jadawel.contrib.database.views.models import DEFAULT_SORT_TYPE_KEY
 from jadawel.contrib.database.views.registries import view_filter_type_registry
@@ -87,7 +87,7 @@ class FieldObject(TypedDict):
     name: str
 
 
-class TableModelQuerySet(MultiFieldPrefetchQuerysetMixin, BaserowCTEQuerySet):
+class TableModelQuerySet(MultiFieldPrefetchQuerysetMixin, JadawelCTEQuerySet):
     def pg_search(
         self,
         input_search: str,

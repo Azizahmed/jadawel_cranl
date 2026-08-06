@@ -1,10 +1,10 @@
 import { Page } from "@playwright/test";
-import { BaserowPage, PageConfig } from "./baserowPage";
+import { JadawelPage, PageConfig } from "./jadawelPage";
 import { Sidebar } from "./components/sidebar";
 import { Workspace } from "../fixtures/workspace";
 import { deleteUser, User } from "../fixtures/user";
 
-export class WorkspacePage extends BaserowPage {
+export class WorkspacePage extends JadawelPage {
   readonly sidebar: Sidebar;
   readonly workspace: Workspace;
   readonly user: User;

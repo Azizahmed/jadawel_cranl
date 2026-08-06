@@ -1,24 +1,24 @@
-import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
-import { BaserowFormulaParserError } from '@jadawel/modules/core/formula/parser/errors'
+import parseJadawelFormula from '@jadawel/modules/core/formula/parser/parser'
+import { JadawelFormulaParserError } from '@jadawel/modules/core/formula/parser/errors'
 
 describe('Baserow Formula Tests', () => {
   const validFormulas = ["lower('test')", "upper('test')"]
   const invalidFormulas = [
-    ['a', BaserowFormulaParserError],
-    ['12ssda3', BaserowFormulaParserError],
+    ['a', JadawelFormulaParserError],
+    ['12ssda3', JadawelFormulaParserError],
   ]
 
   test.each(validFormulas)(
     'valid baserow formulas do not raise a parser error',
     (value) => {
-      expect(parseBaserowFormula(value)).toBeTruthy()
+      expect(parseJadawelFormula(value)).toBeTruthy()
     }
   )
 
   test.each(invalidFormulas)(
     'invalid baserow formulas raise a parser error',
     (value, exception) => {
-      expect(() => parseBaserowFormula(value)).toThrow(exception)
+      expect(() => parseJadawelFormula(value)).toThrow(exception)
     }
   )
 })

@@ -1382,7 +1382,7 @@ class RowHandler(metaclass=jadawel_trace_methods(tracer)):
                 if value and len(value) > 0
             }
             rows_relationships.append((instance, relations))
-            # This is a hack to make `BaserowExpressionField.pre_save` (called
+            # This is a hack to make `JadawelExpressionField.pre_save` (called
             # by bulk_create immediately below) being able to access the
             # relationships values, so the formula can be correctly computed
             # when saving the row, before the many to many relationships are
@@ -2361,7 +2361,7 @@ class RowHandler(metaclass=jadawel_trace_methods(tracer)):
                 if value or isinstance(value, list)
             }
             rows_relationships.append(relations)
-            # This is a hack to make `BaserowExpressionField.pre_save` (called
+            # This is a hack to make `JadawelExpressionField.pre_save` (called
             # immediately below here) being able to access the relationships
             # values, so the formula can be correctly computed when saving the
             # row, before the many to many relationships are saved.

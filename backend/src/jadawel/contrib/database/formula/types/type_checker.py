@@ -3,12 +3,12 @@ import typing
 from typing import Callable, List, Type, Union
 
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaType,
-    BaserowFormulaValidType,
+    JadawelFormulaType,
+    JadawelFormulaValidType,
 )
 
 if typing.TYPE_CHECKING:
-    from jadawel.contrib.database.formula import BaserowExpression
+    from jadawel.contrib.database.formula import JadawelExpression
 
 
 class SingleArgumentTypeChecker(abc.ABC):
@@ -16,7 +16,7 @@ class SingleArgumentTypeChecker(abc.ABC):
     def check(
         self,
         arg_index: int,
-        typed_expression_to_check: "BaserowExpression[BaserowFormulaType]",
+        typed_expression_to_check: "JadawelExpression[JadawelFormulaType]",
     ) -> bool:
         pass
 
@@ -24,7 +24,7 @@ class SingleArgumentTypeChecker(abc.ABC):
     def invalid_message(
         self,
         arg_index: int,
-        type_which_failed_check: "BaserowExpression[BaserowFormulaType]",
+        type_which_failed_check: "JadawelExpression[JadawelFormulaType]",
     ) -> str:
         pass
 
@@ -37,13 +37,13 @@ class MustBeManyExprChecker(SingleArgumentTypeChecker):
     by aggregate functions.
     """
 
-    def __init__(self, *formula_types: Type[BaserowFormulaType]):
+    def __init__(self, *formula_types: Type[JadawelFormulaType]):
         self.formula_types = tuple(formula_types)
 
     def check(
         self,
         arg_index: int,
-        typed_expression_to_check: "BaserowExpression[BaserowFormulaType]",
+        typed_expression_to_check: "JadawelExpression[JadawelFormulaType]",
     ) -> bool:
         return (
             self._expr_is_valid_type(typed_expression_to_check)
@@ -56,27 +56,27 @@ class MustBeManyExprChecker(SingleArgumentTypeChecker):
     def invalid_message(
         self,
         arg_index: int,
-        typed_expression_to_check: "BaserowExpression[BaserowFormulaType]",
+        typed_expression_to_check: "JadawelExpression[JadawelFormulaType]",
     ) -> str:
         valid_types_str = ", or ".join(
-            [str(t.type) for t in self.formula_types if t != BaserowFormulaValidType]
+            [str(t.type) for t in self.formula_types if t != JadawelFormulaValidType]
         )
         if valid_types_str:
             valid_types_str += " "
         return f"a list of {valid_types_str}values obtained from a lookup"
 
 
-BaserowListOfValidTypes = List[Type[BaserowFormulaValidType]]
-BaserowSingleArgumentTypeChecker = Union[
-    BaserowListOfValidTypes, SingleArgumentTypeChecker
+JadawelListOfValidTypes = List[Type[JadawelFormulaValidType]]
+JadawelSingleArgumentTypeChecker = Union[
+    JadawelListOfValidTypes, SingleArgumentTypeChecker
 ]
 """
 Defines a way of checking a single provided argument has a valid type or not.
 """
 
-BaserowArgumentTypeChecker = Union[
-    Callable[[int, List[BaserowFormulaType]], BaserowListOfValidTypes],
-    List[BaserowSingleArgumentTypeChecker],
+JadawelArgumentTypeChecker = Union[
+    Callable[[int, List[JadawelFormulaType]], JadawelListOfValidTypes],
+    List[JadawelSingleArgumentTypeChecker],
 ]
 """
 Defines a way of checking if all the arguments for a function.

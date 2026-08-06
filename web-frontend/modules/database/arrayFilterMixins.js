@@ -192,7 +192,7 @@ export const formulaFieldArrayFilterMixin = Object.assign(
 )
 
 /*
- * Mixin for the BaserowFormulaArrayType to proxy all the array filters to the
+ * Mixin for the JadawelFormulaArrayType to proxy all the array filters to the
  * correct sub type.
  */
 export const jadawelFormulaArrayTypeFilterMixin = {

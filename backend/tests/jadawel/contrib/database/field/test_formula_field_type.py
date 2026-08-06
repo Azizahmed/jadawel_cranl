@@ -17,16 +17,16 @@ from jadawel.contrib.database.fields.dependencies.update_collector import (
 )
 from jadawel.contrib.database.fields.field_cache import FieldCache
 from jadawel.contrib.database.fields.field_types import FormulaFieldType
-from jadawel.contrib.database.fields.fields import BaserowExpressionField
+from jadawel.contrib.database.fields.fields import JadawelExpressionField
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.fields.models import FormulaField
 from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.formula import (
-    BaserowFormulaInvalidType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
 )
-from jadawel.contrib.database.formula.ast.tree import BaserowFunctionDefinition
+from jadawel.contrib.database.formula.ast.tree import JadawelFunctionDefinition
 from jadawel.contrib.database.formula.registries import formula_function_registry
 from jadawel.contrib.database.formula.types.exceptions import InvalidFormulaType
 from jadawel.contrib.database.management.commands.fill_table_rows import fill_table_rows
@@ -227,7 +227,7 @@ def test_can_change_formula_type_breaking_other_fields(data_fixture):
         user=user, field=first_formula_field, new_type_name="formula", formula="'a'"
     )
     second_formula_field.refresh_from_db()
-    assert second_formula_field.formula_type == BaserowFormulaInvalidType.type
+    assert second_formula_field.formula_type == JadawelFormulaInvalidType.type
     assert "argument number 2" in second_formula_field.error
 
 
@@ -839,7 +839,7 @@ def test_all_functions_are_registered():
 
     funcs = formula_function_registry.get_all()
     names = [f.type for f in funcs]
-    assert len(names) == len(get_all_subclasses(BaserowFunctionDefinition))
+    assert len(names) == len(get_all_subclasses(JadawelFunctionDefinition))
 
 
 @pytest.mark.django_db
@@ -906,7 +906,7 @@ def test_recalculated_internal_type_with_incorrect_syntax_formula_sets_to_invali
     )
     formula_field.formula = "invalid"
     formula_field.save()
-    assert formula_field.formula_type == BaserowFormulaInvalidType.type
+    assert formula_field.formula_type == JadawelFormulaInvalidType.type
     assert "Invalid syntax" in formula_field.error
 
 
@@ -931,7 +931,7 @@ def test_accessing_cached_internal_formula_second_time_does_no_queries(
             str(formula_field.cached_typed_internal_expression)
             == f"error_to_null(field('{a_field.db_column}'))"
         )
-        assert formula_field.cached_formula_type.type == BaserowFormulaTextType.type
+        assert formula_field.cached_formula_type.type == JadawelFormulaTextType.type
 
 
 @pytest.mark.django_db
@@ -952,14 +952,14 @@ def test_saving_after_properties_have_been_cached_does_recalculation(data_fixtur
         str(formula_field.cached_typed_internal_expression)
         == f"error_to_null(field('{a_field.db_column}'))"
     )
-    assert formula_field.cached_formula_type.type == BaserowFormulaTextType.type
+    assert formula_field.cached_formula_type.type == JadawelFormulaTextType.type
 
     formula_field.formula = "1"
     formula_field.save()
 
     assert str(formula_field.cached_untyped_expression) == "1"
     assert str(formula_field.cached_typed_internal_expression) == "error_to_nan(1)"
-    assert formula_field.cached_formula_type.type == BaserowFormulaNumberType.type
+    assert formula_field.cached_formula_type.type == JadawelFormulaNumberType.type
 
 
 @pytest.mark.django_db
@@ -1104,7 +1104,7 @@ def test_can_cache_and_uncache_formula_model_field(
     generated_models_cache.set("test_formula_key", formula_model_field)
     uncached = generated_models_cache.get("test_formula_key")
     assert uncached == formula_model_field
-    assert isinstance(uncached, BaserowExpressionField)
+    assert isinstance(uncached, JadawelExpressionField)
     assert uncached.__class__ == TextField
     assert str(uncached.expression) == str(formula_model_field.expression)
 

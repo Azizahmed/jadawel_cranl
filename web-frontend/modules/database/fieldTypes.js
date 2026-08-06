@@ -1058,7 +1058,7 @@ export class FieldType extends Registerable {
     return null
   }
 
-  toBaserowFormulaType(field) {
+  toJadawelFormulaType(field) {
     return this.getType()
   }
 
@@ -2551,7 +2551,7 @@ class BaseDateFieldType extends FieldType {
     return super.isEqual(field, value1, value2)
   }
 
-  toBaserowFormulaType(field) {
+  toJadawelFormulaType(field) {
     return 'date'
   }
 
@@ -4516,8 +4516,8 @@ export class FormulaFieldType extends mix(
     return this.getFormulaType(field)?.canRepresentFiles(field)
   }
 
-  toBaserowFormulaType(field) {
-    return this.getFormulaType(field).toBaserowFormulaType(field)
+  toJadawelFormulaType(field) {
+    return this.getFormulaType(field).toJadawelFormulaType(field)
   }
 
   canHaveDbIndex(fieldValues) {

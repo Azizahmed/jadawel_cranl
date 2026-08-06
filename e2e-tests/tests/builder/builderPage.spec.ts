@@ -1,5 +1,5 @@
 import { createBuilderElement } from "../../fixtures/builder/builderElement";
-import { expect, test } from "../baserowTest";
+import { expect, test } from "../jadawelTest";
 import { baserowConfig } from "../../playwright.config";
 
 test.describe("Builder page test suite", () => {

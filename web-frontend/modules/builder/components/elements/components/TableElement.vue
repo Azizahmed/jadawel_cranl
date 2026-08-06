@@ -67,14 +67,14 @@
 <script>
 import RuntimeFormulaContext from '@jadawel/modules/core/runtimeFormulaContext'
 import { uuid } from '@jadawel/modules/core/utils/string'
-import BaserowTable from '@jadawel/modules/builder/components/elements/components/BaserowTable'
+import JadawelTable from '@jadawel/modules/builder/components/elements/components/JadawelTable'
 import { ensureString } from '@jadawel/modules/core/utils/validator'
 import CollectionElementHeader from '@jadawel/modules/builder/components/elements/components/CollectionElementHeader'
 import { useCollectionElement } from '@jadawel/modules/builder/composables/useCollectionElement'
 
 export default {
   name: 'TableElement',
-  components: { CollectionElementHeader, BaserowTable },
+  components: { CollectionElementHeader, JadawelTable },
   props: {
     /**
      * @type {Object}

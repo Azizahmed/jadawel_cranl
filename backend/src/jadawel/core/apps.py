@@ -440,7 +440,7 @@ class CoreConfig(AppConfig):
         import jadawel.core.notifications.receivers  # noqa: F401
         import jadawel.core.notifications.tasks  # noqa: F401
         from jadawel.core.notification_types import (
-            BaserowVersionUpgradeNotificationType,
+            JadawelVersionUpgradeNotificationType,
             WorkspaceInvitationAcceptedNotificationType,
             WorkspaceInvitationCreatedNotificationType,
             WorkspaceInvitationRejectedNotificationType,
@@ -456,7 +456,7 @@ class CoreConfig(AppConfig):
         notification_type_registry.register(
             WorkspaceInvitationRejectedNotificationType()
         )
-        notification_type_registry.register(BaserowVersionUpgradeNotificationType())
+        notification_type_registry.register(JadawelVersionUpgradeNotificationType())
 
         from jadawel.core.generative_ai.generative_ai_model_types import (
             AnthropicGenerativeAIModelType,

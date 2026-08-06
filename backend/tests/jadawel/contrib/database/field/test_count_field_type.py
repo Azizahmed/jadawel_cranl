@@ -7,7 +7,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 from jadawel.contrib.database.fields.exceptions import InvalidCountThroughField
 from jadawel.contrib.database.fields.handler import FieldHandler
-from jadawel.contrib.database.formula import BaserowFormulaNumberType
+from jadawel.contrib.database.formula import JadawelFormulaNumberType
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.core.handler import CoreHandler
 from jadawel.core.registries import ImportExportConfig
@@ -394,7 +394,7 @@ def test_import_export_tables_with_count_fields(
         name=link_row_field.name
     ).specific
     assert imported_count_field.formula == count_field.formula
-    assert imported_count_field.formula_type == BaserowFormulaNumberType.type
+    assert imported_count_field.formula_type == JadawelFormulaNumberType.type
     assert imported_count_field.through_field.name == link_row_field.name
     assert imported_count_field.through_field_id == imported_through_field.id
 

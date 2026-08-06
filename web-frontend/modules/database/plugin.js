@@ -176,126 +176,126 @@ import { APITokenSettingsType } from '@jadawel/modules/database/settingsTypes'
 
 import { CSVTableExporterType } from '@jadawel/modules/database/exporterTypes'
 import {
-  BaserowAdd,
-  BaserowAnd,
-  BaserowConcat,
-  BaserowDateDiff,
-  BaserowDateInterval,
-  BaserowDatetimeFormat,
-  BaserowDatetimeFormatTz,
-  BaserowDay,
-  BaserowDivide,
-  BaserowEncodeUri,
-  BaserowEncodeUriComponent,
-  BaserowEqual,
-  BaserowHasOption,
-  BaserowField,
-  BaserowSearch,
-  BaserowGreaterThan,
-  BaserowGreaterThanOrEqual,
-  BaserowIf,
-  BaserowIsBlank,
-  BaserowIsNull,
-  BaserowDurationToSeconds,
-  BaserowSecondsToDuration,
-  BaserowLessThan,
-  BaserowLessThanOrEqual,
-  BaserowLower,
-  BaserowSplitPart,
-  BaserowMinus,
-  BaserowMultiply,
-  BaserowNot,
-  BaserowOr,
-  BaserowReplace,
-  BaserowRowId,
-  BaserowT,
-  BaserowNow,
-  BaserowToday,
-  BaserowToDateTz,
-  BaserowToDate,
-  BaserowToNumber,
-  BaserowToText,
-  BaserowUpper,
-  BaserowReverse,
-  BaserowLength,
-  BaserowNotEqual,
-  BaserowLookup,
-  BaserowSum,
-  BaserowAvg,
-  BaserowVariancePop,
-  BaserowVarianceSample,
-  BaserowStddevSample,
-  BaserowStddevPop,
-  BaserowJoin,
-  BaserowCount,
-  BaserowMin,
-  BaserowMax,
-  BaserowEvery,
-  BaserowAny,
-  BaserowWhenEmpty,
-  BaserowSecond,
-  BaserowYear,
-  BaserowMonth,
-  BaserowLeast,
-  BaserowGreatest,
-  BaserowRegexReplace,
-  BaserowLink,
-  BaserowTrim,
-  BaserowRight,
-  BaserowLeft,
-  BaserowContains,
-  BaserowFilter,
-  BaserowTrunc,
-  BaserowIsNaN,
-  BaserowWhenNaN,
-  BaserowEven,
-  BaserowOdd,
-  BaserowCeil,
-  BaserowFloor,
-  BaserowAbs,
-  BaserowExp,
-  BaserowLn,
-  BaserowSign,
-  BaserowSqrt,
-  BaserowRound,
-  BaserowLog,
-  BaserowPower,
-  BaserowMod,
-  BaserowButton,
-  BaserowGetLinkUrl,
-  BaserowGetLinkLabel,
-  BaserowIsImage,
-  BaserowGetImageHeight,
-  BaserowGetImageWidth,
-  BaserowGetFileSize,
-  BaserowGetFileMimeType,
-  BaserowGetFileVisibleName,
-  BaserowIndex,
-  BaserowGetFileCount,
-  BaserowToUrl,
-  BaserowArrayUnique,
-  BaserowArraySlice,
-  BaserowFirst,
-  BaserowLast,
+  JadawelAdd,
+  JadawelAnd,
+  JadawelConcat,
+  JadawelDateDiff,
+  JadawelDateInterval,
+  JadawelDatetimeFormat,
+  JadawelDatetimeFormatTz,
+  JadawelDay,
+  JadawelDivide,
+  JadawelEncodeUri,
+  JadawelEncodeUriComponent,
+  JadawelEqual,
+  JadawelHasOption,
+  JadawelField,
+  JadawelSearch,
+  JadawelGreaterThan,
+  JadawelGreaterThanOrEqual,
+  JadawelIf,
+  JadawelIsBlank,
+  JadawelIsNull,
+  JadawelDurationToSeconds,
+  JadawelSecondsToDuration,
+  JadawelLessThan,
+  JadawelLessThanOrEqual,
+  JadawelLower,
+  JadawelSplitPart,
+  JadawelMinus,
+  JadawelMultiply,
+  JadawelNot,
+  JadawelOr,
+  JadawelReplace,
+  JadawelRowId,
+  JadawelT,
+  JadawelNow,
+  JadawelToday,
+  JadawelToDateTz,
+  JadawelToDate,
+  JadawelToNumber,
+  JadawelToText,
+  JadawelUpper,
+  JadawelReverse,
+  JadawelLength,
+  JadawelNotEqual,
+  JadawelLookup,
+  JadawelSum,
+  JadawelAvg,
+  JadawelVariancePop,
+  JadawelVarianceSample,
+  JadawelStddevSample,
+  JadawelStddevPop,
+  JadawelJoin,
+  JadawelCount,
+  JadawelMin,
+  JadawelMax,
+  JadawelEvery,
+  JadawelAny,
+  JadawelWhenEmpty,
+  JadawelSecond,
+  JadawelYear,
+  JadawelMonth,
+  JadawelLeast,
+  JadawelGreatest,
+  JadawelRegexReplace,
+  JadawelLink,
+  JadawelTrim,
+  JadawelRight,
+  JadawelLeft,
+  JadawelContains,
+  JadawelFilter,
+  JadawelTrunc,
+  JadawelIsNaN,
+  JadawelWhenNaN,
+  JadawelEven,
+  JadawelOdd,
+  JadawelCeil,
+  JadawelFloor,
+  JadawelAbs,
+  JadawelExp,
+  JadawelLn,
+  JadawelSign,
+  JadawelSqrt,
+  JadawelRound,
+  JadawelLog,
+  JadawelPower,
+  JadawelMod,
+  JadawelButton,
+  JadawelGetLinkUrl,
+  JadawelGetLinkLabel,
+  JadawelIsImage,
+  JadawelGetImageHeight,
+  JadawelGetImageWidth,
+  JadawelGetFileSize,
+  JadawelGetFileMimeType,
+  JadawelGetFileVisibleName,
+  JadawelIndex,
+  JadawelGetFileCount,
+  JadawelToUrl,
+  JadawelArrayUnique,
+  JadawelArraySlice,
+  JadawelFirst,
+  JadawelLast,
 } from '@jadawel/modules/database/formula/functions'
 import {
-  BaserowFormulaArrayType,
-  BaserowFormulaBooleanType,
-  BaserowFormulaButtonType,
-  BaserowFormulaCharType,
-  BaserowFormulaLinkType,
-  BaserowFormulaDateIntervalType, // Deprecated
-  BaserowFormulaDurationType,
-  BaserowFormulaDateType,
-  BaserowFormulaInvalidType,
-  BaserowFormulaNumberType,
-  BaserowFormulaSingleSelectType,
-  BaserowFormulaMultipleSelectType,
-  BaserowFormulaMultipleCollaboratorsType,
-  BaserowFormulaSpecialType,
-  BaserowFormulaTextType,
-  BaserowFormulaFileType,
-  BaserowFormulaURLType,
+  JadawelFormulaArrayType,
+  JadawelFormulaBooleanType,
+  JadawelFormulaButtonType,
+  JadawelFormulaCharType,
+  JadawelFormulaLinkType,
+  JadawelFormulaDateIntervalType, // Deprecated
+  JadawelFormulaDurationType,
+  JadawelFormulaDateType,
+  JadawelFormulaInvalidType,
+  JadawelFormulaNumberType,
+  JadawelFormulaSingleSelectType,
+  JadawelFormulaMultipleSelectType,
+  JadawelFormulaMultipleCollaboratorsType,
+  JadawelFormulaSpecialType,
+  JadawelFormulaTextType,
+  JadawelFormulaFileType,
+  JadawelFormulaURLType,
 } from '@jadawel/modules/database/formula/formulaTypes'
 import {
   CountViewAggregationType,
@@ -739,161 +739,161 @@ export default defineNuxtPlugin({
     $registry.register('webhookEvent', new ViewDeletedWebhookEventType(context))
 
     // Text functions
-    $registry.register('formula_function', new BaserowUpper(context))
-    $registry.register('formula_function', new BaserowLower(context))
-    $registry.register('formula_function', new BaserowConcat(context))
-    $registry.register('formula_function', new BaserowToText(context))
-    $registry.register('formula_function', new BaserowT(context))
-    $registry.register('formula_function', new BaserowReplace(context))
-    $registry.register('formula_function', new BaserowSearch(context))
-    $registry.register('formula_function', new BaserowLength(context))
-    $registry.register('formula_function', new BaserowReverse(context))
-    $registry.register('formula_function', new BaserowEncodeUri(context))
+    $registry.register('formula_function', new JadawelUpper(context))
+    $registry.register('formula_function', new JadawelLower(context))
+    $registry.register('formula_function', new JadawelConcat(context))
+    $registry.register('formula_function', new JadawelToText(context))
+    $registry.register('formula_function', new JadawelT(context))
+    $registry.register('formula_function', new JadawelReplace(context))
+    $registry.register('formula_function', new JadawelSearch(context))
+    $registry.register('formula_function', new JadawelLength(context))
+    $registry.register('formula_function', new JadawelReverse(context))
+    $registry.register('formula_function', new JadawelEncodeUri(context))
     $registry.register(
       'formula_function',
-      new BaserowEncodeUriComponent(context)
+      new JadawelEncodeUriComponent(context)
     )
-    $registry.register('formula_function', new BaserowSplitPart(context))
+    $registry.register('formula_function', new JadawelSplitPart(context))
     // Number functions
-    $registry.register('formula_function', new BaserowMultiply(context))
-    $registry.register('formula_function', new BaserowDivide(context))
-    $registry.register('formula_function', new BaserowToNumber(context))
+    $registry.register('formula_function', new JadawelMultiply(context))
+    $registry.register('formula_function', new JadawelDivide(context))
+    $registry.register('formula_function', new JadawelToNumber(context))
     // Boolean functions
-    $registry.register('formula_function', new BaserowIf(context))
-    $registry.register('formula_function', new BaserowEqual(context))
-    $registry.register('formula_function', new BaserowHasOption(context))
-    $registry.register('formula_function', new BaserowIsBlank(context))
-    $registry.register('formula_function', new BaserowIsNull(context))
-    $registry.register('formula_function', new BaserowNot(context))
-    $registry.register('formula_function', new BaserowNotEqual(context))
-    $registry.register('formula_function', new BaserowGreaterThan(context))
+    $registry.register('formula_function', new JadawelIf(context))
+    $registry.register('formula_function', new JadawelEqual(context))
+    $registry.register('formula_function', new JadawelHasOption(context))
+    $registry.register('formula_function', new JadawelIsBlank(context))
+    $registry.register('formula_function', new JadawelIsNull(context))
+    $registry.register('formula_function', new JadawelNot(context))
+    $registry.register('formula_function', new JadawelNotEqual(context))
+    $registry.register('formula_function', new JadawelGreaterThan(context))
     $registry.register(
       'formula_function',
-      new BaserowGreaterThanOrEqual(context)
+      new JadawelGreaterThanOrEqual(context)
     )
-    $registry.register('formula_function', new BaserowLessThan(context))
-    $registry.register('formula_function', new BaserowLessThanOrEqual(context))
-    $registry.register('formula_function', new BaserowAnd(context))
-    $registry.register('formula_function', new BaserowOr(context))
+    $registry.register('formula_function', new JadawelLessThan(context))
+    $registry.register('formula_function', new JadawelLessThanOrEqual(context))
+    $registry.register('formula_function', new JadawelAnd(context))
+    $registry.register('formula_function', new JadawelOr(context))
     // Date functions
-    $registry.register('formula_function', new BaserowDatetimeFormat(context))
-    $registry.register('formula_function', new BaserowDatetimeFormatTz(context))
-    $registry.register('formula_function', new BaserowDay(context))
-    $registry.register('formula_function', new BaserowNow(context))
-    $registry.register('formula_function', new BaserowToday(context))
-    $registry.register('formula_function', new BaserowToDateTz(context))
-    $registry.register('formula_function', new BaserowToDate(context))
-    $registry.register('formula_function', new BaserowDateDiff(context))
+    $registry.register('formula_function', new JadawelDatetimeFormat(context))
+    $registry.register('formula_function', new JadawelDatetimeFormatTz(context))
+    $registry.register('formula_function', new JadawelDay(context))
+    $registry.register('formula_function', new JadawelNow(context))
+    $registry.register('formula_function', new JadawelToday(context))
+    $registry.register('formula_function', new JadawelToDateTz(context))
+    $registry.register('formula_function', new JadawelToDate(context))
+    $registry.register('formula_function', new JadawelDateDiff(context))
     // Date interval functions
-    $registry.register('formula_function', new BaserowDateInterval(context))
+    $registry.register('formula_function', new JadawelDateInterval(context))
     $registry.register(
       'formula_function',
-      new BaserowDurationToSeconds(context)
+      new JadawelDurationToSeconds(context)
     )
     $registry.register(
       'formula_function',
-      new BaserowSecondsToDuration(context)
+      new JadawelSecondsToDuration(context)
     )
     // Special functions. NOTE: rollup compatible functions are shown field sub-form in
     // the same order as they are listed here.
-    $registry.register('formula_function', new BaserowAdd(context))
-    $registry.register('formula_function', new BaserowMinus(context))
-    $registry.register('formula_function', new BaserowField(context))
-    $registry.register('formula_function', new BaserowLookup(context))
-    $registry.register('formula_function', new BaserowRowId(context))
-    $registry.register('formula_function', new BaserowContains(context))
-    $registry.register('formula_function', new BaserowLeft(context))
-    $registry.register('formula_function', new BaserowRight(context))
-    $registry.register('formula_function', new BaserowTrim(context))
-    $registry.register('formula_function', new BaserowRegexReplace(context))
-    $registry.register('formula_function', new BaserowGreatest(context))
-    $registry.register('formula_function', new BaserowLeast(context))
-    $registry.register('formula_function', new BaserowMonth(context))
-    $registry.register('formula_function', new BaserowYear(context))
-    $registry.register('formula_function', new BaserowSecond(context))
-    $registry.register('formula_function', new BaserowWhenEmpty(context))
-    $registry.register('formula_function', new BaserowAny(context))
-    $registry.register('formula_function', new BaserowEvery(context))
-    $registry.register('formula_function', new BaserowMin(context))
-    $registry.register('formula_function', new BaserowMax(context))
-    $registry.register('formula_function', new BaserowCount(context))
-    $registry.register('formula_function', new BaserowSum(context))
-    $registry.register('formula_function', new BaserowAvg(context))
-    $registry.register('formula_function', new BaserowJoin(context))
-    $registry.register('formula_function', new BaserowStddevPop(context))
-    $registry.register('formula_function', new BaserowStddevSample(context))
-    $registry.register('formula_function', new BaserowVarianceSample(context))
-    $registry.register('formula_function', new BaserowVariancePop(context))
-    $registry.register('formula_function', new BaserowFilter(context))
-    $registry.register('formula_function', new BaserowTrunc(context))
-    $registry.register('formula_function', new BaserowIsNaN(context))
-    $registry.register('formula_function', new BaserowWhenNaN(context))
-    $registry.register('formula_function', new BaserowEven(context))
-    $registry.register('formula_function', new BaserowOdd(context))
-    $registry.register('formula_function', new BaserowAbs(context))
-    $registry.register('formula_function', new BaserowCeil(context))
-    $registry.register('formula_function', new BaserowFloor(context))
-    $registry.register('formula_function', new BaserowSign(context))
-    $registry.register('formula_function', new BaserowLog(context))
-    $registry.register('formula_function', new BaserowExp(context))
-    $registry.register('formula_function', new BaserowLn(context))
-    $registry.register('formula_function', new BaserowPower(context))
-    $registry.register('formula_function', new BaserowSqrt(context))
-    $registry.register('formula_function', new BaserowRound(context))
-    $registry.register('formula_function', new BaserowMod(context))
+    $registry.register('formula_function', new JadawelAdd(context))
+    $registry.register('formula_function', new JadawelMinus(context))
+    $registry.register('formula_function', new JadawelField(context))
+    $registry.register('formula_function', new JadawelLookup(context))
+    $registry.register('formula_function', new JadawelRowId(context))
+    $registry.register('formula_function', new JadawelContains(context))
+    $registry.register('formula_function', new JadawelLeft(context))
+    $registry.register('formula_function', new JadawelRight(context))
+    $registry.register('formula_function', new JadawelTrim(context))
+    $registry.register('formula_function', new JadawelRegexReplace(context))
+    $registry.register('formula_function', new JadawelGreatest(context))
+    $registry.register('formula_function', new JadawelLeast(context))
+    $registry.register('formula_function', new JadawelMonth(context))
+    $registry.register('formula_function', new JadawelYear(context))
+    $registry.register('formula_function', new JadawelSecond(context))
+    $registry.register('formula_function', new JadawelWhenEmpty(context))
+    $registry.register('formula_function', new JadawelAny(context))
+    $registry.register('formula_function', new JadawelEvery(context))
+    $registry.register('formula_function', new JadawelMin(context))
+    $registry.register('formula_function', new JadawelMax(context))
+    $registry.register('formula_function', new JadawelCount(context))
+    $registry.register('formula_function', new JadawelSum(context))
+    $registry.register('formula_function', new JadawelAvg(context))
+    $registry.register('formula_function', new JadawelJoin(context))
+    $registry.register('formula_function', new JadawelStddevPop(context))
+    $registry.register('formula_function', new JadawelStddevSample(context))
+    $registry.register('formula_function', new JadawelVarianceSample(context))
+    $registry.register('formula_function', new JadawelVariancePop(context))
+    $registry.register('formula_function', new JadawelFilter(context))
+    $registry.register('formula_function', new JadawelTrunc(context))
+    $registry.register('formula_function', new JadawelIsNaN(context))
+    $registry.register('formula_function', new JadawelWhenNaN(context))
+    $registry.register('formula_function', new JadawelEven(context))
+    $registry.register('formula_function', new JadawelOdd(context))
+    $registry.register('formula_function', new JadawelAbs(context))
+    $registry.register('formula_function', new JadawelCeil(context))
+    $registry.register('formula_function', new JadawelFloor(context))
+    $registry.register('formula_function', new JadawelSign(context))
+    $registry.register('formula_function', new JadawelLog(context))
+    $registry.register('formula_function', new JadawelExp(context))
+    $registry.register('formula_function', new JadawelLn(context))
+    $registry.register('formula_function', new JadawelPower(context))
+    $registry.register('formula_function', new JadawelSqrt(context))
+    $registry.register('formula_function', new JadawelRound(context))
+    $registry.register('formula_function', new JadawelMod(context))
     // Link functions
-    $registry.register('formula_function', new BaserowLink(context))
-    $registry.register('formula_function', new BaserowButton(context))
-    $registry.register('formula_function', new BaserowGetLinkUrl(context))
-    $registry.register('formula_function', new BaserowGetLinkLabel(context))
+    $registry.register('formula_function', new JadawelLink(context))
+    $registry.register('formula_function', new JadawelButton(context))
+    $registry.register('formula_function', new JadawelGetLinkUrl(context))
+    $registry.register('formula_function', new JadawelGetLinkLabel(context))
     // File functions
     $registry.register(
       'formula_function',
-      new BaserowGetFileVisibleName(context)
+      new JadawelGetFileVisibleName(context)
     )
-    $registry.register('formula_function', new BaserowGetFileMimeType(context))
-    $registry.register('formula_function', new BaserowGetFileSize(context))
-    $registry.register('formula_function', new BaserowGetImageWidth(context))
-    $registry.register('formula_function', new BaserowGetImageHeight(context))
-    $registry.register('formula_function', new BaserowIsImage(context))
+    $registry.register('formula_function', new JadawelGetFileMimeType(context))
+    $registry.register('formula_function', new JadawelGetFileSize(context))
+    $registry.register('formula_function', new JadawelGetImageWidth(context))
+    $registry.register('formula_function', new JadawelGetImageHeight(context))
+    $registry.register('formula_function', new JadawelIsImage(context))
 
-    $registry.register('formula_function', new BaserowGetFileCount(context))
-    $registry.register('formula_function', new BaserowIndex(context))
-    $registry.register('formula_function', new BaserowToUrl(context))
-    $registry.register('formula_function', new BaserowArrayUnique(context))
-    $registry.register('formula_function', new BaserowArraySlice(context))
-    $registry.register('formula_function', new BaserowFirst(context))
-    $registry.register('formula_function', new BaserowLast(context))
+    $registry.register('formula_function', new JadawelGetFileCount(context))
+    $registry.register('formula_function', new JadawelIndex(context))
+    $registry.register('formula_function', new JadawelToUrl(context))
+    $registry.register('formula_function', new JadawelArrayUnique(context))
+    $registry.register('formula_function', new JadawelArraySlice(context))
+    $registry.register('formula_function', new JadawelFirst(context))
+    $registry.register('formula_function', new JadawelLast(context))
 
     // Formula Types
-    $registry.register('formula_type', new BaserowFormulaTextType(context))
-    $registry.register('formula_type', new BaserowFormulaCharType(context))
-    $registry.register('formula_type', new BaserowFormulaBooleanType(context))
-    $registry.register('formula_type', new BaserowFormulaDateType(context))
+    $registry.register('formula_type', new JadawelFormulaTextType(context))
+    $registry.register('formula_type', new JadawelFormulaCharType(context))
+    $registry.register('formula_type', new JadawelFormulaBooleanType(context))
+    $registry.register('formula_type', new JadawelFormulaDateType(context))
     $registry.register(
       'formula_type',
-      new BaserowFormulaDateIntervalType(context)
+      new JadawelFormulaDateIntervalType(context)
     )
-    $registry.register('formula_type', new BaserowFormulaDurationType(context))
-    $registry.register('formula_type', new BaserowFormulaNumberType(context))
-    $registry.register('formula_type', new BaserowFormulaArrayType(context))
-    $registry.register('formula_type', new BaserowFormulaSpecialType(context))
-    $registry.register('formula_type', new BaserowFormulaInvalidType(context))
+    $registry.register('formula_type', new JadawelFormulaDurationType(context))
+    $registry.register('formula_type', new JadawelFormulaNumberType(context))
+    $registry.register('formula_type', new JadawelFormulaArrayType(context))
+    $registry.register('formula_type', new JadawelFormulaSpecialType(context))
+    $registry.register('formula_type', new JadawelFormulaInvalidType(context))
     $registry.register(
       'formula_type',
-      new BaserowFormulaSingleSelectType(context)
+      new JadawelFormulaSingleSelectType(context)
     )
-    $registry.register('formula_type', new BaserowFormulaURLType(context))
+    $registry.register('formula_type', new JadawelFormulaURLType(context))
     $registry.register(
       'formula_type',
-      new BaserowFormulaMultipleSelectType(context)
+      new JadawelFormulaMultipleSelectType(context)
     )
-    $registry.register('formula_type', new BaserowFormulaButtonType(context))
-    $registry.register('formula_type', new BaserowFormulaLinkType(context))
-    $registry.register('formula_type', new BaserowFormulaFileType(context))
+    $registry.register('formula_type', new JadawelFormulaButtonType(context))
+    $registry.register('formula_type', new JadawelFormulaLinkType(context))
+    $registry.register('formula_type', new JadawelFormulaFileType(context))
     $registry.register(
       'formula_type',
-      new BaserowFormulaMultipleCollaboratorsType(context)
+      new JadawelFormulaMultipleCollaboratorsType(context)
     )
 
     // File preview types

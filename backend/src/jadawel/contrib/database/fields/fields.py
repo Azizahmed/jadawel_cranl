@@ -14,11 +14,11 @@ from rest_framework import serializers
 
 from jadawel.contrib.database.fields.utils.duration import duration_value_to_timedelta
 from jadawel.contrib.database.fields.utils.row_edit import build_row_edit_url
-from jadawel.contrib.database.formula import BaserowExpression
+from jadawel.contrib.database.formula import JadawelExpression
 from jadawel.core.fields import SyncedDateTimeField
 
 
-class BaserowLastModifiedField(SyncedDateTimeField):
+class JadawelLastModifiedField(SyncedDateTimeField):
     requires_refresh_after_update = True
 
 
@@ -163,7 +163,7 @@ class MultipleSelectManyToManyField(models.ManyToManyField):
             )
 
 
-class BaserowExpressionField(models.Field):
+class JadawelExpressionField(models.Field):
     """
     A Custom Django field which is always set to the value of the provided Jadawel
     Expression.
@@ -178,7 +178,7 @@ class BaserowExpressionField(models.Field):
 
     def __init__(
         self,
-        expression: Optional[BaserowExpression],
+        expression: Optional[JadawelExpression],
         expression_field: Field,
         *args,
         **kwargs,
@@ -204,7 +204,7 @@ class BaserowExpressionField(models.Field):
         obj = super().__copy__()
         # Un-override the __class__ property below so we dont un-serialize literally as
         # self.expression_field.__class__
-        obj.__class__ = BaserowExpressionField
+        obj.__class__ = JadawelExpressionField
         return obj
 
     def __reduce__(self):
@@ -212,7 +212,7 @@ class BaserowExpressionField(models.Field):
         if len(reduced_tuple) == 3:
             # Un-override the __class__ property below so we dont un-serialize
             # literally as self.expression_field.__class__
-            return reduced_tuple[0], (BaserowExpressionField,), reduced_tuple[2]
+            return reduced_tuple[0], (JadawelExpressionField,), reduced_tuple[2]
         else:
             return reduced_tuple
 

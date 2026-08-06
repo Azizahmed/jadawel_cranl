@@ -13,20 +13,20 @@ from jadawel.contrib.database.formula.ast import tree
 from jadawel.contrib.database.formula.registries import formula_function_registry
 from jadawel.contrib.database.formula.types.exceptions import InvalidFormulaType
 
-T = TypeVar("T", bound="BaserowFormulaType")
+T = TypeVar("T", bound="JadawelFormulaType")
 
 if TYPE_CHECKING:
     from jadawel.contrib.database.fields.models import FormulaField
     from jadawel.contrib.database.fields.registries import FieldType
     from jadawel.contrib.database.formula.types.formula_types import (
-        BaserowFormulaBooleanType,
+        JadawelFormulaBooleanType,
     )
 
 
 EVERY_TYPE_INTERNAL_FIELDS = ["nullable"]
 
 
-class BaserowFormulaTypeHasEmptyBaserowExpression(abc.ABC):
+class JadawelFormulaTypeHasEmptyJadawelExpression(abc.ABC):
     @abc.abstractmethod
     def placeholder_empty_jadawel_expression(self) -> Expression:
         """
@@ -39,9 +39,9 @@ class BaserowFormulaTypeHasEmptyBaserowExpression(abc.ABC):
 
     def is_blank(
         self,
-        func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaBooleanType]":
+        func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaBooleanType]":
         """
         Returns an expression which evaluates to true if the given expression is
         blank. Different formula types may have different definitions of what is
@@ -55,7 +55,7 @@ class BaserowFormulaTypeHasEmptyBaserowExpression(abc.ABC):
         )
 
     def try_coerce_to_not_null(
-        self, expr: "tree.BaserowExpression[BaserowFormulaValidType]"
+        self, expr: "tree.JadawelExpression[JadawelFormulaValidType]"
     ):
         placeholder_empty_jadawel_expr = self.placeholder_empty_jadawel_expression()
         return formula_function_registry.get("when_empty")(
@@ -63,7 +63,7 @@ class BaserowFormulaTypeHasEmptyBaserowExpression(abc.ABC):
         )
 
 
-class BaserowFormulaType(abc.ABC):
+class JadawelFormulaType(abc.ABC):
     @classmethod
     @property
     @abc.abstractmethod
@@ -144,7 +144,7 @@ class BaserowFormulaType(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         """
         A list of valid types that this type can be compared with in a formula.
         """
@@ -152,7 +152,7 @@ class BaserowFormulaType(abc.ABC):
         pass
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         """
         A list of valid types that this type can be used with the addition operator
         in a formula.
@@ -161,7 +161,7 @@ class BaserowFormulaType(abc.ABC):
         return []
 
     @property
-    def subtractable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def subtractable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         """
         A list of valid types that can be subtracted from this type in a formula.
         """
@@ -169,16 +169,16 @@ class BaserowFormulaType(abc.ABC):
         return []
 
     @property
-    def multipliable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def multipliable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     @property
-    def dividable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def dividable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     @property
     @abc.abstractmethod
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         """
         A list of valid types that this type can be compared using limit operators like
         >, >=, < or <=.
@@ -317,9 +317,9 @@ class BaserowFormulaType(abc.ABC):
     @classmethod
     def construct_type_from_formula_field(cls: Type[T], formula_field) -> T:
         """
-        Creates a BaserowFormulaType instance based on what is set on the formula field.
+        Creates a JadawelFormulaType instance based on what is set on the formula field.
         :param formula_field: The formula field to get type info from.
-        :return: A new BaserowFormulaType.
+        :return: A new JadawelFormulaType.
         """
 
         kwargs = {}
@@ -358,7 +358,7 @@ class BaserowFormulaType(abc.ABC):
 
     def new_type_with_user_and_calculated_options_merged(self: T, formula_field):
         """
-        Generates a new merged BaserowFormulaType instance from what has been set on the
+        Generates a new merged JadawelFormulaType instance from what has been set on the
         formula field and this instance of the type. Fields which are set on
         this types user_overridable_formatting_option_fields will be taken from the
         FormulaField instance if set there, otherwise the values from the type instance
@@ -414,7 +414,7 @@ class BaserowFormulaType(abc.ABC):
         field_instance = jadawel_field_type.from_jadawel_formula_type(self)
         return field_instance, jadawel_field_type
 
-    def should_recreate_when_old_type_was(self, old_type: "BaserowFormulaType") -> bool:
+    def should_recreate_when_old_type_was(self, old_type: "JadawelFormulaType") -> bool:
         """
         :param old_type: The previous type of a formula field.
         :return: True if the formula field should have it's database column recreated
@@ -423,7 +423,7 @@ class BaserowFormulaType(abc.ABC):
 
         return not isinstance(self, type(old_type))
 
-    def wrap_at_field_level(self, expr: "tree.BaserowExpression[BaserowFormulaType]"):
+    def wrap_at_field_level(self, expr: "tree.JadawelExpression[JadawelFormulaType]"):
         """
         If a field of this formula type requires any wrapping at the highest level
         do it here.
@@ -435,7 +435,7 @@ class BaserowFormulaType(abc.ABC):
 
         return expr
 
-    def unwrap_at_field_level(self, expr: "tree.BaserowExpression[BaserowFormulaType]"):
+    def unwrap_at_field_level(self, expr: "tree.JadawelExpression[JadawelFormulaType]"):
         """
         If a field of this formula type requires any unwrapping when referenced then
         do it here.
@@ -447,7 +447,7 @@ class BaserowFormulaType(abc.ABC):
 
         return expr
 
-    def collapse_many(self, expr: "tree.BaserowExpression[BaserowFormulaType]"):
+    def collapse_many(self, expr: "tree.JadawelExpression[JadawelFormulaType]"):
         """
         Should return an expression which collapses the given expression into a single
         non aggregate value.
@@ -460,13 +460,13 @@ class BaserowFormulaType(abc.ABC):
         return expr
 
     def try_coerce_to_not_null(
-        self, expr: "tree.BaserowExpression[BaserowFormulaValidType]"
+        self, expr: "tree.JadawelExpression[JadawelFormulaValidType]"
     ):
         """
         Tries to coerce the given expression to a not null type. The default
         behavior is to return the expression as is. Override this method if the
         type can be coerced to a not null type or extends
-        BaserowFormulaTypeHasEmptyBaserowExpression and has a
+        JadawelFormulaTypeHasEmptyJadawelExpression and has a
         placeholder_empty_jadawel_expression method.
         """
 
@@ -474,10 +474,10 @@ class BaserowFormulaType(abc.ABC):
 
     def add(
         self,
-        add_func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg1: "tree.BaserowExpression[BaserowFormulaValidType]",
-        arg2: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaType]":
+        add_func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg1: "tree.JadawelExpression[JadawelFormulaValidType]",
+        arg2: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaType]":
         return add_func_call.with_invalid_type(
             f"cannot perform addition on type {arg1.expression_type} and "
             f"{arg2.expression_type}"
@@ -485,10 +485,10 @@ class BaserowFormulaType(abc.ABC):
 
     def minus(
         self,
-        minus_func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg1: "tree.BaserowExpression[BaserowFormulaValidType]",
-        arg2: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaType]":
+        minus_func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg1: "tree.JadawelExpression[JadawelFormulaValidType]",
+        arg2: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaType]":
         return minus_func_call.with_invalid_type(
             f"cannot perform subtraction on type {arg1.expression_type} and "
             f"{arg2.expression_type}"
@@ -496,10 +496,10 @@ class BaserowFormulaType(abc.ABC):
 
     def multiply(
         self,
-        multiply_func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg1: "tree.BaserowExpression[BaserowFormulaValidType]",
-        arg2: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaType]":
+        multiply_func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg1: "tree.JadawelExpression[JadawelFormulaValidType]",
+        arg2: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaType]":
         return multiply_func_call.with_invalid_type(
             f"cannot perform multiplication on type {arg1.expression_type} and "
             f"{arg2.expression_type}"
@@ -507,10 +507,10 @@ class BaserowFormulaType(abc.ABC):
 
     def divide(
         self,
-        divide_func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg1: "tree.BaserowExpression[BaserowFormulaValidType]",
-        arg2: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaType]":
+        divide_func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg1: "tree.JadawelExpression[JadawelFormulaValidType]",
+        arg2: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaType]":
         return divide_func_call.with_invalid_type(
             f"cannot perform division on type {arg1.expression_type} and "
             f"{arg2.expression_type}"
@@ -567,7 +567,7 @@ class BaserowFormulaType(abc.ABC):
         return field_type.parse_filter_value(field_instance, model_field, value)
 
 
-class BaserowFormulaInvalidType(BaserowFormulaType):
+class JadawelFormulaInvalidType(JadawelFormulaType):
     is_valid = False
     can_order_by = False
     can_group_by = False
@@ -583,7 +583,7 @@ class BaserowFormulaInvalidType(BaserowFormulaType):
     def raise_if_invalid(self):
         raise InvalidFormulaType(self.error)
 
-    def should_recreate_when_old_type_was(self, old_type: "BaserowFormulaType") -> bool:
+    def should_recreate_when_old_type_was(self, old_type: "JadawelFormulaType") -> bool:
         return False
 
     def get_search_expression(self, field, queryset) -> Expression:
@@ -600,16 +600,16 @@ class BaserowFormulaInvalidType(BaserowFormulaType):
         super().__init__(**kwargs)
 
 
-class BaserowFormulaValidType(BaserowFormulaType, abc.ABC):
+class JadawelFormulaValidType(JadawelFormulaType, abc.ABC):
     is_valid = True
     can_order_by = True
 
     @property
     @abc.abstractmethod
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         pass
 
-    def collapse_many(self, expr: "tree.BaserowExpression[BaserowFormulaType]"):
+    def collapse_many(self, expr: "tree.JadawelExpression[JadawelFormulaType]"):
         from jadawel.contrib.database.formula.registries import (
             formula_function_registry,
         )
@@ -621,7 +621,7 @@ class BaserowFormulaValidType(BaserowFormulaType, abc.ABC):
         return func(expr)
 
     def collapse_array_of_many(
-        self, expr: "tree.BaserowExpression[BaserowFormulaType]"
+        self, expr: "tree.JadawelExpression[JadawelFormulaType]"
     ):
         from jadawel.contrib.database.formula.registries import (
             formula_function_registry,
@@ -634,9 +634,9 @@ class BaserowFormulaValidType(BaserowFormulaType, abc.ABC):
 
     def is_blank(
         self,
-        func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaBooleanType]":
+        func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaBooleanType]":
         """
         Returns an expression which evaluates to true if the given expression is
         blank. Different formula types may have different definitions of what is
@@ -653,18 +653,18 @@ class BaserowFormulaValidType(BaserowFormulaType, abc.ABC):
 
     def cast_to_text(
         self,
-        to_text_func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaType]":
         """
-        Given a expression which is an untyped BaserowToText function call this function
+        Given a expression which is an untyped JadawelToText function call this function
         should return an expression which results in this type being turning into a
-        BaserowFormulaTextType.
+        JadawelFormulaTextType.
 
-        :param to_text_func_call: A BaserowToText function call expression where the
+        :param to_text_func_call: A JadawelToText function call expression where the
             argument is of this type and is required to be turned into a text type.
         :param arg: The typed argument that needs to be turned into a text type.
-        :return: A typed BaserowExpression which results in arg turning into a text
+        :return: A typed JadawelExpression which results in arg turning into a text
             type.
         """
 
@@ -672,44 +672,44 @@ class BaserowFormulaValidType(BaserowFormulaType, abc.ABC):
         # the text type by just returning the existing to_text func call which by
         # default just does a Cast(arg, output_field=fields.TextField()).
         from jadawel.contrib.database.formula.types.formula_types import (
-            BaserowFormulaTextType,
+            JadawelFormulaTextType,
         )
 
-        return to_text_func_call.with_valid_type(BaserowFormulaTextType())
+        return to_text_func_call.with_valid_type(JadawelFormulaTextType())
 
-    def wrap_at_field_level(self, expr: "tree.BaserowExpression[BaserowFormulaType]"):
+    def wrap_at_field_level(self, expr: "tree.JadawelExpression[JadawelFormulaType]"):
         from jadawel.contrib.database.formula.registries import (
             formula_function_registry,
         )
 
         return formula_function_registry.get("error_to_null")(expr)
 
-    def unwrap_at_field_level(self, expr: "tree.BaserowExpression[BaserowFormulaType]"):
+    def unwrap_at_field_level(self, expr: "tree.JadawelExpression[JadawelFormulaType]"):
         return expr.args[0].with_valid_type(expr.expression_type)
 
     def count(
         self,
-        to_text_func_call: "tree.BaserowFunctionCall[UnTyped]",
-        arg: "tree.BaserowExpression[BaserowFormulaValidType]",
-    ) -> "tree.BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "tree.JadawelFunctionCall[UnTyped]",
+        arg: "tree.JadawelExpression[JadawelFormulaValidType]",
+    ) -> "tree.JadawelExpression[JadawelFormulaType]":
         """
-        Given a expression which is an untyped BaserowCount function call this function
+        Given a expression which is an untyped JadawelCount function call this function
         should return an expression which results in this type being turned into a
-        BaserowFormulaNumberType.
+        JadawelFormulaNumberType.
 
-        :param to_text_func_call: A BaserowCount function call expression where the
+        :param to_text_func_call: A JadawelCount function call expression where the
             argument is of this type and is required to be turned into a number type.
         :param arg: The typed argument that needs to be turned into a number type.
-        :return: A typed BaserowExpression which results in arg turning into a number
+        :return: A typed JadawelExpression which results in arg turning into a number
             type.
         """
 
         from jadawel.contrib.database.formula.types.formula_types import (
-            BaserowFormulaNumberType,
+            JadawelFormulaNumberType,
         )
 
         return to_text_func_call.with_valid_type(
-            BaserowFormulaNumberType(number_decimal_places=0)
+            JadawelFormulaNumberType(number_decimal_places=0)
         )
 
 

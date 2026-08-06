@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
-import { BaserowPage, PageConfig } from "./baserowPage";
+import { JadawelPage, PageConfig } from "./jadawelPage";
 
-export class TemplatePage extends BaserowPage {
+export class TemplatePage extends JadawelPage {
   readonly templateSlug: String;
 
   constructor(pageConfig: PageConfig, slug: String) {

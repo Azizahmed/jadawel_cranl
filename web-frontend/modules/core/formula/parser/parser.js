@@ -1,25 +1,25 @@
 import antlr4 from 'antlr4'
-import BaserowFormulaLexer from '@jadawel/modules/core/formula/parser/generated/BaserowFormulaLexer'
-import BaserowFormula from '@jadawel/modules/core/formula/parser/generated/BaserowFormula'
-import { BaserowFormulaParserError } from '@jadawel/modules/core/formula/parser/errors'
+import JadawelFormulaLexer from '@jadawel/modules/core/formula/parser/generated/JadawelFormulaLexer'
+import JadawelFormula from '@jadawel/modules/core/formula/parser/generated/JadawelFormula'
+import { JadawelFormulaParserError } from '@jadawel/modules/core/formula/parser/errors'
 
 /**
  * Attempts to parse an input string into a Jadawel Formula. If it fails a
- * BaserowFormulaParserError will be raised.
+ * JadawelFormulaParserError will be raised.
  *
  * @param formula
  * @return {*} The resulting antlr4 parse tree of the formula
  */
-export default function parseBaserowFormula(formula) {
+export default function parseJadawelFormula(formula) {
   const chars = new antlr4.InputStream(formula)
-  const lexer = new BaserowFormulaLexer(chars)
+  const lexer = new JadawelFormulaLexer(chars)
   const tokens = new antlr4.CommonTokenStream(lexer)
-  const parser = new BaserowFormula(tokens)
+  const parser = new JadawelFormula(tokens)
   parser.removeErrorListeners()
   // noinspection JSUnusedLocalSymbols
   parser.addErrorListener({
     syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-      throw new BaserowFormulaParserError(offendingSymbol, line, column, msg)
+      throw new JadawelFormulaParserError(offendingSymbol, line, column, msg)
     },
   })
   parser.buildParseTrees = true
@@ -28,7 +28,7 @@ export default function parseBaserowFormula(formula) {
 
 export function getTokenStreamForFormula(formula) {
   const chars = new antlr4.InputStream(formula)
-  const lexer = new BaserowFormulaLexer(chars)
+  const lexer = new JadawelFormulaLexer(chars)
   const stream = new antlr4.CommonTokenStream(lexer)
   stream.lazyInit()
   stream.fill()

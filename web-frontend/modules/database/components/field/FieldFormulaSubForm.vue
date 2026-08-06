@@ -42,7 +42,7 @@ import fieldSubForm from '@jadawel/modules/database/mixins/fieldSubForm'
 import FieldFormulaInitialSubForm from '@jadawel/modules/database/components/formula/FieldFormulaInitialSubForm'
 import FormulaAdvancedEditContext from '@jadawel/modules/database/components/formula/FormulaAdvancedEditContext'
 import FormulaService from '@jadawel/modules/database/services/formula'
-import parseBaserowFormula from '@jadawel/modules/core/formula/parser/parser'
+import parseJadawelFormula from '@jadawel/modules/core/formula/parser/parser'
 
 export default {
   name: 'FieldFormulaSubForm',
@@ -131,7 +131,7 @@ export default {
         return false
       }
       try {
-        parseBaserowFormula(value)
+        parseJadawelFormula(value)
         this.parsingError = null
         if (this.previousValidParsedFormula !== value) {
           this.formulaTypeRefreshNeeded = true

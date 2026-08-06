@@ -1,7 +1,7 @@
 import pytest
 
 from jadawel.contrib.database.formula import FormulaHandler
-from jadawel.core.formula.parser.exceptions import BaserowFormulaSyntaxError
+from jadawel.core.formula.parser.exceptions import JadawelFormulaSyntaxError
 
 
 def test_replace_single_quoted_field_ref():
@@ -120,7 +120,7 @@ def test_raises_with_field_names_for_invalid_syntax():
 
 
 def _assert_raises(formula):
-    with pytest.raises(BaserowFormulaSyntaxError):
+    with pytest.raises(JadawelFormulaSyntaxError):
         FormulaHandler.rename_field_references_in_formula_string(
             formula,
             {

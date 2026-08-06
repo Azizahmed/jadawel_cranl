@@ -7,33 +7,33 @@ Y = TypeVar("Y")
 X = TypeVar("X")
 
 
-class BaserowFormulaASTVisitor(abc.ABC, Generic[Y, X]):
+class JadawelFormulaASTVisitor(abc.ABC, Generic[Y, X]):
     @abc.abstractmethod
-    def visit_string_literal(self, string_literal: "tree.BaserowStringLiteral[Y]") -> X:
+    def visit_string_literal(self, string_literal: "tree.JadawelStringLiteral[Y]") -> X:
         pass
 
     @abc.abstractmethod
-    def visit_function_call(self, function_call: "tree.BaserowFunctionCall[Y]") -> X:
+    def visit_function_call(self, function_call: "tree.JadawelFunctionCall[Y]") -> X:
         pass
 
     @abc.abstractmethod
-    def visit_int_literal(self, int_literal: "tree.BaserowIntegerLiteral[Y]") -> X:
+    def visit_int_literal(self, int_literal: "tree.JadawelIntegerLiteral[Y]") -> X:
         pass
 
     @abc.abstractmethod
     def visit_field_reference(
-        self, field_reference: "tree.BaserowFieldReference[Y]"
+        self, field_reference: "tree.JadawelFieldReference[Y]"
     ) -> X:
         pass
 
     @abc.abstractmethod
     def visit_decimal_literal(
-        self, decimal_literal: "tree.BaserowDecimalLiteral[Y]"
+        self, decimal_literal: "tree.JadawelDecimalLiteral[Y]"
     ) -> X:
         pass
 
     @abc.abstractmethod
     def visit_boolean_literal(
-        self, boolean_literal: "tree.BaserowBooleanLiteral[Y]"
+        self, boolean_literal: "tree.JadawelBooleanLiteral[Y]"
     ) -> X:
         pass

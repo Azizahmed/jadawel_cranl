@@ -1,8 +1,8 @@
-// Generated from BaserowFormula.g4 by ANTLR 4.9
+// Generated from JadawelFormula.g4 by ANTLR 4.9
 // jshint ignore: start
 import antlr4 from 'antlr4';
-import BaserowFormulaListener from './BaserowFormulaListener.js';
-import BaserowFormulaVisitor from './BaserowFormulaVisitor.js';
+import JadawelFormulaListener from './JadawelFormulaListener.js';
+import JadawelFormulaVisitor from './JadawelFormulaVisitor.js';
 
 
 const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
@@ -76,9 +76,9 @@ const decisionsToDFA = atn.decisionToState.map( (ds, index) => new antlr4.dfa.DF
 
 const sharedContextCache = new antlr4.PredictionContextCache();
 
-export default class BaserowFormula extends antlr4.Parser {
+export default class JadawelFormula extends antlr4.Parser {
 
-    static grammarFileName = "BaserowFormula.g4";
+    static grammarFileName = "JadawelFormula.g4";
     static literalNames = [ null, null, null, null, null, null, null, null, 
                             null, "','", "':'", "'::'", "'$'", "'$$'", "'*'", 
                             "'('", "')'", "'['", "']'", null, null, null, 
@@ -119,9 +119,9 @@ export default class BaserowFormula extends antlr4.Parser {
     constructor(input) {
         super(input);
         this._interp = new antlr4.atn.ParserATNSimulator(this, atn, decisionsToDFA, sharedContextCache);
-        this.ruleNames = BaserowFormula.ruleNames;
-        this.literalNames = BaserowFormula.literalNames;
-        this.symbolicNames = BaserowFormula.symbolicNames;
+        this.ruleNames = JadawelFormula.ruleNames;
+        this.literalNames = JadawelFormula.literalNames;
+        this.symbolicNames = JadawelFormula.symbolicNames;
     }
 
     get atn() {
@@ -163,13 +163,13 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	root() {
 	    let localctx = new RootContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 0, BaserowFormula.RULE_root);
+	    this.enterRule(localctx, 0, JadawelFormula.RULE_root);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 12;
 	        this.expr(0);
 	        this.state = 13;
-	        this.match(BaserowFormula.EOF);
+	        this.match(JadawelFormula.EOF);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -194,50 +194,50 @@ export default class BaserowFormula extends antlr4.Parser {
 	    let localctx = new ExprContext(this, this._ctx, _parentState);
 	    let _prevctx = localctx;
 	    const _startState = 2;
-	    this.enterRecursionRule(localctx, 2, BaserowFormula.RULE_expr, _p);
+	    this.enterRecursionRule(localctx, 2, JadawelFormula.RULE_expr, _p);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 61;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
-	        case BaserowFormula.SINGLEQ_STRING_LITERAL:
+	        case JadawelFormula.SINGLEQ_STRING_LITERAL:
 	            localctx = new StringLiteralContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 
 	            this.state = 16;
-	            this.match(BaserowFormula.SINGLEQ_STRING_LITERAL);
+	            this.match(JadawelFormula.SINGLEQ_STRING_LITERAL);
 	            break;
-	        case BaserowFormula.DOUBLEQ_STRING_LITERAL:
+	        case JadawelFormula.DOUBLEQ_STRING_LITERAL:
 	            localctx = new StringLiteralContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 17;
-	            this.match(BaserowFormula.DOUBLEQ_STRING_LITERAL);
+	            this.match(JadawelFormula.DOUBLEQ_STRING_LITERAL);
 	            break;
-	        case BaserowFormula.INTEGER_LITERAL:
+	        case JadawelFormula.INTEGER_LITERAL:
 	            localctx = new IntegerLiteralContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 18;
-	            this.match(BaserowFormula.INTEGER_LITERAL);
+	            this.match(JadawelFormula.INTEGER_LITERAL);
 	            break;
-	        case BaserowFormula.NUMERIC_LITERAL:
+	        case JadawelFormula.NUMERIC_LITERAL:
 	            localctx = new DecimalLiteralContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 19;
-	            this.match(BaserowFormula.NUMERIC_LITERAL);
+	            this.match(JadawelFormula.NUMERIC_LITERAL);
 	            break;
-	        case BaserowFormula.TRUE:
-	        case BaserowFormula.FALSE:
+	        case JadawelFormula.TRUE:
+	        case JadawelFormula.FALSE:
 	            localctx = new BooleanLiteralContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 20;
 	            _la = this._input.LA(1);
-	            if(!(_la===BaserowFormula.TRUE || _la===BaserowFormula.FALSE)) {
+	            if(!(_la===JadawelFormula.TRUE || _la===JadawelFormula.FALSE)) {
 	            this._errHandler.recoverInline(this);
 	            }
 	            else {
@@ -245,9 +245,9 @@ export default class BaserowFormula extends antlr4.Parser {
 	                this.consume();
 	            }
 	            break;
-	        case BaserowFormula.BLOCK_COMMENT:
-	        case BaserowFormula.LINE_COMMENT:
-	        case BaserowFormula.WHITESPACE:
+	        case JadawelFormula.BLOCK_COMMENT:
+	        case JadawelFormula.LINE_COMMENT:
+	        case JadawelFormula.WHITESPACE:
 	            localctx = new LeftWhitespaceOrCommentsContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
@@ -256,89 +256,89 @@ export default class BaserowFormula extends antlr4.Parser {
 	            this.state = 22;
 	            this.expr(13);
 	            break;
-	        case BaserowFormula.OPEN_PAREN:
+	        case JadawelFormula.OPEN_PAREN:
 	            localctx = new BracketsContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 24;
-	            this.match(BaserowFormula.OPEN_PAREN);
+	            this.match(JadawelFormula.OPEN_PAREN);
 	            this.state = 25;
 	            this.expr(0);
 	            this.state = 26;
-	            this.match(BaserowFormula.CLOSE_PAREN);
+	            this.match(JadawelFormula.CLOSE_PAREN);
 	            break;
-	        case BaserowFormula.FIELD:
+	        case JadawelFormula.FIELD:
 	            localctx = new FieldReferenceContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 28;
-	            this.match(BaserowFormula.FIELD);
+	            this.match(JadawelFormula.FIELD);
 	            this.state = 29;
-	            this.match(BaserowFormula.OPEN_PAREN);
+	            this.match(JadawelFormula.OPEN_PAREN);
 	            this.state = 30;
 	            this.field_reference();
 	            this.state = 31;
-	            this.match(BaserowFormula.CLOSE_PAREN);
+	            this.match(JadawelFormula.CLOSE_PAREN);
 	            break;
-	        case BaserowFormula.FIELDBYID:
+	        case JadawelFormula.FIELDBYID:
 	            localctx = new FieldByIdReferenceContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 33;
-	            this.match(BaserowFormula.FIELDBYID);
+	            this.match(JadawelFormula.FIELDBYID);
 	            this.state = 34;
-	            this.match(BaserowFormula.OPEN_PAREN);
+	            this.match(JadawelFormula.OPEN_PAREN);
 	            this.state = 35;
-	            this.match(BaserowFormula.INTEGER_LITERAL);
+	            this.match(JadawelFormula.INTEGER_LITERAL);
 	            this.state = 36;
-	            this.match(BaserowFormula.CLOSE_PAREN);
+	            this.match(JadawelFormula.CLOSE_PAREN);
 	            break;
-	        case BaserowFormula.LOOKUP:
+	        case JadawelFormula.LOOKUP:
 	            localctx = new LookupFieldReferenceContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 37;
-	            this.match(BaserowFormula.LOOKUP);
+	            this.match(JadawelFormula.LOOKUP);
 	            this.state = 38;
-	            this.match(BaserowFormula.OPEN_PAREN);
+	            this.match(JadawelFormula.OPEN_PAREN);
 	            this.state = 39;
 	            this.field_reference();
 	            this.state = 40;
-	            this.match(BaserowFormula.COMMA);
+	            this.match(JadawelFormula.COMMA);
 	            this.state = 42;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            if(_la===BaserowFormula.WHITESPACE) {
+	            if(_la===JadawelFormula.WHITESPACE) {
 	                this.state = 41;
-	                this.match(BaserowFormula.WHITESPACE);
+	                this.match(JadawelFormula.WHITESPACE);
 	            }
 
 	            this.state = 44;
 	            this.field_reference();
 	            this.state = 45;
-	            this.match(BaserowFormula.CLOSE_PAREN);
+	            this.match(JadawelFormula.CLOSE_PAREN);
 	            break;
-	        case BaserowFormula.IDENTIFIER:
-	        case BaserowFormula.IDENTIFIER_UNICODE:
+	        case JadawelFormula.IDENTIFIER:
+	        case JadawelFormula.IDENTIFIER_UNICODE:
 	            localctx = new FunctionCallContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 47;
 	            this.func_name();
 	            this.state = 48;
-	            this.match(BaserowFormula.OPEN_PAREN);
+	            this.match(JadawelFormula.OPEN_PAREN);
 	            this.state = 57;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << BaserowFormula.BLOCK_COMMENT) | (1 << BaserowFormula.LINE_COMMENT) | (1 << BaserowFormula.WHITESPACE) | (1 << BaserowFormula.TRUE) | (1 << BaserowFormula.FALSE) | (1 << BaserowFormula.FIELD) | (1 << BaserowFormula.FIELDBYID) | (1 << BaserowFormula.LOOKUP) | (1 << BaserowFormula.OPEN_PAREN) | (1 << BaserowFormula.NUMERIC_LITERAL) | (1 << BaserowFormula.INTEGER_LITERAL) | (1 << BaserowFormula.SINGLEQ_STRING_LITERAL) | (1 << BaserowFormula.DOUBLEQ_STRING_LITERAL) | (1 << BaserowFormula.IDENTIFIER) | (1 << BaserowFormula.IDENTIFIER_UNICODE))) !== 0)) {
+	            if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << JadawelFormula.BLOCK_COMMENT) | (1 << JadawelFormula.LINE_COMMENT) | (1 << JadawelFormula.WHITESPACE) | (1 << JadawelFormula.TRUE) | (1 << JadawelFormula.FALSE) | (1 << JadawelFormula.FIELD) | (1 << JadawelFormula.FIELDBYID) | (1 << JadawelFormula.LOOKUP) | (1 << JadawelFormula.OPEN_PAREN) | (1 << JadawelFormula.NUMERIC_LITERAL) | (1 << JadawelFormula.INTEGER_LITERAL) | (1 << JadawelFormula.SINGLEQ_STRING_LITERAL) | (1 << JadawelFormula.DOUBLEQ_STRING_LITERAL) | (1 << JadawelFormula.IDENTIFIER) | (1 << JadawelFormula.IDENTIFIER_UNICODE))) !== 0)) {
 	                this.state = 49;
 	                this.expr(0);
 	                this.state = 54;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
-	                while(_la===BaserowFormula.COMMA) {
+	                while(_la===JadawelFormula.COMMA) {
 	                    this.state = 50;
-	                    this.match(BaserowFormula.COMMA);
+	                    this.match(JadawelFormula.COMMA);
 	                    this.state = 51;
 	                    this.expr(0);
 	                    this.state = 56;
@@ -348,7 +348,7 @@ export default class BaserowFormula extends antlr4.Parser {
 	            }
 
 	            this.state = 59;
-	            this.match(BaserowFormula.CLOSE_PAREN);
+	            this.match(JadawelFormula.CLOSE_PAREN);
 	            break;
 	        default:
 	            throw new antlr4.error.NoViableAltException(this);
@@ -369,7 +369,7 @@ export default class BaserowFormula extends antlr4.Parser {
 	                switch(la_) {
 	                case 1:
 	                    localctx = new BinaryOpContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 63;
 	                    if (!( this.precpred(this._ctx, 10))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 10)");
@@ -377,7 +377,7 @@ export default class BaserowFormula extends antlr4.Parser {
 	                    this.state = 64;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===BaserowFormula.STAR || _la===BaserowFormula.SLASH)) {
+	                    if(!(_la===JadawelFormula.STAR || _la===JadawelFormula.SLASH)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -390,7 +390,7 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	                case 2:
 	                    localctx = new BinaryOpContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 66;
 	                    if (!( this.precpred(this._ctx, 9))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 9)");
@@ -398,7 +398,7 @@ export default class BaserowFormula extends antlr4.Parser {
 	                    this.state = 67;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===BaserowFormula.MINUS || _la===BaserowFormula.PLUS)) {
+	                    if(!(_la===JadawelFormula.MINUS || _la===JadawelFormula.PLUS)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -411,7 +411,7 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	                case 3:
 	                    localctx = new BinaryOpContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 69;
 	                    if (!( this.precpred(this._ctx, 8))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 8)");
@@ -419,7 +419,7 @@ export default class BaserowFormula extends antlr4.Parser {
 	                    this.state = 70;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(((((_la - 41)) & ~0x1f) == 0 && ((1 << (_la - 41)) & ((1 << (BaserowFormula.GT - 41)) | (1 << (BaserowFormula.GTE - 41)) | (1 << (BaserowFormula.LT - 41)) | (1 << (BaserowFormula.LTE - 41)))) !== 0))) {
+	                    if(!(((((_la - 41)) & ~0x1f) == 0 && ((1 << (_la - 41)) & ((1 << (JadawelFormula.GT - 41)) | (1 << (JadawelFormula.GTE - 41)) | (1 << (JadawelFormula.LT - 41)) | (1 << (JadawelFormula.LTE - 41)))) !== 0))) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -432,7 +432,7 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	                case 4:
 	                    localctx = new BinaryOpContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 72;
 	                    if (!( this.precpred(this._ctx, 7))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 7)");
@@ -440,7 +440,7 @@ export default class BaserowFormula extends antlr4.Parser {
 	                    this.state = 73;
 	                    localctx.op = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===BaserowFormula.BANG_EQUAL || _la===BaserowFormula.EQUAL)) {
+	                    if(!(_la===JadawelFormula.BANG_EQUAL || _la===JadawelFormula.EQUAL)) {
 	                        localctx.op = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
@@ -453,33 +453,33 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	                case 5:
 	                    localctx = new BinaryOpContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 75;
 	                    if (!( this.precpred(this._ctx, 6))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 6)");
 	                    }
 	                    this.state = 76;
-	                    localctx.op = this.match(BaserowFormula.AMP_AMP);
+	                    localctx.op = this.match(JadawelFormula.AMP_AMP);
 	                    this.state = 77;
 	                    this.expr(7);
 	                    break;
 
 	                case 6:
 	                    localctx = new BinaryOpContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 78;
 	                    if (!( this.precpred(this._ctx, 5))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 5)");
 	                    }
 	                    this.state = 79;
-	                    localctx.op = this.match(BaserowFormula.PIPE_PIPE);
+	                    localctx.op = this.match(JadawelFormula.PIPE_PIPE);
 	                    this.state = 80;
 	                    this.expr(6);
 	                    break;
 
 	                case 7:
 	                    localctx = new RightWhitespaceOrCommentsContext(this, new ExprContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, BaserowFormula.RULE_expr);
+	                    this.pushNewRecursionContext(localctx, _startState, JadawelFormula.RULE_expr);
 	                    this.state = 81;
 	                    if (!( this.precpred(this._ctx, 12))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 12)");
@@ -513,13 +513,13 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	ws_or_comment() {
 	    let localctx = new Ws_or_commentContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 4, BaserowFormula.RULE_ws_or_comment);
+	    this.enterRule(localctx, 4, JadawelFormula.RULE_ws_or_comment);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 88;
 	        _la = this._input.LA(1);
-	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << BaserowFormula.BLOCK_COMMENT) | (1 << BaserowFormula.LINE_COMMENT) | (1 << BaserowFormula.WHITESPACE))) !== 0))) {
+	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << JadawelFormula.BLOCK_COMMENT) | (1 << JadawelFormula.LINE_COMMENT) | (1 << JadawelFormula.WHITESPACE))) !== 0))) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -544,7 +544,7 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	func_name() {
 	    let localctx = new Func_nameContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 6, BaserowFormula.RULE_func_name);
+	    this.enterRule(localctx, 6, JadawelFormula.RULE_func_name);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 90;
@@ -567,13 +567,13 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	field_reference() {
 	    let localctx = new Field_referenceContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 8, BaserowFormula.RULE_field_reference);
+	    this.enterRule(localctx, 8, JadawelFormula.RULE_field_reference);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 92;
 	        _la = this._input.LA(1);
-	        if(!(_la===BaserowFormula.SINGLEQ_STRING_LITERAL || _la===BaserowFormula.DOUBLEQ_STRING_LITERAL)) {
+	        if(!(_la===JadawelFormula.SINGLEQ_STRING_LITERAL || _la===JadawelFormula.DOUBLEQ_STRING_LITERAL)) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -598,13 +598,13 @@ export default class BaserowFormula extends antlr4.Parser {
 
 	identifier() {
 	    let localctx = new IdentifierContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 10, BaserowFormula.RULE_identifier);
+	    this.enterRule(localctx, 10, JadawelFormula.RULE_identifier);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 94;
 	        _la = this._input.LA(1);
-	        if(!(_la===BaserowFormula.IDENTIFIER || _la===BaserowFormula.IDENTIFIER_UNICODE)) {
+	        if(!(_la===JadawelFormula.IDENTIFIER || _la===JadawelFormula.IDENTIFIER_UNICODE)) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -628,97 +628,97 @@ export default class BaserowFormula extends antlr4.Parser {
 
 }
 
-BaserowFormula.EOF = antlr4.Token.EOF;
-BaserowFormula.BLOCK_COMMENT = 1;
-BaserowFormula.LINE_COMMENT = 2;
-BaserowFormula.WHITESPACE = 3;
-BaserowFormula.TRUE = 4;
-BaserowFormula.FALSE = 5;
-BaserowFormula.FIELD = 6;
-BaserowFormula.FIELDBYID = 7;
-BaserowFormula.LOOKUP = 8;
-BaserowFormula.COMMA = 9;
-BaserowFormula.COLON = 10;
-BaserowFormula.COLON_COLON = 11;
-BaserowFormula.DOLLAR = 12;
-BaserowFormula.DOLLAR_DOLLAR = 13;
-BaserowFormula.STAR = 14;
-BaserowFormula.OPEN_PAREN = 15;
-BaserowFormula.CLOSE_PAREN = 16;
-BaserowFormula.OPEN_BRACKET = 17;
-BaserowFormula.CLOSE_BRACKET = 18;
-BaserowFormula.BIT_STRING = 19;
-BaserowFormula.REGEX_STRING = 20;
-BaserowFormula.NUMERIC_LITERAL = 21;
-BaserowFormula.INTEGER_LITERAL = 22;
-BaserowFormula.HEX_INTEGER_LITERAL = 23;
-BaserowFormula.DOT = 24;
-BaserowFormula.SINGLEQ_STRING_LITERAL = 25;
-BaserowFormula.DOUBLEQ_STRING_LITERAL = 26;
-BaserowFormula.IDENTIFIER = 27;
-BaserowFormula.IDENTIFIER_UNICODE = 28;
-BaserowFormula.AMP = 29;
-BaserowFormula.AMP_AMP = 30;
-BaserowFormula.AMP_LT = 31;
-BaserowFormula.AT_AT = 32;
-BaserowFormula.AT_GT = 33;
-BaserowFormula.AT_SIGN = 34;
-BaserowFormula.BANG = 35;
-BaserowFormula.BANG_BANG = 36;
-BaserowFormula.BANG_EQUAL = 37;
-BaserowFormula.CARET = 38;
-BaserowFormula.EQUAL = 39;
-BaserowFormula.EQUAL_GT = 40;
-BaserowFormula.GT = 41;
-BaserowFormula.GTE = 42;
-BaserowFormula.GT_GT = 43;
-BaserowFormula.HASH = 44;
-BaserowFormula.HASH_EQ = 45;
-BaserowFormula.HASH_GT = 46;
-BaserowFormula.HASH_GT_GT = 47;
-BaserowFormula.HASH_HASH = 48;
-BaserowFormula.HYPHEN_GT = 49;
-BaserowFormula.HYPHEN_GT_GT = 50;
-BaserowFormula.HYPHEN_PIPE_HYPHEN = 51;
-BaserowFormula.LT = 52;
-BaserowFormula.LTE = 53;
-BaserowFormula.LT_AT = 54;
-BaserowFormula.LT_CARET = 55;
-BaserowFormula.LT_GT = 56;
-BaserowFormula.LT_HYPHEN_GT = 57;
-BaserowFormula.LT_LT = 58;
-BaserowFormula.LT_LT_EQ = 59;
-BaserowFormula.LT_QMARK_GT = 60;
-BaserowFormula.MINUS = 61;
-BaserowFormula.PERCENT = 62;
-BaserowFormula.PIPE = 63;
-BaserowFormula.PIPE_PIPE = 64;
-BaserowFormula.PIPE_PIPE_SLASH = 65;
-BaserowFormula.PIPE_SLASH = 66;
-BaserowFormula.PLUS = 67;
-BaserowFormula.QMARK = 68;
-BaserowFormula.QMARK_AMP = 69;
-BaserowFormula.QMARK_HASH = 70;
-BaserowFormula.QMARK_HYPHEN = 71;
-BaserowFormula.QMARK_PIPE = 72;
-BaserowFormula.SLASH = 73;
-BaserowFormula.TIL = 74;
-BaserowFormula.TIL_EQ = 75;
-BaserowFormula.TIL_GTE_TIL = 76;
-BaserowFormula.TIL_GT_TIL = 77;
-BaserowFormula.TIL_LTE_TIL = 78;
-BaserowFormula.TIL_LT_TIL = 79;
-BaserowFormula.TIL_STAR = 80;
-BaserowFormula.TIL_TIL = 81;
-BaserowFormula.SEMI = 82;
-BaserowFormula.ErrorCharacter = 83;
+JadawelFormula.EOF = antlr4.Token.EOF;
+JadawelFormula.BLOCK_COMMENT = 1;
+JadawelFormula.LINE_COMMENT = 2;
+JadawelFormula.WHITESPACE = 3;
+JadawelFormula.TRUE = 4;
+JadawelFormula.FALSE = 5;
+JadawelFormula.FIELD = 6;
+JadawelFormula.FIELDBYID = 7;
+JadawelFormula.LOOKUP = 8;
+JadawelFormula.COMMA = 9;
+JadawelFormula.COLON = 10;
+JadawelFormula.COLON_COLON = 11;
+JadawelFormula.DOLLAR = 12;
+JadawelFormula.DOLLAR_DOLLAR = 13;
+JadawelFormula.STAR = 14;
+JadawelFormula.OPEN_PAREN = 15;
+JadawelFormula.CLOSE_PAREN = 16;
+JadawelFormula.OPEN_BRACKET = 17;
+JadawelFormula.CLOSE_BRACKET = 18;
+JadawelFormula.BIT_STRING = 19;
+JadawelFormula.REGEX_STRING = 20;
+JadawelFormula.NUMERIC_LITERAL = 21;
+JadawelFormula.INTEGER_LITERAL = 22;
+JadawelFormula.HEX_INTEGER_LITERAL = 23;
+JadawelFormula.DOT = 24;
+JadawelFormula.SINGLEQ_STRING_LITERAL = 25;
+JadawelFormula.DOUBLEQ_STRING_LITERAL = 26;
+JadawelFormula.IDENTIFIER = 27;
+JadawelFormula.IDENTIFIER_UNICODE = 28;
+JadawelFormula.AMP = 29;
+JadawelFormula.AMP_AMP = 30;
+JadawelFormula.AMP_LT = 31;
+JadawelFormula.AT_AT = 32;
+JadawelFormula.AT_GT = 33;
+JadawelFormula.AT_SIGN = 34;
+JadawelFormula.BANG = 35;
+JadawelFormula.BANG_BANG = 36;
+JadawelFormula.BANG_EQUAL = 37;
+JadawelFormula.CARET = 38;
+JadawelFormula.EQUAL = 39;
+JadawelFormula.EQUAL_GT = 40;
+JadawelFormula.GT = 41;
+JadawelFormula.GTE = 42;
+JadawelFormula.GT_GT = 43;
+JadawelFormula.HASH = 44;
+JadawelFormula.HASH_EQ = 45;
+JadawelFormula.HASH_GT = 46;
+JadawelFormula.HASH_GT_GT = 47;
+JadawelFormula.HASH_HASH = 48;
+JadawelFormula.HYPHEN_GT = 49;
+JadawelFormula.HYPHEN_GT_GT = 50;
+JadawelFormula.HYPHEN_PIPE_HYPHEN = 51;
+JadawelFormula.LT = 52;
+JadawelFormula.LTE = 53;
+JadawelFormula.LT_AT = 54;
+JadawelFormula.LT_CARET = 55;
+JadawelFormula.LT_GT = 56;
+JadawelFormula.LT_HYPHEN_GT = 57;
+JadawelFormula.LT_LT = 58;
+JadawelFormula.LT_LT_EQ = 59;
+JadawelFormula.LT_QMARK_GT = 60;
+JadawelFormula.MINUS = 61;
+JadawelFormula.PERCENT = 62;
+JadawelFormula.PIPE = 63;
+JadawelFormula.PIPE_PIPE = 64;
+JadawelFormula.PIPE_PIPE_SLASH = 65;
+JadawelFormula.PIPE_SLASH = 66;
+JadawelFormula.PLUS = 67;
+JadawelFormula.QMARK = 68;
+JadawelFormula.QMARK_AMP = 69;
+JadawelFormula.QMARK_HASH = 70;
+JadawelFormula.QMARK_HYPHEN = 71;
+JadawelFormula.QMARK_PIPE = 72;
+JadawelFormula.SLASH = 73;
+JadawelFormula.TIL = 74;
+JadawelFormula.TIL_EQ = 75;
+JadawelFormula.TIL_GTE_TIL = 76;
+JadawelFormula.TIL_GT_TIL = 77;
+JadawelFormula.TIL_LTE_TIL = 78;
+JadawelFormula.TIL_LT_TIL = 79;
+JadawelFormula.TIL_STAR = 80;
+JadawelFormula.TIL_TIL = 81;
+JadawelFormula.SEMI = 82;
+JadawelFormula.ErrorCharacter = 83;
 
-BaserowFormula.RULE_root = 0;
-BaserowFormula.RULE_expr = 1;
-BaserowFormula.RULE_ws_or_comment = 2;
-BaserowFormula.RULE_func_name = 3;
-BaserowFormula.RULE_field_reference = 4;
-BaserowFormula.RULE_identifier = 5;
+JadawelFormula.RULE_root = 0;
+JadawelFormula.RULE_expr = 1;
+JadawelFormula.RULE_ws_or_comment = 2;
+JadawelFormula.RULE_func_name = 3;
+JadawelFormula.RULE_field_reference = 4;
+JadawelFormula.RULE_identifier = 5;
 
 class RootContext extends antlr4.ParserRuleContext {
 
@@ -731,7 +731,7 @@ class RootContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = BaserowFormula.RULE_root;
+        this.ruleIndex = JadawelFormula.RULE_root;
     }
 
 	expr() {
@@ -739,23 +739,23 @@ class RootContext extends antlr4.ParserRuleContext {
 	};
 
 	EOF() {
-	    return this.getToken(BaserowFormula.EOF, 0);
+	    return this.getToken(JadawelFormula.EOF, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterRoot(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitRoot(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitRoot(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -778,7 +778,7 @@ class ExprContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = BaserowFormula.RULE_expr;
+        this.ruleIndex = JadawelFormula.RULE_expr;
     }
 
 
@@ -798,11 +798,11 @@ class FieldReferenceContext extends ExprContext {
     }
 
 	FIELD() {
-	    return this.getToken(BaserowFormula.FIELD, 0);
+	    return this.getToken(JadawelFormula.FIELD, 0);
 	};
 
 	OPEN_PAREN() {
-	    return this.getToken(BaserowFormula.OPEN_PAREN, 0);
+	    return this.getToken(JadawelFormula.OPEN_PAREN, 0);
 	};
 
 	field_reference() {
@@ -810,23 +810,23 @@ class FieldReferenceContext extends ExprContext {
 	};
 
 	CLOSE_PAREN() {
-	    return this.getToken(BaserowFormula.CLOSE_PAREN, 0);
+	    return this.getToken(JadawelFormula.CLOSE_PAREN, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterFieldReference(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitFieldReference(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitFieldReference(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -836,7 +836,7 @@ class FieldReferenceContext extends ExprContext {
 
 }
 
-BaserowFormula.FieldReferenceContext = FieldReferenceContext;
+JadawelFormula.FieldReferenceContext = FieldReferenceContext;
 
 class StringLiteralContext extends ExprContext {
 
@@ -846,27 +846,27 @@ class StringLiteralContext extends ExprContext {
     }
 
 	SINGLEQ_STRING_LITERAL() {
-	    return this.getToken(BaserowFormula.SINGLEQ_STRING_LITERAL, 0);
+	    return this.getToken(JadawelFormula.SINGLEQ_STRING_LITERAL, 0);
 	};
 
 	DOUBLEQ_STRING_LITERAL() {
-	    return this.getToken(BaserowFormula.DOUBLEQ_STRING_LITERAL, 0);
+	    return this.getToken(JadawelFormula.DOUBLEQ_STRING_LITERAL, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterStringLiteral(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitStringLiteral(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitStringLiteral(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -876,7 +876,7 @@ class StringLiteralContext extends ExprContext {
 
 }
 
-BaserowFormula.StringLiteralContext = StringLiteralContext;
+JadawelFormula.StringLiteralContext = StringLiteralContext;
 
 class BracketsContext extends ExprContext {
 
@@ -886,7 +886,7 @@ class BracketsContext extends ExprContext {
     }
 
 	OPEN_PAREN() {
-	    return this.getToken(BaserowFormula.OPEN_PAREN, 0);
+	    return this.getToken(JadawelFormula.OPEN_PAREN, 0);
 	};
 
 	expr() {
@@ -894,23 +894,23 @@ class BracketsContext extends ExprContext {
 	};
 
 	CLOSE_PAREN() {
-	    return this.getToken(BaserowFormula.CLOSE_PAREN, 0);
+	    return this.getToken(JadawelFormula.CLOSE_PAREN, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterBrackets(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitBrackets(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitBrackets(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -920,7 +920,7 @@ class BracketsContext extends ExprContext {
 
 }
 
-BaserowFormula.BracketsContext = BracketsContext;
+JadawelFormula.BracketsContext = BracketsContext;
 
 class BooleanLiteralContext extends ExprContext {
 
@@ -930,27 +930,27 @@ class BooleanLiteralContext extends ExprContext {
     }
 
 	TRUE() {
-	    return this.getToken(BaserowFormula.TRUE, 0);
+	    return this.getToken(JadawelFormula.TRUE, 0);
 	};
 
 	FALSE() {
-	    return this.getToken(BaserowFormula.FALSE, 0);
+	    return this.getToken(JadawelFormula.FALSE, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterBooleanLiteral(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitBooleanLiteral(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitBooleanLiteral(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -960,7 +960,7 @@ class BooleanLiteralContext extends ExprContext {
 
 }
 
-BaserowFormula.BooleanLiteralContext = BooleanLiteralContext;
+JadawelFormula.BooleanLiteralContext = BooleanLiteralContext;
 
 class RightWhitespaceOrCommentsContext extends ExprContext {
 
@@ -978,19 +978,19 @@ class RightWhitespaceOrCommentsContext extends ExprContext {
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterRightWhitespaceOrComments(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitRightWhitespaceOrComments(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitRightWhitespaceOrComments(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1000,7 +1000,7 @@ class RightWhitespaceOrCommentsContext extends ExprContext {
 
 }
 
-BaserowFormula.RightWhitespaceOrCommentsContext = RightWhitespaceOrCommentsContext;
+JadawelFormula.RightWhitespaceOrCommentsContext = RightWhitespaceOrCommentsContext;
 
 class DecimalLiteralContext extends ExprContext {
 
@@ -1010,23 +1010,23 @@ class DecimalLiteralContext extends ExprContext {
     }
 
 	NUMERIC_LITERAL() {
-	    return this.getToken(BaserowFormula.NUMERIC_LITERAL, 0);
+	    return this.getToken(JadawelFormula.NUMERIC_LITERAL, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterDecimalLiteral(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitDecimalLiteral(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitDecimalLiteral(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1036,7 +1036,7 @@ class DecimalLiteralContext extends ExprContext {
 
 }
 
-BaserowFormula.DecimalLiteralContext = DecimalLiteralContext;
+JadawelFormula.DecimalLiteralContext = DecimalLiteralContext;
 
 class LeftWhitespaceOrCommentsContext extends ExprContext {
 
@@ -1054,19 +1054,19 @@ class LeftWhitespaceOrCommentsContext extends ExprContext {
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterLeftWhitespaceOrComments(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitLeftWhitespaceOrComments(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitLeftWhitespaceOrComments(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1076,7 +1076,7 @@ class LeftWhitespaceOrCommentsContext extends ExprContext {
 
 }
 
-BaserowFormula.LeftWhitespaceOrCommentsContext = LeftWhitespaceOrCommentsContext;
+JadawelFormula.LeftWhitespaceOrCommentsContext = LeftWhitespaceOrCommentsContext;
 
 class FunctionCallContext extends ExprContext {
 
@@ -1090,11 +1090,11 @@ class FunctionCallContext extends ExprContext {
 	};
 
 	OPEN_PAREN() {
-	    return this.getToken(BaserowFormula.OPEN_PAREN, 0);
+	    return this.getToken(JadawelFormula.OPEN_PAREN, 0);
 	};
 
 	CLOSE_PAREN() {
-	    return this.getToken(BaserowFormula.CLOSE_PAREN, 0);
+	    return this.getToken(JadawelFormula.CLOSE_PAREN, 0);
 	};
 
 	expr = function(i) {
@@ -1113,27 +1113,27 @@ class FunctionCallContext extends ExprContext {
 			i = null;
 		}
 	    if(i===null) {
-	        return this.getTokens(BaserowFormula.COMMA);
+	        return this.getTokens(JadawelFormula.COMMA);
 	    } else {
-	        return this.getToken(BaserowFormula.COMMA, i);
+	        return this.getToken(JadawelFormula.COMMA, i);
 	    }
 	};
 
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterFunctionCall(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitFunctionCall(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitFunctionCall(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1143,7 +1143,7 @@ class FunctionCallContext extends ExprContext {
 
 }
 
-BaserowFormula.FunctionCallContext = FunctionCallContext;
+JadawelFormula.FunctionCallContext = FunctionCallContext;
 
 class FieldByIdReferenceContext extends ExprContext {
 
@@ -1153,35 +1153,35 @@ class FieldByIdReferenceContext extends ExprContext {
     }
 
 	FIELDBYID() {
-	    return this.getToken(BaserowFormula.FIELDBYID, 0);
+	    return this.getToken(JadawelFormula.FIELDBYID, 0);
 	};
 
 	OPEN_PAREN() {
-	    return this.getToken(BaserowFormula.OPEN_PAREN, 0);
+	    return this.getToken(JadawelFormula.OPEN_PAREN, 0);
 	};
 
 	INTEGER_LITERAL() {
-	    return this.getToken(BaserowFormula.INTEGER_LITERAL, 0);
+	    return this.getToken(JadawelFormula.INTEGER_LITERAL, 0);
 	};
 
 	CLOSE_PAREN() {
-	    return this.getToken(BaserowFormula.CLOSE_PAREN, 0);
+	    return this.getToken(JadawelFormula.CLOSE_PAREN, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterFieldByIdReference(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitFieldByIdReference(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitFieldByIdReference(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1191,7 +1191,7 @@ class FieldByIdReferenceContext extends ExprContext {
 
 }
 
-BaserowFormula.FieldByIdReferenceContext = FieldByIdReferenceContext;
+JadawelFormula.FieldByIdReferenceContext = FieldByIdReferenceContext;
 
 class LookupFieldReferenceContext extends ExprContext {
 
@@ -1201,11 +1201,11 @@ class LookupFieldReferenceContext extends ExprContext {
     }
 
 	LOOKUP() {
-	    return this.getToken(BaserowFormula.LOOKUP, 0);
+	    return this.getToken(JadawelFormula.LOOKUP, 0);
 	};
 
 	OPEN_PAREN() {
-	    return this.getToken(BaserowFormula.OPEN_PAREN, 0);
+	    return this.getToken(JadawelFormula.OPEN_PAREN, 0);
 	};
 
 	field_reference = function(i) {
@@ -1220,31 +1220,31 @@ class LookupFieldReferenceContext extends ExprContext {
 	};
 
 	COMMA() {
-	    return this.getToken(BaserowFormula.COMMA, 0);
+	    return this.getToken(JadawelFormula.COMMA, 0);
 	};
 
 	CLOSE_PAREN() {
-	    return this.getToken(BaserowFormula.CLOSE_PAREN, 0);
+	    return this.getToken(JadawelFormula.CLOSE_PAREN, 0);
 	};
 
 	WHITESPACE() {
-	    return this.getToken(BaserowFormula.WHITESPACE, 0);
+	    return this.getToken(JadawelFormula.WHITESPACE, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterLookupFieldReference(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitLookupFieldReference(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitLookupFieldReference(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1254,7 +1254,7 @@ class LookupFieldReferenceContext extends ExprContext {
 
 }
 
-BaserowFormula.LookupFieldReferenceContext = LookupFieldReferenceContext;
+JadawelFormula.LookupFieldReferenceContext = LookupFieldReferenceContext;
 
 class IntegerLiteralContext extends ExprContext {
 
@@ -1264,23 +1264,23 @@ class IntegerLiteralContext extends ExprContext {
     }
 
 	INTEGER_LITERAL() {
-	    return this.getToken(BaserowFormula.INTEGER_LITERAL, 0);
+	    return this.getToken(JadawelFormula.INTEGER_LITERAL, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterIntegerLiteral(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitIntegerLiteral(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitIntegerLiteral(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1290,7 +1290,7 @@ class IntegerLiteralContext extends ExprContext {
 
 }
 
-BaserowFormula.IntegerLiteralContext = IntegerLiteralContext;
+JadawelFormula.IntegerLiteralContext = IntegerLiteralContext;
 
 class BinaryOpContext extends ExprContext {
 
@@ -1312,67 +1312,67 @@ class BinaryOpContext extends ExprContext {
 	};
 
 	SLASH() {
-	    return this.getToken(BaserowFormula.SLASH, 0);
+	    return this.getToken(JadawelFormula.SLASH, 0);
 	};
 
 	STAR() {
-	    return this.getToken(BaserowFormula.STAR, 0);
+	    return this.getToken(JadawelFormula.STAR, 0);
 	};
 
 	PLUS() {
-	    return this.getToken(BaserowFormula.PLUS, 0);
+	    return this.getToken(JadawelFormula.PLUS, 0);
 	};
 
 	MINUS() {
-	    return this.getToken(BaserowFormula.MINUS, 0);
+	    return this.getToken(JadawelFormula.MINUS, 0);
 	};
 
 	GT() {
-	    return this.getToken(BaserowFormula.GT, 0);
+	    return this.getToken(JadawelFormula.GT, 0);
 	};
 
 	LT() {
-	    return this.getToken(BaserowFormula.LT, 0);
+	    return this.getToken(JadawelFormula.LT, 0);
 	};
 
 	GTE() {
-	    return this.getToken(BaserowFormula.GTE, 0);
+	    return this.getToken(JadawelFormula.GTE, 0);
 	};
 
 	LTE() {
-	    return this.getToken(BaserowFormula.LTE, 0);
+	    return this.getToken(JadawelFormula.LTE, 0);
 	};
 
 	EQUAL() {
-	    return this.getToken(BaserowFormula.EQUAL, 0);
+	    return this.getToken(JadawelFormula.EQUAL, 0);
 	};
 
 	BANG_EQUAL() {
-	    return this.getToken(BaserowFormula.BANG_EQUAL, 0);
+	    return this.getToken(JadawelFormula.BANG_EQUAL, 0);
 	};
 
 	AMP_AMP() {
-	    return this.getToken(BaserowFormula.AMP_AMP, 0);
+	    return this.getToken(JadawelFormula.AMP_AMP, 0);
 	};
 
 	PIPE_PIPE() {
-	    return this.getToken(BaserowFormula.PIPE_PIPE, 0);
+	    return this.getToken(JadawelFormula.PIPE_PIPE, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterBinaryOp(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitBinaryOp(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitBinaryOp(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1382,7 +1382,7 @@ class BinaryOpContext extends ExprContext {
 
 }
 
-BaserowFormula.BinaryOpContext = BinaryOpContext;
+JadawelFormula.BinaryOpContext = BinaryOpContext;
 
 class Ws_or_commentContext extends antlr4.ParserRuleContext {
 
@@ -1395,35 +1395,35 @@ class Ws_or_commentContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = BaserowFormula.RULE_ws_or_comment;
+        this.ruleIndex = JadawelFormula.RULE_ws_or_comment;
     }
 
 	BLOCK_COMMENT() {
-	    return this.getToken(BaserowFormula.BLOCK_COMMENT, 0);
+	    return this.getToken(JadawelFormula.BLOCK_COMMENT, 0);
 	};
 
 	LINE_COMMENT() {
-	    return this.getToken(BaserowFormula.LINE_COMMENT, 0);
+	    return this.getToken(JadawelFormula.LINE_COMMENT, 0);
 	};
 
 	WHITESPACE() {
-	    return this.getToken(BaserowFormula.WHITESPACE, 0);
+	    return this.getToken(JadawelFormula.WHITESPACE, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterWs_or_comment(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitWs_or_comment(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitWs_or_comment(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1446,7 +1446,7 @@ class Func_nameContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = BaserowFormula.RULE_func_name;
+        this.ruleIndex = JadawelFormula.RULE_func_name;
     }
 
 	identifier() {
@@ -1454,19 +1454,19 @@ class Func_nameContext extends antlr4.ParserRuleContext {
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterFunc_name(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitFunc_name(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitFunc_name(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1489,31 +1489,31 @@ class Field_referenceContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = BaserowFormula.RULE_field_reference;
+        this.ruleIndex = JadawelFormula.RULE_field_reference;
     }
 
 	SINGLEQ_STRING_LITERAL() {
-	    return this.getToken(BaserowFormula.SINGLEQ_STRING_LITERAL, 0);
+	    return this.getToken(JadawelFormula.SINGLEQ_STRING_LITERAL, 0);
 	};
 
 	DOUBLEQ_STRING_LITERAL() {
-	    return this.getToken(BaserowFormula.DOUBLEQ_STRING_LITERAL, 0);
+	    return this.getToken(JadawelFormula.DOUBLEQ_STRING_LITERAL, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterField_reference(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitField_reference(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitField_reference(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1536,31 +1536,31 @@ class IdentifierContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = BaserowFormula.RULE_identifier;
+        this.ruleIndex = JadawelFormula.RULE_identifier;
     }
 
 	IDENTIFIER() {
-	    return this.getToken(BaserowFormula.IDENTIFIER, 0);
+	    return this.getToken(JadawelFormula.IDENTIFIER, 0);
 	};
 
 	IDENTIFIER_UNICODE() {
-	    return this.getToken(BaserowFormula.IDENTIFIER_UNICODE, 0);
+	    return this.getToken(JadawelFormula.IDENTIFIER_UNICODE, 0);
 	};
 
 	enterRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.enterIdentifier(this);
 		}
 	}
 
 	exitRule(listener) {
-	    if(listener instanceof BaserowFormulaListener ) {
+	    if(listener instanceof JadawelFormulaListener ) {
 	        listener.exitIdentifier(this);
 		}
 	}
 
 	accept(visitor) {
-	    if ( visitor instanceof BaserowFormulaVisitor ) {
+	    if ( visitor instanceof JadawelFormulaVisitor ) {
 	        return visitor.visitIdentifier(this);
 	    } else {
 	        return visitor.visitChildren(this);
@@ -1573,9 +1573,9 @@ class IdentifierContext extends antlr4.ParserRuleContext {
 
 
 
-BaserowFormula.RootContext = RootContext; 
-BaserowFormula.ExprContext = ExprContext; 
-BaserowFormula.Ws_or_commentContext = Ws_or_commentContext; 
-BaserowFormula.Func_nameContext = Func_nameContext; 
-BaserowFormula.Field_referenceContext = Field_referenceContext; 
-BaserowFormula.IdentifierContext = IdentifierContext; 
+JadawelFormula.RootContext = RootContext; 
+JadawelFormula.ExprContext = ExprContext; 
+JadawelFormula.Ws_or_commentContext = Ws_or_commentContext; 
+JadawelFormula.Func_nameContext = Func_nameContext; 
+JadawelFormula.Field_referenceContext = Field_referenceContext; 
+JadawelFormula.IdentifierContext = IdentifierContext; 

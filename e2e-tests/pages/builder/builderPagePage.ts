@@ -1,12 +1,12 @@
 import { Locator, Page } from "@playwright/test";
-import { BaserowPage, PageConfig } from "../baserowPage";
+import { JadawelPage, PageConfig } from "../jadawelPage";
 import { Builder } from "../../fixtures/builder/builder";
 import { BuilderPage } from "../../fixtures/builder/builderPage";
 import { Workspace } from "../../fixtures/workspace";
 import { BuilderElementModal } from "./builderElementModal";
 import { expect } from "@playwright/test";
 
-export class BuilderPagePage extends BaserowPage {
+export class BuilderPagePage extends JadawelPage {
   readonly emailInput: Locator;
   builderPage: BuilderPage;
   builder: Builder;

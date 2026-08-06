@@ -1,4 +1,4 @@
-class BaserowFormulaException(Exception):
+class JadawelFormulaException(Exception):
     pass
 
 
@@ -9,7 +9,7 @@ class FormulaFunctionTypeDoesNotExist(Exception):
     """
 
 
-class InvalidNumberOfArguments(BaserowFormulaException):
+class InvalidNumberOfArguments(JadawelFormulaException):
     def __init__(self, function_def, num_args):
         if num_args == 1:
             error_prefix = "1 argument was"
@@ -29,7 +29,7 @@ class InvalidNumberOfArguments(BaserowFormulaException):
         )
 
 
-class InvalidFormulaArgumentType(BaserowFormulaException):
+class InvalidFormulaArgumentType(JadawelFormulaException):
     def __init__(self, function_def, arg):
         super().__init__(
             f"The argument {arg} given to the function {function_def} is of the "
@@ -37,12 +37,12 @@ class InvalidFormulaArgumentType(BaserowFormulaException):
         )
 
 
-class MaximumFormulaSizeError(BaserowFormulaException):
+class MaximumFormulaSizeError(JadawelFormulaException):
     def __init__(self):
         super().__init__("it exceeded the maximum formula size")
 
 
-class UnknownFieldByIdReference(BaserowFormulaException):
+class UnknownFieldByIdReference(JadawelFormulaException):
     def __init__(self, unknown_field_id):
         super().__init__(
             f"there is no field with id {unknown_field_id} but the formula"
@@ -50,7 +50,7 @@ class UnknownFieldByIdReference(BaserowFormulaException):
         )
 
 
-class FieldByIdReferencesAreDeprecated(BaserowFormulaException):
+class FieldByIdReferencesAreDeprecated(JadawelFormulaException):
     def __init__(self):
         super().__init__(
             "It is no longer possible to reference a field by it's ID in the Jadawel"
@@ -58,14 +58,14 @@ class FieldByIdReferencesAreDeprecated(BaserowFormulaException):
         )
 
 
-class UnknownOperator(BaserowFormulaException):
+class UnknownOperator(JadawelFormulaException):
     def __init__(self, operator_text):
         super().__init__(f"it used the unknown operator {operator_text}")
 
 
-class BaserowFormulaSyntaxError(BaserowFormulaException):
+class JadawelFormulaSyntaxError(JadawelFormulaException):
     pass
 
 
-class BaserowFormulaExecuteError(BaserowFormulaException):
+class JadawelFormulaExecuteError(JadawelFormulaException):
     pass

@@ -7,7 +7,7 @@ from freezegun import freeze_time
 from rest_framework.status import HTTP_200_OK, HTTP_204_NO_CONTENT
 
 from jadawel.core.notification_types import (
-    BaserowVersionUpgradeNotificationType,
+    JadawelVersionUpgradeNotificationType,
     WorkspaceInvitationAcceptedNotificationType,
     WorkspaceInvitationCreatedNotificationType,
     WorkspaceInvitationRejectedNotificationType,
@@ -250,7 +250,7 @@ def test_baserow_version_upgrade_is_sent_as_broadcast_notification(
     workspace_2 = data_fixture.create_workspace(user=user_2)
 
     with freeze_time("2023-07-06 12:00"):
-        BaserowVersionUpgradeNotificationType.create_version_upgrade_broadcast_notification(
+        JadawelVersionUpgradeNotificationType.create_version_upgrade_broadcast_notification(
             "1.19", "/blog/release-notes/1.19"
         )
 
@@ -276,7 +276,7 @@ def test_baserow_version_upgrade_is_sent_as_broadcast_notification(
             {
                 "id": AnyInt(),
                 "created_on": "2023-07-06T12:00:00Z",
-                "type": BaserowVersionUpgradeNotificationType.type,
+                "type": JadawelVersionUpgradeNotificationType.type,
                 "data": {
                     "version": "1.19",
                     "release_notes_url": "/blog/release-notes/1.19",

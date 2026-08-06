@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Literal, TypedDict, Union
 
 from jadawel.core.formula.exceptions import RuntimeFormulaRecursion
 
-BaserowFormula = str
+JadawelFormula = str
 FormulaArg = Any
 FormulaArgs = List[FormulaArg]
 
@@ -74,25 +74,25 @@ class FormulaFunction(ABC):
 JADAWEL_FORMULA_MODE_SIMPLE: Literal["simple"] = "simple"
 JADAWEL_FORMULA_MODE_ADVANCED: Literal["advanced"] = "advanced"
 JADAWEL_FORMULA_MODE_RAW: Literal["raw"] = "raw"
-BaserowFormulaMode = Literal["simple", "advanced", "raw"]
+JadawelFormulaMode = Literal["simple", "advanced", "raw"]
 
 
-class BaserowFormulaObject(TypedDict):
-    formula: BaserowFormula
-    mode: BaserowFormulaMode
+class JadawelFormulaObject(TypedDict):
+    formula: JadawelFormula
+    mode: JadawelFormulaMode
     version: str
 
     @classmethod
     def create(
         cls,
         formula: str = "",
-        mode: BaserowFormulaMode = JADAWEL_FORMULA_MODE_SIMPLE,
+        mode: JadawelFormulaMode = JADAWEL_FORMULA_MODE_SIMPLE,
         version: str = "0.1",
-    ) -> "BaserowFormulaObject":
-        return BaserowFormulaObject(formula=formula, mode=mode, version=version)
+    ) -> "JadawelFormulaObject":
+        return JadawelFormulaObject(formula=formula, mode=mode, version=version)
 
     @classmethod
-    def to_formula(cls, value) -> "BaserowFormulaObject":
+    def to_formula(cls, value) -> "JadawelFormulaObject":
         """
         Return a formula object even if it was a string.
         """
@@ -103,18 +103,18 @@ class BaserowFormulaObject(TypedDict):
             return cls.create(formula=value)
 
 
-class BaserowFormulaMinified(TypedDict):
+class JadawelFormulaMinified(TypedDict):
     v: str
-    m: BaserowFormulaMode
-    f: BaserowFormula
+    m: JadawelFormulaMode
+    f: JadawelFormula
 
 
-FormulaFieldDatabaseValue = Union[str, BaserowFormulaMinified]
+FormulaFieldDatabaseValue = Union[str, JadawelFormulaMinified]
 
 JSONFormulaFieldDatabaseValue = Union[
-    BaserowFormulaMinified, List[Dict[str, BaserowFormulaMinified]]
+    JadawelFormulaMinified, List[Dict[str, JadawelFormulaMinified]]
 ]
 
 JSONFormulaFieldResult = Union[
-    BaserowFormulaObject, List[Dict[str, BaserowFormulaObject]]
+    JadawelFormulaObject, List[Dict[str, JadawelFormulaObject]]
 ]

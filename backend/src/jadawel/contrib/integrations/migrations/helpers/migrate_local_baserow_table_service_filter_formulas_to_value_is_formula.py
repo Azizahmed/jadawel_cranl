@@ -2,7 +2,7 @@
 Helpers for 0006_migrate_local_baserow_table_service_filter_formulas_to_value_is_formula
 """
 
-from jadawel.core.formula import BaserowFormulaSyntaxError, get_parse_tree_for_formula
+from jadawel.core.formula import JadawelFormulaSyntaxError, get_parse_tree_for_formula
 
 
 def value_parses_as_formula(value: str) -> bool:
@@ -24,5 +24,5 @@ def value_parses_as_formula(value: str) -> bool:
     try:
         get_parse_tree_for_formula(value)
         return True
-    except BaserowFormulaSyntaxError:
+    except JadawelFormulaSyntaxError:
         return False

@@ -6,7 +6,7 @@ import pytest
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 from jadawel.contrib.builder.elements.models import LinkElement, NavigationElementMixin
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 
@@ -96,7 +96,7 @@ def test_can_update_a_table_element_fields(api_client, data_fixture):
         {
             "name": "Name",
             "type": "text",
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="get('data_source.123')",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -109,12 +109,12 @@ def test_can_update_a_table_element_fields(api_client, data_fixture):
             "type": "link",
             "navigate_to_page_id": None,
             "navigation_type": NavigationElementMixin.NAVIGATION_TYPES.PAGE,
-            "navigate_to_url": BaserowFormulaObject(
+            "navigate_to_url": JadawelFormulaObject(
                 formula="get('data_source.124')",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
             ),
-            "link_name": BaserowFormulaObject(
+            "link_name": JadawelFormulaObject(
                 formula="get('data_source.125')",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -129,7 +129,7 @@ def test_can_update_a_table_element_fields(api_client, data_fixture):
         {
             "name": "Question",
             "type": "text",
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="get('data_source.126')",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,

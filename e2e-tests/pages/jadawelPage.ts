@@ -8,7 +8,7 @@ type GotoFn = (url: string, options?: GotoOptions) => Promise<Response | null>;
 
 export type PageConfig = { page: Page; goto: GotoFn };
 
-export class BaserowPage {
+export class JadawelPage {
   readonly page: Page;
   readonly _goto: any;
   readonly baseUrl = baserowConfig.PUBLIC_WEB_FRONTEND_URL;

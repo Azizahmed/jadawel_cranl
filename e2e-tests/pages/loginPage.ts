@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
-import { BaserowPage, PageConfig } from "./baserowPage";
+import { JadawelPage, PageConfig } from "./jadawelPage";
 
-export class LoginPage extends BaserowPage {
+export class LoginPage extends JadawelPage {
   readonly pageUrl = `login`;
   readonly emailInput: Locator;
   readonly passwordInput: Locator;

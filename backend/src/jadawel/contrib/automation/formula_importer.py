@@ -3,12 +3,12 @@ from typing import Dict, Union
 from jadawel.contrib.automation.data_providers.registries import (
     automation_data_provider_type_registry,
 )
-from jadawel.core.formula import BaserowFormulaObject, get_parse_tree_for_formula
+from jadawel.core.formula import JadawelFormulaObject, get_parse_tree_for_formula
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW
-from jadawel.core.services.formula_importer import BaserowFormulaImporter
+from jadawel.core.services.formula_importer import JadawelFormulaImporter
 
 
-class AutomationFormulaImporter(BaserowFormulaImporter):
+class AutomationFormulaImporter(JadawelFormulaImporter):
     """
     This visitor is used to import formulas in the automation services. It updates the
     paths of the `get()` function calls to reflect the new IDs of the previous node
@@ -20,8 +20,8 @@ class AutomationFormulaImporter(BaserowFormulaImporter):
 
 
 def import_formula(
-    formula: Union[str, BaserowFormulaObject], id_mapping: Dict[str, str], **kwargs
-) -> BaserowFormulaObject:
+    formula: Union[str, JadawelFormulaObject], id_mapping: Dict[str, str], **kwargs
+) -> JadawelFormulaObject:
     """
     When a formula is used in an automation, it must be migrated when we import it
     because it could contain IDs referencing other objects.
@@ -33,7 +33,7 @@ def import_formula(
     :return: The updated path.
     """
 
-    formula = BaserowFormulaObject.to_formula(formula)
+    formula = JadawelFormulaObject.to_formula(formula)
 
     if formula["mode"] == JADAWEL_FORMULA_MODE_RAW or not formula["formula"]:
         return formula

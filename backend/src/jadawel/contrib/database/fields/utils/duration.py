@@ -712,7 +712,7 @@ if is_psycopg3:
 
     from jadawel.core.psycopg import psycopg
 
-    class BaserowIntervalLoader(IntervalLoader):
+    class JadawelIntervalLoader(IntervalLoader):
         """
         We're not doing anything special here, but if we don't register this
         adapter tests will fail when parsing negative intervals.
@@ -721,4 +721,4 @@ if is_psycopg3:
         def load(self, data):
             return super().load(data)
 
-    psycopg.adapters.register_loader("interval", BaserowIntervalLoader)
+    psycopg.adapters.register_loader("interval", JadawelIntervalLoader)

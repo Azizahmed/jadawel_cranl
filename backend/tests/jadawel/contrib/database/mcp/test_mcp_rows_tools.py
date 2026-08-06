@@ -10,7 +10,7 @@ from mcp.shared.memory import (
     create_connected_server_and_client_session as client_session,
 )
 
-from jadawel.core.mcp import BaserowMCPServer, current_key
+from jadawel.core.mcp import JadawelMCPServer, current_key
 
 
 @pytest.mark.django_db
@@ -22,7 +22,7 @@ def test_call_tool_list_rows(data_fixture):
     model = table.get_model(attribute_names=True)
     model.objects.create(name="Row 1")
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -48,7 +48,7 @@ def test_call_tool_list_rows_cross_workspace_returns_error(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint()
     other_table = data_fixture.create_database_table()
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -76,7 +76,7 @@ def test_call_tool_list_rows_with_search(data_fixture):
     model.objects.create(name="Car")
     model.objects.create(name="Boat")
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -106,7 +106,7 @@ def test_call_tool_list_rows_pagination(data_fixture):
     model.objects.create(name="Row A")
     model.objects.create(name="Row B")
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -139,7 +139,7 @@ def test_call_tool_create_rows(data_fixture):
     table = data_fixture.create_database_table(database=database)
     data_fixture.create_text_field(name="Name", table=table, primary=True)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -170,7 +170,7 @@ def test_call_tool_create_rows_cross_workspace_returns_error(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint()
     other_table = data_fixture.create_database_table()
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -196,7 +196,7 @@ def test_call_tool_create_rows_unknown_field_returns_error(data_fixture):
     table = data_fixture.create_database_table(database=database)
     data_fixture.create_text_field(name="Name", table=table, primary=True)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -224,7 +224,7 @@ def test_call_tool_update_rows(data_fixture):
     model = table.get_model(attribute_names=True)
     row = model.objects.create(name="Original")
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -254,7 +254,7 @@ def test_call_tool_update_rows_cross_workspace_returns_error(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint()
     other_table = data_fixture.create_database_table()
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -283,7 +283,7 @@ def test_call_tool_delete_rows(data_fixture):
     row1 = model.objects.create(name="Row 1")
     row2 = model.objects.create(name="Row 2")
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -309,7 +309,7 @@ def test_call_tool_delete_rows_cross_workspace_returns_error(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint()
     other_table = data_fixture.create_database_table()
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:

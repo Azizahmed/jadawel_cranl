@@ -10,7 +10,7 @@ from jadawel.contrib.builder.elements.registries import CollectionFieldType
 from jadawel.contrib.builder.workflow_actions.models import BuilderWorkflowAction
 from jadawel.core.constants import RatingStyleChoices
 from jadawel.core.formula.serializers import FormulaSerializerField
-from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW, BaserowFormulaObject
+from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW, JadawelFormulaObject
 from jadawel.core.registry import Instance
 
 
@@ -21,7 +21,7 @@ class BooleanCollectionFieldType(CollectionFieldType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(TypedDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -40,7 +40,7 @@ class RatingCollectionFieldType(CollectionFieldType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(TypedDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
         color: str
         rating_style: str
         max_value: int
@@ -80,7 +80,7 @@ class TextCollectionFieldType(CollectionFieldType):
     simple_formula_fields = ["value"]
 
     class SerializedDict(TypedDict):
-        value: BaserowFormulaObject
+        value: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -186,7 +186,7 @@ class LinkCollectionFieldType(CollectionFieldType):
         for index, page_parameter in enumerate(
             collection_field.config.get("page_parameters") or []
         ):
-            new_formula = yield BaserowFormulaObject.to_formula(
+            new_formula = yield JadawelFormulaObject.to_formula(
                 page_parameter.get("value")
             )
             if new_formula is not None:
@@ -196,7 +196,7 @@ class LinkCollectionFieldType(CollectionFieldType):
         for index, query_parameter in enumerate(
             collection_field.config.get("query_parameters") or []
         ):
-            new_formula = yield BaserowFormulaObject.to_formula(
+            new_formula = yield JadawelFormulaObject.to_formula(
                 query_parameter.get("value")
             )
             if new_formula is not None:
@@ -231,9 +231,9 @@ class TagsCollectionFieldType(CollectionFieldType):
     simple_formula_fields = ["values"]
 
     class SerializedDict(TypedDict):
-        values: BaserowFormulaObject
+        values: JadawelFormulaObject
         colors_is_formula: bool
-        colors: BaserowFormulaObject
+        colors: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -271,7 +271,7 @@ class TagsCollectionFieldType(CollectionFieldType):
         yield from super().formula_generator(collection_field)
 
         is_formula = collection_field.config.get("colors_is_formula", False)
-        colors = BaserowFormulaObject.to_formula(
+        colors = JadawelFormulaObject.to_formula(
             collection_field.config.get("colors", "")
         )
 
@@ -291,7 +291,7 @@ class ButtonCollectionFieldType(CollectionFieldType):
     simple_formula_fields = ["label"]
 
     class SerializedDict(TypedDict):
-        label: BaserowFormulaObject
+        label: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):
@@ -314,8 +314,8 @@ class ImageCollectionFieldType(CollectionFieldType):
     simple_formula_fields = ["src", "alt"]
 
     class SerializedDict(TypedDict):
-        src: BaserowFormulaObject
-        alt: BaserowFormulaObject
+        src: JadawelFormulaObject
+        alt: JadawelFormulaObject
 
     @property
     def serializer_field_overrides(self):

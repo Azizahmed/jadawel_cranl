@@ -26,7 +26,7 @@ from jadawel.contrib.database.formula import TypeFormulaOperationType
 from jadawel.contrib.database.table.exceptions import TableDoesNotExist
 from jadawel.contrib.database.table.handler import TableHandler
 from jadawel.core.exceptions import UserNotInWorkspace
-from jadawel.core.formula import BaserowFormulaException
+from jadawel.core.formula import JadawelFormulaException
 from jadawel.core.handler import CoreHandler
 
 
@@ -65,7 +65,7 @@ class TypeFormulaView(APIView):
         {
             UserNotInWorkspace: ERROR_USER_NOT_IN_GROUP,
             TableDoesNotExist: ERROR_TABLE_DOES_NOT_EXIST,
-            BaserowFormulaException: ERROR_WITH_FORMULA,
+            JadawelFormulaException: ERROR_WITH_FORMULA,
             SelfReferenceFieldDependencyError: ERROR_FIELD_SELF_REFERENCE,
         }
     )

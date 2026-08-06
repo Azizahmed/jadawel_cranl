@@ -1,7 +1,7 @@
 import pytest
 
 from jadawel.core.formula.parser.formula_execution_visitor import (
-    BaserowFormulaExecutionVisitor,
+    JadawelFormulaExecutionVisitor,
 )
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 from jadawel.core.formula.registries import formula_runtime_function_registry
@@ -22,7 +22,7 @@ def test_valid_formulas(test_data):
 
     tree = get_parse_tree_for_formula(formula)
     assert (
-        BaserowFormulaExecutionVisitor(
+        JadawelFormulaExecutionVisitor(
             formula_runtime_function_registry, context
         ).visit(tree)
         == result
@@ -37,6 +37,6 @@ def test_invalid_formulas(test_data):
 
     with pytest.raises(Exception):
         tree = get_parse_tree_for_formula(formula)
-        BaserowFormulaExecutionVisitor(
+        JadawelFormulaExecutionVisitor(
             formula_runtime_function_registry, context
         ).visit(tree)

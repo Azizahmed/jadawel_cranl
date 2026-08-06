@@ -129,13 +129,13 @@ MIDDLEWARE = [
     "jadawel.api.user_sources.middleware.AddUserSourceUserMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "jadawel.middleware.BaserowCustomHttp404Middleware",
+    "jadawel.middleware.JadawelCustomHttp404Middleware",
     "jadawel.middleware.ClearContextMiddleware",
     "jadawel.middleware.ClearDBStateMiddleware",
 ]
 
 if otel_is_enabled():
-    MIDDLEWARE += ["jadawel.core.telemetry.middleware.BaserowOTELMiddleware"]
+    MIDDLEWARE += ["jadawel.core.telemetry.middleware.JadawelOTELMiddleware"]
 
 ROOT_URLCONF = "jadawel.config.urls"
 

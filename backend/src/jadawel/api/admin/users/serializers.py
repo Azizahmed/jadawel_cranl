@@ -104,7 +104,7 @@ class UserAdminUpdateSerializer(
         }
 
 
-class BaserowImpersonateAuthTokenSerializer(serializers.Serializer):
+class JadawelImpersonateAuthTokenSerializer(serializers.Serializer):
     """
     Serializer used for impersonation.
     """

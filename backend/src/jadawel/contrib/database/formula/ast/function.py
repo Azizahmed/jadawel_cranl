@@ -17,10 +17,10 @@ from django.db.models.functions import Coalesce
 
 from jadawel.contrib.database.formula.ast.tree import (
     ArgCountSpecifier,
-    BaserowExpression,
-    BaserowExpressionContext,
-    BaserowFunctionCall,
-    BaserowFunctionDefinition,
+    JadawelExpression,
+    JadawelExpressionContext,
+    JadawelFunctionCall,
+    JadawelFunctionDefinition,
 )
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
     AndExpr,
@@ -29,13 +29,13 @@ from jadawel.contrib.database.formula.expression_generator.generator import (
     WrappedExpressionWithMetadata,
 )
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaType,
-    BaserowFormulaValidType,
+    JadawelFormulaType,
+    JadawelFormulaValidType,
     UnTyped,
 )
 from jadawel.contrib.database.formula.types.type_checker import (
-    BaserowArgumentTypeChecker,
-    BaserowSingleArgumentTypeChecker,
+    JadawelArgumentTypeChecker,
+    JadawelSingleArgumentTypeChecker,
 )
 
 
@@ -82,7 +82,7 @@ class ToDjangoExpressionGivenArgsMixin:
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         expr = WrappedExpressionWithMetadata.from_args(
             self.to_django_expression(*[arg.expression for arg in args]), args
@@ -93,18 +93,18 @@ class ToDjangoExpressionGivenArgsMixin:
             return expr
 
 
-class ZeroArgumentBaserowFunction(
-    ToDjangoExpressionGivenArgsMixin, BaserowFunctionDefinition
+class ZeroArgumentJadawelFunction(
+    ToDjangoExpressionGivenArgsMixin, JadawelFunctionDefinition
 ):
     """
-    A helper sub type of a BaserowFunctionDefinition that lets the
+    A helper sub type of a JadawelFunctionDefinition that lets the
     user talk specifically about a func with no arguments when implementing. Without
-    this normal classes implementing BaserowFunctionDefinition need to faff
+    this normal classes implementing JadawelFunctionDefinition need to faff
     about accessing argument lists etc.
     """
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
+    def arg_types(self) -> JadawelArgumentTypeChecker:
         return []
 
     @property
@@ -114,8 +114,8 @@ class ZeroArgumentBaserowFunction(
     @abc.abstractmethod
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         """
         Override this function to type and optionally transform an untyped function
         call to this function def.
@@ -129,7 +129,7 @@ class ZeroArgumentBaserowFunction(
         ```
 
         :param func_call: An untyped function call to this function which needs typing.
-        :return: A typed BaserowExpression, most probably just the original func_call
+        :return: A typed JadawelExpression, most probably just the original func_call
             but with a type, but any expression could be returned here.
         """
 
@@ -151,22 +151,22 @@ class ZeroArgumentBaserowFunction(
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return self.type_function(func_call)
 
-    def __call__(self) -> BaserowFunctionCall[BaserowFormulaType]:
+    def __call__(self) -> JadawelFunctionCall[JadawelFormulaType]:
         return self.call_and_type_with_args([])
 
 
-class OneArgumentBaserowFunction(
-    ToDjangoExpressionGivenArgsMixin, BaserowFunctionDefinition
+class OneArgumentJadawelFunction(
+    ToDjangoExpressionGivenArgsMixin, JadawelFunctionDefinition
 ):
     """
-    A helper sub type of a BaserowFunctionDefinition that lets the
+    A helper sub type of a JadawelFunctionDefinition that lets the
     user talk specifically about the single argument in a one arg func when implementing
-    . Without this normal classes implementing BaserowFunctionDefinition need to faff
+    . Without this normal classes implementing JadawelFunctionDefinition need to faff
     about accessing argument lists etc.
     """
 
@@ -174,19 +174,19 @@ class OneArgumentBaserowFunction(
 
     @property
     @abc.abstractmethod
-    def arg_type(self) -> BaserowSingleArgumentTypeChecker:
+    def arg_type(self) -> JadawelSingleArgumentTypeChecker:
         """
         Override this property to set the required argument type for the single argument
         provided to this function. Only when the argument meets the type requirement
         will type_function be called with the argument that matches.
 
-        :return: A BaserowSingleArgumentTypeChecker
+        :return: A JadawelSingleArgumentTypeChecker
         """
 
         pass
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
+    def arg_types(self) -> JadawelArgumentTypeChecker:
         return [self.arg_type]
 
     @property
@@ -196,9 +196,9 @@ class OneArgumentBaserowFunction(
     @abc.abstractmethod
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         """
         Override this function to type and optionally transform an untyped function
         call to this function def. The single argument has already been type checked
@@ -216,7 +216,7 @@ class OneArgumentBaserowFunction(
         :param func_call: An untyped function call to this function which needs typing.
         :param arg: The valid typed single argument from func_call provided already
             extracted from func_call for you to inspect.
-        :return: A typed BaserowExpression, most probably just the original func_call
+        :return: A typed JadawelExpression, most probably just the original func_call
             but with a type, but any expression could be returned here.
         """
 
@@ -239,16 +239,16 @@ class OneArgumentBaserowFunction(
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         arg = args[0]
 
         return self.type_function(func_call, arg)
 
     def __call__(
-        self, arg: BaserowExpression[BaserowFormulaType]
-    ) -> BaserowFunctionCall[BaserowFormulaType]:
+        self, arg: JadawelExpression[JadawelFormulaType]
+    ) -> JadawelFunctionCall[JadawelFormulaType]:
         return self.call_and_type_with_args([arg])
 
 
@@ -258,7 +258,7 @@ def aggregate_wrapper(
 ) -> WrappedExpressionWithMetadata:
     """
     Returns a wrapped expression with metadata which wraps the given expression
-    in a subquery. This is useful for BaserowFunctionDefinitions which need to
+    in a subquery. This is useful for JadawelFunctionDefinitions which need to
     aggregate the results over a model.
     """
 
@@ -340,13 +340,13 @@ def construct_aggregate_wrapper_queryset(
     )
 
 
-class TwoArgumentBaserowFunction(
-    ToDjangoExpressionGivenArgsMixin, BaserowFunctionDefinition
+class TwoArgumentJadawelFunction(
+    ToDjangoExpressionGivenArgsMixin, JadawelFunctionDefinition
 ):
     """
-    A helper sub type of a BaserowFunctionDefinition that lets the
+    A helper sub type of a JadawelFunctionDefinition that lets the
     user talk specifically about the two arguments in a two arg func when implementing.
-    Without this normal classes implementing BaserowFunctionDefinition need to faff
+    Without this normal classes implementing JadawelFunctionDefinition need to faff
     about accessing argument lists etc.
     """
 
@@ -354,33 +354,33 @@ class TwoArgumentBaserowFunction(
 
     @property
     @abc.abstractmethod
-    def arg1_type(self) -> BaserowSingleArgumentTypeChecker:
+    def arg1_type(self) -> JadawelSingleArgumentTypeChecker:
         """
         Override this property to set the required argument type for the first arg
         provided to this function. Only when all arguments meet the type requirements
         defined in the argX_type properties will type_function be called.
 
 
-        :return: A BaserowSingleArgumentTypeChecker
+        :return: A JadawelSingleArgumentTypeChecker
         """
 
         pass
 
     @property
     @abc.abstractmethod
-    def arg2_type(self) -> BaserowSingleArgumentTypeChecker:
+    def arg2_type(self) -> JadawelSingleArgumentTypeChecker:
         """
         Override this property to set the required argument type for the second arg
         provided to this function. Only when all arguments meet the type requirements
         defined in the argX_type properties will type_function be called.
 
-        :return: A BaserowSingleArgumentTypeChecker
+        :return: A JadawelSingleArgumentTypeChecker
         """
 
         pass
 
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
+    def arg_types(self) -> JadawelArgumentTypeChecker:
         return [self.arg1_type, self.arg2_type]
 
     @property
@@ -390,10 +390,10 @@ class TwoArgumentBaserowFunction(
     @abc.abstractmethod
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         """
         Override this function to type and optionally transform an untyped function
         call to this function def. The arguments have already been type checked
@@ -413,7 +413,7 @@ class TwoArgumentBaserowFunction(
             extracted from func_call for you to inspect.
         :param arg2: The valid typed second argument from func_call provided already
             extracted from func_call for you to inspect.
-        :return: A typed BaserowExpression, most probably just the original func_call
+        :return: A typed JadawelExpression, most probably just the original func_call
             but with a type, but any expression could be returned here.
         """
 
@@ -437,61 +437,61 @@ class TwoArgumentBaserowFunction(
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return self.type_function(func_call, args[0], args[1])
 
     def __call__(
         self,
-        arg1: BaserowExpression[BaserowFormulaType],
-        arg2: BaserowExpression[BaserowFormulaType],
-    ) -> BaserowFunctionCall[BaserowFormulaType]:
+        arg1: JadawelExpression[JadawelFormulaType],
+        arg2: JadawelExpression[JadawelFormulaType],
+    ) -> JadawelFunctionCall[JadawelFormulaType]:
         return self.call_and_type_with_args([arg1, arg2])
 
 
-class ThreeArgumentBaserowFunction(
-    ToDjangoExpressionGivenArgsMixin, BaserowFunctionDefinition
+class ThreeArgumentJadawelFunction(
+    ToDjangoExpressionGivenArgsMixin, JadawelFunctionDefinition
 ):
     @property
-    def arg_types(self) -> BaserowArgumentTypeChecker:
+    def arg_types(self) -> JadawelArgumentTypeChecker:
         return [self.arg1_type, self.arg2_type, self.arg3_type]
 
     @property
     @abc.abstractmethod
-    def arg1_type(self) -> BaserowSingleArgumentTypeChecker:
+    def arg1_type(self) -> JadawelSingleArgumentTypeChecker:
         """
         Override this property to set the required argument type for the first arg
         provided to this function. Only when all arguments meet the type requirements
         defined in the argX_type properties will type_function be called.
 
-        :return: A BaserowSingleArgumentTypeChecker
+        :return: A JadawelSingleArgumentTypeChecker
         """
 
         pass
 
     @property
     @abc.abstractmethod
-    def arg2_type(self) -> BaserowSingleArgumentTypeChecker:
+    def arg2_type(self) -> JadawelSingleArgumentTypeChecker:
         """
         Override this property to set the required argument type for the second arg
         provided to this function. Only when all arguments meet the type requirements
         defined in the argX_type properties will type_function be called.
 
-        :return: A BaserowSingleArgumentTypeChecker
+        :return: A JadawelSingleArgumentTypeChecker
         """
 
         pass
 
     @property
     @abc.abstractmethod
-    def arg3_type(self) -> BaserowSingleArgumentTypeChecker:
+    def arg3_type(self) -> JadawelSingleArgumentTypeChecker:
         """
         Override this property to set the required argument type for the third arg
         provided to this function. Only when all arguments meet the type requirements
         defined in the argX_type properties will type_function be called.
 
-        :return: A BaserowSingleArgumentTypeChecker
+        :return: A JadawelSingleArgumentTypeChecker
         """
 
         pass
@@ -503,11 +503,11 @@ class ThreeArgumentBaserowFunction(
     @abc.abstractmethod
     def type_function(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg1: BaserowExpression[BaserowFormulaValidType],
-        arg2: BaserowExpression[BaserowFormulaValidType],
-        arg3: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg1: JadawelExpression[JadawelFormulaValidType],
+        arg2: JadawelExpression[JadawelFormulaValidType],
+        arg3: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         """
         Override this function to type and optionally transform an untyped function
         call to this function def. The arguments have already been type checked
@@ -529,7 +529,7 @@ class ThreeArgumentBaserowFunction(
             extracted from func_call for you to inspect.
         :param arg3: The valid typed third argument from func_call provided already
             extracted from func_call for you to inspect.
-        :return: A typed BaserowExpression, most probably just the original func_call
+        :return: A typed JadawelExpression, most probably just the original func_call
             but with a type, but any expression could be returned here.
         """
 
@@ -556,21 +556,21 @@ class ThreeArgumentBaserowFunction(
 
     def type_function_given_valid_args(
         self,
-        args: List[BaserowExpression[BaserowFormulaValidType]],
-        func_call: BaserowFunctionCall[UnTyped],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        args: List[JadawelExpression[JadawelFormulaValidType]],
+        func_call: JadawelFunctionCall[UnTyped],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return self.type_function(func_call, args[0], args[1], args[2])
 
     def __call__(
         self,
-        arg1: BaserowExpression[BaserowFormulaType],
-        arg2: BaserowExpression[BaserowFormulaType],
-        arg3: BaserowExpression[BaserowFormulaType],
-    ) -> BaserowFunctionCall[BaserowFormulaType]:
+        arg1: JadawelExpression[JadawelFormulaType],
+        arg2: JadawelExpression[JadawelFormulaType],
+        arg3: JadawelExpression[JadawelFormulaType],
+    ) -> JadawelFunctionCall[JadawelFormulaType]:
         return self.call_and_type_with_args([arg1, arg2, arg3])
 
 
-class CollapseManyBaserowFunction:
+class CollapseManyJadawelFunction:
     """
     Just a helper class to make it easier to define a function that collapses a
     list of arguments into an array of elements.

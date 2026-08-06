@@ -6,7 +6,7 @@ from django.urls import Resolver404, resolve
 from opentelemetry import baggage, context
 
 
-class BaserowOTELMiddleware:
+class JadawelOTELMiddleware:
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]):
         self.get_response = get_response
 

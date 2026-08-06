@@ -21,7 +21,7 @@ from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import (
     JADAWEL_FORMULA_MODE_RAW,
     JADAWEL_FORMULA_MODE_SIMPLE,
-    BaserowFormulaObject,
+    JadawelFormulaObject,
 )
 from jadawel.core.services.models import Service
 from jadawel.core.user_sources.user_source_user import UserSourceUser
@@ -398,7 +398,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
                 {
                     "field": text_field.id,
                     "type": "equals",
-                    "value": BaserowFormulaObject(
+                    "value": JadawelFormulaObject(
                         formula="foobar",
                         version=JADAWEL_FORMULA_VERSION_INITIAL,
                         mode=JADAWEL_FORMULA_MODE_RAW,
@@ -408,7 +408,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
                 {
                     "field": formula_field.id,
                     "type": "equals",
-                    "value": BaserowFormulaObject(
+                    "value": JadawelFormulaObject(
                         formula="get('page_parameter.id')",
                         version=JADAWEL_FORMULA_VERSION_INITIAL,
                         mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -429,7 +429,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
             "order": service_filters[0].order,
             "field": text_field.id,
             "type": "equals",
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="foobar",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_RAW,
@@ -443,7 +443,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
             "field": formula_field.id,
             "type": "equals",
             "trashed": False,
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="get('page_parameter.id')",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -474,7 +474,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
                     "service": data_source1.service_id,
                     "field": text_field.id,
                     "type": "equals",
-                    "value": BaserowFormulaObject(
+                    "value": JadawelFormulaObject(
                         formula="foobar",
                         version=JADAWEL_FORMULA_VERSION_INITIAL,
                         mode=JADAWEL_FORMULA_MODE_RAW,
@@ -495,7 +495,7 @@ def test_update_data_source_with_filters(api_client, data_fixture):
             "order": 0,
             "field": text_field.id,
             "type": "equals",
-            "value": BaserowFormulaObject(
+            "value": JadawelFormulaObject(
                 formula="foobar",
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_RAW,

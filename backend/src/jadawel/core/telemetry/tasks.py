@@ -12,7 +12,7 @@ def initialize_otel(**kwargs):
     setup_telemetry(add_django_instrumentation=False)
 
 
-class BaserowTelemetryTask(Task):
+class JadawelTelemetryTask(Task):
     def __call__(self, *args, **kwargs):
         from opentelemetry import baggage, context
 

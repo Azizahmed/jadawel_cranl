@@ -25,7 +25,7 @@ import { DOMWrapper } from '@vue/test-utils'
  * Uses the real baserow plugins to setup a Vuex store and baserow registry
  * correctly.
  */
-function _createBaserowStoreAndRegistry(app, vueContext, extraPluginSetupFunc) {
+function _createJadawelStoreAndRegistry(app, vueContext, extraPluginSetupFunc) {
   const store = new vueContext.vuex.Store({})
 
   setupCore({ store, app }, (name, dep) => {
@@ -145,7 +145,7 @@ export class OldTestApp {
     }
     this._app.$clientErrorMap = new ClientErrorMap(this._app)
     this._vueContext = bootstrapVueContext()
-    this.store = _createBaserowStoreAndRegistry(
+    this.store = _createJadawelStoreAndRegistry(
       this._app,
       this._vueContext,
       extraPluginSetupFunc

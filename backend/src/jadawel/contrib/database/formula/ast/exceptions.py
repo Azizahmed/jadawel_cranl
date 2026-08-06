@@ -1,21 +1,21 @@
 from django.conf import settings
 
-from jadawel.core.formula.parser.exceptions import BaserowFormulaException
+from jadawel.core.formula.parser.exceptions import JadawelFormulaException
 
 
-class InvalidStringLiteralProvided(BaserowFormulaException):
+class InvalidStringLiteralProvided(JadawelFormulaException):
     pass
 
 
-class InvalidIntLiteralProvided(BaserowFormulaException):
+class InvalidIntLiteralProvided(JadawelFormulaException):
     pass
 
 
-class InvalidDecimalLiteralProvided(BaserowFormulaException):
+class InvalidDecimalLiteralProvided(JadawelFormulaException):
     pass
 
 
-class UnknownFieldReference(BaserowFormulaException):
+class UnknownFieldReference(JadawelFormulaException):
     def __init__(self, unknown_field_name):
         super().__init__(
             f"there is no field called {unknown_field_name} but the "
@@ -23,7 +23,7 @@ class UnknownFieldReference(BaserowFormulaException):
         )
 
 
-class TooLargeStringLiteralProvided(BaserowFormulaException):
+class TooLargeStringLiteralProvided(JadawelFormulaException):
     def __init__(self):
         super().__init__(
             f"an embedded string in the formula over the "

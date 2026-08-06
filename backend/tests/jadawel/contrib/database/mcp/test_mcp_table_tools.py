@@ -10,7 +10,7 @@ from mcp.shared.memory import (
     create_connected_server_and_client_session as client_session,
 )
 
-from jadawel.core.mcp import BaserowMCPServer, current_key
+from jadawel.core.mcp import JadawelMCPServer, current_key
 
 ENABLED_TOOL_NAMES = {
     "list_databases",
@@ -43,7 +43,7 @@ def test_list_tools_returns_only_enabled_tools(data_fixture):
     for _ in range(5):
         data_fixture.create_database_table(database=database)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -71,7 +71,7 @@ def test_call_tool_list_databases(data_fixture):
     # Different workspace — must not appear.
     data_fixture.create_database_application()
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -97,7 +97,7 @@ def test_call_tool_create_database(data_fixture):
     workspace = data_fixture.create_workspace(user=user)
     endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -130,7 +130,7 @@ def test_call_tool_list_tables(data_fixture):
     # Different workspace — must not appear.
     data_fixture.create_database_table(database=database_3)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -170,7 +170,7 @@ def test_call_tool_list_tables_filtered_by_database(data_fixture):
     t1 = data_fixture.create_database_table(database=db1)
     data_fixture.create_database_table(database=db2)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -195,7 +195,7 @@ def test_call_tool_create_table(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
     db = data_fixture.create_database_application(workspace=workspace)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -231,7 +231,7 @@ def test_call_tool_update_table(data_fixture):
     db = data_fixture.create_database_application(workspace=workspace)
     table = data_fixture.create_database_table(database=db, name="Old Name")
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -261,7 +261,7 @@ def test_call_tool_delete_table(data_fixture):
     db = data_fixture.create_database_application(workspace=workspace)
     table = data_fixture.create_database_table(database=db)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -289,7 +289,7 @@ def test_call_tool_get_table_schema(data_fixture):
     data_fixture.create_text_field(name="Title", table=table, primary=True)
     data_fixture.create_number_field(name="Score", table=table)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -321,7 +321,7 @@ def test_call_tool_get_table_schema_excludes_other_workspace(data_fixture):
     endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
     other_table = data_fixture.create_database_table()  # different workspace
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -348,7 +348,7 @@ def test_call_tool_create_fields(data_fixture):
     db = data_fixture.create_database_application(workspace=workspace)
     table = data_fixture.create_database_table(database=db)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -382,7 +382,7 @@ def test_call_tool_update_fields(data_fixture):
     table = data_fixture.create_database_table(database=db)
     field = data_fixture.create_text_field(name="Old Name", table=table)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:
@@ -414,7 +414,7 @@ def test_call_tool_delete_fields(data_fixture):
     table = data_fixture.create_database_table(database=db)
     field = data_fixture.create_text_field(name="ToDelete", table=table)
 
-    mcp = BaserowMCPServer()
+    mcp = JadawelMCPServer()
     key_token = current_key.set(endpoint.key)
 
     try:

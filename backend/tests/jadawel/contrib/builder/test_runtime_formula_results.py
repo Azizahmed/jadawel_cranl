@@ -7,7 +7,7 @@ from jadawel.contrib.builder.data_sources.builder_dispatch_context import (
 )
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.rows.handler import RowHandler
-from jadawel.core.formula import BaserowFormulaObject, resolve_formula
+from jadawel.core.formula import JadawelFormulaObject, resolve_formula
 from jadawel.core.formula.registries import formula_runtime_function_registry
 
 ROWS = [
@@ -329,7 +329,7 @@ def test_runtime_formula_if(data_fixture):
 
     for item in test_cases:
         value, expected = item
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         result = resolve_formula(
             formula, formula_runtime_function_registry, dispatch_context
@@ -350,7 +350,7 @@ def test_runtime_formula_get_property(data_fixture):
     key = f"get('data_source.{data_source_get_row.id}.{fields[0].db_column}')"
     object_str = '\'{"Cherry": "Dark Red"}\''
     value = f"get_property({object_str}, {key})"
-    formula = BaserowFormulaObject.create(value)
+    formula = JadawelFormulaObject.create(value)
 
     fake_request = HttpRequest()
     dispatch_context = BuilderDispatchContext(
@@ -376,7 +376,7 @@ def test_runtime_formula_datetime_format(data_fixture):
     date_str = f"get('data_source.{data_source_get_row.id}.{fields[7].db_column}')"
     date_format = f"get('data_source.{data_source_get_row.id}.{fields[15].db_column}')"
     value = f"datetime_format({date_str}, {date_format})"
-    formula = BaserowFormulaObject.create(value)
+    formula = JadawelFormulaObject.create(value)
 
     fake_request = HttpRequest()
     dispatch_context = BuilderDispatchContext(
@@ -410,7 +410,7 @@ def test_runtime_formula_comparison_operator(data_fixture):
         )
 
         value = f"{value_a} {operator} {value_b}"
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         fake_request = HttpRequest()
         dispatch_context = BuilderDispatchContext(
@@ -443,7 +443,7 @@ def test_runtime_formula_comparison(data_fixture):
         )
 
         value = f"{formula_name}({value_a}, {value_b})"
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         fake_request = HttpRequest()
         dispatch_context = BuilderDispatchContext(
@@ -473,7 +473,7 @@ def test_runtime_formula_boolean(data_fixture):
         )
 
         value = f"{formula_name}({value})"
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         fake_request = HttpRequest()
         dispatch_context = BuilderDispatchContext(
@@ -501,7 +501,7 @@ def test_runtime_formula_date(data_fixture):
         value = f"get('data_source.{data_source_get_row.id}.{fields[7].db_column}')"
 
         value = f"{formula_name}({value})"
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         fake_request = HttpRequest()
         dispatch_context = BuilderDispatchContext(
@@ -530,7 +530,7 @@ def test_runtime_formula_arithmetic(data_fixture):
         value_2 = f"get('data_source.{data_source_get_row.id}.{fields[4].db_column}')"
 
         value = f"{value_1} {operator} {value_2}"
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         fake_request = HttpRequest()
         dispatch_context = BuilderDispatchContext(
@@ -564,7 +564,7 @@ def test_runtime_formula_strings(data_fixture):
             value = f"get('data_source.{data_source_get_row.id}.{fields[0].db_column}')"
 
         value = f"{formula_name}({value})"
-        formula = BaserowFormulaObject.create(value)
+        formula = JadawelFormulaObject.create(value)
 
         fake_request = HttpRequest()
         dispatch_context = BuilderDispatchContext(

@@ -4,7 +4,7 @@ import pytest
 
 from jadawel.contrib.builder.elements.models import RatingElement, RatingStyleChoices
 from jadawel.contrib.builder.elements.registries import element_type_registry
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.core.utils import MirrorDict
@@ -26,7 +26,7 @@ def test_rating_element_type_export_import(data_fixture):
 
     assert exported["id"] == element.id
     assert exported["type"] == "rating"
-    assert exported["value"] == BaserowFormulaObject(
+    assert exported["value"] == JadawelFormulaObject(
         formula="'4'",
         mode=JADAWEL_FORMULA_MODE_SIMPLE,
         version=JADAWEL_FORMULA_VERSION_INITIAL,

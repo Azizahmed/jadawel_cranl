@@ -533,7 +533,7 @@ class ListOrStringField(serializers.ListField):
         return super().to_internal_value(data)
 
 
-class BaserowBooleanField(serializers.BooleanField):
+class JadawelBooleanField(serializers.BooleanField):
     """
     A Jadawel specific `BooleanField` that extends the `TRUE_VALUES` and
     `FALSE_VALUES` in DRF so that we support "checked" and "unchecked".

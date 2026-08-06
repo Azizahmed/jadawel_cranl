@@ -49,13 +49,13 @@ from jadawel.contrib.database.fields.utils.duration import (
     postgres_interval_to_seconds,
 )
 from jadawel.contrib.database.formula.ast.tree import (
-    BaserowBooleanLiteral,
-    BaserowDecimalLiteral,
-    BaserowExpression,
-    BaserowFieldReference,
-    BaserowFunctionCall,
-    BaserowIntegerLiteral,
-    BaserowStringLiteral,
+    JadawelBooleanLiteral,
+    JadawelDecimalLiteral,
+    JadawelExpression,
+    JadawelFieldReference,
+    JadawelFunctionCall,
+    JadawelIntegerLiteral,
+    JadawelStringLiteral,
 )
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
     ComparisonOperator,
@@ -65,13 +65,13 @@ from jadawel.contrib.database.formula.expression_generator.django_expressions im
 from jadawel.contrib.database.formula.registries import formula_function_registry
 from jadawel.contrib.database.formula.types.exceptions import UnknownFormulaType
 from jadawel.contrib.database.formula.types.filter_support import (
-    BaserowFormulaArrayFilterSupportMixin,
+    JadawelFormulaArrayFilterSupportMixin,
 )
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaInvalidType,
-    BaserowFormulaType,
-    BaserowFormulaTypeHasEmptyBaserowExpression,
-    BaserowFormulaValidType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaType,
+    JadawelFormulaTypeHasEmptyJadawelExpression,
+    JadawelFormulaValidType,
     UnTyped,
 )
 from jadawel.core.db import collate_expression
@@ -79,7 +79,7 @@ from jadawel.core.storage import get_default_storage
 from jadawel.core.utils import list_to_comma_separated_string
 
 
-class BaserowJSONBObjectBaseType(BaserowFormulaValidType, ABC):
+class JadawelJSONBObjectBaseType(JadawelFormulaValidType, ABC):
     array_index_sql = "{elem} -> 'value'"
     output_field_class = JSONField
 
@@ -100,36 +100,36 @@ class BaserowJSONBObjectBaseType(BaserowFormulaValidType, ABC):
         )
 
 
-class BaserowFormulaBaseTextType(BaserowFormulaTypeHasEmptyBaserowExpression):
+class JadawelFormulaBaseTextType(JadawelFormulaTypeHasEmptyJadawelExpression):
     can_group_by = True
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [
-            BaserowFormulaTextType,
-            BaserowFormulaDateType,
-            BaserowFormulaNumberType,
-            BaserowFormulaBooleanType,
-            BaserowFormulaCharType,
-            BaserowFormulaLinkType,
+            JadawelFormulaTextType,
+            JadawelFormulaDateType,
+            JadawelFormulaNumberType,
+            JadawelFormulaBooleanType,
+            JadawelFormulaCharType,
+            JadawelFormulaLinkType,
         ]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         # Force users to explicitly convert to text before doing any limit comparison
         # operators as lexicographical comparison can be surprising and so should be opt
         # in
-        return [BaserowFormulaTextType, BaserowFormulaCharType, BaserowFormulaLinkType]
+        return [JadawelFormulaTextType, JadawelFormulaCharType, JadawelFormulaLinkType]
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [BaserowFormulaTextType, BaserowFormulaCharType, BaserowFormulaLinkType]
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [JadawelFormulaTextType, JadawelFormulaCharType, JadawelFormulaLinkType]
 
     def add(
         self,
-        add_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaTextType]",
-        arg2: "BaserowExpression[BaserowFormulaTextType]",
+        add_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaTextType]",
+        arg2: "JadawelExpression[JadawelFormulaTextType]",
     ):
         return formula_function_registry.get("concat").call_and_type_with_args(
             [arg1, arg2]
@@ -140,7 +140,7 @@ class BaserowFormulaBaseTextType(BaserowFormulaTypeHasEmptyBaserowExpression):
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         return literal("")
 
     def _get_order_field_expression(self, field_name: str) -> Expression | F:
@@ -149,15 +149,15 @@ class BaserowFormulaBaseTextType(BaserowFormulaTypeHasEmptyBaserowExpression):
         return collate_expression(Left(F(field_name), SORT_INDEX_TEXT_MAX_CHARS))
 
 
-class BaserowFormulaTextType(
+class JadawelFormulaTextType(
     HasValueEmptyFilterSupport,
     HasValueEqualFilterSupport,
     HasValueContainsFilterSupport,
     HasValueContainsWordFilterSupport,
     HasValueLengthIsLowerThanFilterSupport,
-    BaserowFormulaBaseTextType,
-    BaserowFormulaTypeHasEmptyBaserowExpression,
-    BaserowFormulaValidType,
+    JadawelFormulaBaseTextType,
+    JadawelFormulaTypeHasEmptyJadawelExpression,
+    JadawelFormulaValidType,
 ):
     type = "text"
     jadawel_field_type = "text"
@@ -171,9 +171,9 @@ class BaserowFormulaTextType(
 
     def cast_to_text(
         self,
-        to_text_func_call: "BaserowFunctionCall[UnTyped]",
-        arg: "BaserowExpression[BaserowFormulaValidType]",
-    ) -> "BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "JadawelFunctionCall[UnTyped]",
+        arg: "JadawelExpression[JadawelFormulaValidType]",
+    ) -> "JadawelExpression[JadawelFormulaType]":
         if self.unwrap_cast_to_text:
             # Explicitly unwrap the func_call here and just return the arg as it is
             # already in the text type and we don't want to return to_text(arg) but
@@ -197,12 +197,12 @@ class BaserowFormulaTextType(
         return [None, ""]
 
 
-class BaserowFormulaURLType(BaserowFormulaTextType, BaserowFormulaValidType):
+class JadawelFormulaURLType(JadawelFormulaTextType, JadawelFormulaValidType):
     type = "url"
     jadawel_field_type = "url"
 
 
-class BaserowFormulaCharType(BaserowFormulaTextType, BaserowFormulaValidType):
+class JadawelFormulaCharType(JadawelFormulaTextType, JadawelFormulaValidType):
     type = "char"
     jadawel_field_type = "text"
     can_order_by_in_array = True
@@ -217,39 +217,39 @@ class BaserowFormulaCharType(BaserowFormulaTextType, BaserowFormulaValidType):
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         return formula_function_registry.get("tovarchar")(literal(""))
 
 
-class BaserowFormulaLinkType(BaserowJSONBObjectBaseType):
+class JadawelFormulaLinkType(JadawelJSONBObjectBaseType):
     type = "link"
     jadawel_field_type = None
     can_order_by = False
     can_group_by = False
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [
             type(self),
         ]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     @property
-    def subtractable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def subtractable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     def cast_to_text(
         self,
-        to_text_func_call: "BaserowFunctionCall[UnTyped]",
-        arg: "BaserowExpression[BaserowFormulaValidType]",
-    ) -> "BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "JadawelFunctionCall[UnTyped]",
+        arg: "JadawelExpression[JadawelFormulaValidType]",
+    ) -> "JadawelExpression[JadawelFormulaType]":
         return formula_function_registry.get("get_link_label")(arg)
 
     def get_jadawel_field_instance_and_type(self):
@@ -317,7 +317,7 @@ class BaserowFormulaLinkType(BaserowJSONBObjectBaseType):
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         return formula_function_registry.get("link")(literal(""))
 
     def get_search_expression(self, field, queryset):
@@ -352,17 +352,17 @@ class BaserowFormulaLinkType(BaserowJSONBObjectBaseType):
         return True
 
 
-class BaserowFormulaButtonType(BaserowFormulaLinkType):
+class JadawelFormulaButtonType(JadawelFormulaLinkType):
     type = "button"
 
 
-class BaserowFormulaNumberType(
+class JadawelFormulaNumberType(
     HasValueEmptyFilterSupport,
     HasValueEqualFilterSupport,
     HasValueContainsFilterSupport,
     HasNumericValueComparableToFilterSupport,
-    BaserowFormulaTypeHasEmptyBaserowExpression,
-    BaserowFormulaValidType,
+    JadawelFormulaTypeHasEmptyJadawelExpression,
+    JadawelFormulaValidType,
 ):
     type = "number"
     jadawel_field_type = "number"
@@ -406,37 +406,37 @@ class BaserowFormulaNumberType(
         self.number_separator = number_separator
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [
             type(self),
-            BaserowFormulaTextType,
+            JadawelFormulaTextType,
         ]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def subtractable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def subtractable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def multipliable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [type(self), BaserowFormulaDurationType]
+    def multipliable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [type(self), JadawelFormulaDurationType]
 
     @property
-    def dividable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def dividable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     def add(
         self,
-        add_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaNumberType]",
-        arg2: "BaserowExpression[BaserowFormulaNumberType]",
+        add_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaNumberType]",
+        arg2: "JadawelExpression[JadawelFormulaNumberType]",
     ):
         return add_func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type])
@@ -444,9 +444,9 @@ class BaserowFormulaNumberType(
 
     def minus(
         self,
-        minus_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaNumberType]",
-        arg2: "BaserowExpression[BaserowFormulaNumberType]",
+        minus_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaNumberType]",
+        arg2: "JadawelExpression[JadawelFormulaNumberType]",
     ):
         return minus_func_call.with_valid_type(
             calculate_number_type([arg1.expression_type, arg2.expression_type])
@@ -454,11 +454,11 @@ class BaserowFormulaNumberType(
 
     def multiply(
         self,
-        multiply_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaNumberType]",
-        arg2: "BaserowExpression[BaserowFormulaNumberType]",
+        multiply_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaNumberType]",
+        arg2: "JadawelExpression[JadawelFormulaNumberType]",
     ):
-        if isinstance(arg2.expression_type, BaserowFormulaDurationType):
+        if isinstance(arg2.expression_type, JadawelFormulaDurationType):
             return multiply_func_call.with_valid_type(arg2.expression_type)
         else:
             return multiply_func_call.with_valid_type(
@@ -467,26 +467,26 @@ class BaserowFormulaNumberType(
 
     def divide(
         self,
-        divide_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaNumberType]",
-        arg2: "BaserowExpression[BaserowFormulaNumberType]",
+        divide_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaNumberType]",
+        arg2: "JadawelExpression[JadawelFormulaNumberType]",
     ):
         from jadawel.contrib.database.fields.models import NUMBER_MAX_DECIMAL_PLACES
 
         return divide_func_call.with_valid_type(
-            BaserowFormulaNumberType(NUMBER_MAX_DECIMAL_PLACES)
+            JadawelFormulaNumberType(NUMBER_MAX_DECIMAL_PLACES)
         )
 
-    def should_recreate_when_old_type_was(self, old_type: "BaserowFormulaType") -> bool:
-        if isinstance(old_type, BaserowFormulaNumberType):
+    def should_recreate_when_old_type_was(self, old_type: "JadawelFormulaType") -> bool:
+        if isinstance(old_type, JadawelFormulaNumberType):
             return self.number_decimal_places != old_type.number_decimal_places
         else:
             return True
 
-    def wrap_at_field_level(self, expr: "BaserowExpression[BaserowFormulaType]"):
+    def wrap_at_field_level(self, expr: "JadawelExpression[JadawelFormulaType]"):
         return formula_function_registry.get("error_to_nan")(expr)
 
-    def unwrap_at_field_level(self, expr: "BaserowFunctionCall[BaserowFormulaType]"):
+    def unwrap_at_field_level(self, expr: "JadawelFunctionCall[JadawelFormulaType]"):
         return expr.args[0].with_valid_type(expr.expression_type)
 
     def placeholder_empty_value(self):
@@ -496,7 +496,7 @@ class BaserowFormulaNumberType(
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         return literal(0)
 
     def get_order_by_in_array_expr(self, field, field_name, order_direction):
@@ -526,12 +526,12 @@ class BaserowFormulaNumberType(
         return f"number({self.number_decimal_places})"
 
 
-class BaserowFormulaBooleanType(
+class JadawelFormulaBooleanType(
     HasValueEmptyFilterSupport,
     HasAllValuesEqualFilterSupport,
     HasValueEqualFilterSupport,
-    BaserowFormulaTypeHasEmptyBaserowExpression,
-    BaserowFormulaValidType,
+    JadawelFormulaTypeHasEmptyJadawelExpression,
+    JadawelFormulaValidType,
 ):
     type = "boolean"
     jadawel_field_type = "boolean"
@@ -545,14 +545,14 @@ class BaserowFormulaBooleanType(
         return None
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [
             type(self),
-            BaserowFormulaTextType,
+            JadawelFormulaTextType,
         ]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         # true > true makes no sense
         return []
 
@@ -561,11 +561,11 @@ class BaserowFormulaBooleanType(
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         return literal(False)
 
     def try_coerce_to_not_null(
-        self, expr: "BaserowExpression[BaserowFormulaValidType]"
+        self, expr: "JadawelExpression[JadawelFormulaValidType]"
     ):
         return expr
 
@@ -588,17 +588,17 @@ class BaserowFormulaBooleanType(
 
 
 def _calculate_addition_interval_type(
-    arg1: BaserowExpression[BaserowFormulaValidType],
-    arg2: BaserowExpression[BaserowFormulaValidType],
-) -> BaserowFormulaValidType:
+    arg1: JadawelExpression[JadawelFormulaValidType],
+    arg2: JadawelExpression[JadawelFormulaValidType],
+) -> JadawelFormulaValidType:
     arg1_type = arg1.expression_type
     arg2_type = arg2.expression_type
-    if isinstance(arg1_type, BaserowFormulaDateIntervalTypeMixin) and isinstance(
-        arg2_type, BaserowFormulaDateIntervalTypeMixin
+    if isinstance(arg1_type, JadawelFormulaDateIntervalTypeMixin) and isinstance(
+        arg2_type, JadawelFormulaDateIntervalTypeMixin
     ):
         # interval + interval = interval
         resulting_type = arg1_type
-    elif isinstance(arg1_type, BaserowFormulaDateIntervalTypeMixin):
+    elif isinstance(arg1_type, JadawelFormulaDateIntervalTypeMixin):
         # interval + date = date
         resulting_type = arg2_type
     else:
@@ -608,44 +608,44 @@ def _calculate_addition_interval_type(
     return resulting_type
 
 
-class BaserowFormulaDateIntervalTypeMixin:
+class JadawelFormulaDateIntervalTypeMixin:
     """
     Empty mixin to allow us to check if a type is a date interval type or a duration
-    type. NOTE: This can be removed once the BaserowFormulaDateIntervalType is removed.
+    type. NOTE: This can be removed once the JadawelFormulaDateIntervalType is removed.
     """
 
 
-# Deprecated, use BaserowFormulaDurationType instead
-class BaserowFormulaDateIntervalType(
-    BaserowFormulaTypeHasEmptyBaserowExpression,
-    BaserowFormulaValidType,
-    BaserowFormulaDateIntervalTypeMixin,
+# Deprecated, use JadawelFormulaDurationType instead
+class JadawelFormulaDateIntervalType(
+    JadawelFormulaTypeHasEmptyJadawelExpression,
+    JadawelFormulaValidType,
+    JadawelFormulaDateIntervalTypeMixin,
 ):
     type = "date_interval"
     jadawel_field_type = None
     can_group_by = True
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [type(self), BaserowFormulaDateType]
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [type(self), JadawelFormulaDateType]
 
     @property
-    def subtractable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def subtractable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     def add(
         self,
-        add_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaValidType]",
-        arg2: "BaserowExpression[BaserowFormulaValidType]",
+        add_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaValidType]",
+        arg2: "JadawelExpression[JadawelFormulaValidType]",
     ):
         return add_func_call.with_valid_type(
             _calculate_addition_interval_type(arg1, arg2)
@@ -653,12 +653,12 @@ class BaserowFormulaDateIntervalType(
 
     def minus(
         self,
-        minus_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaValidType]",
-        arg2: "BaserowExpression[BaserowFormulaValidType]",
+        minus_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaValidType]",
+        arg2: "JadawelExpression[JadawelFormulaValidType]",
     ):
         return minus_func_call.with_valid_type(
-            BaserowFormulaDateIntervalType(
+            JadawelFormulaDateIntervalType(
                 nullable=arg1.expression_type.nullable or arg2.expression_type.nullable
             )
         )
@@ -717,7 +717,7 @@ class BaserowFormulaDateIntervalType(
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         func = formula_function_registry.get("date_interval")
         return func(literal("0 hours"))
 
@@ -728,10 +728,10 @@ class BaserowFormulaDateIntervalType(
         return Cast(field.db_column, output_field=models.TextField())
 
 
-class BaserowFormulaDurationType(
-    BaserowFormulaTypeHasEmptyBaserowExpression,
-    BaserowFormulaValidType,
-    BaserowFormulaDateIntervalTypeMixin,
+class JadawelFormulaDurationType(
+    JadawelFormulaTypeHasEmptyJadawelExpression,
+    JadawelFormulaValidType,
+    JadawelFormulaDateIntervalTypeMixin,
     HasValueEmptyFilterSupport,
 ):
     type = "duration"
@@ -750,34 +750,34 @@ class BaserowFormulaDurationType(
         return None
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [type(self), BaserowFormulaDateType]
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [type(self), JadawelFormulaDateType]
 
     @property
-    def multipliable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [BaserowFormulaNumberType]
+    def multipliable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [JadawelFormulaNumberType]
 
     @property
-    def subtractable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def subtractable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def dividable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [BaserowFormulaNumberType]
+    def dividable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [JadawelFormulaNumberType]
 
     def add(
         self,
-        add_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaValidType]",
-        arg2: "BaserowExpression[BaserowFormulaValidType]",
+        add_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaValidType]",
+        arg2: "JadawelExpression[JadawelFormulaValidType]",
     ):
         return add_func_call.with_valid_type(
             _calculate_addition_interval_type(arg1, arg2)
@@ -785,12 +785,12 @@ class BaserowFormulaDurationType(
 
     def minus(
         self,
-        minus_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaValidType]",
-        arg2: "BaserowExpression[BaserowFormulaValidType]",
+        minus_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaValidType]",
+        arg2: "JadawelExpression[JadawelFormulaValidType]",
     ):
         return minus_func_call.with_valid_type(
-            BaserowFormulaDurationType(
+            JadawelFormulaDurationType(
                 duration_format=self.duration_format,
                 nullable=arg1.expression_type.nullable or arg2.expression_type.nullable,
             )
@@ -798,12 +798,12 @@ class BaserowFormulaDurationType(
 
     def multiply(
         self,
-        multiply_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaNumberType]",
-        arg2: "BaserowExpression[BaserowFormulaNumberType]",
+        multiply_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaNumberType]",
+        arg2: "JadawelExpression[JadawelFormulaNumberType]",
     ):
         return multiply_func_call.with_valid_type(
-            BaserowFormulaDurationType(
+            JadawelFormulaDurationType(
                 duration_format=self.duration_format,
                 nullable=arg1.expression_type.nullable or arg2.expression_type.nullable,
             )
@@ -811,12 +811,12 @@ class BaserowFormulaDurationType(
 
     def divide(
         self,
-        multiply_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaNumberType]",
-        arg2: "BaserowExpression[BaserowFormulaNumberType]",
+        multiply_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaNumberType]",
+        arg2: "JadawelExpression[JadawelFormulaNumberType]",
     ):
         return multiply_func_call.with_valid_type(
-            BaserowFormulaDurationType(
+            JadawelFormulaDurationType(
                 duration_format=self.duration_format,
                 nullable=arg1.expression_type.nullable or arg2.expression_type.nullable,
             )
@@ -827,7 +827,7 @@ class BaserowFormulaDurationType(
 
     def placeholder_empty_jadawel_expression(
         self,
-    ) -> "BaserowExpression[BaserowFormulaValidType]":
+    ) -> "JadawelExpression[JadawelFormulaValidType]":
         func = formula_function_registry.get("date_interval")
         return func(literal("0 hours"))
 
@@ -862,8 +862,8 @@ class BaserowFormulaDurationType(
         )
 
 
-class BaserowFormulaDateType(
-    HasValueEmptyFilterSupport, HasValueContainsFilterSupport, BaserowFormulaValidType
+class JadawelFormulaDateType(
+    HasValueEmptyFilterSupport, HasValueContainsFilterSupport, JadawelFormulaValidType
 ):
     type = "date"
     jadawel_field_type = "date"
@@ -903,32 +903,32 @@ class BaserowFormulaDateType(
         return f"({{elem}} ->> 'value'){cast}"
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [
             type(self),
-            BaserowFormulaTextType,
+            JadawelFormulaTextType,
         ]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def addable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [BaserowFormulaDateIntervalType, BaserowFormulaDurationType]
+    def addable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [JadawelFormulaDateIntervalType, JadawelFormulaDurationType]
 
     @property
-    def subtractable_types(self) -> List[Type["BaserowFormulaValidType"]]:
-        return [type(self), BaserowFormulaDateIntervalType, BaserowFormulaDurationType]
+    def subtractable_types(self) -> List[Type["JadawelFormulaValidType"]]:
+        return [type(self), JadawelFormulaDateIntervalType, JadawelFormulaDurationType]
 
     def get_in_array_empty_value(self, field: "Field") -> Any:
         return None
 
     def add(
         self,
-        add_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaValidType]",
-        arg2: "BaserowExpression[BaserowFormulaValidType]",
+        add_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaValidType]",
+        arg2: "JadawelExpression[JadawelFormulaValidType]",
     ):
         return add_func_call.with_valid_type(
             _calculate_addition_interval_type(arg1, arg2)
@@ -936,15 +936,15 @@ class BaserowFormulaDateType(
 
     def minus(
         self,
-        minus_func_call: "BaserowFunctionCall[UnTyped]",
-        arg1: "BaserowExpression[BaserowFormulaValidType]",
-        arg2: "BaserowExpression[BaserowFormulaValidType]",
+        minus_func_call: "JadawelFunctionCall[UnTyped]",
+        arg1: "JadawelExpression[JadawelFormulaValidType]",
+        arg2: "JadawelExpression[JadawelFormulaValidType]",
     ):
         arg1_type = arg1.expression_type
         arg2_type = arg2.expression_type
-        if isinstance(arg2_type, BaserowFormulaDateType):
+        if isinstance(arg2_type, JadawelFormulaDateType):
             # date - date = duration
-            resulting_type = BaserowFormulaDurationType(
+            resulting_type = JadawelFormulaDurationType(
                 nullable=arg1_type.nullable or arg2_type.nullable
             )
         else:
@@ -952,25 +952,25 @@ class BaserowFormulaDateType(
             resulting_type = arg1_type
         return minus_func_call.with_valid_type(resulting_type)
 
-    def should_recreate_when_old_type_was(self, old_type: "BaserowFormulaType") -> bool:
-        if isinstance(old_type, BaserowFormulaDateType):
+    def should_recreate_when_old_type_was(self, old_type: "JadawelFormulaType") -> bool:
+        if isinstance(old_type, JadawelFormulaDateType):
             return self.date_include_time != old_type.date_include_time
         else:
             return True
 
-    def wrap_at_field_level(self, expr: "BaserowExpression[BaserowFormulaType]"):
+    def wrap_at_field_level(self, expr: "JadawelExpression[JadawelFormulaType]"):
         wrapped = formula_function_registry.get("bc_to_null")(expr)
         return super().wrap_at_field_level(wrapped)
 
-    def unwrap_at_field_level(self, expr: "BaserowFunctionCall[BaserowFormulaType]"):
+    def unwrap_at_field_level(self, expr: "JadawelFunctionCall[JadawelFormulaType]"):
         unwrapped = super().unwrap_at_field_level(expr)
         return unwrapped.args[0].with_valid_type(unwrapped.expression_type)
 
     def cast_to_text(
         self,
-        to_text_func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaValidType]:
+        to_text_func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaValidType]:
         when_empty = formula_function_registry.get("when_empty")
         datetime_format_tz = formula_function_registry.get("datetime_format_tz")
         date_format_string = literal(get_date_time_format(self, "sql"))
@@ -1023,8 +1023,8 @@ class BaserowFormulaDateType(
         return f"{date_or_datetime}({self.date_format}{optional_time_format})"
 
 
-class BaserowFormulaSingleFileType(
-    HasValueEmptyFilterSupport, BaserowJSONBObjectBaseType
+class JadawelFormulaSingleFileType(
+    HasValueEmptyFilterSupport, JadawelJSONBObjectBaseType
 ):
     type = "single_file"
     can_group_by = False
@@ -1042,11 +1042,11 @@ class BaserowFormulaSingleFileType(
         return Value(None, output_field=JSONField())
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     @property
@@ -1157,9 +1157,9 @@ class BaserowFormulaSingleFileType(
 
     def cast_to_text(
         self,
-        to_text_func_call: "BaserowFunctionCall[UnTyped]",
-        arg: "BaserowExpression[BaserowFormulaValidType]",
-    ) -> "BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "JadawelFunctionCall[UnTyped]",
+        arg: "JadawelExpression[JadawelFormulaValidType]",
+    ) -> "JadawelExpression[JadawelFormulaType]":
         single_select_value = formula_function_registry.get("get_single_select_value")(
             arg
         )
@@ -1182,9 +1182,9 @@ class BaserowFormulaSingleFileType(
         )
 
 
-class BaserowFormulaArrayType(
-    BaserowFormulaArrayFilterSupportMixin,
-    BaserowFormulaValidType,
+class JadawelFormulaArrayType(
+    JadawelFormulaArrayFilterSupportMixin,
+    JadawelFormulaValidType,
 ):
     type = "array"
     user_overridable_formatting_option_fields = [
@@ -1193,7 +1193,7 @@ class BaserowFormulaArrayType(
     can_group_by = False
     serializer_extra_args = ["limit_linked_items"]
 
-    def __init__(self, sub_type: BaserowFormulaValidType, **kwargs):
+    def __init__(self, sub_type: JadawelFormulaValidType, **kwargs):
         super().__init__(**kwargs)
         self.array_formula_type = sub_type.type
         self.sub_type = sub_type
@@ -1223,7 +1223,7 @@ class BaserowFormulaArrayType(
         )
         return self.__class__(new_sub_type)
 
-    def collapse_many(self, expr: "BaserowExpression[BaserowFormulaType]"):
+    def collapse_many(self, expr: "JadawelExpression[JadawelFormulaType]"):
         return expr.expression_type.sub_type.collapse_array_of_many(expr)
 
     def placeholder_empty_value(self):
@@ -1243,10 +1243,10 @@ class BaserowFormulaArrayType(
 
         return Value([], output_field=JSONField())
 
-    def wrap_at_field_level(self, expr: "BaserowExpression[BaserowFormulaType]"):
+    def wrap_at_field_level(self, expr: "JadawelExpression[JadawelFormulaType]"):
         return formula_function_registry.get("error_to_null")(expr)
 
-    def unwrap_at_field_level(self, expr: "BaserowFunctionCall[BaserowFormulaType]"):
+    def unwrap_at_field_level(self, expr: "JadawelFunctionCall[JadawelFormulaType]"):
         arg = expr.args[0]
         # By unwrapping a field's array_agg we can then use our own aggregate
         # functions or apply our own transformations on the underlying many
@@ -1259,7 +1259,7 @@ class BaserowFormulaArrayType(
         many_to_many_agg = formula_function_registry.get("many_to_many_agg")
 
         sub_type = expr.expression_type.sub_type
-        if isinstance(arg, BaserowFunctionCall):
+        if isinstance(arg, JadawelFunctionCall):
             if arg.function_def.type in (
                 single_unnest.type,
                 multiple_select_agg.type,
@@ -1268,9 +1268,9 @@ class BaserowFormulaArrayType(
                 arg = arg.args[0]
             elif arg.function_def.type == double_unnest.type:
                 arg = arg.args[0]
-                sub_type = BaserowFormulaArrayType(sub_type)
-        elif isinstance(arg, BaserowFieldReference):
-            sub_type = BaserowFormulaArrayType(sub_type)
+                sub_type = JadawelFormulaArrayType(sub_type)
+        elif isinstance(arg, JadawelFieldReference):
+            sub_type = JadawelFormulaArrayType(sub_type)
 
         return arg.with_valid_type(sub_type)
 
@@ -1279,11 +1279,11 @@ class BaserowFormulaArrayType(
         return "unknown"
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     def get_jadawel_field_instance_and_type(self):
@@ -1458,11 +1458,11 @@ class BaserowFormulaArrayType(
             SelectOptionSerializer,
         )
         from jadawel.contrib.database.api.formula.serializers import (
-            BaserowFormulaSelectOptionsSerializer,
+            JadawelFormulaSelectOptionsSerializer,
         )
 
         return {
-            "select_options": BaserowFormulaSelectOptionsSerializer(
+            "select_options": JadawelFormulaSelectOptionsSerializer(
                 child=SelectOptionSerializer(),
                 required=False,
                 allow_null=True,
@@ -1477,9 +1477,9 @@ class BaserowFormulaArrayType(
         return self.sub_type.parse_filter_value(field, model_field, value)
 
 
-class BaserowFormulaSingleSelectType(
+class JadawelFormulaSingleSelectType(
     SingleSelectFormulaTypeFilterSupport,
-    BaserowJSONBObjectBaseType,
+    JadawelJSONBObjectBaseType,
 ):
     type = "single_select"
     jadawel_field_type = "single_select"
@@ -1488,10 +1488,10 @@ class BaserowFormulaSingleSelectType(
     can_group_by = False
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [
             type(self),
-            BaserowFormulaTextType,
+            JadawelFormulaTextType,
         ]
 
     @property
@@ -1499,7 +1499,7 @@ class BaserowFormulaSingleSelectType(
         return True
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     def get_jadawel_field_instance_and_type(self):
@@ -1553,9 +1553,9 @@ class BaserowFormulaSingleSelectType(
 
     def cast_to_text(
         self,
-        to_text_func_call: "BaserowFunctionCall[UnTyped]",
-        arg: "BaserowExpression[BaserowFormulaValidType]",
-    ) -> "BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "JadawelFunctionCall[UnTyped]",
+        arg: "JadawelExpression[JadawelFormulaValidType]",
+    ) -> "JadawelExpression[JadawelFormulaType]":
         single_select_value = formula_function_registry.get("get_single_select_value")(
             arg
         )
@@ -1616,11 +1616,11 @@ class BaserowFormulaSingleSelectType(
             SelectOptionSerializer,
         )
         from jadawel.contrib.database.api.formula.serializers import (
-            BaserowFormulaSelectOptionsSerializer,
+            JadawelFormulaSelectOptionsSerializer,
         )
 
         return {
-            "select_options": BaserowFormulaSelectOptionsSerializer(
+            "select_options": JadawelFormulaSelectOptionsSerializer(
                 child=SelectOptionSerializer(),
                 required=False,
                 allow_null=True,
@@ -1629,8 +1629,8 @@ class BaserowFormulaSingleSelectType(
         }
 
 
-class BaserowFormulaMultipleSelectType(
-    MultipleSelectFormulaTypeFilterSupport, BaserowJSONBObjectBaseType
+class JadawelFormulaMultipleSelectType(
+    MultipleSelectFormulaTypeFilterSupport, JadawelJSONBObjectBaseType
 ):
     type = "multiple_select"
     jadawel_field_type = "multiple_select"
@@ -1639,11 +1639,11 @@ class BaserowFormulaMultipleSelectType(
     can_group_by = False
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     def get_jadawel_field_instance_and_type(self):
@@ -1715,9 +1715,9 @@ class BaserowFormulaMultipleSelectType(
 
     def cast_to_text(
         self,
-        to_text_func_call: "BaserowFunctionCall[UnTyped]",
-        arg: "BaserowExpression[BaserowFormulaValidType]",
-    ) -> "BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "JadawelFunctionCall[UnTyped]",
+        arg: "JadawelExpression[JadawelFormulaValidType]",
+    ) -> "JadawelExpression[JadawelFormulaType]":
         join_multiple_select_values = formula_function_registry.get(
             "string_agg_many_to_many_values"
         )
@@ -1726,21 +1726,21 @@ class BaserowFormulaMultipleSelectType(
 
     def is_blank(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaBooleanType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaBooleanType]:
         equal_expr = formula_function_registry.get("equal")
         count_expr = formula_function_registry.get("many_to_many_count")
         return equal_expr(count_expr(arg), literal(0))
 
-    def collapse_many(self, expr: BaserowExpression[BaserowFormulaType]):
+    def collapse_many(self, expr: JadawelExpression[JadawelFormulaType]):
         return formula_function_registry.get("many_to_many_agg")(expr)
 
     def count(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return formula_function_registry.get("many_to_many_count")(arg)
 
     def contains_query(self, field_name, value, model_field, field):
@@ -1750,12 +1750,12 @@ class BaserowFormulaMultipleSelectType(
         return get_jsonb_contains_word_filter_expr(model_field, value)
 
 
-class BaserowFormulaMultipleCollaboratorsType(
+class JadawelFormulaMultipleCollaboratorsType(
     HasValueContainsWordFilterSupport,
     HasValueContainsFilterSupport,
     HasValueEmptyFilterSupport,
     HasValueEqualFilterSupport,
-    BaserowJSONBObjectBaseType,
+    JadawelJSONBObjectBaseType,
 ):
     type = "multiple_collaborators"
     jadawel_field_type = "multiple_collaborators"
@@ -1823,11 +1823,11 @@ class BaserowFormulaMultipleCollaboratorsType(
         )
 
     @property
-    def comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return [type(self)]
 
     @property
-    def limit_comparable_types(self) -> List[Type["BaserowFormulaValidType"]]:
+    def limit_comparable_types(self) -> List[Type["JadawelFormulaValidType"]]:
         return []
 
     def get_jadawel_field_instance_and_type(self):
@@ -1909,9 +1909,9 @@ class BaserowFormulaMultipleCollaboratorsType(
 
     def cast_to_text(
         self,
-        to_text_func_call: "BaserowFunctionCall[UnTyped]",
-        arg: "BaserowExpression[BaserowFormulaValidType]",
-    ) -> "BaserowExpression[BaserowFormulaType]":
+        to_text_func_call: "JadawelFunctionCall[UnTyped]",
+        arg: "JadawelExpression[JadawelFormulaValidType]",
+    ) -> "JadawelExpression[JadawelFormulaType]":
         join_multiple_select_values = formula_function_registry.get(
             "string_agg_many_to_many_values"
         )
@@ -1920,21 +1920,21 @@ class BaserowFormulaMultipleCollaboratorsType(
 
     def is_blank(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaBooleanType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaBooleanType]:
         equal_expr = formula_function_registry.get("equal")
         count_expr = formula_function_registry.get("many_to_many_count")
         return equal_expr(count_expr(arg), literal(0))
 
-    def collapse_many(self, expr: BaserowExpression[BaserowFormulaType]):
+    def collapse_many(self, expr: JadawelExpression[JadawelFormulaType]):
         return formula_function_registry.get("many_to_many_agg")(expr)
 
     def count(
         self,
-        func_call: BaserowFunctionCall[UnTyped],
-        arg: BaserowExpression[BaserowFormulaValidType],
-    ) -> BaserowExpression[BaserowFormulaType]:
+        func_call: JadawelFunctionCall[UnTyped],
+        arg: JadawelExpression[JadawelFormulaValidType],
+    ) -> JadawelExpression[JadawelFormulaType]:
         return formula_function_registry.get("many_to_many_count")(arg)
 
     @property
@@ -1964,22 +1964,22 @@ class BaserowFormulaMultipleCollaboratorsType(
 
 
 JADAWEL_FORMULA_TYPES = [
-    BaserowFormulaInvalidType,
-    BaserowFormulaTextType,
-    BaserowFormulaCharType,
-    BaserowFormulaButtonType,
-    BaserowFormulaLinkType,
-    BaserowFormulaDateIntervalType,  # Deprecated in favor of BaserowFormulaDurationType
-    BaserowFormulaDurationType,
-    BaserowFormulaDateType,
-    BaserowFormulaBooleanType,
-    BaserowFormulaNumberType,
-    BaserowFormulaArrayType,
-    BaserowFormulaSingleSelectType,
-    BaserowFormulaMultipleSelectType,
-    BaserowFormulaSingleFileType,
-    BaserowFormulaURLType,
-    BaserowFormulaMultipleCollaboratorsType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaTextType,
+    JadawelFormulaCharType,
+    JadawelFormulaButtonType,
+    JadawelFormulaLinkType,
+    JadawelFormulaDateIntervalType,  # Deprecated in favor of JadawelFormulaDurationType
+    JadawelFormulaDurationType,
+    JadawelFormulaDateType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaNumberType,
+    JadawelFormulaArrayType,
+    JadawelFormulaSingleSelectType,
+    JadawelFormulaMultipleSelectType,
+    JadawelFormulaSingleFileType,
+    JadawelFormulaURLType,
+    JadawelFormulaMultipleCollaboratorsType,
 ]
 
 JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS = list(
@@ -1992,7 +1992,7 @@ JADAWEL_FORMULA_TYPE_CHOICES = [(f.type, f.type) for f in JADAWEL_FORMULA_TYPES]
 JADAWEL_FORMULA_ARRAY_TYPE_CHOICES = [
     (f.type, f.type)
     for f in JADAWEL_FORMULA_TYPES
-    if f.type != BaserowFormulaArrayType.type
+    if f.type != JadawelFormulaArrayType.type
 ]
 
 JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES = list(
@@ -2020,7 +2020,7 @@ def get_jadawel_formula_type_serializer_field_overrides():
 
 
 def calculate_number_type(
-    arg_types: List[BaserowFormulaNumberType], min_decimal_places=0
+    arg_types: List[JadawelFormulaNumberType], min_decimal_places=0
 ):
     max_number_decimal_places = min_decimal_places
     number_prefix = ""
@@ -2040,7 +2040,7 @@ def calculate_number_type(
             number_separator = a.number_separator
             number_settings_set = True
 
-    return BaserowFormulaNumberType(
+    return JadawelFormulaNumberType(
         number_decimal_places=max_number_decimal_places,
         number_prefix=number_prefix,
         number_suffix=number_suffix,
@@ -2057,26 +2057,26 @@ def _lookup_formula_type_from_string(formula_type_string):
 
 def literal(
     arg: Union[str, int, bool, Decimal],
-) -> BaserowExpression[BaserowFormulaValidType]:
+) -> JadawelExpression[JadawelFormulaValidType]:
     """
-    A helper function for building BaserowExpressions with literals
+    A helper function for building JadawelExpressions with literals
     :param arg: The literal
-    :return: The literal wrapped in the corresponding valid typed BaserowExpression
+    :return: The literal wrapped in the corresponding valid typed JadawelExpression
         literal.
     """
 
     if isinstance(arg, str):
-        return BaserowStringLiteral(arg, BaserowFormulaTextType())
+        return JadawelStringLiteral(arg, JadawelFormulaTextType())
     elif isinstance(arg, bool):
-        return BaserowBooleanLiteral(arg, BaserowFormulaBooleanType())
+        return JadawelBooleanLiteral(arg, JadawelFormulaBooleanType())
     elif isinstance(arg, int):
-        return BaserowIntegerLiteral(
-            arg, BaserowFormulaNumberType(number_decimal_places=0)
+        return JadawelIntegerLiteral(
+            arg, JadawelFormulaNumberType(number_decimal_places=0)
         )
     elif isinstance(arg, Decimal):
-        decimal_literal_expr = BaserowDecimalLiteral(arg, None)
+        decimal_literal_expr = JadawelDecimalLiteral(arg, None)
         return decimal_literal_expr.with_valid_type(
-            BaserowFormulaNumberType(decimal_literal_expr.num_decimal_places())
+            JadawelFormulaNumberType(decimal_literal_expr.num_decimal_places())
         )
     else:
         raise TypeError(f"Unknown literal type {type(arg)}")

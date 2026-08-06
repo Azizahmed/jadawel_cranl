@@ -22,7 +22,7 @@ from rest_framework.exceptions import ValidationError
 
 from jadawel.contrib.builder.mixins import BuilderInstanceWithFormulaMixin
 from jadawel.contrib.builder.pages.models import Page
-from jadawel.core.formula.types import BaserowFormulaObject
+from jadawel.core.formula.types import JadawelFormulaObject
 from jadawel.core.models import Workspace
 from jadawel.core.registry import (
     CustomFieldsInstanceMixin,
@@ -588,7 +588,7 @@ class CollectionFieldType(
 
         for formula_field in self.simple_formula_fields:
             formula = collection_field.config.get(formula_field, "")
-            new_formula = yield BaserowFormulaObject.to_formula(formula)
+            new_formula = yield JadawelFormulaObject.to_formula(formula)
             if new_formula is not None:
                 collection_field.config[formula_field] = new_formula
                 yield collection_field

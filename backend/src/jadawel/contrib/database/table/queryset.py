@@ -42,7 +42,7 @@ class CTEUpdateRerurningQuery(CTEUpdateQuery, CTEQuery):
 COMPILER_TYPES[CTEUpdateRerurningQuery] = CTEUpdateReturningIdsQueryCompiler
 
 
-class BaserowCTEQuery(CTEQuery):
+class JadawelCTEQuery(CTEQuery):
     """
     Extends the CTEQuery to allow for returning ids after an update operation.
     """
@@ -60,9 +60,9 @@ class BaserowCTEQuery(CTEQuery):
         return clone
 
 
-class BaserowCTEQuerySet(CTEQuerySet):
+class JadawelCTEQuerySet(CTEQuerySet):
     """
-    Extends the CTEQuerySet to use BaserowCTEQuery, which allows for returning ids after
+    Extends the CTEQuerySet to use JadawelCTEQuery, which allows for returning ids after
     an update operation.
     """
 
@@ -70,7 +70,7 @@ class BaserowCTEQuerySet(CTEQuerySet):
         # Only create an instance of a Query if this is the first invocation in
         # a query chain.
         if query is None:
-            query = BaserowCTEQuery(model)
+            query = JadawelCTEQuery(model)
 
         super().__init__(model, query, using, hints)
 

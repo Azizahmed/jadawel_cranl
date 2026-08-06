@@ -16,36 +16,36 @@ from rest_framework.status import HTTP_200_OK
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.fields.models import Field, FormulaField
 from jadawel.contrib.database.formula import (
-    BaserowFormulaArrayType,
-    BaserowFormulaBooleanType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
+    JadawelFormulaArrayType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
     literal,
 )
 from jadawel.contrib.database.formula.ast.function_defs import (
-    Baserow2dArrayAgg,
-    BaserowAggJoin,
-    BaserowArrayAggNoNesting,
-    BaserowManyToManyAgg,
-    BaserowManyToManyCount,
-    BaserowMultipleSelectCount,
-    BaserowMultipleSelectOptionsAgg,
-    BaserowStringAggManyToManyValues,
-    BaserowStringAggMultipleSelectValues,
+    Jadawel2dArrayAgg,
+    JadawelAggJoin,
+    JadawelArrayAggNoNesting,
+    JadawelManyToManyAgg,
+    JadawelManyToManyCount,
+    JadawelMultipleSelectCount,
+    JadawelMultipleSelectOptionsAgg,
+    JadawelStringAggManyToManyValues,
+    JadawelStringAggMultipleSelectValues,
 )
 from jadawel.contrib.database.formula.ast.tree import (
-    BaserowFieldReference,
-    BaserowFunctionCall,
+    JadawelFieldReference,
+    JadawelFunctionCall,
 )
 from jadawel.contrib.database.formula.registries import formula_function_registry
 from jadawel.contrib.database.formula.types.exceptions import InvalidFormulaType
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaValidType,
+    JadawelFormulaValidType,
     UnTyped,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowFormulaMultipleCollaboratorsType,
-    BaserowFormulaMultipleSelectType,
+    JadawelFormulaMultipleCollaboratorsType,
+    JadawelFormulaMultipleSelectType,
 )
 from jadawel.contrib.database.formula.types.type_checker import MustBeManyExprChecker
 from jadawel.contrib.database.management.commands.fill_table_rows import fill_table_rows
@@ -1144,22 +1144,22 @@ def test_aggregate_functions_never_allow_non_many_inputs(data_fixture, api_clien
     table, _, link_field = data_fixture.create_two_linked_tables(user=user)
 
     function_exceptions = {
-        Baserow2dArrayAgg.type,
+        Jadawel2dArrayAgg.type,
         # DEPRECATED: Multiple select formulas that are aggregates but they accepts
         # non-many multiple select fields. All these functions are not directly
         # exposed to the user in the UI anyway.
-        BaserowMultipleSelectOptionsAgg.type,
-        BaserowMultipleSelectCount.type,
-        BaserowStringAggMultipleSelectValues.type,
+        JadawelMultipleSelectOptionsAgg.type,
+        JadawelMultipleSelectCount.type,
+        JadawelStringAggMultipleSelectValues.type,
         # ManyToMany formulas for i.e. multiple collaborators and multiple select.
-        BaserowManyToManyAgg.type,
-        BaserowManyToManyCount.type,
-        BaserowStringAggManyToManyValues.type,
+        JadawelManyToManyAgg.type,
+        JadawelManyToManyCount.type,
+        JadawelStringAggManyToManyValues.type,
     }
     custom_cases = {
-        BaserowAggJoin.type: [
+        JadawelAggJoin.type: [
             [literal("x"), literal("y")],
-            [literal("x"), BaserowFieldReference[UnTyped](link_field.name, None, None)],
+            [literal("x"), JadawelFieldReference[UnTyped](link_field.name, None, None)],
         ]
     }
     for formula_func in formula_function_registry.get_all():
@@ -1172,7 +1172,7 @@ def test_aggregate_functions_never_allow_non_many_inputs(data_fixture, api_clien
             fake_args = [construct_some_literal_args(formula_func)]
 
         for arg_set in fake_args:
-            formula = str(BaserowFunctionCall[UnTyped](formula_func, arg_set, None))
+            formula = str(JadawelFunctionCall[UnTyped](formula_func, arg_set, None))
             try:
                 FieldHandler().create_field(
                     user,
@@ -1204,15 +1204,15 @@ def construct_some_literal_args(formula_func):
         arg_checker = a[0]
         if isinstance(arg_checker, MustBeManyExprChecker):
             arg_checker = arg_checker.formula_types[0]
-        if arg_checker in (BaserowFormulaValidType, BaserowFormulaMultipleSelectType):
+        if arg_checker in (JadawelFormulaValidType, JadawelFormulaMultipleSelectType):
             r = ""
-        elif arg_checker == BaserowFormulaBooleanType:
+        elif arg_checker == JadawelFormulaBooleanType:
             r = True
-        elif arg_checker == BaserowFormulaTextType:
+        elif arg_checker == JadawelFormulaTextType:
             r = "literal"
-        elif arg_checker == BaserowFormulaNumberType:
+        elif arg_checker == JadawelFormulaNumberType:
             r = Decimal(1.2345)
-        elif arg_checker == BaserowFormulaArrayType:
+        elif arg_checker == JadawelFormulaArrayType:
             raise Exception("No array literals exist yet in the formula language")
         else:
             assert False, (
@@ -1251,16 +1251,16 @@ def test_aggregate_functions_can_be_referenced_by_other_formulas(
     # These functions are not supposed to be directly used by the user, but only
     # internally from some formula types to manage aggregations correctly.
     function_exceptions = {
-        Baserow2dArrayAgg.type,
-        BaserowArrayAggNoNesting.type,
+        Jadawel2dArrayAgg.type,
+        JadawelArrayAggNoNesting.type,
         # Multiple select formulas that are aggregates but they accepts
         # non-many multiple select fields. All these functions are not directly
         # exposed to the user in the UI anyway.
-        BaserowMultipleSelectOptionsAgg.type,
-        BaserowMultipleSelectCount.type,
-        BaserowStringAggMultipleSelectValues.type,
+        JadawelMultipleSelectOptionsAgg.type,
+        JadawelMultipleSelectCount.type,
+        JadawelStringAggMultipleSelectValues.type,
         # Multiple collaborators formulas
-        BaserowStringAggManyToManyValues.type,
+        JadawelStringAggManyToManyValues.type,
     }
 
     for formula_func in formula_function_registry.get_all():
@@ -1280,7 +1280,7 @@ def test_aggregate_functions_can_be_referenced_by_other_formulas(
         ]
 
         for arg_set in field_refs:
-            formula = str(BaserowFunctionCall[UnTyped](formula_func, arg_set, None))
+            formula = str(JadawelFunctionCall[UnTyped](formula_func, arg_set, None))
             f = FieldHandler().create_field(
                 user,
                 table,
@@ -1325,26 +1325,26 @@ def get_field_name_from_arg_types(
         arg_checker = a[0]
         if isinstance(arg_checker, MustBeManyExprChecker):
             arg_checker = arg_checker.formula_types[0]
-        if arg_checker == BaserowFormulaValidType:
+        if arg_checker == JadawelFormulaValidType:
             r = text_field.name
-        elif arg_checker == BaserowFormulaBooleanType:
+        elif arg_checker == JadawelFormulaBooleanType:
             r = bool_field.name
-        elif arg_checker == BaserowFormulaTextType:
+        elif arg_checker == JadawelFormulaTextType:
             r = text_field.name
-        elif arg_checker == BaserowFormulaNumberType:
+        elif arg_checker == JadawelFormulaNumberType:
             r = number_field.name
-        elif arg_checker == BaserowFormulaArrayType:
+        elif arg_checker == JadawelFormulaArrayType:
             r = through_field.link_row_related_field.name
-        elif arg_checker == BaserowFormulaMultipleSelectType:
+        elif arg_checker == JadawelFormulaMultipleSelectType:
             r = multiple_select_field.name
-        elif arg_checker == BaserowFormulaMultipleCollaboratorsType:
+        elif arg_checker == JadawelFormulaMultipleCollaboratorsType:
             r = multiple_collaborators_field.name
         else:
             assert False, (
                 f"Please add a branch for {arg_checker} to "
                 f"the test function get_field_name_from_arg_types"
             )
-        field_refs.append(BaserowFieldReference[UnTyped](through_field.name, r, None))
+        field_refs.append(JadawelFieldReference[UnTyped](through_field.name, r, None))
     return field_refs
 
 

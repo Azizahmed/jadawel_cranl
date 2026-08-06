@@ -1,7 +1,7 @@
 const { rowSample } = require('../samples/row')
 const {
   getRowInputValues,
-  prepareInputDataForBaserow
+  prepareInputDataForJadawel
 } = require('../helpers')
 
 const rowInputFields = [
@@ -18,7 +18,7 @@ const rowInputFields = [
 ]
 
 const createRow = async (z, bundle) => {
-  const rowData = await prepareInputDataForBaserow(z, bundle)
+  const rowData = await prepareInputDataForJadawel(z, bundle)
   const rowPostRequest = await z.request({
     url: `${bundle.authData.apiURL}/api/database/rows/table/${bundle.inputData.tableID}/`,
     method: 'POST',

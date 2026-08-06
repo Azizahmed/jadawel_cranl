@@ -7,7 +7,7 @@ from rest_framework.status import HTTP_200_OK
 
 from jadawel.contrib.builder.elements.handler import ElementHandler
 from jadawel.contrib.builder.elements.models import MenuItemElement
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_SIMPLE
 from jadawel.test_utils.helpers import AnyInt, AnyStr
@@ -84,7 +84,7 @@ def test_get_menu_element(api_client, menu_element_fixture):
             "menu_item_order": AnyInt(),
             "name": "Link",
             "navigate_to_page_id": None,
-            "navigate_to_url": BaserowFormulaObject(
+            "navigate_to_url": JadawelFormulaObject(
                 formula="",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
@@ -163,7 +163,7 @@ def test_can_update_menu_element_items(api_client, menu_element_fixture):
             "type": "link",
             "uid": AnyStr(),
             "navigate_to_page_id": None,
-            "navigate_to_url": BaserowFormulaObject(
+            "navigate_to_url": JadawelFormulaObject(
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 formula="",

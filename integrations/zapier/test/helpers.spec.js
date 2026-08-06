@@ -1,9 +1,9 @@
-const { mapBaserowFieldTypesToZapierTypes } = require('../src/helpers')
+const { mapJadawelFieldTypesToZapierTypes } = require('../src/helpers')
 
 describe('helpers', () => {
-  describe('mapBaserowFieldTypesToZapierTypes ', () => {
+  describe('mapJadawelFieldTypesToZapierTypes ', () => {
     it('text field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'text',
         name: 'Name',
@@ -19,7 +19,7 @@ describe('helpers', () => {
     })
 
     it('long_text field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'long_text',
         name: 'Name',
@@ -34,7 +34,7 @@ describe('helpers', () => {
     })
 
     it('url field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'url',
         name: 'Name',
@@ -49,7 +49,7 @@ describe('helpers', () => {
     })
 
     it('email field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'email',
         name: 'Name',
@@ -64,7 +64,7 @@ describe('helpers', () => {
     })
 
     it('number field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'number',
         name: 'Name',
@@ -81,7 +81,7 @@ describe('helpers', () => {
     })
 
     it('number field with decimal places', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'number',
         name: 'Name',
@@ -98,7 +98,7 @@ describe('helpers', () => {
     })
 
     it('rating field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'rating',
         name: 'Name',
@@ -116,7 +116,7 @@ describe('helpers', () => {
     })
 
     it('boolean field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'boolean',
         name: 'Name',
@@ -131,7 +131,7 @@ describe('helpers', () => {
     })
 
     it('date field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'date',
         name: 'Name',
@@ -149,7 +149,7 @@ describe('helpers', () => {
     })
 
     it('date field with time', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'date',
         name: 'Name',
@@ -167,7 +167,7 @@ describe('helpers', () => {
     })
 
     it('last_modified field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'last_modified',
         name: 'Name',
@@ -181,7 +181,7 @@ describe('helpers', () => {
     })
 
     it('created_on field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'created_on',
         name: 'Name',
@@ -195,7 +195,7 @@ describe('helpers', () => {
     })
 
     it('link_row field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'link_row',
         name: 'Name',
@@ -214,7 +214,7 @@ describe('helpers', () => {
     })
 
     it('file field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'file',
         name: 'Name',
@@ -225,7 +225,7 @@ describe('helpers', () => {
     })
 
     it('single_select field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'single_select',
         name: 'Name',
@@ -248,7 +248,7 @@ describe('helpers', () => {
     })
 
     it('multiple_select field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'multiple_select',
         name: 'Name',
@@ -272,7 +272,7 @@ describe('helpers', () => {
     })
 
     it('phone_number field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'phone_number',
         name: 'Name',
@@ -287,7 +287,7 @@ describe('helpers', () => {
     })
 
     it('formula field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'formula',
         name: 'Name',
@@ -298,7 +298,7 @@ describe('helpers', () => {
     })
 
     it('lookup field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'lookup',
         name: 'Name',
@@ -309,7 +309,7 @@ describe('helpers', () => {
     })
 
     it('multiple_collaborators field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'multiple_collaborators',
         name: 'Name',
@@ -326,7 +326,7 @@ describe('helpers', () => {
     })
 
     it('unknown field', () => {
-      expect(mapBaserowFieldTypesToZapierTypes({
+      expect(mapJadawelFieldTypesToZapierTypes({
         id: 1,
         type: 'unknown_field_type',
         name: 'Name',

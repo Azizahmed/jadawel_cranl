@@ -4,10 +4,10 @@ from unittest.mock import MagicMock
 import pytest
 
 from jadawel.core.exceptions import InstanceTypeDoesNotExist
-from jadawel.core.formula import BaserowFormulaSyntaxError
+from jadawel.core.formula import JadawelFormulaSyntaxError
 from jadawel.core.formula.parser.exceptions import InvalidNumberOfArguments
 from jadawel.core.formula.parser.formula_validation_visitor import (
-    BaserowFormulaValidationVisitor,
+    JadawelFormulaValidationVisitor,
 )
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 from jadawel.core.formula.registries import (
@@ -37,7 +37,7 @@ def mock_registry():
 
 def parse_and_visit_formula(formula: str, registry=None):
     tree = get_parse_tree_for_formula(formula)
-    visitor = BaserowFormulaValidationVisitor(
+    visitor = JadawelFormulaValidationVisitor(
         formula_runtime_function_registry, data_provider_type_registry=registry
     )
     return visitor.visit(tree)
@@ -65,7 +65,7 @@ def test_get_with_empty_provider_name_raises_syntax_error(
     mock_registry,
 ):
     with pytest.raises(
-        BaserowFormulaSyntaxError,
+        JadawelFormulaSyntaxError,
         match=r"The 'get' function arguments must start with a formula provider name.",
     ):
         parse_and_visit_formula("get('.field1')", mock_registry)

@@ -20,7 +20,7 @@ from jadawel.contrib.integrations.local_baserow.models import (
     LocalBaserowTableServiceSort,
     LocalBaserowViewService,
 )
-from jadawel.core.formula import BaserowFormulaObject, resolve_formula
+from jadawel.core.formula import JadawelFormulaObject, resolve_formula
 from jadawel.core.formula.registries import formula_runtime_function_registry
 from jadawel.core.formula.serializers import FormulaSerializerField
 from jadawel.core.formula.types import JADAWEL_FORMULA_MODE_RAW
@@ -134,7 +134,7 @@ class LocalBaserowTableServiceFilterableMixin:
         result = []
 
         for f in value:
-            formula = BaserowFormulaObject.to_formula(f["value"])
+            formula = JadawelFormulaObject.to_formula(f["value"])
             field_id = id_mapping.get("database_fields", {}).get(
                 f["field_id"], f["field_id"]
             )
@@ -146,7 +146,7 @@ class LocalBaserowTableServiceFilterableMixin:
             ):
                 val = formula
             else:
-                val = BaserowFormulaObject.create(
+                val = JadawelFormulaObject.create(
                     formula=str(
                         id_mapping["database_field_select_options"].get(
                             int(formula["formula"]), formula["formula"]
@@ -310,7 +310,7 @@ class LocalBaserowTableServiceFilterableMixin:
 
         for service_filter in service.service_filters_with_untrashed_fields:
             is_formula = service_filter.value_is_formula
-            formula = BaserowFormulaObject.to_formula(service_filter.value)
+            formula = JadawelFormulaObject.to_formula(service_filter.value)
 
             if not is_formula:
                 formula["mode"] = JADAWEL_FORMULA_MODE_RAW
@@ -810,7 +810,7 @@ class LocalBaserowTableServiceSpecificRowMixin:
     }
 
     class SerializedDict(ServiceDict):
-        row_id: BaserowFormulaObject
+        row_id: JadawelFormulaObject
 
     def formulas_to_resolve(self, service: ServiceSubClass) -> list[FormulaToResolve]:
         """

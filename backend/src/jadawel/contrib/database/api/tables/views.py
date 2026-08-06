@@ -27,10 +27,10 @@ from jadawel.contrib.database.api.fields.errors import (
 )
 from jadawel.contrib.database.api.tokens.authentications import TokenAuthentication
 from jadawel.contrib.database.fields.exceptions import (
-    InvalidBaserowFieldName,
+    InvalidJadawelFieldName,
     MaxFieldLimitExceeded,
     MaxFieldNameLengthExceeded,
-    ReservedBaserowFieldNameException,
+    ReservedJadawelFieldNameException,
 )
 from jadawel.contrib.database.file_import.job_types import FileImportJobType
 from jadawel.contrib.database.handler import DatabaseHandler
@@ -265,8 +265,8 @@ class TablesView(APIView):
             MaxFieldLimitExceeded: ERROR_MAX_FIELD_COUNT_EXCEEDED,
             MaxFieldNameLengthExceeded: ERROR_MAX_FIELD_NAME_LENGTH_EXCEEDED,
             InitialTableDataDuplicateName: ERROR_INITIAL_TABLE_DATA_HAS_DUPLICATE_NAMES,
-            ReservedBaserowFieldNameException: ERROR_RESERVED_BASEROW_FIELD_NAME,
-            InvalidBaserowFieldName: ERROR_INVALID_BASEROW_FIELD_NAME,
+            ReservedJadawelFieldNameException: ERROR_RESERVED_BASEROW_FIELD_NAME,
+            InvalidJadawelFieldName: ERROR_INVALID_BASEROW_FIELD_NAME,
             MaxJobCountExceeded: ERROR_MAX_JOB_COUNT_EXCEEDED,
         }
     )

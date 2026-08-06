@@ -1963,7 +1963,7 @@
 
 <script>
 import Toasts from '@jadawel/modules/core/components/toasts/Toasts'
-import BaserowIcon from '@jadawel/modules/core/static/img/logoOnly.svg?url'
+import JadawelIcon from '@jadawel/modules/core/static/img/logoOnly.svg?url'
 import ColorPickerContext from '@jadawel/modules/core/components/ColorPickerContext.vue'
 import ColorPicker from '@jadawel/modules/core/components/ColorPicker.vue'
 import Paginator from '@jadawel/modules/core/components/Paginator.vue'
@@ -1989,7 +1989,7 @@ export default {
       longDropdown: '0',
       date: '',
       formula: 'concat(field("Text"), field("Text"))',
-      image: BaserowIcon,
+      image: JadawelIcon,
       input: '',
       color: 'primary',
       colorVariables: [

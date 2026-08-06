@@ -18,21 +18,21 @@ from jadawel.contrib.database.fields.filter_support.base import (
 )
 from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.formula import (
-    BaserowFormulaMultipleCollaboratorsType,
-    BaserowFormulaNumberType,
-    BaserowFormulaTextType,
+    JadawelFormulaMultipleCollaboratorsType,
+    JadawelFormulaNumberType,
+    JadawelFormulaTextType,
 )
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
     ComparisonOperator,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
-    BaserowFormulaBooleanType,
-    BaserowFormulaCharType,
-    BaserowFormulaDateType,
-    BaserowFormulaDurationType,
-    BaserowFormulaMultipleSelectType,
-    BaserowFormulaSingleSelectType,
-    BaserowFormulaURLType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaCharType,
+    JadawelFormulaDateType,
+    JadawelFormulaDurationType,
+    JadawelFormulaMultipleSelectType,
+    JadawelFormulaSingleSelectType,
+    JadawelFormulaURLType,
 )
 
 from .registries import ViewFilterType
@@ -48,15 +48,15 @@ class HasEmptyValueViewFilterType(ViewFilterType):
     type = "has_empty_value"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaTextType.type),
-            FormulaFieldType.array_of(BaserowFormulaCharType.type),
-            FormulaFieldType.array_of(BaserowFormulaURLType.type),
-            FormulaFieldType.array_of(BaserowFormulaDateType.type),
-            FormulaFieldType.array_of(BaserowFormulaSingleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleCollaboratorsType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaTextType.type),
+            FormulaFieldType.array_of(JadawelFormulaCharType.type),
+            FormulaFieldType.array_of(JadawelFormulaURLType.type),
+            FormulaFieldType.array_of(JadawelFormulaDateType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleCollaboratorsType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -118,15 +118,15 @@ class HasValueEqualViewFilterType(ComparisonHasValueFilter):
     type = "has_value_equal"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaTextType.type),
-            FormulaFieldType.array_of(BaserowFormulaCharType.type),
-            FormulaFieldType.array_of(BaserowFormulaURLType.type),
-            FormulaFieldType.array_of(BaserowFormulaBooleanType.type),
-            FormulaFieldType.array_of(BaserowFormulaSingleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleCollaboratorsType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaTextType.type),
+            FormulaFieldType.array_of(JadawelFormulaCharType.type),
+            FormulaFieldType.array_of(JadawelFormulaURLType.type),
+            FormulaFieldType.array_of(JadawelFormulaBooleanType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleCollaboratorsType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -152,14 +152,14 @@ class HasValueContainsViewFilterType(ViewFilterType):
     type = "has_value_contains"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaTextType.type),
-            FormulaFieldType.array_of(BaserowFormulaCharType.type),
-            FormulaFieldType.array_of(BaserowFormulaURLType.type),
-            FormulaFieldType.array_of(BaserowFormulaDateType.type),
-            FormulaFieldType.array_of(BaserowFormulaSingleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleCollaboratorsType.type),
+            FormulaFieldType.array_of(JadawelFormulaTextType.type),
+            FormulaFieldType.array_of(JadawelFormulaCharType.type),
+            FormulaFieldType.array_of(JadawelFormulaURLType.type),
+            FormulaFieldType.array_of(JadawelFormulaDateType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleCollaboratorsType.type),
         ),
     ]
 
@@ -187,12 +187,12 @@ class HasValueContainsWordViewFilterType(ViewFilterType):
     type = "has_value_contains_word"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaTextType.type),
-            FormulaFieldType.array_of(BaserowFormulaCharType.type),
-            FormulaFieldType.array_of(BaserowFormulaURLType.type),
-            FormulaFieldType.array_of(BaserowFormulaSingleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleSelectType.type),
-            FormulaFieldType.array_of(BaserowFormulaMultipleCollaboratorsType.type),
+            FormulaFieldType.array_of(JadawelFormulaTextType.type),
+            FormulaFieldType.array_of(JadawelFormulaCharType.type),
+            FormulaFieldType.array_of(JadawelFormulaURLType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaMultipleCollaboratorsType.type),
         ),
     ]
 
@@ -220,9 +220,9 @@ class HasValueLengthIsLowerThanViewFilterType(ViewFilterType):
     type = "has_value_length_is_lower_than"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaTextType.type),
-            FormulaFieldType.array_of(BaserowFormulaCharType.type),
-            FormulaFieldType.array_of(BaserowFormulaURLType.type),
+            FormulaFieldType.array_of(JadawelFormulaTextType.type),
+            FormulaFieldType.array_of(JadawelFormulaCharType.type),
+            FormulaFieldType.array_of(JadawelFormulaURLType.type),
         ),
     ]
 
@@ -253,7 +253,7 @@ class HasAllValuesEqualViewFilterType(ComparisonHasValueFilter):
     type = "has_all_values_equal"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaBooleanType.type)
+            FormulaFieldType.array_of(JadawelFormulaBooleanType.type)
         ),
     ]
 
@@ -278,7 +278,7 @@ class HasAnySelectOptionEqualViewFilterType(HasValueEqualViewFilterType):
     type = "has_any_select_option_equal"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaSingleSelectType.type),
+            FormulaFieldType.array_of(JadawelFormulaSingleSelectType.type),
         ),
     ]
 
@@ -294,8 +294,8 @@ class HasValueComparableToFilter(ComparisonHasValueFilter):
     type = "has_value_higher"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -318,8 +318,8 @@ class HasValueHigherOrEqualThanFilter(ComparisonHasValueFilter):
     type = "has_value_higher_or_equal"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -346,8 +346,8 @@ class HasValueLowerThanFilter(ComparisonHasValueFilter):
     type = "has_value_lower"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -368,8 +368,8 @@ class HasValueLowerOrEqualThanFilter(ComparisonHasValueFilter):
     type = "has_value_lower_or_equal"
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaNumberType.type),
-            FormulaFieldType.array_of(BaserowFormulaDurationType.type),
+            FormulaFieldType.array_of(JadawelFormulaNumberType.type),
+            FormulaFieldType.array_of(JadawelFormulaDurationType.type),
         ),
     ]
 
@@ -395,7 +395,7 @@ class HasNotValueLowerOrEqualTHanFilterType(
 class ArrayDateMultiStepViewFilterType(BaseDateMultiStepViewFilterType):
     compatible_field_types = [
         FormulaFieldType.compatible_with_formula_types(
-            FormulaFieldType.array_of(BaserowFormulaDateType.type)
+            FormulaFieldType.array_of(JadawelFormulaDateType.type)
         ),
     ]
 

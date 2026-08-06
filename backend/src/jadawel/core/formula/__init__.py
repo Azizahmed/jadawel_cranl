@@ -1,37 +1,37 @@
 from typing import Any
 
 from jadawel.core.formula.parser.exceptions import (
-    BaserowFormulaException,
-    BaserowFormulaSyntaxError,
+    JadawelFormulaException,
+    JadawelFormulaSyntaxError,
     MaximumFormulaSizeError,
 )
-from jadawel.core.formula.parser.generated.BaserowFormula import BaserowFormula
-from jadawel.core.formula.parser.generated.BaserowFormulaVisitor import (
-    BaserowFormulaVisitor,
+from jadawel.core.formula.parser.generated.JadawelFormula import JadawelFormula
+from jadawel.core.formula.parser.generated.JadawelFormulaVisitor import (
+    JadawelFormulaVisitor,
 )
 from jadawel.core.formula.types import (
     JADAWEL_FORMULA_MODE_RAW,
-    BaserowFormulaObject,
     FormulaContext,
     FunctionCollection,
+    JadawelFormulaObject,
 )
 
 __all__ = [
-    BaserowFormulaException,
+    JadawelFormulaException,
     MaximumFormulaSizeError,
-    BaserowFormulaVisitor,
-    BaserowFormula,
-    BaserowFormulaSyntaxError,
+    JadawelFormulaVisitor,
+    JadawelFormula,
+    JadawelFormulaSyntaxError,
 ]
 
 from jadawel.core.formula.parser.formula_execution_visitor import (
-    BaserowFormulaExecutionVisitor,
+    JadawelFormulaExecutionVisitor,
 )
 from jadawel.core.formula.parser.parser import get_parse_tree_for_formula
 
 
 def resolve_formula(
-    formula: BaserowFormulaObject,
+    formula: JadawelFormulaObject,
     functions: FunctionCollection,
     formula_context: FormulaContext,
 ) -> Any:
@@ -53,4 +53,4 @@ def resolve_formula(
         return formula["formula"]
 
     tree = get_parse_tree_for_formula(formula["formula"])
-    return BaserowFormulaExecutionVisitor(functions, formula_context).visit(tree)
+    return JadawelFormulaExecutionVisitor(functions, formula_context).visit(tree)

@@ -1,7 +1,7 @@
 import pytest
 
 from jadawel.contrib.builder.pages.service import PageService
-from jadawel.core.formula import BaserowFormulaObject
+from jadawel.core.formula import JadawelFormulaObject
 from jadawel.core.formula.field import JADAWEL_FORMULA_VERSION_INITIAL
 from jadawel.core.formula.types import (
     JADAWEL_FORMULA_MODE_RAW,
@@ -69,12 +69,12 @@ def test_import_export_tags_collection_field_type(data_fixture):
 
     tags_with_formula = imported_table_element.fields.get(name="Colors as formula")
     assert tags_with_formula.config == {
-        "values": BaserowFormulaObject(
+        "values": JadawelFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{name_field.db_column}')",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
-        "colors": BaserowFormulaObject(
+        "colors": JadawelFormulaObject(
             formula=f"get('data_source.{data_source2.id}.0.{color_field.db_column}')",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
@@ -84,13 +84,13 @@ def test_import_export_tags_collection_field_type(data_fixture):
 
     tags_without_formula = imported_table_element.fields.get(name="Colors as hex")
     assert tags_without_formula.config == {
-        "values": BaserowFormulaObject(
+        "values": JadawelFormulaObject(
             formula="'a,b,c'",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_SIMPLE,
         ),
         "colors_is_formula": False,
-        "colors": BaserowFormulaObject(
+        "colors": JadawelFormulaObject(
             formula="#d06060ff",
             version=JADAWEL_FORMULA_VERSION_INITIAL,
             mode=JADAWEL_FORMULA_MODE_RAW,

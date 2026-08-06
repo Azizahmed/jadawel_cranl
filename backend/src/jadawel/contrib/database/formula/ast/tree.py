@@ -30,48 +30,48 @@ T = TypeVar("T")
 R = TypeVar("R")
 
 
-class BaserowExpression(abc.ABC, Generic[A]):
+class JadawelExpression(abc.ABC, Generic[A]):
     """
-    The root base class for a BaserowExpression which can be seen as an abstract
+    The root base class for a JadawelExpression which can be seen as an abstract
     syntax tree of a Jadawel Formula.
 
     For example the formula `concat(field('a'),1+1)` is equivalently represented by the
-    following BaserowExpression AST:
+    following JadawelExpression AST:
 
     ```
-    BaserowFunctionCall(
-        BaserowConcat(),
+    JadawelFunctionCall(
+        JadawelConcat(),
         [
-            BaserowFieldReference('a'),
-            BaserowFunctionCall(
-                BaserowAdd(),
+            JadawelFieldReference('a'),
+            JadawelFunctionCall(
+                JadawelAdd(),
                 [
-                    BaserowIntegerLiteral(1),
-                    BaserowIntegerLiteral(1)
+                    JadawelIntegerLiteral(1),
+                    JadawelIntegerLiteral(1)
                 ]
             )
         ]
     )
     ```
 
-    A BaserowExpression has a generic type parameter A. This indicates the type of
-    the additional field `expression_type` attached to every BaserowExpression.
-    This allows us to talk about BaserowExpression's as they go through the various
+    A JadawelExpression has a generic type parameter A. This indicates the type of
+    the additional field `expression_type` attached to every JadawelExpression.
+    This allows us to talk about JadawelExpression's as they go through the various
     stages of parsing and typing using the python type system to help us.
 
     For example, imagine I parse a raw input string and have yet to figure out the types
     of a jadawel expression. Then the type of the `expression_type` attached to each
-    node in the BaserowExpression tree is None as we don't know it yet. And so we can
+    node in the JadawelExpression tree is None as we don't know it yet. And so we can
     write for the formula `concat('a', 'b')`:
 
 
     ```
     # Look at what UnTyped is defined as (its `type(None)`)!
-    untyped_expr = BaserowFunctionCall[UnTyped](
-        BaserowConcat(),
+    untyped_expr = JadawelFunctionCall[UnTyped](
+        JadawelConcat(),
         [
-            BaserowStringLiteral[UnTyped]('a'),
-            BaserowStringLiteral[UnTyped]('b')
+            JadawelStringLiteral[UnTyped]('a'),
+            JadawelStringLiteral[UnTyped]('b')
         ]
     )
     ```
@@ -85,20 +85,20 @@ class BaserowExpression(abc.ABC, Generic[A]):
     generically typed form!
 
     ```
-    untyped_expr = BaserowFunctionCall[UnTyped](
-        BaserowConcat(),
+    untyped_expr = JadawelFunctionCall[UnTyped](
+        JadawelConcat(),
         [
-            BaserowStringLiteral[UnTyped]('a').with_valid_type(
-                BaserowFormulaTextType()
+            JadawelStringLiteral[UnTyped]('a').with_valid_type(
+                JadawelFormulaTextType()
             ),
-            BaserowStringLiteral[UnTyped]('b').with_valid_type(
-                BaserowFormulaTextType()
+            JadawelStringLiteral[UnTyped]('b').with_valid_type(
+                JadawelFormulaTextType()
             )
         ]
     )
-    typed_expression = untyped_expr.with_valid_type(BaserowFormulaTextType())
+    typed_expression = untyped_expr.with_valid_type(JadawelFormulaTextType())
     # Now python knows that typed_expression is of type
-    # BaserowExpression[BaserowFormulaType] and so we can safely access it:
+    # JadawelExpression[JadawelFormulaType] and so we can safely access it:
     do_thing_with_type(typed_expression.expression_type)
     ```
     """
@@ -127,35 +127,35 @@ class BaserowExpression(abc.ABC, Generic[A]):
         return False
 
     @abc.abstractmethod
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         pass
 
-    def with_type(self, expression_type: "R") -> "BaserowExpression[R]":
+    def with_type(self, expression_type: "R") -> "JadawelExpression[R]":
         self.expression_type = expression_type
         return self
 
     def with_valid_type(
         self,
-        expression_type: "formula_type.BaserowFormulaValidType",
+        expression_type: "formula_type.JadawelFormulaValidType",
         nullable: Optional[bool] = None,
-    ) -> "BaserowExpression[formula_type.BaserowFormulaValidType]":
+    ) -> "JadawelExpression[formula_type.JadawelFormulaValidType]":
         if nullable is not None:
             expression_type = self.with_nullable(expression_type, nullable)
         return self.with_type(expression_type)
 
     def with_nullable(
-        self, expression_type: "formula_type.BaserowFormulaValidType", nullable: bool
-    ) -> "BaserowExpression[formula_type.BaserowFormulaValidType]":
+        self, expression_type: "formula_type.JadawelFormulaValidType", nullable: bool
+    ) -> "JadawelExpression[formula_type.JadawelFormulaValidType]":
         expression_type.nullable = nullable
         return expression_type
 
     def with_invalid_type(
         self, error: str
-    ) -> "BaserowExpression[formula_type.BaserowFormulaInvalidType]":
-        return self.with_type(formula_type.BaserowFormulaInvalidType(error))
+    ) -> "JadawelExpression[formula_type.JadawelFormulaInvalidType]":
+        return self.with_type(formula_type.JadawelFormulaInvalidType(error))
 
 
-class BaserowStringLiteral(BaserowExpression[A]):
+class JadawelStringLiteral(JadawelExpression[A]):
     """
     Represents a string literal typed directly into the formula.
     """
@@ -169,14 +169,14 @@ class BaserowStringLiteral(BaserowExpression[A]):
             raise TooLargeStringLiteralProvided()
         self.literal = literal
 
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         return visitor.visit_string_literal(self)
 
     def __str__(self):
         return convert_string_to_string_literal_token(self.literal, True)
 
 
-class BaserowIntegerLiteral(BaserowExpression[A]):
+class JadawelIntegerLiteral(JadawelExpression[A]):
     """
     Represents a literal integer typed into the formula.
     """
@@ -188,14 +188,14 @@ class BaserowIntegerLiteral(BaserowExpression[A]):
             raise InvalidIntLiteralProvided()
         self.literal = literal
 
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         return visitor.visit_int_literal(self)
 
     def __str__(self):
         return str(self.literal)
 
 
-class BaserowDecimalLiteral(BaserowExpression[A]):
+class JadawelDecimalLiteral(JadawelExpression[A]):
     """
     Represents a literal decimal typed into the formula.
     """
@@ -207,14 +207,14 @@ class BaserowDecimalLiteral(BaserowExpression[A]):
     def num_decimal_places(self):
         return -self.literal.as_tuple().exponent
 
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         return visitor.visit_decimal_literal(self)
 
     def __str__(self):
         return str(self.literal)
 
 
-class BaserowBooleanLiteral(BaserowExpression[A]):
+class JadawelBooleanLiteral(JadawelExpression[A]):
     """
     Represents a literal boolean typed into the formula.
     """
@@ -223,14 +223,14 @@ class BaserowBooleanLiteral(BaserowExpression[A]):
         super().__init__(expression_type)
         self.literal = literal
 
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         return visitor.visit_boolean_literal(self)
 
     def __str__(self):
         return "true" if self.literal else "false"
 
 
-class BaserowFieldReference(BaserowExpression[A]):
+class JadawelFieldReference(JadawelExpression[A]):
     """
     Represents a reference to a field with the same name as the referenced_field_name.
     """
@@ -251,7 +251,7 @@ class BaserowFieldReference(BaserowExpression[A]):
             expression_type and expression_type.requires_refresh_after_insert
         )
 
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         return visitor.visit_field_reference(self)
 
     def is_lookup(self):
@@ -302,7 +302,7 @@ class ArgCountSpecifier(abc.ABC):
         pass
 
 
-class BaserowExpressionContext:
+class JadawelExpressionContext:
     def __init__(self, model: Type[Model], model_instance: Optional[Model]):
         self.model = model
         self.model_instance = model_instance
@@ -324,15 +324,15 @@ class BaserowExpressionContext:
             return datetime.now(tz=timezone.utc)
 
 
-class BaserowFunctionCall(BaserowExpression[A]):
+class JadawelFunctionCall(JadawelExpression[A]):
     """
     Represents a function call with arguments to the function defined by function_def.
     """
 
     def __init__(
         self,
-        function_def: "BaserowFunctionDefinition",
-        args: List[BaserowExpression[A]],
+        function_def: "JadawelFunctionDefinition",
+        args: List[JadawelExpression[A]],
         expression_type: A,
         requires_aggregate_wrapper=False,
     ):
@@ -357,21 +357,21 @@ class BaserowFunctionCall(BaserowExpression[A]):
     def is_wrapper(self) -> bool:
         return self.function_def.is_wrapper
 
-    def accept(self, visitor: "visitors.BaserowFormulaASTVisitor[A, T]") -> T:
+    def accept(self, visitor: "visitors.JadawelFormulaASTVisitor[A, T]") -> T:
         return visitor.visit_function_call(self)
 
     def type_function_given_typed_args(
         self,
-        args: "List[BaserowExpression[formula_type.BaserowFormulaType]]",
-    ) -> "BaserowExpression[formula_type.BaserowFormulaType]":
+        args: "List[JadawelExpression[formula_type.JadawelFormulaType]]",
+    ) -> "JadawelExpression[formula_type.JadawelFormulaType]":
         return self.function_def.type_function_given_typed_args(
             args, self.with_args(args)
         )
 
     def type_function_given_valid_args(
         self,
-        args: "List[BaserowExpression[formula_type.BaserowFormulaValidType]]",
-    ) -> "BaserowExpression[formula_type.BaserowFormulaType]":
+        args: "List[JadawelExpression[formula_type.JadawelFormulaValidType]]",
+    ) -> "JadawelExpression[formula_type.JadawelFormulaType]":
         return self.function_def.type_function_given_valid_args(
             args, self.with_args(args)
         )
@@ -379,41 +379,41 @@ class BaserowFunctionCall(BaserowExpression[A]):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         return self.function_def.to_django_expression_given_args(args, context)
 
     def check_arg_type_valid(
         self,
         i: int,
-        typed_arg: "BaserowExpression[formula_type.BaserowFormulaType]",
-        all_typed_args: "List[BaserowExpression[formula_type.BaserowFormulaType]]",
-    ) -> "BaserowExpression[formula_type.BaserowFormulaType]":
+        typed_arg: "JadawelExpression[formula_type.JadawelFormulaType]",
+        all_typed_args: "List[JadawelExpression[formula_type.JadawelFormulaType]]",
+    ) -> "JadawelExpression[formula_type.JadawelFormulaType]":
         return self.function_def.check_arg_type_valid(i, typed_arg, all_typed_args)
 
-    def with_args(self, new_args) -> "BaserowFunctionCall[A]":
+    def with_args(self, new_args) -> "JadawelFunctionCall[A]":
         """
         :param new_args: The arguments to use in the newly constructed function call.
-        :return: A new BaserowFunctionCall to the same function_def but with replaced
+        :return: A new JadawelFunctionCall to the same function_def but with replaced
             arguments.
         """
 
-        return BaserowFunctionCall(self.function_def, new_args, self.expression_type)
+        return JadawelFunctionCall(self.function_def, new_args, self.expression_type)
 
     def __str__(self):
         args_string = ",".join([str(a) for a in self.args])
         return f"{self.function_def.type}({args_string})"
 
 
-class BaserowFunctionDefinition(Instance, abc.ABC):
+class JadawelFunctionDefinition(Instance, abc.ABC):
     """
     A registrable instance which defines a function for use in the Jadawel Formula
     language. You most likely want to instead work with one of the simpler to use
     abstract sub classes of this class, depending on how many arguments your function
     takes:
-    - OneArgumentBaserowFunction
-    - TwoArgumentBaserowFunction
-    - ThreeArgumentBaserowFunction
+    - OneArgumentJadawelFunction
+    - TwoArgumentJadawelFunction
+    - ThreeArgumentJadawelFunction
     """
 
     is_wrapper = False
@@ -459,7 +459,7 @@ class BaserowFunctionDefinition(Instance, abc.ABC):
 
     @property
     @abc.abstractmethod
-    def arg_types(self) -> "formula_type.BaserowArgumentTypeChecker":
+    def arg_types(self) -> "formula_type.JadawelArgumentTypeChecker":
         """
         :return: An argument type checker which checks all arguments provided to this
             function have valid types.
@@ -479,18 +479,18 @@ class BaserowFunctionDefinition(Instance, abc.ABC):
     @abc.abstractmethod
     def type_function_given_valid_args(
         self,
-        args: "List[BaserowExpression[formula_type.BaserowFormulaValidType]]",
-        expression: "BaserowFunctionCall[formula_type.UnTyped]",
-    ) -> "BaserowExpression[formula_type.BaserowFormulaType]":
+        args: "List[JadawelExpression[formula_type.JadawelFormulaValidType]]",
+        expression: "JadawelFunctionCall[formula_type.UnTyped]",
+    ) -> "JadawelExpression[formula_type.JadawelFormulaType]":
         """
         Given a list of arguments extracted from the function call expression, already
         typed and checked by the self.arg_types property should calculate and return
-        a typed BaserowExpression for this function.
+        a typed JadawelExpression for this function.
 
         :param args: The typed and valid arguments taken from expression.
         :param expression: A func call expression for this function type which is
             untyped.
-        :return: A typed and possibly transformed or changed BaserowExpression for this
+        :return: A typed and possibly transformed or changed JadawelExpression for this
             function call.
         """
 
@@ -500,14 +500,14 @@ class BaserowFunctionDefinition(Instance, abc.ABC):
     def to_django_expression_given_args(
         self,
         args: List["WrappedExpressionWithMetadata"],
-        context: BaserowExpressionContext,
+        context: JadawelExpressionContext,
     ) -> "WrappedExpressionWithMetadata":
         """
         Given the args already converted to Django Expressions should return a Django
         Expression which calculates the result of a call to this function.
 
         Will only be called if all the args have passed the type check and the function
-        itself was typed with a BaserowValidType.
+        itself was typed with a JadawelValidType.
 
         :param model: The model the expression is being generated for.
         :param args: The already converted to Django expression args.
@@ -520,31 +520,31 @@ class BaserowFunctionDefinition(Instance, abc.ABC):
 
     def type_function_given_typed_args(
         self,
-        typed_args: "List[BaserowExpression[formula_type.BaserowFormulaType]]",
-        expression: "BaserowFunctionCall[formula_type.UnTyped]",
-    ) -> "BaserowExpression[formula_type.BaserowFormulaType]":
+        typed_args: "List[JadawelExpression[formula_type.JadawelFormulaType]]",
+        expression: "JadawelFunctionCall[formula_type.UnTyped]",
+    ) -> "JadawelExpression[formula_type.JadawelFormulaType]":
         """
         Given the already typed arguments for a func_call to a function of this
         definition this function will check the type of each argument against the
         arg_types property. If they all pass the type check then the user implemented
         type_function_given_valid_args will be called. If they don't a
-        BaserowInvalidType will be returned containing a relevant error message.
+        JadawelInvalidType will be returned containing a relevant error message.
 
-        :param typed_args: The typed but not checked argument BaserowExpressions.
+        :param typed_args: The typed but not checked argument JadawelExpressions.
         :param expression: The func_call expression which contains the typed_args but
             is not yet typed as we first need to type and check the args.
-        :return: A fully typed and possibly transformed BaserowExpression which
+        :return: A fully typed and possibly transformed JadawelExpression which
             implements a call to this function.
         """
 
-        valid_args: "List[BaserowExpression[formula_type.BaserowFormulaValidType]]" = (
+        valid_args: "List[JadawelExpression[formula_type.JadawelFormulaValidType]]" = (
             list()
         )
-        invalid_results: "List[Tuple[int, formula_type.BaserowFormulaInvalidType]]" = []
+        invalid_results: "List[Tuple[int, formula_type.JadawelFormulaInvalidType]]" = []
         for i, typed_arg in enumerate(typed_args):
             arg_type = typed_arg.expression_type
 
-            if isinstance(arg_type, formula_type.BaserowFormulaInvalidType):
+            if isinstance(arg_type, formula_type.JadawelFormulaInvalidType):
                 invalid_results.append((i, arg_type))
             else:
                 checked_typed_arg = expression.check_arg_type_valid(
@@ -552,7 +552,7 @@ class BaserowFunctionDefinition(Instance, abc.ABC):
                 )
                 if isinstance(
                     checked_typed_arg.expression_type,
-                    formula_type.BaserowFormulaInvalidType,
+                    formula_type.JadawelFormulaInvalidType,
                 ):
                     invalid_results.append((i, checked_typed_arg.expression_type))
                 else:
@@ -567,17 +567,17 @@ class BaserowFunctionDefinition(Instance, abc.ABC):
 
     def call_and_type_with_args(
         self,
-        args: "List[BaserowExpression[formula_type.BaserowFormulaType]]",
-    ) -> "BaserowFunctionCall[formula_type.BaserowFormulaType]":
-        func_call = BaserowFunctionCall[formula_type.UnTyped](self, args, None)
+        args: "List[JadawelExpression[formula_type.JadawelFormulaType]]",
+    ) -> "JadawelFunctionCall[formula_type.JadawelFormulaType]":
+        func_call = JadawelFunctionCall[formula_type.UnTyped](self, args, None)
         return func_call.type_function_given_typed_args(args)
 
     def check_arg_type_valid(
         self,
         arg_index: int,
-        typed_arg: "BaserowExpression[formula_type.BaserowFormulaType]",
-        all_typed_args: "List[BaserowExpression[formula_type.BaserowFormulaType]]",
-    ) -> "BaserowExpression[formula_type.BaserowFormulaType]":
+        typed_arg: "JadawelExpression[formula_type.JadawelFormulaType]",
+        all_typed_args: "List[JadawelExpression[formula_type.JadawelFormulaType]]",
+    ) -> "JadawelExpression[formula_type.JadawelFormulaType]":
         """
         Checks if the typed argument at arg_index is a valid type using the
         self.arg_types type checker.

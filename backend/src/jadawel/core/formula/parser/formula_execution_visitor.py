@@ -1,8 +1,8 @@
-from jadawel.core.formula import BaserowFormula, BaserowFormulaVisitor
+from jadawel.core.formula import JadawelFormula, JadawelFormulaVisitor
 from jadawel.core.formula.parser.exceptions import (
-    BaserowFormulaSyntaxError,
     FieldByIdReferencesAreDeprecated,
     FormulaFunctionTypeDoesNotExist,
+    JadawelFormulaSyntaxError,
     UnknownOperator,
 )
 from jadawel.core.formula.types import (
@@ -12,7 +12,7 @@ from jadawel.core.formula.types import (
 )
 
 
-class BaserowFormulaExecutionVisitor(BaserowFormulaVisitor):
+class JadawelFormulaExecutionVisitor(JadawelFormulaVisitor):
     def __init__(
         self,
         functions: FunctionCollection,
@@ -21,20 +21,20 @@ class BaserowFormulaExecutionVisitor(BaserowFormulaVisitor):
         self.context = context
         self.functions = functions
 
-    def visitRoot(self, ctx: BaserowFormula.RootContext):
+    def visitRoot(self, ctx: JadawelFormula.RootContext):
         return ctx.expr().accept(self)
 
-    def visitStringLiteral(self, ctx: BaserowFormula.StringLiteralContext):
+    def visitStringLiteral(self, ctx: JadawelFormula.StringLiteralContext):
         # noinspection PyTypeChecker
         return self.process_string(ctx)
 
-    def visitDecimalLiteral(self, ctx: BaserowFormula.DecimalLiteralContext):
+    def visitDecimalLiteral(self, ctx: JadawelFormula.DecimalLiteralContext):
         return float(ctx.getText())
 
-    def visitBooleanLiteral(self, ctx: BaserowFormula.BooleanLiteralContext):
+    def visitBooleanLiteral(self, ctx: JadawelFormula.BooleanLiteralContext):
         return ctx.TRUE() is not None
 
-    def visitBrackets(self, ctx: BaserowFormula.BracketsContext):
+    def visitBrackets(self, ctx: JadawelFormula.BracketsContext):
         return ctx.expr().accept(self)
 
     def process_string(self, ctx):
@@ -45,7 +45,7 @@ class BaserowFormulaExecutionVisitor(BaserowFormulaVisitor):
             literal = literal_without_outer_quotes.replace('\\"', '"')
         return literal
 
-    def visitFunctionCall(self, ctx: BaserowFormula.FunctionCallContext):
+    def visitFunctionCall(self, ctx: JadawelFormula.FunctionCallContext):
         function_name = ctx.func_name().accept(self).lower()
         function_argument_expressions = ctx.expr()
 
@@ -61,9 +61,9 @@ class BaserowFormulaExecutionVisitor(BaserowFormulaVisitor):
         try:
             return self.functions.get(function_name)
         except FormulaFunctionTypeDoesNotExist:
-            raise BaserowFormulaSyntaxError(f"{function_name} is not a valid function")
+            raise JadawelFormulaSyntaxError(f"{function_name} is not a valid function")
 
-    def visitBinaryOp(self, ctx: BaserowFormula.BinaryOpContext):
+    def visitBinaryOp(self, ctx: JadawelFormula.BinaryOpContext):
         if ctx.PLUS():
             op = "add"
         elif ctx.MINUS():
@@ -93,24 +93,24 @@ class BaserowFormulaExecutionVisitor(BaserowFormulaVisitor):
 
         return self._do_func(ctx.expr(), op)
 
-    def visitFunc_name(self, ctx: BaserowFormula.Func_nameContext):
+    def visitFunc_name(self, ctx: JadawelFormula.Func_nameContext):
         return ctx.getText()
 
-    def visitIdentifier(self, ctx: BaserowFormula.IdentifierContext):
+    def visitIdentifier(self, ctx: JadawelFormula.IdentifierContext):
         return ctx.getText()
 
-    def visitIntegerLiteral(self, ctx: BaserowFormula.IntegerLiteralContext):
+    def visitIntegerLiteral(self, ctx: JadawelFormula.IntegerLiteralContext):
         return int(ctx.getText())
 
-    def visitFieldByIdReference(self, ctx: BaserowFormula.FieldByIdReferenceContext):
+    def visitFieldByIdReference(self, ctx: JadawelFormula.FieldByIdReferenceContext):
         raise FieldByIdReferencesAreDeprecated()
 
     def visitLeftWhitespaceOrComments(
-        self, ctx: BaserowFormula.LeftWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.LeftWhitespaceOrCommentsContext
     ):
         return ctx.expr().accept(self)
 
     def visitRightWhitespaceOrComments(
-        self, ctx: BaserowFormula.RightWhitespaceOrCommentsContext
+        self, ctx: JadawelFormula.RightWhitespaceOrCommentsContext
     ):
         return ctx.expr().accept(self)

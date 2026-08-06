@@ -1,8 +1,8 @@
-import BaserowFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/BaserowFormulaVisitor'
+import JadawelFormulaVisitor from '@jadawel/modules/core/formula/parser/generated/JadawelFormulaVisitor'
 import { UnknownOperatorError } from '@jadawel/modules/core/formula/parser/errors'
 import _ from 'lodash'
 
-export class ToTipTapVisitor extends BaserowFormulaVisitor {
+export class ToTipTapVisitor extends JadawelFormulaVisitor {
   constructor(functions, mode = 'simple') {
     super()
     this.functions = functions

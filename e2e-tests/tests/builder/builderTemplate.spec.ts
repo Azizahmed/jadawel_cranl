@@ -1,5 +1,5 @@
 import { TemplatePage } from "../../pages/templatePage";
-import { expect, test } from "../baserowTest";
+import { expect, test } from "../jadawelTest";
 
 test.describe("Builder template application test suite", () => {
   test.skip("Can show an AB template", async ({ page }) => {

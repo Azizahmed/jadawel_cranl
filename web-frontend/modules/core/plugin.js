@@ -58,7 +58,7 @@ import {
   WorkspaceInvitationCreatedNotificationType,
   WorkspaceInvitationAcceptedNotificationType,
   WorkspaceInvitationRejectedNotificationType,
-  BaserowVersionUpgradeNotificationType,
+  JadawelVersionUpgradeNotificationType,
 } from '@jadawel/modules/core/notificationTypes'
 import { MoreOnboardingType } from '@jadawel/modules/core/onboardingTypes'
 import { SidebarGuidedTourType } from '@jadawel/modules/core/guidedTourTypes'
@@ -355,7 +355,7 @@ export default defineNuxtPlugin({
     )
     registry.register(
       'notification',
-      new BaserowVersionUpgradeNotificationType(context)
+      new JadawelVersionUpgradeNotificationType(context)
     )
 
     registry.register('twoFactorAuth', new TOTPAuthType(context))

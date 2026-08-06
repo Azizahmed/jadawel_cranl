@@ -31,7 +31,7 @@ different from the Jadawel Formula language, but generates a Jadawel Formula AST
 allowing use of that language in Jadawel easily.
 """
 
-from jadawel.contrib.database.formula.ast.tree import BaserowExpression
+from jadawel.contrib.database.formula.ast.tree import JadawelExpression
 from jadawel.contrib.database.formula.handler import FormulaHandler
 from jadawel.contrib.database.formula.operations import TypeFormulaOperationType
 from jadawel.contrib.database.formula.types.exceptions import (
@@ -39,8 +39,8 @@ from jadawel.contrib.database.formula.types.exceptions import (
     get_invalid_field_and_table_formula_error,
 )
 from jadawel.contrib.database.formula.types.formula_type import (
-    BaserowFormulaInvalidType,
-    BaserowFormulaType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaType,
 )
 from jadawel.contrib.database.formula.types.formula_types import (
     JADAWEL_FORMULA_ARRAY_TYPE_CHOICES,
@@ -48,34 +48,34 @@ from jadawel.contrib.database.formula.types.formula_types import (
     JADAWEL_FORMULA_TYPE_CHOICES,
     JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES,
     JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES,
-    BaserowFormulaArrayType,
-    BaserowFormulaBooleanType,
-    BaserowFormulaCharType,
-    BaserowFormulaDateType,
-    BaserowFormulaLinkType,
-    BaserowFormulaMultipleCollaboratorsType,
-    BaserowFormulaMultipleSelectType,
-    BaserowFormulaNumberType,
-    BaserowFormulaSingleSelectType,
-    BaserowFormulaTextType,
+    JadawelFormulaArrayType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaCharType,
+    JadawelFormulaDateType,
+    JadawelFormulaLinkType,
+    JadawelFormulaMultipleCollaboratorsType,
+    JadawelFormulaMultipleSelectType,
+    JadawelFormulaNumberType,
+    JadawelFormulaSingleSelectType,
+    JadawelFormulaTextType,
     literal,
 )
 
 __all__ = [
     FormulaHandler,
-    BaserowExpression,
-    BaserowFormulaType,
-    BaserowFormulaInvalidType,
-    BaserowFormulaTextType,
-    BaserowFormulaNumberType,
-    BaserowFormulaCharType,
-    BaserowFormulaLinkType,
-    BaserowFormulaDateType,
-    BaserowFormulaBooleanType,
-    BaserowFormulaArrayType,
-    BaserowFormulaSingleSelectType,
-    BaserowFormulaMultipleSelectType,
-    BaserowFormulaMultipleCollaboratorsType,
+    JadawelExpression,
+    JadawelFormulaType,
+    JadawelFormulaInvalidType,
+    JadawelFormulaTextType,
+    JadawelFormulaNumberType,
+    JadawelFormulaCharType,
+    JadawelFormulaLinkType,
+    JadawelFormulaDateType,
+    JadawelFormulaBooleanType,
+    JadawelFormulaArrayType,
+    JadawelFormulaSingleSelectType,
+    JadawelFormulaMultipleSelectType,
+    JadawelFormulaMultipleCollaboratorsType,
     JADAWEL_FORMULA_TYPE_ALLOWED_FIELDS,
     JADAWEL_FORMULA_TYPE_SERIALIZER_FIELD_NAMES,
     JADAWEL_FORMULA_TYPE_REQUEST_SERIALIZER_FIELD_NAMES,

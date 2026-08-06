@@ -15,8 +15,8 @@ from jadawel.contrib.database.fields.field_filters import (
     OptionallyAnnotatedQ,
 )
 from jadawel.contrib.database.formula.expression_generator.django_expressions import (
-    BaserowFilterExpression,
     ComparisonOperator,
+    JadawelFilterExpression,
     JSONArrayAllAreExpr,
     JSONArrayCompareNumericValueExpr,
     JSONArrayContainsValueLengthLowerThanExpr,
@@ -219,7 +219,7 @@ class HasNumericValueComparableToFilterSupport:
 
 
 def get_array_json_filter_expression(
-    json_expression: Type[BaserowFilterExpression],
+    json_expression: Type[JadawelFilterExpression],
     field_name: str,
     value: Value,
     **extra: Dict[str, Any],
@@ -230,7 +230,7 @@ def get_array_json_filter_expression(
     don't clash when combined with similar filters for different fields or values.
 
 
-    :param json_expression: BaserowFilterExpression to use for filtering.
+    :param json_expression: JadawelFilterExpression to use for filtering.
     :param field_name: the name of the field
     :param value: Value expression containing the filter value with the proper type.
     :param extra: extra arguments for the json_expression.

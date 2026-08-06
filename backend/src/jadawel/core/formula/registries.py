@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, TypeVar
 
-from jadawel.core.formula.argument_types import BaserowRuntimeFormulaArgumentType
+from jadawel.core.formula.argument_types import JadawelRuntimeFormulaArgumentType
 from jadawel.core.formula.parser.exceptions import (
     FormulaFunctionTypeDoesNotExist,
     InvalidFormulaArgumentType,
@@ -34,7 +34,7 @@ class RuntimeFormulaFunction(ABC, Instance):
         pass
 
     @property
-    def args(self) -> Optional[List[BaserowRuntimeFormulaArgumentType]]:
+    def args(self) -> Optional[List[JadawelRuntimeFormulaArgumentType]]:
         """
         Should define the arguments the function has. If null then we don't know what
         arguments the function has any anything is accepted.
@@ -137,7 +137,7 @@ class RuntimeFormulaFunction(ABC, Instance):
         ]
 
 
-class BaserowRuntimeFormulaFunctionRegistry(
+class JadawelRuntimeFormulaFunctionRegistry(
     Registry[RuntimeFormulaFunction], FunctionCollection
 ):
     name = "formula_runtime_function"
@@ -228,4 +228,4 @@ class DataProviderTypeRegistry(
     name = "data_provider"
 
 
-formula_runtime_function_registry = BaserowRuntimeFormulaFunctionRegistry()
+formula_runtime_function_registry = JadawelRuntimeFormulaFunctionRegistry()

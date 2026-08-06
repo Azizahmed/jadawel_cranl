@@ -1,10 +1,10 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { BaserowPage, PageConfig } from "../baserowPage";
+import { JadawelPage, PageConfig } from "../jadawelPage";
 import { Table } from "../../fixtures/database/table";
 
 const TEST_IMAGE_FILE_PATH = "assets/testuploadimage.png";
 
-export class TablePage extends BaserowPage {
+export class TablePage extends JadawelPage {
   private readonly projectsTextLocator: Locator;
   private readonly addColumnLocator: Locator;
   private readonly createButtonLocator: Locator;

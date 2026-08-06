@@ -11,7 +11,7 @@ from jadawel.contrib.database.fields.exceptions import (
     InvalidRollupThroughField,
 )
 from jadawel.contrib.database.fields.handler import FieldHandler
-from jadawel.contrib.database.formula import BaserowFormulaNumberType
+from jadawel.contrib.database.formula import JadawelFormulaNumberType
 from jadawel.contrib.database.formula.types.exceptions import InvalidFormulaType
 from jadawel.contrib.database.rows.handler import RowHandler
 from jadawel.core.formula.parser.exceptions import FormulaFunctionTypeDoesNotExist
@@ -620,7 +620,7 @@ def test_import_export_tables_with_rollup_fields(
         name=customer_age.name
     ).specific
     assert imported_rollup_field.formula == rollup_field.formula
-    assert imported_rollup_field.formula_type == BaserowFormulaNumberType.type
+    assert imported_rollup_field.formula_type == JadawelFormulaNumberType.type
     assert imported_rollup_field.through_field.name == link_row_field.name
     assert imported_rollup_field.through_field_id == imported_through_field.id
     assert imported_rollup_field.target_field.name == customer_age.name

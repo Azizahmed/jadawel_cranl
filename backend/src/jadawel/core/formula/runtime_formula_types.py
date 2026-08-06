@@ -6,16 +6,16 @@ from zoneinfo import ZoneInfo
 from django.utils import timezone
 
 from jadawel.core.exceptions import InstanceTypeDoesNotExist
-from jadawel.core.formula import BaserowFormulaSyntaxError
+from jadawel.core.formula import JadawelFormulaSyntaxError
 from jadawel.core.formula.argument_types import (
-    AnyBaserowRuntimeFormulaArgumentType,
-    ArrayOfNumbersBaserowRuntimeFormulaArgumentType,
-    BooleanBaserowRuntimeFormulaArgumentType,
-    DateTimeBaserowRuntimeFormulaArgumentType,
-    DictBaserowRuntimeFormulaArgumentType,
-    NumberBaserowRuntimeFormulaArgumentType,
-    TextBaserowRuntimeFormulaArgumentType,
-    TimezoneBaserowRuntimeFormulaArgumentType,
+    AnyJadawelRuntimeFormulaArgumentType,
+    ArrayOfNumbersJadawelRuntimeFormulaArgumentType,
+    BooleanJadawelRuntimeFormulaArgumentType,
+    DateTimeJadawelRuntimeFormulaArgumentType,
+    DictJadawelRuntimeFormulaArgumentType,
+    NumberJadawelRuntimeFormulaArgumentType,
+    TextJadawelRuntimeFormulaArgumentType,
+    TimezoneJadawelRuntimeFormulaArgumentType,
 )
 from jadawel.core.formula.registries import RuntimeFormulaFunction
 from jadawel.core.formula.types import FormulaArg, FormulaArgs, FormulaContext
@@ -29,7 +29,7 @@ class RuntimeConcat(RuntimeFormulaFunction):
     min_args = 2
 
     def validate_type_of_args(self, args) -> Optional[FormulaArg]:
-        arg_type = TextBaserowRuntimeFormulaArgumentType()
+        arg_type = TextJadawelRuntimeFormulaArgumentType()
         return next(
             (arg for arg in args if not arg_type.test(arg)),
             None,
@@ -44,7 +44,7 @@ class RuntimeConcat(RuntimeFormulaFunction):
 
 class RuntimeGet(RuntimeFormulaFunction):
     type = "get"
-    args = [TextBaserowRuntimeFormulaArgumentType()]
+    args = [TextJadawelRuntimeFormulaArgumentType()]
 
     def validate_args(
         self,
@@ -55,7 +55,7 @@ class RuntimeGet(RuntimeFormulaFunction):
 
         provider_name, *rest = to_path(args[0])
         if not provider_name:
-            raise BaserowFormulaSyntaxError(
+            raise JadawelFormulaSyntaxError(
                 f"The '{self.type}' function arguments "
                 "must start with a formula provider name."
             )
@@ -82,8 +82,8 @@ class RuntimeAdd(RuntimeFormulaFunction):
     type = "add"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(),
-        NumberBaserowRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -94,8 +94,8 @@ class RuntimeMinus(RuntimeFormulaFunction):
     type = "minus"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(),
-        NumberBaserowRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -106,8 +106,8 @@ class RuntimeMultiply(RuntimeFormulaFunction):
     type = "multiply"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(),
-        NumberBaserowRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -118,8 +118,8 @@ class RuntimeDivide(RuntimeFormulaFunction):
     type = "divide"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(),
-        NumberBaserowRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -129,8 +129,8 @@ class RuntimeDivide(RuntimeFormulaFunction):
 class RuntimeEqual(RuntimeFormulaFunction):
     type = "equal"
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -140,8 +140,8 @@ class RuntimeEqual(RuntimeFormulaFunction):
 class RuntimeNotEqual(RuntimeFormulaFunction):
     type = "not_equal"
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -151,8 +151,8 @@ class RuntimeNotEqual(RuntimeFormulaFunction):
 class RuntimeGreaterThan(RuntimeFormulaFunction):
     type = "greater_than"
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -162,8 +162,8 @@ class RuntimeGreaterThan(RuntimeFormulaFunction):
 class RuntimeLessThan(RuntimeFormulaFunction):
     type = "less_than"
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -173,8 +173,8 @@ class RuntimeLessThan(RuntimeFormulaFunction):
 class RuntimeGreaterThanOrEqual(RuntimeFormulaFunction):
     type = "greater_than_or_equal"
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -184,8 +184,8 @@ class RuntimeGreaterThanOrEqual(RuntimeFormulaFunction):
 class RuntimeLessThanOrEqual(RuntimeFormulaFunction):
     type = "less_than_or_equal"
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -195,7 +195,7 @@ class RuntimeLessThanOrEqual(RuntimeFormulaFunction):
 class RuntimeUpper(RuntimeFormulaFunction):
     type = "upper"
 
-    args = [TextBaserowRuntimeFormulaArgumentType()]
+    args = [TextJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].upper()
@@ -204,7 +204,7 @@ class RuntimeUpper(RuntimeFormulaFunction):
 class RuntimeLower(RuntimeFormulaFunction):
     type = "lower"
 
-    args = [TextBaserowRuntimeFormulaArgumentType()]
+    args = [TextJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].lower()
@@ -213,7 +213,7 @@ class RuntimeLower(RuntimeFormulaFunction):
 class RuntimeCapitalize(RuntimeFormulaFunction):
     type = "capitalize"
 
-    args = [TextBaserowRuntimeFormulaArgumentType()]
+    args = [TextJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].capitalize()
@@ -223,8 +223,8 @@ class RuntimeRound(RuntimeFormulaFunction):
     type = "round"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(),
-        NumberBaserowRuntimeFormulaArgumentType(optional=True, cast_to_int=True),
+        NumberJadawelRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(optional=True, cast_to_int=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -241,7 +241,7 @@ class RuntimeRound(RuntimeFormulaFunction):
 class RuntimeIsEven(RuntimeFormulaFunction):
     type = "is_even"
 
-    args = [NumberBaserowRuntimeFormulaArgumentType()]
+    args = [NumberJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0] % 2 == 0
@@ -250,7 +250,7 @@ class RuntimeIsEven(RuntimeFormulaFunction):
 class RuntimeIsOdd(RuntimeFormulaFunction):
     type = "is_odd"
 
-    args = [NumberBaserowRuntimeFormulaArgumentType()]
+    args = [NumberJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0] % 2 != 0
@@ -260,9 +260,9 @@ class RuntimeDateTimeFormat(RuntimeFormulaFunction):
     type = "datetime_format"
 
     args = [
-        DateTimeBaserowRuntimeFormulaArgumentType(),
-        TextBaserowRuntimeFormulaArgumentType(),
-        TimezoneBaserowRuntimeFormulaArgumentType(optional=True),
+        DateTimeJadawelRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(),
+        TimezoneJadawelRuntimeFormulaArgumentType(optional=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -293,7 +293,7 @@ class RuntimeDateTimeFormat(RuntimeFormulaFunction):
 class RuntimeDay(RuntimeFormulaFunction):
     type = "day"
 
-    args = [DateTimeBaserowRuntimeFormulaArgumentType()]
+    args = [DateTimeJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].day
@@ -302,7 +302,7 @@ class RuntimeDay(RuntimeFormulaFunction):
 class RuntimeMonth(RuntimeFormulaFunction):
     type = "month"
 
-    args = [DateTimeBaserowRuntimeFormulaArgumentType()]
+    args = [DateTimeJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].month
@@ -311,7 +311,7 @@ class RuntimeMonth(RuntimeFormulaFunction):
 class RuntimeYear(RuntimeFormulaFunction):
     type = "year"
 
-    args = [DateTimeBaserowRuntimeFormulaArgumentType()]
+    args = [DateTimeJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].year
@@ -320,7 +320,7 @@ class RuntimeYear(RuntimeFormulaFunction):
 class RuntimeHour(RuntimeFormulaFunction):
     type = "hour"
 
-    args = [DateTimeBaserowRuntimeFormulaArgumentType()]
+    args = [DateTimeJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].hour
@@ -329,7 +329,7 @@ class RuntimeHour(RuntimeFormulaFunction):
 class RuntimeMinute(RuntimeFormulaFunction):
     type = "minute"
 
-    args = [DateTimeBaserowRuntimeFormulaArgumentType()]
+    args = [DateTimeJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].minute
@@ -338,7 +338,7 @@ class RuntimeMinute(RuntimeFormulaFunction):
 class RuntimeSecond(RuntimeFormulaFunction):
     type = "second"
 
-    args = [DateTimeBaserowRuntimeFormulaArgumentType()]
+    args = [DateTimeJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return args[0].second
@@ -366,8 +366,8 @@ class RuntimeGetProperty(RuntimeFormulaFunction):
     type = "get_property"
 
     args = [
-        DictBaserowRuntimeFormulaArgumentType(),
-        TextBaserowRuntimeFormulaArgumentType(),
+        DictJadawelRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -378,8 +378,8 @@ class RuntimeRandomInt(RuntimeFormulaFunction):
     type = "random_int"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(cast_to_int=True),
-        NumberBaserowRuntimeFormulaArgumentType(cast_to_int=True),
+        NumberJadawelRuntimeFormulaArgumentType(cast_to_int=True),
+        NumberJadawelRuntimeFormulaArgumentType(cast_to_int=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -390,8 +390,8 @@ class RuntimeRandomFloat(RuntimeFormulaFunction):
     type = "random_float"
 
     args = [
-        NumberBaserowRuntimeFormulaArgumentType(cast_to_float=True),
-        NumberBaserowRuntimeFormulaArgumentType(cast_to_float=True),
+        NumberJadawelRuntimeFormulaArgumentType(cast_to_float=True),
+        NumberJadawelRuntimeFormulaArgumentType(cast_to_float=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -420,9 +420,9 @@ class RuntimeIf(RuntimeFormulaFunction):
     type = "if"
 
     args = [
-        BooleanBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        BooleanJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -433,8 +433,8 @@ class RuntimeAnd(RuntimeFormulaFunction):
     type = "and"
 
     args = [
-        BooleanBaserowRuntimeFormulaArgumentType(),
-        BooleanBaserowRuntimeFormulaArgumentType(),
+        BooleanJadawelRuntimeFormulaArgumentType(),
+        BooleanJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -445,8 +445,8 @@ class RuntimeOr(RuntimeFormulaFunction):
     type = "or"
 
     args = [
-        BooleanBaserowRuntimeFormulaArgumentType(),
-        BooleanBaserowRuntimeFormulaArgumentType(),
+        BooleanJadawelRuntimeFormulaArgumentType(),
+        BooleanJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -457,9 +457,9 @@ class RuntimeReplace(RuntimeFormulaFunction):
     type = "replace"
 
     args = [
-        TextBaserowRuntimeFormulaArgumentType(),
-        TextBaserowRuntimeFormulaArgumentType(),
-        TextBaserowRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -470,7 +470,7 @@ class RuntimeLength(RuntimeFormulaFunction):
     type = "length"
 
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -481,8 +481,8 @@ class RuntimeContains(RuntimeFormulaFunction):
     type = "contains"
 
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -493,7 +493,7 @@ class RuntimeReverse(RuntimeFormulaFunction):
     type = "reverse"
 
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -512,8 +512,8 @@ class RuntimeJoin(RuntimeFormulaFunction):
     type = "join"
 
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        TextBaserowRuntimeFormulaArgumentType(optional=True),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(optional=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -526,8 +526,8 @@ class RuntimeSplit(RuntimeFormulaFunction):
     type = "split"
 
     args = [
-        TextBaserowRuntimeFormulaArgumentType(),
-        TextBaserowRuntimeFormulaArgumentType(optional=True),
+        TextJadawelRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(optional=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -539,7 +539,7 @@ class RuntimeIsEmpty(RuntimeFormulaFunction):
     type = "is_empty"
 
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
+        AnyJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -560,7 +560,7 @@ class RuntimeStrip(RuntimeFormulaFunction):
     type = "strip"
 
     args = [
-        TextBaserowRuntimeFormulaArgumentType(),
+        TextJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -571,7 +571,7 @@ class RuntimeSum(RuntimeFormulaFunction):
     type = "sum"
 
     args = [
-        ArrayOfNumbersBaserowRuntimeFormulaArgumentType(),
+        ArrayOfNumbersJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -582,7 +582,7 @@ class RuntimeAvg(RuntimeFormulaFunction):
     type = "avg"
 
     args = [
-        ArrayOfNumbersBaserowRuntimeFormulaArgumentType(),
+        ArrayOfNumbersJadawelRuntimeFormulaArgumentType(),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -593,8 +593,8 @@ class RuntimeAt(RuntimeFormulaFunction):
     type = "at"
 
     args = [
-        AnyBaserowRuntimeFormulaArgumentType(),
-        NumberBaserowRuntimeFormulaArgumentType(cast_to_int=True),
+        AnyJadawelRuntimeFormulaArgumentType(),
+        NumberJadawelRuntimeFormulaArgumentType(cast_to_int=True),
     ]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
@@ -606,7 +606,7 @@ class RuntimeAt(RuntimeFormulaFunction):
 class RuntimeToArray(RuntimeFormulaFunction):
     type = "to_array"
 
-    args = [TextBaserowRuntimeFormulaArgumentType()]
+    args = [TextJadawelRuntimeFormulaArgumentType()]
 
     def execute(self, context: FormulaContext, args: FormulaArgs):
         return ensure_array(args[0])
