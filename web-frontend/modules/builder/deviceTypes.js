@@ -46,7 +46,7 @@ export class TabletDeviceType extends DeviceType {
   }
 
   get iconClass() {
-    return 'baserow-icon-tablet'
+    return 'jadawel-icon-tablet'
   }
 
   getOrder() {
@@ -68,7 +68,7 @@ export class SmartphoneDeviceType extends DeviceType {
   }
 
   get iconClass() {
-    return 'baserow-icon-smartphone'
+    return 'jadawel-icon-smartphone'
   }
 
   getOrder() {

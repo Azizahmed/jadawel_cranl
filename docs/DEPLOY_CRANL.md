@@ -115,7 +115,7 @@ working set and why each is needed.
 | `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Drops a step that can take 30 minutes from every boot. |
 | `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Must be set alongside the row above, which it silently defaults to (`backend/docker/docker-entrypoint.sh:30`). Without it the instance has **no templates at all**; with it they import in celery after boot instead of blocking it. |
-| `SECRET_KEY` | *generated* | Must be set explicitly. `baserow.sh` otherwise generates one into `/jadawel/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |
+| `SECRET_KEY` | *generated* | Must be set explicitly. `jadawel.sh` otherwise generates one into `/jadawel/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |
 | `JADAWEL_JWT_SIGNING_KEY` | *generated* | Same, via `.jwt_signing_key`. Regenerating it logs everyone out. |
 | `JADAWEL_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
 | `DATABASE_URL` | *from managed Postgres* | Or the `DATABASE_HOST` / `PORT` / `NAME` / `USER` / `PASSWORD` set. |

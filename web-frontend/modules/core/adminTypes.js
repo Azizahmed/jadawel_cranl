@@ -145,7 +145,7 @@ export class WorkspacesAdminType extends AdminType {
   }
 
   getIconClass() {
-    return 'baserow-icon-groups'
+    return 'jadawel-icon-groups'
   }
 
   getName() {

@@ -913,7 +913,7 @@
                 </a>
                 <i class="select__item-active-icon iconoir-check"></i>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
               <li class="select__item">
@@ -921,7 +921,7 @@
                   <div class="select__item-name">Workspace name 2</div>
                 </a>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
               <li class="select__item select__item--loading">
@@ -929,7 +929,7 @@
                   <div class="select__item-name">Workspace name 3</div>
                 </a>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
               <li class="select__item">
@@ -937,7 +937,7 @@
                   <div class="select__item-name">Workspace name 4</div>
                 </a>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
             </ul>
@@ -974,7 +974,7 @@
                   class="select__item-options"
                   data-context=".context"
                 >
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
               <li class="select__item">
@@ -987,7 +987,7 @@
                   </div>
                 </a>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
               <li class="select__item">
@@ -1000,7 +1000,7 @@
                   </div>
                 </a>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
               <li class="select__item">
@@ -1013,7 +1013,7 @@
                   </div>
                 </a>
                 <a href="#" class="select__item-options">
-                  <i class="baserow-icon-more-vertical"></i>
+                  <i class="jadawel-icon-more-vertical"></i>
                 </a>
               </li>
             </ul>
@@ -1106,7 +1106,7 @@
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     Number
                   </a>
                 </li>
@@ -1121,13 +1121,13 @@
                 <li class="formula-field__item-group-title">Constants</li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     e
                   </a>
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     pi
                   </a>
                 </li>
@@ -1154,31 +1154,31 @@
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     add
                   </a>
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     subtract
                   </a>
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     multiply
                   </a>
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     divide
                   </a>
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     pow
                   </a>
                 </li>
@@ -1205,7 +1205,7 @@
                 </li>
                 <li class="formula-field__item">
                   <a href="#" class="formula-field__item-link">
-                    <i class="baserow-icon-hashtag formula-field__item-icon" />
+                    <i class="jadawel-icon-hashtag formula-field__item-icon" />
                     length
                   </a>
                 </li>
@@ -1783,7 +1783,7 @@
                         <div class="data-table__more-wrapper">
                           <a href="#" class="data-table__more">
                             <i
-                              class="data-table__more-icon baserow-icon-more-horizontal"
+                              class="data-table__more-icon jadawel-icon-more-horizontal"
                             ></i>
                           </a>
                         </div>
@@ -1949,7 +1949,7 @@
           <h2>Call to action</h2>
           <CallToAction> My call to action. Click me! </CallToAction>
           <br />
-          <CallToAction icon="baserow-icon-plus">
+          <CallToAction icon="jadawel-icon-plus">
             Call to action with an icon
           </CallToAction>
         </div>

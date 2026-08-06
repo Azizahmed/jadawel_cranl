@@ -53,7 +53,7 @@
         class="workflow-node-content__more-icon"
         @click="openEditContext()"
       >
-        <i class="baserow-icon-more-vertical"></i>
+        <i class="jadawel-icon-more-vertical"></i>
       </a>
     </div>
 
@@ -75,7 +75,7 @@
             :class="{ disabled: getReplaceErrorMessage }"
             @click="!getReplaceErrorMessage && openReplaceContext()"
           >
-            <i class="context__menu-item-icon baserow-icon-history"></i>
+            <i class="context__menu-item-icon jadawel-icon-history"></i>
             {{ $t('workflowNode.moreReplace') }}
           </a>
         </li>

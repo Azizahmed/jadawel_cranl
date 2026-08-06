@@ -5,7 +5,7 @@ export class BuilderSearchType extends BaseSearchType {
     super(context)
     this.type = 'builder'
     this.name = 'Builder'
-    this.icon = 'baserow-icon-application'
+    this.icon = 'jadawel-icon-application'
     this.priority = 2
   }
 

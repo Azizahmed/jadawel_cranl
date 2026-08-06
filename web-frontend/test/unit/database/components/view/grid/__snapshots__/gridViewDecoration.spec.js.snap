@@ -98,7 +98,7 @@ exports[`GridView component with decoration > Default component with first_cell 
                     row="[object Object]"
                   >
                     <i
-                      class="baserow-icon-enlarge-row"
+                      class="jadawel-icon-enlarge-row"
                     />
                   </a>
                   
@@ -550,7 +550,7 @@ exports[`GridView component with decoration > Default component with row wrapper
                         row="[object Object]"
                       >
                         <i
-                          class="baserow-icon-enlarge-row"
+                          class="jadawel-icon-enlarge-row"
                         />
                       </a>
                       
@@ -998,7 +998,7 @@ exports[`GridView component with decoration > Default component with unavailable
                     row="[object Object]"
                   >
                     <i
-                      class="baserow-icon-enlarge-row"
+                      class="jadawel-icon-enlarge-row"
                     />
                   </a>
                   

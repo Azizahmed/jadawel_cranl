@@ -14,7 +14,7 @@ export class DashboardApplicationType extends ApplicationType {
   }
 
   getIconClass() {
-    return 'baserow-icon-dashboard'
+    return 'jadawel-icon-dashboard'
   }
 
   getName() {

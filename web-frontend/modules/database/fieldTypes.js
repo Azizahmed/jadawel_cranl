@@ -1752,7 +1752,7 @@ export class NumberFieldType extends FieldType {
   }
 
   static getIconClass() {
-    return 'baserow-icon-hashtag'
+    return 'jadawel-icon-hashtag'
   }
 
   getName() {
@@ -2168,7 +2168,7 @@ export class BooleanFieldType extends FieldType {
   }
 
   static getIconClass() {
-    return 'baserow-icon-circle-checked'
+    return 'jadawel-icon-circle-checked'
   }
 
   getName() {
@@ -2218,7 +2218,7 @@ export class BooleanFieldType extends FieldType {
   }
 
   getSortIndicator() {
-    return ['icon', 'baserow-icon-circle-empty', 'baserow-icon-circle-checked']
+    return ['icon', 'jadawel-icon-circle-empty', 'jadawel-icon-circle-checked']
   }
 
   canUpsert() {
@@ -3601,7 +3601,7 @@ export class SingleSelectFieldType extends SelectOptionBaseFieldType {
   }
 
   static getIconClass() {
-    return 'baserow-icon-single-select'
+    return 'jadawel-icon-single-select'
   }
 
   getName() {
@@ -4345,7 +4345,7 @@ export class FormulaFieldType extends mix(
   }
 
   static getIconClass() {
-    return 'baserow-icon-formula'
+    return 'jadawel-icon-formula'
   }
 
   getName() {

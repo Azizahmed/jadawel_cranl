@@ -134,7 +134,7 @@ export default {
         table_open: (tokens, idx, options, env, renderer) => {
           tokens[idx].attrJoin(
             'class',
-            'baserow-table baserow-table--horizontal'
+            'jadawel-table jadawel-table--horizontal'
           )
           return `<div class="ab-table">${renderer.renderToken(
             tokens,
@@ -148,9 +148,9 @@ export default {
         tr_open: (tokens, idx, options, env, renderer) => {
           // Only apply this styling to the first row present in table header.
           if (idx > 0 && tokens[idx - 1].type === 'thead_open') {
-            tokens[idx].attrJoin('class', 'baserow-table__row')
+            tokens[idx].attrJoin('class', 'jadawel-table__row')
           } else {
-            tokens[idx].attrJoin('class', 'baserow-table__row')
+            tokens[idx].attrJoin('class', 'jadawel-table__row')
           }
           return renderer.renderToken(tokens, idx, options)
         },

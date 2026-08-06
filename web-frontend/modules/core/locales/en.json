@@ -641,10 +641,10 @@
   },
   "settings": {
     "settingsTitle": "Admin settings",
-    "baserowInstanceId": "Instance ID",
+    "jadawelInstanceId": "Instance ID",
     "instanceIdDescription": "The instance ID is the unique identifier of your Jadawel copy.",
-    "baserowVersion": "Jadawel version",
-    "baserowVersionDescription": "The version number of this instance.",
+    "jadawelVersion": "Jadawel version",
+    "jadawelVersionDescription": "The version number of this instance.",
     "accountRestrictions": "Account restrictions",
     "settingAllowResetPasswordName": "Allow resetting password",
     "settingAllowResetPasswordDescription": "By default, users can request a password reset link.",

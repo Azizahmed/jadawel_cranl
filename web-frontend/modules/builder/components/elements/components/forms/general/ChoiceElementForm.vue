@@ -238,7 +238,7 @@ export default {
             : this.$t('choiceElementForm.radio'),
           value: false,
           icon: this.values.multiple
-            ? 'baserow-icon-check-square'
+            ? 'jadawel-icon-check-square'
             : 'iconoir-check-circle',
         },
       ]

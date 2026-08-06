@@ -25,7 +25,7 @@
     >
       <FormInput
         v-model="v$.values.channel.$model"
-        icon-left="baserow-icon-hashtag"
+        icon-left="jadawel-icon-hashtag"
         :placeholder="$t('slackWriteMessageServiceForm.channelPlaceholder')"
       >
       </FormInput>

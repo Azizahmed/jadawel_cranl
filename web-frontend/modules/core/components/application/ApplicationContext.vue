@@ -65,7 +65,7 @@
         class="context__menu-item"
       >
         <a class="context__menu-item-link" @click="openSnapshots">
-          <i class="context__menu-item-icon baserow-icon-history"></i>
+          <i class="context__menu-item-icon jadawel-icon-history"></i>
           {{ $t('sidebarApplication.snapshots') }}
         </a>
       </li>

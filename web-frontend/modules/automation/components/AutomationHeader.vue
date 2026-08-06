@@ -28,7 +28,7 @@
           class="header__filter-link"
           :class="{ 'active--primary': activeSidePanel === 'history' }"
           @click="historyClick()"
-          ><i class="header__filter-icon baserow-icon-history"></i>
+          ><i class="header__filter-icon jadawel-icon-history"></i>
           <span class="header__filter-name">{{
             $t('automationHeader.historyBtn')
           }}</span>

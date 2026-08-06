@@ -97,7 +97,7 @@ export class CSVTableExporterType extends TableExporterType {
   }
 
   getIconClass() {
-    return 'baserow-icon-file-csv'
+    return 'jadawel-icon-file-csv'
   }
 
   getName() {

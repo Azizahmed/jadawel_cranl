@@ -22,7 +22,7 @@
       <i
         v-if="!readOnly && canModifyFields"
         ref="contextLink"
-        class="control__context baserow-icon-more-vertical"
+        class="control__context jadawel-icon-more-vertical"
         @click="$refs.context.toggle($refs.contextLink, 'bottom', 'left', 0)"
       ></i>
     </label>

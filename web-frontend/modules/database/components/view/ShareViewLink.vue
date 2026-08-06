@@ -37,7 +37,7 @@
             <Button
               type="secondary"
               :disabled="readOnly"
-              icon="baserow-icon-share"
+              icon="jadawel-icon-share"
               @click.stop="!readOnly && updateView({ public: true })"
             >
               {{
@@ -176,7 +176,7 @@
             </ButtonText>
             <ButtonText
               v-else
-              icon="baserow-icon-share"
+              icon="jadawel-icon-share"
               @click.stop="!readOnly && updateView({ public: true })"
             >
               {{

@@ -5,7 +5,7 @@ export class DashboardSearchType extends BaseSearchType {
     super(context)
     this.type = 'dashboard'
     this.name = 'Dashboard'
-    this.icon = 'baserow-icon-dashboard'
+    this.icon = 'jadawel-icon-dashboard'
     this.priority = 3
   }
 

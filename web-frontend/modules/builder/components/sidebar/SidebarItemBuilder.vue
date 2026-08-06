@@ -26,7 +26,7 @@
       @click="$refs.context.toggle($event.currentTarget, 'bottom', 'right', 0)"
       @mousedown.stop
     >
-      <i class="baserow-icon-more-vertical"></i>
+      <i class="jadawel-icon-more-vertical"></i>
     </a>
 
     <Context ref="context" overflow-scroll max-height-if-outside-viewport>

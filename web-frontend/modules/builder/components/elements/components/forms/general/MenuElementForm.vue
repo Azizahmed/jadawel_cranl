@@ -146,12 +146,12 @@ export default {
           type: 'button',
         },
         {
-          icon: 'baserow-icon-separator',
+          icon: 'jadawel-icon-separator',
           label: this.$t('menuElementForm.menuItemAddSeparator'),
           type: 'separator',
         },
         {
-          icon: 'baserow-icon-spacer',
+          icon: 'jadawel-icon-spacer',
           label: this.$t('menuElementForm.menuItemAddSpacer'),
           type: 'spacer',
         },

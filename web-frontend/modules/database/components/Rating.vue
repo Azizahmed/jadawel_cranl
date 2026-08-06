@@ -12,7 +12,7 @@
       :key="index"
       class="rating__star"
       :class="{
-        [`baserow-icon-${ratingStyle}`]: true,
+        [`jadawel-icon-${ratingStyle}`]: true,
         'rating__star--selected': index <= value,
       }"
       @click="onClick(index)"

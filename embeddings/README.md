@@ -1,6 +1,6 @@
-# Baserow Embeddings Service
+# Jadawel Embeddings Service
 
-A lightweight, self-contained text embedding microservice for Baserow's AI Assistant features. This service provides fast sentence embeddings using an ONNX-optimized model.
+A lightweight, self-contained text embedding microservice for Jadawel's AI Assistant features. This service provides fast sentence embeddings using an ONNX-optimized model.
 
 ## Overview
 
@@ -41,7 +41,7 @@ The service uses a multi-stage Docker build:
 ### Run locally
 
 ```
-docker run -p 8080:80 baserow/embeddings:1.0.0
+docker run -p 8080:80 jadawel/embeddings:1.0.0
 ```
 
 ### Build for publish
@@ -49,8 +49,8 @@ docker run -p 8080:80 baserow/embeddings:1.0.0
 ```
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t baserow/embeddings:1.0.0 \
-  -t baserow/embeddings:latest \
+  -t jadawel/embeddings:1.0.0 \
+  -t jadawel/embeddings:latest \
   --push .
 ```
 
@@ -109,13 +109,13 @@ Health check endpoint.
 ## Building
 
 ```bash
-docker build -t baserow-embeddings .
+docker build -t jadawel-embeddings .
 ```
 
 ## Running
 
 ```bash
-docker run -p 8080:80 baserow-embeddings
+docker run -p 8080:80 jadawel-embeddings
 ```
 
 The service will be available at `http://localhost:8080`.
@@ -155,9 +155,9 @@ embeddings = response.json()['embeddings']
 print(f"Generated {len(embeddings)} embeddings of dimension {len(embeddings[0])}")
 ```
 
-## Integration with Baserow
+## Integration with Jadawel
 
-This service is used by Baserow's AI Assistant to:
+This service is used by Jadawel's AI Assistant to:
 
 1. **Index database content**: Convert rows into searchable embeddings
 2. **Semantic search**: Find relevant rows based on user questions
@@ -182,4 +182,4 @@ The embeddings enable the assistant to understand the semantic meaning of user q
 
 ## License
 
-This service is part of the Baserow project. See the main repository for license information.
+This service is part of the Jadawel project. See the main repository for license information.

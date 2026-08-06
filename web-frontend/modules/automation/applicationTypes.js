@@ -15,7 +15,7 @@ export class AutomationApplicationType extends ApplicationType {
   }
 
   getIconClass() {
-    return 'baserow-icon-automation'
+    return 'jadawel-icon-automation'
   }
 
   getName() {

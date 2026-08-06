@@ -1,12 +1,12 @@
 <template>
-  <div class="baserow-table-wrapper">
-    <table class="baserow-table" :class="`baserow-table--${orientation}`">
+  <div class="jadawel-table-wrapper">
+    <table class="jadawel-table" :class="`jadawel-table--${orientation}`">
       <template v-if="orientation === ORIENTATIONS.HORIZONTAL">
         <thead>
-          <tr class="baserow-table__row">
+          <tr class="jadawel-table__row">
             <template v-for="field in fields" :key="field.__id__">
               <slot name="field-name" :field="field">
-                <th class="baserow-table__header-cell">
+                <th class="jadawel-table__header-cell">
                   {{ field.name }}
                 </th>
               </slot>
@@ -17,7 +17,7 @@
           <tr
             v-for="(row, index) in rows"
             :key="row.__id__"
-            class="baserow-table__row"
+            class="jadawel-table__row"
           >
             <template v-for="field in fields" :key="field.id">
               <slot
@@ -27,7 +27,7 @@
                 :row-index="index"
                 :row="row"
               >
-                <td class="baserow-table__cell">
+                <td class="jadawel-table__cell">
                   {{ row[field.__id__] }}
                 </td>
               </slot>
@@ -40,14 +40,14 @@
           <tbody
             v-for="(row, rowIndex) in rows"
             :key="row.__id__"
-            class="baserow-table__row"
+            class="jadawel-table__row"
           >
             <tr
               v-for="(field, fieldIndex) in fields"
               :key="`${row.__id__}_${field.__id__}`"
             >
               <slot name="field-name" :field="field">
-                <th :key="field.__id__" class="baserow-table__header-cell">
+                <th :key="field.__id__" class="jadawel-table__header-cell">
                   {{ field.name }}
                 </th>
               </slot>
@@ -59,9 +59,9 @@
                 :row="row"
               >
                 <td
-                  class="baserow-table__cell"
+                  class="jadawel-table__cell"
                   :class="{
-                    'baserow-table__separator':
+                    'jadawel-table__separator':
                       fieldIndex === fields.length - 1,
                   }"
                 >
@@ -74,7 +74,7 @@
       </template>
       <tbody v-if="!rows.length">
         <tr>
-          <td class="baserow-table__empty-message" :colspan="fields.length">
+          <td class="jadawel-table__empty-message" :colspan="fields.length">
             <slot name="empty-state"></slot>
           </td>
         </tr>

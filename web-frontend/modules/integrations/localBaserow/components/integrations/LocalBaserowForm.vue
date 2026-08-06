@@ -1,7 +1,7 @@
 <template>
   <div>
     <FormGroup :label="$t('localBaserowForm.user')" required small-label>
-      <div class="local-baserow-form__user">
+      <div class="local-jadawel-form__user">
         <Presentation
           v-if="values.authorized_user"
           :title="values.authorized_user.first_name"

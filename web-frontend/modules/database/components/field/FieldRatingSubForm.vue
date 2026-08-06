@@ -29,7 +29,7 @@
           :key="style"
           name=""
           :value="style"
-          :icon="`baserow-icon-${style}`"
+          :icon="`jadawel-icon-${style}`"
         />
       </Dropdown>
     </FormGroup>

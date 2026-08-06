@@ -6,7 +6,7 @@
         <div class="admin-settings__item">
           <div class="admin-settings__label">
             <div class="admin-settings__name">
-              {{ $t('settings.baserowInstanceId') }}
+              {{ $t('settings.jadawelInstanceId') }}
             </div>
             <div class="admin-settings__description">
               {{ $t('settings.instanceIdDescription') }}
@@ -23,14 +23,14 @@
         <div class="admin-settings__item">
           <div class="admin-settings__label">
             <div class="admin-settings__name">
-              {{ $t('settings.baserowVersion') }}
+              {{ $t('settings.jadawelVersion') }}
             </div>
             <div class="admin-settings__description">
-              {{ $t('settings.baserowVersionDescription') }}
+              {{ $t('settings.jadawelVersionDescription') }}
             </div>
           </div>
           <div class="admin-settings__control">
-            {{ baserowVersion }}
+            {{ jadawelVersion }}
           </div>
         </div>
         <div class="admin-settings__item">
@@ -252,7 +252,7 @@ import SettingsService from '@jadawel/modules/core/services/settings'
 import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
 import { EMAIL_VERIFICATION_OPTIONS } from '@jadawel/modules/core/enums'
 
-const { $registry, $client, $baserowVersion, $i18n } = useNuxtApp()
+const { $registry, $client, $jadawelVersion, $i18n } = useNuxtApp()
 const { t: $t } = useI18n()
 const store = useStore()
 
@@ -318,7 +318,7 @@ const additionalSettingsComponents = computed(() => {
     .filter((component) => component !== null)
 })
 
-const baserowVersion = computed(() => $baserowVersion)
+const jadawelVersion = computed(() => $jadawelVersion)
 
 function handleCopy() {
   copyToClipboard(instanceId.value)

@@ -120,7 +120,7 @@ export class VariablesPageHeaderItemType extends PageHeaderItemType {
   }
 
   get icon() {
-    return 'baserow-icon-formula'
+    return 'jadawel-icon-formula'
   }
 
   get component() {

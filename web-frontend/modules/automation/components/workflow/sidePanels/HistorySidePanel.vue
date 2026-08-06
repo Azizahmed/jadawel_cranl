@@ -8,7 +8,7 @@
   >
     <Icon
       class="history-side-panel__empty-icon"
-      icon="baserow-icon-automation"
+      icon="jadawel-icon-automation"
       type="secondary"
     />
     <h4>{{ $t('historySidePanel.noRunsTitle') }}</h4>

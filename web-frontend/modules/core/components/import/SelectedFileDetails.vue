@@ -3,7 +3,7 @@
     <div class="import-workspace__file">
       <div class="import-workspace__file-wrapper">
         <div class="import-workspace__file-icon">
-          <i class="baserow-icon-file-archive"></i>
+          <i class="jadawel-icon-file-archive"></i>
         </div>
 
         <div class="import-workspace__file-details">

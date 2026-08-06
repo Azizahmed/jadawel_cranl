@@ -207,7 +207,7 @@ exports[`Preview exportTableModal > Modal with no view 1`] = `
                         class="choice-items__link active"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-csv"
+                          class="choice-items__icon jadawel-icon-file-csv"
                         />
                         <span>
                           exporterType.csv
@@ -224,7 +224,7 @@ exports[`Preview exportTableModal > Modal with no view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-code"
+                          class="choice-items__icon jadawel-icon-file-code"
                         />
                         <span>
                           premium.exporterType.json
@@ -244,7 +244,7 @@ exports[`Preview exportTableModal > Modal with no view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-code"
+                          class="choice-items__icon jadawel-icon-file-code"
                         />
                         <span>
                           premium.exporterType.xml
@@ -264,7 +264,7 @@ exports[`Preview exportTableModal > Modal with no view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-excel"
+                          class="choice-items__icon jadawel-icon-file-excel"
                         />
                         <span>
                           premium.exporterType.excel
@@ -284,7 +284,7 @@ exports[`Preview exportTableModal > Modal with no view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-code"
+                          class="choice-items__icon jadawel-icon-file-code"
                         />
                         <span>
                           premium.exporterType.file
@@ -1955,7 +1955,7 @@ exports[`Preview exportTableModal > Modal with view 1`] = `
                         class="choice-items__link active"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-csv"
+                          class="choice-items__icon jadawel-icon-file-csv"
                         />
                         <span>
                           exporterType.csv
@@ -1972,7 +1972,7 @@ exports[`Preview exportTableModal > Modal with view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-code"
+                          class="choice-items__icon jadawel-icon-file-code"
                         />
                         <span>
                           premium.exporterType.json
@@ -1992,7 +1992,7 @@ exports[`Preview exportTableModal > Modal with view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-code"
+                          class="choice-items__icon jadawel-icon-file-code"
                         />
                         <span>
                           premium.exporterType.xml
@@ -2012,7 +2012,7 @@ exports[`Preview exportTableModal > Modal with view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-excel"
+                          class="choice-items__icon jadawel-icon-file-excel"
                         />
                         <span>
                           premium.exporterType.excel
@@ -2032,7 +2032,7 @@ exports[`Preview exportTableModal > Modal with view 1`] = `
                         class="choice-items__link"
                       >
                         <i
-                          class="choice-items__icon baserow-icon-file-code"
+                          class="choice-items__icon jadawel-icon-file-code"
                         />
                         <span>
                           premium.exporterType.file

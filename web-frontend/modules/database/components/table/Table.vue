@@ -61,7 +61,7 @@
             data-highlight="view-options"
             @click="openTableViewContext"
           >
-            <i class="header__filter-icon baserow-icon-more-vertical"></i>
+            <i class="header__filter-icon jadawel-icon-more-vertical"></i>
           </a>
           <ViewContext
             ref="viewContext"

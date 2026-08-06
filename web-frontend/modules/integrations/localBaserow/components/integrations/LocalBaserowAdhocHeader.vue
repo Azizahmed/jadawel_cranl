@@ -1,7 +1,7 @@
 <template>
-  <div class="local-baserow-adhoc-header__container">
-    <div class="local-baserow-adhoc-header">
-      <div class="local-baserow-adhoc-header__item">
+  <div class="local-jadawel-adhoc-header__container">
+    <div class="local-jadawel-adhoc-header">
+      <div class="local-jadawel-adhoc-header__item">
         <ViewFilter
           v-if="filterableFields.length"
           read-only
@@ -11,7 +11,7 @@
           @changed="handleFiltersChange"
         ></ViewFilter>
       </div>
-      <div class="local-baserow-adhoc-header__item">
+      <div class="local-jadawel-adhoc-header__item">
         <ViewSort
           v-if="sortableFields.length"
           read-only
@@ -22,7 +22,7 @@
         ></ViewSort>
       </div>
       <div class="flex-grow-1" />
-      <div class="local-baserow-adhoc-header__item">
+      <div class="local-jadawel-adhoc-header__item">
         <ViewSearch
           v-if="searchableFields.length"
           read-only

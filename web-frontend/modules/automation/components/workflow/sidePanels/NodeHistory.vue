@@ -119,7 +119,7 @@
             :title="$t('workflowNode.nodeOptions')"
             @click="openNodeResultButtonContext()"
           >
-            <i class="baserow-icon-more-vertical"></i>
+            <i class="jadawel-icon-more-vertical"></i>
           </a>
         </div>
       </div>

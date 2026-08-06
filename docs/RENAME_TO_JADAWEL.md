@@ -5,6 +5,34 @@ longer describes what this is. This plan takes the name out of every layer — s
 package, import alias, environment variables, and the image filesystem — while keeping
 the attribution the MIT licence requires.
 
+## Status — implemented 2026-08-06
+
+All six phases are in `main`, one commit each. What actually shipped, and the evidence:
+
+| Phase | Commit | Evidence |
+|---|---|---|
+| 0 Copyright | `80b18c0` | `git grep "Jadawel B.V."` empty, `LICENSE` unmodified |
+| Celery pre-step | `5c83ec1` | 53 decorators pinned; runtime reports 53 `baserow.`-named tasks, 0 drifted |
+| 1 Backend package | `8743a5b` | `manage.py check` clean, `makemigrations --check` → **No changes detected**, 8,029 tests collect |
+| 2 Frontend alias | `9641f22` | 1,448 alias specifiers resolve; vitest shows **0 new failures** vs a pre-rename worktree |
+| 3 Environment | `2cb0370` | Booting with only `BASEROW_JWT_SIGNING_KEY` set reports it in `LEGACY_ENV_NAMES_IN_USE` and does not fall back to `SECRET_KEY` |
+| 4 Image internals | `9cf2e5e` | `bash -n` clean on every deploy script, 14/14 compose files valid, `helm lint` passes on the renamed subchart |
+| 5 Grammar + residuals | `20e5604`, `d52aee2`, `3d0c6ec` | Regenerated parsers byte-identical after name normalisation; 291 backend and 749 frontend formula tests pass |
+
+Two things this plan predicted and one it missed:
+
+- **Predicted, held.** Zero database migrations, and no user logged out.
+- **Predicted, held.** The `@baserow` alias moved from one declaration site.
+- **Missed.** The 18 email templates read `baserow_embedded_share_url` and
+  `show_baserow_description` from the Django context. Renaming the Python side alone
+  left them resolving to the empty string — an empty share link and a vanished
+  description, with nothing in the log. Fixed in `3d0c6ec`.
+
+Still open, deliberately: the CranL dashboard still sets the five `BASEROW_*` names,
+which the shims accept. Cut those over to `JADAWEL_*` in a separate deploy, verify,
+then delete the three shims. The pre-existing test failures listed below are unrelated
+to the rename and reproduce identically on a pre-rename tree.
+
 ## Decisions
 
 | Decision | Value | Why |

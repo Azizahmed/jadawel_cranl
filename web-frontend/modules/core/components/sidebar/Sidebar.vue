@@ -46,7 +46,7 @@
         ></span>
         <i
           v-show="!collapsed"
-          class="sidebar__workspaces-selector-icon baserow-icon-up-down-arrows"
+          class="sidebar__workspaces-selector-icon jadawel-icon-up-down-arrows"
         ></i>
       </a>
       <SidebarUserContext

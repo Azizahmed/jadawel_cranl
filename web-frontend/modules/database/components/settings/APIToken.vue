@@ -23,7 +23,7 @@
               $refs.context.toggle($refs.contextLink, 'bottom', 'right', 4)
             "
           >
-            <i class="baserow-icon-more-horizontal"></i>
+            <i class="jadawel-icon-more-horizontal"></i>
           </a>
           <Context ref="context" overflow-scroll max-height-if-outside-viewport>
             <div class="api-token__key">

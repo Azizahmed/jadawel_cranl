@@ -16,7 +16,7 @@ export class BuilderApplicationType extends ApplicationType {
   }
 
   getIconClass() {
-    return 'baserow-icon-application'
+    return 'jadawel-icon-application'
   }
 
   getName() {

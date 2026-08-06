@@ -93,7 +93,7 @@ export class PostgreSQLDataSyncType extends DataSyncType {
   }
 
   getIconClass() {
-    return 'baserow-icon-postgresql'
+    return 'jadawel-icon-postgresql'
   }
 
   getName() {

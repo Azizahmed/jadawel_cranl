@@ -1,5 +1,5 @@
 /* stylelint-disable scss/operator-no-unspaced */
-@mixin baserow-icon($name) {
+@mixin jadawel-icon($name) {
   &::before {
     mask-image: url('@jadawel/modules/core/assets/icons/' + $name + '.svg');
   }
@@ -11,14 +11,14 @@
 }
 
 /* prettier-ignore */
-*[class^='baserow-icon-'],
-*[class*=' baserow-icon-'] {
+*[class^='jadawel-icon-'],
+*[class*=' jadawel-icon-'] {
   @extend %icon;
 }
 
-@each $icon in $baserow-icons {
-  .#{$baserow-icon-prefix}#{$icon} {
-    @include baserow-icon($icon);
+@each $icon in $jadawel-icons {
+  .#{$jadawel-icon-prefix}#{$icon} {
+    @include jadawel-icon($icon);
   }
 }
 

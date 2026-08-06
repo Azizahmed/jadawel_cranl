@@ -504,10 +504,10 @@
   },
   "settings": {
     "settingsTitle": "إعدادات المشرف",
-    "baserowInstanceId": "معرف المثيل",
+    "jadawelInstanceId": "معرف المثيل",
     "instanceIdDescription": "معرّف المثيل هو المعرّف الفريد لنسختك من منصة جداول.",
-    "baserowVersion": "إصدار منصة جداول",
-    "baserowVersionDescription": "رقم إصدار هذا المثيل.",
+    "jadawelVersion": "إصدار منصة جداول",
+    "jadawelVersionDescription": "رقم إصدار هذا المثيل.",
     "accountRestrictions": "قيود الحساب",
     "settingAllowResetPasswordName": "السماح بإعادة تعيين كلمة المرور",
     "settingAllowResetPasswordDescription": "بشكل افتراضي، يمكن للمستخدمين طلب رابط إعادة تعيين كلمة المرور.",

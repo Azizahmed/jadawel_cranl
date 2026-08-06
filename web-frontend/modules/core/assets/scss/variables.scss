@@ -91,12 +91,12 @@ $datepicker-cell-font-size: 13px;
 $datepicker-month-year-cell-height: 40px;
 
 // Jadawel icons variables
-$baserow-icon-prefix: 'baserow-icon-';
+$jadawel-icon-prefix: 'jadawel-icon-';
 
 // This list must contain all the svg icons in the `modules/core/assets/icons` that must
-// automatically become under `baserow-icon-$icon`. All the icons must be designed on a
+// automatically become under `jadawel-icon-$icon`. All the icons must be designed on a
 // 24px by 24px grid.
-$baserow-icons:
+$jadawel-icons:
   'circle-empty', 'circle-checked', 'check-square', 'formula', 'hashtag',
   'more-horizontal', 'more-vertical', 'reddit', 'single-select', 'twitter',
   'lock-open', 'flag', 'heart', 'star', 'thumbs-up', 'history', 'facebook',

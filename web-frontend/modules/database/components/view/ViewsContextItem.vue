@@ -44,7 +44,7 @@
         @click="$refs.context.toggle($refs.contextLink, 'bottom', 'right', 0)"
         @mousedown.stop
       >
-        <i class="baserow-icon-more-vertical"></i>
+        <i class="jadawel-icon-more-vertical"></i>
       </a>
       <ViewContext
         ref="context"

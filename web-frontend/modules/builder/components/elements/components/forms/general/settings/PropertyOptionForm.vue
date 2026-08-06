@@ -11,7 +11,7 @@
       <template #field-name="{ field }">
         <th
           :key="field.__id__"
-          class="baserow-table__header-cell"
+          class="jadawel-table__header-cell"
           :class="{
             'property-option-form__table-field': !field.isOption,
           }"
@@ -23,7 +23,7 @@
         <td
           v-if="field.isOption"
           :key="field.name"
-          class="baserow-table__cell property-option-form__table-option"
+          class="jadawel-table__cell property-option-form__table-option"
         >
           <Checkbox
             v-tooltip="
@@ -40,7 +40,7 @@
         <td
           v-else
           :key="field.name"
-          class="baserow-table__cell property-option-form__table-property"
+          class="jadawel-table__cell property-option-form__table-property"
         >
           <span :title="value">{{ value }}</span>
         </td>

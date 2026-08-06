@@ -389,7 +389,7 @@ export class JadawelFormulaNumberType extends mix(
   }
 
   getIconClass() {
-    return 'baserow-icon-hashtag'
+    return 'jadawel-icon-hashtag'
   }
 
   getRowEditFieldComponent(field) {
@@ -423,7 +423,7 @@ export class JadawelFormulaBooleanType extends JadawelFormulaTypeDefinition {
   }
 
   getIconClass() {
-    return 'baserow-icon-circle-checked'
+    return 'jadawel-icon-circle-checked'
   }
 
   getRowEditFieldComponent(field) {
@@ -577,7 +577,7 @@ export class JadawelFormulaDateIntervalType extends JadawelFormulaTypeDefinition
   }
 
   getIconClass() {
-    return 'baserow-icon-history'
+    return 'jadawel-icon-history'
   }
 
   getRowEditFieldComponent(field) {
@@ -613,7 +613,7 @@ export class JadawelFormulaSpecialType extends JadawelFormulaTypeDefinition {
   }
 
   getIconClass() {
-    return 'baserow-icon-formula'
+    return 'jadawel-icon-formula'
   }
 
   getRowEditFieldComponent(field) {
@@ -985,7 +985,7 @@ export class JadawelFormulaSingleSelectType extends mix(
   }
 
   getIconClass() {
-    return 'baserow-icon-single-select'
+    return 'jadawel-icon-single-select'
   }
 
   getRowEditFieldComponent(field) {
@@ -1037,7 +1037,7 @@ export class JadawelFormulaMultipleSelectType extends mix(
   }
 
   getIconClass() {
-    return 'baserow-icon-multiple-select'
+    return 'jadawel-icon-multiple-select'
   }
 
   getFilterInputComponent(field, filterType) {

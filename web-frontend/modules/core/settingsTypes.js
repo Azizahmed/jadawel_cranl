@@ -166,7 +166,7 @@ export class TwoFactorAuthSettingsType extends SettingsType {
   }
 
   getIconClass() {
-    return 'baserow-icon-password-check'
+    return 'jadawel-icon-password-check'
   }
 
   getName() {

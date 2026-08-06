@@ -1,15 +1,18 @@
 # PATCHES.md — Core-file edits log
 
-This file tracks every edit we make to **upstream Baserow core files** (i.e. files
+This file tracks every edit we make to **upstream-derived core files** (i.e. files
 that also exist upstream, outside our additive `backend/src/arabase/` and
-`web-frontend/modules/arabase/` code). Each entry records the file, the reason, and
-the upstream-merge risk, so quarterly `upstream` rebases/merges are cheap and auditable.
+`web-frontend/modules/arabase/` code). Each entry records the file and the reason.
 
 Additive files we create (e.g. under `arabase/`, `docs/`, new CI workflows) are **not**
 logged here — only modifications to files that came from upstream.
 
-Legend for **Merge risk**: `low` = isolated/unlikely to conflict · `med` = may conflict
-on upstream refactor · `high` = frequently-touched upstream file, expect conflicts.
+Since the `jadawel` rename (2026-08-06) this log is a **provenance record**, not a
+merge-cost ledger. There is no `upstream` remote, and the rename moved 2,214 files
+past git's rename-detection limit, so an upstream merge is no longer the plan. The
+question the log still answers is "did we author this, or inherit it?", which is what
+decides how an upstream CVE gets applied. **Merge risk** columns in older entries are
+kept as written for the historical record.
 
 ---
 
@@ -824,3 +827,36 @@ itself. The four core-file edits below are registration and tooling only.
 | `web-frontend/modules/arabase/module.js` | Registers `./registryPlugin.js`, the `./locales` langDir, and `./assets/scss/dashboard_chart_widget.scss` | Fork-owned file; the widget needs registry entries, its own strings, and styles | none |
 | `web-frontend/scripts/check-locale-parity.mjs` | Added `modules/arabase/locales` to `localeDirectories` | The strict CI gate must cover the fork's own strings, which are deliberately *not* added to upstream modules' locale files | low |
 | `backend/src/arabase/apps.py` | Registers the service type and widget type in `ready()` | Fork-owned file | none |
+
+---
+
+## Phase 2 — Rename the `baserow` code identifier to `jadawel` (2026-08-06)
+
+**Context:** The fork had diverged far enough that carrying the upstream name inside the
+code no longer described what this is. `docs/RENAME_TO_JADAWEL.md` holds the full plan,
+the evidence behind it and the list of names deliberately left as `baserow`.
+
+Every upstream-derived file under `backend/src/jadawel/` and `web-frontend/modules/`
+was touched, so this section records the **classes** of edit rather than one row per
+file. Nothing here changes behaviour; each is a rename plus the shims that keep the
+old external names working.
+
+| Change | Reason |
+|--------|--------|
+| `backend/src/baserow` → `backend/src/jadawel`, 7,154 imports, 845 dotted strings, 629 deconstructed migration references | The Python package now matches the product. No database migration: every AppConfig sets `name` only, so `app_label` is still derived as `core`, `database`, … |
+| 53 `@app.task` decorators gained an explicit `name="baserow.…"` | Celery derives a task name from the module path. Renaming the package would have renamed every task and stranded messages already queued in Redis |
+| `@baserow` → `@jadawel` alias, 3,749 frontend imports, 13 `runtimeConfig.public` keys | Declared in six places; all move together |
+| 183 `BASEROW_*` environment variables → `JADAWEL_*`, plus `legacy_env.py`, the `env-remap.mjs` prelude and the `default_jadawel_env.sh` loop | Renaming an env var alone is silently destructive: an unset `BASEROW_JWT_SIGNING_KEY` falls back to `SECRET_KEY` and logs out every user with nothing in the log. All three runtimes accept the legacy spelling, new name wins |
+| `/baserow` → `/jadawel` image paths, `jadawel.sh` entrypoint, `jadawel_docker_user`, compose service/volume names, the whole Helm chart | The in-image filesystem prefix was baked into ~19 layers |
+| `BaserowFormula*.g4` → `JadawelFormula*.g4`, both parsers regenerated | Generated output is byte-identical after name normalisation. `build.sh` now records the `typing.io` patch the repo always carried but never documented |
+| 18 email templates repointed at the renamed context keys | Django resolves a missing template variable to the empty string, so the share link and description had silently disappeared |
+
+**Left as `baserow` on purpose** — each is persisted state, a published contract, or
+someone else's copyright, so renaming it would need its own migration rather than a
+text edit: the 53 Celery task names and 7 `CELERY_TASK_ROUTES` keys, the OpenTelemetry
+metric and attribute names, `local_baserow*` service type discriminators and
+`LocalBaserow*` model (table) names, the `get_baserow_table_*` Postgres functions,
+`core_settings.show_baserow_help_request`, the `baserow_version_upgrade` notification
+type, the `templates/baserow` loader directory, the `baserow` Postgres role and
+database, `baserow.io` hostnames in fixtures, upstream's Docker Hub images and issue
+URLs, and the `Baserow B.V.` copyright notice the MIT licence requires us to retain.

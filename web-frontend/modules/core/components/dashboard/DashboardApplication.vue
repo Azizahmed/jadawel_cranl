@@ -30,7 +30,7 @@
 
     <span ref="contextLink" class="dashboard__application-more-button">
       <ButtonIcon
-        icon="baserow-icon-more-vertical"
+        icon="jadawel-icon-more-vertical"
         @click="$refs.context.toggle($refs.contextLink, 'bottom', 'right', 0)"
       ></ButtonIcon>
     </span>

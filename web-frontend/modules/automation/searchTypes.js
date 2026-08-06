@@ -5,7 +5,7 @@ export class AutomationSearchType extends ApplicationSearchType {
     super(context)
     this.type = 'automation'
     this.name = 'Automation'
-    this.icon = 'baserow-icon-automation'
+    this.icon = 'jadawel-icon-automation'
     this.priority = 4
   }
 

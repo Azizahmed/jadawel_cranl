@@ -30,9 +30,9 @@ export const EMAIL_NOTIFICATIONS_FREQUENCY_OPTIONS = {
 
 export const DATA_TYPE_TO_ICON_MAP = {
   string: 'iconoir-text',
-  number: 'baserow-icon-hashtag',
-  integer: 'baserow-icon-hashtag',
-  boolean: 'baserow-icon-circle-checked',
+  number: 'jadawel-icon-hashtag',
+  integer: 'jadawel-icon-hashtag',
+  boolean: 'jadawel-icon-circle-checked',
   date: 'iconoir-calendar',
   datetime: 'iconoir-calendar',
   array: 'iconoir-list',
@@ -58,15 +58,15 @@ export const FORMULA_TYPE = {
 export const FORMULA_CATEGORY = {
   TEXT: {
     category: 'categoryText',
-    iconClass: 'baserow-icon-text',
+    iconClass: 'jadawel-icon-text',
   },
   NUMBER: {
     category: 'categoryNumber',
-    iconClass: 'baserow-icon-hashtag',
+    iconClass: 'jadawel-icon-hashtag',
   },
   BOOLEAN: {
     category: 'categoryBoolean',
-    iconClass: 'baserow-icon-circle-checked',
+    iconClass: 'jadawel-icon-circle-checked',
   },
   DATE: {
     category: 'categoryDate',
@@ -74,7 +74,7 @@ export const FORMULA_CATEGORY = {
   },
   FILE: {
     category: 'categoryFile',
-    iconClass: 'baserow-icon-file',
+    iconClass: 'jadawel-icon-file',
   },
   CONDITION: {
     category: 'categoryCondition',

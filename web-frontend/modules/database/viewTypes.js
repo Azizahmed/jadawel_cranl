@@ -1150,7 +1150,7 @@ export class GalleryViewType extends BaseBufferedRowViewTypeMixin(ViewType) {
   }
 
   getIconClass() {
-    return 'baserow-icon-gallery'
+    return 'jadawel-icon-gallery'
   }
 
   getColorClass() {
@@ -1245,7 +1245,7 @@ export class FormViewType extends ViewType {
   }
 
   getIconClass() {
-    return 'baserow-icon-form'
+    return 'jadawel-icon-form'
   }
 
   getColorClass() {

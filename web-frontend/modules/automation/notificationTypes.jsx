@@ -11,7 +11,7 @@ export class WorkflowDisabledNotificationType extends NotificationType {
     return () => (
       <Icon
         class="notification-panel__notification-automation-icon"
-        icon="baserow-icon-automation"
+        icon="jadawel-icon-automation"
         type="secondary"
         size="large"
       />

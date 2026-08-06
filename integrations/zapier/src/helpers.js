@@ -24,7 +24,7 @@ const getRowInputValues = async (z, bundle) => {
 }
 
 /**
- * Fetches the fields and converts the input data to Baserow row compatible data.
+ * Fetches the fields and converts the input data to Jadawel row compatible data.
  */
 const prepareInputDataForJadawel = async (z, bundle) => {
   if (!bundle.inputData.tableID) {
@@ -44,100 +44,100 @@ const prepareInputDataForJadawel = async (z, bundle) => {
   fieldsGetRequest
     .json
     .filter(
-      (baserowField) =>
-        baserowField.read_only
-          || !unsupportedJadawelFieldTypes.includes(baserowField.type)
+      (jadawelField) =>
+        jadawelField.read_only
+          || !unsupportedJadawelFieldTypes.includes(jadawelField.type)
     )
-    .filter((baserowField) => bundle.inputData.hasOwnProperty(baserowField.name))
-    .forEach(baserowField => {
-      let value = bundle.inputData[baserowField.name]
+    .filter((jadawelField) => bundle.inputData.hasOwnProperty(jadawelField.name))
+    .forEach(jadawelField => {
+      let value = bundle.inputData[jadawelField.name]
 
-      if (baserowField.type === 'multiple_collaborators') {
+      if (jadawelField.type === 'multiple_collaborators') {
         value = value.map(id => {
           return { id }}
         )
       }
 
-      rowData[baserowField.name] = value
+      rowData[jadawelField.name] = value
     })
 
   return rowData
 }
 
 /**
- * Converts the provided Baserow field type object to a Zapier compatible object.
+ * Converts the provided Jadawel field type object to a Zapier compatible object.
  */
-const mapJadawelFieldTypesToZapierTypes = (baserowField) => {
+const mapJadawelFieldTypesToZapierTypes = (jadawelField) => {
   const zapType = {
-    key: baserowField.name,
-    label: baserowField.name,
+    key: jadawelField.name,
+    label: jadawelField.name,
     type: 'string'
   }
 
-  if (baserowField.type === 'long_text') {
+  if (jadawelField.type === 'long_text') {
     zapType.type = 'text'
   }
 
-  if (baserowField.type === 'boolean') {
+  if (jadawelField.type === 'boolean') {
     zapType.type = 'boolean'
   }
 
-  if (baserowField.type === 'number') {
+  if (jadawelField.type === 'number') {
     zapType.type = 'integer'
 
-    if (baserowField.number_decimal_places > 0) {
+    if (jadawelField.number_decimal_places > 0) {
       zapType.type = 'float'
     }
   }
 
-  if (baserowField.type === 'boolean') {
+  if (jadawelField.type === 'boolean') {
     zapType.type = 'boolean'
   }
 
-  if (baserowField.type === 'rating') {
+  if (jadawelField.type === 'rating') {
     zapType.type = 'integer'
   }
 
-  if (['single_select', 'multiple_select'].includes(baserowField.type)) {
+  if (['single_select', 'multiple_select'].includes(jadawelField.type)) {
     const choices = {}
-    baserowField.select_options.forEach(el => {
+    jadawelField.select_options.forEach(el => {
       choices[`${el.id}`] = el.value
     })
     zapType.type = 'string'
     zapType.choices = choices
   }
 
-  if (baserowField.type === 'multiple_select') {
+  if (jadawelField.type === 'multiple_select') {
     zapType.list = true
   }
 
-  if (baserowField.type === 'link_row') {
+  if (jadawelField.type === 'link_row') {
     zapType.type = 'integer'
     zapType.helpText = 'Provide row ids that you want to link to.'
     zapType.list = true
   }
 
-  if (baserowField.type === 'multiple_collaborators') {
+  if (jadawelField.type === 'multiple_collaborators') {
     zapType.type = 'integer'
     zapType.helpText = 'Provide user ids that you want to link to.'
     zapType.list = true
   }
 
-  if (baserowField.type === 'date' && !baserowField.date_include_time) {
+  if (jadawelField.type === 'date' && !jadawelField.date_include_time) {
     zapType.type = 'date'
     zapType.helpText =
       'the date fields accepts a date in ISO format (e.g. 2020-01-01)'
   }
 
-  if (baserowField.type === 'date' && baserowField.date_include_time) {
+  if (jadawelField.type === 'date' && jadawelField.date_include_time) {
     zapType.type = 'datetime'
     zapType.helpText =
       'the date fields accepts date and time in ISO format (e.g. 2020-01-01 12:00)'
   }
 
   if (
-    baserowField.read_only
-    || unsupportedJadawelFieldTypes.includes(baserowField.type)
+    jadawelField.read_only
+    || unsupportedJadawelFieldTypes.includes(jadawelField.type)
   ) {
     // Read only and the file field are not supported.
     return

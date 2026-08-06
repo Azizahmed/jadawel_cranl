@@ -52,11 +52,11 @@ export class ImporterType extends Registerable {
 
 export class CSVImporterType extends ImporterType {
   static getType() {
-    return 'baserow-icon-file-csv'
+    return 'jadawel-icon-file-csv'
   }
 
   getIconClass() {
-    return 'baserow-icon-file-csv'
+    return 'jadawel-icon-file-csv'
   }
 
   getName() {
@@ -94,7 +94,7 @@ export class XMLImporterType extends ImporterType {
   }
 
   getIconClass() {
-    return 'baserow-icon-file-code'
+    return 'jadawel-icon-file-code'
   }
 
   getName() {
@@ -113,7 +113,7 @@ export class JSONImporterType extends ImporterType {
   }
 
   getIconClass() {
-    return 'baserow-icon-file-code'
+    return 'jadawel-icon-file-code'
   }
 
   getName() {
