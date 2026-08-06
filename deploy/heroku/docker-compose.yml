@@ -1,19 +1,19 @@
 services:
   # A dev / testing /example compose file for testing heroku image works without
   # heroku
-  baserow_heroku:
-    image: baserow_heroku
+  jadawel_heroku:
+    image: jadawel_heroku
     build:
       dockerfile: $PWD/heroku.Dockerfile
       context: $PWD
       args:
-        - FROM_IMAGE=baserow
+        - FROM_IMAGE=jadawel
     environment:
       - PORT=80
       - JADAWEL_PUBLIC_URL=http://localhost
       - DATABASE_URL=postgresql://jadawel:jadawel@db:5432/jadawel
       - HEROKU_APP_NAME=test
-      - REDIS_URL=redis://:baserow@redis:6379
+      - REDIS_URL=redis://:jadawel@redis:6379
       - MAILGUN_DOMAIN=mailhog
       - MAILGUN_SMTP_SERVER=mailhog
       - MAILGUN_SMTP_LOGIN=mailhog
@@ -24,7 +24,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - baserow_heroku_data:/jadawel/data
+      - jadawel_heroku_data:/jadawel/data
     healthcheck:
       test: [ "CMD-SHELL", "/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
       interval: 10s
@@ -55,10 +55,10 @@ services:
       - "8025:8025" # web ui
   redis:
     image: redis:6
-    command: redis-server --requirepass ${REDIS_PASSWORD:-baserow}
+    command: redis-server --requirepass ${REDIS_PASSWORD:-jadawel}
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
 
 volumes:
   heroku_pgdata:
-  baserow_heroku_data:
+  jadawel_heroku_data:

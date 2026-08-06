@@ -56,7 +56,7 @@ class LocalJadawelGroupedAggregateRowsUserServiceType(
     """
     Aggregations over a Jadawel table or view, bucketed by a field.
 
-    The type name matches upstream Baserow's premium service so that dashboards
+    The type name matches upstream Jadawel's premium service so that dashboards
     exported from (or templates shipped by) upstream import into this fork
     instead of being skipped.
     """

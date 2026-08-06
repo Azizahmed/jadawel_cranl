@@ -39,7 +39,9 @@
     "aggregationTypeLabel": "Summary"
   },
   "widgetContext": {
-    "delete": "Delete"
+    "delete": "Delete",
+    "size": "Size",
+    "sizePreview": "{width} × {height}"
   },
   "trashType": {
     "widget": "widget"

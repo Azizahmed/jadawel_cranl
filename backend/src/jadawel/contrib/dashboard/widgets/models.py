@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import TYPE_CHECKING
 
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from jadawel.core.mixins import (
@@ -40,6 +41,14 @@ class Widget(
         decimal_places=20,
         editable=False,
         default=Decimal("1"),
+    )
+    width = models.PositiveSmallIntegerField(
+        default=3,
+        validators=[MinValueValidator(1), MaxValueValidator(3)],
+    )
+    height = models.PositiveSmallIntegerField(
+        default=2,
+        validators=[MinValueValidator(1), MaxValueValidator(3)],
     )
     content_type = models.ForeignKey(
         ContentType,

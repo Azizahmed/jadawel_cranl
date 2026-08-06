@@ -133,11 +133,11 @@ _create-venv:
         echo "Virtual environment already exists at {{ venv_dir }}"
     fi
 
-# Install dependencies (includes baserow + premium + enterprise via workspace)
+# Install dependencies (includes jadawel + premium + enterprise via workspace)
 [group('1 - setup')]
 install: _create-venv
     uv sync
-    @echo "Baserow installed successfully!"
+    @echo "Jadawel installed successfully!"
 
 # =============================================================================
 # Dependency Management (uv)

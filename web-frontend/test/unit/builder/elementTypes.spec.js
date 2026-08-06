@@ -249,21 +249,21 @@ describe('elementTypes tests', () => {
         elementType.getDisplayName(
           {
             navigation_type: 'custom',
-            navigate_to_url: { formula: "'https://baserow.io'" },
+            navigate_to_url: { formula: "'https://jadawl.site'" },
             value: { formula: "'Link name'" },
           },
           applicationContext
         )
-      ).toBe('Link name -> https://baserow.io')
+      ).toBe('Link name -> https://jadawl.site')
     })
     test('ImageElementType with and without alt text to use', () => {
       const elementType = testApp.$registry.get('element', 'image')
       expect(
         elementType.getDisplayName(
-          { alt_text: { formula: "'Baserow logo'" } },
+          { alt_text: { formula: "'Jadawel logo'" } },
           {}
         )
-      ).toBe('Baserow logo')
+      ).toBe('Jadawel logo')
       // If a formula resolves to a blank string, fallback to the name.
       expect(
         elementType.getDisplayName(
@@ -574,7 +574,7 @@ describe('elementTypes tests', () => {
       expect(
         elementType.isValid(
           { required: true, validation_type: 'email' },
-          'peter@baserow.io'
+          'peter@jadawl.site'
         )
       ).toBe(true)
     })
@@ -583,7 +583,7 @@ describe('elementTypes tests', () => {
       expect(
         elementType.isValid(
           { required: true, validation_type: 'email' },
-          'peterbaserow.io'
+          'peterjadawl.site'
         )
       ).toBe(false)
     })
@@ -600,7 +600,7 @@ describe('elementTypes tests', () => {
         true
       )
       expect(
-        elementType.isValid({ validation_type: 'any' }, 'peter@baserow.io')
+        elementType.isValid({ validation_type: 'any' }, 'peter@jadawl.site')
       ).toBe(true)
     })
     test('CheckboxElementType | required | unchecked.', () => {
@@ -1372,7 +1372,7 @@ describe('elementTypes tests', () => {
       element.menu_items[0].name = 'foo link'
       element.menu_items[0].navigation_type = 'custom'
       element.menu_items[0].navigate_to_url = {
-        formula: "'https://www.baserow.io'",
+        formula: "'https://www.jadawl.site'",
       }
 
       expect(elementType.isInError(element, { page, element, builder })).toBe(

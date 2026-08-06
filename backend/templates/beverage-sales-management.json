@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "Beverage Sales Management",
     "icon": "iconoir-coffee-cup",
     "keywords": [
@@ -3356,7 +3356,7 @@
                             "submit_text": "Submit",
                             "submit_action": "REDIRECT",
                             "submit_action_message": "",
-                            "submit_action_redirect_url": "https://baserow.io/form/crWaamwpQUad3dMOSrO72x4avH2DyyqSU6Bg5wXzszc?prefill_Order={row_id}&hide_Order",
+                            "submit_action_redirect_url": "https://jadawl.site/form/crWaamwpQUad3dMOSrO72x4avH2DyyqSU6Bg5wXzszc?prefill_Order={row_id}&hide_Order",
                             "field_options": [
                                 {
                                     "id": 238290,

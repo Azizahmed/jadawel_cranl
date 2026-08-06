@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "Lightweight CRM",
     "icon": "iconoir-verified-user",
     "keywords": [
@@ -867,7 +867,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.536551+00:00",
                             "updated_on": "2024-05-03T06:43:00.883633+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28385": "Acme Inc.",
                             "field_28386": "San Francisco, CA",
                             "field_28387": 14519,
@@ -897,7 +897,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.537213+00:00",
                             "updated_on": "2024-05-03T06:43:10.087996+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28385": "Makers Co.",
                             "field_28386": "New York, NY",
                             "field_28387": 14522,
@@ -923,7 +923,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.537647+00:00",
                             "updated_on": "2024-05-03T06:43:18.337945+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28385": "Orange LLC.",
                             "field_28386": "Austin, TX",
                             "field_28387": 14518,
@@ -950,7 +950,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.538207+00:00",
                             "updated_on": "2024-05-03T06:43:25.573145+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28385": "Smile Bros.",
                             "field_28386": "Sacramento, CA",
                             "field_28387": 14517,
@@ -1599,7 +1599,7 @@
                             "name": "Add contact",
                             "order": 4,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "public": true,
                             "title": "Add a new contact",
                             "description": "",
@@ -1758,7 +1758,7 @@
                             "name": "Gallery: all contacts",
                             "order": 5,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -1843,7 +1843,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.541318+00:00",
                             "updated_on": "2024-09-11T11:28:11.717868+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "John Tagliafero",
                             "field_28394": "CEO",
                             "field_28395": [
@@ -1876,7 +1876,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.541911+00:00",
                             "updated_on": "2024-09-11T11:28:03.701732+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "Wayne Smith",
                             "field_28394": "Head of Operations",
                             "field_28395": [
@@ -1906,7 +1906,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.542360+00:00",
                             "updated_on": "2024-09-11T11:26:53.296965+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "Sara Winter",
                             "field_28394": "VP of Sales",
                             "field_28395": [
@@ -1936,7 +1936,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.542780+00:00",
                             "updated_on": "2024-09-11T11:27:37.848997+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "Cindy Crowford",
                             "field_28394": "Head of Marketing",
                             "field_28395": [
@@ -1967,8 +1967,8 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-05-02T18:10:09.921085+00:00",
                             "updated_on": "2024-09-11T11:27:43.235504+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "Eugene Keith",
                             "field_28394": "CEO",
                             "field_28395": [
@@ -1997,8 +1997,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-05-02T18:10:11.418340+00:00",
                             "updated_on": "2024-09-11T11:27:49.568671+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "Gladys P. Burchfield",
                             "field_28394": "Sales manager",
                             "field_28395": [
@@ -2027,8 +2027,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-05-02T18:10:11.418381+00:00",
                             "updated_on": "2024-09-12T04:25:35.817423+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28393": "Amy Wyllie",
                             "field_28394": "Financial director",
                             "field_28395": [
@@ -3302,7 +3302,7 @@
                             "name": "All pipelines stacked by stage",
                             "order": 7,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -3392,7 +3392,7 @@
                             "name": "All pipelines in calendar view",
                             "order": 8,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -3504,7 +3504,7 @@
                             "name": "Add pipeline",
                             "order": 9,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "public": true,
                             "title": "Add new pipeline",
                             "description": "",
@@ -3692,7 +3692,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.548124+00:00",
                             "updated_on": "2024-09-30T06:41:01.918184+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Website Redesign",
                             "field_28402": [
                                 1
@@ -3720,7 +3720,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.548629+00:00",
                             "updated_on": "2024-09-30T06:41:01.918255+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Video Production for events",
                             "field_28402": [
                                 4
@@ -3745,7 +3745,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.549071+00:00",
                             "updated_on": "2024-09-30T14:47:08.921599+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Designing a new Landing Page",
                             "field_28402": [
                                 2
@@ -3774,7 +3774,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.549462+00:00",
                             "updated_on": "2024-09-30T14:46:58.548587+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Photo Shooting for product catalog",
                             "field_28402": [
                                 3
@@ -3804,8 +3804,8 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-05-02T18:14:19.859463+00:00",
                             "updated_on": "2024-09-30T06:41:01.918398+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Brand Identity Development",
                             "field_28402": [
                                 1
@@ -3830,8 +3830,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-05-02T18:16:00.686971+00:00",
                             "updated_on": "2024-09-30T06:41:01.918435+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Social Media Marketing Campaign",
                             "field_28402": [
                                 4
@@ -3861,8 +3861,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-05-02T18:16:00.687033+00:00",
                             "updated_on": "2024-09-30T06:41:01.918472+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Branding Workshop Facilitation",
                             "field_28402": [
                                 1
@@ -3891,8 +3891,8 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2024-05-02T18:16:00.687049+00:00",
                             "updated_on": "2024-09-30T06:41:01.918508+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Digital Advertising Campaign Management",
                             "field_28402": [
                                 4
@@ -3921,8 +3921,8 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2024-05-02T18:16:00.687060+00:00",
                             "updated_on": "2024-09-30T06:41:01.918544+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28401": "Market Entry Strategy Consulting",
                             "field_28402": [
                                 1
@@ -4656,7 +4656,7 @@
                             "name": "All activities in a calendar view",
                             "order": 5,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -4744,7 +4744,7 @@
                             "name": "Add activity",
                             "order": 6,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "public": true,
                             "title": "Add a new activity",
                             "description": "",
@@ -4890,7 +4890,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.544716+00:00",
                             "updated_on": "2024-09-30T06:41:33.330125+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 4
@@ -4917,7 +4917,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.545236+00:00",
                             "updated_on": "2024-09-30T06:41:33.330190+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 3
@@ -4938,7 +4938,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.545645+00:00",
                             "updated_on": "2024-09-30T06:41:33.330228+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 1
@@ -4959,7 +4959,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.546115+00:00",
                             "updated_on": "2024-09-30T06:41:33.330264+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 1
@@ -4991,7 +4991,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-05-02T11:02:20.546552+00:00",
                             "updated_on": "2024-09-30T06:41:33.330299+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 2
@@ -5012,8 +5012,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-05-03T06:35:13.827954+00:00",
                             "updated_on": "2024-09-30T06:41:33.330334+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 2
@@ -5034,8 +5034,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-05-03T06:35:22.579013+00:00",
                             "updated_on": "2024-09-30T06:41:33.330368+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 1
@@ -5062,8 +5062,8 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2024-05-03T06:35:27.932441+00:00",
                             "updated_on": "2024-09-30T06:41:33.330402+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 6
@@ -5084,8 +5084,8 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2024-05-03T06:35:46.875292+00:00",
                             "updated_on": "2024-09-30T06:41:33.330436+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 3
@@ -5106,8 +5106,8 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2024-05-03T06:35:53.561693+00:00",
                             "updated_on": "2024-09-30T06:41:33.330470+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 1
@@ -5128,8 +5128,8 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2024-05-03T06:36:02.567731+00:00",
                             "updated_on": "2024-09-30T06:41:33.330503+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 4
@@ -5150,8 +5150,8 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2024-05-03T06:36:09.817128+00:00",
                             "updated_on": "2024-09-30T06:41:33.330548+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 5
@@ -5178,8 +5178,8 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2024-05-03T06:36:25.384509+00:00",
                             "updated_on": "2024-09-30T06:41:33.330589+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 7
@@ -5200,8 +5200,8 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2024-05-03T06:36:36.903602+00:00",
                             "updated_on": "2024-09-30T06:41:33.330624+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 7
@@ -5222,8 +5222,8 @@
                             "order": "14.50000000000000000000",
                             "created_on": "2024-09-11T11:43:47.561869+00:00",
                             "updated_on": "2024-09-30T06:41:33.330684+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 7
@@ -5245,8 +5245,8 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2024-05-03T06:36:42.701095+00:00",
                             "updated_on": "2024-09-30T06:41:33.330718+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 4
@@ -5273,8 +5273,8 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2024-12-11T12:47:21.569082+00:00",
                             "updated_on": "2024-12-11T12:47:21.569082+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28440": null,
                             "field_28410": [
                                 1,
@@ -5438,7 +5438,7 @@
                             "name": "All employees",
                             "order": 1,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -5537,8 +5537,8 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-02T14:55:03.815729+00:00",
                             "updated_on": "2024-09-06T11:05:08.794984+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28416": "Clayton Best",
                             "field_28417": "clayton.best@example.com",
                             "field_28418": "(916) 478-0153",
@@ -5557,8 +5557,8 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-02T14:55:03.815748+00:00",
                             "updated_on": "2024-09-06T11:05:10.573976+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28416": "Jonathan Castillo",
                             "field_28417": "jonathan.castillo@example.com",
                             "field_28418": "(714) 674-5259",
@@ -5577,8 +5577,8 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-02T15:32:09.068260+00:00",
                             "updated_on": "2024-09-12T09:23:37.808849+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_28416": "Jane Dradder",
                             "field_28417": "jane.dradder@example.com",
                             "field_28418": "(720) 555-2389",
@@ -25297,10 +25297,10 @@
             "integrations": [
                 {
                     "id": 118,
-                    "name": "Local Baserow",
+                    "name": "Local Jadawel",
                     "order": "1.00000000000000000000",
                     "type": "local_jadawel",
-                    "authorized_user": "frederik@baserow.io"
+                    "authorized_user": "frederik@jadawl.site"
                 }
             ],
             "theme": {

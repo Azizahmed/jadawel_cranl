@@ -11,7 +11,7 @@ Use this skill to investigate a slow endpoint or a potential bottleneck. Django 
 
 - Silk must be enabled (default in dev: `JADAWEL_ENABLE_SILK=on` in `dev.py`)
 - The slow operation must have been performed recently so Silk has captured it
-- The dev database must be accessible (usually via `docker exec` into the `baserow-db-1` container)
+- The dev database must be accessible (usually via `docker exec` into the `jadawel-db-1` container)
 
 ## Connecting to the Database
 
@@ -161,7 +161,7 @@ EXPLAIN ANALYZE <paste query from silk_sqlquery here>;
 
 ### Step 6: Read Stack Traces
 
-Stack traces are stored reversed: the **top** is ORM/Silk internals, the **middle** contains Baserow application frames (paths containing `baserow/src/jadawel/`), and the **bottom** is Django server/threading boilerplate. Scan for the Baserow frames in the middle — those are the ones that matter.
+Stack traces are stored reversed: the **top** is ORM/Silk internals, the **middle** contains Jadawel application frames (paths containing `jadawel/src/jadawel/`), and the **bottom** is Django server/threading boilerplate. Scan for the Jadawel frames in the middle — those are the ones that matter.
 
 ```sql
 SELECT traceback FROM silk_sqlquery WHERE id = <query_id>;
@@ -212,7 +212,7 @@ Once you've identified the problematic query and its origin in the stack trace:
 
 **Symptom:** Queries inside a Python for-loop that could be replaced with a single bulk operation.
 
-**Fix:** Collect IDs first, do a single bulk query, then map results back. Common in Baserow: `break_dependencies_for_field` called per-field instead of batching, `FieldCache.reset_cache()` called inside loops invalidating cached data.
+**Fix:** Collect IDs first, do a single bulk query, then map results back. Common in Jadawel: `break_dependencies_for_field` called per-field instead of batching, `FieldCache.reset_cache()` called inside loops invalidating cached data.
 
 ### `specific_iterator` or `specific_queryset` / `.specific` Overhead
 
@@ -261,7 +261,7 @@ Once you've identified the problematic query and its origin in the stack trace:
 | end_time | DateTimeField | Query end |
 | time_taken | FloatField | Execution time (ms) |
 | request_id | FK | Links to silk_request |
-| traceback | TextField | Python stack trace (reversed — ORM at top, Baserow in middle, server at bottom) |
+| traceback | TextField | Python stack trace (reversed — ORM at top, Jadawel in middle, server at bottom) |
 | analysis | TextField | EXPLAIN output (always populated). With `SILKY_ANALYZE_QUERIES` enabled, contains EXPLAIN ANALYZE instead. |
 
 ### silk_profile

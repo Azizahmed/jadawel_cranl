@@ -7,7 +7,7 @@ describe('Formula Functions Test', () => {
 
   afterEach(() => testApp.afterEach())
   test('All backend functions are in the frontend', () => {
-    // Run baserow.contrib.database.field.test_formula_field_type.
+    // Run jadawel.contrib.database.field.test_formula_field_type.
     // test_all_functions_are_registered
     // to get a print out of all backend functions to update this variable.
     const backendFunctionTypeNames = [

@@ -1,7 +1,7 @@
 """Rows-added-per-day for the workspace home page's activity chart.
 
 Companion to `database_stats`, and built the same way and for the same reason:
-every Baserow table is a real Postgres table, so the only honest source for "how
+every Jadawel table is a real Postgres table, so the only honest source for "how
 much did this workspace grow" is the rows themselves. `created_on` exists on
 every user table, so a `GROUP BY` per table answers it exactly.
 

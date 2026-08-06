@@ -90,7 +90,7 @@ theorised.
 ### 1.5 No rate limiting on login
 
 Twelve failed logins sent back to back all returned `401`. Never a `429`.
-Baserow's own throttle (`JADAWEL_MAX_CONCURRENT_USER_REQUESTS`) defaults to off,
+Jadawel's own throttle (`JADAWEL_MAX_CONCURRENT_USER_REQUESTS`) defaults to off,
 and it throttles concurrency per user rather than attempts per IP, so it is the
 wrong tool for credential stuffing.
 
@@ -185,7 +185,7 @@ docker exec <backend-container> ./jadawel.sh backend-cmd manage sync_templates
 
 Coolify can schedule them; `docs/DEPLOYMENT.md` covers the two traps
 (`pg_dump` excludes uploaded files, and never restore a dev dump — it contains
-staff accounts whose password is public in Baserow's repository).
+staff accounts whose password is public in Jadawel's repository).
 
 ---
 
@@ -260,13 +260,13 @@ every restart is the most likely source of a memory spike in this stack.
 - **`/api/schema.json` returns 500.** Consequence: `/api/redoc/` serves a broken
   spec. Almost certainly fallout from the premium/enterprise strip. Cosmetic,
   but it is a public endpoint throwing an unhandled error.
-- **`deploy/*/.env.testing` files are committed** with `SECRET_KEY=baserow`.
+- **`deploy/*/.env.testing` files are committed** with `SECRET_KEY=jadawel`.
   They are upstream test fixtures for the nginx/apache recipes and are not used
   by the Coolify deployment — but do not copy one as a starting point.
-- **Anonymous websocket connections are accepted.** Default Baserow behaviour,
+- **Anonymous websocket connections are accepted.** Default Jadawel behaviour,
   required for public views. Set
   `DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS=yes` if you never share views
   publicly.
-- **`JADAWEL_CACHALOT_ENABLED` is off.** Baserow's own ORM query cache. Worth
+- **`JADAWEL_CACHALOT_ENABLED` is off.** Jadawel's own ORM query cache. Worth
   trying once the reload problem is understood — not before, so you can tell
   which change did what.

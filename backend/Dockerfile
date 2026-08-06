@@ -55,7 +55,7 @@ ENV UV_PYTHON_DOWNLOADS=0 \
 # hadolint ignore=DL3022
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
-# Create baserow directory structure (including subdirs for COPY targets)
+# Create jadawel directory structure (including subdirs for COPY targets)
 RUN mkdir -p /jadawel/ && chown -R $UID:$GID /jadawel/
     
 USER $UID:$GID
@@ -188,7 +188,7 @@ COPY --from=tool-builder /usr/bin/tini /usr/bin/tini
 # hadolint ignore=DL3022
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
-# Create baserow directory structure (including subdirs for COPY targets)
+# Create jadawel directory structure (including subdirs for COPY targets)
 RUN mkdir -p /jadawel/backend/reports /jadawel/media && \
     chown -R $UID:$GID /jadawel/
 
@@ -243,7 +243,7 @@ ENV DOCKER_USER=jadawel_docker_user \
     UV_COMPILE_BYTECODE=0 \
     UV_LINK_MODE=copy \
     UV_PROJECT_ENVIRONMENT=/jadawel/venv \
-    UV_CACHE_DIR=/tmp/baserow_uv_cache_dev \
+    UV_CACHE_DIR=/tmp/jadawel_uv_cache_dev \
     PYTHONUNBUFFERED=1 \
     PATH=/jadawel/venv/bin:$PATH \
     PYTHONPATH=/jadawel/backend/src:/jadawel/backend/tests \
@@ -285,7 +285,7 @@ RUN echo "set -g default-command \"\${SHELL}\"" > /jadawel/.tmux.conf && \
     'alias pytest="python -m pytest"' \
     '' \
     '# Show a helpful message' \
-    'echo "Baserow backend dev container"' \
+    'echo "Jadawel backend dev container"' \
     'echo "  m <cmd>     - Django manage.py (e.g., m shell_plus)"' \
     'echo "  pytest      - Run tests"' \
     'echo "  j           - See available commands"' \

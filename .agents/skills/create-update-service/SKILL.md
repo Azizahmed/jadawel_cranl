@@ -1,12 +1,12 @@
 ---
 name: Integrations and Services
-description: Create or update Baserow integration types and service types in `contrib/integrations`. Use when adding a new ServiceType/IntegrationType subclass, registering one in `apps.py` or `plugin.js`, or updating an existing dispatch/auth flow.
+description: Create or update Jadawel integration types and service types in `contrib/integrations`. Use when adding a new ServiceType/IntegrationType subclass, registering one in `apps.py` or `plugin.js`, or updating an existing dispatch/auth flow.
 version: 1.0.0
 ---
 
-# Create Or Update Baserow Services And Integrations
+# Create Or Update Jadawel Services And Integrations
 
-Use this skill when a task involves creating or updating a Baserow integration type or service type in the `contrib/integrations` stack.
+Use this skill when a task involves creating or updating a Jadawel integration type or service type in the `contrib/integrations` stack.
 
 This repo already has the core patterns. Prefer copying an existing implementation close to the target behavior instead of inventing a new structure.
 

@@ -201,7 +201,7 @@ RUN echo "set -g default-command \"\${SHELL}\"" > /jadawel/.tmux.conf && \
     'alias y="yarn"' \
     '' \
     '# Show a helpful message' \
-    'echo "Baserow frontend dev container"' \
+    'echo "Jadawel frontend dev container"' \
     'echo "  y <cmd>  - Run yarn commands"' \
     'echo "  j        - See available commands"' \
     > /jadawel/.bashrc

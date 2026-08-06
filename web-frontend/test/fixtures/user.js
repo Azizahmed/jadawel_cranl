@@ -1,6 +1,6 @@
 export function aUser({
   id = 1,
-  username = 'user@baserow.io',
+  username = 'user@jadawl.site',
   name = 'user_name',
   workspaces = [
     {

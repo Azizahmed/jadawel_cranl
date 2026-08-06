@@ -6,7 +6,7 @@
 # =============================================================================
 
 # Docker settings
-network := "baserow-e2e"
+network := "jadawel-e2e"
 # Use same image names as `just build backend ci` and `just build web-frontend ci`
 backend_image := "jadawel/backend:ci"
 frontend_image := "jadawel/web-frontend:ci"
@@ -151,9 +151,9 @@ up: _ensure-images
 
     # Restore database from dump (fast - migrations pre-applied)
     echo "Restoring database from dump..."
-    docker exec e2e-db psql -U baserow -d postgres -c "DROP DATABASE IF EXISTS baserow;" > /dev/null
-    docker exec e2e-db psql -U baserow -d postgres -c "CREATE DATABASE baserow;" > /dev/null
-    docker exec -i e2e-db pg_restore -U baserow -d baserow --no-owner --no-acl < "$DUMP_FILE" 2>/dev/null || true
+    docker exec e2e-db psql -U jadawel -d postgres -c "DROP DATABASE IF EXISTS jadawel;" > /dev/null
+    docker exec e2e-db psql -U jadawel -d postgres -c "CREATE DATABASE jadawel;" > /dev/null
+    docker exec -i e2e-db pg_restore -U jadawel -d jadawel --no-owner --no-acl < "$DUMP_FILE" 2>/dev/null || true
     echo "Database restored."
 
     # Start backend (migrations run on startup to apply any new ones + sync templates)
@@ -347,7 +347,7 @@ db-dump:
     # Create the dump
     echo "Creating database dump..."
     mkdir -p e2e-tests/fixtures
-    docker exec {{ dump_db }} pg_dump -U baserow -Fc baserow > e2e-tests/{{ dump_file }}
+    docker exec {{ dump_db }} pg_dump -U jadawel -Fc jadawel > e2e-tests/{{ dump_file }}
 
     # Show dump info
     DUMP_SIZE=$(ls -lh e2e-tests/{{ dump_file }} | awk '{print $5}')
@@ -380,7 +380,7 @@ db-restore container:
     fi
 
     echo "Restoring database from dump..."
-    docker exec {{ container }} psql -U baserow -d postgres -c "DROP DATABASE IF EXISTS baserow;"
-    docker exec {{ container }} psql -U baserow -d postgres -c "CREATE DATABASE baserow;"
-    docker exec -i {{ container }} pg_restore -U baserow -d baserow --no-owner --no-acl < "$DUMP_PATH" || true
+    docker exec {{ container }} psql -U jadawel -d postgres -c "DROP DATABASE IF EXISTS jadawel;"
+    docker exec {{ container }} psql -U jadawel -d postgres -c "CREATE DATABASE jadawel;"
+    docker exec -i {{ container }} pg_restore -U jadawel -d jadawel --no-owner --no-acl < "$DUMP_PATH" || true
     echo "Database restored successfully!"

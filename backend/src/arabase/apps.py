@@ -4,7 +4,7 @@ from django.apps import AppConfig
 class ArabaseConfig(AppConfig):
     """Root AppConfig for the Jadawel fork's additive backend code.
 
-    ``ready()`` is the single place where we hook into Baserow's registries
+    ``ready()`` is the single place where we hook into Jadawel's registries
     (field types, view types, actions, plugins, permission managers, ...).
     Always prefer a registry hook here over editing a core ``jadawel.*`` file;
     if a core edit is truly unavoidable, log it in ``PATCHES.md``.

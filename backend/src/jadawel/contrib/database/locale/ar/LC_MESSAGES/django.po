@@ -1,6 +1,6 @@
 # Jadawel — Arabic catalogue for the `database` contrib app.
 #
-# Upstream Baserow ships no `ar` catalogue, so every backend gettext string
+# Upstream Jadawel ships no `ar` catalogue, so every backend gettext string
 # fell through to its English source. Table creation runs inside
 # `translation.override(user.profile.language)` (see table/handler.py), which
 # means the default view name is translatable — it just had nothing to

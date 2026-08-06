@@ -68,7 +68,7 @@ UID:1725220374375-34056@ical.marudot.com
 DTSTART;TZID=Europe/Berlin:20240901T100000
 DTEND;TZID=Europe/Berlin:20240901T110000
 SUMMARY:Test event 0
-URL:https://baserow.io
+URL:https://jadawl.site
 DESCRIPTION:Test description 1
 LOCATION:Amsterdam
 END:VEVENT
@@ -730,7 +730,7 @@ def test_submit_form_with_link_row_field(api_client, data_fixture):
         table=table,
         public=True,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
     link_row_field = data_fixture.create_link_row_field(
         table=table, link_row_table=table_2
@@ -757,7 +757,7 @@ def test_submit_form_with_link_row_field(api_client, data_fixture):
         "row_id": AnyInt(),
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
 
@@ -766,7 +766,7 @@ def test_submit_form_with_link_row_field(api_client, data_fixture):
 def test_submit_form_with_data_sync(api_client, data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -782,14 +782,14 @@ def test_submit_form_with_data_sync(api_client, data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     form = data_fixture.create_form_view(
         table=data_sync.table,
         public=True,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
 
     FormViewFieldOptions.objects.all().update(required=True, enabled=True)
@@ -809,7 +809,7 @@ def test_submit_form_view(api_client, data_fixture):
     form = data_fixture.create_form_view(
         table=table,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
     text_field = data_fixture.create_text_field(table=table)
     number_field = data_fixture.create_number_field(table=table)
@@ -879,7 +879,7 @@ def test_submit_form_view(api_client, data_fixture):
         "row_id": 1,
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
     model = table.get_model()
@@ -2823,7 +2823,7 @@ def test_submit_password_protected_form_view_requires_authorization(
         table=table,
         password=password,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
     text_field = data_fixture.create_text_field(table=table)
     number_field = data_fixture.create_number_field(table=table)
@@ -2863,7 +2863,7 @@ def test_submit_password_protected_form_view_requires_authorization(
     # Add the token in the header
     url = reverse("api:database:views:form:submit", kwargs={"slug": form_view.slug})
     response = api_client.get(
-        url, format="json", HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}"
+        url, format="json", HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}"
     )
     assert response.status_code == HTTP_200_OK
 
@@ -2874,7 +2874,7 @@ def test_submit_password_protected_form_view_requires_authorization(
             f"field_{number_field.id}": 0,
         },
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
     )
     assert response.status_code == HTTP_200_OK
     response_json = response.json()
@@ -2882,7 +2882,7 @@ def test_submit_password_protected_form_view_requires_authorization(
         "row_id": 1,
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
     # The original user can always submit forms, even if password protected
@@ -2897,7 +2897,7 @@ def test_submit_password_protected_form_view_requires_authorization(
             f"field_{number_field.id}": 1,
         },
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
     )
     assert response.status_code == HTTP_200_OK
     response_json = response.json()
@@ -2905,7 +2905,7 @@ def test_submit_password_protected_form_view_requires_authorization(
         "row_id": 2,
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
 
@@ -2934,7 +2934,7 @@ def test_changing_password_of_a_public_password_protected_form_view_invalidate_p
     response = api_client.get(
         reverse("api:database:views:form:submit", kwargs={"slug": form_view.slug}),
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
     )
     assert response.status_code == HTTP_200_OK, response.json()
 
@@ -2951,7 +2951,7 @@ def test_changing_password_of_a_public_password_protected_form_view_invalidate_p
     response = api_client.get(
         reverse("api:database:views:form:submit", kwargs={"slug": form_view.slug}),
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
     )
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
@@ -2963,7 +2963,7 @@ def test_submit_form_view_for_required_number_field_with_0(api_client, data_fixt
     form = data_fixture.create_form_view(
         table=table,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
     number_field = data_fixture.create_number_field(
         table=table, number_negative=False, number_decimal_places=0
@@ -2991,7 +2991,7 @@ def test_submit_form_view_for_required_number_field_with_0(api_client, data_fixt
         "row_id": 1,
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
 
@@ -3002,7 +3002,7 @@ def test_submit_form_view_for_required_rating_field_with_0(api_client, data_fixt
     form = data_fixture.create_form_view(
         table=table,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
     rating_field = data_fixture.create_rating_field(table=table)
     data_fixture.create_form_view_field_option(
@@ -3035,7 +3035,7 @@ def test_submit_form_view_for_required_rating_field_with_0(api_client, data_fixt
         "row_id": AnyInt(),
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
 
@@ -3052,7 +3052,7 @@ def test_submit_form_view_for_non_required_rating_field_with_0(
     form = data_fixture.create_form_view(
         table=table,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
     rating_field = data_fixture.create_rating_field(table=table)
     data_fixture.create_form_view_field_option(
@@ -3074,7 +3074,7 @@ def test_submit_form_view_for_non_required_rating_field_with_0(
         "row_id": AnyInt(),
         "submit_action": "MESSAGE",
         "submit_action_message": "Test",
-        "submit_action_redirect_url": "https://baserow.io",
+        "submit_action_redirect_url": "https://jadawl.site",
     }
 
 
@@ -3357,7 +3357,7 @@ def test_upload_file_view_form_is_password_protected(api_client, data_fixture, t
                 ),
                 data={"file": file},
                 format="multipart",
-                HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+                HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
             )
 
     assert response.status_code == HTTP_200_OK
@@ -3707,7 +3707,7 @@ def test_submit_empty_form_view_for_interesting_test_table(api_client, data_fixt
     form = data_fixture.create_form_view(
         table=table,
         submit_action_message="Test",
-        submit_action_redirect_url="https://baserow.io",
+        submit_action_redirect_url="https://jadawl.site",
     )
 
     FormViewFieldOptions.objects.filter(form_view=form).update(

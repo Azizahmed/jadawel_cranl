@@ -79,12 +79,12 @@ curl -s -o /dev/null -w "%{http_code}\n" -H "Authorization: Bearer $TOKEN" \
 
 Checked before publishing: no credentials ship in the image (the only
 secret-shaped files are `deploy/*/.env.testing`, whose every value is the
-literal string `baserow`), and there is no license obstacle — this fork has zero
+literal string `jadawel`), and there is no license obstacle — this fork has zero
 files under `premium/` or `enterprise/`, so it is MIT plus CC-BY-SA docs.
 
 ### 3. The log showed one line and stopped
 
-The container log contained only Baserow's warning about running without a
+The container log contained only Jadawel's warning about running without a
 mounted data folder, hiding everything after it.
 
 **Fix:** `DISABLE_VOLUME_CHECK=yes`. Safe here because Postgres and Redis are
@@ -95,7 +95,7 @@ in S3 anyway.
 
 With the boot unblocked, the actual failure appeared: the Nuxt web-frontend
 crash-looping on port 80, retrying four times, reaching supervisor `FATAL`, at
-which point Baserow's watcher declared a crash and shut down the whole
+which point Jadawel's watcher declared a crash and shut down the whole
 container.
 
 **Why:** Caddy owns `:80` inside the all-in-one image; the frontend belongs on
@@ -202,7 +202,7 @@ URLs in `JADAWEL_PUBLIC_URL`.
 | `DISABLE_VOLUME_CHECK` | `yes` | Unblocks boot; no persistent volume by design (§3). |
 | `SECRET_KEY` | *50 chars, generated* | Must be explicit — `jadawel.sh:201` otherwise writes one to the ephemeral `/jadawel/data/.secret`, so every redeploy would invalidate all sessions. |
 | `JADAWEL_JWT_SIGNING_KEY` | *50 chars, generated* | Same, via `.jwt_signing_key`. |
-| `JADAWEL_PUBLIC_URL` | current domain, no trailing slash | Baserow rejects requests on any host that does not match. Must be switched when the domain changes. |
+| `JADAWEL_PUBLIC_URL` | current domain, no trailing slash | Jadawel rejects requests on any host that does not match. Must be switched when the domain changes. |
 | `DATABASE_URL` | internal, from `jadawel-postgres` | |
 | `REDIS_URL` | internal, from `jadawel-redis` | Celery and websockets do not work without Redis; no BaaS replaces it. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | Required on the lite image — the startup script otherwise runs `chown -R postgres:postgres` for a user that exists only in the full image. |
@@ -276,7 +276,7 @@ Kept for the next domain change:
    Cloudflare keep the record **DNS-only (grey cloud)** until the certificate
    issues, or the proxy intercepts the ACME challenge.
 2. Once SSL is active, set `JADAWEL_PUBLIC_URL` to the new origin and Reload.
-   Baserow rejects requests on any host that does not match it, so the two must
+   Jadawel rejects requests on any host that does not match it, so the two must
    change together, and the old host stops working the moment it is dropped.
 
 The value in place is `https://jadawl.site/`, **with** a trailing slash, contrary
@@ -313,7 +313,7 @@ tolerates it, but it is worth trimming next time the variable is touched.
    `docker-compose.yml` (`docs/PRODUCTION_HARDENING.md` §1.5) — 5 req/s per IP on
    `/api/user/token-auth/` and the reset-password endpoints. CranL never reads
    that file, so credential stuffing is currently limited only by network speed.
-   Baserow's own throttle cannot substitute: it limits concurrency per user, not
+   Jadawel's own throttle cannot substitute: it limits concurrency per user, not
    attempts per IP. Check whether CranL's CDN tab offers rate limiting or a WAF.
 2. **Public signup.** Anyone who finds the URL can register. Disable it in the
    admin panel once the first staff account exists
@@ -343,8 +343,8 @@ tolerates it, but it is worth trimming next time the variable is touched.
   just disables embedding fields.
 - Supabase would work as the database (it is Postgres) but adds nothing over
   `jadawel-postgres`, and its PostgREST auto-exposes the `public` schema, where
-  Baserow creates every user table without RLS. Convex cannot host this app at
-  all — Baserow issues live DDL against Postgres and has no SQL-free mode.
+  Jadawel creates every user table without RLS. Convex cannot host this app at
+  all — Jadawel issues live DDL against Postgres and has no SQL-free mode.
 - CI and Dependabot are deliberately disabled in this repository; it re-tests
   nothing and merges nothing.
 - Image published 2026-08-02 by run 30758451992, digest

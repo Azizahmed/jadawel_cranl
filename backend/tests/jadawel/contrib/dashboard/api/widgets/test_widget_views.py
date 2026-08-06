@@ -58,6 +58,8 @@ def test_get_widgets(api_client, data_fixture):
             "dashboard_id": dashboard.id,
             "data_source_id": data_source.id,
             "order": "1.00000000000000000000",
+            "width": 3,
+            "height": 2,
             "type": "summary",
         },
         {
@@ -67,6 +69,8 @@ def test_get_widgets(api_client, data_fixture):
             "dashboard_id": dashboard.id,
             "data_source_id": data_source_2.id,
             "order": "1.00000000000000000000",
+            "width": 3,
+            "height": 2,
             "type": "summary",
         },
     ]
@@ -132,6 +136,8 @@ def test_create_widget(api_client, data_fixture):
         "data_source_id": AnyInt(),
         "dashboard_id": dashboard.id,
         "order": "1.00000000000000000000",
+        "width": 3,
+        "height": 2,
         "type": "summary",
     }
 
@@ -290,6 +296,8 @@ def test_update_widget(api_client, data_fixture):
         "dashboard_id": widget.dashboard.id,
         "data_source_id": data_source.id,
         "order": "1.00000000000000000000",
+        "width": 3,
+        "height": 2,
         "type": "summary",
     }
     widget.refresh_from_db()

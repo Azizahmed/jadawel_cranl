@@ -9,9 +9,6 @@ from django.core.files.storage import FileSystemStorage
 
 import pytest
 import zipstream
-from baserow_enterprise.integrations.local_jadawel.user_source_types import (
-    LocalJadawelUserSourceType,
-)
 from PIL import Image
 
 from jadawel.contrib.builder.application_types import BuilderApplicationType
@@ -1039,7 +1036,7 @@ IMPORT_REFERENCE = {
     ],
     "integrations": [
         {
-            "authorized_user": "test@baserow.io",
+            "authorized_user": "test@jadawl.site",
             "id": 42,
             "name": "test",
             "order": "1.00000000000000000000",
@@ -1107,7 +1104,7 @@ IMPORT_REFERENCE = {
 
 @pytest.mark.django_db
 def test_builder_application_import(data_fixture):
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
 
     config = ImportExportConfig(include_permission_data=True)
@@ -1256,7 +1253,7 @@ IMPORT_REFERENCE_COMPLEX = {
     ],
     "integrations": [
         {
-            "authorized_user": "test@baserow.io",
+            "authorized_user": "test@jadawl.site",
             "id": 42,
             "name": "test",
             "order": "1.00000000000000000000",
@@ -1296,7 +1293,7 @@ IMPORT_REFERENCE_COMPLEX = {
 
 @pytest.mark.django_db
 def test_builder_application_import_with_complex_elements(data_fixture):
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
 
     config = ImportExportConfig(include_permission_data=True)
@@ -1323,7 +1320,7 @@ def test_builder_application_imports_page_with_default_visibility(
     Page Visibility related values are missing in the exported data.
     """
 
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
 
     config = ImportExportConfig(include_permission_data=True)
@@ -1348,7 +1345,7 @@ def test_builder_application_doesnt_import_favicon_file(data_fixture):
     doesn't exist in the serialized values.
     """
 
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
 
     config = ImportExportConfig(include_permission_data=True)
@@ -1370,7 +1367,7 @@ def test_builder_application_doesnt_import_favicon_file(data_fixture):
 def test_builder_application_imports_favicon_file(data_fixture, tmpdir):
     """Ensure the favicon_file is imported and saved to the builder."""
 
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
     storage = FileSystemStorage(location=str(tmpdir), base_url="http://localhost")
 
@@ -1402,7 +1399,7 @@ def test_builder_application_does_not_import_login_page(data_fixture):
     doesn't exist in the serialized values.
     """
 
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
 
     config = ImportExportConfig(include_permission_data=True)
@@ -1500,7 +1497,7 @@ def test_builder_application_imports_correct_default_roles(data_fixture):
     is used for any default roles.
     """
 
-    user = data_fixture.create_user(email="test@baserow.io")
+    user = data_fixture.create_user(email="test@jadawl.site")
     workspace = data_fixture.create_workspace(user=user)
 
     serialized_values = IMPORT_REFERENCE.copy()
@@ -1680,7 +1677,13 @@ def test_ensure_new_element_roles_are_sanitized_during_import_for_roles(
     config = ImportExportConfig(include_permission_data=True)
     serialized = BuilderApplicationType().export_serialized(builder, config)
 
-    with patch.object(LocalJadawelUserSourceType, "get_roles") as m:
+    # The enterprise user source ships in baserow_enterprise, which this fork deletes
+    # for licence reasons.
+    user_source_types = pytest.importorskip(
+        "baserow_enterprise.integrations.local_baserow.user_source_types",
+        reason="requires baserow_enterprise, deleted from this fork for licence reasons",
+    )
+    with patch.object(user_source_types.LocalJadawelUserSourceType, "get_roles") as m:
         m.return_value = user_source_roles
         builder = BuilderApplicationType().import_serialized(
             workspace, serialized, config, {}

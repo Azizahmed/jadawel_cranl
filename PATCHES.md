@@ -898,3 +898,96 @@ to be able to import them.
   those proprietary packages are *not* importable. Renaming them would void the guardrail.
 - Sample data inside `backend/templates/*.json` (author emails, hosted URLs, form links)
   and `e2e-tests/fixtures/e2e-db.dump`, which are upstream's content.
+
+---
+
+## Dashboard grid layout — widget width/height and writable order (2026-08-06)
+
+**Context:** The dashboard board becomes a 3-column grid with resizable, draggable
+widgets (`wedage_kimi_plan.md`, Approach A). Two integers — `width` 1–3 and
+`height` 1–3, default 3×2 so existing widgets keep today's full-width stacked
+look — live on the base `Widget` model, so layout rides the existing CRUD API,
+realtime broadcasts, undo/redo, trash and export/import instead of a fork-owned
+sidecar model. Reorder reuses the fractional `order`, which the update endpoint
+now accepts. Fork tests live in `backend/tests/arabase/test_widget_grid_layout.py`
+(additive, not logged here). The fork-owned frontend pieces — the grid SCSS
+partial, the `v-grid-sortable` directive and its order computations, the size
+picker component and the frontend tests under
+`web-frontend/test/unit/arabase/dashboard/` — are additive under
+`web-frontend/modules/arabase/` and likewise not logged here.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/contrib/dashboard/widgets/models.py` | `Widget.width`/`height` `PositiveSmallIntegerField` (validators 1–3, defaults 3 and 2) | Grid cell spans must persist on the widget itself | low |
+| `backend/src/jadawel/contrib/dashboard/migrations/0004_widget_width_height.py` | New migration adding the two fields | Fork-triggered additive migration | low |
+| `backend/src/jadawel/contrib/dashboard/api/widgets/serializers.py` | `width`/`height` read-only in `WidgetSerializer`, optional in `CreateWidgetSerializer`, writable in `UpdateWidgetSerializer` alongside a new writable `order` `DecimalField` | Resize and drag-reorder go through the existing PATCH endpoint | low |
+| `backend/src/jadawel/contrib/dashboard/widgets/registries.py` | `WidgetType.allowed_fields` gained `"order"`, `"width"`, `"height"` | The single switch letting `update_widget` accept them (`extract_allowed`) and undo/redo capture them (`export_prepared_values`) | low |
+| `backend/src/jadawel/contrib/dashboard/widgets/handler.py` | `create_widget` pops `order` from kwargs before `extract_allowed` | With `order` now allowed, the service's default `order=None` kwarg would collide with the computed order (`got multiple values for keyword argument`) | low |
+| `backend/src/jadawel/contrib/dashboard/types.py` | `WidgetDict` gained `width: int`/`height: int` | `get_property_names` reads the TypedDict annotations, so export/import round-trips the spans | low |
+| `backend/tests/jadawel/contrib/dashboard/api/widgets/test_widget_views.py` | Expected response dicts gained `width`/`height` | Existing assertions compare the full response body | low |
+| `backend/tests/jadawel/contrib/dashboard/test_dashboard_application_types.py` | Expected exported widget dicts gained `width`/`height` | Existing assertions compare the full serialized dict | low |
+| `web-frontend/modules/dashboard/components/WidgetBoard.vue` | Stacked `v-for` replaced by the 3-column CSS grid; wires the fork's `v-grid-sortable` (edit mode + `dashboard.widget.update` + viewport above `$dashboard-breakpoint`) with drop → fractional-order PATCH via `updateWidget` | Grid board and drag-reorder live in the upstream board component | low |
+| `web-frontend/modules/dashboard/components/widget/DashboardWidget.vue` | Applies inline `grid-column: span N` / `grid-row: span N` from `widget.width`/`height`, falling back to 3×2 when absent | Cell spans ride on each widget frame | low |
+| `web-frontend/modules/dashboard/components/widget/WidgetContext.vue` | "Size" menu item gated on `dashboard.widget.update`, opening the fork's `WidgetSizeContext` 3×3 picker | Resize entry point lives in the upstream widget context menu | low |
+| `web-frontend/modules/dashboard/store/dashboardApplication.js` | `updateWidget` merges pending debounced values per widget (a drag's `order` plus a resize's `width`/`height` within 1 s both PATCH), flushes a different widget's pending update, commits the PATCH response back | The cancel-and-replace debounce otherwise dropped a drag followed by a resize | low |
+| `web-frontend/modules/dashboard/locales/en.json` and `ar.json` | `widgetContext.size` / `widgetContext.sizePreview` added to both locales | Size picker strings live next to `widgetContext.delete`; parity gate is strict | low |
+
+---
+
+## Phase 4 - Standalone: remove the remaining Baserow names (2026-08-06)
+
+**Context:** With the fork treated as a standalone product, everything Phase 3 still
+left reading `baserow` was renamed, except the attribution the licences require.
+
+This pass found five breaks that Phase 2/3 had introduced and that a narrow test
+selection had missed. The full backend suite had never been runnable in this fork -
+six test files import the deleted `baserow_premium`/`baserow_enterprise` packages,
+which aborted collection for all 8,000+ tests - so nothing was watching.
+
+| Break | Effect if shipped |
+|---|---|
+| 157 templates kept `baserow_template_version`; `handler.py` reads `jadawel_template_version` and **returns silently** when absent | template picker empty, nothing in the log |
+| `supervisor.conf` reads `%(ENV_BASEROW_*)s`; `default_jadawel_env.sh` exports `JADAWEL_*` | all-in-one image fails to start supervisor |
+| webhooks emit `X-Jadawel-Event`/`-Delivery`; tests asserted `X-Baserow-*` | tests wrong, contract right |
+| code reads `Jadawel-View-Authorization`; tests sent `HTTP_BASEROW_VIEW_AUTHORIZATION` | tests wrong, contract right |
+| `deploy/helm/jadawel/values.yaml` copyright flipped to `Jadawel B.V.` by `3c8cca0` | **misattribution of Baserow's work; MIT terminates the grant** |
+
+`backend/tests/arabase/test_fork_hygiene.py` now asserts every required attribution,
+because two separate passes have rewritten one of them.
+
+### Also renamed
+
+- 11,663 strings across 161 bundled templates: author emails, sample URLs, the
+  `Local Baserow` integration display name, `X-Baserow-*` sample webhook headers.
+- 122 Postgres objects (55 constraints, 61 indexes, 6 sequences) whose names
+  `RenameModel` left behind. Not cosmetic: Postgres quotes the constraint name back
+  in every `IntegrityError`. Migration `integrations/0030` discovers and renames them
+  rather than hard-coding, and is needed even on a from-zero database, because the
+  history replays `CreateModel(name="LocalBaserow...")` before the rename.
+- `e2e-tests/fixtures/e2e-db.dump` regenerated. It is a pre-migrated schema snapshot,
+  so the Phase 3 model renames had already invalidated it. The generator recipe was
+  itself broken - it dumped as user/db `baserow` against a container created as
+  `jadawel`.
+- The three import/export fixture zips: `local_baserow` inside `builder_export.zip`
+  is a registry discriminator, so the schema JSON, its SHA-256 filename, the manifest
+  checksums and the manifest signature all had to be rebuilt. Re-signed with
+  `TEST_IMPORT_EXPORT_PRIVATE_KEY`, not a fresh key - the importer checks the public
+  key against `ImportExportTrustedSource`.
+- `.test_durations`: 2,928 stale entries dropped (223 test files no longer exist),
+  41 keys renamed only where the renamed test was verified to exist.
+
+### Permanently `baserow`
+
+- `Copyright (c) 2019-present Baserow B.V.` in `LICENSE`, `deploy/helm/jadawel/values.yaml`
+  and `circular_reference_checker.py`; `Copyright 2020, Jack Linke` (Apache-2.0 s4);
+  `Copyright 2018 Tal Shprecher`. MIT's sole condition is that the notice is kept -
+  dropping it ends the right to use the code at all.
+- Upstream's Docker images (`baserow/baserow-pgautoupgrade`, `-pg11`) referenced in the
+  PostgreSQL upgrade instructions, upstream issue URLs, and the fork's provenance line.
+- `baserow_premium` / `baserow_enterprise`, upstream's real package names, which
+  `test_fork_hygiene.py` asserts are *not* importable.
+- Historical migration filenames and their `CreateModel`/dependency strings, which the
+  later `RenameModel` operations refer to by name.
+
+`DatabaseRow*` contains the substring `baserow` (`data|baserow|perationtype`). A
+case-insensitive rename corrupts it; the sweep matched case-sensitively to avoid this.

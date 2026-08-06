@@ -64,7 +64,7 @@ UID:1725220374375-34056@ical.marudot.com
 DTSTART;TZID=Europe/Berlin:20240901T100000
 DTEND;TZID=Europe/Berlin:20240901T110000
 SUMMARY:Test event 0
-URL:https://baserow.io
+URL:https://jadawl.site
 DESCRIPTION:Test description 1
 LOCATION:Amsterdam
 END:VEVENT
@@ -101,7 +101,7 @@ DTSTAMP:20240901T195538Z
 UID:1725220374375-34056@ical.marudot.com
 DTSTART;TZID=Europe/Berlin:20240901T100000
 SUMMARY:Test event 0
-URL:https://baserow.io
+URL:https://jadawl.site
 DESCRIPTION:Test description 1
 LOCATION:Amsterdam
 END:VEVENT
@@ -139,7 +139,7 @@ UID:1725220374375-34056@ical.marudot.com
 DTSTART;TZID=Europe/Berlin:20240901T100000
 DTEND;TZID=Europe/Berlin:20240901T110000
 SUMMARY:Test event 1
-URL:https://baserow.io
+URL:https://jadawl.site
 DESCRIPTION:Test description 1
 LOCATION:Amsterdam
 END:VEVENT
@@ -186,7 +186,7 @@ UID:1725220387555-95757@ical.marudot.com
 DTSTART;TZID=Europe/Berlin:20240901T100000
 DTEND;TZID=Europe/Berlin:20240901T110000
 SUMMARY:Test event 1
-URL:https://baserow.io
+URL:https://jadawl.site
 DESCRIPTION:Test description 1
 LOCATION:Amsterdam
 END:VEVENT
@@ -233,7 +233,7 @@ UID:1725220374375-34056@ical.marudot.com
 DTSTART;TZID=Europe/Berlin:20240901T110000
 DTEND;TZID=Europe/Berlin:20240901T120000
 SUMMARY:Test event 1
-URL:https://baserow.io
+URL:https://jadawl.site
 DESCRIPTION:Test description 1
 LOCATION:Amsterdam
 END:VEVENT
@@ -360,14 +360,14 @@ def test_create_data_sync_table(send_mock, data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io",
+        ical_url="https://jadawl.site",
     )
 
     assert isinstance(data_sync, ICalCalendarDataSync)
     assert data_sync.id
     assert data_sync.table.name == "Test"
     assert data_sync.table.database_id == database.id
-    assert data_sync.ical_url == "https://baserow.io"
+    assert data_sync.ical_url == "https://jadawl.site"
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
     assert len(fields) == 4
@@ -432,7 +432,7 @@ def test_create_data_sync_table_automatically_add_unique_properties(
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["dtstart"],
-        ical_url="https://baserow.io",
+        ical_url="https://jadawl.site",
     )
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
@@ -458,7 +458,7 @@ def test_update_data_sync_table_without_permissions(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend"],
-        ical_url="https://baserow.io",
+        ical_url="https://jadawl.site",
     )
 
     with pytest.raises(UserNotInWorkspace):
@@ -484,7 +484,7 @@ def test_update_data_sync_table(send_mock, data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend"],
-        ical_url="https://baserow.io",
+        ical_url="https://jadawl.site",
     )
 
     data_sync = handler.update_data_sync_table(
@@ -541,7 +541,7 @@ def test_update_data_sync_table(send_mock, data_fixture):
 def test_sync_data_sync_table_create_update_delete_row(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -557,7 +557,7 @@ def test_sync_data_sync_table_create_update_delete_row(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     with freeze_time("2021-01-01 12:00"):
         handler.sync_data_sync_table(user=user, data_sync=data_sync)
@@ -598,7 +598,7 @@ def test_sync_data_sync_table_create_update_delete_row(data_fixture):
     # Test updating rows
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_THREE_ITEMS,
     )
@@ -632,7 +632,7 @@ def test_sync_data_sync_table_create_update_delete_row(data_fixture):
     # Test deleting rows
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -660,7 +660,7 @@ def test_sync_data_sync_table_create_update_delete_row(data_fixture):
 def test_sync_data_sync_table_property_removed_from_data_sync_type(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -675,7 +675,7 @@ def test_sync_data_sync_table_property_removed_from_data_sync_type(data_fixture)
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     registry = DataSyncTypeRegistry()
@@ -719,7 +719,7 @@ def test_sync_data_sync_table_property_removed_from_data_sync_type(data_fixture)
 def test_sync_data_sync_table_multiple_unique_primary_properties(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS_SAME_ID,
     )
@@ -734,7 +734,7 @@ def test_sync_data_sync_table_multiple_unique_primary_properties(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     registry = DataSyncTypeRegistry()
@@ -786,7 +786,7 @@ def test_sync_data_sync_table_multiple_unique_primary_properties(data_fixture):
 def test_sync_data_sync_table_refresh_called(send_mock, data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -802,7 +802,7 @@ def test_sync_data_sync_table_refresh_called(send_mock, data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
@@ -817,7 +817,7 @@ def test_sync_data_sync_table_refresh_called(send_mock, data_fixture):
 def test_sync_data_sync_table_sync_error(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=404,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -833,7 +833,7 @@ def test_sync_data_sync_table_sync_error(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     data_sync = handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
@@ -862,7 +862,7 @@ def test_sync_data_sync_table_exception_raised(mock_get_all_rows, data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     with pytest.raises(ValueError):
@@ -874,7 +874,7 @@ def test_sync_data_sync_table_exception_raised(mock_get_all_rows, data_fixture):
 def test_sync_data_sync_table_with_formula_field_dependency(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -889,7 +889,7 @@ def test_sync_data_sync_table_with_formula_field_dependency(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
@@ -906,7 +906,7 @@ def test_sync_data_sync_table_with_formula_field_dependency(data_fixture):
 
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -924,7 +924,7 @@ def test_sync_data_sync_table_with_formula_field_dependency(data_fixture):
 def test_sync_data_sync_table_without_all_fields_rows_updated(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -939,7 +939,7 @@ def test_sync_data_sync_table_without_all_fields_rows_updated(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
@@ -956,7 +956,7 @@ def test_sync_data_sync_table_without_permissions(data_fixture):
     user = data_fixture.create_user()
 
     data_sync = data_fixture.create_ical_data_sync(
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     with pytest.raises(UserNotInWorkspace):
@@ -968,7 +968,7 @@ def test_sync_data_sync_table_without_permissions(data_fixture):
 def test_sync_data_sync_table_already_running(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -984,7 +984,7 @@ def test_sync_data_sync_table_already_running(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     cache.add(f"data_sync_{data_sync.id}_syncing_table", "locked", timeout=2)
@@ -998,7 +998,7 @@ def test_sync_data_sync_table_already_running(data_fixture):
 def test_sync_data_sync_table_lock_is_removed(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1014,7 +1014,7 @@ def test_sync_data_sync_table_lock_is_removed(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     handler.sync_data_sync_table(user=user, data_sync=data_sync)
@@ -1026,7 +1026,7 @@ def test_sync_data_sync_table_lock_is_removed(data_fixture):
 def test_sync_data_sync_table_lock_is_removed_on_sync_error(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=404,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1042,7 +1042,7 @@ def test_sync_data_sync_table_lock_is_removed_on_sync_error(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     data_sync = handler.sync_data_sync_table(user=user, data_sync=data_sync)
@@ -1055,7 +1055,7 @@ def test_sync_data_sync_table_lock_is_removed_on_sync_error(data_fixture):
 def test_sync_data_sync_table_lock_is_removed_on_failure(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=404,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1071,7 +1071,7 @@ def test_sync_data_sync_table_lock_is_removed_on_failure(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     registry = DataSyncTypeRegistry()
@@ -1097,7 +1097,7 @@ def test_sync_data_sync_table_lock_is_removed_on_failure(data_fixture):
 def test_set_data_sync_synced_properties_not_existing_property(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1113,7 +1113,7 @@ def test_set_data_sync_synced_properties_not_existing_property(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     with pytest.raises(PropertyNotFound):
@@ -1129,7 +1129,7 @@ def test_set_data_sync_synced_properties_not_existing_property(data_fixture):
 def test_set_data_sync_synced_properties_without_permissions(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1137,7 +1137,7 @@ def test_set_data_sync_synced_properties_without_permissions(data_fixture):
     user = data_fixture.create_user()
 
     data_sync = data_fixture.create_ical_data_sync(
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     with pytest.raises(UserNotInWorkspace):
         handler = DataSyncHandler()
@@ -1153,7 +1153,7 @@ def test_set_data_sync_synced_properties_without_permissions(data_fixture):
 def test_set_data_sync_synced_properties_field_name_already_exists(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1169,7 +1169,7 @@ def test_set_data_sync_synced_properties_field_name_already_exists(data_fixture)
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     data_fixture.create_text_field(user, table=data_sync.table, name="Summary")
     data_sync_handler.set_data_sync_synced_properties(
@@ -1188,7 +1188,7 @@ def test_set_data_sync_synced_properties_field_name_already_exists(data_fixture)
 def test_set_data_sync_synced_properties_field_types_changed(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1203,7 +1203,7 @@ def test_set_data_sync_synced_properties_field_types_changed(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     registry = DataSyncTypeRegistry()
@@ -1241,7 +1241,7 @@ def test_set_data_sync_synced_properties_field_types_changed(data_fixture):
 def test_set_data_sync_synced_properties_property_removed_from_data_sync(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1256,7 +1256,7 @@ def test_set_data_sync_synced_properties_property_removed_from_data_sync(data_fi
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     registry = DataSyncTypeRegistry()
@@ -1293,7 +1293,7 @@ def test_set_data_sync_synced_properties_property_immutable_properties_changed(
 ):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1325,7 +1325,7 @@ def test_set_data_sync_synced_properties_property_immutable_properties_changed(
             table_name="Test",
             type_name="ical_calendar",
             synced_properties=["uid", "dtstart"],
-            ical_url="https://baserow.io/ical.ics",
+            ical_url="https://jadawl.site/ical.ics",
         )
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
@@ -1364,7 +1364,7 @@ def test_set_data_sync_synced_properties_property_immutable_properties_changed(
 def test_set_data_sync_synced_properties_property_unique_primary_changed(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1398,7 +1398,7 @@ def test_set_data_sync_synced_properties_property_unique_primary_changed(data_fi
             table_name="Test",
             type_name="ical_calendar",
             synced_properties=["uid", "dtstart"],
-            ical_url="https://baserow.io/ical.ics",
+            ical_url="https://jadawl.site/ical.ics",
         )
 
     properties = data_sync.synced_properties.all().order_by("id")
@@ -1441,7 +1441,7 @@ def test_set_data_sync_synced_properties_with_multiple_same_synced_properties(
 ):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1457,7 +1457,7 @@ def test_set_data_sync_synced_properties_with_multiple_same_synced_properties(
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     handler.set_data_sync_synced_properties(
@@ -1476,7 +1476,7 @@ def test_set_data_sync_synced_properties_with_multiple_same_synced_properties(
 def test_set_data_sync_synced_properties(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1492,7 +1492,7 @@ def test_set_data_sync_synced_properties(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     handler.set_data_sync_synced_properties(
@@ -1532,7 +1532,7 @@ def test_set_data_sync_synced_properties(data_fixture):
 def test_set_data_sync_synced_properties_correctly_removing_field(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1548,7 +1548,7 @@ def test_set_data_sync_synced_properties_correctly_removing_field(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     with connection.cursor() as cursor:
@@ -1584,7 +1584,7 @@ def test_set_data_sync_synced_properties_correctly_removing_field(data_fixture):
 def test_delete_sync_data_sync_table(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -1599,7 +1599,7 @@ def test_delete_sync_data_sync_table(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
@@ -1613,7 +1613,7 @@ def test_delete_sync_data_sync_table(data_fixture):
 def test_delete_unique_primary_data_sync_field(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -1628,7 +1628,7 @@ def test_delete_unique_primary_data_sync_field(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
@@ -1645,7 +1645,7 @@ def test_delete_unique_primary_data_sync_field(data_fixture):
 def test_delete_non_unique_primary_data_sync_field(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -1660,7 +1660,7 @@ def test_delete_non_unique_primary_data_sync_field(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
@@ -1676,7 +1676,7 @@ def test_delete_non_unique_primary_data_sync_field(data_fixture):
 def test_trash_field_and_then_sync(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -1691,7 +1691,7 @@ def test_trash_field_and_then_sync(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
@@ -1707,13 +1707,13 @@ def test_trash_field_and_then_sync(data_fixture):
 def test_trash_field_is_synced(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
     responses.add(
         responses.GET,
-        "https://baserow.io/ical2.ics",
+        "https://jadawl.site/ical2.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1728,11 +1728,11 @@ def test_trash_field_is_synced(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     data_sync = handler.sync_data_sync_table(user=user, data_sync=data_sync)
 
-    data_sync.ical_url = "https://baserow.io/ical2.ics"
+    data_sync.ical_url = "https://jadawl.site/ical2.ics"
     data_sync.save()
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
     FieldHandler().delete_field(user, fields[1])
@@ -1752,7 +1752,7 @@ def test_trash_field_is_synced(data_fixture):
 def test_set_data_sync_not_recreate_trashed_field_property_on_sync(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_TWO_ITEMS,
     )
@@ -1768,7 +1768,7 @@ def test_set_data_sync_not_recreate_trashed_field_property_on_sync(data_fixture)
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
 
     fields = specific_iterator(data_sync.table.field_set.all().order_by("id"))
@@ -1784,7 +1784,7 @@ def test_set_data_sync_not_recreate_trashed_field_property_on_sync(data_fixture)
 def test_duplicate_data_sync_field(data_fixture):
     responses.add(
         responses.GET,
-        "https://baserow.io/ical.ics",
+        "https://jadawl.site/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS,
     )
@@ -1799,7 +1799,7 @@ def test_duplicate_data_sync_field(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid"],
-        ical_url="https://baserow.io/ical.ics",
+        ical_url="https://jadawl.site/ical.ics",
     )
     handler.sync_data_sync_table(user=user, data_sync=data_sync)
 

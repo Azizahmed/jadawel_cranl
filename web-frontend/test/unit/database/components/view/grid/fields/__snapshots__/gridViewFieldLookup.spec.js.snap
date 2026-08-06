@@ -10,15 +10,15 @@ exports[`GridViewFieldLookup component > URL lookup field shows hyperlink when a
 >
   <div
     class="array-field__ellipsis"
-    title="baserow.io"
+    title="jadawl.site"
   >
     <a
       class="forced-pointer-events-auto"
-      href="https://baserow.io"
+      href="https://jadawl.site"
       rel="nofollow noopener noreferrer"
       target="_blank"
     >
-      baserow.io
+      jadawl.site
     </a>
   </div>
 </div>
@@ -34,10 +34,10 @@ exports[`GridViewFieldLookup component > URL lookup field shows text when inacti
 >
   <div
     class="array-field__ellipsis"
-    title="baserow.io"
+    title="jadawl.site"
   >
     <u>
-      baserow.io
+      jadawl.site
     </u>
   </div>
 </div>

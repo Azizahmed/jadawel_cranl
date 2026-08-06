@@ -104,23 +104,49 @@ export const actions = {
       commit('UPDATE_WIDGET', { widgetId, values })
 
       let previousOriginalValues = originalValues
+      let mergedValues = values
       if (debouncedWidgetUpdate) {
-        debouncedWidgetUpdate.cancel()
-        previousOriginalValues = debouncedWidgetUpdate.originalValues
+        if (debouncedWidgetUpdate.widgetId === widgetId) {
+          // Jadawel fork (grid board): a drag (`order`) followed within the
+          // debounce window by a resize (`width`/`height`) must not drop the
+          // first PATCH, so pending values for the same widget are merged
+          // instead of replaced.
+          debouncedWidgetUpdate.cancel()
+          previousOriginalValues = debouncedWidgetUpdate.originalValues
+          mergedValues = { ...debouncedWidgetUpdate.values, ...values }
+        } else {
+          // Another widget's update is still pending; flush it now so that
+          // change is not lost.
+          debouncedWidgetUpdate.flush()
+        }
       }
 
-      debouncedWidgetUpdate = debounce(async () => {
+      const debounced = debounce(async () => {
         try {
-          await WidgetService($client).update(widgetId, values)
-          debouncedWidgetUpdate = null
+          const { data } = await WidgetService($client).update(
+            widgetId,
+            mergedValues
+          )
+          if (debouncedWidgetUpdate === debounced) {
+            debouncedWidgetUpdate = null
+          }
+          // Refresh the local values from the response — e.g. the exact
+          // `order` the backend computed after a drag.
+          commit('UPDATE_WIDGET', { widgetId, values: data })
           resolve()
         } catch (error) {
-          commit('UPDATE_WIDGET', { widgetId, values: previousOriginalValues })
+          commit('UPDATE_WIDGET', {
+            widgetId,
+            values: previousOriginalValues,
+          })
           reject(error)
         }
       }, 1000)
-      debouncedWidgetUpdate.originalValues = previousOriginalValues
-      debouncedWidgetUpdate()
+      debounced.originalValues = previousOriginalValues
+      debounced.values = mergedValues
+      debounced.widgetId = widgetId
+      debouncedWidgetUpdate = debounced
+      debounced()
     })
   },
   handleWidgetUpdated({ commit }, widget) {

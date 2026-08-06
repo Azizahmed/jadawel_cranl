@@ -1884,33 +1884,33 @@
         <div class="margin-bottom-3">
           <h2>Presentations</h2>
           <Presentation
-            title="My baserow integration"
-            subtitle="Local baserow integration"
+            title="My jadawel integration"
+            subtitle="Local jadawel integration"
             class="margin-bottom-2"
           />
           <Presentation
-            title="My baserow integration"
-            subtitle="Local baserow integration"
+            title="My jadawel integration"
+            subtitle="Local jadawel integration"
             initials="LB"
             class="margin-bottom-2"
           />
           <Presentation
-            title="My baserow integration"
-            subtitle="Local baserow integration"
+            title="My jadawel integration"
+            subtitle="Local jadawel integration"
             icon="iconoir-db"
             class="margin-bottom-2"
           />
           <Presentation
             :image="image"
-            title="My baserow integration"
-            subtitle="Local baserow integration"
+            title="My jadawel integration"
+            subtitle="Local jadawel integration"
             avatar-color="neutral"
             class="margin-bottom-2"
           />
           <Presentation
             :image="image"
-            title="My baserow integration"
-            subtitle="Local baserow integration with a very long description"
+            title="My jadawel integration"
+            subtitle="Local jadawel integration with a very long description"
             avatar-color="neutral"
             class="margin-bottom-2"
           />

@@ -1,12 +1,12 @@
 ---
 name: Add Django Config Env Var
-description: Add a new environment variable for a Django setting in Baserow and propagate it to the few repo files that usually need it. Use this when a request says a config env var must be added in several places or references `INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT` as the pattern to follow.
+description: Add a new environment variable for a Django setting in Jadawel and propagate it to the few repo files that usually need it. Use this when a request says a config env var must be added in several places or references `INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT` as the pattern to follow.
 version: 1.0.0
 ---
 
 # Add Django Config Env Var
 
-Use `INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT` as the template. The env var name should be prefixed with `BASEROW_` but the internal var isn't.
+Use `INTEGRATION_LOCAL_JADAWEL_PAGE_SIZE_LIMIT` as the template. The env var name should be prefixed with `JADAWEL_` but the internal var isn't.
 
 Keep the change simple and explicit. Do not add abstractions for this.
 

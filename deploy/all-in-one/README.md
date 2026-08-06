@@ -149,14 +149,14 @@ docker rm jadawel
 ## Upgrading PostgreSQL database from a previous version
 
 > NOTE: this section only applies if your data directory was originally created by
-> an old upstream Baserow release running PostgreSQL 11. The
+> an old upstream Jadawel release running PostgreSQL 11. The
 > `baserow/baserow-pgautoupgrade` and `baserow/baserow-pg11` images referenced below
-> are published by upstream Baserow and have no Jadawel equivalent, so those image
+> are published by upstream Jadawel and have no Jadawel equivalent, so those image
 > names are deliberately left unchanged.
 
 On November 2023 [PostgreSQL released](https://www.postgresql.org/about/news/postgresql-161-155-1410-1313-1217-and-1122-released-2749/) a final update for version 11 of the database together with an end-of-life notice for this version. This means, that PostgreSQL 11 will no longer receive security and bug fixes.
 
-If you are using an embedded PostgreSQL database (an embedded one is when you do _not_ provide `POSTGRESQL_*` environment variables when launching Jadawel, as opposed to an external one, where you provide connection details to your external PostgreSQL instance), and if you restart or try to run a new Jadawel instance, if your data was initialized with PostgreSQL version 11, you'll notice that it doesn't start up anymore and raises an error because you need to upgrade your data directory to be compatible with PostgreSQL version 15. Upstream Baserow provides an image to automatically upgrade your data directory to PostgreSQL version 15, which is now the version officially supported by Jadawel.
+If you are using an embedded PostgreSQL database (an embedded one is when you do _not_ provide `POSTGRESQL_*` environment variables when launching Jadawel, as opposed to an external one, where you provide connection details to your external PostgreSQL instance), and if you restart or try to run a new Jadawel instance, if your data was initialized with PostgreSQL version 11, you'll notice that it doesn't start up anymore and raises an error because you need to upgrade your data directory to be compatible with PostgreSQL version 15. Upstream Jadawel provides an image to automatically upgrade your data directory to PostgreSQL version 15, which is now the version officially supported by Jadawel.
 
 If you don't want to upgrade at this point in time, jump to [Legacy PostgreSQL version](#legacy-postgresql-version) section below. Although, be aware, that we will only support PostgreSQL 11 for a limited amount of time and that this version won't receive official updates from PostgreSQL anymore.
 
@@ -171,7 +171,7 @@ To upgrade your data directory to be compatible with PostgreSQL 15, follow these
 
 ```
 docker run \
-  --name baserow-pgautoupgrade \
+  --name jadawel-pgautoupgrade \
   # ALL THE ARGUMENTS YOU NORMALLY ADD TO YOUR JADAWEL INSTANCE
   --restart no \
   baserow/baserow-pgautoupgrade:1.30.1
@@ -184,11 +184,11 @@ docker run \
 
 Starting from January 1, 2025, we will no longer create new images with PostgreSQL 11. If you are using the embedded PostgreSQL version in a Jadawel version before 1.30 and want to upgrade to the latest version, you must first use the latest `pgautoupgrade` image to upgrade PostgreSQL to version 15, and then upgrade to the latest version of Jadawel. If you do not wish to upgrade PostgreSQL, version 1.30.1 is the last image we provide with PostgreSQL 11, but it will not receive any updates.
 
-To run the latest upstream Baserow image that uses the legacy PostgreSQL 11 version, use the following command:
+To run the latest upstream Jadawel image that uses the legacy PostgreSQL 11 version, use the following command:
 
 ```
 docker run \
-  --name baserow-pg11 \
+  --name jadawel-pg11 \
   # ALL THE ARGUMENTS YOU NORMALLY ADD TO YOUR JADAWEL INSTANCE
   --restart unless-stopped \
   baserow/baserow-pg11:1.30.1

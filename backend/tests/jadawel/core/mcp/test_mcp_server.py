@@ -13,8 +13,8 @@ from jadawel.core.mcp import JadawelMCPServer, current_key
 def test_create_server():
     async def inner():
         mcp = JadawelMCPServer()
-        assert mcp._mcp_server.name == "Baserow MCP"
-        assert "Baserow" in mcp._mcp_server.instructions
+        assert mcp._mcp_server.name == "Jadawel MCP"
+        assert "Jadawel" in mcp._mcp_server.instructions
 
     with transaction.atomic():
         async_to_sync(inner)()

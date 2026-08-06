@@ -16,7 +16,7 @@ def test_signal_listener(mock_call_webhook, data_fixture):
         url="http://localhost/",
         include_all_events=False,
         events=["rows.created"],
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
     )
 
     RowHandler().create_row(user=user, table=table, values={})
@@ -25,10 +25,10 @@ def test_signal_listener(mock_call_webhook, data_fixture):
     _, kwargs = mock_call_webhook.delay.call_args
     assert kwargs["webhook_id"] == webhook.id
     assert kwargs["event_type"] == "rows.created"
-    assert kwargs["headers"]["Baserow-header-1"] == "Value 1"
+    assert kwargs["headers"]["Jadawel-header-1"] == "Value 1"
     assert kwargs["headers"]["Content-type"] == "application/json"
-    assert kwargs["headers"]["X-Baserow-Event"] == "rows.created"
-    assert len(kwargs["headers"]["X-Baserow-Delivery"]) > 1
+    assert kwargs["headers"]["X-Jadawel-Event"] == "rows.created"
+    assert len(kwargs["headers"]["X-Jadawel-Delivery"]) > 1
     assert kwargs["method"] == "POST"
     assert kwargs["url"] == "http://localhost/"
     assert kwargs["payload"] == {

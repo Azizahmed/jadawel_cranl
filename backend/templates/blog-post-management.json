@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "Blog Post Management",
     "icon": "iconoir-view-grid",
     "keywords": [
@@ -201,7 +201,7 @@
                             "select_options": [
                                 {
                                     "id": 19989,
-                                    "value": "baserow",
+                                    "value": "jadawel",
                                     "color": "dark-blue",
                                     "order": 0
                                 },
@@ -752,8 +752,8 @@
                             "field_120325": [
                                 {
                                     "name": "XwPkmw8UtWZD0Jik8duEuH7evDvFxdcK_dbc4edc4b16ba7d1f2d7ed6bc6b16ff9aa73b79466151ad397771975e4d028f6.png",
-                                    "visible_name": "baserow.png",
-                                    "original_name": "baserow.png"
+                                    "visible_name": "jadawel.png",
+                                    "original_name": "jadawel.png"
                                 }
                             ],
                             "field_120326": "Lorem ipsum dolor sit amet consectetur adipiscing elit pretium, cubilia nunc suspendisse nam velit praesent tristique magnis at, imperdiet eleifend diam sociis porttitor facilisis erat. Nullam ut nam cursus est vitae posuere, justo nulla pellentesque neque molestie etiam vivamus, lacinia sed imperdiet facilisi quam. Tempor gravida magnis fringilla tellus class pharetra ligula dis, aptent taciti dictumst leo inceptos dictum aliquet rhoncus, netus ad nibh sit massa imperdiet scelerisque. Ultrices integer suspendisse pretium mauris dapibus eu ligula tellus, cubilia bibendum volutpat nulla mi pulvinar tempor habitant, ut ullamcorper convallis mollis odio elementum rutrum. Urna ante vestibulum habitant primis diam maecenas interdum, senectus proin ipsum suspendisse nam scelerisque odio morbi, ut etiam velit ad dolor sem.",
@@ -862,7 +862,7 @@
                         {
                             "id": 4,
                             "order": "4.00000000000000000000",
-                            "field_120322": "Automate Your Life Using Baserow and n8n",
+                            "field_120322": "Automate Your Life Using Jadawel and n8n",
                             "field_120325": [
                                 {
                                     "name": "JTETw5IdK1SDBpVMRNngq1qgZkimwhnF_ef6d3461a7dfc95c9ddfc5af138677e14537d7380b4be4862287d7338dfb4bb1.jpg",
@@ -894,7 +894,7 @@
                                 19989,
                                 19993
                             ],
-                            "field_189483": "automate-your-life-using-baserow-n8n",
+                            "field_189483": "automate-your-life-using-jadawel-n8n",
                             "field_189488": null
                         },
                         {

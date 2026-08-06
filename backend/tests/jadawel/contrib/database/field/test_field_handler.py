@@ -9,7 +9,6 @@ from django.db.utils import IntegrityError
 from django.test.utils import CaptureQueriesContext
 
 import pytest
-from baserow_premium.fields.field_types import AIFieldType
 from faker import Faker
 
 from jadawel.contrib.database.fields.constants import (
@@ -387,7 +386,12 @@ def test_field_conversion_autonumber(data_fixture):
 @pytest.mark.disabled_in_ci
 @pytest.mark.django_db
 def test_field_conversion_ai(data_fixture):
-    _test_can_convert_between_fields(data_fixture, AIFieldType.type)
+    # AIFieldType ships in baserow_premium, which this fork deletes for licence reasons.
+    field_types = pytest.importorskip(
+        "baserow_premium.fields.field_types",
+        reason="requires baserow_premium, deleted from this fork for licence reasons",
+    )
+    _test_can_convert_between_fields(data_fixture, field_types.AIFieldType.type)
 
 
 @pytest.mark.django_db
@@ -1998,7 +2002,7 @@ def test_field_constraints_unique_with_empty(data_fixture):
         URLFieldType.type: {
             "constraint": UniqueWithEmptyConstraint.constraint_name,
             "empty": "",
-            "value": "https://baserow.io",
+            "value": "https://jadawl.site",
         },
         EmailFieldType.type: {
             "constraint": UniqueWithEmptyConstraint.constraint_name,

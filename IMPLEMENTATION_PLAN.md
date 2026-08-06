@@ -1,4 +1,4 @@
-# Arabic-First Baserow Fork — Implementation Plan
+# Arabic-First Jadawel Fork — Implementation Plan
 
 > **Audience:** Claude Code (agentic execution). Work phase by phase. Do not start a phase until the previous phase's acceptance criteria pass. Commit small, commit often, one concern per PR.
 
@@ -9,21 +9,21 @@
 - **Product:** Arabic-first, RTL-native online spreadsheet-database ("lightweight Airtable"), targeting Saudi SMEs and government entities replacing Excel.
 - **Base:** Fork of [Baserow](https://github.com/baserow/baserow) — Django 5.x + DRF backend, Nuxt 3 / Vue 3 / TypeScript frontend, PostgreSQL, Redis, Celery, Django Channels (realtime).
 - **Strategy decisions (locked):**
-  1. Use Baserow's native backend. **No InsForge.**
+  1. Use Jadawel's native backend. **No InsForge.**
   2. **Option B on enterprise features:** rebuild SSO (OIDC first), audit logs, and advanced RBAC ourselves on the MIT core. Nafath integration comes in a later phase.
   3. RTL is implemented **in the frontend fork code** (not runtime hacks), using CSS logical properties + `dir` propagation.
 - **Deployment target:** self-hosted in Saudi Arabia (PDPL compliance). Docker Compose first, Helm later.
 
 ### ⚠️ Legal guardrail — NON-NEGOTIABLE
-- The Baserow repo is open-core. **Never copy, import, reference, or adapt any code from `premium/` or `enterprise/` directories.** They are proprietary.
+- The Jadawel repo is open-core. **Never copy, import, reference, or adapt any code from `premium/` or `enterprise/` directories.** They are proprietary.
 - Step 1 of Phase 0 is to **strip these directories from our fork** so they cannot leak into our build.
 - All enterprise-equivalent features (SSO, audit logs, RBAC) must be written from scratch in our own apps/modules.
 
 ### Repo & branch strategy
 - `main` — our product.
-- `upstream` remote → `baserow/baserow`. Track upstream releases; rebase/merge quarterly.
+- `upstream` remote → `jadawel/jadawel`. Track upstream releases; rebase/merge quarterly.
 - Keep our changes isolated to make upstream merges cheap:
-  - **Backend:** new Django apps under `backend/src/arabase/` (working codename — replace globally when brand is chosen). Registered via Baserow's plugin/registry system. Avoid editing core files; when unavoidable, keep a `PATCHES.md` log listing every core file touched and why.
+  - **Backend:** new Django apps under `backend/src/arabase/` (working codename — replace globally when brand is chosen). Registered via Jadawel's plugin/registry system. Avoid editing core files; when unavoidable, keep a `PATCHES.md` log listing every core file touched and why.
   - **Frontend:** new Nuxt module/layer under `web-frontend/modules/arabase/` for additive code; direct edits to core components (RTL) tracked in `PATCHES.md`.
 
 ---
@@ -31,7 +31,7 @@
 ## Phase 0 — Environment, Fork Hygiene, and Arabic Audit (Week 1–2)
 
 ### Tasks
-1. Fork Baserow (latest stable 2.x tag). Add `upstream` remote.
+1. Fork Jadawel (latest stable 2.x tag). Add `upstream` remote.
 2. **Delete `premium/` and `enterprise/` directories.** Remove all references: settings/app registration, frontend module imports, Docker build steps, CI. The build must be green with them gone.
 3. Stand up dev environment: `just dc-dev build --parallel && just dc-dev up -d`. Verify grid CRUD, realtime sync between two browser tabs, Celery jobs.
 4. Add CI (GitHub Actions): backend pytest, frontend unit tests, ESLint/ruff, Docker image build.
@@ -72,7 +72,7 @@ Arabic is the **primary** locale; English secondary. RTL must be first-class, no
 - Arabic typography: ship a proper Arabic UI font (recommend **IBM Plex Sans Arabic** or **Noto Sans Arabic**), font stack falls back per locale; check line-height (Arabic needs ~1.6+), grid row height token adjustable.
 
 ### 1.3 Grid engine RTL (the core work)
-Baserow's grid is custom-virtualized — this is where most effort goes:
+Jadawel's grid is custom-virtualized — this is where most effort goes:
 - Column layout: in RTL, first column (incl. row-number + primary field, frozen behavior) anchors right; horizontal scroll math inverted. Beware `scrollLeft` browser inconsistencies in RTL (Chrome negative values vs old WebKit) — normalize via a utility.
 - Frozen/sticky columns stick to the **inline-start** edge.
 - Cell content rules by field type (critical for data legibility):
@@ -98,10 +98,10 @@ Baserow's grid is custom-virtualized — this is where most effort goes:
 
 ## Phase 2 — Arabic Data Layer Plugins (Week 4–8, overlaps Phase 1)
 
-All backend work here as **Baserow plugins/registries** in `backend/src/arabase/` — no core edits.
+All backend work here as **Jadawel plugins/registries** in `backend/src/arabase/` — no core edits.
 
 ### 2.1 Hijri date field type
-- New field type `hijri_date` via Baserow's field-type registry.
+- New field type `hijri_date` via Jadawel's field-type registry.
 - Storage: canonical **Gregorian date in Postgres** + display conversion (use `hijri-converter` (Umm al-Qura calendar) on backend; `@umalqura/core` or equivalent on frontend). Never store Hijri as the source of truth — arithmetic/filtering/sorting stays Gregorian.
 - Field options: display calendar (hijri / gregorian / both), format string.
 - Filters ("date is", before/after, ranges) accept Hijri input, convert at the API boundary.
@@ -113,7 +113,7 @@ All backend work here as **Baserow plugins/registries** in `backend/src/arabase/
   - Strip tashkeel/diacritics (U+064B–U+0652, U+0670)
   - Normalize alef variants (أ إ آ ٱ → ا), ta marbuta (ة → ه) — make ta-marbuta folding configurable, ya/alef maqsura (ى → ي)
   - Strip tatweel (ـ)
-- Apply in Baserow's search path (`contains` filter + global search): compare `normalize(column) LIKE normalize(query)`; add expression **GIN trigram index on the normalized expression** for perf at 100K+ rows.
+- Apply in Jadawel's search path (`contains` filter + global search): compare `normalize(column) LIKE normalize(query)`; add expression **GIN trigram index on the normalized expression** for perf at 100K+ rows.
 - Unit tests: مدرسه↔مدرسة, احمد↔أحمد, قرآن with/without madda, tatweel-padded text.
 
 ### 2.3 Import/export hardening
@@ -131,7 +131,7 @@ All backend work here as **Baserow plugins/registries** in `backend/src/arabase/
 
 ## Phase 3 — Enterprise Features Rebuild (Week 8–14)
 
-Written from scratch (Option B). New Django apps: `arabase.sso`, `arabase.audit`, `arabase.rbac`. **Do not look at Baserow premium/enterprise code.**
+Written from scratch (Option B). New Django apps: `arabase.sso`, `arabase.audit`, `arabase.rbac`. **Do not look at Jadawel premium/enterprise code.**
 
 ### 3.1 SSO — OIDC first
 - OIDC RP via `mozilla-django-oidc` or `authlib`: Azure AD/Entra (most common in Saudi orgs), Google Workspace, generic OIDC.
@@ -142,13 +142,13 @@ Written from scratch (Option B). New Django apps: `arabase.sso`, `arabase.audit`
 
 ### 3.2 Audit log
 - Append-only `audit_event` table: actor, workspace, ip, user-agent, action type, target (table/row/field/view), before/after summary (JSONB, size-capped), timestamp.
-- Capture via DRF middleware + signals on Baserow action registry (Baserow's action system for undo/redo is a natural hook point — subscribe, don't modify).
+- Capture via DRF middleware + signals on Jadawel action registry (Jadawel's action system for undo/redo is a natural hook point — subscribe, don't modify).
 - Admin UI (frontend module): filterable log per workspace, CSV export.
 - Retention policy setting + Celery purge job. Partition table by month from day one.
 
 ### 3.3 RBAC
-- Roles beyond Baserow core's member/admin: `viewer`, `commenter`, `editor`, `builder`, `admin` at workspace level; per-table role overrides.
-- Enforce in DRF permission classes wrapping Baserow's handler layer; deny-by-default for overrides.
+- Roles beyond Jadawel core's member/admin: `viewer`, `commenter`, `editor`, `builder`, `admin` at workspace level; per-table role overrides.
+- Enforce in DRF permission classes wrapping Jadawel's handler layer; deny-by-default for overrides.
 - Frontend: role management UI in workspace settings; UI affordances hide/disable actions the role can't perform (server remains source of truth).
 
 ### Acceptance criteria
@@ -196,6 +196,6 @@ Written from scratch (Option B). New Django apps: `arabase.sso`, `arabase.audit`
 2. Never read or copy from `premium/`/`enterprise/` (should already be deleted — if any reference resurfaces from upstream merges, strip it).
 3. Every core-file edit gets a `PATCHES.md` entry: file, reason, upstream-merge risk.
 4. Backend changes: pytest coverage required. Frontend RTL changes: Playwright visual test in both `ar` and `en` before merge.
-5. Prefer Baserow's registries (field types, view types, actions, plugins) over core edits — always check for a registry hook first.
+5. Prefer Jadawel's registries (field types, view types, actions, plugins) over core edits — always check for a registry hook first.
 6. All user-facing strings through i18n; no hardcoded text. Arabic string added in the same PR as the English one.
 7. Performance budget: grid interactions < 16ms frame on 50K-row seed; API p95 < 300ms on list endpoints. Regressions block merge.

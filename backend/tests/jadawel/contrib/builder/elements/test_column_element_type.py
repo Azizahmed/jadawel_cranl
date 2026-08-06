@@ -1,5 +1,4 @@
 import pytest
-from baserow_enterprise.builder.elements.element_types import AuthFormElementType
 from rest_framework.exceptions import ValidationError
 
 from jadawel.contrib.builder.elements.element_types import (
@@ -155,12 +154,8 @@ def test_column_element_type_can_have_children(data_fixture):
         parent_element_id=container.id,
         place_in_container="1",
     )
-    element_inside_container_eleven = ElementHandler().create_element(
-        AuthFormElementType(),
-        page=page,
-        parent_element_id=container.id,
-        place_in_container="1",
-    )
+    # baserow_enterprise's AuthFormElementType is deliberately absent from this fork,
+    # so this covers the ten element types it actually ships.
 
     assert list(specific_iterator(container.children.all())) == [
         element_inside_container_one,
@@ -173,7 +168,6 @@ def test_column_element_type_can_have_children(data_fixture):
         element_inside_container_eight,
         element_inside_container_nine,
         element_inside_container_ten,
-        element_inside_container_eleven,
     ]
     assert container.is_root_element is True
     assert element_inside_container_one.is_root_element is False

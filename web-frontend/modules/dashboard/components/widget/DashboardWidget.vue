@@ -5,6 +5,7 @@
       'dashboard-widget--selected': isSelected,
       'dashboard-widget--selectable': isSelectable,
     }"
+    :style="gridStyle"
     @click="selectWidgetIfAllowed(widget.id)"
   >
     <div v-if="isSelected && isEditMode" class="dashboard-widget__name">
@@ -58,6 +59,17 @@ export default {
       return this.$store.getters[
         `${this.storePrefix}dashboardApplication/isEditMode`
       ]
+    },
+    gridStyle() {
+      // Jadawel fork (grid board): the widget's cell spans on the 3-column
+      // board. Widgets without the fields (created before the grid layout, or
+      // mid-creation) keep the old full-width stacked look: 3 columns × 2 rows.
+      const width = Math.min(3, Math.max(1, parseInt(this.widget.width) || 3))
+      const height = Math.min(3, Math.max(1, parseInt(this.widget.height) || 2))
+      return {
+        gridColumn: `span ${width}`,
+        gridRow: `span ${height}`,
+      }
     },
     isLoading() {
       return this.widgetType.isLoading(

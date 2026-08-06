@@ -699,4 +699,4 @@ def test_is_hostname_safe():
 
 def test_are_hostnames_same():
     assert are_hostnames_same("localhost", "localhost") is True
-    assert are_hostnames_same("baserow.io", "localhost") is False
+    assert are_hostnames_same("jadawl.site", "localhost") is False

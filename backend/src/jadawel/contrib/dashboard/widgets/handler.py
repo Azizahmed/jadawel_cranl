@@ -122,6 +122,9 @@ class WidgetHandler:
         """
 
         order = Widget.get_last_order(dashboard)
+        # `order` is in `allowed_fields` so it can be updated, but the order of a
+        # new widget is always computed here.
+        kwargs.pop("order", None)
         allowed_values = extract_allowed(kwargs, widget_type.allowed_fields)
 
         allowed_values["dashboard"] = dashboard

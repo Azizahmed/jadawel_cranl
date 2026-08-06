@@ -13,7 +13,7 @@ existing application payload:
   number up to 30 minutes stale even when on. A user who just imported rows would
   see a stale figure or none at all.
 
-Every Baserow table is a real Postgres table, so exact row counts mean one
+Every Jadawel table is a real Postgres table, so exact row counts mean one
 `COUNT(*)` per table. Issued through the ORM that costs a dynamic model build per
 table (~370ms for 14 tables, measured); issued as a single `UNION ALL` of plain
 counts it is ~4ms for the same 14. This module does the latter.

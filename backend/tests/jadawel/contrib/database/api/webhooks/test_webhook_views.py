@@ -21,7 +21,7 @@ def test_list_webhooks(api_client, data_fixture):
     user_2, jwt_token_2 = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
     webhook_1 = data_fixture.create_table_webhook(
-        table=table, headers={"Baserow-add-1": "Value 1"}
+        table=table, headers={"Jadawel-add-1": "Value 1"}
     )
     call_1 = data_fixture.create_table_webhook_call(webhook=webhook_1)
     webhook_2 = data_fixture.create_table_webhook(
@@ -61,7 +61,7 @@ def test_list_webhooks(api_client, data_fixture):
     assert response_json[0]["include_all_events"] == webhook_1.include_all_events
     assert response_json[0]["failed_triggers"] == 0
     assert response_json[0]["events"] == []
-    assert response_json[0]["headers"] == {"Baserow-add-1": "Value 1"}
+    assert response_json[0]["headers"] == {"Jadawel-add-1": "Value 1"}
     assert response_json[0]["active"] is True
     del response_json[0]["calls"][0]["called_time"]
     assert response_json[0]["calls"][0] == {
@@ -84,7 +84,7 @@ def test_list_webhooks_truncated_calls(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
     webhook_1 = data_fixture.create_table_webhook(
-        table=table, headers={"Baserow-add-1": "Value 1"}
+        table=table, headers={"Jadawel-add-1": "Value 1"}
     )
     call_1 = data_fixture.create_table_webhook_call(
         webhook=webhook_1, request="s" * 100010, response="s" * 100010
@@ -111,7 +111,7 @@ def test_list_webhooks_empty_request_and_response(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
     webhook_1 = data_fixture.create_table_webhook(
-        table=table, headers={"Baserow-add-1": "Value 1"}
+        table=table, headers={"Jadawel-add-1": "Value 1"}
     )
     call_1 = data_fixture.create_table_webhook_call(
         webhook=webhook_1, request=None, response=None
@@ -191,7 +191,7 @@ def test_create_webhooks(api_client, data_fixture):
             "name": "My Webhook 2",
             "include_all_events": False,
             "events": ["rows.created"],
-            "headers": {"Baserow-add-1": "Value 1"},
+            "headers": {"Jadawel-add-1": "Value 1"},
             "request_method": "PATCH",
             "use_user_field_names": False,
         },
@@ -207,7 +207,7 @@ def test_create_webhooks(api_client, data_fixture):
     assert response_json["include_all_events"] is False
     assert response_json["failed_triggers"] == 0
     assert response_json["events"] == ["rows.created"]
-    assert response_json["headers"] == {"Baserow-add-1": "Value 1"}
+    assert response_json["headers"] == {"Jadawel-add-1": "Value 1"}
     assert response_json["calls"] == []
     assert TableWebhook.objects.all().count() == 2
 
@@ -446,7 +446,7 @@ def test_update_webhook(api_client, data_fixture):
             "name": "My Webhook 2",
             "include_all_events": False,
             "events": ["rows.created"],
-            "headers": {"Baserow-add-1": "Value 1"},
+            "headers": {"Jadawel-add-1": "Value 1"},
             "request_method": "PATCH",
             "use_user_field_names": False,
         },
@@ -464,7 +464,7 @@ def test_update_webhook(api_client, data_fixture):
     assert response_json["failed_triggers"] == 0
     assert response_json["events"] == ["rows.created"]
     assert response_json["event_config"] == [{"event_type": "rows.created"}]
-    assert response_json["headers"] == {"Baserow-add-1": "Value 1"}
+    assert response_json["headers"] == {"Jadawel-add-1": "Value 1"}
     assert response_json["calls"] == []
 
     response = api_client.patch(
@@ -601,12 +601,12 @@ def test_trigger_test_call(api_client, data_fixture):
     user_2, jwt_token_2 = data_fixture.create_user_and_token()
     table = data_fixture.create_database_table(user=user)
 
-    responses.add(responses.POST, "http://baserow.io", json={}, status=200)
+    responses.add(responses.POST, "http://jadawl.site", json={}, status=200)
 
     response = api_client.post(
         reverse("api:database:webhooks:test", kwargs={"table_id": 0}),
         {
-            "url": "http://baserow.io",
+            "url": "http://jadawl.site",
             "event_type": "rows.created",
         },
         format="json",
@@ -618,7 +618,7 @@ def test_trigger_test_call(api_client, data_fixture):
     response = api_client.post(
         reverse("api:database:webhooks:test", kwargs={"table_id": table.id}),
         {
-            "url": "http://baserow.io",
+            "url": "http://jadawl.site",
             "event_type": "rows.created",
         },
         format="json",
@@ -630,7 +630,7 @@ def test_trigger_test_call(api_client, data_fixture):
     response = api_client.post(
         reverse("api:database:webhooks:test", kwargs={"table_id": table.id}),
         {
-            "url": "http://baserow.io",
+            "url": "http://jadawl.site",
             "event_type": "rows.created",
         },
         format="json",
@@ -646,7 +646,7 @@ def test_trigger_test_call(api_client, data_fixture):
     response = api_client.post(
         reverse("api:database:webhooks:test", kwargs={"table_id": table.id}),
         {
-            "url": "http://baserow.io/invalid",
+            "url": "http://jadawl.site/invalid",
             "event_type": "rows.created",
         },
         format="json",
@@ -693,7 +693,7 @@ def test_can_query_private_http_addresses_when_env_var_on(api_client, data_fixtu
             "name": "My Webhook 2",
             "include_all_events": False,
             "events": ["rows.created"],
-            "headers": {"Baserow-add-1": "Value 1"},
+            "headers": {"Jadawel-add-1": "Value 1"},
             "request_method": "PATCH",
             "use_user_field_names": False,
         },

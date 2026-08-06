@@ -40,7 +40,7 @@ function jadawelModuleConfig() {
   }
 }
 
-const baserow = jadawelModuleConfig()
+const jadawel = jadawelModuleConfig()
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -53,7 +53,7 @@ export default defineNuxtConfig({
       version: pkg.version,
     },
   },
-  modules: [...baserow.modules, '@nuxtjs/i18n', '@sentry/nuxt/module'],
+  modules: [...jadawel.modules, '@nuxtjs/i18n', '@sentry/nuxt/module'],
   i18n: {
     strategy: 'no_prefix',
     // Jadawel fork: Arabic is the primary locale (RTL). Env-overridable so a deploy

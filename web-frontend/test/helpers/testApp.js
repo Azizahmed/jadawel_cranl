@@ -22,7 +22,7 @@ import { createStore } from 'vuex'
 import { DOMWrapper } from '@vue/test-utils'
 
 /**
- * Uses the real baserow plugins to setup a Vuex store and baserow registry
+ * Uses the real jadawel plugins to setup a Vuex store and jadawel registry
  * correctly.
  */
 function _createJadawelStoreAndRegistry(app, vueContext, extraPluginSetupFunc) {
@@ -59,9 +59,9 @@ function _createJadawelStoreAndRegistry(app, vueContext, extraPluginSetupFunc) {
 }
 
 /**
- * An acceptance testing framework for testing Baserow components and surrounding logic
+ * An acceptance testing framework for testing Jadawel components and surrounding logic
  * like stores.
- * TestApp sets up baserow components, registries and stores so they work out of the
+ * TestApp sets up jadawel components, registries and stores so they work out of the
  * box and can be tested without having to:
  *  - wait 30+ seconds for a Nuxt server to startup and build
  *  - mock out stores, registries or carve arbitrary boundaries in
@@ -73,14 +73,14 @@ function _createJadawelStoreAndRegistry(app, vueContext, extraPluginSetupFunc) {
  *
  * The following attributes are exposed for use in your tests:
  * testApp.mockServer : a helper class providing methods to initialize a fake
- *                      baserow server with consistent test data.
+ *                      jadawel server with consistent test data.
  * testApp.mock       : a mock axios adapter used to mock out HTTP calls to the server,
  *                      also used by testApp.mockServer to actually do the server call
  *                      mocking.
- * testApp.store      : a Vuex store populated with Baserow's stores ready for you to
+ * testApp.store      : a Vuex store populated with Jadawel's stores ready for you to
  *                      commit, get and dispatch to.
  * UIHelpers          : a collection of methods which know how to perform common actions
- *                      on Baserow's components.
+ *                      on Jadawel's components.
  *
  */
 export class OldTestApp {
@@ -210,7 +210,7 @@ export class OldTestApp {
    * asyncData on the component at the correct time with the provided params.
    */
   async mount(Component, { asyncDataParams = {}, ...kwargs }) {
-    // Sometimes baserow directly appends to the documents body, ensure that we
+    // Sometimes jadawel directly appends to the documents body, ensure that we
     // are mounting into the document so we can correctly inspect the modals that
     // are placed there.
     const rootDiv = document.createElement('div')
@@ -274,8 +274,8 @@ export class OldTestApp {
   }
 }
 /**
- * Various helper functions which interact with baserow components. Lean towards
- * putting and sharing any test code which relies on specific details of how baserow
+ * Various helper functions which interact with jadawel components. Lean towards
+ * putting and sharing any test code which relies on specific details of how jadawel
  * components are structured and styled in here This way there is a single place
  * to fix when changes are made to the components instead of 30 different test cases.
  */
@@ -394,7 +394,7 @@ export class TestApp {
   }
 
   async mount(component, { props, propsData, listeners, ...options } = {}) {
-    // Sometimes baserow directly appends to the documents body, ensure that we
+    // Sometimes jadawel directly appends to the documents body, ensure that we
     // are mounting into the document so we can correctly inspect the modals that
     // are placed there.
     const rootDiv = document.createElement('div')

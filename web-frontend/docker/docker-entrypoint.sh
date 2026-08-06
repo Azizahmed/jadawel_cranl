@@ -7,7 +7,7 @@ JADAWEL_WEBFRONTEND_PORT="${JADAWEL_WEBFRONTEND_PORT:-3000}"
 
 show_help() {
     echo """
-The available Baserow web-frontend related commands and services are shown below:
+The available Jadawel web-frontend related commands and services are shown below:
 
 COMMANDS:
 nuxt-prepare            : Prepare nuxt (generate .nuxt directory)
@@ -16,7 +16,7 @@ nuxt-dev-with-storybook : Start nuxt dev + storybook in parallel
 storybook-dev           : Start a storybook dev server
 nuxt-prod               : Start a production nuxt server
 bash                    : Start a bash shell
-build                   : Triggers a nuxt re-build of Baserow's web-frontend.
+build                   : Triggers a nuxt re-build of Jadawel's web-frontend.
 
 DEV COMMANDS:
 lint            : Run all linters (eslint, stylelint, prettier)

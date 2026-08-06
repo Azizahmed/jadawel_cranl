@@ -9,6 +9,8 @@ class WidgetDict(TypedDict):
     title: str
     description: str
     order: str
+    width: int
+    height: int
     type: str
 
 

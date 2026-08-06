@@ -1,6 +1,6 @@
 # Jadawel Helm Chart
 
-Jadawel is an open-source no-code database tool and Airtable alternative. It is a modern database tool that allows you to create a database, web-based application, and API without code. It is built on top of Django and Vue.js and is designed to be easily deployed to a platform like Kubernetes.
+Jadawel (جداول) is an Arabic-first, RTL-native online spreadsheet-database: a spreadsheet and relational database hybrid that lets a team structure, filter, link and share its data without writing code. It is built on Django and Vue.js, and is designed to be self-hosted — including inside the Kingdom of Saudi Arabia, so that data stays on the organisation's own infrastructure.
 
 This chart can have dependencies on other charts, such as PostgreSQL, Redis, Minio, and Caddy. The chart can be configured to use an existing instance of these services or deploy them as part of the Jadawel deployment.
 
@@ -8,16 +8,11 @@ This chart can have dependencies on other charts, such as PostgreSQL, Redis, Min
 
 To install the chart with the release name `my-jadawel` run the following commands:
 
-From repo
-```bash
-helm repo add baserow-chart https://baserow.github.io/baserow-chart
-helm install my-jadawel jadawel-chart/jadawel --namespace jadawel --create-namespace --values config.yaml
-```
+Jadawel does not publish a Helm repository, so install from this directory:
 
-From source code
 ```bash
 helm dependency update
-helm install my-jadawel . --namespace jadawel --create-namespace
+helm install my-jadawel . --namespace jadawel --create-namespace --values config.yaml
 helm upgrade my-jadawel . --namespace jadawel
 ```
 

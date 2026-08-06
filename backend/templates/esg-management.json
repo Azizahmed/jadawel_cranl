@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "ESG Management",
     "icon": "iconoir-globe",
     "keywords": [
@@ -159,7 +159,7 @@
                             "name": "All employees",
                             "order": 1,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -266,7 +266,7 @@
                             "name": "Employees with active actions",
                             "order": 2,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [
@@ -381,7 +381,7 @@
                             "name": "Gallery: all employees",
                             "order": 3,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -448,8 +448,8 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770439+00:00",
                             "updated_on": "2024-11-08T12:57:29.182572+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Allie Ecker",
                             "field_31038": "allie.ecker@example.com",
                             "field_31039": "(949) 873-7292",
@@ -475,8 +475,8 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770498+00:00",
                             "updated_on": "2024-11-08T12:57:31.135560+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Bran Lopez",
                             "field_31038": "bran.lopez@example.com",
                             "field_31039": "(650) 869-3623",
@@ -503,8 +503,8 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770508+00:00",
                             "updated_on": "2024-11-08T12:57:32.659170+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Cinda Pullen",
                             "field_31038": "cinda.pullen@example.com",
                             "field_31039": "(213) 743-1636",
@@ -530,8 +530,8 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770516+00:00",
                             "updated_on": "2024-11-08T12:57:34.315756+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Clayton Best",
                             "field_31038": "clayton.best@example.com",
                             "field_31039": "(916) 478-0153",
@@ -558,8 +558,8 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770523+00:00",
                             "updated_on": "2024-11-08T12:57:35.963509+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Donald Johns",
                             "field_31038": "donald.johns@example.com",
                             "field_31039": "(805) 367-1199",
@@ -584,8 +584,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770530+00:00",
                             "updated_on": "2024-11-08T12:57:37.480796+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Donald Wright",
                             "field_31038": "donald.wright@example.com",
                             "field_31039": "(925) 413-4033",
@@ -607,8 +607,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770537+00:00",
                             "updated_on": "2024-11-08T12:57:38.939026+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Elizabeth Cunningham",
                             "field_31038": "elizabeth.cunningham@example.com",
                             "field_31039": "(323) 930-9329",
@@ -634,8 +634,8 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770544+00:00",
                             "updated_on": "2024-11-08T12:57:40.373111+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Eric Rothman",
                             "field_31038": "eric.rothman@example.com",
                             "field_31039": "(619) 525-2361",
@@ -661,8 +661,8 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770551+00:00",
                             "updated_on": "2024-11-08T12:57:41.820784+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Jane Dradder",
                             "field_31038": "jane.rudder@example.com",
                             "field_31039": "(720) 555-2389",
@@ -688,8 +688,8 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770558+00:00",
                             "updated_on": "2024-11-08T12:57:43.221426+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Janice Fitzpatrick",
                             "field_31038": "janice.fitzpatrick@example.com",
                             "field_31039": "(510) 476-1189",
@@ -715,8 +715,8 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770565+00:00",
                             "updated_on": "2024-11-08T12:57:44.618542+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "John Marshall",
                             "field_31038": "john.marshall@example.com",
                             "field_31039": "(323) 207-7576",
@@ -743,8 +743,8 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770573+00:00",
                             "updated_on": "2024-11-08T12:57:46.036895+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Jonathan Castillo",
                             "field_31038": "jonathan.castillo@example.com",
                             "field_31039": "(714) 674-5259",
@@ -770,8 +770,8 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770580+00:00",
                             "updated_on": "2024-11-08T12:57:47.884390+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Judith Triplett",
                             "field_31038": "judith.triplett@example.com",
                             "field_31039": "(323) 762-0628",
@@ -798,8 +798,8 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770587+00:00",
                             "updated_on": "2024-11-08T12:57:49.340187+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Lane Mahon",
                             "field_31038": "lane.mahon@example.com",
                             "field_31039": "(925) 250-4627",
@@ -825,8 +825,8 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770594+00:00",
                             "updated_on": "2024-11-08T12:57:51.395343+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Latisha Mazon",
                             "field_31038": "latisha.mazon@example.com",
                             "field_31039": "(530) 540-8012",
@@ -853,8 +853,8 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770601+00:00",
                             "updated_on": "2024-11-08T12:57:53.805857+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Lena Hogan",
                             "field_31038": "lena.hogan@example.com",
                             "field_31039": "(559) 949-6790",
@@ -880,8 +880,8 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770608+00:00",
                             "updated_on": "2024-11-08T12:57:55.522409+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Leroy Tye",
                             "field_31038": "leroy.tye@example.com",
                             "field_31039": "(510) 808-7208",
@@ -906,8 +906,8 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770615+00:00",
                             "updated_on": "2024-11-08T12:57:56.942242+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Michael Robicheaux",
                             "field_31038": "michael.robicheaux@example.com",
                             "field_31039": "(707) 840-5210",
@@ -931,8 +931,8 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770622+00:00",
                             "updated_on": "2024-11-08T12:57:58.359306+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Nora Mott",
                             "field_31038": "nora.mott@example.com",
                             "field_31039": "(818) 240-6675",
@@ -961,8 +961,8 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770629+00:00",
                             "updated_on": "2024-11-08T12:57:59.726758+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Paul Garcia",
                             "field_31038": "paul.garcia@example.com",
                             "field_31039": "(916) 910-4721",
@@ -987,8 +987,8 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770636+00:00",
                             "updated_on": "2024-11-08T12:58:01.156009+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Richard Rethman",
                             "field_31038": "richard.rethman@example.com",
                             "field_31039": "(626) 585-3240",
@@ -1013,8 +1013,8 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770643+00:00",
                             "updated_on": "2024-11-08T12:58:02.455436+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Rodney Tran",
                             "field_31038": "rodney.tran@example.com",
                             "field_31039": "(408) 451-1453",
@@ -1041,8 +1041,8 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770650+00:00",
                             "updated_on": "2024-11-08T12:58:05.329934+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Sandra Love",
                             "field_31038": "sandra.love@example.com",
                             "field_31039": "(559) 592-9157",
@@ -1068,8 +1068,8 @@
                             "order": "24.00000000000000000000",
                             "created_on": "2024-10-24T11:30:48.770657+00:00",
                             "updated_on": "2024-11-08T12:58:09.144510+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31037": "Thomas Nickson",
                             "field_31038": "thomas.nickson@example.com",
                             "field_31039": "(916) 336-7017",
@@ -3805,7 +3805,7 @@
                             "name": "Gallery: all ESG targets",
                             "order": 6,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -3950,7 +3950,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2023-12-06T12:38:51.335316+00:00",
                             "updated_on": "2024-10-25T08:04:03.467579+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31049": "Reduce water consumption",
                             "field_31050": [
                                 13
@@ -3990,7 +3990,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2023-12-06T12:38:51.335375+00:00",
                             "updated_on": "2024-10-25T08:04:58.566835+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31049": "Reduce carbon emissions",
                             "field_31050": [
                                 5
@@ -4036,7 +4036,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2023-12-06T12:39:43.518156+00:00",
                             "updated_on": "2024-10-25T08:04:31.417603+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31049": "Increase material recycling",
                             "field_31050": [
                                 16
@@ -4076,7 +4076,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2023-12-06T12:39:43.518213+00:00",
                             "updated_on": "2024-10-25T08:06:01.284320+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31049": "Start ethics training",
                             "field_31050": [
                                 6
@@ -4117,7 +4117,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2023-12-06T12:39:43.518240+00:00",
                             "updated_on": "2024-10-25T08:05:34.317265+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31049": "Increase employee diversity",
                             "field_31050": [
                                 3
@@ -7624,7 +7624,7 @@
                             "name": "Timeline: all ESG initiatives",
                             "order": 12,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -7782,7 +7782,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2023-12-06T13:18:31.551427+00:00",
                             "updated_on": "2024-10-25T09:29:01.328244+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Develop and implement targeted recruitment strategies aimed at attracting candidates from underrepresented groups. This could involve partnering with diverse professional organizations, attending job fairs focused on diversity, and leveraging diverse recruitment channels such as online platforms and community networks.",
                             "field_31060": [
@@ -7819,7 +7819,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2023-12-06T13:18:31.551477+00:00",
                             "updated_on": "2024-05-29T08:42:05.875605+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Implement inclusive hiring practices to remove biases from the recruitment process and ensure fair opportunities for all candidates. This may include using blind resume screening techniques, incorporating diverse interview panels, and providing unconscious bias training for hiring managers.",
                             "field_31060": [
@@ -7856,7 +7856,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346493+00:00",
                             "updated_on": "2024-05-29T08:42:05.899790+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Offer diversity training and awareness programs for hiring managers and employees to foster understanding, empathy, and respect for diverse perspectives and backgrounds. These programs can help create a more inclusive workplace culture where diversity is valued and celebrated.",
                             "field_31060": [
@@ -7893,7 +7893,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346550+00:00",
                             "updated_on": "2024-05-29T08:42:05.922714+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Create a supportive and inclusive workplace culture that values diversity and promotes belonging. Encourage open communication, provide resources and support networks for diverse employees, and celebrate diversity through events, recognition programs, and inclusive policies and practices.",
                             "field_31060": [
@@ -7930,7 +7930,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346575+00:00",
                             "updated_on": "2024-05-29T08:42:05.945875+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Conduct a comprehensive carbon footprint assessment to identify sources of emissions and establish a baseline for carbon emissions.",
                             "field_31060": [
@@ -7967,7 +7967,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346596+00:00",
                             "updated_on": "2024-05-29T08:42:05.968504+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Implement energy efficiency measures such as upgrading equipment, optimizing processes, and retrofitting facilities to reduce carbon emissions.",
                             "field_31060": [
@@ -8004,7 +8004,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346617+00:00",
                             "updated_on": "2024-05-29T08:42:05.991727+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Increase the use of renewable energy sources such as solar, wind, or hydroelectric power to decrease reliance on fossil fuels and lower carbon emissions.",
                             "field_31060": [
@@ -8041,7 +8041,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346637+00:00",
                             "updated_on": "2024-05-29T08:42:06.014442+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Promote alternative transportation options such as carpooling, biking, or public transit to reduce employee commuting emissions.",
                             "field_31060": [
@@ -8078,7 +8078,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346659+00:00",
                             "updated_on": "2024-05-29T08:42:06.275986+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Encourage telecommuting and remote work arrangements to minimize carbon emissions associated with office operations and commuting.",
                             "field_31060": [
@@ -8115,7 +8115,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2023-12-06T13:20:43.346680+00:00",
                             "updated_on": "2024-05-29T08:42:06.298415+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Educate employees on energy-saving practices and encourage behavior changes to reduce energy consumption and carbon emissions.",
                             "field_31060": [
@@ -8152,7 +8152,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690597+00:00",
                             "updated_on": "2024-05-29T08:42:06.321201+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Regularly monitor carbon emissions and track progress towards the 20% reduction target to ensure accountability and progress.",
                             "field_31060": [
@@ -8189,7 +8189,7 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690680+00:00",
                             "updated_on": "2024-05-29T08:42:06.343956+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Collaborate with suppliers and partners to reduce emissions throughout the supply chain, promoting sustainability and environmental responsibility.",
                             "field_31060": [
@@ -8226,7 +8226,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690721+00:00",
                             "updated_on": "2024-05-29T08:42:06.366296+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Engage with industry associations and government agencies to advocate for policies that support emissions reduction efforts and mitigate climate change impacts.",
                             "field_31060": [
@@ -8263,7 +8263,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690759+00:00",
                             "updated_on": "2024-05-29T08:42:06.389650+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Conduct a comprehensive water audit to identify areas of high consumption and potential efficiency improvements, laying the foundation for targeted water conservation efforts.",
                             "field_31060": [
@@ -8300,7 +8300,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690799+00:00",
                             "updated_on": "2024-05-29T08:42:06.412859+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Implement water-saving technologies such as low-flow fixtures, water-efficient appliances, and recycling systems to reduce water consumption and promote sustainable water use practices.",
                             "field_31060": [
@@ -8337,7 +8337,7 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690836+00:00",
                             "updated_on": "2024-05-29T08:42:06.436262+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Educate employees on water conservation practices and encourage their active participation in reducing water usage through awareness campaigns, training programs, and behavioral incentives.",
                             "field_31060": [
@@ -8374,7 +8374,7 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690873+00:00",
                             "updated_on": "2024-05-29T08:42:06.465060+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Establish a comprehensive ethics training program covering key topics such as compliance, conflicts of interest, integrity, and data security to educate employees on ethical standards and best practices.",
                             "field_31060": [
@@ -8412,7 +8412,7 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2023-12-06T13:33:12.690909+00:00",
                             "updated_on": "2024-05-29T08:42:06.488330+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Implement mandatory ethics training for all employees, setting clear completion deadlines and ensuring full participation to uphold organizational ethics and compliance standards.",
                             "field_31060": [
@@ -8450,8 +8450,8 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2024-05-29T07:31:31.408356+00:00",
                             "updated_on": "2024-05-29T08:42:06.511920+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Provide ongoing support, resources, and channels for questions and concerns related to ethics training, fostering a supportive environment for employees to address ethical dilemmas and seek guidance.",
                             "field_31060": [
@@ -8489,8 +8489,8 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2024-05-29T07:31:31.408553+00:00",
                             "updated_on": "2024-05-29T08:42:06.534900+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Track participation and progress of ethics training sessions to ensure a 100% completion rate, monitor adherence to compliance requirements, and address any gaps or issues promptly.",
                             "field_31060": [
@@ -8528,8 +8528,8 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2024-05-29T07:31:31.408688+00:00",
                             "updated_on": "2024-05-29T08:42:06.557502+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Establish a comprehensive plan to increase the use of recycled materials in production processes by 40%, focusing on environmental sustainability, resource conservation, and circular economy principles.",
                             "field_31060": [
@@ -8566,8 +8566,8 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2024-05-29T07:31:31.408804+00:00",
                             "updated_on": "2024-05-29T08:42:06.580089+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Implement strategies to source recycled materials from reliable suppliers, ensure compliance with quality standards, and integrate them into product designs and manufacturing processes effectively.",
                             "field_31060": [
@@ -8604,8 +8604,8 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2024-05-29T07:31:31.408920+00:00",
                             "updated_on": "2024-05-29T08:42:06.604121+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31089": null,
                             "field_31059": "Engage employees in educational programs and collaborative efforts to promote the benefits of using recycled materials, provide training on proper handling and processing, and foster a culture of sustainability and innovation.",
                             "field_31060": [
@@ -10963,7 +10963,7 @@
                             "name": "All actions stacked by status",
                             "order": 10,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -11125,7 +11125,7 @@
                             "name": "Calendar: start date",
                             "order": 11,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -11275,7 +11275,7 @@
                             "name": "Calendar: deadline",
                             "order": 12,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -11425,7 +11425,7 @@
                             "name": "Timeline: all actions",
                             "order": 13,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -11583,7 +11583,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2023-12-07T09:31:59.192551+00:00",
                             "updated_on": "2024-10-24T11:33:46.781756+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Attend Diversity-Focused Job Fairs",
                             "field_31066": "2025-12-17",
                             "field_31067": [
@@ -11610,7 +11610,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2023-12-07T09:31:59.192607+00:00",
                             "updated_on": "2024-10-24T11:33:20.597777+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Utilize Diverse Recruitment Channels",
                             "field_31066": "2025-11-03",
                             "field_31067": [
@@ -11637,7 +11637,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167152+00:00",
                             "updated_on": "2024-10-24T11:32:13.516636+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Blind Resume Screening",
                             "field_31066": "2023-05-27",
                             "field_31067": [
@@ -11664,7 +11664,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167211+00:00",
                             "updated_on": "2024-10-24T11:32:13.516708+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Conduct Unconscious Bias Training",
                             "field_31066": "2024-02-17",
                             "field_31067": [
@@ -11691,7 +11691,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167263+00:00",
                             "updated_on": "2024-10-24T11:33:46.781862+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Ensure Diverse Interview Panels",
                             "field_31066": "2025-11-25",
                             "field_31067": [
@@ -11718,7 +11718,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167296+00:00",
                             "updated_on": "2024-10-24T11:33:46.781926+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Offer Diversity Training Programs",
                             "field_31066": "2026-01-30",
                             "field_31067": [
@@ -11745,7 +11745,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167316+00:00",
                             "updated_on": "2024-10-24T11:32:13.516752+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Provide Awareness Workshops",
                             "field_31066": "2023-12-16",
                             "field_31067": [
@@ -11772,7 +11772,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167336+00:00",
                             "updated_on": "2024-10-24T11:32:30.158391+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Create Diversity Resource Materials",
                             "field_31066": "2024-06-27",
                             "field_31067": [
@@ -11799,7 +11799,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167357+00:00",
                             "updated_on": "2024-10-24T11:33:46.781968+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Establish Employee Resource Groups",
                             "field_31066": "2026-05-24",
                             "field_31067": [
@@ -11826,7 +11826,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167376+00:00",
                             "updated_on": "2024-10-24T11:33:46.782009+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Flexible Work Policies",
                             "field_31066": "2026-05-18",
                             "field_31067": [
@@ -11853,7 +11853,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167395+00:00",
                             "updated_on": "2024-10-24T11:33:46.782051+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Recognize and Celebrate Diversity",
                             "field_31066": "2026-06-28",
                             "field_31067": [
@@ -11880,7 +11880,7 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2023-12-07T09:32:52.167414+00:00",
                             "updated_on": "2024-10-24T11:32:47.215819+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Conduct Carbon Footprint Assessment",
                             "field_31066": "2025-05-23",
                             "field_31067": [
@@ -11907,7 +11907,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2023-12-07T09:33:35.656404+00:00",
                             "updated_on": "2024-10-24T11:33:46.782104+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Analyze Emission Sources",
                             "field_31066": "2026-10-14",
                             "field_31067": [
@@ -11934,7 +11934,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2023-12-07T09:33:35.656455+00:00",
                             "updated_on": "2024-10-24T11:32:30.158493+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Engage Stakeholders",
                             "field_31066": "2024-11-22",
                             "field_31067": [
@@ -11961,7 +11961,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2023-12-07T09:33:35.656477+00:00",
                             "updated_on": "2024-10-24T11:33:46.782153+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Upgrade Equipment",
                             "field_31066": "2026-08-21",
                             "field_31067": [
@@ -11988,7 +11988,7 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2023-12-07T09:33:35.656494+00:00",
                             "updated_on": "2024-10-24T11:32:06.075892+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Optimize Processes",
                             "field_31066": "2023-03-29",
                             "field_31067": [
@@ -12015,7 +12015,7 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2023-12-07T09:33:35.656510+00:00",
                             "updated_on": "2024-10-24T11:33:46.782194+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Retrofit Facilities",
                             "field_31066": "2026-02-28",
                             "field_31067": [
@@ -12042,8 +12042,8 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.130027+00:00",
                             "updated_on": "2024-10-24T11:32:47.215896+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Install Solar Panels",
                             "field_31066": "2025-04-30",
                             "field_31067": [
@@ -12070,8 +12070,8 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.130349+00:00",
                             "updated_on": "2024-10-24T11:32:13.516795+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Purchase Renewable Energy Credits",
                             "field_31066": "2023-12-27",
                             "field_31067": [
@@ -12098,8 +12098,8 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.130578+00:00",
                             "updated_on": "2024-10-24T11:33:46.782235+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Partner with Renewable Energy Providers",
                             "field_31066": "2026-02-17",
                             "field_31067": [
@@ -12126,8 +12126,8 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.130816+00:00",
                             "updated_on": "2024-10-24T11:32:47.215940+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Partner with Diverse Organizations",
                             "field_31066": "2025-04-21",
                             "field_31067": [
@@ -12154,8 +12154,8 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.131033+00:00",
                             "updated_on": "2024-10-24T11:32:30.158545+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Carpooling Program",
                             "field_31066": "2024-12-25",
                             "field_31067": [
@@ -12182,8 +12182,8 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.131236+00:00",
                             "updated_on": "2024-10-24T11:32:47.215983+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Bike-to-Work Incentives",
                             "field_31066": "2025-03-26",
                             "field_31067": [
@@ -12210,8 +12210,8 @@
                             "order": "24.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.131450+00:00",
                             "updated_on": "2024-10-24T11:32:13.516837+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Public Transit Subsidies",
                             "field_31066": "2024-02-03",
                             "field_31067": [
@@ -12238,8 +12238,8 @@
                             "order": "25.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.131667+00:00",
                             "updated_on": "2024-10-24T11:33:46.782276+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Remote Work Policies",
                             "field_31066": "2027-03-14",
                             "field_31067": [
@@ -12266,8 +12266,8 @@
                             "order": "26.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.131870+00:00",
                             "updated_on": "2024-10-24T11:33:46.782316+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Provide Remote Work Resources",
                             "field_31066": "2026-11-29",
                             "field_31067": [
@@ -12294,8 +12294,8 @@
                             "order": "27.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.132082+00:00",
                             "updated_on": "2024-10-24T11:33:46.782369+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Promote Flexibility",
                             "field_31066": "2025-11-30",
                             "field_31067": [
@@ -12322,8 +12322,8 @@
                             "order": "28.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.132302+00:00",
                             "updated_on": "2024-10-24T11:32:30.158588+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Conduct Energy-Saving Workshops",
                             "field_31066": "2024-09-06",
                             "field_31067": [
@@ -12350,8 +12350,8 @@
                             "order": "29.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.132518+00:00",
                             "updated_on": "2024-10-24T11:32:06.075973+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Energy-Saving Challenges",
                             "field_31066": "2023-04-05",
                             "field_31067": [
@@ -12378,8 +12378,8 @@
                             "order": "30.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.132782+00:00",
                             "updated_on": "2024-10-24T11:32:30.158630+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Establish Energy-Saving Committees",
                             "field_31066": "2024-04-20",
                             "field_31067": [
@@ -12406,8 +12406,8 @@
                             "order": "31.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.133011+00:00",
                             "updated_on": "2024-10-24T11:32:06.076025+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Regular Emissions Tracking",
                             "field_31066": "2023-04-17",
                             "field_31067": [
@@ -12434,8 +12434,8 @@
                             "order": "32.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.133257+00:00",
                             "updated_on": "2024-10-24T11:33:46.782418+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Performance Analysis",
                             "field_31066": "2027-01-02",
                             "field_31067": [
@@ -12462,8 +12462,8 @@
                             "order": "33.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.133471+00:00",
                             "updated_on": "2024-10-24T11:32:13.516878+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Progress Reporting",
                             "field_31066": "2023-07-02",
                             "field_31067": [
@@ -12490,8 +12490,8 @@
                             "order": "34.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.133693+00:00",
                             "updated_on": "2024-10-24T11:33:46.782460+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Supplier Emissions Audits",
                             "field_31066": "2026-03-08",
                             "field_31067": [
@@ -12518,8 +12518,8 @@
                             "order": "35.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.133896+00:00",
                             "updated_on": "2024-10-24T11:33:46.782501+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Sustainable Procurement Practices",
                             "field_31066": "2026-11-03",
                             "field_31067": [
@@ -12546,8 +12546,8 @@
                             "order": "36.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.134102+00:00",
                             "updated_on": "2024-10-24T11:32:19.240312+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Joint Emissions Reduction Projects",
                             "field_31066": "2024-03-14",
                             "field_31067": [
@@ -12574,8 +12574,8 @@
                             "order": "37.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.134319+00:00",
                             "updated_on": "2024-10-24T11:33:46.782542+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Industry Association Engagement",
                             "field_31066": "2026-11-22",
                             "field_31067": [
@@ -12602,8 +12602,8 @@
                             "order": "38.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.134552+00:00",
                             "updated_on": "2024-10-24T11:33:46.782616+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Government Agency Collaboration",
                             "field_31066": "2026-06-28",
                             "field_31067": [
@@ -12630,8 +12630,8 @@
                             "order": "39.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.134787+00:00",
                             "updated_on": "2024-10-24T11:32:30.158674+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Public Awareness Campaigns",
                             "field_31066": "2025-01-20",
                             "field_31067": [
@@ -12658,8 +12658,8 @@
                             "order": "40.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.135006+00:00",
                             "updated_on": "2024-10-24T11:32:13.516921+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Conduct Comprehensive Water Audit",
                             "field_31066": "2023-08-04",
                             "field_31067": [
@@ -12686,8 +12686,8 @@
                             "order": "41.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.135222+00:00",
                             "updated_on": "2024-10-24T11:32:13.516964+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Identify Efficiency Improvement Opportunities",
                             "field_31066": "2023-09-03",
                             "field_31067": [
@@ -12714,8 +12714,8 @@
                             "order": "42.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.135489+00:00",
                             "updated_on": "2024-10-24T11:32:06.076066+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Develop Water Conservation Plan",
                             "field_31066": "2023-03-30",
                             "field_31067": [
@@ -12742,8 +12742,8 @@
                             "order": "43.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.135705+00:00",
                             "updated_on": "2024-10-24T11:32:13.517029+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Install Low-Flow Fixtures",
                             "field_31066": "2024-02-29",
                             "field_31067": [
@@ -12770,8 +12770,8 @@
                             "order": "44.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.135922+00:00",
                             "updated_on": "2024-10-24T11:32:30.158740+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Upgrade to Water-Efficient Appliances",
                             "field_31066": "2024-04-03",
                             "field_31067": [
@@ -12798,8 +12798,8 @@
                             "order": "45.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.136133+00:00",
                             "updated_on": "2024-10-24T11:32:30.158781+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Water Recycling Systems",
                             "field_31066": "2024-09-11",
                             "field_31067": [
@@ -12826,8 +12826,8 @@
                             "order": "46.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.136376+00:00",
                             "updated_on": "2024-10-24T11:32:30.158823+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Conduct Water Conservation Workshops",
                             "field_31066": "2024-06-08",
                             "field_31067": [
@@ -12854,8 +12854,8 @@
                             "order": "47.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.136587+00:00",
                             "updated_on": "2024-10-24T11:32:06.076108+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Launch Water Conservation Campaign",
                             "field_31066": "2023-04-30",
                             "field_31067": [
@@ -12882,8 +12882,8 @@
                             "order": "48.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.136792+00:00",
                             "updated_on": "2024-10-24T11:32:30.158864+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Provide Water-Saving Tips and Resources",
                             "field_31066": "2024-05-27",
                             "field_31067": [
@@ -12910,8 +12910,8 @@
                             "order": "49.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.136996+00:00",
                             "updated_on": "2024-10-24T11:32:13.517084+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Develop Curriculum Content",
                             "field_31066": "2023-11-10",
                             "field_31067": [
@@ -12938,8 +12938,8 @@
                             "order": "50.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.137223+00:00",
                             "updated_on": "2024-10-24T11:32:30.158907+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Design Interactive Workshops",
                             "field_31066": "2024-08-16",
                             "field_31067": [
@@ -12966,8 +12966,8 @@
                             "order": "51.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.137446+00:00",
                             "updated_on": "2024-10-24T11:32:30.158949+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Launch Online Training Modules",
                             "field_31066": "2024-08-28",
                             "field_31067": [
@@ -12994,8 +12994,8 @@
                             "order": "52.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.137645+00:00",
                             "updated_on": "2024-10-24T11:32:30.159036+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Facilitate Case Study Discussions",
                             "field_31066": "2024-07-13",
                             "field_31067": [
@@ -13022,8 +13022,8 @@
                             "order": "53.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.137844+00:00",
                             "updated_on": "2024-10-24T11:33:46.782671+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Communicate Training Requirements",
                             "field_31066": "2026-11-20",
                             "field_31067": [
@@ -13050,8 +13050,8 @@
                             "order": "54.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.138690+00:00",
                             "updated_on": "2024-10-24T11:32:13.517130+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Set Clear Completion Deadlines",
                             "field_31066": "2023-06-20",
                             "field_31067": [
@@ -13078,8 +13078,8 @@
                             "order": "55.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.138919+00:00",
                             "updated_on": "2024-10-24T11:32:30.159112+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Enforce Training Compliance",
                             "field_31066": "2024-04-01",
                             "field_31067": [
@@ -13106,8 +13106,8 @@
                             "order": "56.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.139124+00:00",
                             "updated_on": "2024-10-24T11:32:47.216036+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Provide Accessibility Options",
                             "field_31066": "2025-07-31",
                             "field_31067": [
@@ -13134,8 +13134,8 @@
                             "order": "57.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.139343+00:00",
                             "updated_on": "2024-10-24T11:32:30.159166+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Establish Ethics Support Channels",
                             "field_31066": "2024-04-03",
                             "field_31067": [
@@ -13162,8 +13162,8 @@
                             "order": "58.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.139545+00:00",
                             "updated_on": "2024-10-24T11:33:46.782755+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Develop Resource Materials",
                             "field_31066": "2026-02-09",
                             "field_31067": [
@@ -13190,8 +13190,8 @@
                             "order": "59.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.139775+00:00",
                             "updated_on": "2024-10-24T11:32:30.159209+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Offer Training Follow-Up Sessions",
                             "field_31066": "2024-12-05",
                             "field_31067": [
@@ -13218,8 +13218,8 @@
                             "order": "60.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.140021+00:00",
                             "updated_on": "2024-10-24T11:33:46.782830+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Provide Ethical Decision-Making Tools",
                             "field_31066": "2026-04-11",
                             "field_31067": [
@@ -13246,8 +13246,8 @@
                             "order": "61.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.140295+00:00",
                             "updated_on": "2024-10-24T11:32:47.216084+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Training Tracking System",
                             "field_31066": "2025-05-01",
                             "field_31067": [
@@ -13274,8 +13274,8 @@
                             "order": "62.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.140560+00:00",
                             "updated_on": "2024-10-24T11:32:47.216154+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Send Regular Progress Reports",
                             "field_31066": "2025-09-30",
                             "field_31067": [
@@ -13302,8 +13302,8 @@
                             "order": "63.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.140791+00:00",
                             "updated_on": "2024-10-24T11:32:47.216205+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Address Non-Compliance Issues",
                             "field_31066": "2025-07-03",
                             "field_31067": [
@@ -13330,8 +13330,8 @@
                             "order": "64.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.141011+00:00",
                             "updated_on": "2024-10-24T11:32:47.216247+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Celebrate Training Milestones",
                             "field_31066": "2025-08-04",
                             "field_31067": [
@@ -13358,8 +13358,8 @@
                             "order": "65.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.141285+00:00",
                             "updated_on": "2024-10-24T11:32:13.517172+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Conduct Materials Audit",
                             "field_31066": "2023-11-21",
                             "field_31067": [
@@ -13386,8 +13386,8 @@
                             "order": "66.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.141507+00:00",
                             "updated_on": "2024-10-24T11:32:13.517222+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Usage Tracking System",
                             "field_31066": "2023-07-06",
                             "field_31067": [
@@ -13414,8 +13414,8 @@
                             "order": "67.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.141738+00:00",
                             "updated_on": "2024-10-24T11:32:30.159252+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Develop Recycled Material Guidelines",
                             "field_31066": "2024-06-05",
                             "field_31067": [
@@ -13442,8 +13442,8 @@
                             "order": "68.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.141986+00:00",
                             "updated_on": "2024-10-24T11:32:13.517264+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Source Recycled Materials",
                             "field_31066": "2023-10-06",
                             "field_31067": [
@@ -13470,8 +13470,8 @@
                             "order": "69.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.142193+00:00",
                             "updated_on": "2024-10-24T11:32:30.159294+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Modify Product Designs",
                             "field_31066": "2024-11-07",
                             "field_31067": [
@@ -13498,8 +13498,8 @@
                             "order": "70.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.142426+00:00",
                             "updated_on": "2024-10-24T11:33:46.782888+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Implement Quality Control Measures",
                             "field_31066": "2026-01-08",
                             "field_31067": [
@@ -13526,8 +13526,8 @@
                             "order": "71.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.142683+00:00",
                             "updated_on": "2024-10-24T11:33:46.782948+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Provide Training Programs",
                             "field_31066": "2026-07-26",
                             "field_31067": [
@@ -13554,8 +13554,8 @@
                             "order": "72.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.142900+00:00",
                             "updated_on": "2024-10-24T11:32:01.561782+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Facilitate Cross-Department Collaboration",
                             "field_31066": "2023-03-22",
                             "field_31067": [
@@ -13582,8 +13582,8 @@
                             "order": "73.00000000000000000000",
                             "created_on": "2024-05-29T07:44:16.143115+00:00",
                             "updated_on": "2024-10-24T11:32:30.159337+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31065": "Promote Employee Involvement",
                             "field_31066": "2025-02-25",
                             "field_31067": [
@@ -13750,7 +13750,7 @@
                             "name": "All action updates",
                             "order": 1,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -13839,7 +13839,7 @@
                             "name": "All action updates grouped by action",
                             "order": 2,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -13934,7 +13934,7 @@
                             "name": "All action updates grouped by staff member",
                             "order": 3,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -14030,8 +14030,8 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-29T07:52:46.886509+00:00",
                             "updated_on": "2024-10-24T11:34:40.769132+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Facilitated cross-departmental collaboration sessions to brainstorm innovative ideas for increasing recycled materials' usage.",
                             "field_31073": [
                                 72
@@ -14049,8 +14049,8 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-29T07:52:46.886557+00:00",
                             "updated_on": "2024-10-24T11:34:40.769214+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Organized knowledge-sharing sessions to exchange best practices among departments regarding recycling initiatives.",
                             "field_31073": [
                                 72
@@ -14068,8 +14068,8 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564499+00:00",
                             "updated_on": "2024-10-24T11:34:40.769256+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted workshops to foster collaboration and idea exchange among different departments.",
                             "field_31073": [
                                 72
@@ -14087,8 +14087,8 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564574+00:00",
                             "updated_on": "2024-10-24T11:34:40.769285+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Implemented a tracking system to monitor recycled materials' usage on a monthly basis and identify usage patterns.",
                             "field_31073": [
                                 66
@@ -14106,8 +14106,8 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564616+00:00",
                             "updated_on": "2024-10-24T11:34:40.769314+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted regular audits of the usage tracking system to ensure accuracy and reliability of data.",
                             "field_31073": [
                                 66
@@ -14125,8 +14125,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564654+00:00",
                             "updated_on": "2024-10-24T11:34:40.769345+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Analyzed usage tracking data to identify areas for further optimization and improvement in recycling practices.",
                             "field_31073": [
                                 66
@@ -14144,8 +14144,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564690+00:00",
                             "updated_on": "2024-10-24T11:34:40.769372+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Established monthly reporting procedures for tracking carbon emissions from various sources.",
                             "field_31073": [
                                 31
@@ -14163,8 +14163,8 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564727+00:00",
                             "updated_on": "2024-10-24T11:34:40.769400+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted quarterly emissions audits to identify any discrepancies and address them promptly.",
                             "field_31073": [
                                 31
@@ -14182,8 +14182,8 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564763+00:00",
                             "updated_on": "2024-10-24T11:34:40.769433+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Implemented automated data collection systems to streamline emissions tracking processes.",
                             "field_31073": [
                                 31
@@ -14201,8 +14201,8 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564799+00:00",
                             "updated_on": "2024-10-24T11:34:40.769461+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Launched department-specific energy-saving challenges with rewards for the most innovative solutions.",
                             "field_31073": [
                                 29
@@ -14220,8 +14220,8 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564836+00:00",
                             "updated_on": "2024-10-24T11:34:40.769488+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted training sessions to educate employees about energy-efficient behaviors and practices.",
                             "field_31073": [
                                 29
@@ -14239,8 +14239,8 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564872+00:00",
                             "updated_on": "2024-10-24T11:34:40.769515+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Created a leaderboard to track departmental progress in energy-saving challenges and foster healthy competition.",
                             "field_31073": [
                                 29
@@ -14258,8 +14258,8 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564909+00:00",
                             "updated_on": "2024-10-24T11:34:40.769543+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted stakeholder meetings to gather input for developing the water conservation plan.",
                             "field_31073": [
                                 42
@@ -14277,8 +14277,8 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564946+00:00",
                             "updated_on": "2024-10-24T11:34:40.769571+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with water conservation experts to ensure the plan aligns with industry best practices.",
                             "field_31073": [
                                 42
@@ -14296,8 +14296,8 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.564990+00:00",
                             "updated_on": "2024-10-24T11:34:40.769602+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Presented the water conservation plan to senior management for approval and allocation of resources.",
                             "field_31073": [
                                 42
@@ -14315,8 +14315,8 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565027+00:00",
                             "updated_on": "2024-10-24T11:34:40.769628+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Utilized advanced data analytics tools to analyze water usage patterns and identify inefficiencies.",
                             "field_31073": [
                                 40
@@ -14334,8 +14334,8 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565064+00:00",
                             "updated_on": "2024-10-24T11:34:40.769659+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with external auditors to ensure the accuracy and thoroughness of the audit process.",
                             "field_31073": [
                                 40
@@ -14353,8 +14353,8 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565101+00:00",
                             "updated_on": "2024-10-24T11:34:40.769686+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Presented audit findings to department heads and solicited feedback for improvement initiatives.",
                             "field_31073": [
                                 40
@@ -14372,8 +14372,8 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565138+00:00",
                             "updated_on": "2024-10-24T11:34:40.769714+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Developed creative marketing materials for the water conservation campaign, including posters and social media content.",
                             "field_31073": [
                                 47
@@ -14391,8 +14391,8 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565175+00:00",
                             "updated_on": "2024-10-24T11:34:40.769741+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Organized water conservation-themed events such as lunch-and-learn sessions and volunteer clean-up efforts.",
                             "field_31073": [
                                 47
@@ -14410,8 +14410,8 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565211+00:00",
                             "updated_on": "2024-10-24T11:34:40.769773+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with local environmental organizations to raise awareness about the importance of water conservation.",
                             "field_31073": [
                                 47
@@ -14429,8 +14429,8 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565248+00:00",
                             "updated_on": "2024-10-24T11:34:40.769799+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted process mapping exercises to identify bottlenecks and inefficiencies in current workflows.",
                             "field_31073": [
                                 16
@@ -14448,8 +14448,8 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565284+00:00",
                             "updated_on": "2024-10-24T11:34:40.769826+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Implemented lean manufacturing principles to streamline production processes and reduce energy waste.",
                             "field_31073": [
                                 16
@@ -14467,8 +14467,8 @@
                             "order": "24.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565320+00:00",
                             "updated_on": "2024-10-24T11:34:40.769853+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Trained employees on new optimized processes and provided ongoing support for implementation.",
                             "field_31073": [
                                 16
@@ -14486,8 +14486,8 @@
                             "order": "25.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565357+00:00",
                             "updated_on": "2024-10-24T11:34:40.769882+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted benchmarking studies to compare water usage efficiency with industry standards.",
                             "field_31073": [
                                 41
@@ -14505,8 +14505,8 @@
                             "order": "26.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565394+00:00",
                             "updated_on": "2024-10-24T11:34:40.769916+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Engaged frontline employees in brainstorming sessions to gather insights for efficiency improvement opportunities.",
                             "field_31073": [
                                 41
@@ -14524,8 +14524,8 @@
                             "order": "27.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565430+00:00",
                             "updated_on": "2024-10-24T11:34:40.769945+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Piloted innovative technologies such as water flow sensors to identify and address areas of high consumption.",
                             "field_31073": [
                                 41
@@ -14543,8 +14543,8 @@
                             "order": "28.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565467+00:00",
                             "updated_on": "2024-10-24T11:34:40.769974+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Researched and evaluated various renewable energy credit vendors to ensure credibility and alignment with organizational values.",
                             "field_31073": [
                                 19
@@ -14562,8 +14562,8 @@
                             "order": "29.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565504+00:00",
                             "updated_on": "2024-10-24T11:34:40.770003+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Negotiated favorable pricing and contract terms with renewable energy credit suppliers.",
                             "field_31073": [
                                 19
@@ -14581,8 +14581,8 @@
                             "order": "30.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565541+00:00",
                             "updated_on": "2024-10-24T11:34:40.770032+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Developed internal communication materials to educate employees about the organization's commitment to renewable energy.",
                             "field_31073": [
                                 19
@@ -14600,8 +14600,8 @@
                             "order": "31.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565584+00:00",
                             "updated_on": "2024-10-24T11:34:40.770061+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with HR and legal teams to develop blind resume screening protocols compliant with employment laws.",
                             "field_31073": [
                                 3
@@ -14619,8 +14619,8 @@
                             "order": "32.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565629+00:00",
                             "updated_on": "2024-10-24T11:34:40.770090+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Trained hiring managers on the importance of unbiased resume evaluation and techniques for blind screening.",
                             "field_31073": [
                                 3
@@ -14638,8 +14638,8 @@
                             "order": "33.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565665+00:00",
                             "updated_on": "2024-10-24T11:34:40.770119+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Implemented software solutions to automate the blind screening process and ensure consistency.",
                             "field_31073": [
                                 3
@@ -14657,8 +14657,8 @@
                             "order": "34.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565702+00:00",
                             "updated_on": "2024-10-24T11:34:40.770149+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Communicated clear deadlines for ethics training completion through multiple channels, including email and intranet announcements.",
                             "field_31073": [
                                 54
@@ -14676,8 +14676,8 @@
                             "order": "35.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565739+00:00",
                             "updated_on": "2024-10-24T11:34:40.770178+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted periodic reminders and progress updates to keep employees on track with training deadlines.",
                             "field_31073": [
                                 54
@@ -14695,8 +14695,8 @@
                             "order": "36.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565776+00:00",
                             "updated_on": "2024-10-24T11:34:40.770211+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Established consequences for non-compliance with training deadlines, including performance reviews.",
                             "field_31073": [
                                 54
@@ -14714,8 +14714,8 @@
                             "order": "37.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565812+00:00",
                             "updated_on": "2024-10-24T11:34:40.770241+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted needs assessments to identify specific topics and areas of focus for the ethics training curriculum.",
                             "field_31073": [
                                 49
@@ -14733,8 +14733,8 @@
                             "order": "38.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565849+00:00",
                             "updated_on": "2024-10-24T11:34:40.770269+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with subject matter experts to develop engaging and informative training materials.",
                             "field_31073": [
                                 49
@@ -14752,8 +14752,8 @@
                             "order": "39.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565885+00:00",
                             "updated_on": "2024-10-24T11:34:40.770298+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Piloted curriculum content with focus groups and incorporated feedback for refinement.",
                             "field_31073": [
                                 49
@@ -14771,8 +14771,8 @@
                             "order": "40.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565922+00:00",
                             "updated_on": "2024-10-24T11:34:40.770327+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Developed customized dashboards to track carbon emissions performance and key initiatives progress.",
                             "field_31073": [
                                 33
@@ -14790,8 +14790,8 @@
                             "order": "41.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.565968+00:00",
                             "updated_on": "2024-10-24T11:34:40.770356+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted quarterly progress review meetings with stakeholders to discuss achievements and challenges.",
                             "field_31073": [
                                 33
@@ -14809,8 +14809,8 @@
                             "order": "42.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566005+00:00",
                             "updated_on": "2024-10-24T11:34:40.770385+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Prepared comprehensive progress reports for executive leadership highlighting key metrics and milestones.",
                             "field_31073": [
                                 33
@@ -14828,8 +14828,8 @@
                             "order": "43.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566049+00:00",
                             "updated_on": "2024-10-24T11:34:40.770414+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted surveys to assess employee interest and preferences for public transit subsidies.",
                             "field_31073": [
                                 24
@@ -14847,8 +14847,8 @@
                             "order": "44.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566085+00:00",
                             "updated_on": "2024-10-24T11:34:40.770448+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Negotiated discounted rates with public transit authorities based on employee usage projections.",
                             "field_31073": [
                                 24
@@ -14866,8 +14866,8 @@
                             "order": "45.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566122+00:00",
                             "updated_on": "2024-10-24T11:34:40.770477+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Promoted public transit subsidies through internal communication channels and awareness campaigns.",
                             "field_31073": [
                                 24
@@ -14885,8 +14885,8 @@
                             "order": "46.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566165+00:00",
                             "updated_on": "2024-10-24T11:34:40.770506+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Engaged cross-functional teams to conduct a thorough assessment of current materials usage and procurement processes.",
                             "field_31073": [
                                 65
@@ -14904,8 +14904,8 @@
                             "order": "47.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566203+00:00",
                             "updated_on": "2024-10-24T11:34:40.770540+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Leveraged data analytics tools to identify opportunities for substituting virgin materials with recycled alternatives.",
                             "field_31073": [
                                 65
@@ -14923,8 +14923,8 @@
                             "order": "48.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566252+00:00",
                             "updated_on": "2024-10-24T11:34:40.770569+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Developed a materials audit checklist to standardize audit procedures across departments.",
                             "field_31073": [
                                 65
@@ -14942,8 +14942,8 @@
                             "order": "49.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566289+00:00",
                             "updated_on": "2024-10-24T11:34:40.770597+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Established supplier scorecards to evaluate potential partners based on sustainability criteria such as recycled content and environmental certifications.",
                             "field_31073": [
                                 68
@@ -14961,8 +14961,8 @@
                             "order": "50.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566325+00:00",
                             "updated_on": "2024-10-24T11:34:40.770626+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted site visits and audits to assess suppliers' manufacturing processes and quality standards.",
                             "field_31073": [
                                 68
@@ -14980,8 +14980,8 @@
                             "order": "51.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566361+00:00",
                             "updated_on": "2024-10-24T11:34:40.770655+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Negotiated long-term contracts with preferred suppliers to secure a stable supply of recycled materials.",
                             "field_31073": [
                                 68
@@ -14999,8 +14999,8 @@
                             "order": "52.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566397+00:00",
                             "updated_on": "2024-10-24T11:34:40.770684+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with diversity and inclusion experts to design interactive workshops on topics such as unconscious bias and cultural competence.",
                             "field_31073": [
                                 7
@@ -15018,8 +15018,8 @@
                             "order": "53.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566434+00:00",
                             "updated_on": "2024-10-24T11:34:40.770718+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted focus groups to gather feedback on workshop content and format preferences.",
                             "field_31073": [
                                 7
@@ -15037,8 +15037,8 @@
                             "order": "54.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566470+00:00",
                             "updated_on": "2024-10-24T11:34:40.770747+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Facilitated open dialogue sessions to address employee questions and concerns about diversity and inclusion.",
                             "field_31073": [
                                 7
@@ -15056,8 +15056,8 @@
                             "order": "55.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566507+00:00",
                             "updated_on": "2024-10-24T11:34:40.770776+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Formed cross-functional teams to identify opportunities for emissions reduction through collaboration with suppliers and partners.",
                             "field_31073": [
                                 36
@@ -15075,8 +15075,8 @@
                             "order": "56.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566543+00:00",
                             "updated_on": "2024-10-24T11:34:40.770804+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted joint brainstorming sessions to generate innovative ideas for emissions reduction projects.",
                             "field_31073": [
                                 36
@@ -15094,8 +15094,8 @@
                             "order": "57.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566580+00:00",
                             "updated_on": "2024-10-24T11:34:40.770834+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Established performance metrics and milestones to track progress and ensure accountability among project stakeholders.",
                             "field_31073": [
                                 36
@@ -15113,8 +15113,8 @@
                             "order": "58.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566616+00:00",
                             "updated_on": "2024-10-24T11:34:40.770867+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Recruited volunteers from various departments to form energy-saving committees.",
                             "field_31073": [
                                 30
@@ -15132,8 +15132,8 @@
                             "order": "59.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566652+00:00",
                             "updated_on": "2024-10-24T11:34:40.770897+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted orientation sessions to educate committee members about energy-saving goals and strategies.",
                             "field_31073": [
                                 30
@@ -15151,8 +15151,8 @@
                             "order": "60.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566689+00:00",
                             "updated_on": "2024-10-24T11:34:40.770925+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Facilitated regular committee meetings to brainstorm ideas and implement energy-saving initiatives.",
                             "field_31073": [
                                 30
@@ -15170,8 +15170,8 @@
                             "order": "61.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566726+00:00",
                             "updated_on": "2024-10-24T11:34:40.770954+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Implemented automated tracking systems to monitor employee training progress and completion rates.",
                             "field_31073": [
                                 55
@@ -15189,8 +15189,8 @@
                             "order": "62.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566762+00:00",
                             "updated_on": "2024-10-24T11:34:40.770983+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Developed personalized training plans for employees who are behind schedule to help them catch up.",
                             "field_31073": [
                                 55
@@ -15208,8 +15208,8 @@
                             "order": "63.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566799+00:00",
                             "updated_on": "2024-10-24T11:34:40.771017+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Recognized and rewarded departments with high training compliance rates to incentivize participation.",
                             "field_31073": [
                                 55
@@ -15227,8 +15227,8 @@
                             "order": "64.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566835+00:00",
                             "updated_on": "2024-10-24T11:34:40.771045+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted cost-benefit analyses to evaluate the long-term savings and environmental benefits of upgrading appliances.",
                             "field_31073": [
                                 44
@@ -15246,8 +15246,8 @@
                             "order": "65.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566872+00:00",
                             "updated_on": "2024-10-24T11:34:40.771074+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Engaged employees in the selection process by soliciting feedback and preferences for new water-efficient appliances.",
                             "field_31073": [
                                 44
@@ -15265,8 +15265,8 @@
                             "order": "66.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566909+00:00",
                             "updated_on": "2024-10-24T11:34:40.771104+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Coordinated with vendors to schedule installation and provide training on appliance usage and maintenance.",
                             "field_31073": [
                                 44
@@ -15284,8 +15284,8 @@
                             "order": "67.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566945+00:00",
                             "updated_on": "2024-10-24T11:34:40.771138+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Customized training content to address specific biases relevant to the organization's hiring practices and workplace culture.",
                             "field_31073": [
                                 4
@@ -15303,8 +15303,8 @@
                             "order": "68.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.566989+00:00",
                             "updated_on": "2024-10-24T11:34:40.771167+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Incorporated interactive exercises and case studies to encourage participant engagement and reflection.",
                             "field_31073": [
                                 4
@@ -15322,8 +15322,8 @@
                             "order": "69.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567025+00:00",
                             "updated_on": "2024-10-24T11:34:40.771196+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Offered follow-up coaching sessions for managers to reinforce learning and address individual challenges.",
                             "field_31073": [
                                 4
@@ -15341,8 +15341,8 @@
                             "order": "70.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567062+00:00",
                             "updated_on": "2024-10-24T11:34:40.771225+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted facility assessments to identify areas where low-flow fixtures could be installed for maximum water savings.",
                             "field_31073": [
                                 43
@@ -15360,8 +15360,8 @@
                             "order": "71.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567099+00:00",
                             "updated_on": "2024-10-24T11:34:40.771253+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Pilot-tested low-flow fixtures in select areas to assess performance and user satisfaction.",
                             "field_31073": [
                                 43
@@ -15379,8 +15379,8 @@
                             "order": "72.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567135+00:00",
                             "updated_on": "2024-10-24T11:34:40.771282+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Rolled out installation of low-flow fixtures across all facilities and provided training on their proper use and maintenance.",
                             "field_31073": [
                                 43
@@ -15398,8 +15398,8 @@
                             "order": "73.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567172+00:00",
                             "updated_on": "2024-10-24T11:34:40.771311+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Launched an anonymous ethics hotline for employees to report concerns and seek guidance confidentially.",
                             "field_31073": [
                                 57
@@ -15417,8 +15417,8 @@
                             "order": "74.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567209+00:00",
                             "updated_on": "2024-10-24T11:34:40.771339+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Created an online ethics portal with resources and FAQs to support employees in navigating ethical dilemmas.",
                             "field_31073": [
                                 57
@@ -15436,8 +15436,8 @@
                             "order": "75.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567259+00:00",
                             "updated_on": "2024-10-24T11:34:40.771373+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Trained HR representatives and managers to serve as ethics advisors and provide one-on-one support to employees.",
                             "field_31073": [
                                 57
@@ -15455,8 +15455,8 @@
                             "order": "76.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567295+00:00",
                             "updated_on": "2024-10-24T11:34:40.771403+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Partnered with local environmental organizations to deliver engaging and informative workshops on water conservation.",
                             "field_31073": [
                                 46
@@ -15474,8 +15474,8 @@
                             "order": "77.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567345+00:00",
                             "updated_on": "2024-10-24T11:34:40.771470+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Tailored workshop content to address the unique water usage challenges and opportunities within the organization.",
                             "field_31073": [
                                 46
@@ -15493,8 +15493,8 @@
                             "order": "78.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567396+00:00",
                             "updated_on": "2024-10-24T11:34:40.771500+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Incorporated hands-on activities and demonstrations to reinforce learning and encourage behavior change.",
                             "field_31073": [
                                 46
@@ -15512,8 +15512,8 @@
                             "order": "79.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567433+00:00",
                             "updated_on": "2024-10-24T11:34:40.771529+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with employee resource groups to develop culturally relevant diversity resource materials.",
                             "field_31073": [
                                 8
@@ -15531,8 +15531,8 @@
                             "order": "80.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567470+00:00",
                             "updated_on": "2024-10-24T11:34:40.771559+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted focus groups and surveys to gather input from employees on their diversity and inclusion needs.",
                             "field_31073": [
                                 8
@@ -15550,8 +15550,8 @@
                             "order": "81.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567507+00:00",
                             "updated_on": "2024-10-24T11:34:40.771587+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Designed multimedia resources such as videos, infographics, and interactive quizzes to appeal to diverse learning styles.",
                             "field_31073": [
                                 8
@@ -15569,8 +15569,8 @@
                             "order": "82.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567558+00:00",
                             "updated_on": "2024-10-24T11:34:40.771622+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted benchmarking research to identify industry best practices for incorporating recycled materials into production processes.",
                             "field_31073": [
                                 67
@@ -15588,8 +15588,8 @@
                             "order": "83.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567595+00:00",
                             "updated_on": "2024-10-24T11:34:40.771651+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Engaged cross-functional teams to develop guidelines that balance environmental impact with product quality and cost considerations.",
                             "field_31073": [
                                 67
@@ -15607,8 +15607,8 @@
                             "order": "84.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567633+00:00",
                             "updated_on": "2024-10-24T11:34:40.771679+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Piloted the guidelines in select production lines and refined them based on feedback and performance metrics.",
                             "field_31073": [
                                 67
@@ -15626,8 +15626,8 @@
                             "order": "85.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567670+00:00",
                             "updated_on": "2024-10-24T11:34:40.771709+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with subject matter experts to design interactive workshops on ethical dilemmas.",
                             "field_31073": [
                                 50
@@ -15645,8 +15645,8 @@
                             "order": "86.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567706+00:00",
                             "updated_on": "2024-10-24T11:34:40.771738+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Facilitated discussions and role-playing exercises to engage employees in ethical decision-making.",
                             "field_31073": [
                                 50
@@ -15664,8 +15664,8 @@
                             "order": "87.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567742+00:00",
                             "updated_on": "2024-10-24T11:34:40.771767+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Incorporated real-world scenarios to help employees apply ethical principles to their work.",
                             "field_31073": [
                                 50
@@ -15683,8 +15683,8 @@
                             "order": "88.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567779+00:00",
                             "updated_on": "2024-10-24T11:34:40.771819+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Organized case study discussions to deepen understanding of ethical principles.",
                             "field_31073": [
                                 52
@@ -15702,8 +15702,8 @@
                             "order": "89.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567815+00:00",
                             "updated_on": "2024-10-24T11:34:40.771851+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Encouraged critical thinking and analysis through facilitated discussions.",
                             "field_31073": [
                                 52
@@ -15721,8 +15721,8 @@
                             "order": "90.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567861+00:00",
                             "updated_on": "2024-10-24T11:34:40.771880+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Promoted ethical decision-making skills through role-playing exercises.",
                             "field_31073": [
                                 52
@@ -15740,8 +15740,8 @@
                             "order": "91.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567898+00:00",
                             "updated_on": "2024-10-24T11:34:40.771909+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Developed online training modules covering various topics related to ethics and compliance.",
                             "field_31073": [
                                 51
@@ -15759,8 +15759,8 @@
                             "order": "92.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567942+00:00",
                             "updated_on": "2024-10-24T11:34:40.771937+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Provided flexibility for employees to complete training at their own pace.",
                             "field_31073": [
                                 51
@@ -15778,8 +15778,8 @@
                             "order": "93.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.567986+00:00",
                             "updated_on": "2024-10-24T11:34:40.771970+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Incorporated interactive elements to enhance engagement and retention of material.",
                             "field_31073": [
                                 51
@@ -15797,8 +15797,8 @@
                             "order": "94.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568022+00:00",
                             "updated_on": "2024-10-24T11:34:40.771999+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with stakeholders across departments to gather insights on carbon emissions.",
                             "field_31073": [
                                 14
@@ -15816,8 +15816,8 @@
                             "order": "95.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568068+00:00",
                             "updated_on": "2024-10-24T11:34:40.772029+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Incorporated stakeholder feedback into carbon emissions reduction strategies.",
                             "field_31073": [
                                 14
@@ -15835,8 +15835,8 @@
                             "order": "96.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568105+00:00",
                             "updated_on": "2024-10-24T11:34:40.772060+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Fostered a sense of ownership and accountability among stakeholders for emission reduction initiatives.",
                             "field_31073": [
                                 14
@@ -15854,8 +15854,8 @@
                             "order": "97.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568142+00:00",
                             "updated_on": "2024-10-24T11:34:40.772096+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Organized workshops to educate employees on energy-saving practices.",
                             "field_31073": [
                                 28
@@ -15873,8 +15873,8 @@
                             "order": "98.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568179+00:00",
                             "updated_on": "2024-10-24T11:34:40.772126+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Provided hands-on demonstrations of energy-saving technologies.",
                             "field_31073": [
                                 28
@@ -15892,8 +15892,8 @@
                             "order": "99.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568217+00:00",
                             "updated_on": "2024-10-24T11:34:40.772156+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Empowered employees to identify and implement energy-saving opportunities in their areas.",
                             "field_31073": [
                                 28
@@ -15911,8 +15911,8 @@
                             "order": "100.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568254+00:00",
                             "updated_on": "2024-10-24T11:34:40.772185+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Collaborated with product designers to integrate recycled materials into product designs.",
                             "field_31073": [
                                 69
@@ -15930,8 +15930,8 @@
                             "order": "101.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568300+00:00",
                             "updated_on": "2024-10-24T11:34:40.772214+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted feasibility studies to ensure product quality and performance with recycled materials.",
                             "field_31073": [
                                 69
@@ -15949,8 +15949,8 @@
                             "order": "102.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568340+00:00",
                             "updated_on": "2024-10-24T11:34:40.772243+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Incorporated customer feedback to optimize product designs for sustainability and functionality.",
                             "field_31073": [
                                 69
@@ -15968,8 +15968,8 @@
                             "order": "103.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568391+00:00",
                             "updated_on": "2024-10-24T11:34:40.772272+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Offered incentives such as bike racks and showers to encourage biking to work.",
                             "field_31073": [
                                 23
@@ -15987,8 +15987,8 @@
                             "order": "104.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568442+00:00",
                             "updated_on": "2024-10-24T11:34:40.772300+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Provided subsidies for bike purchases or repairs to facilitate commuting by bike.",
                             "field_31073": [
                                 23
@@ -16006,8 +16006,8 @@
                             "order": "105.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568479+00:00",
                             "updated_on": "2024-10-24T11:34:40.772329+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Organized bike safety workshops and group rides to promote biking to work.",
                             "field_31073": [
                                 23
@@ -16025,8 +16025,8 @@
                             "order": "106.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568516+00:00",
                             "updated_on": "2024-10-24T11:34:40.772358+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Installed water recycling systems to capture and treat wastewater for reuse.",
                             "field_31073": [
                                 45
@@ -16044,8 +16044,8 @@
                             "order": "107.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568552+00:00",
                             "updated_on": "2024-10-24T11:34:40.772386+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted water quality testing to ensure the safety and effectiveness of recycled water.",
                             "field_31073": [
                                 45
@@ -16063,8 +16063,8 @@
                             "order": "108.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568589+00:00",
                             "updated_on": "2024-10-24T11:34:40.772419+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Educated employees on the benefits of water recycling and proper usage of recycled water.",
                             "field_31073": [
                                 45
@@ -16082,8 +16082,8 @@
                             "order": "109.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568625+00:00",
                             "updated_on": "2024-10-24T11:34:40.772455+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Conducted follow-up sessions to reinforce key concepts from ethics training.",
                             "field_31073": [
                                 59
@@ -16101,8 +16101,8 @@
                             "order": "110.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568662+00:00",
                             "updated_on": "2024-10-24T11:34:40.772484+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Provided additional support and guidance to employees based on their training needs.",
                             "field_31073": [
                                 59
@@ -16120,8 +16120,8 @@
                             "order": "111.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568698+00:00",
                             "updated_on": "2024-10-24T11:34:40.772513+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Addressed specific questions and concerns raised by employees during training sessions.",
                             "field_31073": [
                                 59
@@ -16139,8 +16139,8 @@
                             "order": "112.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568735+00:00",
                             "updated_on": "2024-10-24T11:34:40.772542+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Established carpooling incentives such as preferred parking spots for carpoolers.",
                             "field_31073": [
                                 22
@@ -16158,8 +16158,8 @@
                             "order": "113.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568771+00:00",
                             "updated_on": "2024-10-24T11:34:40.772571+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Facilitated carpool matching services to help employees find compatible commuting partners.",
                             "field_31073": [
                                 22
@@ -16177,8 +16177,8 @@
                             "order": "114.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568808+00:00",
                             "updated_on": "2024-10-24T11:34:40.772600+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Organized regular events and activities to promote camaraderie among carpooling groups.",
                             "field_31073": [
                                 22
@@ -16196,8 +16196,8 @@
                             "order": "115.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568845+00:00",
                             "updated_on": "2024-10-24T11:34:40.772628+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Recognized and rewarded employee contributions to recycling initiatives.",
                             "field_31073": [
                                 73
@@ -16215,8 +16215,8 @@
                             "order": "116.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568881+00:00",
                             "updated_on": "2024-10-24T11:34:40.772661+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Solicited feedback from employees to improve recycling programs and initiatives.",
                             "field_31073": [
                                 73
@@ -16234,8 +16234,8 @@
                             "order": "117.00000000000000000000",
                             "created_on": "2024-05-29T07:56:33.568918+00:00",
                             "updated_on": "2024-10-24T11:34:40.772690+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_31072": "Provided opportunities for employees to volunteer for environmental projects and campaigns.",
                             "field_31073": [
                                 73
@@ -28220,10 +28220,10 @@
             "integrations": [
                 {
                     "id": 135,
-                    "name": "Local Baserow",
+                    "name": "Local Jadawel",
                     "order": "1.00000000000000000000",
                     "type": "local_jadawel",
-                    "authorized_user": "frederik@baserow.io"
+                    "authorized_user": "frederik@jadawl.site"
                 }
             ],
             "theme": {

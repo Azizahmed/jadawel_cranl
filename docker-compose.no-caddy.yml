@@ -54,7 +54,7 @@ x-backend-variables:
   REDIS_SSL_CERT_REQS:
   REDIS_SSL_CA_CERTS:
 
-  # Set these to enable Baserow to send emails.
+  # Set these to enable Jadawel to send emails.
   EMAIL_SMTP:
   EMAIL_SMTP_HOST:
   EMAIL_SMTP_PORT:

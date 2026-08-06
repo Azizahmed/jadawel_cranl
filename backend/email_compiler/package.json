@@ -1,5 +1,5 @@
 {
-  "name": "baserow_email_compiler",
+  "name": "jadawel_email_compiler",
   "description": "A simple script which looks for all .mjml.eta files in the backend and compiles them to django templates ready for emailing.",
   "version": "0.0.1",
   "private": true,
@@ -11,7 +11,7 @@
     "glob": "^9.0.0",
     "mjml": "^4.15.0"
   },
-  "author": "Bram Wiepjes (Baserow)",
+  "author": "Bram Wiepjes (Jadawel)",
   "license": "MIT",
   "scripts": {
     "watch": "node ./jadawelEmailCompiler.js watch",

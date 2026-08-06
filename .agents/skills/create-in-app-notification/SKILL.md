@@ -1,13 +1,13 @@
 ---
 name: Create In-App Notification
-description: Create or update a Baserow in-app notification for an event. Use when adding a backend `NotificationType`, wiring frontend notification rendering and routing, defining the notification target, or preventing duplicate notifications for the same event object.
+description: Create or update a Jadawel in-app notification for an event. Use when adding a backend `NotificationType`, wiring frontend notification rendering and routing, defining the notification target, or preventing duplicate notifications for the same event object.
 ---
 
-# Create Baserow In-App Notifications
+# Create Jadawel In-App Notifications
 
-Use this skill when a task is to add or update an in-app notification shown in Baserow's notification center.
+Use this skill when a task is to add or update an in-app notification shown in Jadawel's notification center.
 
-Do not invent a new notification architecture. This repo already has established backend and frontend patterns. Start from the closest existing notification type in the same product area: core, database, builder, automation, integration, premium, or enterprise.
+Do not invent a new notification architecture. This repo already has established backend and frontend patterns. Start from the closest existing notification type in the same product area: core, database, builder, automation, integration, or arabase.
 
 ## First Step
 
@@ -24,8 +24,7 @@ Useful starting points:
 
 - Core notification types: `backend/src/jadawel/core/notification_types.py`
 - Database notification types: `backend/src/jadawel/contrib/database/fields/notification_types.py`
-- Premium notification types: `premium/backend/src/baserow_premium/row_comments/notification_types.py`
-- Enterprise notification types: `enterprise/backend/src/baserow_enterprise/data_scanner/notification_types.py`
+- Fork notification types live under `backend/src/arabase/`
 - Backend notification APIs: `backend/src/jadawel/core/notifications/handler.py`
 - Backend notification base classes: `backend/src/jadawel/core/notifications/registries.py`
 - Frontend base notification type: `web-frontend/modules/core/notificationTypes.js`
@@ -57,8 +56,7 @@ Common backend registration points:
 
 - `backend/src/jadawel/core/apps.py`
 - `backend/src/jadawel/contrib/database/apps.py`
-- `premium/backend/src/baserow_premium/apps.py`
-- `enterprise/backend/src/baserow_enterprise/apps.py`
+- `backend/src/arabase/apps.py`
 
 ## Frontend Pattern
 
@@ -74,8 +72,7 @@ Common frontend registration points:
 
 - `web-frontend/modules/core/plugin.js`
 - `web-frontend/modules/database/plugin.js`
-- `premium/web-frontend/modules/baserow_premium/plugin.js`
-- `enterprise/web-frontend/modules/baserow_enterprise/plugin.js`
+- `web-frontend/modules/arabase/plugin.js`
 
 ## Define The Target Clearly
 
@@ -202,8 +199,7 @@ Add the narrowest backend tests that prove:
 
 Useful existing tests:
 
-- `premium/backend/tests/baserow_premium_tests/row_comments/test_row_comments_notification_types.py`
-- `enterprise/backend/tests/baserow_enterprise_tests/data_scanner/test_data_scanner_notification_types.py`
+- `backend/tests/arabase/`
 
 If you add custom frontend routing or rendering logic, add or update a focused frontend unit test near the notification type or component.
 
@@ -211,11 +207,11 @@ If you add custom frontend routing or rendering logic, add or update a focused f
 
 Use these searches to move quickly:
 
-- `rg -n "class .*NotificationType" backend/src premium/backend/src enterprise/backend/src`
-- `rg -n "notification_type_registry.register" backend/src premium/backend/src enterprise/backend/src`
-- `rg -n "new .*NotificationType\\(context\\)" web-frontend premium/web-frontend enterprise/web-frontend`
-- `rg -n "NotificationHandler\\.create_direct_notification_for_users|UserNotificationsGrouper|create_broadcast_notification" backend/src premium/backend/src enterprise/backend/src`
-- `rg -n "data__contains=.*_id|get_notification_by\\(" backend/src premium/backend/src enterprise/backend/src`
+- `rg -n "class .*NotificationType" backend/src/jadawel backend/src/arabase`
+- `rg -n "notification_type_registry.register" backend/src/jadawel backend/src/arabase`
+- `rg -n "new .*NotificationType\\(context\\)" web-frontend/modules`
+- `rg -n "NotificationHandler\\.create_direct_notification_for_users|UserNotificationsGrouper|create_broadcast_notification" backend/src/jadawel backend/src/arabase`
+- `rg -n "data__contains=.*_id|get_notification_by\\(" backend/src/jadawel backend/src/arabase`
 
 ## Guardrails
 

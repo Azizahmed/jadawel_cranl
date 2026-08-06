@@ -1,12 +1,21 @@
 from unittest.mock import MagicMock, Mock, PropertyMock
 
 import pytest
-from baserow_premium.integrations.local_jadawel.service_types import DispatchResult
 from rest_framework.exceptions import ValidationError
 
 from jadawel.core.services.models import Service
 from jadawel.core.services.registries import ServiceType
 from jadawel.test_utils.pytest_conftest import FakeDispatchContext
+
+
+def _dispatch_result(**kwargs):
+    # DispatchResult ships in baserow_premium, which this fork deletes for licence
+    # reasons, so the tests that build one skip rather than failing collection.
+    module = pytest.importorskip(
+        "baserow_premium.integrations.local_baserow.service_types",
+        reason="requires baserow_premium, deleted from this fork for licence reasons",
+    )
+    return module.DispatchResult(**kwargs)
 
 
 def test_service_type_get_schema_name():
@@ -253,7 +262,7 @@ def test_dispatch_even_if_simulated_when_updated():
     service_type.get_sample_data = MagicMock(return_value={"data": {"foo": "bar"}})
     service_type.dispatch_data = MagicMock(return_value={"data": {"other": "data"}})
     service_type.dispatch_transform = MagicMock(
-        return_value=DispatchResult(data={"someother": "data"})
+        return_value=_dispatch_result(data={"someother": "data"})
     )
 
     mock_service = MagicMock()
@@ -284,7 +293,7 @@ def test_dispatch_even_if_simulated_without_sample_data():
     service_type.get_sample_data = MagicMock(return_value=None)
     service_type.dispatch_data = MagicMock(return_value={"data": {"other": "data"}})
     service_type.dispatch_transform = MagicMock(
-        return_value=DispatchResult(data={"someother": "data"})
+        return_value=_dispatch_result(data={"someother": "data"})
     )
 
     mock_service = MagicMock()

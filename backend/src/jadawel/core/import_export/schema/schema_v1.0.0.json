@@ -6,7 +6,7 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
-    "baserow_version": {
+    "jadawel_version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },

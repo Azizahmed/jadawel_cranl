@@ -28,7 +28,7 @@ def load_test_data():
     fake = Faker()
     print("Add builder basic data...")
 
-    user = User.objects.get(email="admin@baserow.io")
+    user = User.objects.get(email="admin@jadawl.site")
     workspace = user.workspaceuser_set.get(workspace__name="Acme Corp").workspace
 
     try:
@@ -40,17 +40,17 @@ def load_test_data():
             user, workspace, "builder", name="Back to local website"
         )
 
-    CustomDomain.objects.filter(domain_name="test1.getbaserow.io").delete()
-    CustomDomain.objects.filter(domain_name="test2.getbaserow.io").delete()
-    CustomDomain.objects.filter(domain_name="test3.getbaserow.io").delete()
+    CustomDomain.objects.filter(domain_name="test1.jadawl.site").delete()
+    CustomDomain.objects.filter(domain_name="test2.jadawl.site").delete()
+    CustomDomain.objects.filter(domain_name="test3.jadawl.site").delete()
     CustomDomain.objects.create(
-        builder=builder, domain_name="test1.getbaserow.io", order=1
+        builder=builder, domain_name="test1.jadawl.site", order=1
     )
     CustomDomain.objects.create(
-        builder=builder, domain_name="test2.getbaserow.io", order=2
+        builder=builder, domain_name="test2.jadawl.site", order=2
     )
     CustomDomain.objects.create(
-        builder=builder, domain_name="test3.getbaserow.io", order=3
+        builder=builder, domain_name="test3.jadawl.site", order=3
     )
 
     integration_type = integration_type_registry.get("local_jadawel")
@@ -171,7 +171,7 @@ def load_test_data():
             variant="link",
             navigation_type="custom",
             target="blank",
-            navigate_to_url='"https://baserow.io"',
+            navigate_to_url='"https://jadawl.site"',
             styles={"link": {"link_text_alignment": "center"}},
         )
 

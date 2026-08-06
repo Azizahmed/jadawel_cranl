@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "Online Freelancer Management",
     "icon": "iconoir-numbered-list-left",
     "keywords": [
@@ -2480,7 +2480,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2022-06-25T17:46:36.485591+00:00",
                             "updated_on": "2024-05-24T12:21:28.970716+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Sergio Pfeifer",
                             "field_18870": [
                                 {
@@ -2531,7 +2531,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2022-06-25T17:46:36.487808+00:00",
                             "updated_on": "2024-05-24T12:21:27.623720+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Orval Russ",
                             "field_18870": [
                                 {
@@ -2575,7 +2575,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2022-06-25T19:38:56.238462+00:00",
                             "updated_on": "2024-05-24T12:21:06.831319+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Celestina Paris",
                             "field_18870": [
                                 {
@@ -2625,7 +2625,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2022-06-25T22:18:20.556860+00:00",
                             "updated_on": "2024-05-24T12:21:01.475594+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Alison Keith",
                             "field_18870": [
                                 {
@@ -2678,7 +2678,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2022-06-27T09:06:25.455926+00:00",
                             "updated_on": "2024-05-24T12:21:18.245277+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Karen Declue",
                             "field_18870": [
                                 {
@@ -2723,7 +2723,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2022-06-27T09:06:51.861650+00:00",
                             "updated_on": "2024-05-24T12:21:23.224069+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Marilyn Harris",
                             "field_18870": [
                                 {
@@ -2768,7 +2768,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2022-06-27T09:07:12.821288+00:00",
                             "updated_on": "2024-05-24T12:21:16.584487+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "James McEachern",
                             "field_18870": [
                                 {
@@ -2818,7 +2818,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2022-06-27T09:07:36.092353+00:00",
                             "updated_on": "2024-05-24T12:21:11.649084+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Damon Stringer",
                             "field_18870": [
                                 {
@@ -2868,7 +2868,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2022-06-27T09:07:55.516529+00:00",
                             "updated_on": "2024-05-24T12:21:19.884913+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Leslie Spells",
                             "field_18870": [
                                 {
@@ -2913,7 +2913,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2022-06-27T09:08:15.175458+00:00",
                             "updated_on": "2024-05-24T12:21:14.918007+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Harvey Barner",
                             "field_18870": [
                                 {
@@ -2961,7 +2961,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2022-06-27T09:08:38.433341+00:00",
                             "updated_on": "2024-05-24T12:21:13.294982+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Dorothy Boling",
                             "field_18870": [
                                 {
@@ -3009,7 +3009,7 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2022-06-27T09:09:10.991523+00:00",
                             "updated_on": "2024-05-24T12:21:21.346071+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Linda Byrum",
                             "field_18870": [
                                 {
@@ -3058,7 +3058,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2022-06-27T09:09:32.668791+00:00",
                             "updated_on": "2024-05-24T12:21:03.386411+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Andrew Burkhart",
                             "field_18870": [
                                 {
@@ -3104,7 +3104,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2022-06-27T09:09:53.204664+00:00",
                             "updated_on": "2024-05-24T12:21:26.276897+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Melinda Petty",
                             "field_18870": [
                                 {
@@ -3149,7 +3149,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2022-06-27T09:10:12.861900+00:00",
                             "updated_on": "2024-05-24T12:21:09.975472+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Christopher Weaver",
                             "field_18870": [
                                 {
@@ -3201,7 +3201,7 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2022-06-27T09:10:33.794607+00:00",
                             "updated_on": "2024-05-24T12:21:30.533645+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Victor Minor",
                             "field_18870": [
                                 {
@@ -3252,7 +3252,7 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2022-06-27T09:10:53.831067+00:00",
                             "updated_on": "2024-05-24T12:21:05.136942+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Archie Herbst",
                             "field_18870": [
                                 {
@@ -3304,7 +3304,7 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2022-06-27T09:11:46.683301+00:00",
                             "updated_on": "2024-05-24T12:21:25.121407+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Mary Martin",
                             "field_18870": [
                                 {
@@ -3351,7 +3351,7 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2022-06-27T16:17:52.987017+00:00",
                             "updated_on": "2024-05-24T12:21:08.395347+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18869": "Charles Vandyke",
                             "field_18870": [
                                 {
@@ -3462,7 +3462,7 @@
                             "name": "All skills",
                             "order": 1,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "OR",
                             "filters_disabled": false,
                             "filters": [],
@@ -3515,7 +3515,7 @@
                             "name": "Skills with less than 2 freelancers",
                             "order": 2,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "OR",
                             "filters_disabled": false,
                             "filters": [
@@ -3577,8 +3577,8 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-24T06:52:46.207716+00:00",
                             "updated_on": "2024-05-24T06:54:21.771499+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "AWS development",
                             "field_18891": [
                                 3,
@@ -3591,8 +3591,8 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-24T06:52:46.207767+00:00",
                             "updated_on": "2024-05-24T06:54:25.734097+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Mobile app development",
                             "field_18891": [
                                 16,
@@ -3605,8 +3605,8 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-24T06:54:26.946291+00:00",
                             "updated_on": "2024-05-24T06:54:30.683069+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Website design",
                             "field_18891": [
                                 18
@@ -3618,8 +3618,8 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-24T06:54:31.526230+00:00",
                             "updated_on": "2024-05-24T06:54:35.929161+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Website development",
                             "field_18891": [
                                 16,
@@ -3632,8 +3632,8 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-05-24T06:54:37.197796+00:00",
                             "updated_on": "2024-05-24T06:54:40.921099+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Data analysis",
                             "field_18891": [
                                 11,
@@ -3646,8 +3646,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-05-24T06:54:41.889587+00:00",
                             "updated_on": "2024-05-24T06:54:46.059623+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Online security",
                             "field_18891": [
                                 17,
@@ -3660,8 +3660,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-05-24T06:54:47.554041+00:00",
                             "updated_on": "2024-05-24T06:54:53.606515+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Accounting and bookkeeping",
                             "field_18891": [
                                 5,
@@ -3674,8 +3674,8 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2024-05-24T06:54:55.031165+00:00",
                             "updated_on": "2024-05-24T06:54:58.844506+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Virtual assistance",
                             "field_18891": [
                                 2,
@@ -3693,8 +3693,8 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2024-05-24T06:55:03.201449+00:00",
                             "updated_on": "2024-05-24T06:55:07.458057+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Social media marketing",
                             "field_18891": [
                                 1,
@@ -3710,8 +3710,8 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2024-05-24T06:55:08.463956+00:00",
                             "updated_on": "2024-05-24T06:55:14.975793+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Excel management",
                             "field_18891": [
                                 2,
@@ -3726,8 +3726,8 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2024-05-24T06:55:16.356967+00:00",
                             "updated_on": "2024-05-24T06:55:18.699066+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Customer support",
                             "field_18891": [
                                 4,
@@ -3741,8 +3741,8 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2024-05-24T06:55:20.353606+00:00",
                             "updated_on": "2024-05-24T06:55:22.844189+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Sales",
                             "field_18891": [
                                 3,
@@ -3761,8 +3761,8 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2024-05-24T06:55:24.088021+00:00",
                             "updated_on": "2024-05-24T06:55:26.714364+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Copywriting",
                             "field_18891": [
                                 14,
@@ -3776,8 +3776,8 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2024-05-24T06:55:28.055563+00:00",
                             "updated_on": "2024-05-24T06:55:29.395054+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Writing",
                             "field_18891": [
                                 8,
@@ -3792,8 +3792,8 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2024-05-24T06:55:33.341772+00:00",
                             "updated_on": "2024-05-24T06:55:34.938483+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Editing",
                             "field_18891": [
                                 1,
@@ -3810,8 +3810,8 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2024-05-24T06:55:36.893632+00:00",
                             "updated_on": "2024-05-24T06:55:45.256183+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Search Engine Optimization",
                             "field_18891": [
                                 1,
@@ -3826,8 +3826,8 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2024-05-24T06:55:47.140775+00:00",
                             "updated_on": "2024-05-24T06:55:49.802024+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Illustration",
                             "field_18891": [
                                 12,
@@ -3841,8 +3841,8 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2024-05-24T06:55:51.378493+00:00",
                             "updated_on": "2024-05-24T06:55:53.589417+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Video editing",
                             "field_18891": [
                                 1,
@@ -3857,8 +3857,8 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2024-05-24T06:55:55.352549+00:00",
                             "updated_on": "2024-05-24T06:55:57.788859+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Graphic design",
                             "field_18891": [
                                 1,
@@ -3871,8 +3871,8 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2024-05-24T06:55:59.768653+00:00",
                             "updated_on": "2024-05-24T06:56:01.373406+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Animation",
                             "field_18891": [
                                 1,
@@ -3888,8 +3888,8 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2024-05-24T06:56:02.885830+00:00",
                             "updated_on": "2024-05-24T06:56:07.408673+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Photography",
                             "field_18891": [
                                 12,
@@ -3904,8 +3904,8 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2024-05-24T06:56:11.743508+00:00",
                             "updated_on": "2024-05-24T06:56:16.955592+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Career coaching",
                             "field_18891": [
                                 11
@@ -3917,8 +3917,8 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2024-05-24T06:56:19.220892+00:00",
                             "updated_on": "2024-05-24T06:56:23.331094+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Translation",
                             "field_18891": [],
                             "field_18892": null
@@ -3928,8 +3928,8 @@
                             "order": "24.00000000000000000000",
                             "created_on": "2024-05-24T06:56:24.424290+00:00",
                             "updated_on": "2024-05-24T06:56:31.223083+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Audio transcription",
                             "field_18891": [
                                 3,
@@ -3942,8 +3942,8 @@
                             "order": "25.00000000000000000000",
                             "created_on": "2024-05-24T06:56:32.254252+00:00",
                             "updated_on": "2024-05-24T06:56:34.860979+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Voice talent",
                             "field_18891": [
                                 9,
@@ -3957,8 +3957,8 @@
                             "order": "26.00000000000000000000",
                             "created_on": "2024-05-24T06:56:36.533102+00:00",
                             "updated_on": "2024-05-24T06:56:39.414556+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "Tutoring",
                             "field_18891": [
                                 4,
@@ -3971,8 +3971,8 @@
                             "order": "27.00000000000000000000",
                             "created_on": "2024-05-24T06:56:40.800444+00:00",
                             "updated_on": "2024-05-24T06:56:43.182758+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18890": "User testing",
                             "field_18891": [
                                 2,
@@ -5328,7 +5328,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2022-06-25T17:46:50.538839+00:00",
                             "updated_on": "2024-05-27T11:26:08.213269+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Live Umbra Inc",
                             "field_18894": "Passion for people, respect for resources, and a spirit of innovation are our core values. They guide everything we do and help us feel responsible for our customers, our employees, and the communities where we do business.\n\nThe Live Umbra Inc. is involved in every part of agriculture, from making seeds to farming and ranching, studying plants, making fertilizer, processing food, making commercial products, and selling them. We come up with new ways to protect our resources and feed a growing population that is hungry.",
                             "field_18895": null,
@@ -5351,7 +5351,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2022-06-25T17:46:50.540972+00:00",
                             "updated_on": "2024-05-27T11:25:59.533571+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Gesture Systems",
                             "field_18894": "Gesture Systems is a global leader in telecommunications, with more than 30 years of experience in designing and building high-performance network communications solutions. Gesture Systems' advanced software and hardware solutions give service providers a new way to think about the network edge. This lets them offer customers the most innovative services possible.\n\nGesture Systems is on the cutting edge of technology. It offers solutions for both current carrier ethernet networks and the newest NFV network architectures. \n\nOur future-proof technology meets the needs of multiple industries, such as 5G, ioT, network slicing, and enterprise CIT. It is built to deliver the highest levels of service manageability and the best value for performance.\n\nOur full operations and management system covers all network segments, including transport, connectivity, and distributed network applications, for a holistic approach to the network edge that lets providers offer advanced connectivity on a variety of platforms. \n\nWe are at the forefront of the network edge revolution. Join us today to be a part of the next generation of network technology.",
                             "field_18895": null,
@@ -5373,7 +5373,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2022-06-25T19:34:15.190973+00:00",
                             "updated_on": "2024-05-27T11:25:49.176115+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Blue Open Mind",
                             "field_18894": "People have to make choices about their futures every day, whether it's about their education, health care, investments, or plans for when they retire. These decisions can be hard to understand and make. We're here to give people the confidence to make these kinds of decisions. We do this by getting to know them, making the choices they have to make easier, and being there for them every step of the way, so they never have to be unsure of what to do. This is what we call our mission: making decisions easier. Lives are made better. Every day, we want to make it happen.",
                             "field_18895": null,
@@ -5395,7 +5395,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2022-06-27T10:55:48.710245+00:00",
                             "updated_on": "2024-05-27T11:26:15.911710+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Skylight Technologies",
                             "field_18894": "Our organization is a wellness center that uses the most effective long-term weight reduction method in the world.\n\nMillions have been motivated to work together and embark on a path toward constructive, long-lasting change thanks to our efforts over many years. We need to get up and about more. So that they can succeed despite the odds. Attempting to accomplish something beyond their wildest dreams.\n\nIt is true that our best days are yet to come.\n\nWellness as a concept has recently gained mainstream attention. People's health isn't improving, but their attitudes are.",
                             "field_18895": null,
@@ -5417,7 +5417,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2022-06-27T10:56:00.122699+00:00",
                             "updated_on": "2024-05-27T11:25:55.516792+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Dandelion Shops",
                             "field_18894": "People can save money and live better with the help of Dandelion Shops. Dandelion Shops International keeps this promise by giving millions of customers in 23 countries outside the U.S. value and convenience.\n\nBecause we look at the world in a unique way, we can see connections that others can't and come up with new ideas that make customers' lives easier. To help our core businesses, we are also building strategic partnerships through equity investments.\n\nOur plan is to build strong local businesses that are powered by Dandelion Shops. At the same time, we want to help the company and our partners grow and have a positive effect on our stakeholders.",
                             "field_18895": null,
@@ -5439,7 +5439,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2022-06-27T10:56:17.307133+00:00",
                             "updated_on": "2024-05-27T11:25:47.206800+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Blue Hammerhead International",
                             "field_18894": "In a wide range of industries and applications, Blue Hammerhead International's electrical and electronic products and systems are unmatched.\n\nThe mission of Blue Hammerhead International is encapsulated in its corporate statement, \"Innovation for the Future,\" which expresses the company's commitment to being an innovative industry leader. Over the past half-century, Blue Hammerhead International has established itself as an industry pioneer in numerous emerging technologies.\n\nAcross more than 30 locations in North America, nearly 3,000 people are employed by Blue Hammerhead International's subsidiaries and divisions.",
                             "field_18895": null,
@@ -5461,7 +5461,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2022-06-27T10:56:49.207213+00:00",
                             "updated_on": "2024-05-27T11:26:13.065878+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Red Seahawk Flux",
                             "field_18894": "Through the effective implementation of our environmental standards, procedures, and programs, we commit to becoming a model of a socially responsible mining organization.\n\nOur company is dedicated to protecting and enhancing the environment, reducing the negative effects our operations have on it, and maximizing the efficiency of our systems.",
                             "field_18895": null,
@@ -5483,7 +5483,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2022-06-27T10:56:50.097659+00:00",
                             "updated_on": "2024-05-27T11:26:20.103350+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Voltaire Industries",
                             "field_18894": "Organizations all over the world that are on the cutting edge trust Voltaire Industries for category-defining data and analytical insights, and they use our end-to-end solutions to help them come up with winning strategies and smart things to do. We are at the center of these organizations' most important projects, and we help them grow revenue, increase margins, reduce risk, and stay in compliance. Voltaire Industries stands out because of the size, depth, variety, and accuracy of our business data, which is always growing. The Voltaire Industries Data Cloud and the solutions it powers make it possible to get data and insights. Our Data Cloud is made up of hundreds of millions of business records gathered from tens of thousands of sources and tens of millions of web pages. It helps clients improve the performance of their businesses at both the departmental and business-wide levels.",
                             "field_18895": null,
@@ -5503,7 +5503,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2022-06-27T10:56:51.087639+00:00",
                             "updated_on": "2024-05-27T11:26:02.966758+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Green Gold Standard",
                             "field_18894": "Learners are given the autonomy to study at their own speed, both inside and outside of the classroom, with the help of Green Gold Standard's practice exercises, instructional videos, and individualized learning dashboard. We cover a wide range of subjects, from elementary school through college, as well as standardized test prep, in addition to the more traditional humanities and social sciences. We assist students in building solid foundations in a variety of skills so that they can tackle any learning challenge that comes their way. Our team is committed to making sure that Green Gold Standard provides coaches with the tools they need to better understand their students' or athletes' activities and how to best support them. It's easy to tell if a kid is struggling or if she's on a roll and way ahead of the rest of the class.",
                             "field_18895": null,
@@ -5523,7 +5523,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2022-06-27T10:56:53.046508+00:00",
                             "updated_on": "2024-05-27T11:26:14.531249+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Sentinel Factory",
                             "field_18894": "To help our customers ensure the safety of their customers and the public, we provide innovative solutions to difficult problems, promote scientific advancement, and meet pressing needs.\n\nSupport the missions of our customers, improve security, and push scientific progress forward as the global industry standard.\n\nSentinel Factory is a multinational security and aerospace corporation that does the bulk of its business with the government and other public agencies. It also supplies aircraft to the armed forces of 30 countries and commercial operators in the country across all seven branches of the military. Sentinel Factory makes most of its money by selling products, services, and platforms to governments and businesses all over the world.",
                             "field_18895": null,
@@ -5545,7 +5545,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2022-06-27T10:56:54.632417+00:00",
                             "updated_on": "2024-05-27T11:26:01.314943+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Gold Grit Global",
                             "field_18894": "Gold Grit Global is a top-tier, rapidly expanding financial services provider. In 2007, a group of daring professionals pooled together just 3,000,000 PHP to launch a new company in the consumer financing industry. Due to its strong demand and financial standing, Gold Grit Global had a promising beginning.\nMore than eighty locations across the country and a staff of more than 700 people allow this company to meet the financial needs of consumers and businesses across the country.\nPersonal loans for employees and seafarers, vehicle mortgages, unsecured business loans, and consumer loans like 2nd hand vehicle financing are just some of the financial options offered by Gold Grit Global.\nThe company is well-positioned to serve a wider share of the market thanks to its cheap interest rates and quick processing time, while also meeting the needs of its core customers in the unbanked and underserved sector.",
                             "field_18895": null,
@@ -5567,7 +5567,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2022-06-27T10:58:13.846108+00:00",
                             "updated_on": "2024-05-27T11:25:50.954624+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Breadbox",
                             "field_18894": "From concept to finished product to marketing and distribution, Breadbox facilitates the entire entertainment value chain. \n\nWe tell daring stories to audiences all over the world with the power of a studio and the independence of an indie.\n\nOur executive team is united by a creative ambition to bring fantastic concepts, compelling narratives, and cutting-edge platforms to life and to audiences in every corner of the globe.\n\nMajor hubs of ours can be found in Los Angeles, the UK, Manila, and other places around the world.",
                             "field_18895": null,
@@ -5589,7 +5589,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2022-06-27T10:58:14.767406+00:00",
                             "updated_on": "2024-05-27T11:25:57.629111+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Gamine Services",
                             "field_18894": "What we do today lays the groundwork for tomorrow's possibilities, so it's incumbent upon us as a society and an industry to collaborate for a brighter, more sustainable tomorrow. \n \nOur mission is to use the transformative potential of mobile connectivity to build a better world, and our vision details the specific contribution that Gamine Services will make toward realizing that vision.\n  \nOur technology was the first to connect people, and it will soon connect everything.  \n \nOur role as a connector and orchestrator encompasses a wide range of responsibilities, including but not limited to: shaping and validating new solutions in innovation environments; fostering global partnerships to increase the positive impact of technology on a larger scale; and more.",
                             "field_18895": null,
@@ -5612,7 +5612,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2022-06-27T10:58:20.686177+00:00",
                             "updated_on": "2024-05-27T11:26:06.353817+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Kernel Industries",
                             "field_18894": "A rented storefront in Santa Rosa's suburbs was the first location for Kernel Industries. We had seven employees, a few carpenters, a computer, and two folding card tables. We were motivated, dedicated, energetic, and had a clear goal in mind.\n \nOur competitive advantage lies in our team's ability to understand your requirements, create a compelling vision for them, and then execute on that vision.\n \nIn the event of a new build, an addition, or a remodel, we develop individualized strategies. To ensure that you receive the precise creative solutions, technology, and materials you require, we have assembled a team of in-house experts in addition to a wide network of specialists. Our goal with every project is to design and build a space that exceeds expectations and delights our clients.",
                             "field_18895": null,
@@ -5632,7 +5632,7 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2022-06-27T10:58:22.004937+00:00",
                             "updated_on": "2024-05-27T11:26:09.711237+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Midway Systems",
                             "field_18894": "AI-powered laptops, automated servers that outwit threats, proactive storage solutions, and a streamlined cloud experience will help you get from concept to completion more quickly.\nYou can be sure of reaching your sustainability goals if you use services and products that were made to reduce the world's carbon footprint. At Midway Systems, we incorporate environmental and social responsibility into all of our operations.\nWe design our devices with a full lifetime in mind, from the components used to construct the product and its packaging to the reliability and security of our supply chain. Each year, we aim to improve upon the previous one's record of sustainability.",
                             "field_18895": null,
@@ -5654,7 +5654,7 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2022-06-27T10:59:16.660155+00:00",
                             "updated_on": "2024-05-27T11:26:04.586334+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Green Loop",
                             "field_18894": "Every weekday, we field over 2.5 million calls, emails, and chats related to trip planning via our contact center, mobile apps, websites, and third-party information services.\n\n\nAll rail customers can access a wide variety of rail-related information on Green Loop, including trip planning tools, real-time data, ticket and fare details, and more.",
                             "field_18895": null,
@@ -5674,7 +5674,7 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2022-06-27T10:59:17.989652+00:00",
                             "updated_on": "2024-05-27T11:26:11.657279+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Mojito Systems",
                             "field_18894": "Mojito Systems, which began in 2005 with the production of a single beer in a single brewery, has expanded its offerings over the past decade to include a wide variety of beer styles and flavors to meet the needs of beer drinkers in every region of Asia. As of now, its portfolio includes ten well-known and respected beer labels.\u00a0\n\n\nWith nine production facilities spread out across Asia, Mojito Systems can guarantee both the availability and freshness of its products. It also has a well-developed distribution network that supplies more than 200,000 stores.",
                             "field_18895": null,
@@ -5694,7 +5694,7 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2022-06-27T20:13:51.263068+00:00",
                             "updated_on": "2024-05-27T11:26:17.525046+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18893": "Sunflower East Side Homes",
                             "field_18894": "Sunflower East Side Homes is a real estate company that started in 1995. We have catered for thousands of satisfied customers.",
                             "field_18895": null,
@@ -6471,7 +6471,7 @@
                             "name": "Projects with insufficient budget",
                             "order": 2,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [
@@ -7343,7 +7343,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2022-06-25T17:47:01.236222+00:00",
                             "updated_on": "2024-05-24T12:57:20.786604+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Copyrighting for LUI launch",
                             "field_18907": "Our client from the agriculture sector asked us to make several snippets for their online promotions which are related to their business launch.",
                             "field_18908": [
@@ -7377,7 +7377,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2022-06-25T17:47:01.238949+00:00",
                             "updated_on": "2024-05-24T07:13:39.160827+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Photography project for event",
                             "field_18907": "The exhibit for this client's business achievements is nearing. They need photographs related to their business. Prints will follow soon after.",
                             "field_18908": [
@@ -7411,7 +7411,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2022-06-25T19:33:22.704416+00:00",
                             "updated_on": "2024-05-24T07:13:39.177795+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Animation project for LUI launch",
                             "field_18907": "Our client in the agriculture industry asked us to make a few animation files for their online business launch promotions.",
                             "field_18908": [
@@ -7443,7 +7443,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2022-06-27T19:21:02.296418+00:00",
                             "updated_on": "2024-05-27T12:51:40.823021+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "SMM 2022 for the Blue Open Mind",
                             "field_18907": "The client requested three talents to manage their online store's social media pages for the entire year of 2022.",
                             "field_18908": [
@@ -7481,7 +7481,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2022-06-27T19:27:24.286056+00:00",
                             "updated_on": "2024-05-24T07:13:39.211007+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Mobile app for RSF Q1",
                             "field_18907": "A client is requesting to have a mobile app tailored for their business.",
                             "field_18908": [
@@ -7522,7 +7522,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2022-06-27T19:33:48.440201+00:00",
                             "updated_on": "2024-05-24T07:13:39.227622+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Manage an online shop for DS Q1",
                             "field_18907": "A popular retail business asked for a talent who can manage their online store for 2022 Q1.",
                             "field_18908": [
@@ -7563,7 +7563,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2022-06-27T19:50:11.805740+00:00",
                             "updated_on": "2024-05-24T07:13:39.244451+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Gamine Services requires a CSR for Q2",
                             "field_18907": "This client requires a couple of customer support representatives for 2022 Q2.",
                             "field_18908": [
@@ -7599,7 +7599,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2022-06-27T19:56:45.439313+00:00",
                             "updated_on": "2024-05-24T07:13:39.260739+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Gamine Services proposes CSR for Q3",
                             "field_18907": "This client requires a couple of customer support representatives for 2022 Q3.",
                             "field_18908": [
@@ -7632,7 +7632,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2022-06-27T20:04:29.827050+00:00",
                             "updated_on": "2024-05-24T07:13:39.277827+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Phone therapist for Skylight Technologies",
                             "field_18907": "They need a CSR with experience or background in career coaching therapy for a week.",
                             "field_18908": [
@@ -7670,7 +7670,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2022-06-27T20:18:58.947657+00:00",
                             "updated_on": "2024-05-24T07:13:39.294619+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Real estate expert required by SESH for 2022 Q2",
                             "field_18907": "A client requested a marketing writer expert in real estate for Q2.",
                             "field_18908": [
@@ -7705,7 +7705,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2022-06-27T20:24:56.168476+00:00",
                             "updated_on": "2024-05-24T07:13:39.314667+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Accountant for",
                             "field_18907": "A financial statement is to be submitted for the client's fiscal year soon.",
                             "field_18908": [
@@ -7737,7 +7737,7 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2022-06-27T20:28:52.214912+00:00",
                             "updated_on": "2024-05-24T12:57:14.286428+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "VA for Breadbox 2022 Q3",
                             "field_18907": "This client requires help from a virtual assistant to sort out all their documents and monitor the business schedules.",
                             "field_18908": [
@@ -7767,7 +7767,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2022-06-27T20:33:39.925028+00:00",
                             "updated_on": "2024-05-24T07:13:39.351874+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Real estate trainee for GGG 2022",
                             "field_18907": "This business is asking for promotional snippets for their social media posts.",
                             "field_18908": [
@@ -7805,7 +7805,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2022-06-27T20:40:08.531431+00:00",
                             "updated_on": "2024-05-24T12:57:24.116513+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "User testing for GGS 2022 Q4",
                             "field_18907": "Client needs a quality assurance specialist for one of their products.",
                             "field_18908": [
@@ -7835,7 +7835,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2022-06-27T20:44:52.134136+00:00",
                             "updated_on": "2024-06-04T17:06:31.248561+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18906": "Software for Sentinel Factory P2",
                             "field_18907": "This client asked for three people with good ideas who could make an app for one of their products.\n\nReplace somthing",
                             "field_18908": [
@@ -8011,7 +8011,7 @@
                             "name": "All actions",
                             "order": 1,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -8109,7 +8109,7 @@
                             "name": "All actions grouped by project",
                             "order": 2,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -8213,7 +8213,7 @@
                             "name": "Add new action",
                             "order": 3,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "public": true,
                             "title": "",
                             "description": "",
@@ -8345,8 +8345,8 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2024-05-24T08:26:44.406581+00:00",
                             "updated_on": "2024-05-24T08:46:11.914897+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Social Media Strategy Development",
                             "field_18928": "Develop a comprehensive social media strategy tailored to the client's brand, including content calendars, engagement tactics, and performance metrics.",
                             "field_18929": [
@@ -8371,8 +8371,8 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2024-05-24T08:26:44.406673+00:00",
                             "updated_on": "2024-05-24T08:43:31.209217+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Talent Onboarding and Training",
                             "field_18928": "Recruit and train three social media talents on the client's brand voice, content guidelines, and performance expectations.",
                             "field_18929": [
@@ -8391,8 +8391,8 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2024-05-24T08:40:01.416356+00:00",
                             "updated_on": "2024-05-24T08:46:14.449228+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "E-Commerce Platform Optimization",
                             "field_18928": "Optimize the online store\u2019s layout, navigation, and checkout process to enhance user experience and increase sales.",
                             "field_18929": [
@@ -8417,8 +8417,8 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2024-05-24T08:40:08.120649+00:00",
                             "updated_on": "2024-05-24T08:46:15.385047+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Inventory Management System Setup",
                             "field_18928": "Implement an efficient inventory management system to keep track of stock levels, process orders, and manage returns.",
                             "field_18929": [
@@ -8443,8 +8443,8 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2024-05-24T08:40:19.602828+00:00",
                             "updated_on": "2024-05-24T08:43:53.614617+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Requirements Gathering and Analysis",
                             "field_18928": "Conduct meetings with the client to gather detailed requirements for the mobile app, ensuring all business needs are captured.",
                             "field_18929": [
@@ -8463,8 +8463,8 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2024-05-24T08:40:35.093211+00:00",
                             "updated_on": "2024-05-24T08:46:16.011760+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Prototype Development",
                             "field_18928": "Create a functional prototype of the mobile app to demonstrate the proposed design and functionality to the client for feedback.",
                             "field_18929": [
@@ -8489,8 +8489,8 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2024-05-24T08:40:44.178818+00:00",
                             "updated_on": "2024-05-24T08:44:03.067427+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "CSR Recruitment and Training",
                             "field_18928": "Recruit customer support representatives and provide training on the company's products, services, and customer interaction protocols.",
                             "field_18929": [
@@ -8509,8 +8509,8 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2024-05-24T08:40:51.964176+00:00",
                             "updated_on": "2024-05-24T08:46:16.559292+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Customer Support System Implementation",
                             "field_18928": "Set up a customer support system, including ticketing, live chat, and reporting tools to streamline customer service operations.",
                             "field_18929": [
@@ -8535,8 +8535,8 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2024-05-24T08:40:54.121682+00:00",
                             "updated_on": "2024-05-24T08:46:17.721915+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Real Estate Content Creation",
                             "field_18928": "Develop high-quality marketing content, including articles, blogs, and social media posts, focused on real estate trends and insights.",
                             "field_18929": [
@@ -8561,8 +8561,8 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2024-05-24T08:41:01.542476+00:00",
                             "updated_on": "2024-05-24T08:44:12.848705+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "Market Analysis and Strategy",
                             "field_18928": "Conduct a thorough analysis of the real estate market and develop a marketing strategy that aligns with current trends and client goals.",
                             "field_18929": [
@@ -8581,8 +8581,8 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2024-05-30T12:43:32.751961+00:00",
                             "updated_on": "2024-05-30T12:43:32.751961+00:00",
-                            "created_by": "frederik@baserow.io",
-                            "last_modified_by": "frederik@baserow.io",
+                            "created_by": "frederik@jadawl.site",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_18927": "A new action",
                             "field_18928": "Some comments",
                             "field_18929": [
@@ -11199,10 +11199,10 @@
             "integrations": [
                 {
                     "id": 37,
-                    "name": "Local Baserow",
+                    "name": "Local Jadawel",
                     "order": "1.00000000000000000000",
                     "type": "local_jadawel",
-                    "authorized_user": "frederik@baserow.io"
+                    "authorized_user": "frederik@jadawl.site"
                 }
             ],
             "theme": {
@@ -13041,10 +13041,10 @@
             "integrations": [
                 {
                     "id": 38,
-                    "name": "Local Baserow",
+                    "name": "Local Jadawel",
                     "order": "1.00000000000000000000",
                     "type": "local_jadawel",
-                    "authorized_user": "frederik@baserow.io"
+                    "authorized_user": "frederik@jadawl.site"
                 }
             ],
             "theme": {

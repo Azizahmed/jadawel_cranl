@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from baserow_premium.fields.ai_file import AIFile
+import pytest
 from pydantic_ai import BinaryContent, TextContent, UploadedFile
 
 from jadawel.core.generative_ai.generative_ai_model_types import (
@@ -14,8 +14,14 @@ from jadawel.core.generative_ai.generative_ai_model_types import (
 
 def _make_ai_file(
     name: str, size: int, mime_type: str = "text/plain", content_bytes: bytes = b""
-) -> AIFile:
-    ai_file = AIFile(
+):
+    # AIFile ships in baserow_premium, which this fork deletes for licence reasons,
+    # so every test that builds one skips rather than failing collection.
+    ai_file_module = pytest.importorskip(
+        "baserow_premium.fields.ai_file",
+        reason="requires baserow_premium, deleted from this fork for licence reasons",
+    )
+    ai_file = ai_file_module.AIFile(
         name=name,
         original_name=name,
         size=size,

@@ -32,7 +32,7 @@ function base64url(obj) {
 
 /**
  * MockServer is responsible for being the single place where we mock out calls to the
- * baserow server API in tests. This way when an API change is made we should only
+ * jadawel server API in tests. This way when an API change is made we should only
  * need to make one change in this class to reflect the change in the tests.
  */
 export class MockServer {

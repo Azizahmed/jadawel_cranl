@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 Jadawel (جداول) is an Arabic-first, RTL-native spreadsheet-database forked from
-Baserow, self-hosted so that data stays inside Saudi Arabia. This repository is also
+Jadawel, self-hosted so that data stays inside Saudi Arabia. This repository is also
 the CranL deployment copy, so it carries the root `Dockerfile` and
 `.github/workflows/publish-image.yml` on top of the application.
 
@@ -60,7 +60,7 @@ Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
   `baserow_enterprise` becomes importable, or if `JADAWEL_OSS_ONLY` stops being true.
   Run it after every upstream merge.
 - Fork features are **additive**: they live in `backend/src/arabase/` and
-  `web-frontend/modules/arabase/`. The backend hooks into Baserow's registries from
+  `web-frontend/modules/arabase/`. The backend hooks into Jadawel's registries from
   `ArabaseConfig.ready()`, and its API mounts under `/api/arabase/` through
   `ArabasePlugin`, so a new feature needs no core edit.
 - Editing an upstream-derived core file under `backend/src/jadawel/` is the last
@@ -70,13 +70,20 @@ Backend commands run through `uv`, frontend commands through `yarn` on Node 24.
   source: the Python distribution, the `jadawel.*` import namespace, `src/jadawel`,
   the `@jadawel` frontend alias, `JADAWEL_*` environment variables, `/jadawel` image
   paths, Celery task names, OpenTelemetry metric names, the `local_jadawel` service
-  types and `LocalJadawel*` tables, `templates/jadawel`, and the Postgres role.
-  Three things still read `baserow` and must stay: the `Baserow B.V.` copyright the
-  MIT licence requires, upstream's Docker Hub images and issue URLs, and the
-  `baserow_premium` / `baserow_enterprise` names that
-  `test_fork_hygiene.py` asserts are *not* importable. Sample data inside
-  `backend/templates/*.json` is upstream's content and is left verbatim.
-  `docs/RENAME_TO_JADAWEL.md` records how the rename was carried out.
+  types and `LocalJadawel*` tables, `templates/jadawel`, the Postgres role, the
+  `jadawel_template_version` key and every bundled template's sample data, the
+  `X-Jadawel-*` webhook headers and the `Jadawel-View-Authorization` header.
+- Four things still read `baserow` **on purpose**, and renaming any of them is a bug:
+  1. The `Baserow B.V.` copyright, plus the Jack Linke and Tal Shprecher notices.
+     MIT terminates the grant if the notice is dropped, so `test_fork_hygiene.py`
+     asserts each one. **Never rewrite an upstream author's name.**
+  2. Upstream's Docker images, issue URLs and the fork's own provenance line.
+  3. `baserow_premium` / `baserow_enterprise` — upstream's real package names, which
+     `test_fork_hygiene.py` asserts are *not* importable.
+  4. Historical migration filenames and their `CreateModel`/dependency strings, which
+     later `RenameModel` operations refer to by name.
+  `DatabaseRow*` contains the substring `baserow`; a case-insensitive rename will
+  corrupt it. `docs/RENAME_TO_JADAWEL.md` records how the rename was carried out.
 
 ## Coding style
 

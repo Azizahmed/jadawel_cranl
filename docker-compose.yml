@@ -69,7 +69,7 @@ x-backend-variables: &backend-variables
   REDIS_SSL_CERT_REQS:
   REDIS_SSL_CA_CERTS:
 
-  # Set these to enable Baserow to send emails.
+  # Set these to enable Jadawel to send emails.
   EMAIL_SMTP:
   EMAIL_SMTP_HOST:
   EMAIL_SMTP_PORT:
@@ -297,7 +297,7 @@ services:
       - "traefik.http.routers.jadawel-https.middlewares=gzip"
       - "traefik.http.routers.jadawel-https.rule=Host(`jadawel.azoz.cloud`) && PathPrefix(`/`)"
       - "traefik.http.routers.jadawel-https.service=jadawel"
-      # Brute-force protection. Baserow does not rate limit failed logins at all
+      # Brute-force protection. Jadawel does not rate limit failed logins at all
       # by default, so credential stuffing against /api/user/token-auth/ is
       # limited only by network speed. This router matches just the credential
       # endpoints and is declared with a higher priority than the catch-all

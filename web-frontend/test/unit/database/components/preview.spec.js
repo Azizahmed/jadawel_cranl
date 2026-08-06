@@ -31,7 +31,7 @@ describe('Preview component', () => {
   test('Image preview component', async () => {
     const wrapper = await mountComponent({
       mimeType: 'image/png',
-      url: 'https://baserow.io/logo.png',
+      url: 'https://jadawl.site/logo.png',
     })
     expect(wrapper.element).toMatchSnapshot()
   })
@@ -40,7 +40,7 @@ describe('Preview component', () => {
     const wrapper = await mountComponent(
       {
         mimeType: 'video/mp4',
-        url: 'https://baserow.io/video.mpg',
+        url: 'https://jadawl.site/video.mpg',
       },
       {
         fallback: '<div class="default"/>',
@@ -53,7 +53,7 @@ describe('Preview component', () => {
     const wrapper = await mountComponent(
       {
         mimeType: 'audio/mpeg',
-        url: 'https://baserow.io/audio.mp3',
+        url: 'https://jadawl.site/audio.mp3',
       },
       {
         fallback: '<div class="default"/>',
@@ -66,7 +66,7 @@ describe('Preview component', () => {
     const wrapper = await mountComponent(
       {
         mimeType: 'application/pdf',
-        url: 'https://baserow.io/file.pdf',
+        url: 'https://jadawl.site/file.pdf',
       },
       {
         fallback: '<div class="default"/>',
@@ -82,7 +82,7 @@ describe('Preview component', () => {
     // Test updating url reset the choice
     await wrapper.setProps({
       mimeType: 'application/pdf',
-      url: 'https://baserow.io/file2.pdf',
+      url: 'https://jadawl.site/file2.pdf',
     })
 
     expect(wrapper.element).toMatchSnapshot()
@@ -98,7 +98,7 @@ describe('Preview component', () => {
       {
         mimeType:
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        url: 'https://baserow.iapplication/vnd.openxmlformats-officedocument.wordprocessingml.documento/file.xlsx',
+        url: 'https://jadawel.iapplication/vnd.openxmlformats-officedocument.wordprocessingml.documento/file.xlsx',
       },
       {
         fallback: '<div class="default"/>',

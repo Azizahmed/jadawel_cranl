@@ -7,7 +7,7 @@ import {
 } from '@jadawel/modules/integrations/localJadawel/serviceTypes'
 import { TestApp } from '@jadawel/test/helpers/testApp'
 
-describe('Local baserow service types', () => {
+describe('Local jadawel service types', () => {
   let testApp = null
 
   beforeEach(() => {

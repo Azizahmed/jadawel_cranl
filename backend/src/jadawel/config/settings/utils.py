@@ -42,7 +42,7 @@ def setup_dev_e2e_users_and_instance_id(User, args, kwargs):
         user_handler = UserHandler()
         from jadawel.core.user.exceptions import UserAlreadyExist
 
-        for email in ["dev@baserow.io", "e2e@baserow.io"]:
+        for email in ["dev@jadawl.site", "e2e@jadawl.site"]:
             uname = email.split("@")[0]
             try:
                 user = user_handler.create_user(f"staff-{uname}", email, password)

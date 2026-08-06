@@ -12,7 +12,7 @@ export const IMAGE_FILE_TYPES = [
 export const FAVICON_IMAGE_FILE_TYPES = [...IMAGE_FILE_TYPES, 'image/x-icon']
 
 // Keep these in sync with the backend options in
-// baserow.core.models.Settings.EmailVerificationOptions
+// jadawel.core.models.Settings.EmailVerificationOptions
 export const EMAIL_VERIFICATION_OPTIONS = {
   NO_VERIFICATION: 'no_verification',
   RECOMMENDED: 'recommended',
@@ -20,7 +20,7 @@ export const EMAIL_VERIFICATION_OPTIONS = {
 }
 
 // Keep these in sync with the backend options in
-// baserow.core.models.UserProfile.EmailNotificationFrequencyOptions
+// jadawel.core.models.UserProfile.EmailNotificationFrequencyOptions
 export const EMAIL_NOTIFICATIONS_FREQUENCY_OPTIONS = {
   INSTANT: 'instant',
   DAILY: 'daily',

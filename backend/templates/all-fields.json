@@ -1,11 +1,11 @@
 {
-  "baserow_template_version": 1,
+  "jadawel_template_version": 1,
   "name": "All fields",
   "icon": "iconoir-input-field",
   "keywords": [
     "All",
     "Fields",
-    "Baserow"
+    "Jadawel"
   ],
   "categories": [
     "Examples"
@@ -474,7 +474,7 @@
               "date_time_format": null,
               "date_format": null,
               "date_include_time": null,
-              "formula": "button('https://baserow.io', 'Test')",
+              "formula": "button('https://jadawl.site', 'Test')",
               "formula_type": "button"
             },
             {
@@ -548,7 +548,7 @@
               "name": "Grid",
               "order": 1,
               "ownership_type": "collaborative",
-              "owned_by": "bram@baserow.io",
+              "owned_by": "bram@jadawl.site",
               "filter_type": "AND",
               "filters_disabled": false,
               "filters": [],
@@ -891,7 +891,7 @@
               "name": "Gallery",
               "order": 2,
               "ownership_type": "collaborative",
-              "owned_by": "bram@baserow.io",
+              "owned_by": "bram@jadawl.site",
               "filter_type": "AND",
               "filters_disabled": false,
               "filters": [],
@@ -1125,7 +1125,7 @@
               "order": "1.00000000000000000000",
               "created_on": "2023-10-25T19:04:55.554233+00:00",
               "updated_on": "2024-06-14T19:04:55.543160+00:00",
-              "last_modified_by": "bram@baserow.io",
+              "last_modified_by": "bram@jadawl.site",
               "field_12971": "First row",
               "field_12972": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium sem id tellus ultricies fringilla. Vivamus vel lorem et lacus luctus pretium. Vestibulum ut tellus at ipsum faucibus venenatis sed vel diam. Cras sit amet leo neque. Nulla efficitur sit amet sapien et hendrerit. Praesent eu elit eu lorem consequat porta molestie in dui. Sed pellentesque urna ipsum, posuere tristique mauris vestibulum ac. Nam malesuada nisl non risus condimentum rutrum. Aliquam suscipit, lectus ut euismod euismod, nibh justo dictum ligula, nec lacinia augue nisi vel arcu.",
               "field_12973": "100",
@@ -1135,8 +1135,8 @@
               "field_12977": "2023-10-02T19:11:26+00:00",
               "field_12978": null,
               "field_12979": null,
-              "field_12980": "https://baserow.io",
-              "field_12981": "bram@baserow.io",
+              "field_12980": "https://jadawl.site",
+              "field_12981": "bram@jadawl.site",
               "field_12982": [
                 {
                   "name": "tyUuFENn1osvBWVHvNN5aMENcaHHbnr9_45e07cf623e634b96b3e82aeaf7ecc74efd03a05808bf1eb69ceef8a9df7d135.doc",
@@ -1192,10 +1192,10 @@
               "field_12994": null,
               "field_12995": null,
               "field_12996": [
-                "bram@baserow.io"
+                "bram@jadawl.site"
               ],
               "field_12997": "100.00",
-              "field_12998": "bram@baserow.io",
+              "field_12998": "bram@jadawl.site",
               "field_12999": null,
               "field_13000": 5025.0,
               "field_13001": null,
@@ -1293,7 +1293,7 @@
               "date_time_format": null,
               "date_format": null,
               "date_include_time": null,
-              "formula": "button('https://baserow.io', field('Name'))",
+              "formula": "button('https://jadawl.site', field('Name'))",
               "formula_type": "button"
             },
             {
@@ -1338,7 +1338,7 @@
               "name": "Grid",
               "order": 1,
               "ownership_type": "collaborative",
-              "owned_by": "bram@baserow.io",
+              "owned_by": "bram@jadawl.site",
               "filter_type": "AND",
               "filters_disabled": false,
               "filters": [],
@@ -1439,7 +1439,7 @@
               "order": "1.00000000000000000000",
               "created_on": "2023-10-25T19:09:50.671242+00:00",
               "updated_on": "2024-06-14T20:03:07.421057+00:00",
-              "last_modified_by": "bram@baserow.io",
+              "last_modified_by": "bram@jadawl.site",
               "field_13003": "Row 1",
               "field_13004": "1",
               "field_13005": 5418,
@@ -1447,7 +1447,7 @@
               "field_13007": "2023-10-01T19:12:41+00:00",
               "field_13008": 1800.0,
               "field_13018": null,
-              "field_13020": "https://baserow.io",
+              "field_13020": "https://jadawl.site",
               "field_13021": [
                 5420,
                 5421
@@ -1458,7 +1458,7 @@
               "order": "2.00000000000000000000",
               "created_on": "2023-10-25T19:09:50.671294+00:00",
               "updated_on": "2024-06-14T20:44:59.566753+00:00",
-              "last_modified_by": "bram@baserow.io",
+              "last_modified_by": "bram@jadawl.site",
               "field_13003": "Row 2 with a very long name",
               "field_13004": "2",
               "field_13005": 5419,

@@ -12,14 +12,14 @@ sed -n '/## HTTPS \/ SSL Support/q;p' install-on-ubuntu.md | # We don't want to 
 sed -n '/^```bash$/,/^```$/p' | # Extract bash code from markdown code blocks
 sed '/^```/ d' | # Get rid of the backticks left in by the previous sed
 sed 's/^\$ //' | # Get rid of the bash command $ prefixes
-sed 's/^sudo passwd baserow/echo -e "yourpassword\nyourpassword" | sudo passwd baserow/' | # Enter a password non interactively
-sed "s/git clone --branch master.*/cp -r \/local_jadawel_repo baserow/" | # Copy your local repo over instead of checking out master
-sed 's/https:\\\/\\\/api.domain.com/http:\\\/\\\/api.baserow.vagrant.test/g' | # Fixup the sed commands for the URL env vars
+sed 's/^sudo passwd jadawel/echo -e "yourpassword\nyourpassword" | sudo passwd jadawel/' | # Enter a password non interactively
+sed "s/git clone --branch master.*/cp -r \/local_jadawel_repo jadawel/" | # Copy your local repo over instead of checking out master
+sed 's/https:\\\/\\\/api.domain.com/http:\\\/\\\/api.jadawel.vagrant.test/g' | # Fixup the sed commands for the URL env vars
 sed 's/https:\\\/\\\/jadawel.domain.com/http:\\\/\\\/jadawel.vagrant.test/g' |
-sed 's/https:\\\/\\\/media.domain.com/http:\\\/\\\/media.baserow.vagrant.test/g' |
-sed 's/api.domain.com/api.baserow.vagrant.test/g' | # Fixup the sed commands for the nginx config
+sed 's/https:\\\/\\\/media.domain.com/http:\\\/\\\/media.jadawel.vagrant.test/g' |
+sed 's/api.domain.com/api.jadawel.vagrant.test/g' | # Fixup the sed commands for the nginx config
 sed 's/jadawel.domain.com/jadawel.vagrant.test/g' |
-sed 's/media.domain.com/media.baserow.vagrant.test/g' > install-on-ubuntu.sh
+sed 's/media.domain.com/media.jadawel.vagrant.test/g' > install-on-ubuntu.sh
 
 # Prepend with some bash settings so we can see the output and it will fail if something
 # crashes.

@@ -956,7 +956,7 @@ def test_user_with_invalid_token_cant_get_info_about_a_public_password_protected
     response = api_client.get(
         reverse("api:database:views:public_info", kwargs={"slug": grid_view.slug}),
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT token",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT token",
     )
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
@@ -996,7 +996,7 @@ def test_user_with_password_can_get_info_about_a_public_password_protected_view(
     response = api_client.get(
         reverse("api:database:views:public_info", kwargs={"slug": grid_view.slug}),
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
     )
     response_json = response.json()
     assert response.status_code == HTTP_200_OK
@@ -1085,7 +1085,7 @@ def test_rotating_slug_of_a_public_password_protected_view_invalidate_previous_t
     response = api_client.get(
         reverse("api:database:views:public_info", kwargs={"slug": new_slug}),
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
     )
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
@@ -1142,7 +1142,7 @@ def test_user_in_wrong_workspace_need_the_password_to_access_password_protected_
     response = api_client.get(
         reverse("api:database:views:public_info", kwargs={"slug": grid_view.slug}),
         format="json",
-        HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
+        HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}",
         HTTP_AUTHORIZATION=f"JWT {other_user_token}",
     )
     assert response.status_code == HTTP_200_OK
@@ -1446,7 +1446,7 @@ def test_get_public_row(api_client, data_fixture):
         kwargs={"slug": password_protected_view.slug, "row_id": row_2.id},
     )
     response = api_client.get(
-        url, HTTP_BASEROW_VIEW_AUTHORIZATION=f"JWT {public_view_token}"
+        url, HTTP_JADAWEL_VIEW_AUTHORIZATION=f"JWT {public_view_token}"
     )
     assert response.status_code == HTTP_200_OK
     response_json = response.json()

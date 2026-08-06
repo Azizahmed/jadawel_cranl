@@ -34,7 +34,7 @@ cd "$(dirname "$(realpath "$0")")";
 
 # Double check the above command worked and we are now indeed in the formula directory
 if [ ! -f JadawelFormula.g4 ] || [ ! -f JadawelFormulaLexer.g4 ] || [ ! -d ../backend ] ; then
-    echo "${RED}Grammar files or baserow code not found in build scripts directory, cannot continue...${NC}"
+    echo "${RED}Grammar files or jadawel code not found in build scripts directory, cannot continue...${NC}"
     exit 1
 fi
 

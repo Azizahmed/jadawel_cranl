@@ -122,7 +122,7 @@ all release gates in section 5 pass.
 3. Fix the local Storybook `.nuxt/types` permission failure so Storybook can be included
    in visual review.
 4. Configure a writable Jadawel `origin` remote and push `main` before further work; keep
-   `upstream` read-only for Baserow updates.
+   `upstream` read-only for Jadawel updates.
 5. Confirm the repository has no real uncommitted content changes before starting.
 
 **Exit:** migration state is clean, the core dev stack and Storybook start, and the

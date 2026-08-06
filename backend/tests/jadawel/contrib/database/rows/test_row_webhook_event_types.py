@@ -83,7 +83,7 @@ def test_rows_created_event_type_without_webhook_event(mock_call_webhook, data_f
         url="http://localhost/",
         include_all_events=False,
         events=["rows.created"],
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
     )
 
     RowHandler().create_rows(
@@ -295,7 +295,7 @@ def test_rows_updated_event_type_without_webhook_event(mock_call_webhook, data_f
         url="http://localhost/",
         include_all_events=False,
         events=["rows.updated"],
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
     )
 
     updated_event = webhook.events.all().first()
@@ -417,7 +417,7 @@ def test_rows_deleted_event_type_without_webhook_event(mock_call_webhook, data_f
         url="http://localhost/",
         include_all_events=False,
         events=["rows.deleted"],
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
     )
     model = table.get_model()
     row = model.objects.create()

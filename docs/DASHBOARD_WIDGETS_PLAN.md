@@ -87,7 +87,7 @@ no locked tiles are shown.
 ## Goal
 
 The dashboard's "Add new widget" picker currently offers only **Summary**. The
-Bar, Line, Pie and Doughnut tiles shown locked in upstream Baserow are one
+Bar, Line, Pie and Doughnut tiles shown locked in upstream Jadawel are one
 premium widget type (`chart`) presented as four *variations* — and this fork
 removed `premium/` entirely, so they don't exist here in any form.
 

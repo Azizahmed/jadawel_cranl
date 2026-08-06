@@ -75,8 +75,8 @@ for n in SECRET_KEY DATABASE_PASSWORD REDIS_PASSWORD; do echo "$n=$(tr -dc 'a-z0
 | `DATABASE_PASSWORD` | *generated* | |
 | `REDIS_PASSWORD` | *generated* | |
 | `JADAWEL_PUBLIC_URL` | `https://jadawel.azoz.cloud` | Must match the browser URL exactly — scheme included, no trailing slash. |
-| `DATABASE_USER` | `baserow` | |
-| `DATABASE_NAME` | `baserow` | |
+| `DATABASE_USER` | `jadawel` | |
+| `DATABASE_NAME` | `jadawel` | |
 
 `JADAWEL_PUBLIC_URL` is the one people get wrong. It is baked into API calls,
 websocket URLs and outbound email links. If it disagrees with the address in the
@@ -140,8 +140,8 @@ Coolify can schedule Postgres backups for the `db` service — use it. Two cavea
 - A `pg_dump` does **not** include uploaded files. They live in the `media`
   Docker volume and must be backed up separately.
 - Never restore the local development database onto production. It contains
-  `dev@baserow.io` and `e2e@baserow.io` — staff accounts whose password
-  (`testpassword`) is hardcoded in Baserow's public repository. Production
+  `dev@jadawl.site` and `e2e@jadawl.site` — staff accounts whose password
+  (`testpassword`) is hardcoded in Jadawel's public repository. Production
   settings never create them, so a clean install is safe; a restored dev dump is
   not.
 

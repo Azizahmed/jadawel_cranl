@@ -416,7 +416,7 @@ _dev-tmux:
     create_window "storybook" "$ROOT/web-frontend"  "just storybook"
     create_window "celery"    "$ROOT/backend"       "just run-dev-celery"
     create_window "db"        "$ROOT"               "just dc-dev logs -f db"       "PGPASSWORD=${DATABASE_PASSWORD:-jadawel} just dc-dev exec db psql -U ${DATABASE_USER:-jadawel} -d ${DATABASE_NAME:-jadawel}"
-    create_window "redis"     "$ROOT"               "just dc-dev logs -f redis"    "just dc-dev exec redis redis-cli -a ${REDIS_PASSWORD:-baserow}"
+    create_window "redis"     "$ROOT"               "just dc-dev logs -f redis"    "just dc-dev exec redis redis-cli -a ${REDIS_PASSWORD:-jadawel}"
 
     # Kill the temporary window
     tmux kill-window -t $SESSION:_tmp
@@ -597,7 +597,7 @@ _dc-dev-tmux:
     create_window "backend"  "just dc-dev exec backend bash"  "just dc-dev logs -f backend"
     create_window "frontend" "just dc-dev exec web-frontend bash" "just dc-dev logs -f web-frontend"
     create_window "celery"   "just dc-dev exec celery bash" "just dc-dev logs -f celery celery-beat-worker celery-export-worker"
-    create_window "db"       "just dc-dev exec db psql -U baserow" "just dc-dev logs -f db"
+    create_window "db"       "just dc-dev exec db psql -U jadawel" "just dc-dev logs -f db"
     create_window "redis"    "just dc-dev exec redis redis-cli"   "just dc-dev logs -f redis"
 
     # Kill the temporary window
@@ -1064,7 +1064,7 @@ test-db cmd="":
             echo ""
             echo "Example:"
             echo "  just test-db up"
-            echo "  DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/baserow just b test -n=auto"
+            echo "  DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/jadawel just b test -n=auto"
             echo "  just test-db down"
             ;;
     esac
@@ -1115,7 +1115,7 @@ _test-db-start:
     echo "Test database running on port {{ test_db_port }}"
     echo ""
     echo "Run tests with:"
-    echo "  DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/baserow just b test -n=auto"
+    echo "  DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/jadawel just b test -n=auto"
 
 [private]
 _test-db-stop:
@@ -1127,7 +1127,7 @@ _test-db-ps:
     if docker ps --format '{{ '{{.Names}}' }}' | grep -q "^{{ test_db_name }}$"; then
         echo "Test database is running on port {{ test_db_port }}"
         echo ""
-        echo "DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/baserow"
+        echo "DATABASE_URL=postgres://jadawel:jadawel@localhost:{{ test_db_port }}/jadawel"
     elif docker ps -a --format '{{ '{{.Names}}' }}' | grep -q "^{{ test_db_name }}$"; then
         echo "Test database exists but is stopped"
         echo "Run 'just test-db up' to start it"
@@ -1184,7 +1184,7 @@ changelog-test *args:
 
 # CI image names
 ci_backend_image := "jadawel_backend:ci"
-ci_frontend_image := "baserow_frontend:ci"
+ci_frontend_image := "jadawel_frontend:ci"
 
 # CI Docker commands: build, lint, test, run (full pipeline)
 # Usage:
@@ -1246,7 +1246,7 @@ ci cmd="" target="":
         build_backend
 
         # Create a temporary network for the test
-        NETWORK="baserow-ci-test-$$"
+        NETWORK="jadawel-ci-test-$$"
 
         # Clean up any leftover containers from previous runs
         docker rm -f ci-test-db ci-test-redis 2>/dev/null || true
@@ -1270,7 +1270,7 @@ ci cmd="" target="":
 
         echo "Starting Redis..."
         docker run -d --name ci-test-redis --network "$NETWORK" \
-            redis:7 redis-server --requirepass baserow
+            redis:7 redis-server --requirepass jadawel
 
         # Wait for postgres to be ready
         echo "Waiting for PostgreSQL to be ready..."
@@ -1289,7 +1289,7 @@ ci cmd="" target="":
         # Wait for redis to be ready
         echo "Waiting for Redis to be ready..."
         for i in {1..30}; do
-            if docker exec ci-test-redis redis-cli -a baserow ping 2>/dev/null | grep -q PONG; then
+            if docker exec ci-test-redis redis-cli -a jadawel ping 2>/dev/null | grep -q PONG; then
                 echo "Redis is ready!"
                 break
             fi
@@ -1310,7 +1310,7 @@ ci cmd="" target="":
             -e DATABASE_PASSWORD=jadawel \
             -e REDIS_HOST=ci-test-redis \
             -e REDIS_PORT=6379 \
-            -e REDIS_PASSWORD=baserow \
+            -e REDIS_PASSWORD=jadawel \
             -e PYTEST_SPLITS=1 \
             -e PYTEST_SPLIT_GROUP=1 \
             {{ ci_backend_image }} ci-test

@@ -5,7 +5,7 @@ import vitest from "./web-frontend/node_modules/eslint-plugin-vitest/dist/index.
 import eslintConfigPrettier from "./web-frontend/node_modules/eslint-config-prettier/index.js";
 
 // Export factory function for reusability in plugins
-export const createBaserowConfig = ({ extraSourceFiles = [] } = {}) => {
+export const createJadawelConfig = ({ extraSourceFiles = [] } = {}) => {
   return withNuxt([
     {
       ignores: [
@@ -80,4 +80,4 @@ export const createBaserowConfig = ({ extraSourceFiles = [] } = {}) => {
   ]);
 };
 
-export default createBaserowConfig();
+export default createJadawelConfig();

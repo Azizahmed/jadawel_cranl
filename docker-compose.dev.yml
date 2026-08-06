@@ -235,7 +235,7 @@ services:
     command: ["--config=/etc/otel-collector-config.yaml"]
     environment:
       HONEYCOMB_API_KEY:
-      HONEYCOMB_METRICS_DATASET: baserow-dev-metrics
+      HONEYCOMB_METRICS_DATASET: jadawel-dev-metrics
     volumes:
       - $PWD/deploy/otel/otel-collector-config.yaml:/etc/otel-collector-config.yaml
     networks:

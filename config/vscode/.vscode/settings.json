@@ -14,10 +14,10 @@
       "server": "localhost",
       "port": 5432,
       "driver": "PostgreSQL",
-      "name": "baserow",
-      "database": "baserow",
-      "username": "baserow",
-      "password": "baserow"
+      "name": "jadawel",
+      "database": "jadawel",
+      "username": "jadawel",
+      "password": "jadawel"
     }
   ],
   "editor.formatOnSave": true,
@@ -51,7 +51,7 @@
   "stylelint.validate": ["css", "less", "postcss", "scss"],
   "stylelint.snippet": ["css", "less", "postcss", "scss"],
 
-  "cSpell.words": ["baserow", "BASEROW", "jadawel", "Jadawel", "debugpy"],
+  "cSpell.words": ["jadawel", "JADAWEL", "jadawel", "Jadawel", "debugpy"],
   "search.exclude": {
     "/changelog/entries": true
   }

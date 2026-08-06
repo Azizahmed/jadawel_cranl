@@ -1,5 +1,5 @@
 /**
- * Make sure only baserow routes are available for instance public hostname.
+ * Make sure only jadawel routes are available for instance public hostname.
  */
 export default defineNuxtPlugin({
   name: 'router',

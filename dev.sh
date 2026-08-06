@@ -358,9 +358,9 @@ fi
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
-export REDIS_PASSWORD=baserow
+export REDIS_PASSWORD=jadawel
 export DATABASE_PASSWORD=jadawel
-export SECRET_KEY=baserow
+export SECRET_KEY=jadawel
 if [[ "$dev" = true ]]; then
   # Caddy will just be the media server so change its port to match the MEDIA_URL
   export WEB_FRONTEND_PORT=4000
@@ -457,18 +457,18 @@ if [ "$dont_attach" != true ] && [ "$up" = true ] ; then
   fi
 
   if [ "$all_in_one_dev" = true ]; then
-    launch_tab_and_attach "baserow_all_in_one_dev" "baserow_all_in_one_dev"
+    launch_tab_and_attach "jadawel_all_in_one_dev" "jadawel_all_in_one_dev"
     launch_tab_and_exec "web frontend lint" \
-            "baserow_all_in_one_dev" \
+            "jadawel_all_in_one_dev" \
             "/bin/bash /jadawel.sh web-frontend-cmd lint-fix"
     launch_tab_and_exec "backend lint" \
-            "baserow_all_in_one_dev" \
+            "jadawel_all_in_one_dev" \
             "/bin/bash /jadawel.sh backend-cmd lint-shell"
     launch_tab_and_attach "mailhog" "mailhog"
   fi
 
   if [ "$cloudron" = true ]; then
-    launch_tab_and_attach "baserow_cloudron" "baserow_cloudron"
+    launch_tab_and_attach "jadawel_cloudron" "jadawel_cloudron"
     if [ "$attach_all" = true ] ; then
       launch_tab_and_attach "db" "db"
       launch_tab_and_attach "mailhog" "mailhog"
@@ -476,7 +476,7 @@ if [ "$dont_attach" != true ] && [ "$up" = true ] ; then
   fi
 
   if [ "$heroku" = true ]; then
-    launch_tab_and_attach "baserow_heroku" "baserow_heroku"
+    launch_tab_and_attach "jadawel_heroku" "jadawel_heroku"
     if [ "$attach_all" = true ] ; then
       launch_tab_and_attach "db" "db"
       launch_tab_and_attach "redis" "redis"

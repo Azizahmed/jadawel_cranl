@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "Book Catalog",
     "icon": "iconoir-book",
     "keywords": [
@@ -435,7 +435,7 @@
                             "order": 3,
                             "public": false,
                             "title": "Hi there!",
-                            "description": "Please fill out the following form so I can add your recommendation to my Book Catalog on Baserow 😄",
+                            "description": "Please fill out the following form so I can add your recommendation to my Book Catalog on Jadawel 😄",
                             "cover_image": {
                                 "name": "JOT4EtQO1ehe2LXaDctBtbDke5JuPIk9_346e0f7ad828c320e795733b6d8e14a875e9c0889279c5494fc68928f50c9943.jpg",
                                 "original_name": "bookshelf cover photo.jpg"

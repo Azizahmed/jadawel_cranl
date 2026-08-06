@@ -23,7 +23,7 @@ export class JadawelFunctionDefinition extends Registerable {
 
   getFormulaType() {
     throw new Error(
-      'Not implemented error. This method should return the baserow formula type ' +
+      'Not implemented error. This method should return the jadawel formula type ' +
         'string of the function.'
     )
   }

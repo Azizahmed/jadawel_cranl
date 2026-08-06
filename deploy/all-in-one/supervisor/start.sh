@@ -39,7 +39,7 @@ if [[ "$DATABASE_HOST" == "localhost" && -z "${DATABASE_URL:-}" ]]; then
   sed -i "s;/var/lib/postgresql/$POSTGRES_VERSION/main;$DATA_DIR/postgres;g" "$POSTGRES_LOCATION"/postgresql.conf
     chown postgres:postgres "$POSTGRES_LOCATION"/postgresql.conf
 
-  # Setup an empty baserow database with the provided user and password.
+  # Setup an empty jadawel database with the provided user and password.
   POSTGRES_SETUP_SCRIPT_COMMAND=${POSTGRES_SETUP_SCRIPT_COMMAND:-setup}
     ./jadawel/supervisor/wrapper.sh GREEN POSTGRES_INIT ./jadawel/supervisor/docker-postgres-setup.sh ${POSTGRES_SETUP_SCRIPT_COMMAND}
 

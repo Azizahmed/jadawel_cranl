@@ -20,7 +20,7 @@ services:
       # Explicitly tell Traefik to expose this container
       - "traefik.enable=true"
       # The domain the service will respond to
-      - "traefik.http.routers.baserow.rule=Host(`example.localhost`)"
+      - "traefik.http.routers.jadawel.rule=Host(`example.localhost`)"
     environment:
       - JADAWEL_PUBLIC_URL=http://example.localhost
     volumes:

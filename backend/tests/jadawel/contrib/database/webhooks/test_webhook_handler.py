@@ -144,11 +144,11 @@ def test_get_all_table_webhooks(data_fixture, django_assert_num_queries):
     webhook_1 = data_fixture.create_table_webhook(
         table=table,
         events=["rows.created", "rows.updated"],
-        headers={"Baserow-test-2": "Value 2"},
+        headers={"Jadawel-test-2": "Value 2"},
         include_all_events=False,
     )
     webhook_2 = data_fixture.create_table_webhook(
-        table=table, headers={"Baserow-test-1": "Value 1"}, include_all_events=True
+        table=table, headers={"Jadawel-test-1": "Value 1"}, include_all_events=True
     )
     data_fixture.create_table_webhook()
 
@@ -179,7 +179,7 @@ def test_create_webhook(data_fixture):
     webhook_handler = WebhookHandler()
 
     webhook_data = {
-        "url": "https://baserow.io/endpoint",
+        "url": "https://jadawl.site/endpoint",
         "name": "My Webhook",
         "include_all_events": True,
         "request_method": "POST",
@@ -203,7 +203,7 @@ def test_create_webhook(data_fixture):
     assert len(headers) == 0
 
     # new url
-    webhook_data["url"] = "https://baserow.io/endpoint-2"
+    webhook_data["url"] = "https://jadawl.site/endpoint-2"
 
     # if "include_all_events" is True and we pass in events that are not empty
     # the handler will not create the entry in the events table.
@@ -217,8 +217,8 @@ def test_create_webhook(data_fixture):
     # when we set "include_all_events" to False then we expect that the events will be
     # added
     webhook_data["include_all_events"] = False
-    webhook_data["url"] = "https://baserow.io/endpoint-3"
-    headers = {"Baserow-test-1": "Value 1", "Baserow-header-2": "Value 2"}
+    webhook_data["url"] = "https://jadawl.site/endpoint-3"
+    headers = {"Jadawel-test-1": "Value 1", "Jadawel-header-2": "Value 2"}
     webhook = webhook_handler.create_table_webhook(
         user=user, table=table, events=events, headers=headers, **webhook_data
     )
@@ -228,9 +228,9 @@ def test_create_webhook(data_fixture):
     assert webhook_events[0].event_type == "rows.created"
     webhook_headers = webhook.headers.all()
     assert len(webhook_headers) == 2
-    assert webhook_headers[0].name == "Baserow-test-1"
+    assert webhook_headers[0].name == "Jadawel-test-1"
     assert webhook_headers[0].value == "Value 1"
-    assert webhook_headers[1].name == "Baserow-header-2"
+    assert webhook_headers[1].name == "Jadawel-header-2"
     assert webhook_headers[1].value == "Value 2"
 
     # By providing an invalid header name, we expect it to fail.
@@ -241,7 +241,7 @@ def test_create_webhook(data_fixture):
 
     # check that we can't create more than "MAX_ALLOWED_WEBHOOKS" per table
     webhook_data["include_all_events"] = True
-    webhook_data["url"] = "https://baserow.io/endpoint-4"
+    webhook_data["url"] = "https://jadawl.site/endpoint-4"
     with pytest.raises(TableWebhookMaxAllowedCountExceeded):
         webhook_handler.create_table_webhook(
             user=user, table=table, events=events, headers={}, **webhook_data
@@ -256,7 +256,7 @@ def test_update_webhook(data_fixture):
     webhook = data_fixture.create_table_webhook(
         table=table,
         events=["rows.created"],
-        headers={"Baserow-test-1": "Value 1", "Baserow-test-2": "Value 2"},
+        headers={"Jadawel-test-1": "Value 1", "Jadawel-test-2": "Value 2"},
     )
 
     handler = WebhookHandler()
@@ -268,14 +268,14 @@ def test_update_webhook(data_fixture):
         user=user,
         webhook=webhook,
         name="Test",
-        url="https://baserow.io/endpoint",
+        url="https://jadawl.site/endpoint",
         include_all_events=False,
         request_method="GET",
         use_user_field_names=False,
         active=False,
     )
     assert webhook.name == "Test"
-    assert webhook.url == "https://baserow.io/endpoint"
+    assert webhook.url == "https://jadawl.site/endpoint"
     assert webhook.include_all_events is False
     assert webhook.request_method == "GET"
     assert webhook.use_user_field_names is False
@@ -310,14 +310,14 @@ def test_update_webhook(data_fixture):
     webhook = handler.update_table_webhook(
         user=user,
         webhook=webhook,
-        headers={"Baserow-test-1": "Updated 1", "Baserow-test-3": "Updated 3"},
+        headers={"Jadawel-test-1": "Updated 1", "Jadawel-test-3": "Updated 3"},
     )
     headers = webhook.headers.all()
     assert len(headers) == 2
     assert headers[0].id == old_headers[0].id
-    assert headers[0].name == "Baserow-test-1"
+    assert headers[0].name == "Jadawel-test-1"
     assert headers[0].value == "Updated 1"
-    assert headers[1].name == "Baserow-test-3"
+    assert headers[1].name == "Jadawel-test-3"
     assert headers[1].value == "Updated 3"
 
 
@@ -361,17 +361,17 @@ def test_trigger_test_call(data_fixture):
         user=user,
         table=table,
         event_type="rows.created",
-        headers={"Baserow-add-1": "Value 1"},
+        headers={"Jadawel-add-1": "Value 1"},
         request_method="POST",
         url="http://localhost",
         use_user_field_names=False,
     )
     assert response.ok
 
-    assert response.request.headers["Baserow-add-1"] == "Value 1"
+    assert response.request.headers["Jadawel-add-1"] == "Value 1"
     assert response.request.headers["Content-type"] == "application/json"
-    assert response.request.headers["X-Baserow-Event"] == "rows.created"
-    assert "X-Baserow-Delivery" in request.headers
+    assert response.request.headers["X-Jadawel-Event"] == "rows.created"
+    assert "X-Jadawel-Delivery" in request.headers
 
     assert request.method == "POST"
     assert request.url == "http://localhost/"

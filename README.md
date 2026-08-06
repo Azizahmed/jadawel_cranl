@@ -105,7 +105,7 @@ guidelines that apply here.
 
 ## Licence
 
-Jadawel is a fork of Baserow. The core is distributed under the MIT licence — see
+Jadawel is a fork of Jadawel. The core is distributed under the MIT licence — see
 `LICENSE`, whose copyright notice must be retained. Code under `premium/` and
 `enterprise/` remains subject to its own licence terms.
 

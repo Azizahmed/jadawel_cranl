@@ -145,15 +145,15 @@ exit 1
 
 show_help() {
     echo """
-The available Baserow backend related commands, services and healthchecks are shown
+The available Jadawel backend related commands, services and healthchecks are shown
 below:
 
 ADMIN COMMANDS:
 bash            : Start a bash shell with the correct env setup
-manage          : Manage Baserow and its database
+manage          : Manage Jadawel and its database
 setup           : Runs all setup commands (migrate and update_formulas)
-backup          : Backs up Baserow's database to DATA_DIR/backups by default
-restore         : Restores Baserow's database restores from DATA_DIR/backups by default
+backup          : Backs up Jadawel's database to DATA_DIR/backups by default
+restore         : Restores Jadawel's database restores from DATA_DIR/backups by default
 python          : Run a python command
 shell           : Start a Django Python shell
 wait_for_db     : Waits JADAWEL_POSTGRES_STARTUP_CHECK_ATTEMPTS attempts for the
@@ -164,7 +164,7 @@ list-plugins    : Lists currently installed plugins.
 help            : Show this message
 
 SERVICE COMMANDS:
-gunicorn            : Start Baserow backend django using a prod ready gunicorn server:
+gunicorn            : Start Jadawel backend django using a prod ready gunicorn server:
                          * Waits for the postgres database to be available first
                            checking JADAWEL_POSTGRES_STARTUP_CHECK_ATTEMPTS times (default 5)
                            before exiting.
@@ -181,15 +181,15 @@ backend-healthcheck             : Checks the gunicorn/django-dev service health
 celery-worker-healthcheck       : Checks the celery-worker health
 celery-exportworker-healthcheck : Checks the celery-exportworker health
 
-DEV COMMANDS (most will only work in the baserow_backend_dev image):
-django-dev      : Start a normal Baserow backend django development server, performs
+DEV COMMANDS (most will only work in the jadawel_backend_dev image):
+django-dev      : Start a normal Jadawel backend django development server, performs
                   the same checks and setup as the gunicorn command above.
 lint-shell      : Run the linting interactively (only available if using dev target)
 lint            : Run the linting and exit (only available if using dev target)
 ci-test         : Run the tests for CI with coverage/splits (dev only)
 ci-check-startup: Start up a single gunicorn and timeout after 10 seconds for CI (dev)
 watch-py CMD    : Auto reruns the provided CMD whenever python files change
-install-plugin  : Installs a baserow plugin.
+install-plugin  : Installs a jadawel plugin.
 """
 }
 
@@ -266,13 +266,13 @@ run_backend_server(){
 setup_otel_vars(){
   # These key value pairs will be exported on every log/metric/trace by any otel
   # exporters running in subprocesses launched by this script.
-  EXTRA_OTEL_RESOURCE_ATTRIBUTES="service.namespace=Baserow,"
+  EXTRA_OTEL_RESOURCE_ATTRIBUTES="service.namespace=Jadawel,"
   EXTRA_OTEL_RESOURCE_ATTRIBUTES+="service.version=${JADAWEL_VERSION},"
   EXTRA_OTEL_RESOURCE_ATTRIBUTES+="deployment.environment=${JADAWEL_DEPLOYMENT_ENV:-unknown}"
 
   if [[ -n "${OTEL_RESOURCE_ATTRIBUTES:-}" ]]; then
     # If the container has been launched with some extra otel attributes, make sure not
-    # to override them with our Baserow specific ones.
+    # to override them with our Jadawel specific ones.
     OTEL_RESOURCE_ATTRIBUTES="${EXTRA_OTEL_RESOURCE_ATTRIBUTES},${OTEL_RESOURCE_ATTRIBUTES}"
   else
     OTEL_RESOURCE_ATTRIBUTES="$EXTRA_OTEL_RESOURCE_ATTRIBUTES"

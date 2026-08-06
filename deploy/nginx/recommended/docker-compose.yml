@@ -8,14 +8,14 @@ services:
       - '80:80'
     volumes:
       - $PWD/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on: [ baserow ]
+    depends_on: [ jadawel ]
   jadawel:
     image: jadawel/jadawel:latest
     environment:
       # This nginx is configured to use the docker network to reach the Jadawel service.
       # No need to use JADAWEL_EXTRA_ALLOWED_HOSTS if your Nginx can access your
       # Jadawel on a normal network using localhost/127.0.0.1 .
-      JADAWEL_EXTRA_ALLOWED_HOSTS: "baserow"
+      JADAWEL_EXTRA_ALLOWED_HOSTS: "jadawel"
       JADAWEL_PUBLIC_URL: http://example.localhost
     volumes:
       - jadawel_data:/jadawel/data

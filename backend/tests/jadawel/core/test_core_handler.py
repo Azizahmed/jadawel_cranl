@@ -553,7 +553,7 @@ def test_send_workspace_invitation_email(data_fixture, mailoutbox):
 
     assert (
         email.subject == f"{workspace_invitation.invited_by.first_name} invited you "
-        f"to {workspace_invitation.workspace.name} - Baserow"
+        f"to {workspace_invitation.workspace.name} - Jadawel"
     )
     assert email.from_email == "no-reply@localhost"
     assert workspace_invitation.email in email.to
@@ -588,7 +588,7 @@ def test_send_workspace_invitation_email_in_different_language(
     assert (
         mailoutbox[0].subject
         == f"{workspace_invitation.invited_by.first_name} vous a invité à "
-        f"{workspace_invitation.workspace.name} - Baserow"
+        f"{workspace_invitation.workspace.name} - Jadawel"
     )
 
 

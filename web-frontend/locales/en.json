@@ -132,6 +132,12 @@
     "member": "Member",
     "memberDescription": "Can fully configure and edit applications."
   },
+  "roles": {
+    "admin": {
+      "name": "Admin",
+      "description": "Can fully configure and edit workspaces and applications."
+    }
+  },
   "fieldType": {
     "singleLineText": "Single line text",
     "longText": "Long text",

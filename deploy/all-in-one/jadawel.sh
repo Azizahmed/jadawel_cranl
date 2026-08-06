@@ -10,16 +10,16 @@ set -euo pipefail
 # ========================
 show_help() {
     echo """
-Usage: docker run --rm -it [-v baserow:$DATA_DIR] baserow COMMAND_FROM_BELOW
+Usage: docker run --rm -it [-v jadawel:$DATA_DIR] jadawel COMMAND_FROM_BELOW
 Commands
-start         : Launches baserow with all services running internally in a single
+start         : Launches jadawel with all services running internally in a single
                 container.
 start-only-db : Starts up only the embedded postgres server and makes it available
                 for external connections if you expose port 5432 using
                 the extra docker run argument of '-p 5432:5432'. Useful for if you
                 need to manually inspect Jadawel's database etc.
                 > You can find the postgres users password by separately running
-                > docker exec -it baserow cat /jadawel/data/.pgpass
+                > docker exec -it jadawel cat /jadawel/data/.pgpass
 
 backend-cmd CMD      : Runs the specified backend command, use the help command to
                        show all available.
@@ -34,7 +34,7 @@ help                 : Show this message.
 """
 }
 if [[ -z "${1:-}" ]]; then
-  echo "Must provide arguments to baserow"
+  echo "Must provide arguments to jadawel"
   show_help
   exit 1
 fi
@@ -113,7 +113,7 @@ if [[ -z "${DISABLE_VOLUME_CHECK:-}" ]]; then
   mountVar=$(mount | grep "$DATA_DIR" || true)
   if [ -z "$mountVar" ]
   then
-  echo -e "\e[33mPlease run baserow with a mounted data folder " \
+  echo -e "\e[33mPlease run jadawel with a mounted data folder " \
           "'docker run -v " \
           "jadawel_data:/jadawel/data ...', otherwise your data will be lost between " \
           "runs. To disable this check set the DISABLE_VOLUME_CHECK env variable to " \
@@ -180,7 +180,7 @@ fi
 
 if [[ "$REDIS_HOST" == "embed" && -z "${REDIS_URL:-}" ]]; then
   export REDIS_HOST="localhost"
-  startup_echo "Using embedded baserow redis as no REDIS_HOST or REDIS_URL provided. "
+  startup_echo "Using embedded jadawel redis as no REDIS_HOST or REDIS_URL provided. "
 else
   startup_echo "Using provided external redis at ${REDIS_HOST:-} or at the REDIS_URL"
 fi
@@ -316,8 +316,8 @@ case "$1" in
 
       export EXTRA_POSTGRES_ARGS="-c listen_addresses='*' -c hba_file=$TMP_HBA_FILE"
       export SUPERVISOR_CONF=/jadawel/supervisor/supervisor_include_only.conf
-      startup_echo "INFO: You can find the baserow database user's password by running"
-      startup_echo "docker exec -it baserow cat $DATA_DIR/.pgpass"
+      startup_echo "INFO: You can find the jadawel database user's password by running"
+      startup_echo "docker exec -it jadawel cat $DATA_DIR/.pgpass"
       exec /jadawel/supervisor/start.sh "${@:2}"
     ;;
     backend-cmd)

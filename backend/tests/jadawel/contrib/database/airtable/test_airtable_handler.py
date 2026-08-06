@@ -306,7 +306,7 @@ def test_to_jadawel_database_export():
     assert len(jadawel_database_export["tables"][1]["fields"]) == 26
 
     # We don't have to check all the fields and rows, just a single one, because we have
-    # separate tests for mapping the Airtable fields and values to Baserow.
+    # separate tests for mapping the Airtable fields and values to Jadawel.
     assert (
         jadawel_database_export["tables"][0]["fields"][0]["id"] == "fldG9y88Zw7q7u4Z7i4"
     )
@@ -1193,7 +1193,7 @@ def test_import_from_airtable_to_workspace_with_report_table(data_fixture, tmpdi
     assert row.scope.value == "Interfaces"
     assert row.table is None
     assert row.error_type.value == "Unsupported feature"
-    assert row.message == "Baserow doesn't support interfaces."
+    assert row.message == "Jadawel doesn't support interfaces."
 
 
 @pytest.mark.django_db

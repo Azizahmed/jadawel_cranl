@@ -28,7 +28,7 @@ from jadawel.core.telemetry.utils import otel_is_enabled
 from jadawel.throttling.types import RateLimit
 from jadawel.version import VERSION
 
-# Must run before the first os.getenv below: deployments still set BASEROW_*.
+# Must run before the first os.getenv below: deployments still set JADAWEL_*.
 LEGACY_ENV_NAMES_IN_USE = _apply_legacy_env()
 
 # A comma separated list of feature flags used to enable in-progress or not ready

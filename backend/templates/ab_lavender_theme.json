@@ -1,5 +1,5 @@
 {
-  "baserow_template_version": 1,
+  "jadawel_template_version": 1,
   "name": "Lavender Theme",
   "icon": "",
   "keywords": [
@@ -4349,7 +4349,7 @@
       "integrations": [
         {
           "id": 35,
-          "name": "Local Baserow",
+          "name": "Local Jadawel",
           "order": "1.00000000000000000000",
           "type": "local_jadawel",
           "authorized_user": null
@@ -4652,7 +4652,7 @@
               "name": "Grid",
               "order": 1,
               "ownership_type": "collaborative",
-              "owned_by": "bram@baserow.io",
+              "owned_by": "bram@jadawl.site",
               "filter_type": "AND",
               "filters_disabled": false,
               "filters": [],
@@ -4709,8 +4709,8 @@
               "order": "1.00000000000000000000",
               "created_on": "2025-03-14T12:47:43.944761+00:00",
               "updated_on": "2025-03-14T12:50:42.758525+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7204": "Facilitate Case Study Discussions",
               "field_7205": 3211,
               "field_7206": [
@@ -4723,8 +4723,8 @@
               "order": "2.00000000000000000000",
               "created_on": "2025-03-14T12:47:43.944821+00:00",
               "updated_on": "2025-03-14T12:50:45.243685+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7204": "Design Interactive Workshops",
               "field_7205": 3212,
               "field_7206": [
@@ -4737,8 +4737,8 @@
               "order": "3.00000000000000000000",
               "created_on": "2025-03-14T12:48:20.544029+00:00",
               "updated_on": "2025-03-14T12:50:47.917272+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7204": "Facilitate Case Study Discussions",
               "field_7205": 3213,
               "field_7206": [
@@ -4751,8 +4751,8 @@
               "order": "4.00000000000000000000",
               "created_on": "2025-03-14T12:48:21.131545+00:00",
               "updated_on": "2025-03-14T12:50:50.161461+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7204": "Design Interactive Workshops",
               "field_7205": 3214,
               "field_7206": [
@@ -4765,8 +4765,8 @@
               "order": "5.00000000000000000000",
               "created_on": "2025-03-14T12:48:21.638510+00:00",
               "updated_on": "2025-03-14T12:50:52.369005+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7204": "Facilitate Case Study Discussions",
               "field_7205": 3211,
               "field_7206": [
@@ -4779,8 +4779,8 @@
               "order": "6.00000000000000000000",
               "created_on": "2025-03-14T12:48:31.532384+00:00",
               "updated_on": "2025-03-14T12:50:54.683754+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7204": "Design Interactive Workshops",
               "field_7205": 3212,
               "field_7206": [
@@ -4828,7 +4828,7 @@
               "name": "Grid",
               "order": 1,
               "ownership_type": "collaborative",
-              "owned_by": "bram@baserow.io",
+              "owned_by": "bram@jadawl.site",
               "filter_type": "AND",
               "filters_disabled": false,
               "filters": [],
@@ -4867,8 +4867,8 @@
               "order": "1.00000000000000000000",
               "created_on": "2025-03-14T12:48:36.629478+00:00",
               "updated_on": "2025-03-14T12:49:27.285052+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7207": "Ferrari",
               "field_7208": "Ferrari is a prestigious Italian luxury sports car manufacturer known for their iconic red vehicles with sleek designs and powerful engines. With a history dating back to 1939, Ferrari has become synonymous with speed, performance, and exclusivity. Their cars are revered for their precision engineering and unmatched driving experience."
             },
@@ -4877,8 +4877,8 @@
               "order": "2.00000000000000000000",
               "created_on": "2025-03-14T12:48:36.629532+00:00",
               "updated_on": "2025-03-14T12:49:28.295210+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7207": "Facebook",
               "field_7208": "Facebook is a popular social networking platform that allows users to connect with friends and family, share updates, photos, and videos, and join groups or events. With over 2 billion active users, Facebook has become a hub for communication, networking, advertising, and staying connected with others around the world."
             },
@@ -4887,8 +4887,8 @@
               "order": "3.00000000000000000000",
               "created_on": "2025-03-14T12:48:45.278577+00:00",
               "updated_on": "2025-03-14T12:49:29.314092+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7207": "General Electric",
               "field_7208": "General Electric, commonly known as GE, is a multinational conglomerate based in the United States. Founded in 1892, the company specializes in areas such as aviation, healthcare, power, and renewable energy. GE is known for its innovative technology and has a global presence in over 180 countries."
             },
@@ -4897,8 +4897,8 @@
               "order": "4.00000000000000000000",
               "created_on": "2025-03-14T12:48:45.278647+00:00",
               "updated_on": "2025-03-14T12:49:30.250861+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7207": "Pizza Hut",
               "field_7208": "Pizza Hut is a popular American restaurant chain known for its delicious pizza offerings. With over 18,000 locations worldwide, Pizza Hut is a favorite destination for families and pizza lovers alike. With a wide variety of toppings, crust options, and sides, Pizza Hut offers something for everyone to enjoy."
             },
@@ -4907,8 +4907,8 @@
               "order": "5.00000000000000000000",
               "created_on": "2025-03-14T12:48:45.278688+00:00",
               "updated_on": "2025-03-14T12:49:31.172965+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7207": "Nintendo",
               "field_7208": "Nintendo is a Japanese multinational consumer electronics and video game company known for creating iconic games and consoles such as Mario, Zelda, and the Nintendo Switch. Founded in 1889, Nintendo continues to innovate and delight gamers around the world with its colorful and imaginative gaming experiences."
             },
@@ -4917,8 +4917,8 @@
               "order": "6.00000000000000000000",
               "created_on": "2025-03-14T12:48:45.278726+00:00",
               "updated_on": "2025-03-14T12:49:32.192236+00:00",
-              "created_by": "bram@baserow.io",
-              "last_modified_by": "bram@baserow.io",
+              "created_by": "bram@jadawl.site",
+              "last_modified_by": "bram@jadawl.site",
               "field_7207": "McDonalds",
               "field_7208": "McDonald's is a well-known fast food chain that offers a wide range of menu options, including burgers, fries, chicken sandwiches, and breakfast items. With a focus on convenience and affordability, McDonald's has become a popular choice for quick meals and snacks for people of all ages around the world."
             }

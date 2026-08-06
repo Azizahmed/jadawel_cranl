@@ -1,4 +1,4 @@
-# Arabic / RTL Audit — Baserow 2.2.2 baseline (Jadawel fork)
+# Arabic / RTL Audit — Jadawel 2.2.2 baseline (Jadawel fork)
 
 > **Status:** IN PROGRESS — backend/data/search evidence captured against a live
 > 50K-row seed (run 2026-07-03). Visual RTL rows (§1–4, §9) still need a browser +
@@ -46,7 +46,7 @@ The locale infrastructure (task set §1.1 of the plan) is implemented and verifi
 (§1–4, §9) now that the default is `ar`/RTL. Formal sign-off in `docs/RTL_REVIEW.md`.
 
 ## Why this document exists
-Baserow was not built Arabic-first. Before we start the RTL/locale work (Phase 1) and
+Jadawel was not built Arabic-first. Before we start the RTL/locale work (Phase 1) and
 the Arabic data-layer work (Phase 2), we record **exactly how the unmodified 2.2.2 core
 behaves** with Arabic content, with evidence, so we (a) know the real defect surface,
 (b) can prioritize, and (c) have before/after references for regression checks.
@@ -107,7 +107,7 @@ Sort the **Name** column ascending/descending.
 | 4.3 | Alef/hamza variants ordering | أ/إ/آ/ا grouped as users expect | | ⬜ | | 2.2 |
 
 ## 5. Search (normalization) — TESTED (container-side, 50K seed)
-**Good news / baseline:** Baserow full-text search uses Postgres config `simple`, which
+**Good news / baseline:** Jadawel full-text search uses Postgres config `simple`, which
 tokenises on whitespace/punctuation and **preserves Arabic tokens**. So **exact-form**
 Arabic works: `القحطاني`→2349, `أحمد`→1057, `مدرسة`→1, `SKU`(control)→8311. `escape_postgres_query`
 does not strip Arabic (`القحطاني` → `$$القحطاني$$:*`). ✅

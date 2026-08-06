@@ -2,7 +2,6 @@ from django.core.cache import cache
 from django.db import transaction
 
 import pytest
-from baserow_enterprise.audit_log.models import AuditLogEntry
 from freezegun import freeze_time
 
 from jadawel.core.action.registries import action_type_registry
@@ -107,7 +106,8 @@ def test_sign_in_user_action_type_action_log_limit(settings, data_fixture):
     user.refresh_from_db()
     assert str(user.last_login) == "2020-01-01 12:01:20+00:00"
     assert UserLogEntry.objects.count() == 2
-    assert AuditLogEntry.objects.filter(action_type="sign_in_user").count() == 2
+    # baserow_enterprise's AuditLogEntry is deliberately absent from this fork, so the
+    # core sign-in log limit is what this asserts.
 
 
 @pytest.mark.django_db

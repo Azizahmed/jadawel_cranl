@@ -217,7 +217,7 @@ def test_0006_migrate_local_jadawel_table_service_filter_formulas_to_value_is_fo
         ("database", "0150_formulafield_duration_format_and_more"),
         (
             "integrations",
-            "0005_add_localbaserowtableservicefilter_value_is_formula",
+            "0005_add_localjadaweltableservicefilter_value_is_formula",
         ),
     ]
     migrate_to = [

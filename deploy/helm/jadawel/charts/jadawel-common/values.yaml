@@ -76,13 +76,13 @@ global:
         type: ""
 
 ## Jadawel application image version
-## ref: https://hub.docker.com/r/baserow/jadawel/tags/
-## @param image.repository [default: baserow/baserow] Jadawel image repository
+## ref: https://github.com/Azizahmed/jadawel_cranl/pkgs/container/jadawel_cranl
+## @param image.repository [default: jadawel/jadawel] Jadawel image repository
 ## @skip image.tag Jadawel image tag (immutable tags are recommended)
 ## @param image.pullPolicy Jadawel image pull policy
 ##
 image:
-  repository: baserow/baserow # Docker image repository
+  repository: jadawel/jadawel # Docker image repository
   tag: 2.2.2 # Docker image tag
   pullPolicy: IfNotPresent # Image pull policy
 

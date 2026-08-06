@@ -1,7 +1,7 @@
 name: Jadawel CI
 
-# Self-contained CI for the Jadawel fork. Unlike upstream Baserow's ci.yml (kept
-# for reference but disabled — it pushes to Baserow's own registry/SaaS and needs
+# Self-contained CI for the Jadawel fork. Unlike upstream Jadawel's ci.yml (kept
+# for reference but disabled — it pushes to Jadawel's own registry/SaaS and needs
 # their secrets), this workflow builds and tests entirely within the job and needs
 # no secrets, so it runs green on any fork.
 

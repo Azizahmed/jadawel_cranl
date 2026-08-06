@@ -45,7 +45,7 @@
                 "-n=3",
                 "--cov-report=xml:html_coverage/cov.xml",
                 "--cov-config=${workspaceFolder}/backend/.coveragerc",
-                "--cov=baserow",
+                "--cov=jadawel",
                 "backend/tests/"
             ],
             "env": {

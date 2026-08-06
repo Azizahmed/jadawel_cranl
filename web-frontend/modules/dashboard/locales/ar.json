@@ -39,7 +39,9 @@
     "aggregationTypeLabel": "ملخص"
   },
   "widgetContext": {
-    "delete": "حذف"
+    "delete": "حذف",
+    "size": "الحجم",
+    "sizePreview": "الحجم: {width} × {height}"
   },
   "trashType": {
     "widget": "عنصر"

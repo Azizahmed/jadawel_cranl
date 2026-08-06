@@ -40,7 +40,7 @@ def test_call_webhook_webhook_does_not_exist(mock_clear_queue):
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
     assert TableWebhookCall.objects.all().count() == 0
@@ -66,7 +66,7 @@ def test_call_webhook_webhook_url_cannot_be_reached(data_fixture):
             event_type="rows.created",
             method="POST",
             url="http://localhost/",
-            headers={"Baserow-header-1": "Value 1"},
+            headers={"Jadawel-header-1": "Value 1"},
             payload={"type": "rows.created"},
         )
         transaction.commit()
@@ -105,7 +105,7 @@ def test_call_webhook_becomes_inactive_max_failed_reached(data_fixture):
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
 
@@ -132,7 +132,7 @@ def test_call_webhook_skipped_because_not_active(data_fixture):
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
 
@@ -161,7 +161,7 @@ def test_call_webhook_reset_after_success_call(data_fixture):
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
 
@@ -189,7 +189,7 @@ def test_call_webhook(data_fixture):
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
 
@@ -218,7 +218,7 @@ def test_call_webhook(data_fixture):
             event_type="rows.created",
             method="POST",
             url="http://localhost2/",
-            headers={"Baserow-header-1": "Value 1"},
+            headers={"Jadawel-header-1": "Value 1"},
             payload={"type": "rows.created"},
         )
 
@@ -255,7 +255,7 @@ def test_call_webhook_concurrent_task_moved_to_queue(data_fixture):
             event_type="rows.created",
             method="POST",
             url="http://localhost/",
-            headers={"Baserow-header-1": "Value 1"},
+            headers={"Jadawel-header-1": "Value 1"},
             payload={"type": "rows.created"},
         )
 
@@ -278,7 +278,7 @@ def test_call_webhook_next_item_scheduled(mock_schedule, data_fixture):
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
 
@@ -305,7 +305,7 @@ def test_cant_call_webhook_to_localhost_when_private_addresses_not_allowed(
         event_type="rows.created",
         method="POST",
         url="http://127.0.0.1",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
     call = TableWebhookCall.objects.get(webhook=webhook)
@@ -340,7 +340,7 @@ def test_can_call_webhook_to_localhost_when_private_addresses_allowed(
         event_type="rows.created",
         method="POST",
         url="http://127.0.0.1",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
     call = TableWebhookCall.objects.get(webhook=webhook)
@@ -394,7 +394,7 @@ def test_call_webhook_failed_reached_notification_send(
         event_type="rows.created",
         method="POST",
         url="http://localhost/",
-        headers={"Baserow-header-1": "Value 1"},
+        headers={"Jadawel-header-1": "Value 1"},
         payload={"type": "rows.created"},
     )
 

@@ -18,7 +18,7 @@ my-dev:
 
 # Example: Custom database reset
 my-db-reset:
-    just dc-dev exec db psql -U baserow -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+    just dc-dev exec db psql -U jadawel -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
     just b migrate
 
 # Example: Open shell with custom imports

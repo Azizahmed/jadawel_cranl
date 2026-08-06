@@ -1,6 +1,6 @@
 # Arabic Terminology Glossary — Jadawel (جداول)
 
-Single source of truth for how Baserow/Jadawel product terms are translated into
+Single source of truth for how Jadawel/Jadawel product terms are translated into
 Arabic. **Every `ar.json` translation must use these exact terms** so the UI reads
 consistently. When you introduce a new recurring term, add it here first.
 
@@ -25,6 +25,7 @@ term exists).
 | Primary field | الحقل الأساسي | |
 | Dashboard | لوحة التحكم | |
 | Widget | عنصر | Dashboard widget. |
+| Size | الحجم | Widget size on the dashboard grid, in columns × rows. |
 | Trash | سلة المهملات | |
 | Snapshot | لقطة | pl. لقطات |
 | Member | عضو | pl. الأعضاء |
@@ -95,12 +96,12 @@ term exists).
 - **Numbers & digits:** the UI defaults to **Western Arabic numerals (0–9)**, not
   Eastern (٠–٩), per the audit decision (Eastern digits are a later opt-in toggle —
   see docs/AUDIT.md §3.3). Keep numerals as ASCII in translation strings.
-- **Latin brand/technical tokens** (URL, API, SKU, Baserow-derived identifiers) stay
+- **Latin brand/technical tokens** (URL, API, SKU, Jadawel-derived identifiers) stay
   Latin/LTR inside Arabic sentences; rely on `dir="auto"`/bidi, don't force-translate.
 - **Placeholders / interpolation** (`{name}`, `{count}`, `@:action.save`) must be kept
   verbatim — translate only the surrounding words.
 - **Tone:** address the user with neutral MSA; avoid dialect. Prefer verbal nouns
-  (المصدر «إنشاء») over imperatives for button-like actions where Baserow's English is a
+  (المصدر «إنشاء») over imperatives for button-like actions where Jadawel's English is a
   bare verb, matching Saudi enterprise software conventions.
 
 ## Status

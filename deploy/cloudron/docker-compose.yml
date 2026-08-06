@@ -1,7 +1,7 @@
 services:
   # A dev / testing /example compose file for testing cloudron image works without
   # cloudron
-  baserow_cloudron:
+  jadawel_cloudron:
     image: jadawel_cloudron
     build:
       dockerfile: $PWD/deploy/cloudron/Dockerfile
@@ -9,10 +9,10 @@ services:
       args:
         - FROM_IMAGE=jadawel/jadawel:latest
     environment:
-      - CLOUDRON_POSTGRESQL_PASSWORD=baserow
-      - CLOUDRON_POSTGRESQL_DATABASE=baserow
+      - CLOUDRON_POSTGRESQL_PASSWORD=jadawel
+      - CLOUDRON_POSTGRESQL_DATABASE=jadawel
       - CLOUDRON_POSTGRESQL_HOST=db
-      - CLOUDRON_POSTGRESQL_USERNAME=baserow
+      - CLOUDRON_POSTGRESQL_USERNAME=jadawel
       - CLOUDRON_POSTGRESQL_PORT=5432
       - CLOUDRON_APP_DOMAIN=localhost
       - CLOUDRON_MAIL_FROM=noreply@localhost
@@ -25,7 +25,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - baserow_cloudron_data:/app/data
+      - jadawel_cloudron_data:/app/data
     healthcheck:
       test: [ "CMD-SHELL", "/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
       interval: 10s
@@ -57,4 +57,4 @@ services:
 
 volumes:
   cloudron_pgdata:
-  baserow_cloudron_data:
+  jadawel_cloudron_data:

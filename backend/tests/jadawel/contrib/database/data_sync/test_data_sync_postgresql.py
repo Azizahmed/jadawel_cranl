@@ -505,7 +505,7 @@ def test_postgresql_data_sync_table_connect_to_blacklist(data_fixture):
 
     with pytest.raises(SyncError) as e:
         with override_settings(
-            JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST=["localhost", "baserow.io"]
+            JADAWEL_POSTGRESQL_DATA_SYNC_BLACKLIST=["localhost", "jadawl.site"]
         ):
             data_sync = handler.create_data_sync_table(
                 user=user,

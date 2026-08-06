@@ -1,5 +1,5 @@
 {
-    "baserow_template_version": 1,
+    "jadawel_template_version": 1,
     "name": "Business Goal Tracker (OKRs)",
     "icon": "iconoir-okrs",
     "keywords": [
@@ -3157,7 +3157,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2022-10-06T15:47:09.309723+00:00",
                             "updated_on": "2024-04-30T07:39:37.731564+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19084": null,
                             "field_19085": [
                                 8
@@ -3247,7 +3247,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2022-10-06T15:47:09.309925+00:00",
                             "updated_on": "2024-04-30T12:09:20.024864+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19084": null,
                             "field_19085": [
                                 4
@@ -6335,7 +6335,7 @@
                             "name": "All key results in calendar view",
                             "order": 8,
                             "ownership_type": "collaborative",
-                            "owned_by": "frederik@baserow.io",
+                            "owned_by": "frederik@jadawl.site",
                             "filter_type": "AND",
                             "filters_disabled": false,
                             "filters": [],
@@ -7493,7 +7493,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368746+00:00",
                             "updated_on": "2024-04-30T06:51:56.659269+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 3
@@ -7530,7 +7530,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368825+00:00",
                             "updated_on": "2024-04-30T06:51:56.669276+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 3
@@ -7569,7 +7569,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368858+00:00",
                             "updated_on": "2024-04-30T06:51:38.232109+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 4
@@ -7606,7 +7606,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368888+00:00",
                             "updated_on": "2024-04-30T06:51:38.236093+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 5
@@ -7643,7 +7643,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368917+00:00",
                             "updated_on": "2024-04-30T06:51:38.240453+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 5
@@ -7681,7 +7681,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368947+00:00",
                             "updated_on": "2024-04-30T06:51:38.244253+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 6
@@ -7723,7 +7723,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.368994+00:00",
                             "updated_on": "2024-04-30T06:51:38.248387+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 6
@@ -7766,7 +7766,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369042+00:00",
                             "updated_on": "2024-04-30T06:51:38.252210+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 6
@@ -7809,7 +7809,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369081+00:00",
                             "updated_on": "2024-04-30T06:51:38.256655+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 6
@@ -7854,7 +7854,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369134+00:00",
                             "updated_on": "2024-04-30T06:51:38.260475+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 7
@@ -7899,7 +7899,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369186+00:00",
                             "updated_on": "2024-04-30T06:51:38.264597+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 7
@@ -7943,7 +7943,7 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369230+00:00",
                             "updated_on": "2024-04-30T06:52:01.192964+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 8
@@ -7983,7 +7983,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369277+00:00",
                             "updated_on": "2024-04-30T06:51:38.272472+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 8
@@ -8022,7 +8022,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369328+00:00",
                             "updated_on": "2024-04-30T06:51:38.276273+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 9
@@ -8062,7 +8062,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369368+00:00",
                             "updated_on": "2024-04-30T06:51:38.280291+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 9
@@ -8102,7 +8102,7 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369397+00:00",
                             "updated_on": "2024-04-30T06:52:05.830724+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 10
@@ -8142,7 +8142,7 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369426+00:00",
                             "updated_on": "2024-04-30T06:52:05.840399+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 10
@@ -8184,7 +8184,7 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369455+00:00",
                             "updated_on": "2024-04-30T06:51:38.291685+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 13
@@ -8218,7 +8218,7 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369484+00:00",
                             "updated_on": "2024-04-30T06:51:38.295845+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 13
@@ -8252,7 +8252,7 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369512+00:00",
                             "updated_on": "2024-04-30T06:51:38.299731+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 14
@@ -8284,7 +8284,7 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369540+00:00",
                             "updated_on": "2024-04-30T06:51:38.355617+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 14
@@ -8316,7 +8316,7 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369568+00:00",
                             "updated_on": "2024-04-30T06:51:38.359539+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 15
@@ -8355,7 +8355,7 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369595+00:00",
                             "updated_on": "2024-04-30T06:51:38.363682+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 15
@@ -8394,7 +8394,7 @@
                             "order": "24.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369623+00:00",
                             "updated_on": "2024-04-30T06:51:38.367429+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 15
@@ -8433,7 +8433,7 @@
                             "order": "25.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369651+00:00",
                             "updated_on": "2024-04-30T06:51:38.371599+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 15
@@ -8472,7 +8472,7 @@
                             "order": "26.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369679+00:00",
                             "updated_on": "2024-04-30T06:51:38.375415+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 16
@@ -8511,7 +8511,7 @@
                             "order": "27.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369718+00:00",
                             "updated_on": "2024-04-30T06:51:38.379450+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 17
@@ -8543,7 +8543,7 @@
                             "order": "28.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369746+00:00",
                             "updated_on": "2024-04-30T06:51:38.383153+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 17
@@ -8575,7 +8575,7 @@
                             "order": "29.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369774+00:00",
                             "updated_on": "2024-04-30T06:51:38.387217+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 18
@@ -8607,7 +8607,7 @@
                             "order": "30.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369803+00:00",
                             "updated_on": "2024-04-30T06:51:38.390993+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 18
@@ -8639,7 +8639,7 @@
                             "order": "31.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369837+00:00",
                             "updated_on": "2024-04-30T06:51:38.395131+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 21
@@ -8673,7 +8673,7 @@
                             "order": "32.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369864+00:00",
                             "updated_on": "2024-04-30T06:51:38.398844+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 22
@@ -8705,7 +8705,7 @@
                             "order": "33.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369900+00:00",
                             "updated_on": "2024-04-30T06:51:38.402868+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 23
@@ -8737,7 +8737,7 @@
                             "order": "34.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369928+00:00",
                             "updated_on": "2024-04-30T06:51:38.406637+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 23
@@ -8769,7 +8769,7 @@
                             "order": "35.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369955+00:00",
                             "updated_on": "2024-04-30T06:51:38.410645+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 23
@@ -8801,7 +8801,7 @@
                             "order": "36.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.369983+00:00",
                             "updated_on": "2024-04-30T06:51:38.414470+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 24
@@ -8840,7 +8840,7 @@
                             "order": "37.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.370012+00:00",
                             "updated_on": "2024-04-30T06:51:38.418424+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 24
@@ -8879,7 +8879,7 @@
                             "order": "38.00000000000000000000",
                             "created_on": "2022-10-06T19:38:33.370040+00:00",
                             "updated_on": "2024-04-30T06:51:38.422127+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19102": null,
                             "field_19103": [
                                 24
@@ -14115,7 +14115,7 @@
                             "order": "1.00000000000000000000",
                             "created_on": "2022-05-11T02:41:08.429516+00:00",
                             "updated_on": "2024-04-30T07:57:23.485219+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Janice Fitzpatrick",
                             "field_19132": [
                                 12
@@ -14162,7 +14162,7 @@
                             "order": "2.00000000000000000000",
                             "created_on": "2022-05-11T02:41:08.431669+00:00",
                             "updated_on": "2024-04-30T07:57:23.487379+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Cinda Pullen",
                             "field_19132": [
                                 13
@@ -14211,7 +14211,7 @@
                             "order": "3.00000000000000000000",
                             "created_on": "2022-05-11T19:39:33.168366+00:00",
                             "updated_on": "2024-04-30T07:57:23.489084+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Clayton Best",
                             "field_19132": [
                                 14
@@ -14261,7 +14261,7 @@
                             "order": "4.00000000000000000000",
                             "created_on": "2022-05-11T19:39:45.735708+00:00",
                             "updated_on": "2024-04-30T07:57:23.490773+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Lane Mahon",
                             "field_19132": [
                                 15
@@ -14329,7 +14329,7 @@
                             "order": "5.00000000000000000000",
                             "created_on": "2022-05-11T19:39:54.036617+00:00",
                             "updated_on": "2024-04-30T08:45:24.336981+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Allie Ecker",
                             "field_19132": [
                                 16
@@ -14403,7 +14403,7 @@
                             "order": "6.00000000000000000000",
                             "created_on": "2022-05-11T19:40:00.883007+00:00",
                             "updated_on": "2024-04-30T07:57:23.494131+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Thomas Nickson",
                             "field_19132": [
                                 17
@@ -14453,7 +14453,7 @@
                             "order": "7.00000000000000000000",
                             "created_on": "2022-05-11T19:40:08.785002+00:00",
                             "updated_on": "2024-04-30T07:57:23.495811+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Paul Garcia",
                             "field_19132": [
                                 11
@@ -14498,7 +14498,7 @@
                             "order": "8.00000000000000000000",
                             "created_on": "2022-05-11T19:40:16.141926+00:00",
                             "updated_on": "2024-04-30T07:57:23.497427+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Rodney Tran",
                             "field_19132": [
                                 10
@@ -14543,7 +14543,7 @@
                             "order": "9.00000000000000000000",
                             "created_on": "2022-05-11T19:40:26.829669+00:00",
                             "updated_on": "2024-04-30T07:57:23.499412+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Donald Johns",
                             "field_19132": [
                                 9
@@ -14624,7 +14624,7 @@
                             "order": "10.00000000000000000000",
                             "created_on": "2022-05-11T19:40:31.663881+00:00",
                             "updated_on": "2024-04-30T07:57:23.501102+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "John Marshall",
                             "field_19132": [
                                 9
@@ -14682,7 +14682,7 @@
                             "order": "11.00000000000000000000",
                             "created_on": "2022-05-11T19:40:39.587277+00:00",
                             "updated_on": "2024-04-30T07:57:23.502770+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Michael Robicheaux",
                             "field_19132": [
                                 8
@@ -14740,7 +14740,7 @@
                             "order": "12.00000000000000000000",
                             "created_on": "2022-05-11T19:40:46.306898+00:00",
                             "updated_on": "2024-04-30T07:57:23.504481+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Bran Lopez",
                             "field_19132": [
                                 8
@@ -14798,7 +14798,7 @@
                             "order": "13.00000000000000000000",
                             "created_on": "2022-05-11T19:40:54.760610+00:00",
                             "updated_on": "2024-04-30T07:57:23.506096+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Ronald Wright",
                             "field_19132": [
                                 7
@@ -14856,7 +14856,7 @@
                             "order": "14.00000000000000000000",
                             "created_on": "2022-05-11T19:41:01.712553+00:00",
                             "updated_on": "2024-04-30T07:57:23.507803+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Leroy Tye",
                             "field_19132": [
                                 5
@@ -14914,7 +14914,7 @@
                             "order": "15.00000000000000000000",
                             "created_on": "2022-05-11T19:41:06.453197+00:00",
                             "updated_on": "2024-04-30T07:57:23.509408+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Nora Mott",
                             "field_19132": [
                                 4
@@ -14972,7 +14972,7 @@
                             "order": "16.00000000000000000000",
                             "created_on": "2022-05-11T19:41:10.813481+00:00",
                             "updated_on": "2024-04-30T07:57:23.511055+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Elizabeth Cunningham",
                             "field_19132": [
                                 4
@@ -15030,7 +15030,7 @@
                             "order": "17.00000000000000000000",
                             "created_on": "2022-05-11T19:41:16.077611+00:00",
                             "updated_on": "2024-04-30T07:57:23.513022+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Richard Rethman",
                             "field_19132": [
                                 3
@@ -15088,7 +15088,7 @@
                             "order": "18.00000000000000000000",
                             "created_on": "2022-05-11T19:41:20.237265+00:00",
                             "updated_on": "2024-04-30T07:57:23.514683+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Jonathan Castillo",
                             "field_19132": [
                                 17
@@ -15131,7 +15131,7 @@
                             "order": "19.00000000000000000000",
                             "created_on": "2022-05-11T19:41:28.309129+00:00",
                             "updated_on": "2024-04-30T07:57:23.516328+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Eric Rothman",
                             "field_19132": [
                                 17
@@ -15174,7 +15174,7 @@
                             "order": "20.00000000000000000000",
                             "created_on": "2022-05-11T19:41:33.394918+00:00",
                             "updated_on": "2024-04-30T07:57:23.517943+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Judith Triplett",
                             "field_19132": [
                                 17
@@ -15237,7 +15237,7 @@
                             "order": "21.00000000000000000000",
                             "created_on": "2022-05-11T19:41:44.628479+00:00",
                             "updated_on": "2024-04-30T07:57:23.519528+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Lena Hogan",
                             "field_19132": [
                                 18
@@ -15301,7 +15301,7 @@
                             "order": "22.00000000000000000000",
                             "created_on": "2022-05-11T19:41:49.427338+00:00",
                             "updated_on": "2024-04-30T07:57:23.521134+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Sandra Love",
                             "field_19132": [
                                 18
@@ -15367,7 +15367,7 @@
                             "order": "23.00000000000000000000",
                             "created_on": "2022-05-11T19:41:59.705324+00:00",
                             "updated_on": "2024-04-30T07:57:23.522803+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Latisha Mazon",
                             "field_19132": [
                                 18
@@ -15430,7 +15430,7 @@
                             "order": "24.00000000000000000000",
                             "created_on": "2022-05-18T13:24:38.080771+00:00",
                             "updated_on": "2024-04-30T07:57:23.524404+00:00",
-                            "last_modified_by": "frederik@baserow.io",
+                            "last_modified_by": "frederik@jadawl.site",
                             "field_19131": "Jane Dradder",
                             "field_19132": [
                                 18
@@ -21552,10 +21552,10 @@
             "integrations": [
                 {
                     "id": 39,
-                    "name": "Local Baserow",
+                    "name": "Local Jadawel",
                     "order": "1.00000000000000000000",
                     "type": "local_jadawel",
-                    "authorized_user": "frederik@baserow.io"
+                    "authorized_user": "frederik@jadawl.site"
                 }
             ],
             "theme": {

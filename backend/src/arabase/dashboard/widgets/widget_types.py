@@ -31,7 +31,7 @@ the widget's width."""
 
 class ChartWidgetType(DataSourceBackedWidgetType):
     """
-    The type name matches upstream Baserow's premium chart widget so that
+    The type name matches upstream Jadawel's premium chart widget so that
     dashboards and templates that contain charts import into this fork.
     """
 

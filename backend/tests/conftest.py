@@ -19,7 +19,7 @@ def _fixture_teardown(self):
     from Django (https://github.com/django/django/blob/main/django/test/testcases.py)
     that flushes test database after test runs with allow_cascade=True.
 
-    This is needed as our custom Baserow tables won't be in the list of tables
+    This is needed as our custom Jadawel tables won't be in the list of tables
     to truncate, and hence may create problems when rows are
     referencing other tables.
     """
