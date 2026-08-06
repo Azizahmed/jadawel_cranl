@@ -58,10 +58,10 @@ just dc-dev build --parallel
 just dc-dev up -d
 
 # 2. Create an admin user (first run)
-just dc-dev exec backend ./baserow createsuperuser
+just dc-dev exec backend ./jadawel createsuperuser
 
 # 3. Seed the Arabic dataset (also creates the bidi/search edge-case rows)
-just dc-dev exec backend ./baserow seed_arabic_data --rows 50000
+just dc-dev exec backend ./jadawel seed_arabic_data --rows 50000
 #   → note the printed table id / workspace id
 
 # 4. Open the app (default http://localhost:3000), sign in, open the seeded table.

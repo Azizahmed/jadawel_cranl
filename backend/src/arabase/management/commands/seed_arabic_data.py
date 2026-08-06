@@ -14,8 +14,8 @@ hamza/alef, madda, tatweel) so the search-normalization tests have known targets
 
 Usage (inside the backend container):
 
-    ./baserow seed_arabic_data --rows 50000
-    ./baserow seed_arabic_data --rows 1000 --user-email admin@example.com
+    ./jadawel seed_arabic_data --rows 50000
+    ./jadawel seed_arabic_data --rows 1000 --user-email admin@example.com
 
 Idempotency: each run creates a *new* table and prints its id; nothing existing is
 mutated. Use a small --rows first to smoke-test, then 50000 for the perf baseline.
@@ -328,7 +328,7 @@ class Command(BaseCommand):
             self.stderr.write(
                 self.style.WARNING(
                     f"Search data update failed ({exc}). Rows are inserted; run "
-                    f"`./baserow sync_table_tsvectors {table.id}` to populate search."
+                    f"`./jadawel sync_table_tsvectors {table.id}` to populate search."
                 )
             )
 
@@ -350,7 +350,7 @@ class Command(BaseCommand):
         user = User.objects.filter(is_superuser=True).order_by("id").first()
         if user is None:
             raise CommandError(
-                "No superuser found. Create one first (./baserow createsuperuser) "
+                "No superuser found. Create one first (./jadawel createsuperuser) "
                 "or pass --user-email."
             )
         return user

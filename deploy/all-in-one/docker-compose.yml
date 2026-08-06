@@ -1,6 +1,6 @@
 services:
   # A dev / testing /example compose file for quickly setting up an all in one
-  baserow_all_in_one:
+  jadawel_all_in_one:
     image: jadawel/jadawel:${JADAWEL_VERSION:-latest}
     build:
       dockerfile: $PWD/deploy/all-in-one/Dockerfile
@@ -17,9 +17,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - baserow_all_in_one_data:/baserow/data
+      - jadawel_all_in_one_data:/jadawel/data
     healthcheck:
-      test: [ "CMD-SHELL", "/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
+      test: [ "CMD-SHELL", "/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -32,4 +32,4 @@ services:
     ports:
       - "8025:8025" # web ui
 volumes:
-  baserow_all_in_one_data:
+  jadawel_all_in_one_data:

@@ -4,46 +4,46 @@
 ## Current available global Docker image parameters, serviceAccount, backendConfigMap, backendSecret, frontendConfigMap, envFrom, domain, backendDomain.
 ##
 
-## @param global.baserow.imageRegistry Global Docker image registry
-## @param global.baserow.imagePullSecrets Global Docker registry secret names as an array
-## @param global.baserow.image.tag Global Docker image tag
-## @param global.baserow.serviceAccount.shared Set to true to share the service account between all application components.
-## @param global.baserow.serviceAccount.create Set to true to create a service account to share between all application components.
-## @param global.baserow.serviceAccount.name Configure a name for service account to share between all application components.
-## @param global.baserow.serviceAccount.annotations Configure annotations for the shared service account.
-## @param global.baserow.serviceAccount.automountServiceAccountToken Allows auto mount of ServiceAccountToken on the serviceAccount
-## @param global.baserow.backendConfigMap Configure a name for the backend configmap.
-## @param global.baserow.backendSecret Configure a name for the backend secret.
-## @param global.baserow.frontendConfigMap Configure a name for the frontend configmap.
-## @param global.baserow.envFrom Configure secrets or configMaps to be used as environment variables for all components.
-## @param global.baserow.domain Configure the domain for the ## @param global.baserow.containerSecurityContext.enabled Enabled containers' Security Context
-## @param global.baserow.containerSecurityContext.enabled Enabled containers' Security Context
-## @param global.baserow.containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
-## @param global.baserow.containerSecurityContext.runAsUser Set containers' Security Context runAsUser
-## @param global.baserow.containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
-## @param global.baserow.containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
-## @param global.baserow.containerSecurityContext.privileged Set container's Security Context privileged
-## @param global.baserow.containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
-## @param global.baserow.containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
-## @param global.baserow.containerSecurityContext.capabilities.drop List of capabilities to be dropped
-## @param global.baserow.containerSecurityContext.capabilities.add List of capabilities to be added
-## @param global.baserow.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
-## @param global.baserow.securityContext.enabled Enable security context
-## @param global.baserow.securityContext.fsGroupChangePolicy Set filesystem group change policy
-## @param global.baserow.securityContext.sysctls Set kernel settings using the sysctl interface
-## @param global.baserow.securityContext.supplementalGroups Set filesystem extra groups
-## @param global.baserow.securityContext.fsGroup Group ID for the pod
+## @param global.jadawel.imageRegistry Global Docker image registry
+## @param global.jadawel.imagePullSecrets Global Docker registry secret names as an array
+## @param global.jadawel.image.tag Global Docker image tag
+## @param global.jadawel.serviceAccount.shared Set to true to share the service account between all application components.
+## @param global.jadawel.serviceAccount.create Set to true to create a service account to share between all application components.
+## @param global.jadawel.serviceAccount.name Configure a name for service account to share between all application components.
+## @param global.jadawel.serviceAccount.annotations Configure annotations for the shared service account.
+## @param global.jadawel.serviceAccount.automountServiceAccountToken Allows auto mount of ServiceAccountToken on the serviceAccount
+## @param global.jadawel.backendConfigMap Configure a name for the backend configmap.
+## @param global.jadawel.backendSecret Configure a name for the backend secret.
+## @param global.jadawel.frontendConfigMap Configure a name for the frontend configmap.
+## @param global.jadawel.envFrom Configure secrets or configMaps to be used as environment variables for all components.
+## @param global.jadawel.domain Configure the domain for the ## @param global.jadawel.containerSecurityContext.enabled Enabled containers' Security Context
+## @param global.jadawel.containerSecurityContext.enabled Enabled containers' Security Context
+## @param global.jadawel.containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
+## @param global.jadawel.containerSecurityContext.runAsUser Set containers' Security Context runAsUser
+## @param global.jadawel.containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
+## @param global.jadawel.containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
+## @param global.jadawel.containerSecurityContext.privileged Set container's Security Context privileged
+## @param global.jadawel.containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
+## @param global.jadawel.containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
+## @param global.jadawel.containerSecurityContext.capabilities.drop List of capabilities to be dropped
+## @param global.jadawel.containerSecurityContext.capabilities.add List of capabilities to be added
+## @param global.jadawel.containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
+## @param global.jadawel.securityContext.enabled Enable security context
+## @param global.jadawel.securityContext.fsGroupChangePolicy Set filesystem group change policy
+## @param global.jadawel.securityContext.sysctls Set kernel settings using the sysctl interface
+## @param global.jadawel.securityContext.supplementalGroups Set filesystem extra groups
+## @param global.jadawel.securityContext.fsGroup Group ID for the pod
 ##
 global:
-  baserow:
-    imageRegistry: baserow
+  jadawel:
+    imageRegistry: jadawel
     image:
       tag: 2.2.2
     imagePullSecrets: []
     serviceAccount:
       shared: true
       create: true
-      name: baserow
+      name: jadawel
       annotations: {}
       automountServiceAccountToken: false
 
@@ -75,11 +75,11 @@ global:
       seccompProfile:
         type: ""
 
-## Baserow application image version
-## ref: https://hub.docker.com/r/baserow/baserow/tags/
-## @param image.repository [default: baserow/baserow] Baserow image repository
-## @skip image.tag Baserow image tag (immutable tags are recommended)
-## @param image.pullPolicy Baserow image pull policy
+## Jadawel application image version
+## ref: https://hub.docker.com/r/baserow/jadawel/tags/
+## @param image.repository [default: baserow/baserow] Jadawel image repository
+## @skip image.tag Jadawel image tag (immutable tags are recommended)
+## @param image.pullPolicy Jadawel image pull policy
 ##
 image:
   repository: baserow/baserow # Docker image repository
@@ -88,7 +88,7 @@ image:
 
 ## @param workingDir Application container working directory
 ##
-workingDir: /baserow-saas
+workingDir: /jadawel-saas
 
 ## @param args Application container extra arguments
 ##
@@ -194,7 +194,7 @@ readinessProbe:
     command:
       - /bin/bash
       - -c
-      - /baserow/backend/docker/docker-entrypoint.sh backend-healthcheck
+      - /jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck
   failureThreshold: 3
   initialDelaySeconds: 120
   periodSeconds: 5
@@ -217,7 +217,7 @@ livenessProbe:
     command:
       - /bin/bash
       - -c
-      - /baserow/backend/docker/docker-entrypoint.sh backend-healthcheck
+      - /jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck
   failureThreshold: 3
   initialDelaySeconds: 120
   periodSeconds: 5
@@ -228,7 +228,7 @@ livenessProbe:
 ##
 priorityClassName: ""
 
-## @param affinity Affinity for the baserow application pods assignment
+## @param affinity Affinity for the jadawel application pods assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ##
 affinity: {}
@@ -243,16 +243,16 @@ nodeSelector: {}
 ##
 tolerations: []
 
-## @param extraEnv Extra environment variables to add to the baserow application container
+## @param extraEnv Extra environment variables to add to the jadawel application container
 ## see: docs/CONFIGURATION.md
 ## For example:
 ##  extraEnvVars:
 ##  - name: JADAWEL_PUBLIC_URL
-##    value: "https://baserow.mydomain.com"
+##    value: "https://jadawel.mydomain.com"
 ##
 extraEnv: []
 
-## @param envFrom Extra environments variables to add to the baserow application container from configmaps or secrets.
+## @param envFrom Extra environments variables to add to the jadawel application container from configmaps or secrets.
 ## see: docs/CONFIGURATION.md
 ## For example:
 ##  envFrom:

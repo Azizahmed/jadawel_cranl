@@ -157,7 +157,7 @@ export const getFilenameFromUrl = (url) => {
 }
 
 // Regex duplicated from
-// src/baserow/contrib/database/fields/field_types.py#PhoneNumberFieldType
+// src/jadawel/contrib/database/fields/field_types.py#PhoneNumberFieldType
 // Docs reference what characters are valid in PhoneNumberFieldType.getDocsDescription
 // Ensure they are kept in sync.
 export const isSimplePhoneNumber = (str) => {

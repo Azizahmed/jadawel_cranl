@@ -41,7 +41,7 @@ def test_search_compatibility_between_current_and_postgres(data_fixture, tmpdir)
             ["pHoTo OF ", "pHoTo OF "],
         ],
         "url": [
-            ["https://jadawel.io", "https://jadawel.io"],
+            ["https://baserow.io", "https://baserow.io"],
             ["https://base ", "https://base "],  # Compat does support trailing spaces
             # however, just not in the middle?
             ["HTtps://BASEROW.iO", "HTtps://BASEROW.iO"],
@@ -185,8 +185,8 @@ def test_search_compatibility_between_current_and_postgres(data_fixture, tmpdir)
                         "visible_name": "A photo of him.",
                     }
                 ],
-                f"field_{url_field.id}": "https://jadawel.io",
-                f"field_{email_field.id}": "peter@jadawel.io",
+                f"field_{url_field.id}": "https://baserow.io",
+                f"field_{email_field.id}": "peter@baserow.io",
                 f"field_{date_field.id}": "2023-06-01",
                 f"field_{datetime_field.id}": "2023-06-01 15:00:00.327017+00",
                 f"field_{single_select_field.id}": single_select_option_1.id,

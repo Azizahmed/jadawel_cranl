@@ -36,16 +36,16 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache
 
-RUN mkdir -p /baserow/web-frontend && \
-    chown -R $UID:$GID /baserow
+RUN mkdir -p /jadawel/web-frontend && \
+    chown -R $UID:$GID /jadawel
 
 USER $UID:$GID
-WORKDIR /baserow/web-frontend
+WORKDIR /jadawel/web-frontend
 
 # Install dependencies (including dev)
 RUN --mount=type=cache,target=$YARN_CACHE_FOLDER,uid=$UID,gid=$GID,sharing=locked \
-    --mount=type=bind,source=web-frontend/package.json,target=/baserow/web-frontend/package.json \
-    --mount=type=bind,source=web-frontend/yarn.lock,target=/baserow/web-frontend/yarn.lock \
+    --mount=type=bind,source=web-frontend/package.json,target=/jadawel/web-frontend/package.json \
+    --mount=type=bind,source=web-frontend/yarn.lock,target=/jadawel/web-frontend/yarn.lock \
     yarn install --pure-lockfile --cache-folder $YARN_CACHE_FOLDER
 
 
@@ -63,22 +63,22 @@ ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache \
     NODE_OPTIONS="--max-old-space-size=4096" \
     NODE_ENV=production
 
-RUN mkdir -p /baserow/web-frontend && \
-    chown -R $UID:$GID /baserow/
+RUN mkdir -p /jadawel/web-frontend && \
+    chown -R $UID:$GID /jadawel/
 
 # Copy source code
-COPY --chown=$UID:$GID ./web-frontend /baserow/web-frontend/
+COPY --chown=$UID:$GID ./web-frontend /jadawel/web-frontend/
 
 # Copy all dependencies so we can build the production files
-COPY --chown=$UID:$GID --from=builder-ci /baserow/web-frontend/node_modules /baserow/web-frontend/node_modules
+COPY --chown=$UID:$GID --from=builder-ci /jadawel/web-frontend/node_modules /jadawel/web-frontend/node_modules
 
 COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
-RUN dos2unix /baserow/web-frontend/docker/docker-entrypoint.sh \
-    && chmod a+x /baserow/web-frontend/docker/docker-entrypoint.sh \
-    && chown $UID:$GID /baserow/web-frontend/docker/docker-entrypoint.sh
+RUN dos2unix /jadawel/web-frontend/docker/docker-entrypoint.sh \
+    && chmod a+x /jadawel/web-frontend/docker/docker-entrypoint.sh \
+    && chown $UID:$GID /jadawel/web-frontend/docker/docker-entrypoint.sh
 
 USER $UID:$GID
-WORKDIR /baserow/web-frontend
+WORKDIR /jadawel/web-frontend
 
 # Build, then clean reinstall production only
 RUN --mount=type=cache,target=$YARN_CACHE_FOLDER,uid=$UID,gid=$GID,sharing=locked \
@@ -103,40 +103,40 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update && apt-get upgrade -y --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV DOCKER_USER=baserow_docker_user \
+ENV DOCKER_USER=jadawel_docker_user \
     APP_ENV=test \
     JADAWEL_IMAGE_TYPE="web-frontend"
 
 RUN groupadd --system --gid $GID ${DOCKER_USER} && \
-    useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
-    chmod 755 /baserow
+    useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /jadawel -m ${DOCKER_USER} && \
+    chmod 755 /jadawel
 
 COPY --from=tool-builder /usr/local/bin/su-exec /usr/local/bin/su-exec
 COPY --from=tool-builder /usr/bin/tini /usr/bin/tini
 COPY --from=busybox-helper /bin/wget /usr/local/bin/wget
 
-RUN mkdir -p /baserow/reports /baserow/.cache /baserow/.yarn && \
-    chown -R $UID:$GID /baserow
+RUN mkdir -p /jadawel/reports /jadawel/.cache /jadawel/.yarn && \
+    chown -R $UID:$GID /jadawel
 
 # Copy dependencies and source code
-COPY --chown=$UID:$GID ./eslint.config.mjs /baserow/eslint.config.mjs
-COPY --chown=$UID:$GID web-frontend /baserow/web-frontend
+COPY --chown=$UID:$GID ./eslint.config.mjs /jadawel/eslint.config.mjs
+COPY --chown=$UID:$GID web-frontend /jadawel/web-frontend
 
-COPY --chown=$UID:$GID --from=builder-ci /baserow/web-frontend/node_modules /baserow/web-frontend/node_modules
-COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.nuxt /baserow/web-frontend/.nuxt
-COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.output /baserow/web-frontend/.output
+COPY --chown=$UID:$GID --from=builder-ci /jadawel/web-frontend/node_modules /jadawel/web-frontend/node_modules
+COPY --chown=$UID:$GID --from=builder-prod /jadawel/web-frontend/.nuxt /jadawel/web-frontend/.nuxt
+COPY --chown=$UID:$GID --from=builder-prod /jadawel/web-frontend/.output /jadawel/web-frontend/.output
 
 # Create cache directories (after COPY so they don't get overwritten)
-RUN mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage \
-    && chown -R $UID:$GID /baserow/web-frontend/.cache /baserow/web-frontend/reports
+RUN mkdir -p /jadawel/web-frontend/.cache /jadawel/web-frontend/reports/coverage \
+    && chown -R $UID:$GID /jadawel/web-frontend/.cache /jadawel/web-frontend/reports
 
-COPY --chown=$UID:$GID tests /baserow/tests
-COPY --chown=$UID:$GID deploy/plugins/*.sh /baserow/plugins/
+COPY --chown=$UID:$GID tests /jadawel/tests
+COPY --chown=$UID:$GID deploy/plugins/*.sh /jadawel/plugins/
 
 USER $UID:$GID
-WORKDIR /baserow/web-frontend
+WORKDIR /jadawel/web-frontend
 
-ENTRYPOINT ["/usr/bin/tini", "--", "/bin/bash", "/baserow/web-frontend/docker/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/bin/bash", "/jadawel/web-frontend/docker/docker-entrypoint.sh"]
 HEALTHCHECK --interval=60s CMD wget -q -O /dev/null http://localhost:3000/_health/ || exit 1
 
 CMD ["nuxt-prod"]
@@ -169,9 +169,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     procps \
     sudo
 
-ENV DOCKER_USER=baserow_docker_user \
+ENV DOCKER_USER=jadawel_docker_user \
     JADAWEL_IMAGE_TYPE="web-frontend" \
-    PATH="/baserow/web-frontend/node_modules/.bin:$PATH" \
+    PATH="/jadawel/web-frontend/node_modules/.bin:$PATH" \
     YARN_CACHE_FOLDER=/tmp/.yarn-dev-cache
 
 # Install rust-just for running justfiles
@@ -182,19 +182,19 @@ COPY --from=tool-builder /usr/bin/tini /usr/bin/tini
 COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 
 RUN getent group $GID || groupadd --system --gid $GID ${DOCKER_USER} && \
-    useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
-    chmod 755 /baserow && \
+    useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /jadawel -m ${DOCKER_USER} && \
+    chmod 755 /jadawel && \
     echo "${DOCKER_USER} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${DOCKER_USER} && \
     chmod 0440 /etc/sudoers.d/${DOCKER_USER}
 
-RUN mkdir -p /baserow/web-frontend && \
-    chown -R $UID:$GID /baserow
+RUN mkdir -p /jadawel/web-frontend && \
+    chown -R $UID:$GID /jadawel
 
 USER $UID:$GID
-WORKDIR /baserow/web-frontend
+WORKDIR /jadawel/web-frontend
 
 # Configure tmux to preserve environment variables (don't start login shell)
-RUN echo "set -g default-command \"\${SHELL}\"" > /baserow/.tmux.conf && \
+RUN echo "set -g default-command \"\${SHELL}\"" > /jadawel/.tmux.conf && \
     printf '%s\n' \
     '# Aliases' \
     'alias j="just"' \
@@ -204,25 +204,25 @@ RUN echo "set -g default-command \"\${SHELL}\"" > /baserow/.tmux.conf && \
     'echo "Baserow frontend dev container"' \
     'echo "  y <cmd>  - Run yarn commands"' \
     'echo "  j        - See available commands"' \
-    > /baserow/.bashrc
+    > /jadawel/.bashrc
 
-COPY ./eslint.config.mjs /baserow/eslint.config.mjs
-COPY --chown=$UID:$GID web-frontend/docker/docker-entrypoint.sh /baserow/web-frontend/docker/docker-entrypoint.sh
+COPY ./eslint.config.mjs /jadawel/eslint.config.mjs
+COPY --chown=$UID:$GID web-frontend/docker/docker-entrypoint.sh /jadawel/web-frontend/docker/docker-entrypoint.sh
 
-RUN dos2unix /baserow/web-frontend/docker/docker-entrypoint.sh \
-    && chmod a+x /baserow/web-frontend/docker/docker-entrypoint.sh
+RUN dos2unix /jadawel/web-frontend/docker/docker-entrypoint.sh \
+    && chmod a+x /jadawel/web-frontend/docker/docker-entrypoint.sh
 
-COPY --chown=$UID:$GID web-frontend/package.json /baserow/web-frontend/package.json
-COPY --chown=$UID:$GID web-frontend/yarn.lock /baserow/web-frontend/yarn.lock
+COPY --chown=$UID:$GID web-frontend/package.json /jadawel/web-frontend/package.json
+COPY --chown=$UID:$GID web-frontend/yarn.lock /jadawel/web-frontend/yarn.lock
 
 # Make sure these directories exist and are owned by the non-root user
-RUN mkdir -p /baserow/web-frontend/.nuxt /baserow/web-frontend/.cache /baserow/web-frontend/.nuxt-storybook /baserow/web-frontend/.output
+RUN mkdir -p /jadawel/web-frontend/.nuxt /jadawel/web-frontend/.cache /jadawel/web-frontend/.nuxt-storybook /jadawel/web-frontend/.output
 
 # Install dependencies (including dev)
 RUN --mount=type=cache,target=$YARN_CACHE_FOLDER,uid=$UID,gid=$GID,sharing=locked \
     yarn install --pure-lockfile --cache-folder $YARN_CACHE_FOLDER
 
-ENTRYPOINT ["/usr/bin/tini", "--", "/bin/bash", "/baserow/web-frontend/docker/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/bin/bash", "/jadawel/web-frontend/docker/docker-entrypoint.sh"]
 HEALTHCHECK --interval=60s CMD wget -q -O /dev/null http://localhost:3000/_health/ || exit 1
 CMD ["nuxt-dev"]
 
@@ -236,7 +236,7 @@ ARG GID
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV DOCKER_USER=baserow_docker_user \
+ENV DOCKER_USER=jadawel_docker_user \
     JADAWEL_IMAGE_TYPE="web-frontend" \
     NODE_ENV=production \
     YARN_CACHE_FOLDER=/tmp/.yarn-cache
@@ -254,21 +254,21 @@ RUN apt-get update && apt-get upgrade -y --no-install-recommends \
 RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 RUN groupadd --system --gid $GID ${DOCKER_USER} && \
-    useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /baserow -m ${DOCKER_USER} && \
-    chmod 755 /baserow
+    useradd --shell /bin/bash -l -u $UID -g $GID -o -c "" -d /jadawel -m ${DOCKER_USER} && \
+    chmod 755 /jadawel
 
 USER $UID:$GID
-RUN mkdir -p /baserow/web-frontend/docker
+RUN mkdir -p /jadawel/web-frontend/docker
 
-COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.output /baserow/web-frontend/.output
-COPY --chown=$UID:$GID ./web-frontend/env-remap.mjs /baserow/web-frontend/env-remap.mjs
-COPY --chown=$UID:$GID ./web-frontend/docker/docker-entrypoint-prod.sh /baserow/web-frontend/docker/docker-entrypoint.sh
-RUN chmod a+x /baserow/web-frontend/docker/docker-entrypoint.sh
+COPY --chown=$UID:$GID --from=builder-prod /jadawel/web-frontend/.output /jadawel/web-frontend/.output
+COPY --chown=$UID:$GID ./web-frontend/env-remap.mjs /jadawel/web-frontend/env-remap.mjs
+COPY --chown=$UID:$GID ./web-frontend/docker/docker-entrypoint-prod.sh /jadawel/web-frontend/docker/docker-entrypoint.sh
+RUN chmod a+x /jadawel/web-frontend/docker/docker-entrypoint.sh
 
 HEALTHCHECK --interval=10s CMD wget -q -O /dev/null http://localhost:3000/_health/ || exit 1
 
-WORKDIR /baserow/web-frontend
-ENTRYPOINT ["/baserow/web-frontend/docker/docker-entrypoint.sh"]
+WORKDIR /jadawel/web-frontend
+ENTRYPOINT ["/jadawel/web-frontend/docker/docker-entrypoint.sh"]
 
 
 FROM local AS prod

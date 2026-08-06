@@ -32,7 +32,7 @@ BOLD="$(safe_tput bold)"
 
 NC=$(safe_tput sgr0) # No Color
 
-JADAWEL_PLUGIN_DIR=${JADAWEL_PLUGIN_DIR:-/baserow/plugins}
+JADAWEL_PLUGIN_DIR=${JADAWEL_PLUGIN_DIR:-/jadawel/plugins}
 
 simple_log(){
   echo -e "${BLUE}[PLUGIN] $*${NC}"
@@ -56,7 +56,7 @@ startup_plugin_setup(){
       for plugin_dir in "$JADAWEL_PLUGIN_DIR"/*/; do
         log "Found a plugin in $plugin_dir, ensuring it is installed..."
         if [[ -d "$plugin_dir" ]]; then
-          /baserow/plugins/install_plugin.sh --runtime --folder "$plugin_dir"
+          /jadawel/plugins/install_plugin.sh --runtime --folder "$plugin_dir"
         fi
       done
 
@@ -64,13 +64,13 @@ startup_plugin_setup(){
       for url in $(echo "${JADAWEL_PLUGIN_URLS:-}" | tr "," "\n")
       do
         log "Downloading and installing the plugin found at $url"
-        /baserow/plugins/install_plugin.sh --runtime --url "$url"
+        /jadawel/plugins/install_plugin.sh --runtime --url "$url"
       done
 
       for repo in $(echo "${JADAWEL_PLUGIN_GIT_REPOS:-}" | tr "," "\n")
       do
         log "Downloading and installing the plugin found at $repo"
-        /baserow/plugins/install_plugin.sh --runtime --git "$repo"
+        /jadawel/plugins/install_plugin.sh --runtime --git "$repo"
       done
 
       # Ensure we don't run this function multiple times in the same shell.

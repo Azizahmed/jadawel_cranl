@@ -115,7 +115,7 @@ class Command(BaseCommand):
             self.stdout.write(
                 self.style.SUCCESS(
                     f"Successfully backed up Jadawel to {backup_file_name} which can "
-                    f"be restored using the ./baserow restore_baserow command. "
+                    f"be restored using the ./jadawel restore_baserow command. "
                 )
             )
 
@@ -131,6 +131,6 @@ class Command(BaseCommand):
         except InvalidBaserowBackupArchive:
             raise CommandError(
                 "Please ensure the provided back-up file is a valid "
-                "Jadawel backup file produced by ./baserow "
+                "Jadawel backup file produced by ./jadawel "
                 "backup_baserow"
             )

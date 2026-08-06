@@ -3,13 +3,13 @@
 services:
 
   backend:
-    image: baserow_backend:latest
+    image: jadawel_backend:latest
     build:
       dockerfile: ./backend/Dockerfile
       context: .
 
   celery:
-    image: baserow_backend:latest
+    image: jadawel_backend:latest
     environment:
       EMAIL_SMTP: 'yes'
       EMAIL_SMTP_HOST: 'mailhog'
@@ -19,19 +19,19 @@ services:
       context: .
 
   celery-export-worker:
-    image: baserow_backend:latest
+    image: jadawel_backend:latest
     build:
       dockerfile: ./backend/Dockerfile
       context: .
 
   celery-beat-worker:
-    image: baserow_backend:latest
+    image: jadawel_backend:latest
     build:
       dockerfile: ./backend/Dockerfile
       context: .
 
   web-frontend:
-    image: baserow_web-frontend:latest
+    image: jadawel_web-frontend:latest
     build:
       dockerfile: ./web-frontend/Dockerfile
       context: .
@@ -50,8 +50,8 @@ services:
   # environment here.
   media-volume-fixer:
     image: bash:4.4
-    command: chown 9999:9999 -R /baserow/media
+    command: chown 9999:9999 -R /jadawel/media
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     networks:
       local:

@@ -5,12 +5,9 @@
 # then start it with:
 #   JADAWEL_VERSION=latest docker compose -f docker-compose.all-in-one.yml up -d
 #
-# NOTE: the `baserow` service/container/volume names and the `/baserow/data` mount path
-# are load-bearing (the image entrypoint and named volumes depend on them) and are
-# deliberately left unchanged.
 services:
-  baserow:
-    container_name: baserow
+  jadawel:
+    container_name: jadawel
     image: jadawel/jadawel:${JADAWEL_VERSION:-latest}
     environment:
       JADAWEL_PUBLIC_URL: 'http://localhost'
@@ -18,6 +15,6 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - baserow_data:/baserow/data
+      - jadawel_data:/jadawel/data
 volumes:
-  baserow_data:
+  jadawel_data:

@@ -201,8 +201,8 @@ run_setup_commands_if_configured(){
     else
       migration_command="locked_migrate"
     fi
-    echo "python /baserow/backend/src/jadawel/manage.py $migration_command"
-    OTEL_SERVICE_NAME=backend-migrate python /baserow/backend/src/jadawel/manage.py "$migration_command"
+    echo "python /jadawel/backend/src/jadawel/manage.py $migration_command"
+    OTEL_SERVICE_NAME=backend-migrate python /jadawel/backend/src/jadawel/manage.py "$migration_command"
   fi
 }
 
@@ -291,8 +291,8 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
-source /baserow/venv/bin/activate
-source /baserow/plugins/utils.sh
+source /jadawel/venv/bin/activate
+source /jadawel/plugins/utils.sh
 
 setup_otel_vars
 
@@ -303,14 +303,14 @@ case "$1" in
         echo "Running Development Server on 0.0.0.0:${JADAWEL_BACKEND_PORT}"
         echo "Press CTRL-p CTRL-q to close this session without stopping the container."
         export OTEL_SERVICE_NAME=backend-dev
-        attachable_exec python /baserow/backend/src/jadawel/manage.py runserver "${JADAWEL_BACKEND_BIND_ADDRESS:-0.0.0.0}:${JADAWEL_BACKEND_PORT}"
+        attachable_exec python /jadawel/backend/src/jadawel/manage.py runserver "${JADAWEL_BACKEND_BIND_ADDRESS:-0.0.0.0}:${JADAWEL_BACKEND_PORT}"
     ;;
     django-dev-no-attach)
         wait_for_postgres
         run_setup_commands_if_configured
         echo "Running Development Server on 0.0.0.0:${JADAWEL_BACKEND_PORT}"
         export OTEL_SERVICE_NAME=backend-dev
-        python /baserow/backend/src/jadawel/manage.py runserver "${JADAWEL_BACKEND_BIND_ADDRESS:-0.0.0.0}:${JADAWEL_BACKEND_PORT}"
+        python /jadawel/backend/src/jadawel/manage.py runserver "${JADAWEL_BACKEND_BIND_ADDRESS:-0.0.0.0}:${JADAWEL_BACKEND_PORT}"
     ;;
     gunicorn)
       export OTEL_SERVICE_NAME="backend-asgi"
@@ -336,20 +336,20 @@ case "$1" in
     ;;
     manage)
         export OTEL_SERVICE_NAME=backend-manage
-        exec python3 /baserow/backend/src/jadawel/manage.py "${@:2}"
+        exec python3 /jadawel/backend/src/jadawel/manage.py "${@:2}"
     ;;
     python)
         exec python3 "${@:2}"
     ;;
     setup)
-      echo "python3 /baserow/backend/src/jadawel/manage.py migrate"
-      OTEL_SERVICE_NAME=backend-migrate DONT_UPDATE_FORMULAS_AFTER_MIGRATION=yes python3 /baserow/backend/src/jadawel/manage.py migrate
-      echo "python3 /baserow/backend/src/jadawel/manage.py update_formulas"
-      OTEL_SERVICE_NAME=backend-update-formulas python3 /baserow/backend/src/jadawel/manage.py update_formulas
+      echo "python3 /jadawel/backend/src/jadawel/manage.py migrate"
+      OTEL_SERVICE_NAME=backend-migrate DONT_UPDATE_FORMULAS_AFTER_MIGRATION=yes python3 /jadawel/backend/src/jadawel/manage.py migrate
+      echo "python3 /jadawel/backend/src/jadawel/manage.py update_formulas"
+      OTEL_SERVICE_NAME=backend-update-formulas python3 /jadawel/backend/src/jadawel/manage.py update_formulas
     ;;
     shell)
         export OTEL_SERVICE_NAME=backend-shell
-        exec python3 /baserow/backend/src/jadawel/manage.py shell
+        exec python3 /jadawel/backend/src/jadawel/manage.py shell
     ;;
     lint-shell)
         attachable_exec just lint
@@ -435,7 +435,7 @@ case "$1" in
           cd "$DATA_DIR"/backups || true
         fi
         export PGPASSWORD=$DATABASE_PASSWORD
-        exec python3 /baserow/backend/src/jadawel/manage.py backup_baserow \
+        exec python3 /jadawel/backend/src/jadawel/manage.py backup_baserow \
             -h "$DATABASE_HOST" \
             -d "$DATABASE_NAME" \
             -U "$DATABASE_USER" \
@@ -453,7 +453,7 @@ case "$1" in
           cd "$DATA_DIR"/backups || true
         fi
         export PGPASSWORD=$DATABASE_PASSWORD
-        exec python3 /baserow/backend/src/jadawel/manage.py restore_baserow \
+        exec python3 /jadawel/backend/src/jadawel/manage.py restore_baserow \
             -h "$DATABASE_HOST" \
             -d "$DATABASE_NAME" \
             -U "$DATABASE_USER" \
@@ -464,13 +464,13 @@ case "$1" in
       wait_for_postgres
     ;;
     install-plugin)
-      exec /baserow/plugins/install_plugin.sh --runtime "${@:2}"
+      exec /jadawel/plugins/install_plugin.sh --runtime "${@:2}"
     ;;
     uninstall-plugin)
-      exec /baserow/plugins/uninstall_plugin.sh "${@:2}"
+      exec /jadawel/plugins/uninstall_plugin.sh "${@:2}"
     ;;
     list-plugins)
-      exec /baserow/plugins/list_plugins.sh "${@:2}"
+      exec /jadawel/plugins/list_plugins.sh "${@:2}"
     ;;
     *)
         echo "Command given was $*"

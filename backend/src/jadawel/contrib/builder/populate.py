@@ -28,7 +28,7 @@ def load_test_data():
     fake = Faker()
     print("Add builder basic data...")
 
-    user = User.objects.get(email="admin@jadawel.io")
+    user = User.objects.get(email="admin@baserow.io")
     workspace = user.workspaceuser_set.get(workspace__name="Acme Corp").workspace
 
     try:
@@ -171,7 +171,7 @@ def load_test_data():
             variant="link",
             navigation_type="custom",
             target="blank",
-            navigate_to_url='"https://jadawel.io"',
+            navigate_to_url='"https://baserow.io"',
             styles={"link": {"link_text_alignment": "center"}},
         )
 

@@ -1,27 +1,27 @@
 dependencies:
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
-- name: baserow
-  repository: file://charts/baserow-common
+- name: jadawel
+  repository: file://charts/jadawel-common
   version: 1.0.52
 - name: redis
   repository: https://charts.bitnami.com/bitnami

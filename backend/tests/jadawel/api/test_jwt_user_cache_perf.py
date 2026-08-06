@@ -2,7 +2,7 @@
 Perf comparison: cached vs uncached JWT user lookup.
 
 Run with:
-    just b test tests/baserow/api/test_jwt_user_cache_perf.py -s
+    just b test tests/jadawel/api/test_jwt_user_cache_perf.py -s
 """
 
 import time

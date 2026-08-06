@@ -27,5 +27,5 @@ ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.4.1
 FROM ${JADAWEL_IMAGE}
 
 # Inherited from the base image and repeated here only so the deployment target
-# is readable without chasing the base: ENTRYPOINT ["/baserow.sh"], CMD ["start"].
+# is readable without chasing the base: ENTRYPOINT ["/jadawel.sh"], CMD ["start"].
 EXPOSE 80

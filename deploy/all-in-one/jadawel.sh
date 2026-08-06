@@ -19,7 +19,7 @@ start-only-db : Starts up only the embedded postgres server and makes it availab
                 the extra docker run argument of '-p 5432:5432'. Useful for if you
                 need to manually inspect Jadawel's database etc.
                 > You can find the postgres users password by separately running
-                > docker exec -it baserow cat /baserow/data/.pgpass
+                > docker exec -it baserow cat /jadawel/data/.pgpass
 
 backend-cmd CMD      : Runs the specified backend command, use the help command to
                        show all available.
@@ -64,7 +64,7 @@ file_env() {
 }
 
 startup_echo(){
-  /baserow/supervisor/wrapper.sh GREEN STARTUP echo -e "\e[32m$*\e[0m"
+  /jadawel/supervisor/wrapper.sh GREEN STARTUP echo -e "\e[32m$*\e[0m"
 }
 
 create_secret_env_if_missing(){
@@ -86,14 +86,14 @@ create_secret_env_if_missing(){
 
 # Import extra settings first so they don't inherit from the default ones.
 shopt -s nullglob
-for f in /baserow/supervisor/env/*.sh; do
+for f in /jadawel/supervisor/env/*.sh; do
    startup_echo "Importing extra settings from $f"
     # shellcheck disable=SC1090
     source "$f";
 done
 
 if [[ -z "$DATA_DIR" ]]; then
-  export DATA_DIR=/baserow/data
+  export DATA_DIR=/jadawel/data
 fi
 
 for f in "$DATA_DIR"/env/*.sh; do
@@ -103,7 +103,7 @@ for f in "$DATA_DIR"/env/*.sh; do
 done
 
 # Source the default env file + any optionally provided ones.
-source /baserow/supervisor/default_baserow_env.sh
+source /jadawel/supervisor/default_jadawel_env.sh
 
 # ========================
 # =  VOLUME CHECK
@@ -115,7 +115,7 @@ if [[ -z "${DISABLE_VOLUME_CHECK:-}" ]]; then
   then
   echo -e "\e[33mPlease run baserow with a mounted data folder " \
           "'docker run -v " \
-          "baserow_data:/baserow/data ...', otherwise your data will be lost between " \
+          "jadawel_data:/jadawel/data ...', otherwise your data will be lost between " \
           "runs. To disable this check set the DISABLE_VOLUME_CHECK env variable to " \
           "'yes' (docker run -e DISABLE_VOLUME_CHECK=yes ...). \e[0m" 2>&1
   exit 1
@@ -272,8 +272,8 @@ run_cmd_with_db(){
       check_can_start_embedded_services
 
       startup_echo "Didn't find an existing postgres + redis running, starting them up now."
-      export SUPERVISOR_CONF=/baserow/supervisor/supervisor_include_only.conf
-      /baserow/supervisor/start.sh "${@:2}" &
+      export SUPERVISOR_CONF=/jadawel/supervisor/supervisor_include_only.conf
+      /jadawel/supervisor/start.sh "${@:2}" &
       SUPERVISORD_PID=$!
 
       function finish {
@@ -282,7 +282,7 @@ run_cmd_with_db(){
         wait $SUPERVISORD_PID
       }
       trap finish EXIT
-      /baserow/backend/docker/docker-entrypoint.sh wait_for_db
+      /jadawel/backend/docker/docker-entrypoint.sh wait_for_db
       startup_echo "======== RUNNING COMMAND ========="
       # Ensure we run the finish cleanup even if the command exits with a non zero exit
       # code
@@ -297,10 +297,10 @@ run_cmd_with_db(){
 
 case "$1" in
     start)
-      exec /baserow/supervisor/start.sh "${@:2}"
+      exec /jadawel/supervisor/start.sh "${@:2}"
     ;;
     backend-cmd-with-db)
-      run_cmd_with_db su-exec "$DOCKER_USER" /baserow/backend/docker/docker-entrypoint.sh "${@:2}"
+      run_cmd_with_db su-exec "$DOCKER_USER" /jadawel/backend/docker/docker-entrypoint.sh "${@:2}"
     ;;
     start-only-db)
       check_can_start_embedded_services
@@ -315,31 +315,31 @@ case "$1" in
         | tee -a "$TMP_HBA_FILE"
 
       export EXTRA_POSTGRES_ARGS="-c listen_addresses='*' -c hba_file=$TMP_HBA_FILE"
-      export SUPERVISOR_CONF=/baserow/supervisor/supervisor_include_only.conf
+      export SUPERVISOR_CONF=/jadawel/supervisor/supervisor_include_only.conf
       startup_echo "INFO: You can find the baserow database user's password by running"
       startup_echo "docker exec -it baserow cat $DATA_DIR/.pgpass"
-      exec /baserow/supervisor/start.sh "${@:2}"
+      exec /jadawel/supervisor/start.sh "${@:2}"
     ;;
     backend-cmd)
-      cd /baserow/backend
-      docker_safe_exec /baserow/backend/docker/docker-entrypoint.sh "${@:2}"
+      cd /jadawel/backend
+      docker_safe_exec /jadawel/backend/docker/docker-entrypoint.sh "${@:2}"
     ;;
     web-frontend-cmd)
-      cd /baserow/web-frontend
-      docker_safe_exec /baserow/web-frontend/docker/docker-entrypoint.sh "${@:2}"
+      cd /jadawel/web-frontend
+      docker_safe_exec /jadawel/web-frontend/docker/docker-entrypoint.sh "${@:2}"
     ;;
     install-plugin)
-      exec /baserow/plugins/install_plugin.sh --runtime "${@:2}"
+      exec /jadawel/plugins/install_plugin.sh --runtime "${@:2}"
     ;;
     uninstall-plugin)
       export JADAWEL_DISABLE_PLUGIN_INSTALL_ON_STARTUP="on"
       # We need the database to uninstall as the plugin might need to unapply migrations
       # Whereas when installing any database changes can just be normal migrations which
       # will then be run on startup.
-      run_cmd_with_db /baserow/plugins/uninstall_plugin.sh "${@:2}"
+      run_cmd_with_db /jadawel/plugins/uninstall_plugin.sh "${@:2}"
     ;;
     list-plugins)
-      exec /baserow/plugins/list_plugins.sh "${@:2}"
+      exec /jadawel/plugins/list_plugins.sh "${@:2}"
     ;;
     *)
         echo "Command given was $*"

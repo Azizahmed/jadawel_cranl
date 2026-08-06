@@ -7,7 +7,7 @@ services:
     ports:
       - '80:80'
     depends_on: [baserow]
-  baserow:
+  jadawel:
     image: jadawel/jadawel:latest
     environment:
       # Apache is configured to use the docker network to reach this Jadawel service.
@@ -16,6 +16,6 @@ services:
       JADAWEL_EXTRA_ALLOWED_HOSTS: "baserow"
       JADAWEL_PUBLIC_URL: http://example.localhost
     volumes:
-      - baserow_data:/baserow/data
+      - jadawel_data:/jadawel/data
 volumes:
-  baserow_data:
+  jadawel_data:

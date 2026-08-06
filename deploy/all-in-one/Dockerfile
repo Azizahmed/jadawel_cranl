@@ -19,11 +19,11 @@ ARG GID
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV DOCKER_USER=baserow_docker_user \
+ENV DOCKER_USER=jadawel_docker_user \
     POSTGRES_VERSION=15 \
     JADAWEL_IMAGE_TYPE="all-in-one" \
-    DATA_DIR=/baserow/data \
-    JADAWEL_PLUGIN_DIR=/baserow/data/plugins
+    DATA_DIR=/jadawel/data \
+    JADAWEL_PLUGIN_DIR=/jadawel/data/plugins
 
 # Runtime dependencies
 RUN apt-get update && \
@@ -46,8 +46,8 @@ RUN apt-get update && \
     && \
     # Setup user and group with fixed UID/GID for volume permission consistency
     getent group "$GID" || groupadd --system --gid "$GID" "${DOCKER_USER}" && \
-    useradd --shell /bin/bash -l -u "$UID" -g "$GID" -o -c "" -d /baserow -m "${DOCKER_USER}" && \
-    chmod 755 /baserow && \
+    useradd --shell /bin/bash -l -u "$UID" -g "$GID" -o -c "" -d /jadawel -m "${DOCKER_USER}" && \
+    chmod 755 /jadawel && \
     # Setup supervisor
     ln -sf /dev/stdout /var/log/supervisor/supervisord.log && \
     # Create data and plugin directories with correct ownership
@@ -66,12 +66,12 @@ RUN ln -s /opt/yarn-v1.22.22/bin/yarn /usr/local/bin/yarn
 COPY --from=backend_image /usr/local/bin/su-exec /usr/local/bin/su-exec
 
 ENV POSTGRES_LOCATION=/etc/postgresql/15/main \
-    UV_PROJECT_ENVIRONMENT=/baserow/venv \
-    UV_CACHE_DIR=/tmp/baserow_uv_cache \
+    UV_PROJECT_ENVIRONMENT=/jadawel/venv \
+    UV_CACHE_DIR=/tmp/jadawel_uv_cache \
     UV_VERBOSE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH="/baserow/venv/bin:$PATH" \
-    PYTHONPATH="/baserow/backend/src" \
+    PATH="/jadawel/venv/bin:$PATH" \
+    PYTHONPATH="/jadawel/backend/src" \
     DJANGO_SETTINGS_MODULE='jadawel.config.settings.base' \
     NODE_OPTIONS="--max-old-space-size=4096" \
     NODE_ENV=production
@@ -85,21 +85,21 @@ ARG UID
 ARG GID
 
 # Web-frontend
-COPY --chown=$UID:$GID --from=web_frontend_image /baserow/web-frontend /baserow/web-frontend
+COPY --chown=$UID:$GID --from=web_frontend_image /jadawel/web-frontend /jadawel/web-frontend
 
 # Backend
-COPY --chown=$UID:$GID --from=backend_image /baserow/backend /baserow/backend
-COPY --chown=$UID:$GID --from=backend_image /baserow/venv /baserow/venv
+COPY --chown=$UID:$GID --from=backend_image /jadawel/backend /jadawel/backend
+COPY --chown=$UID:$GID --from=backend_image /jadawel/venv /jadawel/venv
 
 # Configuration and startup scripts
 COPY ./backend/docker/mime.types /etc/
-COPY --chown=$UID:$GID Caddyfile /baserow/caddy/Caddyfile
-COPY --chown=$UID:$GID deploy/all-in-one/supervisor/ /baserow/supervisor
-COPY --chown=$UID:$GID deploy/all-in-one/baserow.sh /baserow.sh
-COPY --chown=$UID:$GID deploy/plugins/*.sh /baserow/plugins/
+COPY --chown=$UID:$GID Caddyfile /jadawel/caddy/Caddyfile
+COPY --chown=$UID:$GID deploy/all-in-one/supervisor/ /jadawel/supervisor
+COPY --chown=$UID:$GID deploy/all-in-one/jadawel.sh /jadawel.sh
+COPY --chown=$UID:$GID deploy/plugins/*.sh /jadawel/plugins/
 
-HEALTHCHECK --interval=60s CMD ["/bin/bash", "/baserow/backend/docker/docker-entrypoint.sh", "backend-healthcheck"]
-ENTRYPOINT ["/baserow.sh"]
+HEALTHCHECK --interval=60s CMD ["/bin/bash", "/jadawel/backend/docker/docker-entrypoint.sh", "backend-healthcheck"]
+ENTRYPOINT ["/jadawel.sh"]
 CMD ["start"]
 EXPOSE 80
 
@@ -131,20 +131,20 @@ RUN curl -fsSL https://packages.redis.io/gpg | gpg --batch --dearmor -o /usr/sha
     chown redis:redis /etc/redis/redis.conf
 
 # Web-frontend
-COPY --chown=$UID:$GID --from=web_frontend_image /baserow/web-frontend /baserow/web-frontend
+COPY --chown=$UID:$GID --from=web_frontend_image /jadawel/web-frontend /jadawel/web-frontend
 
 # Backend
-COPY --chown=$UID:$GID --from=backend_image /baserow/backend /baserow/backend
-COPY --chown=$UID:$GID --from=backend_image /baserow/venv /baserow/venv
+COPY --chown=$UID:$GID --from=backend_image /jadawel/backend /jadawel/backend
+COPY --chown=$UID:$GID --from=backend_image /jadawel/venv /jadawel/venv
 
 # Configuration and startup scripts
 COPY ./backend/docker/mime.types /etc/
-COPY --chown=$UID:$GID Caddyfile /baserow/caddy/Caddyfile
-COPY --chown=$UID:$GID deploy/all-in-one/supervisor/ /baserow/supervisor
-COPY --chown=$UID:$GID deploy/all-in-one/baserow.sh /baserow.sh
-COPY --chown=$UID:$GID deploy/plugins/*.sh /baserow/plugins/
+COPY --chown=$UID:$GID Caddyfile /jadawel/caddy/Caddyfile
+COPY --chown=$UID:$GID deploy/all-in-one/supervisor/ /jadawel/supervisor
+COPY --chown=$UID:$GID deploy/all-in-one/jadawel.sh /jadawel.sh
+COPY --chown=$UID:$GID deploy/plugins/*.sh /jadawel/plugins/
 
-HEALTHCHECK --interval=60s CMD ["/bin/bash", "/baserow/backend/docker/docker-entrypoint.sh", "backend-healthcheck"]
-ENTRYPOINT ["/baserow.sh"]
+HEALTHCHECK --interval=60s CMD ["/bin/bash", "/jadawel/backend/docker/docker-entrypoint.sh", "backend-healthcheck"]
+ENTRYPOINT ["/jadawel.sh"]
 CMD ["start"]
 EXPOSE 80

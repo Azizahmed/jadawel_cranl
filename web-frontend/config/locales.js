@@ -6,7 +6,7 @@
  * translations were removed deliberately: they were partial, unreviewed, and
  * carried the same machine-translation defects the Arabic pass had to correct.
  * Keep this list in sync with `LANGUAGES` in
- * `backend/src/baserow/config/settings/base.py` — the backend validates the
+ * `backend/src/jadawel/config/settings/base.py` — the backend validates the
  * user's language choice against that list.
  *
  * To add a language:

@@ -6,19 +6,19 @@ This chart can have dependencies on other charts, such as PostgreSQL, Redis, Min
 
 ## Installing the Chart
 
-To install the chart with the release name `my-baserow` run the following commands:
+To install the chart with the release name `my-jadawel` run the following commands:
 
 From repo
 ```bash
 helm repo add baserow-chart https://baserow.github.io/baserow-chart
-helm install my-baserow baserow-chart/baserow --namespace baserow --create-namespace --values config.yaml
+helm install my-jadawel jadawel-chart/jadawel --namespace jadawel --create-namespace --values config.yaml
 ```
 
 From source code
 ```bash
 helm dependency update
-helm install my-baserow . --namespace baserow --create-namespace
-helm upgrade my-baserow . --namespace baserow
+helm install my-jadawel . --namespace jadawel --create-namespace
+helm upgrade my-jadawel . --namespace jadawel
 ```
 
 ## Minimal configuration
@@ -27,10 +27,10 @@ Make the following changes to the values file to deploy the Jadawel application 
 
 ```yaml
 global:
-  baserow:
-    domain: "your-baserow-domain.com"
-    backendDomain: "api.your-baserow-domain.com"
-    objectsDomain: "objects.your-baserow-domain.com"
+  jadawel:
+    domain: "your-jadawel-domain.com"
+    backendDomain: "api.your-jadawel-domain.com"
+    objectsDomain: "objects.your-jadawel-domain.com"
 ```
 
 ## Using existing Postgres and Redis
@@ -48,12 +48,12 @@ postgresql:
 Add the following configuration to the backendSecrets to use an existing managed database and Redis cluster. 
 ```yaml
 backendSecrets:
-  DATABASE_HOST: "my-baserow-baserow-backend-postgresql"
+  DATABASE_HOST: "my-jadawel-jadawel-backend-postgresql"
   DATABASE_PORT: "5432"
-  DATABASE_NAME: "baserow"
-  DATABASE_USER: "baserow"
+  DATABASE_NAME: "jadawel"
+  DATABASE_USER: "jadawel"
   DATABASE_PASSWORD: "password"
-  REDIS_HOST: "my-baserow-baserow-backend-redis"
+  REDIS_HOST: "my-jadawel-jadawel-backend-redis"
   REDIS_PORT: "6379"
   REDIS_PASSWORD: "password"
 ```
@@ -79,7 +79,7 @@ caddy:
 For each Jadawel component, a HorizontalPodAutoscaler can be configured individually. The following example enables autoscaling on the wsgi backend deployment.
 
 ```yaml
-baserow-backend-wsgi:
+jadawel-backend-wsgi:
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -89,7 +89,7 @@ baserow-backend-wsgi:
 ```
 
 ```yaml
-      onDemandAsk: "http://my-baserow-baserow-backend-wsgi/api/builder/domains/ask-public-domain-exists/"
+      onDemandAsk: "http://my-jadawel-jadawel-backend-wsgi/api/builder/domains/ask-public-domain-exists/"
 ```
 
 ## AI and Embeddings Configuration
@@ -102,7 +102,7 @@ To enable the AI assistant, you need to configure the LLM model and provide the 
 
 ```yaml
 global:
-  baserow:
+  jadawel:
     assistantLLMModel: "groq/openai/gpt-oss-120b"
 
 backendSecrets:
@@ -118,7 +118,7 @@ The AI assistant uses the embeddings service and requires the LLM model to be co
 #### Basic Configuration
 
 ```yaml
-baserow-embeddings:
+jadawel-embeddings:
   enabled: true
 ```
 
@@ -136,10 +136,10 @@ minio:
   enabled: false
 
 backendConfigMap:
-  AWS_STORAGE_BUCKET_NAME: "my-baserow-baserow-backend-bucket"
-  AWS_S3_CUSTOM_DOMAIN: "my-baserow-baserow-backend-bucket"
+  AWS_STORAGE_BUCKET_NAME: "my-jadawel-jadawel-backend-bucket"
+  AWS_S3_CUSTOM_DOMAIN: "my-jadawel-jadawel-backend-bucket"
   AWS_S3_REGION_NAME: "us-east-1"
-  AWS_S3_ENDPOINT_URL: "https://s3.us-east-1.amazonaws.com/my-baserow-baserow-backend-bucket"
+  AWS_S3_ENDPOINT_URL: "https://s3.us-east-1.amazonaws.com/my-jadawel-jadawel-backend-bucket"
 ```
 
 #### AWS Authentication
@@ -155,11 +155,11 @@ When running on EKS you can also use a service account with an IAM role and perm
 
 ```yaml
 global:
-  baserow:
+  jadawel:
     serviceAccount:
       shared: true
       create: true
-      name: baserow
+      name: jadawel
       annotations: {}
 ```
 
@@ -230,38 +230,38 @@ caddy:
 
 | Name                                                               | Description                                                                             | Value                   |
 | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------- | ----------------------- |
-| `global.baserow.imageRegistry`                                     | Global Docker image registry                                                            | `baserow`               |
-| `global.baserow.imagePullSecrets`                                  | Global Docker registry secret names as an array                                         | `[]`                    |
-| `global.baserow.image.tag`                                         | Global Docker image tag                                                                 | `2.2.2`                |
-| `global.baserow.serviceAccount.shared`                             | Set to true to share the service account between all application components.            | `true`                  |
-| `global.baserow.serviceAccount.create`                             | Set to true to create a service account to share between all application components.    | `true`                  |
-| `global.baserow.serviceAccount.name`                               | Configure a name for service account to share between all application components.       | `baserow`               |
-| `global.baserow.serviceAccount.annotations`                        | Configure annotations for the shared service account.                                   | `{}`                    |
-| `global.baserow.serviceAccount.automountServiceAccountToken`       | Automount the service account token to the pods.                                        | `false`                 |
-| `global.baserow.backendConfigMap`                                  | Configure a name for the backend configmap.                                             | `backend-config`        |
-| `global.baserow.backendSecret`                                     | Configure a name for the backend secret.                                                | `backend-secret`        |
-| `global.baserow.frontendConfigMap`                                 | Configure a name for the frontend configmap.                                            | `frontend-config`       |
-| `global.baserow.sharedConfigMap`                                   | Configure a name for the shared configmap.                                              | `shared-config`         |
-| `global.baserow.envFrom`                                           | Configure secrets or configMaps to be used as environment variables for all components. | `[]`                    |
-| `global.baserow.domain`                                            | Configure the domain for the frontend application.                                      | `cluster.local`         |
-| `global.baserow.backendDomain`                                     | Configure the domain for the backend application.                                       | `api.cluster.local`     |
-| `global.baserow.objectsDomain`                                     | Configure the domain for the external facing minio api.                                 | `objects.cluster.local` |
-| `global.baserow.containerSecurityContext.enabled`                  | Enabled containers' Security Context                                                    | `false`                 |
-| `global.baserow.containerSecurityContext.seLinuxOptions`           | Set SELinux options in container                                                        | `{}`                    |
-| `global.baserow.containerSecurityContext.runAsUser`                | Set containers' Security Context runAsUser                                              | `""`                    |
-| `global.baserow.containerSecurityContext.runAsGroup`               | Set containers' Security Context runAsGroup                                             | `""`                    |
-| `global.baserow.containerSecurityContext.runAsNonRoot`             | Set container's Security Context runAsNonRoot                                           | `""`                    |
-| `global.baserow.containerSecurityContext.privileged`               | Set container's Security Context privileged                                             | `false`                 |
-| `global.baserow.containerSecurityContext.readOnlyRootFilesystem`   | Set container's Security Context readOnlyRootFilesystem                                 | `false`                 |
-| `global.baserow.containerSecurityContext.allowPrivilegeEscalation` | Set container's Security Context allowPrivilegeEscalation                               | `false`                 |
-| `global.baserow.containerSecurityContext.capabilities.drop`        | List of capabilities to be dropped                                                      | `[]`                    |
-| `global.baserow.containerSecurityContext.capabilities.add`         | List of capabilities to be added                                                        | `[]`                    |
-| `global.baserow.containerSecurityContext.seccompProfile.type`      | Set container's Security Context seccomp profile                                        | `""`                    |
-| `global.baserow.securityContext.enabled`                           | Enable security context                                                                 | `false`                 |
-| `global.baserow.securityContext.fsGroupChangePolicy`               | Set filesystem group change policy                                                      | `Always`                |
-| `global.baserow.securityContext.sysctls`                           | Set kernel settings using the sysctl interface                                          | `[]`                    |
-| `global.baserow.securityContext.supplementalGroups`                | Set filesystem extra groups                                                             | `[]`                    |
-| `global.baserow.securityContext.fsGroup`                           | Group ID for the pod                                                                    | `""`                    |
+| `global.jadawel.imageRegistry`                                     | Global Docker image registry                                                            | `jadawel`               |
+| `global.jadawel.imagePullSecrets`                                  | Global Docker registry secret names as an array                                         | `[]`                    |
+| `global.jadawel.image.tag`                                         | Global Docker image tag                                                                 | `2.2.2`                |
+| `global.jadawel.serviceAccount.shared`                             | Set to true to share the service account between all application components.            | `true`                  |
+| `global.jadawel.serviceAccount.create`                             | Set to true to create a service account to share between all application components.    | `true`                  |
+| `global.jadawel.serviceAccount.name`                               | Configure a name for service account to share between all application components.       | `jadawel`               |
+| `global.jadawel.serviceAccount.annotations`                        | Configure annotations for the shared service account.                                   | `{}`                    |
+| `global.jadawel.serviceAccount.automountServiceAccountToken`       | Automount the service account token to the pods.                                        | `false`                 |
+| `global.jadawel.backendConfigMap`                                  | Configure a name for the backend configmap.                                             | `backend-config`        |
+| `global.jadawel.backendSecret`                                     | Configure a name for the backend secret.                                                | `backend-secret`        |
+| `global.jadawel.frontendConfigMap`                                 | Configure a name for the frontend configmap.                                            | `frontend-config`       |
+| `global.jadawel.sharedConfigMap`                                   | Configure a name for the shared configmap.                                              | `shared-config`         |
+| `global.jadawel.envFrom`                                           | Configure secrets or configMaps to be used as environment variables for all components. | `[]`                    |
+| `global.jadawel.domain`                                            | Configure the domain for the frontend application.                                      | `cluster.local`         |
+| `global.jadawel.backendDomain`                                     | Configure the domain for the backend application.                                       | `api.cluster.local`     |
+| `global.jadawel.objectsDomain`                                     | Configure the domain for the external facing minio api.                                 | `objects.cluster.local` |
+| `global.jadawel.containerSecurityContext.enabled`                  | Enabled containers' Security Context                                                    | `false`                 |
+| `global.jadawel.containerSecurityContext.seLinuxOptions`           | Set SELinux options in container                                                        | `{}`                    |
+| `global.jadawel.containerSecurityContext.runAsUser`                | Set containers' Security Context runAsUser                                              | `""`                    |
+| `global.jadawel.containerSecurityContext.runAsGroup`               | Set containers' Security Context runAsGroup                                             | `""`                    |
+| `global.jadawel.containerSecurityContext.runAsNonRoot`             | Set container's Security Context runAsNonRoot                                           | `""`                    |
+| `global.jadawel.containerSecurityContext.privileged`               | Set container's Security Context privileged                                             | `false`                 |
+| `global.jadawel.containerSecurityContext.readOnlyRootFilesystem`   | Set container's Security Context readOnlyRootFilesystem                                 | `false`                 |
+| `global.jadawel.containerSecurityContext.allowPrivilegeEscalation` | Set container's Security Context allowPrivilegeEscalation                               | `false`                 |
+| `global.jadawel.containerSecurityContext.capabilities.drop`        | List of capabilities to be dropped                                                      | `[]`                    |
+| `global.jadawel.containerSecurityContext.capabilities.add`         | List of capabilities to be added                                                        | `[]`                    |
+| `global.jadawel.containerSecurityContext.seccompProfile.type`      | Set container's Security Context seccomp profile                                        | `""`                    |
+| `global.jadawel.securityContext.enabled`                           | Enable security context                                                                 | `false`                 |
+| `global.jadawel.securityContext.fsGroupChangePolicy`               | Set filesystem group change policy                                                      | `Always`                |
+| `global.jadawel.securityContext.sysctls`                           | Set kernel settings using the sysctl interface                                          | `[]`                    |
+| `global.jadawel.securityContext.supplementalGroups`                | Set filesystem extra groups                                                             | `[]`                    |
+| `global.jadawel.securityContext.fsGroup`                           | Group ID for the pod                                                                    | `""`                    |
 
 ### Jadawel Configuration
 
@@ -331,152 +331,152 @@ caddy:
 
 | Name                                                                 | Description                                                                                  | Value                                                                                   |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `baserow-backend-asgi.image.repository`                              | Docker image repository for the ASGI server.                                                 | `backend`                                                                               |
-| `baserow-backend-asgi.args`                                          | Arguments passed to the ASGI server.                                                         | `["gunicorn"]`                                                                          |
-| `baserow-backend-asgi.livenessProbe.exec.command`                    | The command used to check the liveness of the ASGI server.                                   | `["/bin/bash","-c","/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
-| `baserow-backend-asgi.livenessProbe.failureThreshold`                | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
-| `baserow-backend-asgi.livenessProbe.initialDelaySeconds`             | Delay before the liveness probe is initiated after the container starts.                     | `120`                                                                                   |
-| `baserow-backend-asgi.livenessProbe.periodSeconds`                   | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
-| `baserow-backend-asgi.livenessProbe.successThreshold`                | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
-| `baserow-backend-asgi.livenessProbe.timeoutSeconds`                  | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
-| `baserow-backend-asgi.readinessProbe.exec.command`                   | The command used to check the readiness of the ASGI server.                                  | `["/bin/bash","-c","/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
-| `baserow-backend-asgi.readinessProbe.failureThreshold`               | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
-| `baserow-backend-asgi.readinessProbe.initialDelaySeconds`            | Delay before the readiness probe is initiated after the container starts.                    | `120`                                                                                   |
-| `baserow-backend-asgi.readinessProbe.periodSeconds`                  | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
-| `baserow-backend-asgi.readinessProbe.successThreshold`               | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
-| `baserow-backend-asgi.readinessProbe.timeoutSeconds`                 | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
-| `baserow-backend-asgi.autoscaling.enabled`                           | Enable autoscaling                                                                           | `false`                                                                                 |
-| `baserow-backend-asgi.autoscaling.minReplicas`                       | Minimum number of replicas                                                                   | `2`                                                                                     |
-| `baserow-backend-asgi.autoscaling.maxReplicas`                       | Maximum number of replicas                                                                   | `10`                                                                                    |
-| `baserow-backend-asgi.autoscaling.targetCPUUtilizationPercentage`    | Target CPU utilization percentage for autoscaling                                            | `80`                                                                                    |
-| `baserow-backend-asgi.autoscaling.targetMemoryUtilizationPercentage` | Target memory utilization percentage for autoscaling                                         | `80`                                                                                    |
+| `jadawel-backend-asgi.image.repository`                              | Docker image repository for the ASGI server.                                                 | `backend`                                                                               |
+| `jadawel-backend-asgi.args`                                          | Arguments passed to the ASGI server.                                                         | `["gunicorn"]`                                                                          |
+| `jadawel-backend-asgi.livenessProbe.exec.command`                    | The command used to check the liveness of the ASGI server.                                   | `["/bin/bash","-c","/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
+| `jadawel-backend-asgi.livenessProbe.failureThreshold`                | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
+| `jadawel-backend-asgi.livenessProbe.initialDelaySeconds`             | Delay before the liveness probe is initiated after the container starts.                     | `120`                                                                                   |
+| `jadawel-backend-asgi.livenessProbe.periodSeconds`                   | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
+| `jadawel-backend-asgi.livenessProbe.successThreshold`                | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
+| `jadawel-backend-asgi.livenessProbe.timeoutSeconds`                  | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
+| `jadawel-backend-asgi.readinessProbe.exec.command`                   | The command used to check the readiness of the ASGI server.                                  | `["/bin/bash","-c","/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
+| `jadawel-backend-asgi.readinessProbe.failureThreshold`               | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
+| `jadawel-backend-asgi.readinessProbe.initialDelaySeconds`            | Delay before the readiness probe is initiated after the container starts.                    | `120`                                                                                   |
+| `jadawel-backend-asgi.readinessProbe.periodSeconds`                  | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
+| `jadawel-backend-asgi.readinessProbe.successThreshold`               | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
+| `jadawel-backend-asgi.readinessProbe.timeoutSeconds`                 | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
+| `jadawel-backend-asgi.autoscaling.enabled`                           | Enable autoscaling                                                                           | `false`                                                                                 |
+| `jadawel-backend-asgi.autoscaling.minReplicas`                       | Minimum number of replicas                                                                   | `2`                                                                                     |
+| `jadawel-backend-asgi.autoscaling.maxReplicas`                       | Maximum number of replicas                                                                   | `10`                                                                                    |
+| `jadawel-backend-asgi.autoscaling.targetCPUUtilizationPercentage`    | Target CPU utilization percentage for autoscaling                                            | `80`                                                                                    |
+| `jadawel-backend-asgi.autoscaling.targetMemoryUtilizationPercentage` | Target memory utilization percentage for autoscaling                                         | `80`                                                                                    |
 
 ### Jadawel Backend WSGI Configuration
 
 | Name                                                                 | Description                                                                                  | Value                                                                                   |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `baserow-backend-wsgi.image.repository`                              | Docker image repository for the WSGI server.                                                 | `backend`                                                                               |
-| `baserow-backend-wsgi.args`                                          | Arguments passed to the WSGI server.                                                         | `["gunicorn-wsgi","--timeout","120"]`                                                   |
-| `baserow-backend-wsgi.livenessProbe.exec.command`                    | The command used to check the liveness of the WSGI server.                                   | `["/bin/bash","-c","/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
-| `baserow-backend-wsgi.livenessProbe.failureThreshold`                | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
-| `baserow-backend-wsgi.livenessProbe.initialDelaySeconds`             | Delay before the liveness probe is initiated after the container starts.                     | `120`                                                                                   |
-| `baserow-backend-wsgi.livenessProbe.periodSeconds`                   | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
-| `baserow-backend-wsgi.livenessProbe.successThreshold`                | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
-| `baserow-backend-wsgi.livenessProbe.timeoutSeconds`                  | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
-| `baserow-backend-wsgi.readinessProbe.exec.command`                   | The command used to check the readiness of the wsgi server.                                  | `["/bin/bash","-c","/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
-| `baserow-backend-wsgi.readinessProbe.failureThreshold`               | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
-| `baserow-backend-wsgi.readinessProbe.initialDelaySeconds`            | Delay before the readiness probe is initiated after the container starts.                    | `120`                                                                                   |
-| `baserow-backend-wsgi.readinessProbe.periodSeconds`                  | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
-| `baserow-backend-wsgi.readinessProbe.successThreshold`               | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
-| `baserow-backend-wsgi.readinessProbe.timeoutSeconds`                 | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
-| `baserow-backend-wsgi.autoscaling.enabled`                           | Enable autoscaling                                                                           | `false`                                                                                 |
-| `baserow-backend-wsgi.autoscaling.minReplicas`                       | Minimum number of replicas                                                                   | `2`                                                                                     |
-| `baserow-backend-wsgi.autoscaling.maxReplicas`                       | Maximum number of replicas                                                                   | `10`                                                                                    |
-| `baserow-backend-wsgi.autoscaling.targetCPUUtilizationPercentage`    | Target CPU utilization percentage for autoscaling                                            | `80`                                                                                    |
-| `baserow-backend-wsgi.autoscaling.targetMemoryUtilizationPercentage` | Target memory utilization percentage for autoscaling                                         | `80`                                                                                    |
+| `jadawel-backend-wsgi.image.repository`                              | Docker image repository for the WSGI server.                                                 | `backend`                                                                               |
+| `jadawel-backend-wsgi.args`                                          | Arguments passed to the WSGI server.                                                         | `["gunicorn-wsgi","--timeout","120"]`                                                   |
+| `jadawel-backend-wsgi.livenessProbe.exec.command`                    | The command used to check the liveness of the WSGI server.                                   | `["/bin/bash","-c","/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
+| `jadawel-backend-wsgi.livenessProbe.failureThreshold`                | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
+| `jadawel-backend-wsgi.livenessProbe.initialDelaySeconds`             | Delay before the liveness probe is initiated after the container starts.                     | `120`                                                                                   |
+| `jadawel-backend-wsgi.livenessProbe.periodSeconds`                   | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
+| `jadawel-backend-wsgi.livenessProbe.successThreshold`                | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
+| `jadawel-backend-wsgi.livenessProbe.timeoutSeconds`                  | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
+| `jadawel-backend-wsgi.readinessProbe.exec.command`                   | The command used to check the readiness of the wsgi server.                                  | `["/bin/bash","-c","/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck"]` |
+| `jadawel-backend-wsgi.readinessProbe.failureThreshold`               | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                     |
+| `jadawel-backend-wsgi.readinessProbe.initialDelaySeconds`            | Delay before the readiness probe is initiated after the container starts.                    | `120`                                                                                   |
+| `jadawel-backend-wsgi.readinessProbe.periodSeconds`                  | How often (in seconds) to perform the probe.                                                 | `30`                                                                                    |
+| `jadawel-backend-wsgi.readinessProbe.successThreshold`               | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                     |
+| `jadawel-backend-wsgi.readinessProbe.timeoutSeconds`                 | Number of seconds after which the probe times out.                                           | `5`                                                                                     |
+| `jadawel-backend-wsgi.autoscaling.enabled`                           | Enable autoscaling                                                                           | `false`                                                                                 |
+| `jadawel-backend-wsgi.autoscaling.minReplicas`                       | Minimum number of replicas                                                                   | `2`                                                                                     |
+| `jadawel-backend-wsgi.autoscaling.maxReplicas`                       | Maximum number of replicas                                                                   | `10`                                                                                    |
+| `jadawel-backend-wsgi.autoscaling.targetCPUUtilizationPercentage`    | Target CPU utilization percentage for autoscaling                                            | `80`                                                                                    |
+| `jadawel-backend-wsgi.autoscaling.targetMemoryUtilizationPercentage` | Target memory utilization percentage for autoscaling                                         | `80`                                                                                    |
 
 ### Jadawel Web Frontend Configuration
 
 | Name                                                             | Description                                                                                  | Value          |
 | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------- |
-| `baserow-frontend.image.repository`                              | Docker image repository for the Web Frontend server.                                         | `web-frontend` |
-| `baserow-frontend.args`                                          | Arguments passed to the Web Frontend server.                                                 | `["nuxt"]`     |
-| `baserow-frontend.workingDir`                                    | Working Directory for the container.                                                         | `""`           |
-| `baserow-frontend.livenessProbe.httpGet.path`                    | The path to check for the liveness probe.                                                    | `/_health`     |
-| `baserow-frontend.livenessProbe.httpGet.port`                    | The port to check for the liveness probe.                                                    | `3000`         |
-| `baserow-frontend.livenessProbe.httpGet.scheme`                  | The scheme to use for the liveness probe.                                                    | `HTTP`         |
-| `baserow-frontend.livenessProbe.failureThreshold`                | Number of times the probe can fail before the container is restarted.                        | `3`            |
-| `baserow-frontend.livenessProbe.initialDelaySeconds`             | Delay before the liveness probe is initiated after the container starts.                     | `5`            |
-| `baserow-frontend.livenessProbe.periodSeconds`                   | How often (in seconds) to perform the probe.                                                 | `30`           |
-| `baserow-frontend.livenessProbe.successThreshold`                | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`            |
-| `baserow-frontend.livenessProbe.timeoutSeconds`                  | Number of seconds after which the probe times out.                                           | `5`            |
-| `baserow-frontend.readinessProbe.httpGet.path`                   | The path to check for the readiness probe.                                                   | `/_health`     |
-| `baserow-frontend.readinessProbe.httpGet.port`                   | The port to check for the readiness probe.                                                   | `3000`         |
-| `baserow-frontend.readinessProbe.httpGet.scheme`                 | The scheme to use for the readiness probe.                                                   | `HTTP`         |
-| `baserow-frontend.readinessProbe.failureThreshold`               | Number of times the probe can fail before the container is restarted.                        | `3`            |
-| `baserow-frontend.readinessProbe.initialDelaySeconds`            | Delay before the readiness probe is initiated after the container starts.                    | `5`            |
-| `baserow-frontend.readinessProbe.periodSeconds`                  | How often (in seconds) to perform the probe.                                                 | `30`           |
-| `baserow-frontend.readinessProbe.successThreshold`               | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`            |
-| `baserow-frontend.readinessProbe.timeoutSeconds`                 | Number of seconds after which the probe times out.                                           | `5`            |
-| `baserow-frontend.mountConfiguration.backend`                    | If enabled, all the backend service configurations and secrets will be mounted.              | `false`        |
-| `baserow-frontend.mountConfiguration.frontend`                   | If enabled, all the frontend service configurations and secrets will be mounted.             | `true`         |
-| `baserow-frontend.service.targetPort`                            | The port the Web Frontend server listens on.                                                 | `3000`         |
-| `baserow-frontend.autoscaling.enabled`                           | Enable autoscaling                                                                           | `false`        |
-| `baserow-frontend.autoscaling.minReplicas`                       | Minimum number of replicas                                                                   | `2`            |
-| `baserow-frontend.autoscaling.maxReplicas`                       | Maximum number of replicas                                                                   | `10`           |
-| `baserow-frontend.autoscaling.targetCPUUtilizationPercentage`    | Target CPU utilization percentage for autoscaling                                            | `80`           |
-| `baserow-frontend.autoscaling.targetMemoryUtilizationPercentage` | Target memory utilization percentage for autoscaling                                         | `80`           |
+| `jadawel-frontend.image.repository`                              | Docker image repository for the Web Frontend server.                                         | `web-frontend` |
+| `jadawel-frontend.args`                                          | Arguments passed to the Web Frontend server.                                                 | `["nuxt"]`     |
+| `jadawel-frontend.workingDir`                                    | Working Directory for the container.                                                         | `""`           |
+| `jadawel-frontend.livenessProbe.httpGet.path`                    | The path to check for the liveness probe.                                                    | `/_health`     |
+| `jadawel-frontend.livenessProbe.httpGet.port`                    | The port to check for the liveness probe.                                                    | `3000`         |
+| `jadawel-frontend.livenessProbe.httpGet.scheme`                  | The scheme to use for the liveness probe.                                                    | `HTTP`         |
+| `jadawel-frontend.livenessProbe.failureThreshold`                | Number of times the probe can fail before the container is restarted.                        | `3`            |
+| `jadawel-frontend.livenessProbe.initialDelaySeconds`             | Delay before the liveness probe is initiated after the container starts.                     | `5`            |
+| `jadawel-frontend.livenessProbe.periodSeconds`                   | How often (in seconds) to perform the probe.                                                 | `30`           |
+| `jadawel-frontend.livenessProbe.successThreshold`                | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`            |
+| `jadawel-frontend.livenessProbe.timeoutSeconds`                  | Number of seconds after which the probe times out.                                           | `5`            |
+| `jadawel-frontend.readinessProbe.httpGet.path`                   | The path to check for the readiness probe.                                                   | `/_health`     |
+| `jadawel-frontend.readinessProbe.httpGet.port`                   | The port to check for the readiness probe.                                                   | `3000`         |
+| `jadawel-frontend.readinessProbe.httpGet.scheme`                 | The scheme to use for the readiness probe.                                                   | `HTTP`         |
+| `jadawel-frontend.readinessProbe.failureThreshold`               | Number of times the probe can fail before the container is restarted.                        | `3`            |
+| `jadawel-frontend.readinessProbe.initialDelaySeconds`            | Delay before the readiness probe is initiated after the container starts.                    | `5`            |
+| `jadawel-frontend.readinessProbe.periodSeconds`                  | How often (in seconds) to perform the probe.                                                 | `30`           |
+| `jadawel-frontend.readinessProbe.successThreshold`               | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`            |
+| `jadawel-frontend.readinessProbe.timeoutSeconds`                 | Number of seconds after which the probe times out.                                           | `5`            |
+| `jadawel-frontend.mountConfiguration.backend`                    | If enabled, all the backend service configurations and secrets will be mounted.              | `false`        |
+| `jadawel-frontend.mountConfiguration.frontend`                   | If enabled, all the frontend service configurations and secrets will be mounted.             | `true`         |
+| `jadawel-frontend.service.targetPort`                            | The port the Web Frontend server listens on.                                                 | `3000`         |
+| `jadawel-frontend.autoscaling.enabled`                           | Enable autoscaling                                                                           | `false`        |
+| `jadawel-frontend.autoscaling.minReplicas`                       | Minimum number of replicas                                                                   | `2`            |
+| `jadawel-frontend.autoscaling.maxReplicas`                       | Maximum number of replicas                                                                   | `10`           |
+| `jadawel-frontend.autoscaling.targetCPUUtilizationPercentage`    | Target CPU utilization percentage for autoscaling                                            | `80`           |
+| `jadawel-frontend.autoscaling.targetMemoryUtilizationPercentage` | Target memory utilization percentage for autoscaling                                         | `80`           |
 
 ### Jadawel Celery beat Configuration
 
 | Name                                          | Description                                                            | Value             |
 | --------------------------------------------- | ---------------------------------------------------------------------- | ----------------- |
-| `baserow-celery-beat-worker.image.repository` | Docker image repository for the Celery beat worker.                    | `backend`         |
-| `baserow-celery-beat-worker.args`             | Arguments passed to the Celery beat worker.                            | `["celery-beat"]` |
-| `baserow-celery-beat-worker.replicaCount`     | Number of replicas for the Celery beat worker.                         | `1`               |
-| `baserow-celery-beat-worker.service.create`   | Set to false to disable creating a service for the Celery beat worker. | `false`           |
+| `jadawel-celery-beat-worker.image.repository` | Docker image repository for the Celery beat worker.                    | `backend`         |
+| `jadawel-celery-beat-worker.args`             | Arguments passed to the Celery beat worker.                            | `["celery-beat"]` |
+| `jadawel-celery-beat-worker.replicaCount`     | Number of replicas for the Celery beat worker.                         | `1`               |
+| `jadawel-celery-beat-worker.service.create`   | Set to false to disable creating a service for the Celery beat worker. | `false`           |
 
 ### Jadawel Celery export worker Configuration
 
 | Name                                            | Description                                                            | Value                     |
 | ----------------------------------------------- | ---------------------------------------------------------------------- | ------------------------- |
-| `baserow-celery-export-worker.image.repository` | Docker image repository for the Celery export worker.                  | `backend`                 |
-| `baserow-celery-export-worker.args`             | Arguments passed to the Celery export worker.                          | `["celery-exportworker"]` |
-| `baserow-celery-export-worker.replicaCount`     | Number of replicas for the Celery export worker.                       | `1`                       |
-| `baserow-celery-export-worker.service.create`   | Set to false to disable creating a service for the Celery beat worker. | `false`                   |
+| `jadawel-celery-export-worker.image.repository` | Docker image repository for the Celery export worker.                  | `backend`                 |
+| `jadawel-celery-export-worker.args`             | Arguments passed to the Celery export worker.                          | `["celery-exportworker"]` |
+| `jadawel-celery-export-worker.replicaCount`     | Number of replicas for the Celery export worker.                       | `1`                       |
+| `jadawel-celery-export-worker.service.create`   | Set to false to disable creating a service for the Celery beat worker. | `false`                   |
 
 ### Jadawel Celery worker Configuration
 
 | Name                                                       | Description                                                                                  | Value                                                                                         |
 | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `baserow-celery-worker.image.repository`                   | Docker image repository for the Celery worker.                                               | `backend`                                                                                     |
-| `baserow-celery-worker.args`                               | Arguments passed to the Celery worker.                                                       | `["celery-worker"]`                                                                           |
-| `baserow-celery-worker.replicaCount`                       | Number of replicas for the Celery worker.                                                    | `1`                                                                                           |
-| `baserow-celery-worker.service.create`                     | Set to false to disable creating a service for the Celery beat worker.                       | `false`                                                                                       |
-| `baserow-celery-worker.livenessProbe.exec.command`         | The command used to check the liveness of the WSGI server.                                   | `["/bin/bash","-c","/baserow/backend/docker/docker-entrypoint.sh celery-worker-healthcheck"]` |
-| `baserow-celery-worker.livenessProbe.failureThreshold`     | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                           |
-| `baserow-celery-worker.livenessProbe.initialDelaySeconds`  | Delay before the liveness probe is initiated after the container starts.                     | `10`                                                                                          |
-| `baserow-celery-worker.livenessProbe.periodSeconds`        | How often (in seconds) to perform the probe.                                                 | `30`                                                                                          |
-| `baserow-celery-worker.livenessProbe.successThreshold`     | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                           |
-| `baserow-celery-worker.livenessProbe.timeoutSeconds`       | Number of seconds after which the probe times out.                                           | `10`                                                                                          |
-| `baserow-celery-worker.readinessProbe.exec.command`        | The command used to check the readiness of the wsgi server.                                  | `["/bin/bash","-c","/baserow/backend/docker/docker-entrypoint.sh celery-worker-healthcheck"]` |
-| `baserow-celery-worker.readinessProbe.failureThreshold`    | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                           |
-| `baserow-celery-worker.readinessProbe.initialDelaySeconds` | Delay before the readiness probe is initiated after the container starts.                    | `10`                                                                                          |
-| `baserow-celery-worker.readinessProbe.periodSeconds`       | How often (in seconds) to perform the probe.                                                 | `30`                                                                                          |
-| `baserow-celery-worker.readinessProbe.successThreshold`    | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                           |
-| `baserow-celery-worker.readinessProbe.timeoutSeconds`      | Number of seconds after which the probe times out.                                           | `10`                                                                                          |
+| `jadawel-celery-worker.image.repository`                   | Docker image repository for the Celery worker.                                               | `backend`                                                                                     |
+| `jadawel-celery-worker.args`                               | Arguments passed to the Celery worker.                                                       | `["celery-worker"]`                                                                           |
+| `jadawel-celery-worker.replicaCount`                       | Number of replicas for the Celery worker.                                                    | `1`                                                                                           |
+| `jadawel-celery-worker.service.create`                     | Set to false to disable creating a service for the Celery beat worker.                       | `false`                                                                                       |
+| `jadawel-celery-worker.livenessProbe.exec.command`         | The command used to check the liveness of the WSGI server.                                   | `["/bin/bash","-c","/jadawel/backend/docker/docker-entrypoint.sh celery-worker-healthcheck"]` |
+| `jadawel-celery-worker.livenessProbe.failureThreshold`     | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                           |
+| `jadawel-celery-worker.livenessProbe.initialDelaySeconds`  | Delay before the liveness probe is initiated after the container starts.                     | `10`                                                                                          |
+| `jadawel-celery-worker.livenessProbe.periodSeconds`        | How often (in seconds) to perform the probe.                                                 | `30`                                                                                          |
+| `jadawel-celery-worker.livenessProbe.successThreshold`     | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                           |
+| `jadawel-celery-worker.livenessProbe.timeoutSeconds`       | Number of seconds after which the probe times out.                                           | `10`                                                                                          |
+| `jadawel-celery-worker.readinessProbe.exec.command`        | The command used to check the readiness of the wsgi server.                                  | `["/bin/bash","-c","/jadawel/backend/docker/docker-entrypoint.sh celery-worker-healthcheck"]` |
+| `jadawel-celery-worker.readinessProbe.failureThreshold`    | Number of times the probe can fail before the container is restarted.                        | `3`                                                                                           |
+| `jadawel-celery-worker.readinessProbe.initialDelaySeconds` | Delay before the readiness probe is initiated after the container starts.                    | `10`                                                                                          |
+| `jadawel-celery-worker.readinessProbe.periodSeconds`       | How often (in seconds) to perform the probe.                                                 | `30`                                                                                          |
+| `jadawel-celery-worker.readinessProbe.successThreshold`    | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                                                           |
+| `jadawel-celery-worker.readinessProbe.timeoutSeconds`      | Number of seconds after which the probe times out.                                           | `10`                                                                                          |
 
 ### Jadawel Celery Flower Configuration
 
 | Name                                     | Description                                                    | Value               |
 | ---------------------------------------- | -------------------------------------------------------------- | ------------------- |
-| `baserow-celery-flower.enabled`          | Set to true to enable the Celery Flower monitoring tool.       | `false`             |
-| `baserow-celery-flower.image.repository` | Docker image repository for the Celery Flower monitoring tool. | `backend`           |
-| `baserow-celery-flower.args`             | Arguments passed to the Celery Flower monitoring tool.         | `["celery-flower"]` |
-| `baserow-celery-flower.replicaCount`     | Number of replicas for the Celery Flower monitoring tool.      | `1`                 |
+| `jadawel-celery-flower.enabled`          | Set to true to enable the Celery Flower monitoring tool.       | `false`             |
+| `jadawel-celery-flower.image.repository` | Docker image repository for the Celery Flower monitoring tool. | `backend`           |
+| `jadawel-celery-flower.args`             | Arguments passed to the Celery Flower monitoring tool.         | `["celery-flower"]` |
+| `jadawel-celery-flower.replicaCount`     | Number of replicas for the Celery Flower monitoring tool.      | `1`                 |
 
 ### Jadawel Embeddings Configuration
 
 | Name                                                            | Description                                                     | Value                      |
 | --------------------------------------------------------------- | --------------------------------------------------------------- | -------------------------- |
-| `baserow-embeddings.enabled`                                    | Set to true to enable the Jadawel Embeddings service.           | `false`                    |
-| `baserow-embeddings.assistantLLMModel`                          | The LLM model to use for the Embeddings service.                | `groq/openai/gpt-oss-120b` |
-| `baserow-embeddings.image.repository`                           | Docker image repository for the Embeddings service.             | `embeddings`               |
-| `baserow-embeddings.resources`                                  | Resource requests and limits for the Embeddings service.        |                            |
-| `baserow-embeddings.autoscaling.enabled`                        | Enable autoscaling for the Embeddings service.                  | `false`                    |
-| `baserow-embeddings.autoscaling.minReplicas`                    | Minimum number of replicas for autoscaling.                     | `1`                        |
-| `baserow-embeddings.autoscaling.maxReplicas`                    | Maximum number of replicas for autoscaling.                     | `3`                        |
-| `baserow-embeddings.autoscaling.targetCPUUtilizationPercentage` | Target CPU utilization percentage for autoscaling.              | `80`                       |
-| `baserow-embeddings.service.port`                               | Service port for the Embeddings service.                        | `80`                       |
-| `baserow-embeddings.service.targetPort`                         | Target port for the Embeddings service.                         | `80`                       |
-| `baserow-embeddings.readinessProbe.initialDelaySeconds`         | Initial delay for readiness probe.                              | `10`                       |
-| `baserow-embeddings.readinessProbe.periodSeconds`               | Period for readiness probe.                                     | `10`                       |
-| `baserow-embeddings.readinessProbe.timeoutSeconds`              | Timeout for readiness probe.                                    | `5`                        |
-| `baserow-embeddings.livenessProbe.initialDelaySeconds`          | Initial delay for liveness probe.                               | `10`                       |
-| `baserow-embeddings.livenessProbe.periodSeconds`                | Period for liveness probe.                                      | `10`                       |
-| `baserow-embeddings.livenessProbe.timeoutSeconds`               | Timeout for liveness probe.                                     | `5`                        |
-| `baserow-embeddings.pdb.create`                                 | Enable/disable a Pod Disruption Budget creation.                | `false`                    |
-| `baserow-embeddings.pdb.minAvailable`                           | Minimum number/percentage of pods that should remain scheduled. | `75%`                      |
+| `jadawel-embeddings.enabled`                                    | Set to true to enable the Jadawel Embeddings service.           | `false`                    |
+| `jadawel-embeddings.assistantLLMModel`                          | The LLM model to use for the Embeddings service.                | `groq/openai/gpt-oss-120b` |
+| `jadawel-embeddings.image.repository`                           | Docker image repository for the Embeddings service.             | `embeddings`               |
+| `jadawel-embeddings.resources`                                  | Resource requests and limits for the Embeddings service.        |                            |
+| `jadawel-embeddings.autoscaling.enabled`                        | Enable autoscaling for the Embeddings service.                  | `false`                    |
+| `jadawel-embeddings.autoscaling.minReplicas`                    | Minimum number of replicas for autoscaling.                     | `1`                        |
+| `jadawel-embeddings.autoscaling.maxReplicas`                    | Maximum number of replicas for autoscaling.                     | `3`                        |
+| `jadawel-embeddings.autoscaling.targetCPUUtilizationPercentage` | Target CPU utilization percentage for autoscaling.              | `80`                       |
+| `jadawel-embeddings.service.port`                               | Service port for the Embeddings service.                        | `80`                       |
+| `jadawel-embeddings.service.targetPort`                         | Target port for the Embeddings service.                         | `80`                       |
+| `jadawel-embeddings.readinessProbe.initialDelaySeconds`         | Initial delay for readiness probe.                              | `10`                       |
+| `jadawel-embeddings.readinessProbe.periodSeconds`               | Period for readiness probe.                                     | `10`                       |
+| `jadawel-embeddings.readinessProbe.timeoutSeconds`              | Timeout for readiness probe.                                    | `5`                        |
+| `jadawel-embeddings.livenessProbe.initialDelaySeconds`          | Initial delay for liveness probe.                               | `10`                       |
+| `jadawel-embeddings.livenessProbe.periodSeconds`                | Period for liveness probe.                                      | `10`                       |
+| `jadawel-embeddings.livenessProbe.timeoutSeconds`               | Timeout for liveness probe.                                     | `5`                        |
+| `jadawel-embeddings.pdb.create`                                 | Enable/disable a Pod Disruption Budget creation.                | `false`                    |
+| `jadawel-embeddings.pdb.minAvailable`                           | Minimum number/percentage of pods that should remain scheduled. | `75%`                      |
 
 ### Ingress Configuration
 
@@ -493,7 +493,7 @@ caddy:
 | `redis.enabled`             | Enable the Redis database                                       | `true`       |
 | `redis.architecture`        | The Redis architecture                                          | `standalone` |
 | `redis.auth.enabled`        | Enable Redis authentication                                     | `true`       |
-| `redis.auth.password`       | The password for the Redis database                             | `baserow`    |
+| `redis.auth.password`       | The password for the Redis database                             | `jadawel`    |
 | `redis.auth.existingSecret` | The name of an existing secret containing the database password | `""`         |
 
 ### PostgreSQL Configuration
@@ -501,10 +501,10 @@ caddy:
 | Name                             | Description                                                     | Value     |
 | -------------------------------- | --------------------------------------------------------------- | --------- |
 | `postgresql.enabled`             | Enable the PostgreSQL database                                  | `true`    |
-| `postgresql.auth.database`       | The name of the database                                        | `baserow` |
+| `postgresql.auth.database`       | The name of the database                                        | `jadawel` |
 | `postgresql.auth.existingSecret` | The name of an existing secret containing the database password | `""`      |
-| `postgresql.auth.password`       | The password for the database                                   | `baserow` |
-| `postgresql.auth.username`       | The username for the database                                   | `baserow` |
+| `postgresql.auth.password`       | The password for the database                                   | `jadawel` |
+| `postgresql.auth.username`       | The username for the database                                   | `jadawel` |
 
 ### Minio Configuration
 
@@ -514,8 +514,8 @@ caddy:
 | `minio.networkPolicy.enabled`        | Enable the Minio network policy                  | `false`                                          |
 | `minio.disableWebUI`                 | Disable the Minio web UI                         | `true`                                           |
 | `minio.provisioning.enabled`         | Enable the Minio provisioning service            | `true`                                           |
-| `minio.provisioning.buckets[0].name` | Name of the bucket to create                     | `baserow`                                        |
-| `minio.provisioning.extraCommands`   | List of extra commands to run after provisioning | `mc anonymous set download provisioning/baserow` |
+| `minio.provisioning.buckets[0].name` | Name of the bucket to create                     | `jadawel`                                        |
+| `minio.provisioning.extraCommands`   | List of extra commands to run after provisioning | `mc anonymous set download provisioning/jadawel` |
 
 ### Caddy Configuration
 

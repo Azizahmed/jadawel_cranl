@@ -22,7 +22,7 @@ services:
       - $PWD/Caddyfile.dev:/etc/caddy/Caddyfile
 
   backend:
-    image: baserow_backend:dev
+    image: jadawel_backend:dev
     environment:
       - JADAWEL_BACKEND_DEBUGGER_ENABLED
       - JADAWEL_BACKEND_DEBUGGER_PORT=${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}
@@ -42,10 +42,10 @@ services:
       - "${HOST_PUBLISH_IP:-127.0.0.1}:8000:8000"
       - "${HOST_PUBLISH_IP:-127.0.0.1}:${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}:${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}"
     volumes:
-      - ./docs:/baserow/docs
-      - ./backend:/baserow/backend
-      - ./deploy/plugins/:/baserow/plugins/
-      - ./tests:/baserow/tests
+      - ./docs:/jadawel/docs
+      - ./backend:/jadawel/backend
+      - ./deploy/plugins/:/jadawel/plugins/
+      - ./tests:/jadawel/tests
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
@@ -53,7 +53,7 @@ services:
       - otel-collector
 
   web-frontend:
-    image: baserow_web-frontend:dev
+    image: jadawel_web-frontend:dev
     build:
       dockerfile: ./web-frontend/Dockerfile
       context: .
@@ -67,20 +67,20 @@ services:
     ports:
       - "${HOST_PUBLISH_IP:-127.0.0.1}:3000:3000"
     volumes:
-      - ./web-frontend:/baserow/web-frontend
-      - ./tests/:/baserow/tests
-      - ./deploy/plugins:/baserow/plugins
+      - ./web-frontend:/jadawel/web-frontend
+      - ./tests/:/jadawel/tests
+      - ./deploy/plugins:/jadawel/plugins
       # dev volumes to avoid polluting your local filesystem with build files or
       # overwriting existing node_modules.
-      - node_modules:/baserow/web-frontend/node_modules
-      - nuxt:/baserow/web-frontend/.nuxt/
-      - cache:/baserow/web-frontend/.cache/
+      - node_modules:/jadawel/web-frontend/node_modules
+      - nuxt:/jadawel/web-frontend/.nuxt/
+      - cache:/jadawel/web-frontend/.cache/
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
 
   storybook:
-    image: baserow_web-frontend:dev
+    image: jadawel_web-frontend:dev
     profiles: ["optional"]
     build:
       dockerfile: ./web-frontend/Dockerfile
@@ -95,12 +95,12 @@ services:
     ports:
       - "${HOST_PUBLISH_IP:-127.0.0.1}:6006:6006"
     volumes:
-      - ./web-frontend:/baserow/web-frontend
-      - ./tests/:/baserow/tests
-      - ./deploy/plugins:/baserow/plugins
+      - ./web-frontend:/jadawel/web-frontend
+      - ./tests/:/jadawel/tests
+      - ./deploy/plugins:/jadawel/plugins
       # dev volumes to avoid polluting your local filesystem with build files or
       # overwriting existing node_modules.
-      - node_modules:/baserow/web-frontend/node_modules
+      - node_modules:/jadawel/web-frontend/node_modules
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
@@ -112,16 +112,16 @@ services:
       start_period: 30s
 
   celery:
-    image: baserow_backend:dev
+    image: jadawel_backend:dev
     user: "${UID}:${GID}"
     command: "watch-py celery-worker"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
     volumes:
-      - ./docs:/baserow/docs
-      - ./backend:/baserow/backend
-      - ./deploy/plugins:/baserow/plugins
+      - ./docs:/jadawel/docs
+      - ./backend:/jadawel/backend
+      - ./deploy/plugins:/jadawel/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
@@ -129,16 +129,16 @@ services:
       - otel-collector
 
   celery-export-worker:
-    image: baserow_backend:dev
+    image: jadawel_backend:dev
     user: "${UID}:${GID}"
     command: "watch-py celery-exportworker"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
     volumes:
-      - ./docs:/baserow/docs
-      - ./backend:/baserow/backend
-      - ./deploy/plugins:/baserow/plugins
+      - ./docs:/jadawel/docs
+      - ./backend:/jadawel/backend
+      - ./deploy/plugins:/jadawel/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
@@ -146,20 +146,20 @@ services:
       - otel-collector
 
   celery-beat-worker:
-    image: baserow_backend:dev
+    image: jadawel_backend:dev
     user: "${UID}:${GID}"
     command: "watch-py celery-beat"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
     volumes:
-      - ./backend:/baserow/backend
-      - ./deploy/plugins:/baserow/plugins
+      - ./backend:/jadawel/backend
+      - ./deploy/plugins:/jadawel/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
 
   celery-flower:
-    image: baserow_backend:dev
+    image: jadawel_backend:dev
     user: "${UID}:${GID}"
     profiles: ["optional"]
     restart: unless-stopped
@@ -180,9 +180,9 @@ services:
       REDIS_USER:
       REDIS_PASSWORD: ${REDIS_PASSWORD:?}
     volumes:
-      - ./backend:/baserow/backend
-      - ./deploy/plugins:/baserow/plugins
-      - media:/baserow/media
+      - ./backend:/jadawel/backend
+      - ./deploy/plugins:/jadawel/plugins
+      - media:/jadawel/media
     ports:
       - "5555:5555" # web ui
     networks:
@@ -192,17 +192,17 @@ services:
     tty: true
 
   mjml-email-compiler:
-    image: baserow_web-frontend:dev
+    image: jadawel_web-frontend:dev
     depends_on:
       - web-frontend
     user: "${UID}:${GID}"
-    command: "bash -c 'cd /baserow/backend/email_compiler/ && yarn install && yarn run watch'"
+    command: "bash -c 'cd /jadawel/backend/email_compiler/ && yarn install && yarn run watch'"
     healthcheck:
       disable: true
     volumes:
-      - ./backend:/baserow/backend
-      - ./web-frontend/docker:/baserow/web-frontend/docker
-      - ./deploy/plugins:/baserow/plugins
+      - ./backend:/jadawel/backend
+      - ./web-frontend/docker:/jadawel/web-frontend/docker
+      - ./deploy/plugins:/jadawel/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
     tty: true
@@ -222,9 +222,9 @@ services:
   # environment here.
   volume-permissions-fixer:
     image: bash:4.4
-    command: chown ${UID:-9999}:${GID:-9999}  -R /baserow/media
+    command: chown ${UID:-9999}:${GID:-9999}  -R /jadawel/media
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
       - caddy_config:/config
       - caddy_data:/data
     networks:

@@ -15,10 +15,10 @@ sed 's/^\$ //' | # Get rid of the bash command $ prefixes
 sed 's/^sudo passwd baserow/echo -e "yourpassword\nyourpassword" | sudo passwd baserow/' | # Enter a password non interactively
 sed "s/git clone --branch master.*/cp -r \/local_baserow_repo baserow/" | # Copy your local repo over instead of checking out master
 sed 's/https:\\\/\\\/api.domain.com/http:\\\/\\\/api.baserow.vagrant.test/g' | # Fixup the sed commands for the URL env vars
-sed 's/https:\\\/\\\/baserow.domain.com/http:\\\/\\\/baserow.vagrant.test/g' |
+sed 's/https:\\\/\\\/jadawel.domain.com/http:\\\/\\\/jadawel.vagrant.test/g' |
 sed 's/https:\\\/\\\/media.domain.com/http:\\\/\\\/media.baserow.vagrant.test/g' |
 sed 's/api.domain.com/api.baserow.vagrant.test/g' | # Fixup the sed commands for the nginx config
-sed 's/baserow.domain.com/baserow.vagrant.test/g' |
+sed 's/jadawel.domain.com/jadawel.vagrant.test/g' |
 sed 's/media.domain.com/media.baserow.vagrant.test/g' > install-on-ubuntu.sh
 
 # Prepend with some bash settings so we can see the output and it will fail if something

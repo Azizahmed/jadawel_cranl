@@ -34,7 +34,7 @@ Not verified:
 - ESLint could not be run locally (it needs a generated `.nuxt/eslint.config.mjs`);
   prettier and stylelint were run in its place. The production build in the
   publish workflow is the backstop that compiles every template.
-- The five failures in `tests/baserow/contrib/dashboard/api/` are **pre-existing**
+- The five failures in `tests/jadawel/contrib/dashboard/api/` are **pre-existing**
   — confirmed by running them at the parent commit. They assert English DRF error
   strings that come back in Arabic because the fork defaults `LANGUAGE_CODE` to
   `ar`.
@@ -103,7 +103,7 @@ how Jadawel is actually used (Arabic-first business dashboards):
 
 | Piece | Where | State |
 |---|---|---|
-| Polymorphic `Widget` base + registry | `backend/src/baserow/contrib/dashboard/widgets/models.py`, `registries.py` | Open registry; `SummaryWidget` is the only registration (`contrib/dashboard/apps.py:72`) |
+| Polymorphic `Widget` base + registry | `backend/src/jadawel/contrib/dashboard/widgets/models.py`, `registries.py` | Open registry; `SummaryWidget` is the only registration (`contrib/dashboard/apps.py:72`) |
 | Widget CRUD API | `contrib/dashboard/api/widgets/` | Registry-driven, polymorphic — new types need **no new endpoints** |
 | Data sources + dispatch | `contrib/dashboard/data_sources/`, frontend `store/dashboardApplication.js` (`dispatchDataSource`) | Generic; any service type wrapped in a data source flows through it |
 | Aggregation service | `LocalBaserowAggregateRowsUserServiceType` (`contrib/integrations/local_baserow/service_types.py:1184`) | Single value, **no grouping** — fine for Summary/Progress, insufficient for charts |

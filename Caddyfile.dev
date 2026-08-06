@@ -21,7 +21,7 @@
     	}
 
 		file_server {
-			root {$MEDIA_ROOT:/baserow/media/}
+			root {$MEDIA_ROOT:/jadawel/media/}
 		}
 	}
 }

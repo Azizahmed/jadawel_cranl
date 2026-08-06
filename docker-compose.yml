@@ -282,7 +282,7 @@ services:
     expose:
       - "80"
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
       - caddy_config:/config
       - caddy_data:/data
     labels:
@@ -341,7 +341,7 @@ services:
       - db
       - redis
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     networks:
       local:
 
@@ -418,13 +418,13 @@ services:
       test:
         [
           "CMD-SHELL",
-          "/baserow/backend/docker/docker-entrypoint.sh celery-worker-healthcheck",
+          "/jadawel/backend/docker/docker-entrypoint.sh celery-worker-healthcheck",
         ]
     depends_on:
       - db
       - redis
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     networks:
       local:
 
@@ -440,13 +440,13 @@ services:
       test:
         [
           "CMD-SHELL",
-          "/baserow/backend/docker/docker-entrypoint.sh celery-exportworker-healthcheck",
+          "/jadawel/backend/docker/docker-entrypoint.sh celery-exportworker-healthcheck",
         ]
     depends_on:
       - db
       - redis
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     networks:
       local:
 
@@ -458,7 +458,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "/baserow/backend/docker/docker-entrypoint.sh celery-beat-healthcheck",
+          "/jadawel/backend/docker/docker-entrypoint.sh celery-beat-healthcheck",
         ]
       interval: 30s
       timeout: 10s
@@ -471,7 +471,7 @@ services:
       - db
       - redis
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     networks:
       local:
 
@@ -514,9 +514,9 @@ services:
   volume-permissions-fixer:
     image: bash:4.4
     restart: unless-stopped
-    command: sh -c "chown 9999:9999 -R /baserow/media && exec sleep infinity"
+    command: sh -c "chown 9999:9999 -R /jadawel/media && exec sleep infinity"
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     networks:
       local:
 

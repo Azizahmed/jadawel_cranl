@@ -452,7 +452,7 @@ set +x
 if [ "$dont_attach" != true ] && [ "$up" = true ] ; then
 
   if [ "$all_in_one" = true ]; then
-    launch_tab_and_attach "baserow_all_in_one" "baserow_all_in_one"
+    launch_tab_and_attach "jadawel_all_in_one" "jadawel_all_in_one"
     launch_tab_and_attach "mailhog" "mailhog"
   fi
 
@@ -460,10 +460,10 @@ if [ "$dont_attach" != true ] && [ "$up" = true ] ; then
     launch_tab_and_attach "baserow_all_in_one_dev" "baserow_all_in_one_dev"
     launch_tab_and_exec "web frontend lint" \
             "baserow_all_in_one_dev" \
-            "/bin/bash /baserow.sh web-frontend-cmd lint-fix"
+            "/bin/bash /jadawel.sh web-frontend-cmd lint-fix"
     launch_tab_and_exec "backend lint" \
             "baserow_all_in_one_dev" \
-            "/bin/bash /baserow.sh backend-cmd lint-shell"
+            "/bin/bash /jadawel.sh backend-cmd lint-shell"
     launch_tab_and_attach "mailhog" "mailhog"
   fi
 
@@ -494,10 +494,10 @@ if [ "$dont_attach" != true ] && [ "$up" = true ] ; then
     if [ "$dev" = true ] ; then
       launch_tab_and_exec "web frontend lint" \
               "web-frontend" \
-              "/bin/bash /baserow/web-frontend/docker/docker-entrypoint.sh lint-fix"
+              "/bin/bash /jadawel/web-frontend/docker/docker-entrypoint.sh lint-fix"
       launch_tab_and_exec "backend lint" \
               "backend" \
-              "/bin/bash /baserow/backend/docker/docker-entrypoint.sh lint-shell"
+              "/bin/bash /jadawel/backend/docker/docker-entrypoint.sh lint-shell"
       if [ "$e2e_tests" = true ]; then
         launch_e2e_tab
       fi

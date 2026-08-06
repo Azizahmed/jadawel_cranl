@@ -8,51 +8,51 @@ home: https://github.com/Azizahmed/Jadawel/tree/main/deploy/helm/jadawel
 sources:
   - https://github.com/Azizahmed/Jadawel
 
-# NOTE: the `baserow` subchart name and the `baserow-*` aliases below are load-bearing.
-# The name must match `charts/baserow-common/Chart.yaml`, the aliases are the value keys
+# NOTE: the `jadawel` subchart name and the `jadawel-*` aliases below are load-bearing.
+# The name must match `charts/jadawel-common/Chart.yaml`, the aliases are the value keys
 # used throughout values.yaml and the templates, and both are pinned in Chart.lock.
 dependencies:
-  - name: baserow
-    alias: baserow-backend-asgi
+  - name: jadawel
+    alias: jadawel-backend-asgi
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
+    repository: "file://charts/jadawel-common"
 
-  - name: baserow
-    alias: baserow-backend-wsgi
+  - name: jadawel
+    alias: jadawel-backend-wsgi
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
+    repository: "file://charts/jadawel-common"
 
-  - name: baserow
-    alias: baserow-frontend
+  - name: jadawel
+    alias: jadawel-frontend
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
+    repository: "file://charts/jadawel-common"
 
-  - name: baserow
-    alias: baserow-celery-beat-worker
+  - name: jadawel
+    alias: jadawel-celery-beat-worker
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
+    repository: "file://charts/jadawel-common"
 
-  - name: baserow
-    alias: baserow-celery-export-worker
+  - name: jadawel
+    alias: jadawel-celery-export-worker
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
+    repository: "file://charts/jadawel-common"
 
-  - name: baserow
-    alias: baserow-celery-worker
+  - name: jadawel
+    alias: jadawel-celery-worker
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
+    repository: "file://charts/jadawel-common"
 
-  - name: baserow
-    alias: baserow-celery-flower
+  - name: jadawel
+    alias: jadawel-celery-flower
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
-    condition: baserow-celery-flower.enabled
+    repository: "file://charts/jadawel-common"
+    condition: jadawel-celery-flower.enabled
 
-  - name: baserow
-    alias: baserow-embeddings
+  - name: jadawel
+    alias: jadawel-embeddings
     version: "1.0.52"
-    repository: "file://charts/baserow-common"
-    condition: baserow-embeddings.enabled
+    repository: "file://charts/jadawel-common"
+    condition: jadawel-embeddings.enabled
 
   - name: redis
     version: 19.5.x

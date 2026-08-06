@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "baserow.global.fullname" .}}-migrate
+  name: {{ include "jadawel.global.fullname" .}}-migrate
   namespace: {{ .Release.Namespace }}
   annotations:
     helm.sh/hook: post-install, pre-upgrade
@@ -10,12 +10,12 @@ metadata:
 spec:
   template:
     spec:
-      {{- if or .Values.global.baserow.securityContext.enabled .Values.migration.securityContext.enabled }}
+      {{- if or .Values.global.jadawel.securityContext.enabled .Values.migration.securityContext.enabled }}
       securityContext: {{- include "podSecurityContext" . | nindent 8 }}
       {{- end }}
       containers:
         - name: migrate
-          image: {{ include "baserow.global.migration.image" . }}
+          image: {{ include "jadawel.global.migration.image" . }}
           args: ["setup"]
           imagePullPolicy: Always
           {{- if .Values.migration.extraEnv }}
@@ -31,11 +31,11 @@ spec:
             {{- end }}
             {{- end }}
           {{- end }}
-          envFrom: {{ include "baserow.global.migration.envFrom" . | nindent 12 }}
+          envFrom: {{ include "jadawel.global.migration.envFrom" . | nindent 12 }}
           {{- if .Values.migration.priorityClassName }}
           priorityClassName: {{ .Values.migration.priorityClassName }}
           {{- end -}}
-          {{- if or .Values.global.baserow.containerSecurityContext.enabled .Values.migration.containerSecurityContext.enabled }}
+          {{- if or .Values.global.jadawel.containerSecurityContext.enabled .Values.migration.containerSecurityContext.enabled }}
           securityContext: {{- include "containerSecurityContext" . | nindent 12 }}
           {{- end }}
           {{- with .Values.migration.volumeMounts }}

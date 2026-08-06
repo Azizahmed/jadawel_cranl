@@ -15,8 +15,8 @@ while IFS='=' read -r legacy _; do
   if [[ -z ${!current:-} ]]; then export "$current=${!legacy}"; fi
 done < <(env)
 
-export DOCKER_USER=${DOCKER_USER:-baserow_docker_user}
-export DATA_DIR=${DATA_DIR:-/baserow/data}
+export DOCKER_USER=${DOCKER_USER:-jadawel_docker_user}
+export DATA_DIR=${DATA_DIR:-/jadawel/data}
 export JADAWEL_PLUGIN_DIR=${JADAWEL_PLUGIN_DIR:-$DATA_DIR/plugins}
 
 export JADAWEL_AMOUNT_OF_WORKERS=${JADAWEL_AMOUNT_OF_WORKERS:-1}
@@ -25,7 +25,7 @@ export JADAWEL_AMOUNT_OF_GUNICORN_WORKERS=${JADAWEL_AMOUNT_OF_GUNICORN_WORKERS:-
 export JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER=${JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER:-}
 
 export PYTHONUNBUFFERED=1
-export PYTHONPATH="${PYTHONPATH:-}:/baserow/backend/src"
+export PYTHONPATH="${PYTHONPATH:-}:/jadawel/backend/src"
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 export TMPDIR=${TMPDIR:-/dev/shm}

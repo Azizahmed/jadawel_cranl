@@ -14,7 +14,7 @@ tool gives you the powers of a developer without leaving your browser.
   [Vue.js](https://vuejs.org/) and [PostgreSQL](https://www.postgresql.org/).
 
 ```bash
-docker run -v baserow_data:/baserow/data -p 80:80 -p 443:443 jadawel/jadawel:2.2.2
+docker run -v jadawel_data:/jadawel/data -p 80:80 -p 443:443 jadawel/jadawel:2.2.2
 ```
 
 ## Quick Reference
@@ -38,9 +38,9 @@ You will only be able to connect to Jadawel from the machine running the server 
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=http://localhost \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
@@ -81,7 +81,7 @@ a single container for maximum ease of use.
 A quick summary of its features are:
 
 * Runs a Postgres database and Redis server by default internally and stores all data in
-  the `/baserow/data` folder inside the container.
+  the `/jadawel/data` folder inside the container.
 * Set `DATABASE_URL` or the `DATABASE_...` variables to disable the internal postgres
   and instead connect to an external Postgres. This is highly recommended for any
   production deployments of this image, so you can easily connect to the Postgres
@@ -92,7 +92,7 @@ A quick summary of its features are:
   `JADAWEL_CADDY_ADDRESSES` to `https://YOUR_DOMAIN.com` and it will
   [automatically enable https](https://caddyserver.com/docs/automatic-https#overview)
   for
-  you and store the keys and certs in `/baserow/data/caddy`.
+  you and store the keys and certs in `/jadawel/data/caddy`.
 * Provides a CLI for execing admin commands against a running Jadawel container or
   running one off commands against just a Jadawel data volume.
 
@@ -103,7 +103,7 @@ A quick summary of its features are:
 2. Stop your existing Jadawel container:
 
 ```bash
-docker stop baserow
+docker stop jadawel
 ```
 
 3. Bump the image version in the `docker run` command you usually use to run your
@@ -112,12 +112,12 @@ docker stop baserow
 ```bash
 # We haven't yet deleted the old Jadawel container so you need to start this new one
 # with a different name to prevent an error like:
-# `response from daemon: Conflict. The container name "/baserow" is already in use by
+# `response from daemon: Conflict. The container name "/jadawel" is already in use by
 # container`
 
 docker run \
   -d \
-  --name baserow_version_REPLACE_WITH_NEW_VERSION \
+  --name jadawel_version_REPLACE_WITH_NEW_VERSION \
   # YOUR STANDARD ARGS HERE
   jadawel/jadawel:REPLACE_WITH_LATEST_VERSION
 ```
@@ -125,25 +125,25 @@ docker run \
 5. Jadawel will automatically upgrade itself on startup, follow the logs to monitor it:
 
 ```bash
-docker logs -f baserow_version_REPLACE_WITH_NEW_VERSION
+docker logs -f jadawel_version_REPLACE_WITH_NEW_VERSION
 ```
 
 6. Once you see the following log line your Jadawel upgraded and is now available again:
 
 ```
-[BASEROW-WATCHER][2022-05-10 08:44:46] Jadawel is now available at ...
+[JADAWEL-WATCHER][2022-05-10 08:44:46] Jadawel is now available at ...
 ```
 
 7. Make sure your Jadawel has been successfully upgraded by visiting it and checking
    everything is working as expected and your data is still present.
 8. If everything works you can now remove the old Jadawel container.
 
-> WARNING: If you have not been using a volume to persist the `/baserow/data` folder
+> WARNING: If you have not been using a volume to persist the `/jadawel/data` folder
 > inside the container this will delete all of your Jadawel data stored in this
 > container permanently.
 
 ```bash
-docker rm baserow
+docker rm jadawel
 ```
 
 ## Upgrading PostgreSQL database from a previous version
@@ -164,15 +164,15 @@ If you don't want to upgrade at this point in time, jump to [Legacy PostgreSQL v
 
 To upgrade your data directory to be compatible with PostgreSQL 15, follow these steps:
 
-**CAUTION:** before doing this, make sure to [Back up your Jadawel instance](#backing-up-and-restoring-baserow) to avoid potential data loss.
+**CAUTION:** before doing this, make sure to [Back up your Jadawel instance](#backing-up-and-restoring-jadawel) to avoid potential data loss.
 
-1. Make sure there are no Jadawel instances running with `docker ps`. If Jadawel is running, stop the container with `docker stop baserow`.
+1. Make sure there are no Jadawel instances running with `docker ps`. If Jadawel is running, stop the container with `docker stop jadawel`.
 2. Run this command to run a Docker image which will automatically update your data directory to be compatible with PostgreSQL version 15:
 
 ```
 docker run \
   --name baserow-pgautoupgrade \
-  # ALL THE ARGUMENTS YOU NORMALLY ADD TO YOUR BASEROW INSTANCE
+  # ALL THE ARGUMENTS YOU NORMALLY ADD TO YOUR JADAWEL INSTANCE
   --restart no \
   baserow/baserow-pgautoupgrade:1.30.1
 ```
@@ -189,7 +189,7 @@ To run the latest upstream Baserow image that uses the legacy PostgreSQL 11 vers
 ```
 docker run \
   --name baserow-pg11 \
-  # ALL THE ARGUMENTS YOU NORMALLY ADD TO YOUR BASEROW INSTANCE
+  # ALL THE ARGUMENTS YOU NORMALLY ADD TO YOUR JADAWEL INSTANCE
   --restart unless-stopped \
   baserow/baserow-pg11:1.30.1
 ```
@@ -214,10 +214,10 @@ Caddy.
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=https://www.REPLACE_WITH_YOUR_DOMAIN.com \
   -e JADAWEL_CADDY_ADDRESSES=:443 \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
@@ -229,9 +229,9 @@ docker run \
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   --restart unless-stopped \
   jadawel/jadawel:2.2.2
@@ -242,9 +242,9 @@ docker run \
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com:3001 \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 3001:80 \
   --restart unless-stopped \
   jadawel/jadawel:2.2.2
@@ -255,14 +255,14 @@ docker run \
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -e DATABASE_HOST=TODO \
   -e DATABASE_NAME=TODO \
   -e DATABASE_USER=TODO \
   -e DATABASE_PASSWORD=TODO \
   -e DATABASE_PORT=TODO \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
@@ -274,7 +274,7 @@ docker run \
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -e REDIS_HOST=TODO \
   -e REDIS_USER=TODO \
@@ -283,7 +283,7 @@ docker run \
   -e REDIS_PROTOCOL=TODO \
   -e REDIS_SSL_CERT_REQS=TODO \
   -e REDIS_SSL_CA_CERTS=TODO \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
@@ -295,7 +295,7 @@ docker run \
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=https://www.yourdomain.com \
   -e EMAIL_SMTP=True \
   -e EMAIL_SMTP_HOST=TODO \
@@ -303,7 +303,7 @@ docker run \
   -e EMAIL_SMTP_USER=TODO \
   -e EMAIL_SMTP_PASSWORD=TODO \
   -e EMAIL_SMTP_USE_TLS= \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
@@ -333,7 +333,7 @@ will have to find the correct locations for the config files for your OS.
 ```bash
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   --add-host host.docker.internal:host-gateway \
   -e JADAWEL_PUBLIC_URL=http://localhost \
   -e DATABASE_HOST=host.docker.internal \
@@ -342,7 +342,7 @@ docker run \
   -e DATABASE_USER=YOUR_DATABASE_USERNAME \
   -e DATABASE_PASSWORD=REPLACE_WITH_YOUR_DATABASE_PASSWORD \
   --restart unless-stopped \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   jadawel/jadawel:2.2.2
@@ -359,17 +359,17 @@ echo "your_secret_key" > .your_secret_key
 echo "your_pg_password" > .your_pg_password
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=http://localhost \
-  -e REDIS_PASSWORD_FILE=/baserow/.your_redis_password \
-  -e SECRET_KEY_FILE=/baserow/.your_secret_key \
-  -e DATABASE_PASSWORD_FILE=/baserow/.your_pg_password \
-  -e EMAIL_SMTP_PASSWORD_FILE=/baserow/.your_smtp_password \
+  -e REDIS_PASSWORD_FILE=/jadawel/.your_redis_password \
+  -e SECRET_KEY_FILE=/jadawel/.your_secret_key \
+  -e DATABASE_PASSWORD_FILE=/jadawel/.your_pg_password \
+  -e EMAIL_SMTP_PASSWORD_FILE=/jadawel/.your_smtp_password \
   --restart unless-stopped \
-  -v $PWD/.your_redis_password:/baserow/.your_redis_password \
-  -v $PWD/.your_secret_key:/baserow/.your_secret_key \
-  -v $PWD/.your_pg_password:/baserow/.your_pg_password \
-  -v baserow_data:/baserow/data \
+  -v $PWD/.your_redis_password:/jadawel/.your_redis_password \
+  -v $PWD/.your_secret_key:/jadawel/.your_secret_key \
+  -v $PWD/.your_pg_password:/jadawel/.your_pg_password \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   jadawel/jadawel:2.2.2
@@ -382,15 +382,15 @@ If you want to directly access the embedded Postgresql database then you can run
 ```bash
 docker run -it \
   --rm \
-  --name baserow \
+  --name jadawel \
   -p 5432:5432 \
-  -v baserow_data:/baserow/data \
+  -v jadawel_data:/jadawel/data \
   jadawel/jadawel:2.2.2 \
   start-only-db
 # Now get the password from
-docker exec -it baserow cat /baserow/data/.pgpass
+docker exec -it jadawel cat /jadawel/data/.pgpass
 # Finally connect on your host machine to the Jadawel postgres database at port 5432
-# the password above with the username `baserow`.
+# the password above with the username `jadawel`.
 ```
 
 ## Application builder domains
@@ -415,8 +415,8 @@ starting Jadawel normally you can do so with the `backend-cmd-with-db` argument 
 ```bash
 docker run -it \
   --rm \
-  --name baserow \
-  -v baserow_data:/baserow/data \
+  --name jadawel \
+  -v jadawel_data:/jadawel/data \
   jadawel/jadawel:2.2.2 \
   backend-cmd-with-db manage dbshell
 ```
@@ -455,7 +455,7 @@ horizontally.
    postgres
 2. All relevant `REDIS_*` env vars need to be set to point Jadawel at an external redis
 3. `DISABLE_VOLUME_CHECK=yes` needs to be set as this image has a
-   check for less technical users that `/baserow/data` is mounted to an external
+   check for less technical users that `/jadawel/data` is mounted to an external
    volume on startup. Instead, you want your containers to be stateless and so this
    check needs to be disabled.
 4. `AWS_*/GC_*/AZURE_*` env vars need to be set connecting Jadawel to an external
@@ -487,7 +487,7 @@ This image has the following "horizontal scaling" environment variables:
 
 ## Backing up and Restoring Jadawel
 
-Jadawel stores all of its persistent data in the `/baserow/data` directory by default.
+Jadawel stores all of its persistent data in the `/jadawel/data` directory by default.
 We strongly recommend you mount a docker volume into this location to persist Jadawels
 data so you do not lose it if you accidentally delete your Jadawel container.
 
@@ -510,24 +510,24 @@ Note, that this only works if you're not using an external PostgreSQL server. Th
 Otherwise if you remove the Jadawel container you will lose all of your data.
 
 The command below assumes you have been running Jadawel with the
-`-v baserow_data:/baserow/data` volume. Please change this argument accordingly if you
-have mounted the /baserow/data folder differently.
+`-v jadawel_data:/jadawel/data` volume. Please change this argument accordingly if you
+have mounted the /jadawel/data folder differently.
 
 ```bash
 # Ensure Jadawel is stopped first before taking a backup.
-docker stop baserow
-docker run --rm -v baserow_data:/baserow/data -v $PWD:/backup ubuntu tar cvf /backup/backup.tar /baserow/data
+docker stop jadawel
+docker run --rm -v jadawel_data:/jadawel/data -v $PWD:/backup ubuntu tar cvf /backup/backup.tar /jadawel/data
 ```
 
 ### Restore all of Jadawel
 
 ```bash
 # Ensure Jadawel is stopped first before taking a backup.
-docker stop baserow
-docker run --rm -v baserow_data:/baserow/data -v $PWD:/backup ubuntu tar cvf /backup/backup.tar /baserow/data
-docker run --rm -v new_baserow_data_volume:/results -v $PWD:/backup ubuntu bash -c "mkdir -p /results/ && cd /results && tar xvf /backup/backup.tar --strip 2"
+docker stop jadawel
+docker run --rm -v jadawel_data:/jadawel/data -v $PWD:/backup ubuntu tar cvf /backup/backup.tar /jadawel/data
+docker run --rm -v new_jadawel_data_volume:/results -v $PWD:/backup ubuntu bash -c "mkdir -p /results/ && cd /results && tar xvf /backup/backup.tar --strip 2"
 # Now launch Jadawel using the new data volume with your normal run command:
-docker run -v new_baserow_data_volume:/baserow/data .....
+docker run -v new_jadawel_data_volume:/jadawel/data .....
 ```
 
 ### Backup only Jadawel's Postgres database
@@ -540,19 +540,19 @@ the command below.
 
 ```bash
 # First read the help message for this command
-docker run -it --rm -v baserow_data:/baserow/data jadawel/jadawel:2.2.2 \
+docker run -it --rm -v jadawel_data:/jadawel/data jadawel/jadawel:2.2.2 \
    backend-cmd-with-db backup --help
 
 # Stop Jadawel instance
-docker stop baserow
+docker stop jadawel
 
-# The command below backs up Jadawel to the backups folder in the baserow_data volume:
-docker run -it --rm -v baserow_data:/baserow/data jadawel/jadawel:2.2.2 \
-   backend-cmd-with-db backup -f /baserow/data/backups/backup.tar.gz
+# The command below backs up Jadawel to the backups folder in the jadawel_data volume:
+docker run -it --rm -v jadawel_data:/jadawel/data jadawel/jadawel:2.2.2 \
+   backend-cmd-with-db backup -f /jadawel/data/backups/backup.tar.gz
 
 # Or backup to a file on your host instead run something like:
-docker run -it --rm -v baserow_data:/baserow/data -v $PWD:/baserow/host \
-   jadawel/jadawel:2.2.2 backend-cmd-with-db backup -f /baserow/host/backup.tar.gz
+docker run -it --rm -v jadawel_data:/jadawel/data -v $PWD:/jadawel/host \
+   jadawel/jadawel:2.2.2 backend-cmd-with-db backup -f /jadawel/host/backup.tar.gz
 ```
 
 ### Restore only Jadawel's Postgres Database
@@ -562,19 +562,19 @@ volume.
 
 ```bash
 # Stop Jadawel instance
-docker stop baserow
+docker stop jadawel
 
 # Restore Jadawel backup from a new volume containing the backup:
 docker run -it --rm \
-  -v old_baserow_data_volume_containing_the_backup_tar_gz:/baserow/old_data \
-  -v new_baserow_data_volume_to_restore_into:/baserow/data \
-  jadawel/jadawel:2.2.2 backend-cmd-with-db restore -f /baserow/old_data/backup.tar.gz
+  -v old_jadawel_data_volume_containing_the_backup_tar_gz:/jadawel/old_data \
+  -v new_jadawel_data_volume_to_restore_into:/jadawel/data \
+  jadawel/jadawel:2.2.2 backend-cmd-with-db restore -f /jadawel/old_data/backup.tar.gz
 
 # Or to restore from a file on your host instead run something like:
 docker run -it --rm \
-  -v baserow_data:/baserow/data -v \
-  $(pwd):/baserow/host \
-  jadawel/jadawel:2.2.2 backend-cmd-with-db restore -f /baserow/host/backup.tar.gz
+  -v jadawel_data:/jadawel/data -v \
+  $(pwd):/jadawel/host \
+  jadawel/jadawel:2.2.2 backend-cmd-with-db restore -f /jadawel/host/backup.tar.gz
 ```
 
 ## Running healthchecks on Jadawel
@@ -584,32 +584,32 @@ supports it. However if you wish to trigger a healthcheck yourself on a running 
 container then you can run:
 
 ```bash
-docker exec baserow ./baserow.sh backend-cmd backend-healthcheck
+docker exec jadawel ./jadawel.sh backend-cmd backend-healthcheck
 # Run the below to see all available healthchecks
-docker exec baserow ./baserow.sh backend-cmd help
+docker exec jadawel ./jadawel.sh backend-cmd help
 ```
 
 ## Running Jadawel or Django management commands
 
-You can run management commands on an existing Jadawel container called baserow by
+You can run management commands on an existing Jadawel container called jadawel by
 running the following to see the available commands:
 
 ```bash
-docker exec baserow ./baserow.sh backend-cmd manage
+docker exec jadawel ./jadawel.sh backend-cmd manage
 # For example you could migrate the database of a running Jadawel using:
-docker exec baserow ./baserow.sh backend-cmd manage migrate
+docker exec jadawel ./jadawel.sh backend-cmd manage migrate
 ```
 
 ## Customizing Jadawel
 
 ### Mounting in a config file
 
-Jadawel will automatically source any `.sh` files found in `/baserow/supervisor/env/` or
-`/baserow/data/env/` on startup. Use this to create a single config file to configure
+Jadawel will automatically source any `.sh` files found in `/jadawel/supervisor/env/` or
+`/jadawel/data/env/` on startup. Use this to create a single config file to configure
 your Jadawel like so:
 
 ```bash
-custom_baserow_conf.sh << EOF
+custom_jadawel_conf.sh << EOF
 export JADAWEL_PUBLIC_URL=todo
 export JADAWEL_CADDY_ADDRESSES=todo
 
@@ -618,17 +618,17 @@ EOF
 
 docker run \
   -d \
-  --name baserow \
+  --name jadawel \
   -e JADAWEL_PUBLIC_URL=http://localhost \
-  -v $PWD/custom_baserow_conf.sh /baserow/supervisor/custom_baserow_conf.sh \
-  -v baserow_data:/baserow/data \
+  -v $PWD/custom_jadawel_conf.sh /jadawel/supervisor/custom_jadawel_conf.sh \
+  -v jadawel_data:/jadawel/data \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
   jadawel/jadawel:2.2.2
 ```
 
-Or you can just store it directly in the volume at `baserow_data/env` meaning it will be
+Or you can just store it directly in the volume at `jadawel_data/env` meaning it will be
 loaded whenever you mount in this data volume.
 
 ### Building your own image from Jadawel
@@ -636,17 +636,17 @@ loaded whenever you mount in this data volume.
 ```dockerfile
 FROM jadawel/jadawel:2.2.2
 
-# Any .sh files found in /baserow/supervisor/env/ will be sourced and loaded at startup
+# Any .sh files found in /jadawel/supervisor/env/ will be sourced and loaded at startup
 # useful for storing your own environment variable overrides.
-COPY custom_env.sh /baserow/supervisor/env/custom_env.sh
+COPY custom_env.sh /jadawel/supervisor/env/custom_env.sh
 
 # Set the DATA_DIR environment variable to change where Jadawel stores its persistent
 # data. At startup Jadawel will attempt to chown and setup this folder correctly.
-ENV DATA_DIR=/baserow/data
+ENV DATA_DIR=/jadawel/data
 
 # This image bakes in its own default user with UID/GID of 9999:9999 by default. To
 # Set this to change the user Jadawel will run its Caddy, backend, Celery and
 # web-frontend services as. However be warned, the default entrypoint needs to be run
 # as root so using USER may break things.
-ENV DOCKER_USER=baserow_docker_user
+ENV DOCKER_USER=jadawel_docker_user
 ```

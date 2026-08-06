@@ -157,7 +157,7 @@ class Command(BaseCommand):
 
         else:
             concurrency_args = [
-                "./baserow",
+                "./jadawel",
                 "fill_table_rows",
                 str(table_id),
                 str(int(limit / concurrency)),

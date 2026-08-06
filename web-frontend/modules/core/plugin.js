@@ -1,4 +1,4 @@
-// plugins/baserow.js
+// plugins/jadawel.js
 import { defineNuxtPlugin } from '#app'
 
 import { Registry } from '@jadawel/modules/core/registry'

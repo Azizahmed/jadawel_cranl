@@ -1998,7 +1998,7 @@ def test_field_constraints_unique_with_empty(data_fixture):
         URLFieldType.type: {
             "constraint": UniqueWithEmptyConstraint.constraint_name,
             "empty": "",
-            "value": "https://jadawel.io",
+            "value": "https://baserow.io",
         },
         EmailFieldType.type: {
             "constraint": UniqueWithEmptyConstraint.constraint_name,

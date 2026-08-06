@@ -1078,7 +1078,7 @@ def test_thread():
 
 
 @pytest.fixture(scope="session", autouse=True)
-def baserow_db_setup(django_db_setup, django_db_blocker):
+def jadawel_db_setup(django_db_setup, django_db_blocker):
     """
     Initialize the Jadawel database for tests by installing custom pgSQL functions
     and sequences. Disable this fixture with JADAWEL_TESTS_SETUP_DB_FIXTURE=off if

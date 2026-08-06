@@ -165,7 +165,7 @@ dev *ARGS:
         ps)
             echo "==> Process Status"
             for name in backend celery frontend storybook; do
-                pid_file="/tmp/baserow-${name}.pid"
+                pid_file="/tmp/jadawel-${name}.pid"
                 if [ -f "$pid_file" ]; then
                     PID=$(cat "$pid_file")
                     if kill -0 "$PID" 2>/dev/null; then
@@ -295,10 +295,10 @@ _dev-start:
     echo "    PID: $STORYBOOK_PID (log: {{ storybook_log_file }})"
 
     # Save PIDs
-    echo "$BACKEND_PID" > /tmp/baserow-backend.pid
-    echo "$CELERY_PID" > /tmp/baserow-celery.pid
-    echo "$FRONTEND_PID" > /tmp/baserow-frontend.pid
-    echo "$STORYBOOK_PID" > /tmp/baserow-storybook.pid
+    echo "$BACKEND_PID" > /tmp/jadawel-backend.pid
+    echo "$CELERY_PID" > /tmp/jadawel-celery.pid
+    echo "$FRONTEND_PID" > /tmp/jadawel-frontend.pid
+    echo "$STORYBOOK_PID" > /tmp/jadawel-storybook.pid
 
     echo ""
     echo "=============================================="
@@ -326,42 +326,42 @@ _dev-stop:
     echo "Stopping Jadawel development environment..."
 
     # Stop backend processes
-    if [ -f /tmp/baserow-backend.pid ]; then
-        PID=$(cat /tmp/baserow-backend.pid)
+    if [ -f /tmp/jadawel-backend.pid ]; then
+        PID=$(cat /tmp/jadawel-backend.pid)
         if kill -0 "$PID" 2>/dev/null; then
             echo "Stopping backend (PID: $PID)..."
             kill "$PID" 2>/dev/null || true
         fi
-        rm -f /tmp/baserow-backend.pid
+        rm -f /tmp/jadawel-backend.pid
     fi
 
-    if [ -f /tmp/baserow-celery.pid ]; then
-        PID=$(cat /tmp/baserow-celery.pid)
+    if [ -f /tmp/jadawel-celery.pid ]; then
+        PID=$(cat /tmp/jadawel-celery.pid)
         if kill -0 "$PID" 2>/dev/null; then
             echo "Stopping celery (PID: $PID)..."
             kill "$PID" 2>/dev/null || true
             # Also kill child processes (celery workers)
             pkill -P "$PID" 2>/dev/null || true
         fi
-        rm -f /tmp/baserow-celery.pid
+        rm -f /tmp/jadawel-celery.pid
     fi
 
-    if [ -f /tmp/baserow-frontend.pid ]; then
-        PID=$(cat /tmp/baserow-frontend.pid)
+    if [ -f /tmp/jadawel-frontend.pid ]; then
+        PID=$(cat /tmp/jadawel-frontend.pid)
         if kill -0 "$PID" 2>/dev/null; then
             echo "Stopping frontend (PID: $PID)..."
             kill "$PID" 2>/dev/null || true
         fi
-        rm -f /tmp/baserow-frontend.pid
+        rm -f /tmp/jadawel-frontend.pid
     fi
 
-    if [ -f /tmp/baserow-storybook.pid ]; then
-        PID=$(cat /tmp/baserow-storybook.pid)
+    if [ -f /tmp/jadawel-storybook.pid ]; then
+        PID=$(cat /tmp/jadawel-storybook.pid)
         if kill -0 "$PID" 2>/dev/null; then
             echo "Stopping storybook (PID: $PID)..."
             kill "$PID" 2>/dev/null || true
         fi
-        rm -f /tmp/baserow-storybook.pid
+        rm -f /tmp/jadawel-storybook.pid
     fi
 
     # Stop docker services
@@ -465,10 +465,10 @@ fix:
     @just f fix
 
 # Log files for dev servers
-backend_log_file := "/tmp/baserow-backend.log"
-celery_log_file := "/tmp/baserow-celery.log"
-frontend_log_file := "/tmp/baserow-web-frontend.log"
-storybook_log_file := "/tmp/baserow-storybook.log"
+backend_log_file := "/tmp/jadawel-backend.log"
+celery_log_file := "/tmp/jadawel-celery.log"
+frontend_log_file := "/tmp/jadawel-web-frontend.log"
+storybook_log_file := "/tmp/jadawel-storybook.log"
 
 # =============================================================================
 # Docker Development (everything runs in containers - easier setup)
@@ -699,10 +699,10 @@ _dc-dev-tabs *ARGS:
     # Open lint tabs
     launch_tab_and_exec "web frontend lint" \
             "web-frontend" \
-            "/bin/bash /baserow/web-frontend/docker/docker-entrypoint.sh lint-fix"
+            "/bin/bash /jadawel/web-frontend/docker/docker-entrypoint.sh lint-fix"
     launch_tab_and_exec "backend lint" \
             "backend" \
-            "/bin/bash /baserow/backend/docker/docker-entrypoint.sh lint-shell"
+            "/bin/bash /jadawel/backend/docker/docker-entrypoint.sh lint-shell"
 
 # Shortcut for dc-dev tabs
 [private]
@@ -1183,7 +1183,7 @@ changelog-test *args:
 # =============================================================================
 
 # CI image names
-ci_backend_image := "baserow_backend:ci"
+ci_backend_image := "jadawel_backend:ci"
 ci_frontend_image := "baserow_frontend:ci"
 
 # CI Docker commands: build, lint, test, run (full pipeline)

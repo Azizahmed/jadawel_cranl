@@ -39,7 +39,7 @@ FEATURE_FLAGS = [
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-JADAWEL_PLUGIN_DIR_PATH = Path(os.environ.get("JADAWEL_PLUGIN_DIR", "/baserow/plugins"))
+JADAWEL_PLUGIN_DIR_PATH = Path(os.environ.get("JADAWEL_PLUGIN_DIR", "/jadawel/plugins"))
 
 if JADAWEL_PLUGIN_DIR_PATH.exists():
     JADAWEL_PLUGIN_FOLDERS = [
@@ -977,7 +977,7 @@ JADAWEL_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT = int(
     os.getenv("JADAWEL_INITIAL_CREATE_SYNC_TABLE_DATA_LIMIT", 5000)
 )
 
-MEDIA_ROOT = os.getenv("MEDIA_ROOT", "/baserow/media")
+MEDIA_ROOT = os.getenv("MEDIA_ROOT", "/jadawel/media")
 
 # Indicates the directory where the user files and user thumbnails are stored.
 USER_FILES_DIRECTORY = "user_files"

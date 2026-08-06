@@ -51,7 +51,7 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
-source /baserow/plugins/utils.sh
+source /jadawel/plugins/utils.sh
 
 shopt -s nullglob
 
@@ -64,7 +64,7 @@ setup_additional_modules(){
       if [[ -d "${plugin_dir}/web-frontend/" ]]; then
         plugin_name="$(basename -- "$plugin_dir")"
         package_name=$(echo "$plugin_name" | tr '_' '-')
-        WEBFRONTEND_BUILT_MARKER=/baserow/container_markers/$plugin_name.web-frontend-built
+        WEBFRONTEND_BUILT_MARKER=/jadawel/container_markers/$plugin_name.web-frontend-built
         if [[ -f "$WEBFRONTEND_BUILT_MARKER" ]]; then
           ADDITIONAL_MODULES="${ADDITIONAL_MODULES:-},$plugin_dir/web-frontend/modules/$package_name/module.js"
         fi
@@ -136,13 +136,13 @@ case "$1" in
       exec yarn build
     ;;
     install-plugin)
-      exec /baserow/plugins/install_plugin.sh "${@:2}"
+      exec /jadawel/plugins/install_plugin.sh "${@:2}"
     ;;
     uninstall-plugin)
-      exec /baserow/plugins/uninstall_plugin.sh "${@:2}"
+      exec /jadawel/plugins/uninstall_plugin.sh "${@:2}"
     ;;
     list-plugins)
-      exec /baserow/plugins/list_plugins.sh "${@:2}"
+      exec /jadawel/plugins/list_plugins.sh "${@:2}"
     ;;
     *)
       echo "Command given was $*"

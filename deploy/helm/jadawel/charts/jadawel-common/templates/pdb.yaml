@@ -2,10 +2,10 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "baserow.fullname" . }}
-  namespace: {{ include "baserow.namespace" . }}
+  name: {{ include "jadawel.fullname" . }}
+  namespace: {{ include "jadawel.namespace" . }}
   labels:
-    {{- include "baserow.labels" . | nindent 4 }}
+    {{- include "jadawel.labels" . | nindent 4 }}
 spec:
   {{- if .Values.pdb.minAvailable }}
   minAvailable: {{ .Values.pdb.minAvailable }}
@@ -15,5 +15,5 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "baserow.selectorLabels" . | nindent 6 }}
+      {{- include "jadawel.selectorLabels" . | nindent 6 }}
 {{- end }}

@@ -11,7 +11,7 @@ from jadawel.contrib.database.data_sync.utils import compare_date
 
 ICAL_FEED_WITH_ONE_ITEMS_WITHOUT_DTEND = """BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:Baserow / jadawel.io
+PRODID:Baserow / baserow.io
 NAME:Calendar
 X-WR-CALNAME:Calendar
 X-WR-TIMEZONE:UTC
@@ -33,7 +33,7 @@ END:VCALENDAR
 def test_ical_sync_data_sync_table_without_dtend(data_fixture):
     responses.add(
         responses.GET,
-        "https://jadawel.io/ical.ics",
+        "https://baserow.io/ical.ics",
         status=200,
         body=ICAL_FEED_WITH_ONE_ITEMS_WITHOUT_DTEND,
     )
@@ -49,7 +49,7 @@ def test_ical_sync_data_sync_table_without_dtend(data_fixture):
         table_name="Test",
         type_name="ical_calendar",
         synced_properties=["uid", "dtstart", "dtend", "summary"],
-        ical_url="https://jadawel.io/ical.ics",
+        ical_url="https://baserow.io/ical.ics",
     )
     with freeze_time("2021-01-01 12:00"):
         handler.sync_data_sync_table(user=user, data_sync=data_sync)

@@ -467,12 +467,12 @@ def test_valid_url(data_fixture):
 
     valid_urls = [
         "baserow.io",
-        "ftp://jadawel.io",
+        "ftp://baserow.io",
         "git://example.com/",
-        "ws://jadawel.io",
-        "http://jadawel.io",
-        "https://jadawel.io",
-        "https://www.jadawel.io",
+        "ws://baserow.io",
+        "http://baserow.io",
+        "https://baserow.io",
+        "https://www.baserow.io",
         "HTTP://BASEROW.IO",
         "https://test.nl/test",
         "https://test.nl/test",
@@ -486,14 +486,14 @@ def test_valid_url(data_fixture):
         "http://142.42.1.1/",
         "http://userid:password@example.com:65535/",
         "http://su--b.valid-----hyphens.com/",
-        "//jadawel.io/test",
+        "//baserow.io/test",
         "127.0.0.1",
         "https://test.nl#test",
-        "http://jadawel.io/hrscywv4p/image/upload/c_fill,g_faces:center,"
+        "http://baserow.io/hrscywv4p/image/upload/c_fill,g_faces:center,"
         "h_128,w_128/yflwk7vffgwyyenftkr7.png",
         "https://gitlab.com/baserow/baserow/-/issues?row=nice/route",
-        "https://web.archive.org/web/20210313191012/https://jadawel.io/",
-        "mailto:bram@jadawel.io?test=test",
+        "https://web.archive.org/web/20210313191012/https://baserow.io/",
+        "mailto:bram@baserow.io?test=test",
     ]
     invalid_urls = [
         "test",
@@ -658,7 +658,7 @@ def test_email_field_type(data_fixture):
     row_handler.create_row(
         user=user,
         table=table,
-        values={"name": "http://www.jadawel.io", "email": "bram@test.nl"},
+        values={"name": "http://www.baserow.io", "email": "bram@test.nl"},
         model=model,
     )
     row_handler.create_row(

@@ -178,7 +178,7 @@ Set `SYNC_TEMPLATES_ON_STARTUP=false` in Coolify and run it deliberately when
 you actually change templates:
 
 ```bash
-docker exec <backend-container> ./baserow.sh backend-cmd manage sync_templates
+docker exec <backend-container> ./jadawel.sh backend-cmd manage sync_templates
 ```
 
 ### 2.5 Postgres backups

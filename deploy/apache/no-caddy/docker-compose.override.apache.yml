@@ -16,7 +16,7 @@ services:
     ports:
       - '80:80'
     volumes:
-      - media:/baserow/media
+      - media:/jadawel/media
     depends_on: [backend]
     networks:
       local:

@@ -21,7 +21,7 @@ internet -> Traefik (Coolify, TLS via letsencrypt)
               -> caddy      (expose: 80, no published ports)
                    -> web-frontend:3000   (UI)
                    -> backend:8000        (/api, /ws, /mcp, /assistant)
-                   -> /baserow/media      (uploaded files)
+                   -> /jadawel/media      (uploaded files)
 ```
 
 Two consequences worth internalising:

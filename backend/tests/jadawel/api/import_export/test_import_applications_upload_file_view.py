@@ -99,7 +99,7 @@ def test_upload_valid_file(data_fixture, api_client, tmpdir, use_tmp_media_root)
     workspace = data_fixture.create_workspace(user=user)
 
     sources_path = os.path.join(
-        settings.BASE_DIR, "../../../tests/baserow/api/import_export/sources"
+        settings.BASE_DIR, "../../../tests/jadawel/api/import_export/sources"
     )
 
     with open(f"{sources_path}/interesting_database_export.zip", "rb") as export_file:

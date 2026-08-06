@@ -81,7 +81,7 @@ _main() {
     export POSTGRES_USER=$DATABASE_USER
     export POSTGRES_PASSWORD=$DATABASE_PASSWORD
     export POSTGRES_DB=$DATABASE_NAME
-    ALREADY_SETUP_INDICATOR_FILE="$PGDATA/baserow_db_setup"
+    ALREADY_SETUP_INDICATOR_FILE="$PGDATA/jadawel_db_setup"
     PGVECTOR_EXTENSION_SETUP_FILE="$PGDATA/pgvector_extension_setup"
 
     # This script will re-run itself as postgres user, so this part is reserved for the root user setup/teardown

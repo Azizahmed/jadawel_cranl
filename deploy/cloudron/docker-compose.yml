@@ -27,7 +27,7 @@ services:
     volumes:
       - baserow_cloudron_data:/app/data
     healthcheck:
-      test: [ "CMD-SHELL", "/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
+      test: [ "CMD-SHELL", "/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
       interval: 10s
       timeout: 5s
       retries: 5

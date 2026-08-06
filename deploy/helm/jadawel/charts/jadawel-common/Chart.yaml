@@ -1,6 +1,6 @@
 apiVersion: v2
-name: baserow
-description: Internal common chart for baserow components
+name: jadawel
+description: Internal common chart for jadawel components
 
 # A chart can be either an 'application' or a 'library' chart.
 #

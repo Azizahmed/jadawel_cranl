@@ -187,7 +187,7 @@ def test_add_sub_link(menu_element_fixture):
         (
             "navigate_to_url",
             BaserowFormulaObject(
-                formula="https://www.jadawel.io",
+                formula="https://www.baserow.io",
                 mode=JADAWEL_FORMULA_MODE_SIMPLE,
                 version=JADAWEL_FORMULA_VERSION_INITIAL,
             ),

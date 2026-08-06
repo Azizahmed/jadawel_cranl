@@ -18,18 +18,18 @@ Version 2.2.2
 
 =========================================================================================
 EOF
-cat /baserow/supervisor/STARTUP_README.md
+cat /jadawel/supervisor/STARTUP_README.md
 
 startup_echo(){
-  /baserow/supervisor/wrapper.sh GREEN STARTUP echo -e "\e[32m$*\e[0m"
+  /jadawel/supervisor/wrapper.sh GREEN STARTUP echo -e "\e[32m$*\e[0m"
 }
 
 # ========================
 # = SETUP BLANK INITIAL EMBEDDED DATABASE IF TURNED ON
 # ========================
 
-SUPERVISOR_DISABLED_CONF_DIR=/baserow/supervisor/includes/disabled
-SUPERVISOR_ENABLED_CONF_DIR=/baserow/supervisor/includes/enabled
+SUPERVISOR_DISABLED_CONF_DIR=/jadawel/supervisor/includes/disabled
+SUPERVISOR_ENABLED_CONF_DIR=/jadawel/supervisor/includes/enabled
 
 if [[ "$DATABASE_HOST" == "localhost" && -z "${DATABASE_URL:-}" ]]; then
   startup_echo "Running setup of embedded Jadawel database."
@@ -41,7 +41,7 @@ if [[ "$DATABASE_HOST" == "localhost" && -z "${DATABASE_URL:-}" ]]; then
 
   # Setup an empty baserow database with the provided user and password.
   POSTGRES_SETUP_SCRIPT_COMMAND=${POSTGRES_SETUP_SCRIPT_COMMAND:-setup}
-    ./baserow/supervisor/wrapper.sh GREEN POSTGRES_INIT ./baserow/supervisor/docker-postgres-setup.sh ${POSTGRES_SETUP_SCRIPT_COMMAND}
+    ./jadawel/supervisor/wrapper.sh GREEN POSTGRES_INIT ./jadawel/supervisor/docker-postgres-setup.sh ${POSTGRES_SETUP_SCRIPT_COMMAND}
 
   # Enable the embedded postgres by moving it into the directory from which supervisor
   # includes all .conf files it finds.
@@ -80,11 +80,11 @@ fi
 # = INSTALL PLUGINS
 # ========================
 
-source /baserow/plugins/utils.sh
+source /jadawel/plugins/utils.sh
 startup_plugin_setup
 
 # ========================
 # = STARTUP SUPERVISOR
 # ========================
 startup_echo "Starting all Jadawel processes:"
-exec /usr/bin/supervisord --configuration "${SUPERVISOR_CONF:-/baserow/supervisor/supervisor.conf}"
+exec /usr/bin/supervisord --configuration "${SUPERVISOR_CONF:-/jadawel/supervisor/supervisor.conf}"

@@ -11,7 +11,7 @@ const junitReporterConfig = process.env.JEST_JUNIT_OUTPUT_DIR
 module.exports = {
   coverageReporters: [
     'text-summary',
-    ['cobertura', { projectRoot: '/baserow/' }],
+    ['cobertura', { projectRoot: '/jadawel/' }],
   ],
   collectCoverageFrom: [
     '<rootDir>/modules/**/*.{js,Vue,vue}',

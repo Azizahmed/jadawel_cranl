@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "baserow.global.fullname" . }}
+  name: {{ include "jadawel.global.fullname" . }}
   namespace: {{ .Release.Namespace }}
   {{- with .Values.ingress.annotations }}
   annotations:
@@ -11,49 +11,49 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: {{ .Values.global.baserow.backendDomain | default (printf "api.%s" .Values.global.baserow.domain) }}
+    - host: {{ .Values.global.jadawel.backendDomain | default (printf "api.%s" .Values.global.jadawel.domain) }}
       http:
         paths:
           - path: /ws/
             pathType: Prefix
             backend:
               service:
-                name: {{ include "baserow.global.fullname" . }}-baserow-backend-asgi
+                name: {{ include "jadawel.global.fullname" . }}-jadawel-backend-asgi
                 port:
                   number: 80
           - path: /mcp/
             pathType: Prefix
             backend:
               service:
-                name: {{ include "baserow.global.fullname" . }}-baserow-backend-asgi
+                name: {{ include "jadawel.global.fullname" . }}-jadawel-backend-asgi
                 port:
                   number: 80
           - path: /assistant/
             pathType: Prefix
             backend:
               service:
-                name: {{ include "baserow.global.fullname" . }}-baserow-backend-asgi
+                name: {{ include "jadawel.global.fullname" . }}-jadawel-backend-asgi
                 port:
                   number: 80
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ include "baserow.global.fullname" . }}-baserow-backend-wsgi
+                name: {{ include "jadawel.global.fullname" . }}-jadawel-backend-wsgi
                 port:
                   number: 80
-    - host: {{ .Values.global.baserow.domain }}
+    - host: {{ .Values.global.jadawel.domain }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ include "baserow.global.fullname" . }}-baserow-frontend
+                name: {{ include "jadawel.global.fullname" . }}-jadawel-frontend
                 port:
                   number: 80
     {{- if .Values.minio.enabled }}
-    - host: {{ .Values.global.baserow.objectsDomain }}
+    - host: {{ .Values.global.jadawel.objectsDomain }}
       http:
         paths:
           - path: /
@@ -70,7 +70,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "baserow.global.fullname" . }}-baserow-frontend
+                name: {{ include "jadawel.global.fullname" . }}-jadawel-frontend
                 port:
                   number: 80
   {{- if .Values.ingress.tls }}

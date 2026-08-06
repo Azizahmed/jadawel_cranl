@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "baserow.fullname" . }}
-  namespace: {{ include "baserow.namespace" . }}
+  name: {{ include "jadawel.fullname" . }}
+  namespace: {{ include "jadawel.namespace" . }}
   labels:
-    {{- include "baserow.labels" . | nindent 4 }}
+    {{- include "jadawel.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -14,5 +14,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "baserow.selectorLabels" . | nindent 4 }}
+    {{- include "jadawel.selectorLabels" . | nindent 4 }}
 {{- end }}

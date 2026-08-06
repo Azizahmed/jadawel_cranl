@@ -378,11 +378,11 @@ class SearchHandler(
         Emails:
           With input "peter@jadawel.com" this will result in tokens:
           1. peter
-          2. jadawel.io
+          2. baserow.io
         URLs
-          With input "https://jadawel.io/jobs/" this will result in tokens:
+          With input "https://baserow.io/jobs/" this will result in tokens:
           1. https
-          2. jadawel.io
+          2. baserow.io
           3. jobs
         Dates
           With input "06/13/2023" or "06-13-2023" this will result in tokens:

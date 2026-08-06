@@ -105,7 +105,7 @@ class Command(BaseCommand):
 
         else:
             concurrency_args = [
-                "./baserow",
+                "./jadawel",
                 "fill_workspaces",
                 str(int(limit / concurrency)),
                 "--concurrency",

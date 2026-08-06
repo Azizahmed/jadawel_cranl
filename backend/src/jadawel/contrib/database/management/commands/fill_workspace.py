@@ -132,7 +132,7 @@ class Command(BaseCommand):
             concurrency = min(concurrency, database_count)
             run_command_concurrently(
                 [
-                    "./baserow",
+                    "./jadawel",
                     "fill_workspace",
                     str(user_id),
                     "--workspace_id",

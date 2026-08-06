@@ -9,4 +9,4 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-COPY deploy/render/render_env.sh /baserow/supervisor/env/render_env.sh
+COPY deploy/render/render_env.sh /jadawel/supervisor/env/render_env.sh

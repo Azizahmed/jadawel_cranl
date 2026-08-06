@@ -58,7 +58,7 @@ def test_require_first_admin_user_is_false_after_admin_creation(
         reverse("api:user:index"),
         {
             "name": "admin",
-            "email": "admin@jadawel.io",
+            "email": "admin@baserow.io",
             "password": "admin1234",
             "language": "en",
             "authenticate": True,

@@ -18,7 +18,7 @@ from jadawel.test_utils.zip_helpers import (
 )
 
 SOURCES_PATH = os.path.join(
-    settings.BASE_DIR, "../../../tests/baserow/api/import_export/sources"
+    settings.BASE_DIR, "../../../tests/jadawel/api/import_export/sources"
 )
 INTERESTING_DB_EXPORT_PATH = f"{SOURCES_PATH}/interesting_database_export.zip"
 

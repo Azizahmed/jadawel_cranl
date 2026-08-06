@@ -88,7 +88,7 @@ The container log contained only Baserow's warning about running without a
 mounted data folder, hiding everything after it.
 
 **Fix:** `DISABLE_VOLUME_CHECK=yes`. Safe here because Postgres and Redis are
-external; only media and Caddy state live in `/baserow/data`, and media belongs
+external; only media and Caddy state live in `/jadawel/data`, and media belongs
 in S3 anyway.
 
 ### 4. The real cause — `EADDRINUSE: address already in use :::80`
@@ -200,7 +200,7 @@ URLs in `JADAWEL_PUBLIC_URL`.
 |---|---|---|
 | `PORT` | `3000` | **Critical.** Overrides CranL's injected `PORT=80`, which otherwise makes Nuxt fight Caddy for the socket (§4). |
 | `DISABLE_VOLUME_CHECK` | `yes` | Unblocks boot; no persistent volume by design (§3). |
-| `SECRET_KEY` | *50 chars, generated* | Must be explicit — `baserow.sh:201` otherwise writes one to the ephemeral `/baserow/data/.secret`, so every redeploy would invalidate all sessions. |
+| `SECRET_KEY` | *50 chars, generated* | Must be explicit — `baserow.sh:201` otherwise writes one to the ephemeral `/jadawel/data/.secret`, so every redeploy would invalidate all sessions. |
 | `JADAWEL_JWT_SIGNING_KEY` | *50 chars, generated* | Same, via `.jwt_signing_key`. |
 | `JADAWEL_PUBLIC_URL` | current domain, no trailing slash | Baserow rejects requests on any host that does not match. Must be switched when the domain changes. |
 | `DATABASE_URL` | internal, from `jadawel-postgres` | |

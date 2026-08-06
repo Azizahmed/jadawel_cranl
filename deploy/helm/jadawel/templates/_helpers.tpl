@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "baserow.global.name" -}}
+{{- define "jadawel.global.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "baserow.global.fullname" -}}
+{{- define "jadawel.global.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "baserow.global.chart" -}}
+{{- define "jadawel.global.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "baserow.global.labels" -}}
-helm.sh/chart: {{ include "baserow.global.chart" . }}
-{{ include "baserow.global.selectorLabels" . }}
+{{- define "jadawel.global.labels" -}}
+helm.sh/chart: {{ include "jadawel.global.chart" . }}
+{{ include "jadawel.global.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "baserow.global.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "baserow.global.name" . }}
+{{- define "jadawel.global.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "jadawel.global.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create image url to use
 */}}
-{{- define "baserow.global.image" -}}
-{{- if and .Values.global.baserow.imageRegistry .Values.global.baserow.image.tag -}}
-{{- printf "%s/%s:%s" .Values.global.baserow.imageRegistry .Values.image.repository .Values.global.baserow.image.tag }}
+{{- define "jadawel.global.image" -}}
+{{- if and .Values.global.jadawel.imageRegistry .Values.global.jadawel.image.tag -}}
+{{- printf "%s/%s:%s" .Values.global.jadawel.imageRegistry .Values.image.repository .Values.global.jadawel.image.tag }}
 {{- else -}}
 {{- printf "%s:%s" .Values.image.repository .Values.image.tag }}
 {{- end }}
@@ -64,11 +64,11 @@ Create image url to use
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "baserow.global.serviceAccountName" -}}
-{{- if .Values.global.baserow.serviceAccount.create }}
-{{- default (include "baserow.global.fullname" .) .Values.global.baserow.serviceAccount.name }}
+{{- define "jadawel.global.serviceAccountName" -}}
+{{- if .Values.global.jadawel.serviceAccount.create }}
+{{- default (include "jadawel.global.fullname" .) .Values.global.jadawel.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.global.baserow.serviceAccount.name }}
+{{- default "default" .Values.global.jadawel.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
@@ -76,9 +76,9 @@ Create the name of the service account to use
 {{/*
 Create image url to use
 */}}
-{{- define "baserow.global.migration.image" -}}
-{{- if and .Values.global.baserow.imageRegistry .Values.global.baserow.image.tag -}}
-{{- printf "%s/%s:%s" .Values.global.baserow.imageRegistry .Values.migration.image.repository .Values.global.baserow.image.tag }}
+{{- define "jadawel.global.migration.image" -}}
+{{- if and .Values.global.jadawel.imageRegistry .Values.global.jadawel.image.tag -}}
+{{- printf "%s/%s:%s" .Values.global.jadawel.imageRegistry .Values.migration.image.repository .Values.global.jadawel.image.tag }}
 {{- else -}}
 {{- printf "%s:%s" .Values.migration.image.repository .Chart.AppVersion }}
 {{- end }}
@@ -101,37 +101,37 @@ otherwise it generates a random value.
 {{/*
 Get jwt secret name
 */}}
-{{- define "baserow.global.jwt.secret_name" -}}
-{{- printf "%s%s" (include "baserow.global.fullname" .) "-jwt"  -}}
+{{- define "jadawel.global.jwt.secret_name" -}}
+{{- printf "%s%s" (include "jadawel.global.fullname" .) "-jwt"  -}}
 {{- end }}
 
 {{/*
 Get jwt secret key
 */}}
-{{- define "baserow.global.jwt.secret_key" -}}
-{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" .Values.global.baserow.backendSecret "Length" 10 "Key" "SECRET_KEY")  -}}
+{{- define "jadawel.global.jwt.secret_key" -}}
+{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" .Values.global.jadawel.backendSecret "Length" 10 "Key" "SECRET_KEY")  -}}
 {{- end }}
 
 
 {{/*
 Get jwt secret key
 */}}
-{{- define "baserow.global.jwt.signing_key" -}}
-{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" .Values.global.baserow.backendSecret "Length" 10 "Key" "JADAWEL_JWT_SIGNING_KEY")  -}}
+{{- define "jadawel.global.jwt.signing_key" -}}
+{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" .Values.global.jadawel.backendSecret "Length" 10 "Key" "JADAWEL_JWT_SIGNING_KEY")  -}}
 {{- end }}
 
 {{/*
 Create envFrom options
 */}}
-{{- define "baserow.global.migration.envFrom" -}}
+{{- define "jadawel.global.migration.envFrom" -}}
 - configMapRef:
-    name: {{ .Values.global.baserow.sharedConfigMap }}
+    name: {{ .Values.global.jadawel.sharedConfigMap }}
 - configMapRef:
-    name: {{ .Values.global.baserow.backendConfigMap }}
+    name: {{ .Values.global.jadawel.backendConfigMap }}
 - secretRef:
-    name: {{ .Values.global.baserow.backendSecret }}
-{{- if .Values.global.baserow.envFrom }}
-{{ toYaml .Values.global.baserow.envFrom }}
+    name: {{ .Values.global.jadawel.backendSecret }}
+{{- if .Values.global.jadawel.envFrom }}
+{{ toYaml .Values.global.jadawel.envFrom }}
 {{- end }}
 {{- if .Values.migration.envFrom }}
 {{ toYaml .Values.migration.envFrom }}
@@ -141,7 +141,7 @@ Create envFrom options
 {{/*
 Get the password for the postgresql user
 */}}
-{{- define "baserow.global.postgresql.password" -}}
+{{- define "jadawel.global.postgresql.password" -}}
   {{- if .Values.postgresql.enabled -}}
   {{- if .Values.postgresql.auth.existingSecret -}}
     {{- include "getValueFromSecret" (dict "Namespace" (include "common.names.namespace" .Subcharts.postgresq) "Name" (include "postgresql.v1.secretName" .Subcharts.postgresq) "Length" 10 "Key" (include "postgresql.v1.userPasswordKey" .Subcharts.postgresq))  -}}
@@ -154,7 +154,7 @@ Get the password for the postgresql user
 {{/*
 Return the username for the postgres user
 */}}
-{{- define "baserow.global.postgresql.username" -}}
+{{- define "jadawel.global.postgresql.username" -}}
   {{- if .Values.postgresql.enabled -}}
     {{ include "postgresql.v1.username" .Subcharts.postgresql }}
   {{- end -}}
@@ -166,8 +166,8 @@ PodSecurityContext combine the global and local PodSecurityContexts
 {{- define "podSecurityContext" -}}
 {{- if .Values.migration.securityContext.enabled }}
 {{- omit .Values.migration.securityContext "enabled" | toYaml  }}
-{{- else if .Values.global.baserow.securityContext.enabled }}
-{{- omit .Values.global.baserow.securityContext "enabled" | toYaml }}
+{{- else if .Values.global.jadawel.securityContext.enabled }}
+{{- omit .Values.global.jadawel.securityContext "enabled" | toYaml }}
 {{- end }}
 {{- end }}
 
@@ -177,7 +177,7 @@ ContainerSecurityContext combine the global and local ContainerSecurityContexts
 {{- define "containerSecurityContext" -}}
 {{- if .Values.migration.containerSecurityContext.enabled }}
 {{- omit .Values.migration.containerSecurityContext "enabled" | toYaml  }}
-{{- else if .Values.global.baserow.containerSecurityContext.enabled }}
-{{- omit .Values.global.baserow.containerSecurityContext "enabled" | toYaml }}
+{{- else if .Values.global.jadawel.containerSecurityContext.enabled }}
+{{- omit .Values.global.jadawel.containerSecurityContext "enabled" | toYaml }}
 {{- end }}
 {{- end }}

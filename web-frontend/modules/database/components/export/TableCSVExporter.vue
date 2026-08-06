@@ -56,7 +56,7 @@
 
 <script>
 // Please keep csvColumnSeparator values in sync with
-// src/baserow/contrib/database/api/export/serializers.py:SUPPORTED_CSV_COLUMN_SEPARATORS
+// src/jadawel/contrib/database/api/export/serializers.py:SUPPORTED_CSV_COLUMN_SEPARATORS
 import CharsetDropdown from '@jadawel/modules/core/components/helpers/CharsetDropdown'
 import form from '@jadawel/modules/core/mixins/form'
 

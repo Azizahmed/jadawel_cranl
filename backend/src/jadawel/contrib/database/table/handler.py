@@ -804,7 +804,7 @@ class TableHandler(metaclass=baserow_trace_methods(tracer)):
             "database_fields": all_table_dependency_field_ids,
             "database_views": all_database_view_ids,
             # The properties below must be kept in sync with
-            # `src/baserow/contrib/database/views/registries.py::import_serialized`
+            # `src/jadawel/contrib/database/views/registries.py::import_serialized`
             "database_view_filters": {},
             "database_view_filter_groups": {},
             "database_view_sortings": {},

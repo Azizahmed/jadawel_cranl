@@ -53,7 +53,7 @@ class Command(BaseCommand):
         else:
             run_command_concurrently(
                 [
-                    "./baserow",
+                    "./jadawel",
                     "fill_tables",
                     str(database_id),
                     str(int(limit / concurrency)),

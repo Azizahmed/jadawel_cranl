@@ -88,7 +88,7 @@ def test_import_applications(data_fixture, api_client, tmpdir, use_tmp_media_roo
     workspace = data_fixture.create_workspace(user=user)
 
     sources_path = os.path.join(
-        settings.BASE_DIR, "../../../tests/baserow/api/import_export/sources"
+        settings.BASE_DIR, "../../../tests/jadawel/api/import_export/sources"
     )
 
     data_fixture.create_import_export_trusted_source()
@@ -138,7 +138,7 @@ def test_import_specific_application_ids(
     workspace = data_fixture.create_workspace(user=user)
 
     sources_path = os.path.join(
-        settings.BASE_DIR, "../../../tests/baserow/api/import_export/sources"
+        settings.BASE_DIR, "../../../tests/jadawel/api/import_export/sources"
     )
 
     data_fixture.disable_import_signature_verification()
@@ -193,7 +193,7 @@ def test_import_without_application_ids(
     workspace = data_fixture.create_workspace(user=user)
 
     sources_path = os.path.join(
-        settings.BASE_DIR, "../../../tests/baserow/api/import_export/sources"
+        settings.BASE_DIR, "../../../tests/jadawel/api/import_export/sources"
     )
 
     data_fixture.disable_import_signature_verification()
@@ -248,7 +248,7 @@ def test_import_with_nonexistent_application_ids(
     workspace = data_fixture.create_workspace(user=user)
 
     sources_path = os.path.join(
-        settings.BASE_DIR, "../../../tests/baserow/api/import_export/sources"
+        settings.BASE_DIR, "../../../tests/jadawel/api/import_export/sources"
     )
 
     data_fixture.disable_import_signature_verification()

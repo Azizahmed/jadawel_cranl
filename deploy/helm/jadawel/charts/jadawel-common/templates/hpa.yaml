@@ -2,15 +2,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "baserow.fullname" . }}
-  namespace: {{ include "baserow.namespace" . }}
+  name: {{ include "jadawel.fullname" . }}
+  namespace: {{ include "jadawel.namespace" . }}
   labels:
-    {{- include "baserow.labels" . | nindent 4 }}
+    {{- include "jadawel.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "baserow.fullname" . }}
+    name: {{ include "jadawel.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

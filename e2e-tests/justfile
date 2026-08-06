@@ -160,7 +160,7 @@ up: _ensure-images
     if ! docker ps --format '{{ '{{.Names}}' }}' | grep -q "^e2e-backend$"; then
         echo "Starting backend..."
         docker run -d --network={{ network }} --name e2e-backend \
-            -v e2e-media:/baserow/media \
+            -v e2e-media:/jadawel/media \
             -e DATABASE_HOST=e2e-db \
             -e DATABASE_NAME=baserow \
             -e DATABASE_USER=baserow \
@@ -179,7 +179,7 @@ up: _ensure-images
     if ! docker ps --format '{{ '{{.Names}}' }}' | grep -q "^e2e-celery$"; then
         echo "Starting celery worker..."
         docker run -d --network={{ network }} --name e2e-celery \
-            -v e2e-media:/baserow/media \
+            -v e2e-media:/jadawel/media \
             -e DATABASE_HOST=e2e-db \
             -e DATABASE_NAME=baserow \
             -e DATABASE_USER=baserow \
@@ -342,7 +342,7 @@ db-dump:
         -e REDIS_URL=redis://e2e-dump-redis:6379 \
         -e SECRET_KEY=dump-generation \
         -e DJANGO_SETTINGS_MODULE=jadawel.config.settings.test \
-        {{ backend_image }} bash -c "python /baserow/backend/src/jadawel/manage.py migrate --noinput"
+        {{ backend_image }} bash -c "python /jadawel/backend/src/jadawel/manage.py migrate --noinput"
 
     # Create the dump
     echo "Creating database dump..."

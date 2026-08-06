@@ -27,7 +27,7 @@ following sub-folders:
 """
 }
 
-source /baserow/plugins/utils.sh
+source /jadawel/plugins/utils.sh
 
 # First parse the args using getopt
 VALID_ARGS=$(getopt -o u:dhf:rg:o --long hash:,url:,git:,help,dev,folder:,runtime,overwrite -- "$@")
@@ -199,17 +199,17 @@ run_as_docker_user(){
 
 # Make sure we create the container markers folder which we will use to check if a
 # plugin has been installed or not already inside this container.
-mkdir -p /baserow/container_markers
+mkdir -p /jadawel/container_markers
 
 # Install the backend plugin
-if [[ -d "/baserow/backend" && -d "$PLUGIN_BACKEND_FOLDER" ]]; then
+if [[ -d "/jadawel/backend" && -d "$PLUGIN_BACKEND_FOLDER" ]]; then
     log "Found a backend app for ${plugin_name}."
-    BACKEND_BUILT_MARKER=/baserow/container_markers/$plugin_name.backend-built
+    BACKEND_BUILT_MARKER=/jadawel/container_markers/$plugin_name.backend-built
     if [[ ! -f "$BACKEND_BUILT_MARKER" || "$overwrite" == "true" ]]; then
       log "Building ${plugin_name}'s backend app."
 
-      . /baserow/venv/bin/activate
-      cd /baserow/backend
+      . /jadawel/venv/bin/activate
+      cd /jadawel/backend
 
       if [[ "$dev" == true ]]; then
           run_as_docker_user pip3 install -e "$PLUGIN_BACKEND_FOLDER"
@@ -223,7 +223,7 @@ if [[ -d "/baserow/backend" && -d "$PLUGIN_BACKEND_FOLDER" ]]; then
       log "Skipping install of ${plugin_name}'s backend app as it is already installed."
     fi
 
-    BACKEND_RUNTIME_SETUP_MARKER=/baserow/container_markers/$plugin_name.backend-runtime-setup
+    BACKEND_RUNTIME_SETUP_MARKER=/jadawel/container_markers/$plugin_name.backend-runtime-setup
     if [[ ( ! -f "$BACKEND_RUNTIME_SETUP_MARKER" || "$overwrite" == "true" ) && $runtime == "true" ]]; then
       check_and_run_script "$PLUGIN_BACKEND_FOLDER" runtime_setup.sh
       touch "$BACKEND_RUNTIME_SETUP_MARKER"
@@ -234,14 +234,14 @@ fi
 
 # Install the web-frontend plugin
 PLUGIN_WEBFRONTEND_FOLDER="$folder/web-frontend"
-if [[ -d "/baserow/web-frontend" && -d "$PLUGIN_WEBFRONTEND_FOLDER" ]]; then
+if [[ -d "/jadawel/web-frontend" && -d "$PLUGIN_WEBFRONTEND_FOLDER" ]]; then
     log "Found a web-frontend module for ${plugin_name}."
-    WEBFRONTEND_BUILT_MARKER=/baserow/container_markers/$plugin_name.web-frontend-built
+    WEBFRONTEND_BUILT_MARKER=/jadawel/container_markers/$plugin_name.web-frontend-built
     if [[ ! -f "$WEBFRONTEND_BUILT_MARKER" || "$overwrite" == "true" ]]; then
       log "Building ${plugin_name}'s web-frontend module."
 
 
-      cd /baserow/web-frontend
+      cd /jadawel/web-frontend
       run_as_docker_user yarn add "$PLUGIN_WEBFRONTEND_FOLDER" && yarn cache clean
 
       # We only load web-frontend modules into nuxt which have a built marker. Touch
@@ -253,14 +253,14 @@ if [[ -d "/baserow/web-frontend" && -d "$PLUGIN_WEBFRONTEND_FOLDER" ]]; then
       trap finish EXIT
 
       if [[ "$dev" != true ]]; then
-        run_as_docker_user /baserow/web-frontend/docker/docker-entrypoint.sh build
+        run_as_docker_user /jadawel/web-frontend/docker/docker-entrypoint.sh build
       else
         log "Installing plugins dev dependencies..."
         # In dev mode yarn install the plugins own dependencies so they are available
         # for linting the plugin etc.
         cd "$PLUGIN_WEBFRONTEND_FOLDER"
         run_as_docker_user yarn install
-        cd /baserow/web-frontend
+        cd /jadawel/web-frontend
       fi
 
       check_and_run_script "$PLUGIN_WEBFRONTEND_FOLDER" build.sh
@@ -269,7 +269,7 @@ if [[ -d "/baserow/web-frontend" && -d "$PLUGIN_WEBFRONTEND_FOLDER" ]]; then
       log "Skipping build of $plugin_name web-frontend module as it has already been built."
     fi
 
-    WEBFRONTEND_RUNTIME_SETUP_MARKER=/baserow/container_markers/$plugin_name.web-frontend-runtime-setup
+    WEBFRONTEND_RUNTIME_SETUP_MARKER=/jadawel/container_markers/$plugin_name.web-frontend-runtime-setup
     if [[ ( -f "$WEBFRONTEND_RUNTIME_SETUP_MARKER" || "$overwrite" == "true" ) && $runtime == "true" ]]; then
       check_and_run_script "$PLUGIN_WEBFRONTEND_FOLDER" runtime_setup.sh
       touch "$WEBFRONTEND_RUNTIME_SETUP_MARKER"
@@ -280,6 +280,6 @@ fi
 
 log "Fixing ownership of plugins from $(id -u) to $DOCKER_USER in $JADAWEL_PLUGIN_DIR"
 chown -R "$DOCKER_USER": "$JADAWEL_PLUGIN_DIR"
-chown -R "$DOCKER_USER": /baserow/container_markers/
+chown -R "$DOCKER_USER": /jadawel/container_markers/
 log_success "Finished setting up ${plugin_name} successfully."
 

@@ -50,7 +50,7 @@ screens are RTL-ready.
 - `node scripts/check-locale-parity.mjs --strict` re-run on the working tree:
   **3,482/3,482 translated, 0 missing, exit 0** across all seven locale families.
 - WP0 confirmed in git history (`a8aa6fc21` — migration `0209` committed).
-- The 9 modified backend email templates under `backend/src/baserow/core/templates/`
+- The 9 modified backend email templates under `backend/src/jadawel/core/templates/`
   are **line-endings-only churn** (empty `git diff --numstat`) — restore rather than
   commit them.
 - The WP1/WP2 work (parity tooling, translations, `gridViewDrag.js` + tests, SCSS

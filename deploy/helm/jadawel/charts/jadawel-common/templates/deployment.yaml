@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "baserow.fullname" . }}
-  namespace: {{ include "baserow.namespace" . }}
+  name: {{ include "jadawel.fullname" . }}
+  namespace: {{ include "jadawel.namespace" . }}
   labels:
-    {{- include "baserow.labels" . | nindent 4 }}
+    {{- include "jadawel.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -12,7 +12,7 @@ spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
-      {{- include "baserow.selectorLabels" . | nindent 6 }}
+      {{- include "jadawel.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -21,26 +21,26 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "baserow.selectorLabels" . | nindent 8 }}
+        {{- include "jadawel.selectorLabels" . | nindent 8 }}
 
     spec:
-      serviceAccountName: {{ include "baserow.serviceAccountName" . }}
+      serviceAccountName: {{ include "jadawel.serviceAccountName" . }}
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
       {{- end -}}
-      {{- if or .Values.global.baserow.securityContext.enabled .Values.securityContext.enabled }}
-      securityContext: {{- include "baserow.podSecurityContext" . | nindent 8 }}
+      {{- if or .Values.global.jadawel.securityContext.enabled .Values.securityContext.enabled }}
+      securityContext: {{- include "jadawel.podSecurityContext" . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.imagePullSecrets .Values.global.baserow.imagePullSecrets }}
-      imagePullSecrets: {{ include "baserow.imagePullSecrets" . }}
+      {{- if or .Values.imagePullSecrets .Values.global.jadawel.imagePullSecrets }}
+      imagePullSecrets: {{ include "jadawel.imagePullSecrets" . }}
       {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "baserow.fullname" . }}
-          image: {{ include "baserow.image" . }}
+        - name: {{ include "jadawel.fullname" . }}
+          image: {{ include "jadawel.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           workingDir: {{ .Values.workingDir }}
           {{- with .Values.args }}
@@ -65,8 +65,8 @@ spec:
             {{ toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
-          {{- if or .Values.global.baserow.containerSecurityContext.enabled .Values.containerSecurityContext.enabled }}
-          securityContext: {{- include "baserow.containerSecurityContext" . | nindent 12 }}
+          {{- if or .Values.global.jadawel.containerSecurityContext.enabled .Values.containerSecurityContext.enabled }}
+          securityContext: {{- include "jadawel.containerSecurityContext" . | nindent 12 }}
           {{- end }}
           {{- with .Values.resources }}
           resources: {{- toYaml . | nindent 12 }}
@@ -76,7 +76,7 @@ spec:
             {{ toYaml . | nindent 12 }}
           {{- end }}
           envFrom:
-            {{ include "baserow.envFrom" . | nindent 12 }}
+            {{ include "jadawel.envFrom" . | nindent 12 }}
           env:
             - name: K8S_NODE_NAME
               valueFrom:

@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             new_function,
             # old function from
-            # `src/baserow/contrib/database/migrations/0106_add_to_timestamptz_formula.py`
+            # `src/jadawel/contrib/database/migrations/0106_add_to_timestamptz_formula.py`
             old_function,
         )
     ]

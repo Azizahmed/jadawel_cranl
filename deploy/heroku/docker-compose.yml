@@ -24,9 +24,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - baserow_heroku_data:/baserow/data
+      - baserow_heroku_data:/jadawel/data
     healthcheck:
-      test: [ "CMD-SHELL", "/baserow/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
+      test: [ "CMD-SHELL", "/jadawel/backend/docker/docker-entrypoint.sh backend-healthcheck" ]
       interval: 10s
       timeout: 5s
       retries: 5

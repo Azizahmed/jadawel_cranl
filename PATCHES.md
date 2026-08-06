@@ -33,7 +33,7 @@ references and one runtime dependency on a setting the enterprise plugin used to
 | `eslint.config.mjs` | Removed premium/enterprise file globs | Paths gone | low |
 | `e2e-tests/package.json` | Removed `test-enterprise-only` script | Enterprise e2e specs gone | low |
 | `deploy/all-in-one/Dockerfile` | Removed premium/enterprise `COPY` + `PYTHONPATH` | Paths gone | med |
-| `deploy/all-in-one/supervisor/default_baserow_env.sh` | `PYTHONPATH` trimmed to `backend/src` | Paths gone | low |
+| `deploy/all-in-one/supervisor/default_jadawel_env.sh` | `PYTHONPATH` trimmed to `backend/src` | Paths gone | low |
 | `docker-compose.dev.yml` | Removed the premium/enterprise backend & web-frontend bind-mount volume lines (7 services) | Dirs gone; bind mounts would create empty dirs / error | med |
 | `.github/workflows/ci.yml` | Removed premium/enterprise from `paths-filter` and from the `ruff check`/`format` args | Paths gone (CI is reworked in Task 4) | med |
 | `config/vscode/.vscode/launch.json`, `settings.json` | Removed premium/enterprise test paths and mypy/analysis extra paths | Dev-editor convenience only | low |
