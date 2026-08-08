@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./site-logic.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FBFBF9; }
+  body { font-family: "IBM Plex Sans Arabic", system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #202128; }
+  * { box-sizing: border-box; }
+  a { color: #1E6D4C; text-decoration: none; }
+  a:hover { color: #14513A; }
+  ::selection { background: #CFE3D7; }
+  html { scroll-behavior: smooth; }
+  input, textarea, select, button { font-family: inherit; }
+</style>
+</helmet>
+<div id="jadawil-rel" dir="rtl" data-lang="ar" style="background:#FBFBF9;min-height:100vh;overflow-x:hidden">
+
+  <div style="background:#202128;color:#fff">
+    <div style="max-width:1180px;margin:0 auto;padding:9px 28px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;font-size:13.5px">
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#1E6D4C;border-radius:999px;padding:3px 11px;font-weight:600;font-size:12.5px;flex-shrink:0">
+        <span style="width:6px;height:6px;border-radius:99px;background:#8FD3AE;display:block"></span>
+        <span data-en="Beta">نسخة تجريبية</span>
+      </span>
+      <span data-en="Free while in beta · Hosted in Saudi Arabia, or on-premise on your own servers." style="color:#DBDCD9">الاستخدام مجاني الآن خلال فترة التجربة · استضافة داخل السعودية أو تركيب داخل مركز بيانات المنظومة.</span>
+      <div style="flex:1"></div>
+      <a href="/" data-en="Back to home" style="color:#8FD3AE;font-weight:500;flex-shrink:0" style-hover="color:#B8E6CD">العودة للرئيسية</a>
+    </div>
+  </div>
+
+  <header style="position:sticky;top:0;z-index:50;background:rgba(251,251,249,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #EAEAE6">
+    <div style="max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:28px">
+      <a href="/" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+        <img src="uploads/image-removebg-preview.png" alt="جداول" style="height:26px;width:auto;display:block">
+      </a>
+      <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;color:#4C5158;margin-inline-start:14px">
+
+
+        <a href="#releases" data-en="Releases" style="color:#202128;font-weight:600">التحديثات</a>
+        <a href="#report" data-en="Report a bug" style="color:#4C5158" style-hover="color:#202128">الإبلاغ عن خطأ</a>
+      </nav>
+      <div style="flex:1"></div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ toggleLang }}" data-en="ع" style="font-size:13px;font-weight:600;letter-spacing:0.04em;color:#4C5158;background:#fff;border:1px solid #E2E2DD;border-radius:8px;padding:7px 12px;cursor:pointer" style-hover="border-color:#C9C9C2;color:#202128">EN</button>
+        <a href="#report" data-en="Report a bug" style="font-size:14.5px;font-weight:600;color:#fff;background:#1E6D4C;border-radius:9px;padding:9px 18px;box-shadow:0 1px 2px rgba(30,109,76,0.28)" style-hover="background:#175A3E;color:#fff">أبلغ عن خطأ</a>
+      </div>
+    </div>
+  </header>
+
+  <section style="max-width:1180px;margin:0 auto;padding:60px 28px 0">
+    <div style="max-width:64ch">
+      <div data-en="Release notes" style="font-size:13px;font-weight:600;letter-spacing:0.12em;color:#1E6D4C">تحديث فوري</div>
+
+      <h1 data-en="What's new in Jadawil" style="font-size:clamp(32px,4.2vw,52px);line-height:1.16;font-weight:700;letter-spacing:-0.02em;margin:14px 0 0">سجل تحديثات «جداول»</h1><p data-en="We ship every week during the beta. Here is every change — and below, a place to tell us what broke." style="font-size:18.5px;line-height:1.65;color:#5A5F66;margin:16px 0 0;text-wrap:pretty">نطلق تحديثات كل أسبوع خلال فترة التجربة. هذي كل التغييرات، يوجد مكان لإبلاغ عن أي خلل يواجهك أثناء فترة الاستخدام.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#EAEAE6;border:1px solid #EAEAE6;border-radius:14px;overflow:hidden;margin-top:32px">
+      <div style="background:#fff;padding:22px">
+        <div style="font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: #1E6D4C; text-align: right" dir="ltr">v0.9.4</div>
+        <div data-en="Current version" style="font-size:14px;color:#5A5F66;margin-top:6px">الإصدار الحالي</div>
+      </div>
+      <div style="background:#fff;padding:22px">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">٣ أغسطس ٢٠٢٦</div>
+        <div data-en="Last release" style="font-size:14px;color:#5A5F66;margin-top:6px">تاريخ آخر إصدار</div>
+      </div>
+      <div style="background:#fff;padding:22px">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">{{ fixedCount }}</div>
+        <div data-en="Bugs fixed this month" style="font-size:14px;color:#5A5F66;margin-top:6px">خلل تم إصلاحه هذا الشهر</div>
+      </div>
+      <div style="background:#fff;padding:22px">
+        <div style="font-size:26px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">٢٤ ساعة</div>
+        <div data-en="Median first response to a report" style="font-size:14px;color:#5A5F66;margin-top:6px">متوسط الرد على البلاغات</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="releases" style="max-width:1180px;margin:0 auto;padding:64px 28px 0">
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start">
+
+      <div style="display:flex;flex-direction:column;gap:18px">
+
+        <article style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:30px 30px 26px">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px">
+            <span style="font-size:20px;font-weight:700;letter-spacing:-0.01em" dir="ltr">v0.9.4</span>
+            <span data-en="Latest" style="background:#1E6D4C;color:#fff;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px">الأحدث</span>
+            <div style="flex:1"></div>
+            <span style="font-size:13.5px;color:#8A8F96">٤ أغسطس ٢٠٢٦</span>
+          </div>
+          <h2 data-en="MCP server, and much faster Excel import" style="font-size:22px;font-weight:600;margin:14px 0 0">خادم MCP واستيراد Excel أسرع</h2>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="New" style="background:#EAF3EE;color:#1E6D4C;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">جديد</span>
+              <p data-en="Every base can now be exposed as an MCP server, so AI assistants read and update rows with your team's permissions." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">صار بإمكانك ربط أي قاعدة بيانات كخادم MCP، ويقدر مساعد الذكاء الاصطناعي يقرأ ويحدّث السجلات بنفس صلاحيات فريقك.</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="Improved" style="background:#EEF2F7;color:#3D5A80;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">تحسين</span>
+              <p data-en="Arabic .xlsx import is roughly 3× faster, and mixed Arabic/English headers are now detected correctly." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">استيراد ملفات xlsx العربية أسرع بثلاث مرات تقريبًا، ورؤوس الأعمدة المختلطة عربي/إنجليزي تُقرأ صح.</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="Fixed" style="background:#FBE9E4;color:#A9483A;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">إصلاح</span>
+              <p data-en="Long Arabic text no longer overflows the cell when the row height is set to short." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">النصوص العربية الطويلة ما تطلع خارج الخلية عند اختيار ارتفاع صف صغير.</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="Fixed" style="background:#FBE9E4;color:#A9483A;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">إصلاح</span>
+              <p data-en="Hijri dates in the date field now sort in the right order." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">التواريخ الهجرية في حقل التاريخ ترتّب بالتسلسل الصحيح.</p>
+            </div>
+          </div>
+        </article>
+
+        <article style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:30px 30px 26px">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px">
+            <span style="font-size:20px;font-weight:700;letter-spacing:-0.01em" dir="ltr">v0.9.3</span>
+            <div style="flex:1"></div>
+            <span style="font-size:13.5px;color:#8A8F96">٢١ يوليو ٢٠٢٦</span>
+          </div>
+          <h2 data-en="Field-level permissions and audit log" style="font-size:22px;font-weight:600;margin:14px 0 0">صلاحيات على مستوى الحقل وسجل تدقيق</h2>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="New" style="background:#EAF3EE;color:#1E6D4C;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">جديد</span>
+              <p data-en="Hide or lock individual fields per role — useful for salary and national ID columns." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">إخفاء أو تجميد حقول معيّنة لكل دور، وهذا يفيد في أعمدة مثل الرواتب ورقم الهوية.</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="New" style="background:#EAF3EE;color:#1E6D4C;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">جديد</span>
+              <p data-en="Exportable audit log showing who changed what and when." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">سجل تدقيق قابل للتصدير يوضّح مين غيّر وإيش غيّر وأي وقت.</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="Fixed" style="background:#FBE9E4;color:#A9483A;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">إصلاح</span>
+              <p data-en="Arabic form submissions no longer lose the tashkeel in long text answers." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">إجابات النماذج العربية الطويلة ما تفقد التشكيل بعد الإرسال.</p>
+            </div>
+          </div>
+        </article>
+
+        <article style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:30px 30px 26px">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px">
+            <span style="font-size:20px;font-weight:700;letter-spacing:-0.01em" dir="ltr">v0.9.2</span>
+            <div style="flex:1"></div>
+            <span style="font-size:13.5px;color:#8A8F96">٣٠ يونيو ٢٠٢٦</span>
+          </div>
+          <h2 data-en="On-premise installer" style="font-size:22px;font-weight:600;margin:14px 0 0">حزمة التركيب الداخلي (On-Premise)</h2>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="New" style="background:#EAF3EE;color:#1E6D4C;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">جديد</span>
+              <p data-en="A packaged installer for entities that host Jadawil inside their own data centre." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">حزمة تركيب جاهزة للجهات التي تفضّل تشغيل «جداول» داخل مركز بياناتها.</p>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span data-en="Improved" style="background:#EEF2F7;color:#3D5A80;font-size:12px;font-weight:600;border-radius:6px;padding:3px 9px;flex-shrink:0;margin-top:2px">تحسين</span>
+              <p data-en="Kanban view now groups by single-select fields written in Arabic." style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:0">عرض كانبان يجمّع البطاقات حسب حقول الاختيار المكتوبة بالعربي.</p>
+            </div>
+          </div>
+        </article>
+
+        <div style="text-align:center;padding:8px 0 0">
+          <span data-en="Older releases are in the changelog archive." style="font-size:14px;color:#8A8F96">الإصدارات الأقدم متوفرة في أرشيف سجل التحديثات.</span>
+        </div>
+      </div>
+
+      <aside style="position:sticky;top:88px;display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1px solid #E7E7E2;border-radius:14px;padding:22px">
+          <h3 data-en="Reported by users" style="font-size:16.5px;font-weight:600;margin:0">بلاغات المستخدمين</h3>
+          <p data-en="The reports we are working on right now." style="font-size:14px;line-height:1.6;color:#8A8F96;margin:6px 0 0">البلاغات التي نعمل عليها حاليًا.</p>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+            <sc-for list="{{ reports }}" as="r" hint-placeholder-count="3">
+              <div style="border-top:1px solid #F1F1ED;padding-top:12px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="font-size:11.5px;font-weight:600;border-radius:6px;padding:2px 8px;background:{{ r.chipBg }};color:{{ r.chipFg }}">{{ r.statusLabel }}</span>
+                  <span style="font-size:12px;color:#9A9EA4" dir="ltr">{{ r.id }}</span>
+                </div>
+                <div style="font-size:14.5px;line-height:1.6;color:#202128;margin-top:6px">{{ r.title }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:#F4F6F4;border:1px solid #E2E5E2;border-radius:14px;padding:20px">
+          <h3 data-en="Need it on your servers?" style="font-size:15.5px;font-weight:600;margin:0">تريدها&nbsp; على السيرفر الخاص؟</h3>
+          <p data-en="Saudi cloud hosting or a full on-premise install — talk to us." style="font-size:14px;line-height:1.65;color:#5A5F66;margin:7px 0 0">استضافة سحابية داخل السعودية أو تركيب داخلي كامل.</p>
+          <a href="/#contact" data-en="Contact us" style="display:inline-block;margin-top:14px;font-size:14.5px;font-weight:600;color:#fff;background:#1E6D4C;border-radius:9px;padding:10px 18px" style-hover="background:#175A3E;color:#fff">تواصل معنا</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="report" style="max-width:1180px;margin:80px auto 0;padding:0 28px">
+    <div style="background:#fff;border:1px solid #E7E7E2;border-radius:18px;padding:40px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:44px;align-items:start">
+      <div>
+        <div data-en="Report a bug" style="font-size:13px;font-weight:600;letter-spacing:0.12em;color:#1E6D4C">الإبلاغ عن خطأ</div>
+        <h2 data-en="Found something broken? Tell us." style="font-size:clamp(26px,3vw,36px);line-height:1.24;font-weight:700;letter-spacing:-0.02em;margin:14px 0 0">لقيت خلل؟ عرّفنا عليه</h2>
+        <p data-en="During the beta, user reports go straight to the team. Add the steps and we will reproduce it — you get a report number and an update by email." style="font-size:16.5px;line-height:1.7;color:#5A5F66;margin:14px 0 0;text-wrap:pretty">خلال فترة التجربة، بلاغاتكم توصل للفريق مباشرة. اكتب لنا الخطوات ونعيد المحاولة عندنا — ويوصلك رقم البلاغ وتحديث على بريدك.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px;font-size:14.5px;color:#4C5158">
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="First response within 24 hours">أول رد خلال ٢٤ ساعة</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Critical bugs are patched in the next weekly release">الأخطاء الحرجة تُصلح في الإصدار الأسبوعي التالي</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="No data or attachments leave the Kingdom">لا تخرج أي بيانات أو مرفقات خارج المملكة</span></div>
+        </div>
+      </div>
+
+      <div>
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px solid #CFE3D7;background:#F7FBF8;border-radius:14px;padding:28px;text-align:center">
+            <div style="width:44px;height:44px;border-radius:99px;background:#1E6D4C;color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">✓</div>
+            <h3 data-en="Report received" style="font-size:19px;font-weight:600;margin:16px 0 0">وصلنا بلاغك</h3>
+            <p style="font-size:15.5px;line-height:1.7;color:#4C5158;margin:8px 0 0">{{ successLine }}</p>
+            <button onClick="{{ reset }}" data-en="Report another bug" style="margin-top:18px;font-size:14.5px;font-weight:600;color:#202128;background:#fff;border:1px solid #E2E2DD;border-radius:10px;padding:11px 18px;cursor:pointer" style-hover="border-color:#C9C9C2">أبلغ عن خطأ آخر</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ sendReport }}" style="display:flex;flex-direction:column;gap:16px">
+            <div>
+              <div data-en="Report type" style="font-size:13.5px;font-weight:600;color:#4C5158;margin-bottom:8px">نوع البلاغ</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ kinds }}" as="k" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ k.pick }}" style="font-size:14px;font-weight:500;border-radius:9px;padding:9px 15px;cursor:pointer;background:{{ k.bg }};color:{{ k.fg }};border:1px solid {{ k.border }}">{{ k.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div data-en="Severity" style="font-size:13.5px;font-weight:600;color:#4C5158;margin-bottom:8px">درجة التأثير</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ severities }}" as="s" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ s.pick }}" style="font-size:14px;font-weight:500;border-radius:9px;padding:9px 15px;cursor:pointer;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.border }}">{{ s.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <input type="email" name="email" value="{{ email }}" onInput="{{ onEmail }}" required="{{ true }}" placeholder="البريد الإلكتروني للعمل" data-en-placeholder="Work email" style="font-size:15px;padding:13px 15px;border:1px solid #E2E2DD;border-radius:10px;background:#FCFCFB;color:#202128;outline:none;width:100%" style-focus="border-color:#1E6D4C">
+              <input type="text" name="where" value="{{ where }}" onInput="{{ onWhere }}" required="{{ true }}" placeholder="وين صار الخلل؟ (مثال: استيراد Excel)" data-en-placeholder="Where did it happen? (e.g. Excel import)" style="font-size:15px;padding:13px 15px;border:1px solid #E2E2DD;border-radius:10px;background:#FCFCFB;color:#202128;outline:none;width:100%" style-focus="border-color:#1E6D4C">
+            </div>
+            <input type="text" name="title" value="{{ title }}" onInput="{{ onTitle }}" required="{{ true }}" placeholder="عنوان قصير للبلاغ" data-en-placeholder="Short title for the report" style="font-size:15px;padding:13px 15px;border:1px solid #E2E2DD;border-radius:10px;background:#FCFCFB;color:#202128;outline:none;width:100%" style-focus="border-color:#1E6D4C">
+            <textarea name="steps" value="{{ steps }}" onInput="{{ onSteps }}" required="{{ true }}" rows="5" placeholder="وش الخطوات اللي وصلتك للخلل؟ ووش توقعت يصير مقابل اللي صار فعلًا؟" data-en-placeholder="What steps led to the bug? What did you expect, and what happened instead?" style="font-size:15px;line-height:1.7;padding:13px 15px;border:1px solid #E2E2DD;border-radius:10px;background:#FCFCFB;color:#202128;outline:none;width:100%;resize:vertical" style-focus="border-color:#1E6D4C"></textarea>
+            <div style="border:1px dashed #D9D9D2;border-radius:11px;padding:16px;display:flex;align-items:center;gap:12px;background:#FCFCFB">
+              <span style="width:30px;height:30px;border-radius:8px;background:#F1F5F2;color:#1E6D4C;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0">↑</span>
+              <div style="flex:1;min-width:0">
+                <div data-en="Attach a screenshot or a short screen recording" style="font-size:14px;font-weight:500">أرفق صورة للشاشة أو تسجيلًا قصيرًا</div>
+                <div data-en="PNG, JPG or MP4 · up to 20 MB · stored inside the Kingdom" style="font-size:12.5px;color:#9A9EA4;margin-top:3px">PNG أو JPG أو MP4 · حتى ٢٠ ميجابايت · محفوظة داخل المملكة</div>
+              </div>
+              <span data-en="Choose file" style="font-size:13.5px;font-weight:600;color:#1E6D4C;flex-shrink:0;cursor:pointer">اختر ملفًا</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <button type="submit" data-en="Send report" style="font-size:15px;font-weight:600;color:#fff;background:#1E6D4C;border:none;border-radius:11px;padding:14px 26px;cursor:pointer" style-hover="background:#175A3E">أرسل البلاغ</button>
+              <span data-en="Version v0.9.4 is included automatically. Your email app will open addressed to info@jadawl.site." style="font-size:13px;color:#9A9EA4">يُرفق رقم الإصدار v0.9.4 تلقائيًا، وسيتم فتح تطبيق البريد مع تجهيز البلاغ وإرساله إلى info@jadawl.site.</span>
+            </div>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:88px;border-top:1px solid #EAEAE6;background:#fff">
+    <div style="max-width:1180px;margin:0 auto;padding:40px 28px;display:flex;flex-wrap:wrap;gap:32px;align-items:center">
+      <a href="/"><img src="uploads/image-removebg-preview.png" alt="جداول" style="height:24px;width:auto;display:block"></a>
+      <div style="display:flex;gap:24px;font-size:14.5px;color:#5A5F66;flex-wrap:wrap">
+        <a href="/#features" data-en="Features" style="color:#5A5F66">المزايا</a>
+        <a href="/#trust" data-en="Security" style="color:#5A5F66">الأمان</a>
+        <a href="/#pricing" data-en="Pricing" style="color:#5A5F66">الأسعار</a>
+        <a href="#report" data-en="Report a bug" style="color:#5A5F66">الإبلاغ عن خطأ</a>
+        <a href="mailto:info@jadawl.site" dir="ltr" data-en="info@jadawl.site" style="color:#5A5F66">info@jadawl.site</a>
+      </div>
+      <div style="flex:1"></div>
+      <div data-en="© 2026 Jadawil · Beta · Hosted in Saudi Arabia" style="font-size:13.5px;color:#8A8F96">© ٢٠٢٦ جداول · نسخة تجريبية · مستضاف في المملكة العربية السعودية</div>
+    </div>
+  </footer>
+</div>
+
+<div style="font-size: 16px; line-height: 1; font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; position: absolute; left: 179px; top: 32px">Your text here</div></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = {
+    kind: 'bug', severity: 'medium',
+    email: '', where: '', title: '', steps: '',
+    submitted: false, ticket: '',
+    reports: [
+      { id: 'JD-1482', title: 'تصدير CSV يضيف علامة BOM في أول عمود', status: 'progress' },
+      { id: 'JD-1476', title: 'لوحة المتابعة ما تحدّث المجموع بعد حذف صف', status: 'open' },
+      { id: 'JD-1461', title: 'حقل رقم الجوال يرفض الصيغة الدولية +9665', status: 'fixed' }
+    ]
+  };
+
+  statusMeta(s) {
+    const en = document.getElementById('jadawil-rel')?.dataset.lang === 'en';
+    if (s === 'fixed') return { label: en ? 'Fixed' : 'تم الإصلاح', chipBg: '#EAF3EE', chipFg: '#1E6D4C' };
+    if (s === 'progress') return { label: en ? 'In progress' : 'قيد المعالجة', chipBg: '#FAEACF', chipFg: '#8E6520' };
+    return { label: en ? 'Open' : 'مستلَم', chipBg: '#EEF2F7', chipFg: '#3D5A80' };
+  }
+
+  chip(active) {
+    return active
+      ? { bg: '#1E6D4C', fg: '#ffffff', border: '#1E6D4C' }
+      : { bg: '#ffffff', fg: '#4C5158', border: '#E2E2DD' };
+  }
+
+  swap() {
+    const root = document.getElementById('jadawil-rel');
+    if (!root) return;
+    const toEn = root.dataset.lang !== 'en';
+    root.querySelectorAll('[data-en]').forEach(el => {
+      if (el.dataset.ar === undefined) el.dataset.ar = el.textContent;
+      el.textContent = toEn ? el.dataset.en : el.dataset.ar;
+    });
+    root.querySelectorAll('[data-en-placeholder]').forEach(el => {
+      if (el.dataset.arPlaceholder === undefined) el.dataset.arPlaceholder = el.placeholder;
+      el.placeholder = toEn ? el.dataset.enPlaceholder : el.dataset.arPlaceholder;
+    });
+    root.dataset.lang = toEn ? 'en' : 'ar';
+    root.dir = toEn ? 'ltr' : 'rtl';
+    this.forceUpdate();
+  }
+
+  submit() {
+    const ticket = 'JD-' + String(Date.now()).slice(-6);
+    this.setState({ submitted: true, ticket });
+  }
+
+  sendReport(event) {
+    event.preventDefault();
+    const subject = `[Jadawil] ${this.state.title || 'Bug report'}`;
+    const body = [
+      `Report type: ${this.state.kind}`,
+      `Severity: ${this.state.severity}`,
+      `Work email: ${this.state.email}`,
+      `Where: ${this.state.where}`,
+      `Title: ${this.state.title}`,
+      `Steps: ${this.state.steps}`,
+      'Version: v0.9.4'
+    ].join('\n');
+    this.submit();
+    window.location.href = `mailto:info@jadawl.site?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  renderVals() {
+    const en = () => document.getElementById('jadawil-rel')?.dataset.lang === 'en';
+    const isEn = en();
+    const kindLabels = {
+      bug: isEn ? 'Bug' : 'خلل',
+      suggestion: isEn ? 'Suggestion' : 'اقتراح',
+      question: isEn ? 'Question' : 'استفسار'
+    };
+    const sevLabels = {
+      low: isEn ? 'Minor' : 'بسيط',
+      medium: isEn ? 'Affects my work' : 'يعطّل شغلي',
+      high: isEn ? 'Blocking' : 'موقف الشغل تمامًا'
+    };
+    return {
+      reports: this.state.reports.map(r => ({ ...r, statusLabel: this.statusMeta(r.status).label, chipBg: this.statusMeta(r.status).chipBg, chipFg: this.statusMeta(r.status).chipFg })),
+      fixedCount: isEn ? '17' : '١٧',
+      kinds: Object.keys(kindLabels).map(k => ({
+        label: kindLabels[k], ...this.chip(this.state.kind === k),
+        pick: () => this.setState({ kind: k })
+      })),
+      severities: Object.keys(sevLabels).map(k => ({
+        label: sevLabels[k], ...this.chip(this.state.severity === k),
+        pick: () => this.setState({ severity: k })
+      })),
+      email: this.state.email, where: this.state.where, title: this.state.title, steps: this.state.steps,
+      onEmail: e => this.setState({ email: e.target.value }),
+      onWhere: e => this.setState({ where: e.target.value }),
+      onTitle: e => this.setState({ title: e.target.value }),
+      onSteps: e => this.setState({ steps: e.target.value }),
+      sendReport: (event) => this.sendReport(event),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      successLine: isEn
+        ? 'Report number ' + this.state.ticket + ' — we will email you an update within 24 hours.'
+        : 'رقم البلاغ ' + this.state.ticket + ' — يوصلك تحديث على بريدك خلال ٢٤ ساعة.',
+      reset: () => this.setState({ submitted: false, title: '', steps: '', where: '' }),
+      toggleLang: () => this.swap()
+    };
+  }
+}
+
+</script>
+</body>
+</html>

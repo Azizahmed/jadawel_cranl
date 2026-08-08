@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./site-logic.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FBFBF9; }
+  body { font-family: "IBM Plex Sans Arabic", system-ui, sans-serif; -webkit-font-smoothing: antialiased; color: #202128; }
+  * { box-sizing: border-box; }
+  a { color: #1E6D4C; text-decoration: none; }
+  a:hover { color: #14513A; }
+  ::selection { background: #CFE3D7; }
+  html { scroll-behavior: smooth; }
+  #jadawil[dir="rtl"] #contact > div { direction: rtl; }
+  #jadawil[dir="rtl"] #contact > div > div { text-align: right; }
+  #jadawil[dir="rtl"] #contact > div > form { direction: rtl; }
+  #jadawil[dir="ltr"] #contact > div { direction: ltr; }
+  #jadawil[dir="ltr"] #contact > div > div { text-align: left; }
+  #jadawil[dir="ltr"] #contact > div > form { direction: ltr; }
+</style>
+</helmet>
+<div id="jadawil" dir="rtl" data-lang="ar" style="background:#FBFBF9;min-height:100vh;overflow-x:hidden">
+
+  <div style="background:#202128;color:#fff;position:relative;z-index:60">
+    <div style="max-width:1180px;margin:0 auto;padding:9px 28px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;font-size:13.5px">
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#1E6D4C;border-radius:999px;padding:3px 11px;font-weight:600;font-size:12.5px;flex-shrink:0">
+        <span style="width:6px;height:6px;border-radius:99px;background:#8FD3AE;display:block"></span>
+        <span data-en="Beta">نسخة تجريبية</span>
+      </span>
+      <span data-en="Free while in beta · Hosted in Saudi Arabia, or on-premise on your own servers." style="color:#DBDCD9">الاستخدام مجاني الآن خلال فترة التجربة · استضافة داخل السعودية أو تركيب داخل مركز بيانات المنظومة.</span>
+      <div style="flex:1"></div>
+      <a href="/releases" data-en="Release notes &amp; report a bug" style="color:#8FD3AE;font-weight:500;flex-shrink:0" style-hover="color:#B8E6CD">سجل التحديثات والإبلاغ عن خطأ</a>
+    </div>
+  </div>
+
+  <header style="position:sticky;top:0;z-index:50;background:rgba(251,251,249,0.88);backdrop-filter:blur(12px);border-bottom:1px solid #EAEAE6">
+    <div style="max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:28px">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+        <img src="uploads/image-removebg-preview.png" alt="جداول" style="height:26px;width:auto;display:block">
+      </a>
+      <nav style="display:flex;align-items:center;gap:26px;font-size:14.5px;color:#4C5158;margin-inline-start:14px">
+        <a href="#features" data-en="Features" style="color:#4C5158" style-hover="color:#202128">المزايا</a>
+        <a href="#trust" data-en="Security" style="color:#4C5158" style-hover="color:#202128">الأمان والامتثال</a>
+        <a href="#pricing" data-en="Pricing" style="color:#4C5158" style-hover="color:#202128">الأسعار</a>
+        <a href="#faq" data-en="FAQ" style="color:#4C5158" style-hover="color:#202128">الأسئلة الشائعة</a>
+        <a href="#contact" data-en="Contact" style="color:#4C5158" style-hover="color:#202128">تواصل معنا</a>
+        <a href="/releases" data-en="Updates" style="color:#4C5158" style-hover="color:#202128">التحديثات</a>
+      </nav>
+      <div style="flex:1"></div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onClick="{{ toggleLang }}" data-en="ع" style="font-family:inherit;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#4C5158;background:#fff;border:1px solid #E2E2DD;border-radius:8px;padding:7px 12px;cursor:pointer" style-hover="border-color:#C9C9C2;color:#202128">EN</button>
+        <a href="https://app.jadawl.site" data-en="Sign in" style="font-size:14.5px;color:#4C5158;padding:7px 4px">تسجيل الدخول</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" style="position:relative;padding:76px 28px 0">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(#EDF3EF 1px,transparent 1px),linear-gradient(90deg,#EDF3EF 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 70% 60% at 50% 0%,#000 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 0%,#000 40%,transparent 100%);pointer-events:none"></div>
+    <div style="position:relative;max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div style="display:inline-flex;align-items:center;gap:9px;background:#EAF3EE;border:1px solid #CFE3D7;color:#1E6D4C;font-size:13.5px;font-weight:500;border-radius:999px;padding:6px 14px">
+        <span style="width:7px;height:7px;border-radius:99px;background:#1E6D4C;display:block"></span>
+        <span data-en="Saudi hosting or on-premise · NDMO-aligned">بديل أشهر الحلول العالمية مثل Airtable</span>
+      </div>
+      <h1 data-en="The Arabic workspace for your data" style="font-size: clamp(38px,5.2vw,66px); line-height: 1.14; font-weight: 700; letter-spacing: -0.02em; margin: 22px 0 0; max-width: 17ch; text-wrap: balance; width: 677px; height: 142px">إدارة بيانات باللغة العربية، باستضافة داخل المملكة</h1>
+      <p data-en="Build databases, tables and dashboards your team actually understands — right-to-left by design, hosted inside the Kingdom, and compliant with national data regulations." style="font-size:19px;line-height:1.65;color:#5A5F66;margin:20px 0 0;max-width:60ch;text-wrap:pretty"><b><i><span style="font-style: normal;">&lt;جداول&gt;</span></i></b> تتيح مرونة الاستضافة السحابية داخل المملكة أو الاستضافة الخاصة، مع الالتزام بالتشريعات والمعايير الوطنية للأمن السيبراني وحماية البيانات</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:30px">
+        <a href="https://app.jadawl.site" data-en="Try it free — beta" style="font-size:15.5px;font-weight:600;color:#fff;background:#1E6D4C;border-radius:11px;padding:14px 26px;box-shadow:0 2px 10px rgba(30,109,76,0.22)" style-hover="background:#175A3E;color:#fff">جرّبها مجانًا الآن</a>
+        <a href="#contact" data-en="Book a demo" style="font-size:15.5px;font-weight:600;color:#202128;background:#fff;border:1px solid #E2E2DD;border-radius:11px;padding:14px 26px" style-hover="border-color:#C9C9C2;color:#202128">احجز عرضًا توضيحيًا</a>
+      </div>
+      <p data-en="Free during beta · No credit card · Cancel anytime" style="font-size:13.5px;color:#8A8F96;margin:14px 0 0">مجانية بالكامل خلال فترة التجربة · بدون بطاقة ائتمانية · وتوقف متى ما رغبت</p>
+    </div>
+
+    <div style="position:relative;max-width:1180px;margin:52px auto 0">
+      <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;box-shadow:0 24px 60px -28px rgba(32,33,40,0.28),0 2px 6px rgba(32,33,40,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #EFEFEB;background:#FCFCFB">
+          <div style="display:flex;align-items:center;gap:9px">
+            <span style="width:26px;height:26px;border-radius:7px;background:#1E6D4C;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center">مخ</span>
+            <span style="font-size:14px;font-weight:600">مساحة عمل خالد</span>
+          </div>
+          <div style="flex:1"></div>
+          <div style="display:flex;gap:6px">
+            <span style="width:10px;height:10px;border-radius:99px;background:#EDEDE8;display:block"></span>
+            <span style="width:10px;height:10px;border-radius:99px;background:#EDEDE8;display:block"></span>
+            <span style="width:10px;height:10px;border-radius:99px;background:#EDEDE8;display:block"></span>
+          </div>
+        </div>
+        <div style="display:flex;min-height:352px">
+          <aside style="width:186px;flex-shrink:0;border-inline-start:1px solid #EFEFEB;padding:14px 12px;background:#FCFCFB;display:flex;flex-direction:column;gap:3px;font-size:13.5px;color:#4C5158;order:2">
+            <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;background:#F1F5F2;color:#202128;font-weight:500">
+              <span style="width:14px;height:14px;border:1.6px solid #1E6D4C;border-radius:4px;display:block"></span>
+              <span>الرئيسية</span>
+            </div>
+            <div style="height:10px"></div>
+            <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px">
+              <span style="width:14px;height:14px;border:1.6px solid #B9BDBB;border-radius:4px;display:block"></span>
+              <span>إدارة المشاريع</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;background:#EAF3EE;color:#1E6D4C;font-weight:600">
+              <span style="width:14px;height:14px;border:1.6px solid #1E6D4C;border-radius:3px;display:block"></span>
+              <span>الفريق</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px">
+              <span style="width:14px;height:14px;border:1.6px solid #B9BDBB;border-radius:3px;display:block"></span>
+              <span>المشاريع</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px">
+              <span style="width:14px;height:14px;border:1.6px solid #B9BDBB;border-radius:3px;display:block"></span>
+              <span>المهام</span>
+            </div>
+            <div style="height:10px"></div>
+            <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;color:#8A8F96">
+              <span>+</span><span>إضافة جديد...</span>
+            </div>
+          </aside>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;gap:20px;padding:11px 16px;border-bottom:1px solid #EFEFEB;font-size:13px;color:#5A5F66;overflow:hidden">
+              <span style="display:flex;align-items:center;gap:7px;font-weight:600;color:#202128"><span style="width:14px;height:11px;border-top:2px solid #1E6D4C;border-bottom:2px solid #1E6D4C;display:block"></span>الفرق</span>
+              <span>تصفية</span>
+              <span>ترتيب</span>
+              <span>مجموعة</span>
+              <span>مشاركة طريقة عرض</span>
+              <span>إخفاء الحقول</span>
+              <span>ارتفاع الصف</span>
+            </div>
+            <div style="display:grid;grid-template-columns:44px 1.05fr 1.15fr 0.85fr 1.45fr 1.15fr 1.25fr;font-size:13px">
+              <div style="padding:9px 10px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#9A9EA4">#</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#5A5F66;font-weight:500">الاسم</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#5A5F66;font-weight:500">المسمى الوظيفي</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#5A5F66;font-weight:500">القسم</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#5A5F66;font-weight:500">البريد الإلكتروني</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#5A5F66;font-weight:500">رقم الجوال</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #F3F3EF;color:#5A5F66;font-weight:500">المشاريع</div>
+
+              <div style="padding:11px 10px;border-bottom:1px solid #F3F3EF;color:#9A9EA4">1</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF">سارة العتيبي</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#4C5158">مديرة المشاريع</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#FBE4E0;color:#A9483A;border-radius:6px;padding:3px 9px;font-size:12px">العمليات</span></div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">sara@example.com</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">+966501234567</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#F4F4F0;border-radius:6px;padding:3px 9px;font-size:12px;color:#4C5158">تطوير المتجر الإلكتروني</span></div>
+
+              <div style="padding:11px 10px;border-bottom:1px solid #F3F3EF;color:#9A9EA4">2</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF">خالد الحربي</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#4C5158">مهندس برمجيات أول</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#FAEACF;color:#8E6520;border-radius:6px;padding:3px 9px;font-size:12px">الهندسة</span></div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">khalid@example.com</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">+966502345678</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#F4F4F0;border-radius:6px;padding:3px 9px;font-size:12px;color:#4C5158">ترقية البنية السحابية</span></div>
+
+              <div style="padding:11px 10px;border-bottom:1px solid #F3F3EF;color:#9A9EA4">3</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF">نورة القحطاني</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#4C5158">أخصائية تسويق</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#DFF1E4;color:#2A6B45;border-radius:6px;padding:3px 9px;font-size:12px">التسويق</span></div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">noura@example.com</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">+966503456789</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#F4F4F0;border-radius:6px;padding:3px 9px;font-size:12px;color:#4C5158">حملة الهوية التجارية</span></div>
+
+              <div style="padding:11px 10px;border-bottom:1px solid #F3F3EF;color:#9A9EA4">4</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF">عبدالله الشمري</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#4C5158">محلل أعمال</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#DEEAF9;color:#2A5B8F;border-radius:6px;padding:3px 9px;font-size:12px">المالية</span></div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">abdullah@example.com</div>
+              <div style="padding:11px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF;color:#1E6D4C;text-decoration:underline;direction:ltr;text-align:end">+966504567890</div>
+              <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #F3F3EF"><span style="background:#F4F4F0;border-radius:6px;padding:3px 9px;font-size:12px;color:#4C5158">أتمتة التقارير المالية</span></div>
+            </div>
+            <div style="padding:10px 16px;color:#9A9EA4;font-size:13px;border-bottom:1px solid #F3F3EF">+ صف جديد</div>
+            <div style="flex:1;background-image:linear-gradient(#F6F8F6 1px,transparent 1px),linear-gradient(90deg,#F6F8F6 1px,transparent 1px);background-size:40px 40px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:64px 28px 0">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#EAEAE6;border:1px solid #EAEAE6;border-radius:14px;overflow:hidden">
+      <div style="background:#fff;padding:24px 22px">
+        <div style="font-size:30px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">٪100</div>
+        <div data-en="Data stored inside the Kingdom" style="font-size:14px;color:#5A5F66;margin-top:6px">من بياناتك محفوظة داخل المملكة</div>
+      </div>
+      <div style="background:#fff;padding:24px 22px">
+        <div style="font-size:30px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">RTL</div>
+        <div data-en="Right-to-left by design, not translated" style="font-size:14px;color:#5A5F66;margin-top:6px">واجهة مبنية للعربي أصلًا، ما هي مترجمة</div>
+      </div>
+      <div style="background:#fff;padding:24px 22px">
+        <div style="font-size:30px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">حماية البيانات</div>
+        <div data-en="Aligned with national data management policies" style="font-size:14px;color:#5A5F66;margin-top:6px">متوافقة مع سياسات إدارة البيانات في المملكة</div>
+      </div>
+      <div style="background:#fff;padding:24px 22px">
+        <div style="font-size:30px;font-weight:700;letter-spacing:-0.02em;color:#1E6D4C">MCP</div>
+        <div data-en="Connect your data to AI assistants" style="font-size:14px;color:#5A5F66;margin-top:6px">تربط بياناتك بمساعدات الذكاء الاصطناعي</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" style="max-width:1180px;margin:0 auto;padding:96px 28px 0">
+    <div style="max-width:62ch">
+      <div data-en="Features" style="font-size:13px;font-weight:600;letter-spacing:0.12em;color:#1E6D4C">المزايا</div>
+      <h2 data-en="Everything a team needs to organise its data" style="font-size:clamp(30px,3.6vw,44px);line-height:1.2;font-weight:700;letter-spacing:-0.02em;margin:14px 0 0">كل ما يحتاجه فريق العمل لحفظ وتنظيم البيانات</h2>
+      <p data-en="From a simple table to a connected operations system — without leaving Arabic, and without leaving the Kingdom." style="font-size:18px;line-height:1.65;color:#5A5F66;margin:16px 0 0;text-wrap:pretty">من جدول بسيط إلى نظام تشغيل كامل لأعمالك، بالغة العربية وداخل من المملكة.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:36px">
+      <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;gap:18px">
+        <div>
+          <h3 data-en="Databases &amp; tables" style="font-size:22px;font-weight:600;margin:0">قواعد البيانات والجداول</h3>
+          <p data-en="Relational tables with typed fields — text, select, attachments, links between tables — plus grid, kanban and dashboard views over the same data." style="font-size:15.5px;line-height:1.7;color:#5A5F66;margin:10px 0 0;text-wrap:pretty">جداول مترابطة بحقول محددة النوع: نص، قائمة اختيار، مرفقات، وروابط بين الجداول, وأكثر من طريقة عرض للبيانات نفسها: شبكة، كانبان، ولوحات متابعة.</p>
+        </div>
+        <div style="margin-top:auto;border:1px solid #EFEFEB;border-radius:11px;overflow:hidden;background:#FCFCFB">
+          <div style="display:grid;grid-template-columns:1fr 0.8fr 0.7fr;font-size:12.5px">
+            <div style="padding:8px 12px;border-bottom:1px solid #EFEFEB;color:#8A8F96">المشروع</div>
+            <div style="padding:8px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #EFEFEB;color:#8A8F96">الحالة</div>
+            <div style="padding:8px 12px;border-bottom:1px solid #EFEFEB;border-inline-start:1px solid #EFEFEB;color:#8A8F96">النسبة</div>
+            <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;background:#fff">منصة الخدمات</div>
+            <div style="padding:7px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #EFEFEB;background:#fff"><span style="background:#DFF1E4;color:#2A6B45;border-radius:6px;padding:2px 8px">مكتمل</span></div>
+            <div style="padding:9px 12px;border-bottom:1px solid #F3F3EF;border-inline-start:1px solid #EFEFEB;background:#fff;color:#4C5158">١٠٠٪</div>
+            <div style="padding:9px 12px;background:#fff">أتمتة التقارير</div>
+            <div style="padding:7px 12px;border-inline-start:1px solid #EFEFEB;background:#fff"><span style="background:#FAEACF;color:#8E6520;border-radius:6px;padding:2px 8px">قيد التنفيذ</span></div>
+            <div style="padding:9px 12px;border-inline-start:1px solid #EFEFEB;background:#fff;color:#4C5158">٦٢٪</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:28px">
+          <h3 data-en="Arabic Excel import" style="font-size:20px;font-weight:600;margin:0">استيراد Excel العربي</h3>
+          <p data-en="Drop in an Arabic .xlsx or .csv and Jadawil reads the headers right-to-left, detects field types and fixes encoding — no broken characters." style="font-size:15px;line-height:1.7;color:#5A5F66;margin:9px 0 0;text-wrap:pretty">ارفع ملف Excel أو CSV عربي، و«جداول» تقرأ الأعمدة من اليمين لليسار، وتتعرّف على أنواع الحقول، وتصحّح ترميز الحروف بشكل تلقائي.</p>
+          <div style="margin-top:16px;border:1px dashed #CFE3D7;background:#F7FBF8;border-radius:11px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+            <span style="width:30px;height:30px;border-radius:8px;background:#1E6D4C;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center">XLS</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13.5px;font-weight:500">بيانات_الموظفين.xlsx</div>
+              <div style="height:5px;background:#E4EFE8;border-radius:99px;margin-top:7px;overflow:hidden"><span style="display:block;width:72%;height:100%;background:#1E6D4C"></span></div>
+            </div>
+            <span style="font-size:12.5px;color:#1E6D4C;font-weight:600">٧٢٪</span>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:28px;flex:1">
+          <h3 data-en="Native MCP support" style="font-size:20px;font-weight:600;margin:0">دعم لبروتوكول MCP</h3>
+          <p data-en="Expose any base as an MCP server so AI assistants can read, filter and update rows — with the same permissions your team has." style="font-size:15px;line-height:1.7;color:#5A5F66;margin:9px 0 0;text-wrap:pretty">اربط أي قاعدة بيانات في جداول من خلال خادم MCP، يستطيع مساعد الذكاء الاصطناعي يقرأ ويحليل ويحدّث السجلات بنفس صلاحيات أعضاء فريقك.</p>
+          <div style="margin-top:16px;background:#F7F7F5;border:1px solid #EFEFEB;border-radius:10px;padding:12px 14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#4C5158;direction:ltr;text-align:left">jadawil.sa/mcp/base_842</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px">
+      <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:26px">
+        <h3 data-en="Roles &amp; permissions" style="font-size:18px;font-weight:600;margin:0">الأدوار والصلاحيات</h3>
+        <p data-en="Workspace, base and field-level access with a full audit trail of every change." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">صلاحيات على مستوى المساحة والقاعدة والحقل، وسجل تدقيق يوضّح جميع التغييرات.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:26px">
+        <h3 data-en="Forms &amp; automations" style="font-size:18px;font-weight:600;margin:0">النماذج والأتمتة</h3>
+        <p data-en="Arabic forms that write straight into your tables, with rules that notify and update automatically." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">نماذج عربية تدخّل البيانات مباشرة في جداولك، وقواعد تُرسل التنبيهات وتحدّث السجلات تلقائيًا.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:26px">
+        <h3 data-en="REST API" style="font-size:18px;font-weight:600;margin:0">واجهة برمجية API</h3>
+        <p data-en="Every base gets a documented API so your existing systems can read and write records." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">لكل قاعدة بيانات واجهة برمجية موثّقة تربط في آي نظام حالي قراءةً وكتابة.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust" style="margin-top:96px;background:#F4F6F4;border-top:1px solid #E7E9E6;border-bottom:1px solid #E7E9E6">
+    <div style="max-width:1180px;margin:0 auto;padding:76px 28px;display:grid;grid-template-columns:0.95fr 1.05fr;gap:56px;align-items:start">
+      <div>
+        <div data-en="Security &amp; compliance" style="font-size:13px;font-weight:600;letter-spacing:0.12em;color:#1E6D4C">الأمان والامتثال</div>
+        <h2 data-en="Your data stays in the Kingdom" style="font-size:clamp(30px,3.6vw,44px);line-height:1.2;font-weight:700;letter-spacing:-0.02em;margin:14px 0 0">بيانات داخل المملكة</h2>
+        <p data-en="Jadawil runs on infrastructure located inside Saudi Arabia and follows the National Data Management Office standards for data privacy and classification." style="font-size:18px;line-height:1.7;color:#5A5F66;margin:16px 0 0;text-wrap:pretty">«جداول» تعمل على بنية تحتية داخل المملكة العربية السعودية، وتتبع معايير خصوصية البيانات في المملكة، <br>ايضا توفر خدمة إستظافة داخل المنظومة (On-Premise).</p>
+        <a href="#contact" data-en="Request the security brief" style="display:inline-block;margin-top:24px;font-size:15px;font-weight:600;color:#fff;background:#1E6D4C;border-radius:11px;padding:13px 24px" style-hover="background:#175A3E;color:#fff">اطلب ملف الأمان والامتثال</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#E2E5E2;border:1px solid #E2E5E2;border-radius:14px;overflow:hidden">
+        <div style="background:#fff;padding:24px 22px">
+          <h3 data-en="Data residency" style="font-size:16.5px;font-weight:600;margin:0">موقع البيانات</h3>
+          <p data-en="All databases, attachments and backups are stored on servers inside Saudi Arabia." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">كل قواعد البيانات والمرفقات والنسخ الاحتياطية على خوادم داخل السعودية.</p>
+        </div>
+        <div style="background:#fff;padding:24px 22px">
+          <h3 data-en="NDMO alignment" style="font-size:16.5px;font-weight:600;margin:0">التوافق مع تشريعات المملكة</h3>
+          <p data-en="Privacy controls, data classification and retention built to national standards." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">ضوابط الخصوصية وتصنيف البيانات ومدد الاحتفاظ مبنية على المعايير الوطنية.</p>
+        </div>
+        <div style="background:#fff;padding:24px 22px">
+          <h3 data-en="Encryption" style="font-size:16.5px;font-weight:600;margin:0">أعلى تقنيات التشفير</h3>
+          <p data-en="Encrypted in transit with TLS 1.3 and at rest with AES-256." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">تشفير أثناء النقل عبر TLS 1.3 وأثناء التخزين بمعيار AES-256.</p>
+        </div>
+        <div style="background:#fff;padding:24px 22px">
+          <h3 data-en="Backups &amp; recovery" style="font-size:16.5px;font-weight:600;margin:0">النسخ الاحتياطي والاستعادة</h3>
+          <p data-en="Daily backups with point-in-time recovery and a documented restore process." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">نسخ احتياطي يومي مع استعادة إلى نقطة زمنية محددة وإجراءات موثّقة.</p>
+        </div>
+        <div style="background:#fff;padding:24px 22px">
+          <h3 data-en="On-premise option" style="font-size:16.5px;font-weight:600;margin:0">تركيب داخلي (On-Premise)</h3>
+          <p data-en="Install Jadawil inside your own data centre — your team keeps full control of the servers." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">نركّب «جداول» داخل مركز البيانات، والتحكم الكامل بالسيرفرات يبقى داخل المنظومة.</p>
+        </div>
+        <div style="background:#fff;padding:24px 22px">
+          <h3 data-en="Access logs" style="font-size:16.5px;font-weight:600;margin:0">سجلات الوصول</h3>
+          <p data-en="Every login, export and record change is logged and exportable for audit." style="font-size:14.5px;line-height:1.7;color:#5A5F66;margin:8px 0 0">كل دخول وتصدير وتعديل مسجّل، ويمكن تصديره لجهة المراجعة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" style="max-width:1180px;margin:0 auto;padding:96px 28px 0">
+    <div style="text-align:center;max-width:56ch;margin:0 auto">
+      <div data-en="Pricing" style="font-size:13px;font-weight:600;letter-spacing:0.12em;color:#1E6D4C">الأسعار</div>
+      <h2 data-en="Free while we are in beta" style="font-size:clamp(30px,3.6vw,44px);line-height:1.2;font-weight:700;letter-spacing:-0.02em;margin:14px 0 0">مجانية الآن خلال النسخة التجريبية</h2>
+      <p data-en="After launch, Business is 59 SAR per user / month. During beta it is free for everyone." style="font-size:18px;line-height:1.65;color:#5A5F66;margin:14px 0 0">بعد الإطلاق الرسمي يكون سعر خطة الأعمال ٥٩ ريالًا للمستخدم شهريًا، وحاليًا مجانية للجميع خلال فترة التجربة.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:36px auto 0">
+      <div style="background:#fff;border:1.5px solid #1E6D4C;border-radius:16px;padding:32px;position:relative;box-shadow:0 12px 34px -22px rgba(30,109,76,0.5)">
+        <div data-en="Free during beta" style="position:absolute;top:-11px;inset-inline-start:32px;background:#1E6D4C;color:#fff;font-size:12px;font-weight:600;border-radius:999px;padding:4px 12px">مجانية خلال التجربة</div>
+        <h3 data-en="Business" style="font-size:20px;font-weight:600;margin:0">الأعمال</h3>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-top:14px;flex-wrap:wrap">
+          <span data-en="Free" style="font-size:46px;font-weight:700;letter-spacing:-0.03em">مجانًا</span>
+          <span data-en="59 SAR / user / month" style="font-size:19px;color:#9A9EA4;text-decoration:line-through;text-decoration-thickness:1.5px">{{ priceLabel }}</span>
+        </div>
+        <div data-en="Free for everyone during the beta — the price applies after launch." style="font-size:14px;color:#1E6D4C;font-weight:500;margin-top:8px">مجانية للجميع خلال النسخة التجريبية، ويبدأ السعر بعد الإطلاق.</div>
+        <a href="https://app.jadawl.site" data-en="Try it free now" style="display:block;text-align:center;margin-top:22px;font-size:15px;font-weight:600;color:#fff;background:#1E6D4C;border-radius:11px;padding:13px 20px" style-hover="background:#175A3E;color:#fff">جرّبها مجانًا الآن</a>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:24px;font-size:14.5px;color:#4C5158">
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Unlimited databases and tables">قواعد بيانات وجداول غير محدودة</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Arabic Excel &amp; CSV import">استيراد Excel و CSV العربي</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Dashboards, forms and automations">لوحات البيانات والنماذج والأتمتة</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="MCP server and REST API">خادم MCP وواجهة API</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Saudi hosting included">استضافة داخل السعودية</span></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E7E7E2;border-radius:16px;padding:32px">
+        <h3 data-en="Enterprise" style="font-size:20px;font-weight:600;margin:0">المؤسسات</h3>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:14px">
+          <span data-en="Custom" style="font-size:36px;font-weight:700;letter-spacing:-0.02em">حسب الاحتياج</span>
+        </div>
+        <div data-en="For government entities and large organisations — Saudi hosting or on-premise" style="font-size:14px;color:#5A5F66;margin-top:8px">للجهات الحكومية والمنشآت الكبيرة — استضافة سعودية أو تركيب داخلي</div>
+        <a href="#contact" data-en="Contact us" style="display:block;text-align:center;margin-top:22px;font-size:15px;font-weight:600;color:#202128;background:#fff;border:1px solid #E2E2DD;border-radius:11px;padding:13px 20px" style-hover="border-color:#C9C9C2;color:#202128">تواصل معنا</a>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:24px;font-size:14.5px;color:#4C5158">
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">+</span><span data-en="Everything in Business">كل ما في خطة الأعمال</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Single sign-on and directory sync">الدخول الموحّد ومع الهوية الخاصة بالمنظومة</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Dedicated or on-premise hosting">استضافة مخصصة أو تركيب داخلي&nbsp;</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Compliance documentation and DPA">وثائق الامتثال واتفاقية معالجة البيانات</span></div>
+          <div style="display:flex;gap:10px"><span style="color:#1E6D4C;font-weight:700">✓</span><span data-en="Named success manager and SLA">صفحة مدير مخصصه مع اتفاقية مستوى خدمة "SLA"</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="max-width:1180px;margin:96px auto 0;padding:0 28px">
+    <div style="background:#202128;border-radius:18px;padding:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:48px;align-items:start;color:#fff">
+      <div>
+        <div data-en="Contact" style="font-size:13px;font-weight:600;letter-spacing:0.12em;color:#8FD3AE">تواصل معنا</div>
+        <h2 data-en="Talk to the Jadawil team" style="font-size:clamp(26px,3vw,36px);line-height:1.25;font-weight:700;letter-spacing:-0.02em;margin:14px 0 0">تواصل مع فريق جداول</h2>
+        <p data-en="Questions about pricing, hosting or your use case? Send us a message and the team will get back to you." style="font-size:17px;line-height:1.7;color:#DBDCD9;margin:14px 0 0;text-wrap:pretty">عندك سؤال عن الأسعار أو الاستضافة أو طريقة استخدام جداول؟ أرسل لنا رسالة، وفريقنا بيرد عليك.</p>
+        <a href="mailto:info@jadawl.site" dir="ltr" style="display:inline-block;margin-top:24px;color:#8FD3AE;font-size:17px;font-weight:600;text-decoration:underline;text-underline-offset:4px">info@jadawl.site</a>
+      </div>
+      <form onSubmit="{{ submitEmail }}" data-email-subject="Jadawil contact request" style="display:flex;flex-direction:column;gap:12px">
+        <input type="text" name="name" required placeholder="الاسم الكامل" data-en-placeholder="Full name" style="font-family:inherit;font-size:15px;padding:13px 15px;border:1px solid #4C5158;border-radius:10px;background:#2A2B33;color:#fff;outline:none" style-focus="border-color:#8FD3AE">
+        <input type="email" name="email" required placeholder="البريد الإلكتروني" data-en-placeholder="Email address" style="font-family:inherit;font-size:15px;padding:13px 15px;border:1px solid #4C5158;border-radius:10px;background:#2A2B33;color:#fff;outline:none" style-focus="border-color:#8FD3AE">
+        <input type="text" name="subject" required placeholder="موضوع الرسالة" data-en-placeholder="Message subject" style="font-family:inherit;font-size:15px;padding:13px 15px;border:1px solid #4C5158;border-radius:10px;background:#2A2B33;color:#fff;outline:none" style-focus="border-color:#8FD3AE">
+        <textarea name="message" required rows="4" placeholder="اكتب رسالتك هنا" data-en-placeholder="Write your message here" style="font-family:inherit;font-size:15px;line-height:1.7;padding:13px 15px;border:1px solid #4C5158;border-radius:10px;background:#2A2B33;color:#fff;outline:none;resize:vertical" style-focus="border-color:#8FD3AE"></textarea>
+        <button type="submit" data-en="Send message" style="font-family:inherit;font-size:15px;font-weight:600;color:#202128;background:#8FD3AE;border:none;border-radius:11px;padding:14px 20px;cursor:pointer" style-hover="background:#B8E6CD">أرسل الرسالة</button>
+        <span data-en="Your message will open in your email app and be addressed to info@jadawl.site." style="font-size:12.5px;line-height:1.6;color:#AEB5B5">سيتم فتح تطبيق البريد مع تجهيز الرسالة وإرسالها إلى info@jadawl.site.</span>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq" style="max-width:820px;margin:96px auto 0;padding:0 28px">
+    <h2 data-en="Frequently asked questions" style="font-size:clamp(26px,3vw,36px);font-weight:700;letter-spacing:-0.02em;margin:0 0 24px;text-align:center">الأسئلة الشائعة</h2>
+    <div style="display:flex;flex-direction:column;gap:1px;background:#EAEAE6;border:1px solid #EAEAE6;border-radius:14px;overflow:hidden">
+      <div style="background:#fff;padding:22px 24px">
+        <h3 data-en="Where exactly is the data hosted?" style="font-size:16.5px;font-weight:600;margin:0">أين تُستضاف البيانات بالتحديد؟</h3>
+        <p data-en="In data centres located inside Saudi Arabia. Nothing is replicated outside the Kingdom." style="font-size:15px;line-height:1.7;color:#5A5F66;margin:8px 0 0">في مراكز بيانات داخل المملكة العربية السعودية في مدينة الرياض، وما تُنسخ أي بيانات خارج المملكة. وفي حال الرغبة، يتم تركيبها&nbsp; داخل مركز البيانات الخاص في المنظومة.</p>
+      </div>
+      <div style="background:#fff;padding:22px 24px">
+        <h3 data-en="Can I move my existing Excel files?" style="font-size:16.5px;font-weight:600;margin:0">هل يمكنني نقل ملفات Excel الحالية؟</h3>
+        <p data-en="Yes. Arabic .xlsx and .csv files import with correct encoding, RTL headers and detected field types." style="font-size:15px;line-height:1.7;color:#5A5F66;margin:8px 0 0">نعم، ملفات Excel و CSV العربية تُستورد بترميز صحيح ورؤوس أعمدة من اليمين لليسار وأنواع حقول تُكتشف تلقائيًا.</p>
+      </div>
+      <div style="background:#fff;padding:22px 24px">
+        <h3 data-en="Does it work in English too?" style="font-size:16.5px;font-weight:600;margin:0">هل يعمل بالإنجليزية أيضًا؟</h3>
+        <p data-en="Yes — the interface switches between Arabic (RTL) and English (LTR) per user." style="font-size:15px;line-height:1.7;color:#5A5F66;margin:8px 0 0">نعم، الواجهة تتحول بين العربي (RTL) والإنجليزي (LTR) لكل مستخدم على حده.</p>
+      </div>
+      <div style="background:#fff;padding:22px 24px">
+        <h3 data-en="What does the beta mean, and what happens after it?" style="font-size:16.5px;font-weight:600;margin:0">وش تعني النسخة التجريبية، وإيش يصير بعدها؟</h3>
+        <p data-en="Jadawil is in beta and free for everyone right now. After launch, Business is 59 SAR per user / month — your data stays as it is, and you can export it any time. Follow every change in the release notes." style="font-size:15px;line-height:1.7;color:#5A5F66;margin:8px 0 0">«جداول» حاليًا نسخة تجريبية ومجانية للجميع. بعد الإطلاق يكون سعر خطة الأعمال ٥٩ ريالًا للمستخدم شهريًا، وبياناتك تبقى كما هي وتقدر تصدّرها في أي وقت. تابع كل تحديث في <a href="/releases">سجل التحديثات</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:96px;border-top:1px solid #EAEAE6;background:#fff">
+    <div style="max-width:1180px;margin:0 auto;padding:44px 28px;display:flex;flex-wrap:wrap;gap:32px;align-items:center">
+      <img src="uploads/image-removebg-preview.png" alt="جداول" style="height:24px;width:auto;display:block">
+      <div style="display:flex;gap:24px;font-size:14.5px;color:#5A5F66;flex-wrap:wrap">
+        <a href="#features" data-en="Features" style="color:#5A5F66">المزايا</a>
+        <a href="#trust" data-en="Security" style="color:#5A5F66">الأمان</a>
+        <a href="#pricing" data-en="Pricing" style="color:#5A5F66">الأسعار</a>
+        <a href="#contact" data-en="Contact" style="color:#5A5F66">تواصل معنا</a>
+        <a href="/releases" data-en="Updates" style="color:#5A5F66">التحديثات</a>
+      </div>
+      <div style="flex:1"></div>
+      <div data-en="© 2026 Jadawil · Beta · Hosted in Saudi Arabia" style="font-size:13.5px;color:#8A8F96">© ٢٠٢٦ جداول · نسخة تجريبية · مستضاف في المملكة العربية السعودية</div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;price&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:59,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:9,&quot;max&quot;:199,&quot;unit&quot;:&quot;SAR&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;startLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;ar&quot;,&quot;options&quot;:[&quot;ar&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    if ((this.props.startLang ?? 'ar') === 'en') this.swap();
+  }
+  swap() {
+    const root = document.getElementById('jadawil');
+    if (!root) return;
+    const toEn = root.dataset.lang !== 'en';
+    root.querySelectorAll('[data-en]').forEach(el => {
+      if (el.dataset.ar === undefined) el.dataset.ar = el.textContent;
+      el.textContent = toEn ? el.dataset.en : el.dataset.ar;
+    });
+    root.querySelectorAll('[data-en-placeholder]').forEach(el => {
+      if (el.dataset.arPlaceholder === undefined) el.dataset.arPlaceholder = el.placeholder;
+      el.placeholder = toEn ? el.dataset.enPlaceholder : el.dataset.arPlaceholder;
+    });
+    root.dataset.lang = toEn ? 'en' : 'ar';
+    root.dir = toEn ? 'ltr' : 'rtl';
+  }
+  submitEmail(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fields = Array.from(new FormData(form).entries());
+    const body = fields.map(([name, value]) => `${name}: ${value}`).join('\n');
+    const subject = form.dataset.emailSubject || 'Jadawil website message';
+    window.location.href = `mailto:info@jadawl.site?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  renderVals() {
+    return {
+      priceLabel: (this.props.price ?? 59) + ' ريال/مستخدم/شهريًا',
+      toggleLang: () => this.swap(),
+      submitEmail: (event) => this.submitEmail(event)
+    };
+  }
+}
+
+</script>
+</body>
+</html>
