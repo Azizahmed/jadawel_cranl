@@ -307,6 +307,237 @@ document.addEventListener('DOMContentLoaded', async function() {
     // The manifest bytes are ours; SRI protects against CDN compromise, not this.
     template = template.replace(/\s+integrity="[^"]*"/gi, '').replace(/\s+crossorigin="[^"]*"/gi, '');
 
+    // The bundled landing page is authored with desktop-first inline styles.
+    // Inject a small, high-specificity responsive layer at runtime so the
+    // standalone artifact remains usable without rewriting its payload.
+    const responsiveStyle = `<style id="__jadawil_responsive">
+      @media (max-width: 760px) {
+        #jadawil > div:first-child > div {
+          padding: 10px 18px !important;
+          justify-content: center !important;
+          gap: 8px 12px !important;
+          text-align: center !important;
+          line-height: 1.55 !important;
+        }
+        #jadawil > div:first-child > div > div {
+          display: none !important;
+        }
+        #jadawil > div:first-child > div > span:nth-of-type(2) {
+          flex: 1 1 240px !important;
+        }
+        #jadawil > div:first-child > div > a {
+          flex-basis: 100% !important;
+        }
+
+        #jadawil header > div {
+          padding: 12px 18px 0 !important;
+          gap: 10px 14px !important;
+          flex-wrap: wrap !important;
+          justify-content: space-between !important;
+        }
+        #jadawil header nav {
+          order: 3 !important;
+          flex: 0 0 calc(100% + 36px) !important;
+          width: calc(100% + 36px) !important;
+          margin-inline: -18px !important;
+          padding: 10px 18px 12px !important;
+          gap: 22px !important;
+          overflow-x: auto !important;
+          overscroll-behavior-inline: contain;
+          scrollbar-width: none;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+        #jadawil header nav::-webkit-scrollbar {
+          display: none;
+        }
+        #jadawil header > div > div:first-of-type {
+          flex: 1 !important;
+        }
+        #jadawil header > div > div:last-child {
+          gap: 8px !important;
+        }
+        #jadawil header button,
+        #jadawil header a {
+          min-height: 40px;
+          display: inline-flex !important;
+          align-items: center;
+        }
+
+        #top {
+          padding: 48px 18px 0 !important;
+        }
+        #top > div:nth-child(2) > div:first-child {
+          max-width: 100% !important;
+          text-align: start !important;
+        }
+        #top h1 {
+          width: auto !important;
+          height: auto !important;
+          max-width: 18ch !important;
+          font-size: clamp(34px, 9.4vw, 44px) !important;
+        }
+        #top h1 + p {
+          font-size: 17px !important;
+          line-height: 1.7 !important;
+        }
+        #top > div:nth-child(2) > div:nth-of-type(2) > a {
+          min-height: 48px;
+          display: inline-flex !important;
+          align-items: center;
+          justify-content: center;
+        }
+        #top > div:nth-child(3) {
+          margin-top: 38px !important;
+        }
+        #top > div:nth-child(3) > div > div:nth-child(2) {
+          min-height: 286px !important;
+        }
+        #top > div:nth-child(3) aside {
+          display: none !important;
+        }
+        #top > div:nth-child(3) > div > div:nth-child(2) > div {
+          width: 100% !important;
+        }
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:first-child {
+          gap: 14px !important;
+          overflow: hidden !important;
+        }
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:first-child > span:nth-of-type(n+4) {
+          display: none !important;
+        }
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) {
+          grid-template-columns: 36px minmax(112px, 1fr) minmax(120px, 1fr) !important;
+          width: 100% !important;
+        }
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > :nth-child(7n+4),
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > :nth-child(7n+5),
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > :nth-child(7n+6),
+        #top > div:nth-child(3) > div > div:nth-child(2) > div > div:nth-child(2) > :nth-child(7n+7) {
+          display: none !important;
+        }
+
+        #top + section {
+          padding: 48px 18px 0 !important;
+        }
+        #top + section > div {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+        #top + section > div > div {
+          padding: 20px 18px !important;
+        }
+
+        #features,
+        #pricing {
+          padding: 72px 18px 0 !important;
+        }
+        #features > div:nth-of-type(2),
+        #features > div:nth-of-type(3),
+        #pricing > div:nth-of-type(2) {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+        #features > div:nth-of-type(2) > div:nth-child(2) {
+          min-width: 0;
+        }
+        #features > div:nth-of-type(2) > div,
+        #features > div:nth-of-type(3) > div {
+          padding: 22px 20px !important;
+        }
+        #features [style*="font-family:ui-monospace"] {
+          overflow-wrap: anywhere;
+        }
+        #features > div:nth-of-type(2) > div:nth-child(2) > div:first-child > div:last-child > div > div:first-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        #trust {
+          margin-top: 72px !important;
+        }
+        #trust > div {
+          padding: 56px 18px !important;
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 36px !important;
+        }
+
+        #pricing > div:nth-of-type(2) > div {
+          padding: 28px 22px !important;
+        }
+        #pricing > div:nth-of-type(2) > div:first-child > div:nth-of-type(2) {
+          align-items: flex-start !important;
+          flex-direction: column !important;
+          gap: 2px !important;
+        }
+
+        #demo,
+        #contact {
+          margin-top: 72px !important;
+          padding: 0 18px !important;
+        }
+        #demo > div,
+        #contact > div {
+          padding: 28px 22px !important;
+          grid-template-columns: minmax(0, 1fr) !important;
+          gap: 30px !important;
+        }
+        #demo form,
+        #contact form,
+        #demo input,
+        #contact input,
+        #contact textarea {
+          width: 100%;
+          min-width: 0;
+        }
+        #demo button,
+        #contact button {
+          min-height: 48px;
+        }
+
+        #faq {
+          margin-top: 72px !important;
+          padding: 0 18px !important;
+        }
+        #faq > div > div {
+          padding: 20px !important;
+        }
+
+        #jadawil footer {
+          margin-top: 72px !important;
+        }
+        #jadawil footer > div {
+          padding: 34px 18px !important;
+          align-items: flex-start !important;
+          gap: 24px !important;
+        }
+        #jadawil footer > div > div:nth-of-type(2) {
+          display: none !important;
+        }
+        #jadawil footer > div > div:last-child {
+          flex-basis: 100%;
+          line-height: 1.7;
+        }
+      }
+
+      @media (max-width: 440px) {
+        #top > div:nth-child(2) > div:nth-of-type(2) {
+          width: 100%;
+        }
+        #top > div:nth-child(2) > div:nth-of-type(2) > a {
+          flex: 1 1 100%;
+        }
+        #top > div:nth-child(2) > p:last-child {
+          line-height: 1.65 !important;
+        }
+        #trust > div > div:nth-child(2) {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+        #jadawil footer > div > div:first-of-type {
+          gap: 14px 20px !important;
+        }
+      }
+    </style>`;
+
     const resourceScript = '<script>window.__resources = ' +
       JSON.stringify(resourceMap).replace(/<\//g, '<\\/') +
       ';</' + 'script>';
@@ -318,7 +549,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const headOpen = template.match(/<head[^>]*>/i);
     if (headOpen) {
       const i = headOpen.index + headOpen[0].length;
-      template = template.slice(0, i) + resourceScript + template.slice(i);
+      template = template.slice(0, i) + responsiveStyle + resourceScript + template.slice(i);
     }
 
     // Parse the template and swap the root element. Scripts inserted via
