@@ -1,42 +1,69 @@
 # Email setup
 
-Password reset, workspace invitations and notification emails are all dead in
-production right now. No `EMAIL_SMTP*` variable is set, so
-`CELERY_EMAIL_BACKEND` falls back to the console backend
-(`jadawel/config/settings/base.py:1007-1031`): every message is printed to the
-worker's stdout and discarded. The reset flow is the worst of these — the UI
-reports success and no mail ever arrives, so a locked-out user has no recovery
-path at all.
+Outbound email is **configured and live**: Resend over SMTP, sending as
+`info@jadawl.site`. Before this, no `EMAIL_SMTP*` variable was set, so
+`CELERY_EMAIL_BACKEND` fell back to the console backend
+(`jadawel/config/settings/base.py:1007-1031`) and every password reset,
+workspace invitation and notification was printed to the worker's stdout and
+discarded — the UI reported success and no mail ever arrived, leaving a
+locked-out user with no recovery path.
 
-## What `jadawl.site` can do today
+## Two providers, two jobs
 
-Checked against live DNS. The domain now runs **Zoho Mail** — it was on
-Namecheap's free forwarding earlier, and that note is superseded:
+The domain runs **Zoho Mail for receiving** and **Resend for sending**. That
+split is deliberate, not an accident of history, and the two do not conflict:
+Zoho owns the apex records, Resend owns a `send.` subdomain.
 
-| Record | Value | Meaning |
+Live DNS, verified:
+
+| Record | Value | Owner |
 |---|---|---|
-| NS | `dns1/dns2.registrar-servers.com` | DNS is still hosted at **Namecheap**, so records are added there. |
-| MX | `mx.zoho.com`, `mx2`, `mx3` | Zoho Mail. `info@jadawl.site` is a real mailbox, not a forward. |
-| TXT | `v=spf1 include:zohomail.com ~all` | Authorises Zoho only. |
-| `zmail._domainkey` | `v=DKIM1; k=rsa; p=MIGf…` | Zoho DKIM is configured and signing. |
-| `_dmarc` | *absent* | Still no DMARC policy. |
+| NS | `dns1/dns2.registrar-servers.com` | Namecheap hosts DNS, so records are added there. |
+| MX (apex) | `mx.zoho.com`, `mx2`, `mx3` | Zoho. `info@jadawl.site` is a real mailbox. |
+| TXT (apex) | `v=spf1 include:zohomail.com ~all` | Zoho. |
+| `zmail._domainkey` | `v=DKIM1; k=rsa; p=MIGf…` | Zoho DKIM, signing. |
+| MX `send` | `feedback-smtp.eu-west-1.amazonses.com` | Resend return-path. |
+| TXT `send` | `v=spf1 include:amazonses.com ~all` | Resend SPF. |
+| `resend._domainkey` | `p=MIGf…` | Resend DKIM, signing. |
+| `_dmarc` | `v=DMARC1; p=none;` | Monitor mode. |
 
-So inbound mail is healthy and already authenticated. Nothing here authorises
-Resend yet.
+Two SPF records on two different names is correct and is *not* the "two SPF
+records" failure — that only applies to two records on the *same* name. The two
+DKIM selectors, `zmail` and `resend`, are likewise distinct.
 
-### Resend status
+DMARC alignment holds for Resend because the return-path `send.jadawl.site` is
+a subdomain of the From domain, which satisfies relaxed alignment.
 
-The API key is live — a test send through `onboarding@resend.dev` was accepted
-and returned a message id. The domain is not:
+### Why not send through Zoho
 
-```
-POST /emails  from: info@jadawl.site
-→ 403 "The jadawl.site domain is not verified."
-```
+The Zoho plan is paid, so its SMTP (`smtp.zoho.com:587`) *is* available and
+would work. Resend is still the better choice for this traffic:
 
-That is the whole of the remaining blocker. Until the records below exist and
-Resend reports the domain verified, **every** send from `info@jadawl.site` is
-rejected, which is why the application variables are not set yet.
+- **Zoho throttles.** Its SMTP limits are sized for human correspondence, and a
+  burst of invitations or a notification digest can trip them. Resend is built
+  for transactional volume.
+- **Reputation isolation.** A bounce storm from application mail would damage
+  the same reputation `info@jadawl.site` relies on to reach customers. Separate
+  senders keep that blast radius contained.
+- **Observability.** Resend logs every message with its delivery status, which
+  is where a failed reset gets diagnosed. Zoho's sent folder is not that.
+
+Keeping Zoho as the inbox also means replies to application mail land
+somewhere a human reads.
+
+### Verification evidence
+
+Confirmed end to end, not assumed:
+
+| Check | Result |
+|---|---|
+| Resend API, from `onboarding@resend.dev` | accepted, id `99a91025…` |
+| Resend API, from `info@jadawl.site` | accepted, id `ad49f336…` — domain verified |
+| `smtp.resend.com:587`, STARTTLS, user `resend` | **`250` accepted** |
+| App reachable after reload | `GET /api/settings/` → `200` |
+
+The SMTP check is the one that matters: it exercises the exact host, port,
+username, key and TLS mode the backend is now configured with.
 
 ## The sender: Resend, over SMTP
 
@@ -115,8 +142,10 @@ Namecheap's Host field takes the label only, without the domain suffix:
 | TXT | `send` | `v=spf1 include:amazonses.com ~all` |
 | TXT | `resend._domainkey` | the `p=…` key Resend generates |
 
-DMARC is separate, and none exists today. Add it at the apex once Resend
-verifies, in monitor mode so nothing is rejected while the setup is validated:
+DMARC is separate, and now exists at the apex as `v=DMARC1; p=none;` — monitor
+mode, so nothing is rejected. It has **no `rua=`**, which means no aggregate
+reports are being delivered anywhere and the monitoring period is collecting
+nothing. Worth adding before any move to `p=quarantine`:
 
 | Type | Host | Value |
 |---|---|---|
@@ -128,8 +157,8 @@ satisfies DMARC's relaxed alignment.
 
 ## Application configuration
 
-Set on the app in the CranL dashboard, then reload it. The variables are read
-at `base.py:1007-1031`; `FROM_EMAIL` at `base.py:854`.
+These are **set on the `jadawel` app and live**. The variables are read at
+`base.py:1007-1031`; `FROM_EMAIL` at `base.py:854`.
 
 | Variable | Value |
 |---|---|
@@ -157,20 +186,43 @@ the moment `EMAIL_SMTP` is non-empty the backend flips from console to SMTP
 (`base.py:1009`), so an incomplete block turns silently-discarded mail into
 authentication failures in the Celery worker.
 
-Until the domain is verified, `FROM_EMAIL` must remain a Resend-owned address
-or every send is rejected. Verify the domain first, then set `FROM_EMAIL`.
+Set `FROM_EMAIL` only after the domain verifies. Against an unverified domain
+Resend rejects every send, which is louder than the console backend but no less
+broken.
 
 ## Verifying
 
 Mail is queued through Celery, so a failure surfaces in the worker log rather
-than in the request — a green response in the UI proves nothing:
+than in the request — a green response in the UI proves nothing. There are
+three tests, in increasing order of what they prove.
+
+**1. The transport.** Bypasses the app entirely and checks the credentials:
 
 ```
-./jadawel backend-cmd-with-db manage sendtestemail you@example.com
+curl --ssl-reqd --url 'smtp://smtp.resend.com:587' \
+     --user 'resend:re_…' \
+     --mail-from 'info@jadawl.site' --mail-rcpt 'you@example.com' \
+     --upload-file mail.txt
 ```
 
-Then trigger a real password reset and confirm the message arrives with SPF
-and DKIM passing — most clients expose this as "show original" or
-"view source". Resend's own dashboard logs every attempt with its delivery
-status, which is the fastest place to see a rejection. Until a real reset has
-been received end to end, treat the flow as untested.
+A `250` means host, port, username, key and STARTTLS are all correct.
+
+**2. The app's own sender.** `/api/_health/email/` (`EmailTesterView`) forces
+the message through `CELERY_EMAIL_BACKEND` synchronously so the error comes
+back in the response instead of vanishing into a worker log
+(`core/health/handler.py:94-104`). Staff authentication required. This is the
+best single test, because it proves the container can reach Resend — something
+no test run from a laptop can establish.
+
+**3. A real password reset.** Note the trap: `send-reset-password-email`
+returns **`204` whether or not the address exists**. The view swallows
+`UserNotFound` deliberately, to stop the endpoint being used to enumerate
+registered accounts (`api/user/views.py:395-415`). A 204 for an unregistered
+address queues nothing at all, so testing with the wrong address proves
+nothing. Use an address you know has an account, then confirm the message
+arrives with SPF and DKIM passing — most clients expose this under "show
+original" or "view source".
+
+Resend's dashboard logs every attempt with its delivery status, and is the
+fastest place to see a rejection. Until a real reset has been received end to
+end, treat the flow as untested.
