@@ -10,18 +10,33 @@ path at all.
 
 ## What `jadawl.site` can do today
 
-Checked against live DNS:
+Checked against live DNS. The domain now runs **Zoho Mail** — it was on
+Namecheap's free forwarding earlier, and that note is superseded:
 
 | Record | Value | Meaning |
 |---|---|---|
-| MX | `eforward1-5.registrar-servers.com` | Namecheap **free email forwarding**. |
-| TXT | `v=spf1 include:spf.efwd.registrar-servers.com ~all` | Authorises the forwarder only. |
-| `_dmarc` | *absent* | No DMARC policy. |
+| NS | `dns1/dns2.registrar-servers.com` | DNS is still hosted at **Namecheap**, so records are added there. |
+| MX | `mx.zoho.com`, `mx2`, `mx3` | Zoho Mail. `info@jadawl.site` is a real mailbox, not a forward. |
+| TXT | `v=spf1 include:zohomail.com ~all` | Authorises Zoho only. |
+| `zmail._domainkey` | `v=DKIM1; k=rsa; p=MIGf…` | Zoho DKIM is configured and signing. |
+| `_dmarc` | *absent* | Still no DMARC policy. |
 
-Email forwarding **receives and forwards; it cannot send**. There is no
-outbound SMTP credential to find, because the current setup never had one.
-`info@jadawl.site` works as the `From` address, but only once a sending
-provider is authorised for the domain.
+So inbound mail is healthy and already authenticated. Nothing here authorises
+Resend yet.
+
+### Resend status
+
+The API key is live — a test send through `onboarding@resend.dev` was accepted
+and returned a message id. The domain is not:
+
+```
+POST /emails  from: info@jadawl.site
+→ 403 "The jadawl.site domain is not verified."
+```
+
+That is the whole of the remaining blocker. Until the records below exist and
+Resend reports the domain verified, **every** send from `info@jadawl.site` is
+rejected, which is why the application variables are not set yet.
 
 ## The sender: Resend, over SMTP
 
@@ -86,9 +101,11 @@ DKIM key and the regional hostnames are unique per domain.
 
 The important structural point: Resend verifies a **`send.` subdomain**, and
 its Return-Path defaults to `send.jadawl.site`. Its SPF and MX records
-therefore go on `send`, not on the root. **The existing root SPF and the
-Namecheap forwarding MX records are left completely alone** — no merging, no
-risk of breaking inbound forwarding, and no second SPF record on the apex.
+therefore go on `send`, not on the root. **Zoho's root MX and its
+`include:zohomail.com` SPF are left completely alone** — no merging, no risk to
+inbound mail, and no second SPF record on the apex. The two providers coexist:
+Zoho receives, Resend sends. `zmail._domainkey` and `resend._domainkey` are
+different selectors and do not collide either.
 
 Namecheap's Host field takes the label only, without the domain suffix:
 
