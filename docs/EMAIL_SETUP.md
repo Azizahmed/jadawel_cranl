@@ -23,61 +23,130 @@ outbound SMTP credential to find, because the current setup never had one.
 `info@jadawl.site` works as the `From` address, but only once a sending
 provider is authorised for the domain.
 
-## Choosing a sender
+## The sender: Resend, over SMTP
 
-| Option | Where credentials come from | Notes |
-|---|---|---|
-| **Namecheap Private Email** | Mailbox password, SMTP at `mail.privateemail.com:465` | Lowest friction: the domain is already there, and `info@jadawl.site` becomes a real mailbox instead of a forward. Replaces the forwarding MX records. Sending limits suit a launch, not a campaign. |
-| **Amazon SES** (`me-south-1` Bahrain, `me-central-1` UAE) | Console → SES → *Create SMTP credentials* | Best throughput and bounce handling. Starts in a sandbox; production access takes ~24h. Nearest regions are Gulf, not Saudi. |
-| **Resend / Postmark / Mailgun** | Dashboard → API keys | Good deliverability, US/EU only. |
+Resend is the chosen provider. It exposes both an HTTP API and an SMTP
+endpoint, and **this deployment uses SMTP**. That is not a stylistic
+preference — it is the only option that costs nothing to ship:
 
-A note on residency: transactional mail carries user addresses and reset
-tokens, so a non-Saudi sender means that metadata leaves the country even
-though the database does not. It is a weaker constraint than it looks —
-messages reach Gmail and Outlook mailboxes regardless — but it is worth
-deciding deliberately rather than by default.
+- The mail that matters is not sent by our code. Password resets, workspace
+  invitations and notification digests are built and dispatched by Jadawel's
+  own code paths through Django's email framework, queued onto Celery by
+  `djcelery_email` (`base.py:1007`). Pointing those at Resend means giving
+  Django an SMTP host. The Python SDK would instead require writing a custom
+  `EmailBackend` and would leave every upstream call site untouched until it
+  was wired in.
+- **`pip install resend` costs a rebuild.** The root `Dockerfile` pulls a
+  published image rather than building the monorepo, because the Nuxt build is
+  OOM-killed on a 4 GB plan (`AGENTS.md`). A new backend dependency means
+  republishing the all-in-one image and bumping `ARG JADAWEL_IMAGE`. SMTP
+  needs no code, no dependency, and no rebuild — six environment variables and
+  a reload.
+
+So the snippet Resend hands out on signup — `resend.Emails.send({...})` with
+`from: "onboarding@resend.dev"` — is a connectivity demo, not an integration.
+Two things about it are worth keeping in mind anyway: `onboarding@resend.dev`
+is a shared sandbox sender that can only deliver to the address that owns the
+Resend account, and the API key it wants is the same string that becomes the
+SMTP password below.
+
+### SMTP endpoint
+
+Per Resend's SMTP documentation:
+
+| | |
+|---|---|
+| Host | `smtp.resend.com` |
+| Ports | 25, 587, 2587 (STARTTLS) · 465, 2465 (implicit TLS) |
+| Username | the literal string `resend` |
+| Password | the API key, `re_…` |
+
+Use **587 with STARTTLS**. Outbound 465 is blocked or throttled by more
+networks than 587 is, and the setting pair below matches it.
+
+### Region
+
+Resend sends from one of four regions — `us-east-1` (North Virginia),
+`eu-west-1` (Ireland), `sa-east-1` (São Paulo), `ap-northeast-1` (Tokyo).
+There is no Middle East region, so **choose `eu-west-1`**: it is the closest of
+the four to Saudi recipients.
+
+This is a deliberate exception to the residency rule. The database stays in
+Riyadh; transactional mail does not, because no provider with usable
+deliverability sends from inside the Kingdom. What leaves the country is
+recipient addresses and reset tokens in transit, not table data — and those
+messages end up in Gmail and Outlook mailboxes regardless of who relays them.
+Worth recording as a decision rather than letting it happen by default.
 
 ## DNS records to add
 
-Whichever provider is chosen, mail lands in spam without these. The domain is
-registered at Namecheap, so they are added in the Namecheap DNS panel.
+Added in the Namecheap DNS panel, from the values on the domain's **Records**
+tab in the Resend dashboard. Copy them from there rather than from here — the
+DKIM key and the regional hostnames are unique per domain.
 
-1. **SPF** — extend the existing record, do not replace it, or forwarding
-   breaks. One TXT record only; two SPF records is itself a failure:
+The important structural point: Resend verifies a **`send.` subdomain**, and
+its Return-Path defaults to `send.jadawl.site`. Its SPF and MX records
+therefore go on `send`, not on the root. **The existing root SPF and the
+Namecheap forwarding MX records are left completely alone** — no merging, no
+risk of breaking inbound forwarding, and no second SPF record on the apex.
 
-   ```
-   v=spf1 include:spf.efwd.registrar-servers.com include:<provider> ~all
-   ```
+Namecheap's Host field takes the label only, without the domain suffix:
 
-2. **DKIM** — the CNAME or TXT records the provider generates during domain
-   verification.
+| Type | Host | Value |
+|---|---|---|
+| MX | `send` | `feedback-smtp.eu-west-1.amazonses.com`, priority `10` |
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` |
+| TXT | `resend._domainkey` | the `p=…` key Resend generates |
 
-3. **DMARC** — none exists. Start in monitor mode so nothing is rejected while
-   the setup is validated:
+DMARC is separate, and none exists today. Add it at the apex once Resend
+verifies, in monitor mode so nothing is rejected while the setup is validated:
 
-   ```
-   _dmarc.jadawl.site  TXT  "v=DMARC1; p=none; rua=mailto:info@jadawl.site"
-   ```
+| Type | Host | Value |
+|---|---|---|
+| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:info@jadawl.site` |
+
+Alignment still works under this layout: DKIM signs with `d=jadawl.site`, and
+the Return-Path `send.jadawl.site` is a subdomain of the From domain, which
+satisfies DMARC's relaxed alignment.
 
 ## Application configuration
 
 Set on the app in the CranL dashboard, then reload it. The variables are read
-at `base.py:1007-1031`.
+at `base.py:1007-1031`; `FROM_EMAIL` at `base.py:854`.
 
 | Variable | Value |
 |---|---|
 | `EMAIL_SMTP` | `yes` |
-| `EMAIL_SMTP_HOST` | provider's host |
-| `EMAIL_SMTP_PORT` | `587` for STARTTLS, `465` for implicit TLS |
-| `EMAIL_SMTP_USE_TLS` | `yes` for 587 |
-| `EMAIL_SMTP_USER` | provider's SMTP username |
-| `EMAIL_SMTP_PASSWORD` | provider's SMTP password |
+| `EMAIL_SMTP_HOST` | `smtp.resend.com` |
+| `EMAIL_SMTP_PORT` | `587` |
+| `EMAIL_SMTP_USE_TLS` | `yes` |
+| `EMAIL_SMTP_USER` | `resend` |
+| `EMAIL_SMTP_PASSWORD` | the `re_…` API key |
 | `FROM_EMAIL` | `info@jadawl.site` |
+
+Three traps in that block:
+
+- `EMAIL_SMTP_USE_SSL` must stay **unset**. `base.py:1022-1026` raises
+  `ImproperlyConfigured` if both TLS and SSL are set, and the app will not
+  boot. Set SSL only if you switch to port 465, and unset TLS at the same time.
+- Every one of these is read with `bool(os.getenv(...))`, so *any* non-empty
+  string is true — `EMAIL_SMTP_USE_TLS=false` enables TLS. To disable one,
+  remove it; do not set it to `false`.
+- `EMAIL_SMTP_PASSWORD` is a live credential. It belongs in the CranL
+  dashboard only, never in a compose file or in the repository.
+
+Set them together, in one edit. A partial configuration is worse than none:
+the moment `EMAIL_SMTP` is non-empty the backend flips from console to SMTP
+(`base.py:1009`), so an incomplete block turns silently-discarded mail into
+authentication failures in the Celery worker.
+
+Until the domain is verified, `FROM_EMAIL` must remain a Resend-owned address
+or every send is rejected. Verify the domain first, then set `FROM_EMAIL`.
 
 ## Verifying
 
 Mail is queued through Celery, so a failure surfaces in the worker log rather
-than in the request:
+than in the request — a green response in the UI proves nothing:
 
 ```
 ./jadawel backend-cmd-with-db manage sendtestemail you@example.com
@@ -85,5 +154,6 @@ than in the request:
 
 Then trigger a real password reset and confirm the message arrives with SPF
 and DKIM passing — most clients expose this as "show original" or
-"view source". Until a real reset has been received end to end, treat the flow
-as untested.
+"view source". Resend's own dashboard logs every attempt with its delivery
+status, which is the fastest place to see a rejection. Until a real reset has
+been received end to end, treat the flow as untested.
