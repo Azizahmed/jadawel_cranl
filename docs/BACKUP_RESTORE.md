@@ -35,6 +35,43 @@ Two deliberate choices worth knowing:
   should not be a key any web request can reach, and it needs no read access
   to the media bucket.
 
+## Where backups are stored
+
+Backups must stay inside Saudi Arabia, which is the premise of the whole fork
+(`AGENTS.md`). That is a stronger constraint than it first looks, because it
+rules out most object storage:
+
+| Provider | Nearest region | Verdict |
+|---|---|---|
+| CranL object storage | Riyadh / Saudi-4 | **The only in-country option.** Postgres, Redis and the `jadawel-media` bucket already live there (`cranl_fix.md:33`). |
+| AWS S3 | Bahrain, UAE | Gulf, not Saudi. |
+| Cloudflare R2, Backblaze B2 | — | No Middle East region at all. |
+
+So the backup target is a CranL bucket in the same Riyadh region as the
+database, which also keeps the dump on the internal network.
+
+One known obstacle: creating a bucket token currently fails with
+`Quota limit exceeded. You can create no more than 50 tokens`
+(`cranl_fix.md:224`). Existing unused tokens have to be deleted in the CranL
+dashboard first — the MCP exposes no object-storage tooling, so this is a
+dashboard-only step.
+
+Prefer a **separate bucket** from `jadawel-media` rather than a prefix inside
+it. User files are served public-read by design; keeping database dumps in a
+different bucket means no bucket-level policy can ever expose them. If they
+must share a bucket, `validation_errors()` refuses to run without a prefix,
+and the uploader still sets `ACL=private` per object.
+
+## Recovery point
+
+A logical dump on a schedule means the recovery point is the last dump, not
+the last transaction: with the default daily crontab, up to 24 hours of writes
+are lost in a total-loss scenario. The database is small, so the cheap
+improvement is simply to dump more often —
+`JADAWEL_BACKUP_CRONTAB="0 */6 * * *"` takes that to 6 hours at four times the
+storage. Point-in-time recovery would need WAL archiving, which the managed
+instance does not expose.
+
 ## Configuration
 
 Set these on the app in the CranL dashboard, then reload it.
