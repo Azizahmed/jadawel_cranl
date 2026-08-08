@@ -2,6 +2,92 @@
   const registry = globalThis.__dcLogicFactories ||
     (globalThis.__dcLogicFactories = Object.create(null));
 
+  // This site is static, so it cannot send mail itself. Submissions go to the
+  // application's public contact endpoint, which relays them over the same
+  // Resend SMTP path the product uses — see docs/EMAIL_SETUP.md.
+  const API_BASE = globalThis.__JADAWIL_API_BASE__ ?? 'https://app.jadawl.site';
+  const CONTACT_ENDPOINT = `${API_BASE}/api/arabase/contact/`;
+  const MAILBOX = 'info@jadawl.site';
+
+  // Everything else on a form is forwarded as a labelled detail line, so a new
+  // field can be added to the markup without touching this file.
+  const KNOWN_FIELDS = ['name', 'email', 'subject', 'message', 'company'];
+
+  const isEnglish = (root) => root?.dataset.lang === 'en';
+
+  /** Set both languages on an element so the page's toggle keeps working. */
+  const bilingual = (element, ar, en, english) => {
+    element.dataset.ar = ar;
+    element.dataset.en = en;
+    element.textContent = english ? en : ar;
+    return element;
+  };
+
+  /**
+   * A field a human never sees and a form-filling bot usually does.
+   *
+   * Moved off-screen rather than `display:none`, because the crawlers worth
+   * catching skip fields that are explicitly hidden. `aria-hidden` and the
+   * negative tab index keep it away from screen readers and the keyboard.
+   */
+  const addHoneypot = (form) => {
+    if (form.querySelector('[name="company"]')) return;
+    const trap = document.createElement('input');
+    trap.type = 'text';
+    trap.name = 'company';
+    trap.tabIndex = -1;
+    trap.autocomplete = 'off';
+    trap.setAttribute('aria-hidden', 'true');
+    trap.style.cssText =
+      'position:absolute;left:-9999px;width:1px;height:1px;opacity:0';
+    form.appendChild(trap);
+  };
+
+  const postContact = async (payload) => {
+    const response = await fetch(CONTACT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      const error = new Error(`Contact endpoint returned ${response.status}`);
+      error.kind = response.status === 429 ? 'rate' : 'failed';
+      throw error;
+    }
+    return response.json();
+  };
+
+  const FAILURE_TEXT = {
+    rate: {
+      ar: `أرسلت رسائل كثيرة خلال وقت قصير. جرّب بعد ساعة، أو راسلنا مباشرة على ${MAILBOX}`,
+      en: `Too many messages in a short time. Try again in an hour, or email us directly at ${MAILBOX}`,
+    },
+    failed: {
+      ar: `تعذّر إرسال رسالتك. راسلنا مباشرة على ${MAILBOX}`,
+      en: `We could not send your message. Please email us directly at ${MAILBOX}`,
+    },
+  };
+
+  /** An inline, screen-reader-announced error placed directly after the form. */
+  const showFailure = (form, kind, english) => {
+    const text = FAILURE_TEXT[kind] ?? FAILURE_TEXT.failed;
+    let box = form.nextElementSibling;
+    if (!box?.dataset.contactError) {
+      box = document.createElement('p');
+      box.dataset.contactError = 'true';
+      box.setAttribute('role', 'alert');
+      box.style.cssText =
+        'margin:12px 0 0;font-size:14px;line-height:1.7;color:#C2544B';
+      form.after(box);
+    }
+    bilingual(box, text.ar, text.en, english);
+  };
+
+  const clearFailure = (form) => {
+    const box = form.nextElementSibling;
+    if (box?.dataset.contactError) box.remove();
+  };
+
   const landingFactory = (DCLogic) => class extends DCLogic {
     componentDidMount() {
       const root = document.getElementById('jadawil');
@@ -13,6 +99,7 @@
         const hash = link.getAttribute('href').split('#')[1];
         link.setAttribute('href', `/releases${hash ? `#${hash}` : ''}`);
       });
+      root?.querySelectorAll('form').forEach(addHoneypot);
       this.useCleanPath('/');
       if ((this.props.startLang ?? 'ar') === 'en') this.swap();
     }
@@ -47,15 +134,77 @@
       root.dir = toEn ? 'ltr' : 'rtl';
     }
 
-    submitEmail(event) {
+    /** Replace the form with a confirmation the visitor can actually read. */
+    showSent(form, reference) {
+      const english = isEnglish(document.getElementById('jadawil'));
+      const panel = document.createElement('div');
+      // `status` rather than `alert`: this is a confirmation, so it should be
+      // announced once the screen reader finishes what it is already saying.
+      panel.setAttribute('role', 'status');
+      panel.setAttribute('aria-live', 'polite');
+      panel.style.cssText =
+        'border:1px solid #4C5158;background:#2A2B33;border-radius:12px;' +
+        'padding:26px;text-align:center';
+
+      const tick = document.createElement('div');
+      tick.textContent = '✓';
+      tick.setAttribute('aria-hidden', 'true');
+      tick.style.cssText =
+        'width:44px;height:44px;border-radius:99px;background:#8FD3AE;' +
+        'color:#202128;font-size:20px;font-weight:700;display:flex;' +
+        'align-items:center;justify-content:center;margin:0 auto';
+
+      const title = document.createElement('h3');
+      title.style.cssText =
+        'font-size:19px;font-weight:600;color:#fff;margin:16px 0 0';
+      bilingual(title, 'وصلتنا رسالتك', 'Your message has been sent', english);
+
+      const detail = document.createElement('p');
+      detail.style.cssText =
+        'font-size:15px;line-height:1.7;color:#DBDCD9;margin:10px 0 0';
+      bilingual(
+        detail,
+        `رقم المراسلة ${reference} — نرد عليك خلال يوم عمل واحد.`,
+        `Reference ${reference} — we will reply within one business day.`,
+        english,
+      );
+
+      panel.append(tick, title, detail);
+      clearFailure(form);
+      form.replaceWith(panel);
+    }
+
+    async submitEmail(event) {
       event.preventDefault();
       const form = event.currentTarget;
-      const fields = Array.from(new FormData(form).entries());
-      const body = fields
-        .map(([name, value]) => `${name}: ${value}`)
-        .join('\n');
-      const subject = form.dataset.emailSubject || 'Jadawil website message';
-      window.location.href = `mailto:info@jadawl.site?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const english = isEnglish(document.getElementById('jadawil'));
+      const button = form.querySelector('button[type="submit"]');
+      const buttonLabel = button?.textContent;
+
+      // Anything the endpoint does not name becomes a labelled detail line.
+      const payload = { source: 'landing', details: {} };
+      for (const [name, value] of new FormData(form).entries()) {
+        if (KNOWN_FIELDS.includes(name)) payload[name] = value;
+        else payload.details[name] = value;
+      }
+      payload.subject ||= form.dataset.emailSubject || 'Jadawil website message';
+
+      clearFailure(form);
+      if (button) {
+        button.disabled = true;
+        button.textContent = english ? 'Sending…' : 'جارٍ الإرسال…';
+      }
+
+      try {
+        const { reference } = await postContact(payload);
+        this.showSent(form, reference);
+      } catch (error) {
+        showFailure(form, error.kind, english);
+        if (button) {
+          button.disabled = false;
+          button.textContent = buttonLabel;
+        }
+      }
     }
 
     renderVals() {
@@ -102,6 +251,7 @@
         const hash = link.getAttribute('href').split('#')[1];
         link.setAttribute('href', `/${hash ? `#${hash}` : ''}`);
       });
+      root?.querySelectorAll('form').forEach(addHoneypot);
       if (window.location.protocol === 'file:') return;
       const filename = decodeURIComponent(window.location.pathname).split('/').pop();
       if (filename?.startsWith('Jadawil Releases')) {
@@ -161,25 +311,46 @@
       this.forceUpdate();
     }
 
-    submit() {
-      const ticket = 'JD-' + String(Date.now()).slice(-6);
-      this.setState({ submitted: true, ticket });
-    }
-
-    sendReport(event) {
+    async sendReport(event) {
       event.preventDefault();
-      const subject = `[Jadawil] ${this.state.title || 'Bug report'}`;
-      const body = [
-        `Report type: ${this.state.kind}`,
-        `Severity: ${this.state.severity}`,
-        `Work email: ${this.state.email}`,
-        `Where: ${this.state.where}`,
-        `Title: ${this.state.title}`,
-        `Steps: ${this.state.steps}`,
-        'Version: v0.9.4',
-      ].join('\n');
-      this.submit();
-      window.location.href = `mailto:info@jadawl.site?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const form = event.currentTarget;
+      const english = isEnglish(document.getElementById('jadawil-rel'));
+      const button = form.querySelector('button[type="submit"]');
+      const buttonLabel = button?.textContent;
+
+      clearFailure(form);
+      if (button) {
+        button.disabled = true;
+        button.textContent = english ? 'Sending…' : 'جارٍ الإرسال…';
+      }
+
+      try {
+        const { reference } = await postContact({
+          source: 'releases',
+          email: this.state.email,
+          subject: this.state.title || 'Bug report',
+          message: this.state.steps,
+          // This form builds its payload from state rather than FormData, so
+          // the trap has to be read off the DOM. It reads empty when a
+          // re-render has dropped it, which is a normal submission.
+          company: form.querySelector('[name="company"]')?.value ?? '',
+          details: {
+            'Report type': this.state.kind,
+            Severity: this.state.severity,
+            Where: this.state.where,
+            Version: 'v0.9.4',
+          },
+        });
+        // The reference now comes from the server and matches the email's
+        // subject line, so quoting it back to us actually finds the message.
+        this.setState({ submitted: true, ticket: reference });
+      } catch (error) {
+        showFailure(form, error.kind, english);
+        if (button) {
+          button.disabled = false;
+          button.textContent = buttonLabel;
+        }
+      }
     }
 
     renderVals() {
