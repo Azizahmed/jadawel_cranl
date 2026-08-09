@@ -17,20 +17,21 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-06, digest
-# sha256:ccac318f493988e982574821acc8c55fb00636c1b088a4cd8a8ff2fbbc8b031e
-# Built locally rather than by publish-image.yml: GitHub Actions was in a major
-# outage and never acquired a runner. Same three builds the workflow runs.
+# Published 2026-08-09 by publish-image.yml from main @ eeccadf, digest
+# sha256:fffdf230bbbefff75ff352ad6f8927b97ff9fcf2f5c182a4da110746f16f8900
 #
-# Completes the baserow -> jadawel rename. Carries seven migrations: the
-# LocalJadawel RenameModel set, the show_jadawel_help_request field, the
-# get_jadawel_table_* functions, and the sweep of the Postgres constraint,
-# index and sequence names RenameModel left behind.
+# Carries one migration, arabase.0004_dashboard_share, which creates the
+# DashboardShare table behind the new public dashboard links. Nothing in it
+# touches an existing table, so it is safe to roll forward on a live database.
+#
+# Also in this image: workspace-level generative AI key settings are gone (the
+# API route 404s and the workspace Settings menu entry no longer renders), and
+# dashboard widgets can be dragged and resized on the grid board.
 #
 # Set JADAWEL_* in the dashboard before deploying. The BASEROW_* shims still
 # accept the old names, but JADAWEL_JWT_SIGNING_KEY must carry the same value
 # as BASEROW_JWT_SIGNING_KEY or every issued session is invalidated.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.5.0
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.6.0
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
