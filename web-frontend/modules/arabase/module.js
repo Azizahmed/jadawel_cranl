@@ -34,6 +34,7 @@ export default defineNuxtModule({
     // (core registers in its own module setup) so it can layer on top. See 1.2.
     nuxt.options.css.push(resolve('./assets/scss/arabase.scss'))
     nuxt.options.css.push(resolve('./assets/scss/dashboard_chart_widget.scss'))
+    nuxt.options.css.push(resolve('./assets/scss/widget_board.scss'))
 
     // The `ar` locale itself is activated via config/locales.js (shared list).
     // arabase keeps its own strings here rather than adding keys to an upstream

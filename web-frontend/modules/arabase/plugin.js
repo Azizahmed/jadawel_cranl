@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import gridSortable from './directives/gridSortable'
 
 /**
  * Arabase (Jadawel) frontend plugin.
@@ -21,6 +22,10 @@ export default defineNuxtPlugin({
   // Ensure i18n is set up before we read the active locale.
   dependsOn: ['i18n'],
   setup(nuxtApp) {
+    // Grid-aware drag & drop for the dashboard widget board. Registered here
+    // (rather than in core's global.js) to keep the fork additive.
+    nuxtApp.vueApp.directive('gridSortable', gridSortable)
+
     const i18n = nuxtApp.$i18n
     if (!i18n) {
       return

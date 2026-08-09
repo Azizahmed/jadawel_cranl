@@ -237,7 +237,28 @@ export const actions = {
     dispatch('selectWidget', createdWidget.id)
     await dispatch('fetchNewDataSources', createdWidget.dashboard_id)
   },
-  async dispatchDataSource({ commit }, dataSourceId) {
+  async dispatchDataSource({ commit, getters }, dataSourceId) {
+    const dataSource = getters.getDataSourceById(dataSourceId)
+    const isGroupedAggregateWithoutSeries =
+      dataSource?.type === 'local_jadawel_grouped_aggregate_rows' &&
+      !dataSource.aggregation_series?.length
+
+    // New widgets create their data source before the settings form has a table
+    // and aggregation configured. Treat that state as a local configuration error
+    // instead of sending a request that the API must reject with HTTP 400.
+    if (
+      !dataSource ||
+      dataSource.schema === null ||
+      dataSource.schema === undefined ||
+      isGroupedAggregateWithoutSeries
+    ) {
+      commit('UPDATE_DATA', {
+        dataSourceId,
+        values: { _error: true },
+      })
+      return
+    }
+
     const { $client } = this
     commit('UPDATE_DATA', { dataSourceId, values: null })
     try {
