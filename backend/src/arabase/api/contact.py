@@ -94,10 +94,13 @@ class ContactFormSerializer(serializers.Serializer):
     company = serializers.CharField(required=False, allow_blank=True)
 
     def validate_subject(self, value: str) -> str:
-        # The subject becomes a mail header. Django would raise BadHeaderError
-        # on an embedded newline, which surfaces as a 500; collapsing the
-        # whitespace here turns an injection attempt into ordinary input.
-        return " ".join(value.split())
+        # The subject becomes a mail header. Django raises BadHeaderError on an
+        # embedded newline, which would surface as a 500, so an injection
+        # attempt has to be neutralised here. Everything from the first line
+        # break on is dropped rather than folded into the header: the smuggled
+        # `Bcc: ...` never becomes a real header either way, but there is no
+        # reason to carry it into the subject a human then reads.
+        return " ".join(value.splitlines()[0].split()) if value.strip() else ""
 
     def validate_details(self, value: dict) -> dict:
         if len(value) > MAX_DETAIL_ENTRIES:
