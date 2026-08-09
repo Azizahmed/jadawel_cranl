@@ -1,0 +1,13 @@
+from rest_framework.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
+
+ERROR_DASHBOARD_SHARE_DOES_NOT_EXIST = (
+    "ERROR_DASHBOARD_SHARE_DOES_NOT_EXIST",
+    HTTP_404_NOT_FOUND,
+    "The dashboard is not shared publicly.",
+)
+
+ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_DASHBOARD = (
+    "ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_DASHBOARD",
+    HTTP_401_UNAUTHORIZED,
+    "The public dashboard is password protected.",
+)

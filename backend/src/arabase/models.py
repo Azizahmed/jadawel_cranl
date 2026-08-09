@@ -5,6 +5,7 @@ model the fork adds is re-exported here even though it is defined next to the
 code that uses it.
 """
 
+from arabase.dashboard.share.models import DashboardShare
 from arabase.dashboard.widgets.models import (
     ChartWidget,
     ProgressWidget,
@@ -20,6 +21,7 @@ from arabase.integrations.local_jadawel.models import (
 )
 
 __all__ = [
+    "DashboardShare",
     "ChartWidget",
     "ProgressWidget",
     "RecordsListWidget",

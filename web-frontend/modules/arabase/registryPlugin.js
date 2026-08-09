@@ -8,6 +8,8 @@ import {
   LocalJadawelGroupedAggregateRowsServiceType,
   LocalJadawelUpcomingRowsServiceType,
 } from '@jadawel/modules/arabase/integrations/serviceTypes'
+import { ArabasePlugin } from '@jadawel/modules/arabase/plugins'
+import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/store/publicDashboardApplication'
 
 /**
  * Registry registrations for the fork's own types.
@@ -21,8 +23,17 @@ export default defineNuxtPlugin({
   name: 'arabase-registry',
   dependsOn: ['core', 'store', 'dashboard'],
   setup(nuxtApp) {
-    const { $registry } = nuxtApp
+    const { $registry, $store } = nuxtApp
     const context = { app: nuxtApp }
+
+    // Read-only twin of `dashboardApplication`, under the `public/` prefix the
+    // public dashboard page passes to `DashboardContent` as its store prefix.
+    if (!$store.hasModule('public/dashboardApplication')) {
+      $store.registerModuleNuxtSafe(
+        'public/dashboardApplication',
+        publicDashboardApplicationStore
+      )
+    }
 
     $registry.register(
       'service',
@@ -37,6 +48,8 @@ export default defineNuxtPlugin({
     $registry.register('dashboardWidget', new RecordsListWidgetType(context))
     $registry.register('dashboardWidget', new ProgressWidgetType(context))
     $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
+
+    $registry.register('plugin', new ArabasePlugin(context))
 
     // Generative AI keys are not configurable per workspace in Jadawel: the
     // provider credentials are an instance-level concern (env vars) or an

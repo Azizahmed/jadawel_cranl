@@ -991,3 +991,34 @@ because two separate passes have rewritten one of them.
 
 `DatabaseRow*` contains the substring `baserow` (`data|baserow|perationtype`). A
 case-insensitive rename corrupts it; the sweep matched case-sensitively to avoid this.
+
+---
+
+## Phase — Remove workspace AI keys, add public dashboard links (2026-08-09)
+
+**Context:** Two product changes. (1) Generative AI provider credentials are no longer
+configurable per workspace: they belong to the instance (env vars) or to an AI
+integration's own `ai_settings`, and letting any workspace admin store third-party API
+keys on the workspace was an entry point we do not want. (2) Dashboards gained the same
+public link a form or grid view has — create, rotate, password-protect, revoke.
+
+Almost all of the dashboard sharing feature is additive and therefore not listed here:
+`backend/src/arabase/dashboard/share/`, `backend/src/arabase/api/dashboard_share/`,
+`backend/src/arabase/migrations/0004_dashboard_share.py`, and
+`web-frontend/modules/arabase/{plugins.js,routes.js,services,pages,dashboard}`. The
+core files below are the seams those additions plug into.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/api/workspaces/urls.py` | Dropped the `settings/generative-ai/` route and its view import | Removes the API half of workspace-level AI keys; the URL now 404s | low |
+| `backend/src/jadawel/api/workspaces/views.py` | Deleted `WorkspaceGenerativeAISettingsView` and the imports it alone used (`validate_data`, `UpdateWorkspaceOperationType`, `get_generative_ai_settings_serializer`) | The view had no remaining route. `get_generative_ai_settings_serializer` itself stays — `contrib/integrations/ai` still uses it | low |
+| `backend/tests/jadawel/api/groups/test_workspace_views.py` | Removed `test_only_admin_can_list_generative_ai_settings` and `test_workspace_settings_override_global_generative_ai_settings` | Both exercised the deleted endpoint. Replaced by `backend/tests/arabase/test_workspace_generative_ai_disabled.py`, which asserts the route is gone | low |
+| `web-frontend/modules/core/components/workspace/WorkspaceContext.vue` | "Settings" menu item and `WorkspaceSettingsModal` now also require `hasWorkspaceSettings` | Generative AI was the only registered `workspaceSettings` page; without the guard the menu opens an empty modal | low |
+| `web-frontend/modules/core/components/workspace/WorkspaceSettingsModal.vue` | `mounted()` reads `registeredSettings[0]?.type ?? ''` | The old `getOrderedList(...)[0].type` throws on an empty registry | low |
+| `web-frontend/modules/core/plugins.js` | Added the `getAdditionalDashboardHeaderComponents(dashboard)` plugin hook | Lets the fork put the share menu in the dashboard header without the dashboard module importing from `arabase` | low |
+| `web-frontend/modules/dashboard/components/DashboardHeaderMenuItems.vue` | Renders the components returned by that hook | The other half of the same seam | low |
+
+The frontend half of the AI change needs no core edit: `registryPlugin.js` calls
+`$registry.unregister('workspaceSettings', 'generative-ai')`, so
+`GenerativeAIWorkspaceSettings.vue` and the two `workspace.js` service methods stay in
+the tree as unreachable upstream code rather than becoming a deletion to re-apply.

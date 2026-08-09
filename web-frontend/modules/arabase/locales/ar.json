@@ -94,5 +94,41 @@
     "days": "الأيام {count} القادمة",
     "rowCountLabel": "عدد السجلات",
     "includeOverdue": "تضمين السجلات المتأخّرة"
+  },
+  "shareDashboardLink": {
+    "shareDashboard": "مشاركة لوحة التحكم",
+    "shareTitle": "مشاركة لوحة التحكم هذه",
+    "shareText": "أنشئ رابطاً يستطيع أي شخص فتحه دون حساب في جداول. تظهر لوحة التحكم للزوار للقراءة فقط.",
+    "createLink": "إنشاء رابط مشاركة خاص للوحة التحكم",
+    "sharedTitle": "رابط لوحة التحكم",
+    "sharedDescription": "يستطيع كل من يملك الرابط الاطّلاع على لوحة التحكم دون تعديلها.",
+    "copyURL": "نسخ الرابط",
+    "generateNewUrl": "إنشاء رابط جديد",
+    "enablePassword": "كل من يملك الرابط",
+    "disablePassword": "مقيّد بكلمة مرور",
+    "changePassword": "تغيير كلمة المرور",
+    "disableLink": "إيقاف المشاركة"
+  },
+  "dashboardRotateSlugModal": {
+    "title": "إنشاء رابط جديد",
+    "refreshWarning": "هل تريد إنشاء رابط جديد للوحة «{dashboardName}»؟ سيتوقف الرابط القديم فوراً ويفقد كل من شاركته معه إمكانية الوصول.",
+    "generateNewURL": "إنشاء رابط جديد"
+  },
+  "dashboardSharePasswordModal": {
+    "newPasswordTitle": "حماية لوحة التحكم بكلمة مرور",
+    "newPasswordDescription": "يجب على الزوار إدخال كلمة المرور هذه قبل عرض لوحة التحكم.",
+    "newPasswordSave": "حفظ كلمة المرور",
+    "changePasswordTitle": "تغيير كلمة مرور لوحة التحكم",
+    "changePasswordDescription": "يؤدي تعيين كلمة مرور جديدة إلى إنهاء وصول كل من أدخل الكلمة السابقة.",
+    "changePasswordSave": "تغيير كلمة المرور"
+  },
+  "publicDashboardAuthLogin": {
+    "title": "لوحة تحكم محمية بكلمة مرور",
+    "description": "أدخل كلمة المرور لفتح لوحة التحكم.",
+    "enter": "متابعة",
+    "error": {
+      "incorrectPasswordTitle": "كلمة المرور غير صحيحة",
+      "incorrectPasswordText": "كلمة المرور التي أدخلتها غير صحيحة."
+    }
   }
 }

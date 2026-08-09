@@ -94,5 +94,41 @@
     "days": "Next {count} days",
     "rowCountLabel": "Records",
     "includeOverdue": "Include overdue records"
+  },
+  "shareDashboardLink": {
+    "shareDashboard": "Share dashboard",
+    "shareTitle": "Share this dashboard",
+    "shareText": "Create a link that anyone can open, without a Jadawel account. The dashboard is read-only for visitors.",
+    "createLink": "Create a private shareable link to the dashboard",
+    "sharedTitle": "Dashboard link",
+    "sharedDescription": "Anyone with the link can see the dashboard, but not change it.",
+    "copyURL": "Copy URL",
+    "generateNewUrl": "Generate new URL",
+    "enablePassword": "Anyone with the link",
+    "disablePassword": "Restricted with a password",
+    "changePassword": "Change password",
+    "disableLink": "Disable sharing"
+  },
+  "dashboardRotateSlugModal": {
+    "title": "Generate new URL",
+    "refreshWarning": "Are you sure you want to generate a new URL for \"{dashboardName}\"? The old link stops working immediately and everyone you shared it with loses access.",
+    "generateNewURL": "Generate new URL"
+  },
+  "dashboardSharePasswordModal": {
+    "newPasswordTitle": "Protect the dashboard with a password",
+    "newPasswordDescription": "Visitors have to enter this password before the dashboard is shown.",
+    "newPasswordSave": "Save password",
+    "changePasswordTitle": "Change the dashboard password",
+    "changePasswordDescription": "Setting a new password signs out everyone who entered the old one.",
+    "changePasswordSave": "Change password"
+  },
+  "publicDashboardAuthLogin": {
+    "title": "Password protected dashboard",
+    "description": "Enter the password to open this dashboard.",
+    "enter": "Continue",
+    "error": {
+      "incorrectPasswordTitle": "Incorrect password",
+      "incorrectPasswordText": "The password you entered is not correct."
+    }
   }
 }

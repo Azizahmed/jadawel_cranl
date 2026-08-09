@@ -1,5 +1,11 @@
-import { defineNuxtModule, addPlugin, createResolver } from 'nuxt/kit'
+import {
+  defineNuxtModule,
+  addPlugin,
+  createResolver,
+  extendPages,
+} from 'nuxt/kit'
 import { locales } from '../../config/locales.js'
+import { routes } from './routes'
 
 /**
  * Arabase (Jadawel) Nuxt module — the home for our additive frontend code.
@@ -35,6 +41,12 @@ export default defineNuxtModule({
     nuxt.options.css.push(resolve('./assets/scss/arabase.scss'))
     nuxt.options.css.push(resolve('./assets/scss/dashboard_chart_widget.scss'))
     nuxt.options.css.push(resolve('./assets/scss/widget_board.scss'))
+
+    // Public dashboard share pages. Anonymous routes, so they must live
+    // outside the authenticated `app` layout.
+    extendPages((pages) => {
+      pages.push(...routes)
+    })
 
     // The `ar` locale itself is activated via config/locales.js (shared list).
     // arabase keeps its own strings here rather than adding keys to an upstream

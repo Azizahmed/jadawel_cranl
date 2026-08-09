@@ -136,6 +136,16 @@ export class JadawelPlugin extends Registerable {
   }
 
   /**
+   * Every registered plugin can display multiple components in the header of a
+   * dashboard application, next to the "edit mode" toggle. Jadawel uses this to
+   * add the dashboard sharing menu without the dashboard module having to know
+   * about the fork.
+   */
+  getAdditionalDashboardHeaderComponents(dashboard) {
+    return []
+  }
+
+  /**
    * Every registered plugin can display multiple additional context items in the
    * application context displayed by the sidebar when opening the context menu of a
    * application.

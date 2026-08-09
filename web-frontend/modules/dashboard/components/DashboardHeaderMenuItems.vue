@@ -8,6 +8,13 @@
         }}</span>
       </a>
     </li>
+    <li
+      v-for="(component, i) in additionalHeaderComponents"
+      :key="i"
+      class="header__filter-item"
+    >
+      <component :is="component" :dashboard="dashboard" />
+    </li>
   </div>
 </template>
 
@@ -32,6 +39,17 @@ export default {
         this.dashboard,
         this.dashboard.workspace.id
       )
+    },
+    additionalHeaderComponents() {
+      return Object.values(this.$registry.getAll('plugin'))
+        .reduce(
+          (components, plugin) =>
+            components.concat(
+              plugin.getAdditionalDashboardHeaderComponents(this.dashboard)
+            ),
+          []
+        )
+        .filter((component) => component !== null)
     },
   },
   methods: {
