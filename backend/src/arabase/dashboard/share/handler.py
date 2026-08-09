@@ -1,7 +1,6 @@
 from typing import Any, Dict, Optional
 
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser
 
 import jwt
 from rest_framework.request import Request
@@ -12,8 +11,6 @@ from arabase.dashboard.share.exceptions import (
 )
 from arabase.dashboard.share.models import DashboardShare
 from jadawel.contrib.dashboard.models import Dashboard
-from jadawel.core.handler import CoreHandler
-from jadawel.core.operations import ReadApplicationOperationType
 
 
 class DashboardShareHandler:
@@ -96,15 +93,18 @@ class DashboardShareHandler:
 
     def get_public_share_by_slug(
         self,
-        user: Optional[AbstractUser],
         slug: str,
         authorization_token: Optional[str] = None,
     ) -> DashboardShare:
         """
         Resolves the public link and checks the visitor may open it.
 
-        A user who can already read the dashboard through their workspace
-        membership skips the password check, exactly like a shared view does.
+        The password applies to everyone, including members of the owning
+        workspace. A shared *view* lets a member through on their session alone,
+        but that makes the link untestable: the owner opens their own protected
+        dashboard, is never asked, and cannot tell whether the password works.
+        Members lose nothing — they still reach the dashboard at its normal
+        `/dashboard/<id>` URL without a password.
 
         :raises DashboardShareDoesNotExist: If no live dashboard uses that slug.
         :raises NoAuthorizationToPubliclySharedDashboard: If the link is password
@@ -119,24 +119,9 @@ class DashboardShareHandler:
         if authorization_token and self.is_token_valid(share, authorization_token):
             return share
 
-        dashboard = share.dashboard
-        user_can_read = (
-            user is not None
-            and user.is_authenticated
-            and CoreHandler().check_permissions(
-                user,
-                ReadApplicationOperationType.type,
-                workspace=dashboard.workspace,
-                context=dashboard,
-                raise_permission_exceptions=False,
-            )
+        raise NoAuthorizationToPubliclySharedDashboard(
+            "The public dashboard is password protected."
         )
-        if not user_can_read:
-            raise NoAuthorizationToPubliclySharedDashboard(
-                "The public dashboard is password protected."
-            )
-
-        return share
 
     def _get_jwt_secret(self, share: DashboardShare) -> str:
         return f"{share.slug}-{share.public_view_password}-{settings.SECRET_KEY}"

@@ -293,7 +293,11 @@ def test_rotating_the_slug_invalidates_an_issued_password_token(
 
 
 @pytest.mark.django_db
-def test_a_member_of_the_workspace_skips_the_password(api_client, data_fixture):
+def test_the_password_applies_to_the_owner_too(api_client, data_fixture):
+    # A shared view lets a workspace member through on their session alone. A
+    # dashboard must not: the owner would open their own protected link, never
+    # be asked, and conclude the password does not work. Members still reach
+    # the dashboard at /dashboard/<id> without a password.
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
@@ -302,6 +306,21 @@ def test_a_member_of_the_workspace_skips_the_password(api_client, data_fixture):
 
     response = api_client.get(
         public_url(share.slug), **{"HTTP_AUTHORIZATION": f"JWT {token}"}
+    )
+    assert response.status_code == HTTP_401_UNAUTHORIZED
+    assert (
+        response.json()["error"]
+        == "ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_DASHBOARD"
+    )
+
+    # ... and the token issued for that password still lets them in.
+    access_token = handler.encode_token(share)
+    response = api_client.get(
+        public_url(share.slug),
+        **{
+            "HTTP_AUTHORIZATION": f"JWT {token}",
+            "HTTP_JADAWEL_VIEW_AUTHORIZATION": f"JWT {access_token}",
+        },
     )
     assert response.status_code == HTTP_200_OK
 

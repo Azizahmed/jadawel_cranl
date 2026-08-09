@@ -95,7 +95,7 @@ class PublicDashboardInfoView(APIView):
     @map_exceptions(PUBLIC_ERRORS)
     def get(self, request: Request, slug: str) -> Response:
         share = DashboardShareHandler().get_public_share_by_slug(
-            request.user, slug, get_public_authorization_token(request)
+            slug, get_public_authorization_token(request)
         )
         dashboard = share.dashboard
 
@@ -173,7 +173,7 @@ class PublicDashboardDispatchView(APIView):
     )
     def post(self, request: Request, slug: str, data_source_id: int) -> Response:
         share = DashboardShareHandler().get_public_share_by_slug(
-            request.user, slug, get_public_authorization_token(request)
+            slug, get_public_authorization_token(request)
         )
 
         data_source = DashboardDataSourceHandler().get_data_source(data_source_id)
