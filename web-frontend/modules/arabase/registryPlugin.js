@@ -37,5 +37,12 @@ export default defineNuxtPlugin({
     $registry.register('dashboardWidget', new RecordsListWidgetType(context))
     $registry.register('dashboardWidget', new ProgressWidgetType(context))
     $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
+
+    // Generative AI keys are not configurable per workspace in Jadawel: the
+    // provider credentials are an instance-level concern (env vars) or an
+    // integration-level one (the AI integration's own `ai_settings`). Dropping
+    // the tab here keeps the core component untouched while removing the entry
+    // point; the matching API route is removed in the backend (see PATCHES.md).
+    $registry.unregister('workspaceSettings', 'generative-ai')
   },
 })

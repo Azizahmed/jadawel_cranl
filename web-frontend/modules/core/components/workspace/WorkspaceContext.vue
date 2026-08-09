@@ -48,7 +48,10 @@
         </a>
       </li>
       <li
-        v-if="$hasPermission('workspace.update', workspace, workspace.id)"
+        v-if="
+          hasWorkspaceSettings &&
+          $hasPermission('workspace.update', workspace, workspace.id)
+        "
         class="context__menu-item"
       >
         <a
@@ -135,7 +138,10 @@
       :workspace="workspace"
     ></LeaveWorkspaceModal>
     <WorkspaceSettingsModal
-      v-if="$hasPermission('workspace.update', workspace, workspace.id)"
+      v-if="
+        hasWorkspaceSettings &&
+        $hasPermission('workspace.update', workspace, workspace.id)
+      "
       ref="workspaceSettingsModal"
       :workspace="workspace"
     ></WorkspaceSettingsModal>
@@ -178,6 +184,14 @@ export default {
     return {
       loading: false,
     }
+  },
+  computed: {
+    // Jadawel unregisters the only upstream page (generative AI), which leaves
+    // the registry empty; a "Settings" entry that opens a blank modal is worse
+    // than no entry.
+    hasWorkspaceSettings() {
+      return this.$registry.getOrderedList('workspaceSettings').length > 0
+    },
   },
   methods: {
     async fetchRolesAndPermissions() {

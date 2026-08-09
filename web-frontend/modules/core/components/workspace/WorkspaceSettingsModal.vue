@@ -59,9 +59,9 @@ export default {
     },
   },
   mounted() {
-    this.setPage(
-      Object.values(this.$registry.getOrderedList('workspaceSettings'))[0].type
-    )
+    // The registry can be empty — Jadawel unregisters the only upstream page
+    // (generative AI). Guard so mounting the modal never throws.
+    this.setPage(this.registeredSettings[0]?.type ?? '')
   },
   methods: {
     setPage(page) {
