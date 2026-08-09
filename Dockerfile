@@ -17,8 +17,8 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-09 by publish-image.yml from main @ eeccadf, digest
-# sha256:fffdf230bbbefff75ff352ad6f8927b97ff9fcf2f5c182a4da110746f16f8900
+# Published 2026-08-09 by publish-image.yml from main @ d5698cc, digest
+# sha256:4097ccfac0690ccc9d49bdddb85ea05bd9d1a5a4cfa6eac3ec7298728822349c
 #
 # Carries one migration, arabase.0004_dashboard_share, which creates the
 # DashboardShare table behind the new public dashboard links. Nothing in it
@@ -28,10 +28,14 @@
 # API route 404s and the workspace Settings menu entry no longer renders), and
 # dashboard widgets can be dragged and resized on the grid board.
 #
+# 2.6.1 over 2.6.0: a password-protected dashboard link waved through anyone
+# signed in to the owning workspace, so the owner could never verify their own
+# password. The password now applies to every request on the public URL.
+#
 # Set JADAWEL_* in the dashboard before deploying. The BASEROW_* shims still
 # accept the old names, but JADAWEL_JWT_SIGNING_KEY must carry the same value
 # as BASEROW_JWT_SIGNING_KEY or every issued session is invalidated.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.6.0
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.6.1
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
