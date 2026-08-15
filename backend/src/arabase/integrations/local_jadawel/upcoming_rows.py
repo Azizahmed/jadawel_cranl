@@ -8,6 +8,10 @@ from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
+from arabase.integrations.local_jadawel.date_columns import (
+    field_tzinfo,
+    is_datetime_column,
+)
 from arabase.integrations.local_jadawel.models import LocalJadawelUpcomingRows
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.fields.registries import field_type_registry
@@ -152,7 +156,13 @@ class LocalJadawelUpcomingRowsUserServiceType(LocalJadawelListRowsUserServiceTyp
         **kwargs,
     ):
         if prop_name == "date_field_id":
-            return id_mapping.get("database_fields", {}).get(value, value)
+            # Falling back to the original id would keep a number that means
+            # something else in this installation — very likely a field on
+            # another table — and `filter(field_999__lte=...)` then raises
+            # FieldError mid-dispatch, so the user gets a 500 instead of a
+            # widget that says it needs configuring. None is the honest answer,
+            # and `resolve_service_formulas` already reports it properly.
+            return id_mapping.get("database_fields", {}).get(value, None)
 
         return super().deserialize_property(
             prop_name,
@@ -196,12 +206,25 @@ class LocalJadawelUpcomingRowsUserServiceType(LocalJadawelListRowsUserServiceTyp
         db_column = date_field.db_column
         # Comparing a timestamp column against a date would include or exclude a
         # whole day at the boundary depending on the time of day, so datetimes
-        # are compared by their date part.
-        lookup = f"{db_column}__date" if self._has_time(date_field) else db_column
+        # are compared by their date part. Whether the column *is* a timestamp
+        # is a question about the column, not about `date_include_time` — see
+        # `date_columns.is_datetime_column`.
+        lookup = (
+            f"{db_column}__date" if is_datetime_column(model, date_field) else db_column
+        )
 
-        today = timezone.localdate()
-        window = Q(**{f"{lookup}__lte": today + timedelta(days=service.days_ahead)})
-        if not service.include_overdue:
+        tzinfo = field_tzinfo(date_field)
+        today = timezone.localdate(timezone=tzinfo)
+        ahead = timedelta(days=service.days_ahead)
+
+        window = Q(**{f"{lookup}__lte": today + ahead})
+        if service.include_overdue:
+            # Bounded on the past side as well. Without it the agenda is every
+            # row that has ever come due, and since the results are ordered by
+            # date and capped, a table carrying a long tail of old rows returns
+            # the oldest ten for ever and never shows anything upcoming.
+            window &= Q(**{f"{lookup}__gte": today - ahead})
+        else:
             window &= Q(**{f"{lookup}__gte": today})
 
         return (
@@ -209,7 +232,3 @@ class LocalJadawelUpcomingRowsUserServiceType(LocalJadawelListRowsUserServiceTyp
             .exclude(**{f"{db_column}__isnull": True})
             .order_by(F(db_column).asc(), "id")
         )
-
-    @staticmethod
-    def _has_time(field) -> bool:
-        return bool(getattr(field.specific, "date_include_time", False))

@@ -1,3 +1,4 @@
+import logging
 from typing import Any, Dict, List, Optional
 
 from django.conf import settings
@@ -8,6 +9,10 @@ from django.db.models.functions import TruncDate
 
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
+from arabase.integrations.local_jadawel.date_columns import (
+    field_tzinfo,
+    is_datetime_column,
+)
 from arabase.integrations.local_jadawel.models import (
     SORT_ON_GROUP_BY,
     SORT_ON_SERIES,
@@ -41,6 +46,8 @@ from jadawel.core.services.exceptions import (
 )
 from jadawel.core.services.registries import DispatchTypes
 from jadawel.core.services.types import DispatchResult, ServiceSubClass
+
+logger = logging.getLogger(__name__)
 
 MAX_AGGREGATION_SERIES = 5
 """How many series the API accepts on one service. The frontend offers fewer;
@@ -284,11 +291,19 @@ class LocalJadawelGroupedAggregateRowsUserServiceType(
         # Series, group bys and sorts all point at specific table fields, so a
         # table change drops them the same way it drops filters and sorts on the
         # other local Jadawel services.
+        #
+        # The test is that the table *changed*, not that both ends are set:
+        # clearing the table to null is equally a change, and leaving the series
+        # pointing at fields of a table the service no longer reads is how a
+        # dispatch ends up referencing a removed column.
         from_table, to_table = changes.get("table", (None, None))
-        if from_table and to_table:
+        if from_table != to_table:
             instance.service_aggregation_series.all().delete()
             instance.service_aggregation_group_bys.all().delete()
             instance.service_aggregation_sorts.all().delete()
+            # Series supplied in the same request describe the *new* table, so
+            # they are written back rather than discarded with the old ones.
+            self._write_relations(instance, values)
             return
 
         self._write_relations(instance, values)
@@ -512,7 +527,23 @@ class LocalJadawelGroupedAggregateRowsUserServiceType(
 
         properties = {}
         for s in series:
-            aggregation_type = field_aggregation_registry.get(s.aggregation_type)
+            try:
+                aggregation_type = field_aggregation_registry.get(s.aggregation_type)
+            except AggregationTypeDoesNotExist:
+                # A schema is generated for every data source whenever the
+                # dashboard is listed, so letting this escape would turn one
+                # series carrying an unregistered aggregation — imported from a
+                # deployment that had a plugin this one does not — into a 500 on
+                # every dashboard, not just the widget that cannot render.
+                # Dropping it from the schema keeps the rest of the page up;
+                # dispatching the series still reports the misconfiguration.
+                logger.warning(
+                    "Service %s references unknown aggregation type %r; "
+                    "leaving it out of the schema.",
+                    service.id,
+                    s.aggregation_type,
+                )
+                continue
             properties[s.key] = {
                 "title": f"{s.field.name} ({s.aggregation_type})",
                 "type": "array",
@@ -647,20 +678,25 @@ class LocalJadawelGroupedAggregateRowsUserServiceType(
         """
         Returns `(queryset, alias)` naming the column the buckets come from.
 
-        Grouping a datetime field on its raw value gives one bucket per second,
-        so those are truncated to the day. Choosing the granularity is a v2
-        setting.
+        Grouping a datetime field on its raw value gives one bucket per
+        microsecond, so those are truncated to the day. Choosing the
+        granularity is a v2 setting.
         """
 
         db_column = group_by_field.db_column
-        field = group_by_field.specific
 
-        # `date_include_time` only exists on the date-carrying field types (date,
-        # created on, last modified), which is exactly the set that needs
-        # truncating — so the attribute is the test, not the field type name.
-        if getattr(field, "date_include_time", False):
+        # What matters is whether the *column* carries a time, which is not the
+        # same question as `date_include_time`. That is a display setting, and
+        # `created_on` / `last_modified` store a timestamptz whatever it says —
+        # so trusting it left those fields untruncated and grouped a timestamp
+        # on its raw value, which is exactly the explosion this guards against.
+        if is_datetime_column(queryset.model, group_by_field):
             alias = f"{db_column}_bucket"
-            return queryset.annotate(**{alias: TruncDate(db_column)}), alias
+            tzinfo = field_tzinfo(group_by_field)
+            return (
+                queryset.annotate(**{alias: TruncDate(db_column, tzinfo=tzinfo)}),
+                alias,
+            )
 
         return queryset, db_column
 

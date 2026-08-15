@@ -245,18 +245,26 @@ def create_table(
     from jadawel.contrib.database.table.actions import CreateTableActionType
 
     database = get_database(user, workspace, database_id)
-    table, _ = CreateTableActionType.do(user, database, name, fill_example=False)
 
-    created_fields = []
-    if fields:
-        sorted_fields = sorted(
-            fields, key=lambda f: _FIELD_CREATION_ORDER.get(f.get("type", "text"), 0)
-        )
-        for src_field_spec in sorted_fields:
-            field_spec = dict(src_field_spec)
-            type_name = field_spec.pop("type")
-            created = CreateFieldActionType.do(user, table, type_name, **field_spec)
-            created_fields.append(_serialize_field(created))
+    # One tool call is one table. Without the transaction a field that collides
+    # with the primary field the table is always created with — `Name`, or `id`
+    # — raises partway through and leaves the table and the fields before it
+    # behind. The caller is a language model, so it retries, and the workspace
+    # fills with half-built tables nobody asked for.
+    with transaction.atomic():
+        table, _ = CreateTableActionType.do(user, database, name, fill_example=False)
+
+        created_fields = []
+        if fields:
+            sorted_fields = sorted(
+                fields,
+                key=lambda f: _FIELD_CREATION_ORDER.get(f.get("type", "text"), 0),
+            )
+            for src_field_spec in sorted_fields:
+                field_spec = dict(src_field_spec)
+                type_name = field_spec.pop("type")
+                created = CreateFieldActionType.do(user, table, type_name, **field_spec)
+                created_fields.append(_serialize_field(created))
 
     return {
         "id": table.id,
