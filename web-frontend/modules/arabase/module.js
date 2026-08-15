@@ -41,6 +41,7 @@ export default defineNuxtModule({
     nuxt.options.css.push(resolve('./assets/scss/arabase.scss'))
     nuxt.options.css.push(resolve('./assets/scss/dashboard_chart_widget.scss'))
     nuxt.options.css.push(resolve('./assets/scss/widget_board.scss'))
+    nuxt.options.css.push(resolve('./assets/scss/admin_backup.scss'))
 
     // Public dashboard share pages. Anonymous routes, so they must live
     // outside the authenticated `app` layout.

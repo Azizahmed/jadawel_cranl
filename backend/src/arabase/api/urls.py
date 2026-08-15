@@ -1,5 +1,11 @@
 from django.urls import re_path
 
+from arabase.api.backup.views import (
+    AdminBackupRestoreView,
+    AdminBackupRunNowView,
+    AdminBackupRunsView,
+    AdminBackupView,
+)
 from arabase.api.contact import ContactFormView
 from arabase.api.dashboard_share.public import (
     PublicDashboardAuthView,
@@ -60,5 +66,25 @@ urlpatterns = [
         r"^public/dashboard/(?P<slug>[-\w]+)/dispatch/(?P<data_source_id>[0-9]+)/$",
         PublicDashboardDispatchView.as_view(),
         name="public_dashboard_dispatch",
+    ),
+    re_path(
+        r"^admin/backup/$",
+        AdminBackupView.as_view(),
+        name="admin_backup",
+    ),
+    re_path(
+        r"^admin/backup/runs/$",
+        AdminBackupRunsView.as_view(),
+        name="admin_backup_runs",
+    ),
+    re_path(
+        r"^admin/backup/run/$",
+        AdminBackupRunNowView.as_view(),
+        name="admin_backup_run_now",
+    ),
+    re_path(
+        r"^admin/backup/restore/$",
+        AdminBackupRestoreView.as_view(),
+        name="admin_backup_restore",
     ),
 ]

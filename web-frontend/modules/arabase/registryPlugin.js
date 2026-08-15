@@ -8,6 +8,7 @@ import {
   LocalJadawelGroupedAggregateRowsServiceType,
   LocalJadawelUpcomingRowsServiceType,
 } from '@jadawel/modules/arabase/integrations/serviceTypes'
+import { BackupAdminType } from '@jadawel/modules/arabase/adminTypes'
 import { ArabasePlugin } from '@jadawel/modules/arabase/plugins'
 import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/store/publicDashboardApplication'
 
@@ -34,6 +35,8 @@ export default defineNuxtPlugin({
         publicDashboardApplicationStore
       )
     }
+
+    $registry.register('admin', new BackupAdminType(context))
 
     $registry.register(
       'service',

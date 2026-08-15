@@ -86,7 +86,7 @@ Set these on the app in the CranL dashboard, then reload it.
 | `JADAWEL_BACKUP_S3_REGION` | no | — | |
 | `JADAWEL_BACKUP_S3_PREFIX` | no | `postgres/` | A trailing slash is added if missing. **Must not be empty** — retention deletes under this prefix, so an empty one means the whole bucket. Validation rejects it. |
 | `JADAWEL_BACKUP_RETENTION_DAYS` | no | `14` | Age is taken from the object's `LastModified`. |
-| `JADAWEL_BACKUP_CRONTAB` | no | `0 23 * * *` | 23:00 UTC is 02:00 in Riyadh. |
+| `JADAWEL_BACKUP_CRONTAB` | no | `0 23 * * *` | Fallback only. The frequency is set in **Admin → Backup** and stored in the database; this applies when that row cannot be read. |
 | `JADAWEL_BACKUP_S3_SSE` | no | — | e.g. `AES256`. Not every provider implements it. |
 | `JADAWEL_BACKUP_TIMEOUT_SECONDS` | no | `3600` | `pg_dump` is killed past this. The Celery soft limit is derived from it. |
 | `JADAWEL_BACKUP_INCLUDE_MEDIA` | no | on, unless `AWS_STORAGE_BUCKET_NAME` is set | Archives user-uploaded files alongside the dump. Turn it off only when the files already live in object storage. |
@@ -100,6 +100,28 @@ Verify without dumping anything:
 That validates the credentials and compares the `pg_dump` version against the
 server, which is the one failure that would otherwise only surface at 02:00.
 
+## The admin section
+
+**Admin → Backup** is the page to look at, and the reason it exists is that a
+backup which quietly stopped running looks exactly like one that is working —
+right up to the day it is needed.
+
+It shows:
+
+- **Health**, as a banner. `disabled` is neutral, because switched off on
+  purpose is a legitimate state. `misconfigured` is an error, because the job is
+  scheduled and will fail every time it fires. `overdue` is judged against the
+  chosen frequency, so six hours late matters on an hourly schedule and does not
+  on a weekly one, and it outranks a failed last run — being a month stale is
+  the more urgent fact.
+- **Frequency** — hourly, daily or weekly. Saving republishes the schedule to
+  RedBeat, so it applies immediately rather than on the next redeploy. If that
+  republish fails the change still applies on the next worker restart.
+- **History**, including failed attempts. This is why runs are rows in the
+  database rather than a listing of the bucket: a failed run uploads nothing, so
+  a bucket listing cannot distinguish it from a run that never started.
+- **Restore**, which never writes over the live database. See below.
+
 ## Taking a backup by hand
 
 ```
@@ -110,6 +132,17 @@ server, which is the one failure that would otherwise only surface at 02:00.
 
 **Rehearse this before launch, into a scratch database — not into
 production.** A backup nobody has restored is a hypothesis.
+
+The **Restore** button in Admin → Backup does exactly this and nothing more: it
+downloads the dump and restores it into a database you nominate. The target is
+compared against the running connection and refused if it matches, so there is
+no code path from that button to the live database. A restore has no undo — it
+destroys the rows you would need to recover from a wrong choice — and the one
+moment anyone reaches for it is a moment of panic, so switching over stays a
+deliberate human step taken with the restored copy in front of you.
+
+The manual procedure below is the same sequence, and is what to use when the app
+itself is the thing that is down.
 
 1. Download the dump.
 

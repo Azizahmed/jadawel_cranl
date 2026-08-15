@@ -130,5 +130,79 @@
       "incorrectPasswordTitle": "Incorrect password",
       "incorrectPasswordText": "The password you entered is not correct."
     }
+  },
+  "adminType": {
+    "backup": "Backup"
+  },
+  "adminBackup": {
+    "title": "Backup",
+    "description": "Scheduled database backups, whether they are still running, and how to restore one.",
+    "scheduleTitle": "Schedule",
+    "scheduleDescription": "How often a backup is taken. Changes apply immediately.",
+    "historyTitle": "History",
+    "historyDescription": "The most recent attempts, newest first. Failed attempts are listed too — a failed backup uploads nothing, so it would not otherwise appear anywhere.",
+    "noRuns": "No backup has run yet.",
+    "runNow": "Back up now",
+    "restore": "Restore",
+    "nextRun": "Next run {when}",
+    "seconds": "{count}s",
+    "minutes": "{count} min",
+    "frequency": {
+      "hourly": "Hourly",
+      "daily": "Daily",
+      "weekly": "Weekly"
+    },
+    "status": {
+      "running": "Running",
+      "success": "Succeeded",
+      "failed": "Failed"
+    },
+    "trigger": {
+      "scheduled": "Scheduled",
+      "manual": "Manual"
+    },
+    "column": {
+      "started": "Started",
+      "status": "Status",
+      "trigger": "Trigger",
+      "size": "Size",
+      "duration": "Duration"
+    },
+    "health": {
+      "ok": {
+        "title": "Backups are healthy",
+        "detail": "Last successful backup {when}."
+      },
+      "disabled": {
+        "title": "Backups are switched off",
+        "detail": "Set JADAWEL_BACKUP_ENABLED to start taking them."
+      },
+      "misconfigured": {
+        "title": "Backups are switched on but cannot run",
+        "detail": "Every scheduled run will fail until this is corrected."
+      },
+      "never_run": {
+        "title": "No backup has succeeded yet",
+        "detail": "Backups are scheduled but none has completed."
+      },
+      "last_failed": {
+        "title": "The last backup failed",
+        "detail": "Last successful backup {when}."
+      },
+      "overdue": {
+        "title": "Backups are overdue",
+        "detail": "Last successful backup {when}."
+      }
+    }
+  },
+  "adminBackupRestore": {
+    "title": "Restore a backup",
+    "description": "Restores this backup into a database you nominate, so you can check it before relying on it.",
+    "notDestructive": "This never writes over the live database. Verify the restored copy, then switch over yourself.",
+    "targetLabel": "Target database",
+    "targetHelp": "A postgresql:// connection string for an empty database. The live database is refused.",
+    "confirm": "Restore",
+    "queued": "Restoring into {target}. This runs in the background.",
+    "failed": "The restore could not be started."
   }
 }

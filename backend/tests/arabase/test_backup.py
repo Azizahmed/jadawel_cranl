@@ -261,14 +261,29 @@ class TestTask:
         assert backup_database() is None
         run.assert_not_called()
 
+    # Needs the database because a run is now recorded as a BackupRun row: a
+    # failed backup uploads nothing, so without a row a failure would be
+    # indistinguishable from a backup that never ran.
+    @pytest.mark.django_db
     @patch("arabase.tasks.run_backup")
     def test_runs_when_enabled(self, run, monkeypatch):
         monkeypatch.setenv("JADAWEL_BACKUP_ENABLED", "true")
-        run.return_value = MagicMock(key="postgres/a.dump", size_bytes=99)
+        run.return_value = MagicMock(
+            key="postgres/a.dump",
+            size_bytes=99,
+            media_key=None,
+            media_size_bytes=0,
+            pruned_keys=[],
+        )
+        from arabase.backup.models import BackupRun
         from arabase.tasks import backup_database
 
         assert backup_database() == {"key": "postgres/a.dump", "size_bytes": 99}
         run.assert_called_once()
+
+        recorded = BackupRun.objects.first()
+        assert recorded.status == BackupRun.STATUS_SUCCESS
+        assert recorded.key == "postgres/a.dump"
 
 
 class TestMediaArchive:
@@ -340,11 +355,14 @@ class TestMediaArchive:
         # The archive is written to disk before upload; it must not be left there.
         assert captured and not os.path.exists(captured[0])
 
-    def test_media_archive_reports_a_missing_root_as_a_backup_error(self, settings):
-        settings.MEDIA_ROOT = "/nonexistent/path/for/this/test"
+    def test_media_archive_reports_a_missing_root_as_a_backup_error(
+        self, settings, tmp_path
+    ):
+        settings.MEDIA_ROOT = str(tmp_path / "does-not-exist")
 
         with pytest.raises(BackupError, match="MEDIA_ROOT"):
-            runner._archive_media("/tmp/unused.tar.gz")
+            # Never reached: the root is checked before the archive is opened.
+            runner._archive_media(str(tmp_path / "unused.tar.gz"))
 
 
 class TestMediaRetention:

@@ -1,0 +1,160 @@
+// The Backup admin section. Uses logical properties throughout — `csstools/use-logical` is a hard error under
+// this module, and the section has to read correctly in both directions.
+
+.admin-backup {
+  padding-block: 30px;
+  padding-inline: 30px;
+}
+
+.admin-backup__description {
+  color: $palette-neutral-700;
+  margin-block-end: 24px;
+  max-inline-size: 70ch;
+}
+
+// The banner answers "can I rely on these right now" before any table is read.
+.admin-backup__health {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-block: 16px;
+  padding-inline: 18px;
+  border-radius: 6px;
+  margin-block-end: 32px;
+  border: 1px solid transparent;
+}
+
+.admin-backup__health--ok {
+  background-color: $palette-green-100;
+  border-color: $palette-green-200;
+}
+
+.admin-backup__health--warning {
+  background-color: $palette-yellow-100;
+  border-color: $palette-yellow-200;
+}
+
+.admin-backup__health--error {
+  background-color: $palette-red-100;
+  border-color: $palette-red-200;
+}
+
+// Switched off on purpose is a legitimate state, not a fault, so it is neutral
+// rather than red.
+.admin-backup__health--neutral {
+  background-color: $palette-neutral-100;
+  border-color: $palette-neutral-200;
+}
+
+.admin-backup__health-icon {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.admin-backup__health-title {
+  font-weight: 600;
+  margin-block-end: 2px;
+}
+
+.admin-backup__health-detail {
+  color: $palette-neutral-900;
+}
+
+.admin-backup__health-errors {
+  margin-block-start: 8px;
+  padding-inline-start: 18px;
+}
+
+.admin-backup__group {
+  margin-block-end: 36px;
+}
+
+.admin-backup__group-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-block-end: 4px;
+}
+
+.admin-backup__group-description {
+  color: $palette-neutral-700;
+  margin-block-end: 14px;
+  max-inline-size: 70ch;
+}
+
+.admin-backup__schedule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.admin-backup__frequency {
+  min-inline-size: 180px;
+}
+
+.admin-backup__next-run {
+  color: $palette-neutral-700;
+}
+
+.admin-backup__empty {
+  color: $palette-neutral-700;
+}
+
+// The table carries a timestamp, a key and an error message, so it needs to be
+// able to scroll on its own rather than widening the page.
+.admin-backup__table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-backup__table {
+  inline-size: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: start;
+    padding-block: 10px;
+    padding-inline: 12px;
+    border-block-end: 1px solid $palette-neutral-200;
+    vertical-align: top;
+  }
+
+  th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: $palette-neutral-700;
+  }
+}
+
+.admin-backup__status {
+  font-weight: 600;
+}
+
+.admin-backup__status--success {
+  color: $palette-green-600;
+}
+
+.admin-backup__status--failed {
+  color: $palette-red-600;
+}
+
+.admin-backup__status--running {
+  color: $palette-neutral-700;
+}
+
+.admin-backup__error {
+  color: $palette-red-600;
+  font-size: 12px;
+  margin-block-start: 4px;
+  max-inline-size: 46ch;
+}
+
+// An object key is an identifier: it must stay LTR even in an RTL page, or the
+// slashes and timestamp reorder on screen.
+.admin-backup__restore-key {
+  direction: ltr;
+  text-align: start;
+  margin-block: 12px;
+  word-break: break-all;
+}
