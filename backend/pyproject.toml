@@ -26,6 +26,10 @@ dependencies = [
     "uvicorn[standard]==0.40.0",
     "websockets==15.0.1",
     "requests==2.33.0",
+    # Transitive (pysaml2, azure-storage-blob, autobahn), pinned directly
+    # because the version those pulled in predates the RFC 7250 fix in
+    # 44.0.1 (CVE-2024-12797) and nothing else was going to raise it.
+    "cryptography>=44.0.1,<45",
     "itsdangerous==2.2.0",
     "Pillow==12.2.0",
     "drf-spectacular==0.29.0",
@@ -53,7 +57,6 @@ dependencies = [
     "dj-database-url==3.1.0",
     "redis==6.4.0",
     "pgvector==0.4.2",
-    "pysaml2==7.5.4",
     "validators==0.35.0",
     "requests-oauthlib==2.0.0",
     "opentelemetry-api==1.39.1",
