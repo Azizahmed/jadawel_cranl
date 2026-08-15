@@ -2,7 +2,16 @@
   position: fixed;
   inline-size: 400px;
   inset-block: 8px;
-  inset-inline-start: 248px;
+
+  // Anchored to the same corner as the bell that opens it. Upstream put the
+  // bell in the sidebar, so the panel sat just past the sidebar's edge at
+  // `inset-inline-start: 248px`. This fork moved the workspace utilities to the
+  // top inline-end corner of the content area (`.app-utilities`), which left
+  // the panel opening against the opposite edge of the screen from the control
+  // that opens it — in Arabic the bell is top-left and the panel appeared on
+  // the right, and in English the same mismatch the other way round.
+  // Keep this on the same inline side as `.app-utilities`.
+  inset-inline-end: 8px;
   z-index: $z-index-context;
   white-space: nowrap;
   background-color: $white;

@@ -28,11 +28,13 @@ describe('moment locales', () => {
     expect(source).toContain(`import 'moment/dist/locale/${locale}'`)
   })
 
-  test('pins the starting locale instead of inheriting the last import', () => {
-    // Without this, the default is an alphabetical accident of import order —
-    // which is exactly how `uk` became the effective default.
-    expect(source).toMatch(/^moment\.locale\('ar'\)$/m)
-    expect(moment.locale()).toBe('ar')
+  test('sets the starting locale explicitly rather than inheriting it', () => {
+    expect(source).toMatch(/^moment\.locale\('en'\)$/m)
+  })
+
+  test('strips the Arabic-Indic digit substitution', () => {
+    expect(source).toContain("moment.updateLocale('ar'")
+    expect(source).toContain('postformat')
   })
 
   test('renders Arabic month names, not Ukrainian ones', () => {
@@ -41,5 +43,17 @@ describe('moment locales', () => {
 
     expect(august).not.toContain('серп')
     expect(august).toMatch(/[؀-ۿ]/)
+  })
+
+  test('keeps Western digits under the Arabic locale', () => {
+    // moment's stock `ar` locale rewrites digits into Arabic-Indic form — 25
+    // becomes ٢٥ — which AGENTS.md forbids: Western digits (0–9) verbatim. The
+    // rest of the interface already follows that, so dates were the one place
+    // they would have diverged.
+    moment.locale('ar')
+
+    expect(moment('2025-11-03').format('DD/MM/YYYY')).toBe('03/11/2025')
+    expect(moment('2025-11-06 11:30:30').format('HH:mm:ss')).toBe('11:30:30')
+    expect(moment('2026-08-15').format('MMM D')).not.toMatch(/[٠-٩]/)
   })
 })
