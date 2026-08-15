@@ -35,6 +35,34 @@ MAX_DETAIL_ENTRIES = 20
 DEFAULT_RATE = "5/hour"
 
 
+def _configured_rate() -> str:
+    """The throttle rate, falling back when the variable is unusable.
+
+    ``SimpleRateThrottle`` parses its rate lazily, on the first request, so a
+    typo in the environment turned every submission into a 500 rather than
+    failing at boot. Validating here keeps a bad value from taking the endpoint
+    down, and says so in the log.
+    """
+
+    rate = os.getenv("JADAWEL_CONTACT_FORM_RATE", "").strip()
+    if not rate:
+        return DEFAULT_RATE
+    try:
+        count, period = rate.split("/")
+        int(count)
+        if period[0] not in ("s", "m", "h", "d"):
+            raise ValueError(period)
+    except (ValueError, IndexError):
+        logger.warning(
+            "JADAWEL_CONTACT_FORM_RATE=%r is not a DRF rate such as '5/hour'. "
+            "Falling back to %s.",
+            rate,
+            DEFAULT_RATE,
+        )
+        return DEFAULT_RATE
+    return rate
+
+
 def contact_recipients() -> list[str]:
     """Where submissions are delivered.
 
@@ -58,12 +86,17 @@ class ContactFormThrottle(SimpleRateThrottle):
     """
 
     scope = "arabase_contact"
-    rate = os.getenv("JADAWEL_CONTACT_FORM_RATE", "") or DEFAULT_RATE
+    rate = _configured_rate()
 
     def get_cache_key(self, request: Request, view) -> str:
         # Unlike AnonRateThrottle this does not exempt authenticated users:
         # nothing about this endpoint requires an account, so an account should
         # not lift the limit.
+        #
+        # `get_ident` is only countable because `NUM_PROXIES` is set (`base.py`).
+        # Left unset, DRF keys on the whole `X-Forwarded-For` string, which the
+        # caller controls — and this endpoint sends mail, so an uncountable
+        # limit here is an open relay.
         return self.cache_format % {
             "scope": self.scope,
             "ident": self.get_ident(request),

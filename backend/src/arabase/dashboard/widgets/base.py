@@ -103,6 +103,16 @@ class DisplayedFieldsWidgetTypeMixin:
     and are dropped.
     """
 
+    default_displayed_field_count: int = 3
+    """How many fields the widget falls back to when `field_ids` is empty.
+
+    The frontend resolves the fallback itself, off the data source schema. The
+    number is mirrored here because a public dashboard has to decide server-side
+    which fields a visitor may read, and the two have to agree or the widget
+    renders columns the dispatch refuses to return. Keep it equal to the
+    `fallbackCount` the widget component passes to `resolveDisplayedFields`.
+    """
+
     def deserialize_property(
         self,
         prop_name: str,

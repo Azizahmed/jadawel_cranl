@@ -71,9 +71,16 @@ if "SECRET_KEY" in os.environ:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("JADAWEL_BACKEND_DEBUG", "off") == "on"
 
-# The `testserver` is needed for the
-# `src/jadawel/core/mcp/utils.py::internal_api_request`.
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
+# `localhost` and `127.0.0.1` stay: the container healthcheck calls the app on
+# the loopback interface, so dropping them breaks the probe rather than
+# tightening anything.
+#
+# `testserver` is Django's test-client host. It used to be listed for an MCP
+# helper that no longer exists (nothing in `src/` references it now), and in
+# production it only widens the set of Host headers the app will answer to.
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+if DEBUG or os.getenv("DJANGO_SETTINGS_MODULE", "").endswith((".test", ".dev")):
+    ALLOWED_HOSTS.append("testserver")
 ALLOWED_HOSTS += os.getenv("JADAWEL_EXTRA_ALLOWED_HOSTS", "").split(",")
 
 INSTALLED_APPS = [
@@ -300,6 +307,11 @@ for key, value in os.environ.items():
 # Default 0 = new connection per request; each runs a locale-setting query.
 # Increase in WSGI to save those round-trips. In ASGI be careful: async tasks
 # open their own connections and persistent ones can exhaust the pool.
+#
+# Deliberately left at 0 here rather than defaulted up: the same settings module
+# serves the WSGI backend and the ASGI/Celery processes, so a global default
+# would apply it exactly where the warning above says not to. Set
+# JADAWEL_CONN_MAX_AGE=60 in the deployment environment instead.
 JADAWEL_CONN_MAX_AGE = int(os.getenv("JADAWEL_CONN_MAX_AGE", 0))
 
 # Apply the configured connection reuse timeout consistently to every database.
@@ -415,6 +427,17 @@ STATIC_URL = "/static/"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
+# How many reverse proxies sit in front of the application. This is what makes
+# every DRF throttle countable: with it unset, `BaseThrottle.get_ident` falls
+# back to the whole `X-Forwarded-For` string, and because a proxy *appends* to a
+# header the client supplied, a caller can mint a fresh bucket per request just
+# by varying what they send. Set, DRF counts hops from the right instead, which
+# a client cannot influence.
+#
+# The production stack is Traefik -> Caddy -> gunicorn, but only the hops that
+# actually rewrite the header count, so this stays configurable per deployment.
+JADAWEL_NUM_PROXIES = int(os.getenv("JADAWEL_NUM_PROXIES", "") or 1)
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -423,6 +446,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_SCHEMA_CLASS": "jadawel.api.openapi.AutoSchema",
+    "NUM_PROXIES": JADAWEL_NUM_PROXIES,
 }
 
 # Throttling / rate-limiting — see docs/installation/configuration.md
@@ -1219,6 +1243,27 @@ TOTP_ISSUER_NAME = os.getenv("JADAWEL_TOTP_ISSUER_NAME", "Jadawel")
 if bool(os.getenv("JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER", False)):
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+    # Behind a TLS-terminating proxy the transport-security settings below can
+    # be turned on, and none of them were set anywhere in the project — they sat
+    # at Django's insecure defaults. Caddy's response headers and Traefik's
+    # HTTPS redirect mitigate this but do not replace it: a cookie without
+    # `Secure` is still sent over plain HTTP if anything ever reaches the app
+    # that way.
+    #
+    # Gated on the same flag rather than on DEBUG, because that flag is the
+    # deployment's own statement that it terminates TLS upstream. Turning HSTS
+    # on without that is how a development machine locks itself out of http://.
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = int(os.getenv("JADAWEL_SECURE_HSTS_SECONDS", 31536000))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = str_to_bool(
+        os.getenv("JADAWEL_SECURE_HSTS_INCLUDE_SUBDOMAINS", "true")
+    )
+    SECURE_HSTS_PRELOAD = str_to_bool(os.getenv("JADAWEL_SECURE_HSTS_PRELOAD", ""))
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SESSION_COOKIE_HTTPONLY = True
+
 DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS = bool(
     os.getenv("DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS", "")
 )
@@ -1429,7 +1474,6 @@ JADAWEL_LAZY_LOADED_LIBRARIES = [
     "mistralai",
     "ollama",
     "jira2markdown",
-    "saml2",
     "openpyxl",
     "numpy",
 ]

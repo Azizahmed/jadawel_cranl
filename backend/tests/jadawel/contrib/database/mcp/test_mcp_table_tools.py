@@ -1,6 +1,7 @@
 """Tests for static MCP table, database, and field tools."""
 
 import json
+from contextlib import contextmanager
 
 from django.db import transaction
 
@@ -11,6 +12,7 @@ from mcp.shared.memory import (
 )
 
 from jadawel.core.mcp import JadawelMCPServer, current_key
+from jadawel.core.mcp.registries import mcp_tool_registry
 
 ENABLED_TOOL_NAMES = {
     "list_databases",
@@ -33,6 +35,27 @@ DISABLED_TOOL_NAMES = {
 }
 
 ALL_TOOL_NAMES = ENABLED_TOOL_NAMES | DISABLED_TOOL_NAMES
+
+
+@contextmanager
+def temporarily_enabled(tool_name):
+    """Run one call against a tool that is switched off.
+
+    `call_tool` refuses a disabled tool, which is the point: a client can call a
+    name it already knows without ever asking for the listing, so hiding a tool
+    from `tools/list` alone leaves it reachable. The tools below are disabled
+    pending per-tool user control, not because they are broken, so their
+    behaviour is still worth covering — this turns one on for the call and puts
+    it back afterwards.
+    """
+
+    tool = mcp_tool_registry.match_by_name(tool_name)
+    original = tool.enabled
+    tool.enabled = True
+    try:
+        yield
+    finally:
+        tool.enabled = original
 
 
 @pytest.mark.django_db
@@ -109,7 +132,7 @@ def test_call_tool_create_database(data_fixture):
                 assert data["name"] == "My DB"
                 assert isinstance(data["id"], int)
 
-        with transaction.atomic():
+        with transaction.atomic(), temporarily_enabled("create_database"):
             async_to_sync(inner)()
     finally:
         current_key.reset(key_token)
@@ -245,7 +268,7 @@ def test_call_tool_update_table(data_fixture):
                 assert data["name"] == "New Name"
                 assert data["id"] == table.id
 
-        with transaction.atomic():
+        with transaction.atomic(), temporarily_enabled("update_table"):
             async_to_sync(inner)()
     finally:
         current_key.reset(key_token)
@@ -271,7 +294,7 @@ def test_call_tool_delete_table(data_fixture):
                 result = await client.call_tool("delete_table", {"table_id": table.id})
                 assert result.content[0].text == "Table successfully deleted."
 
-        with transaction.atomic():
+        with transaction.atomic(), temporarily_enabled("delete_table"):
             async_to_sync(inner)()
 
         assert not Table.objects.filter(id=table.id, trashed=False).exists()
@@ -367,7 +390,7 @@ def test_call_tool_create_fields(data_fixture):
                 assert data[0]["name"] == "Status"
                 assert data[0]["type"] == "text"
 
-        with transaction.atomic():
+        with transaction.atomic(), temporarily_enabled("create_fields"):
             async_to_sync(inner)()
     finally:
         current_key.reset(key_token)
@@ -397,7 +420,7 @@ def test_call_tool_update_fields(data_fixture):
                 assert len(data) == 1
                 assert data[0]["name"] == "New Name"
 
-        with transaction.atomic():
+        with transaction.atomic(), temporarily_enabled("update_fields"):
             async_to_sync(inner)()
     finally:
         current_key.reset(key_token)
@@ -426,9 +449,43 @@ def test_call_tool_delete_fields(data_fixture):
                 )
                 assert result.content[0].text == "Fields successfully deleted."
 
-        with transaction.atomic():
+        with transaction.atomic(), temporarily_enabled("delete_fields"):
             async_to_sync(inner)()
 
         assert not Field.objects.filter(id=field.id, trashed=False).exists()
     finally:
         current_key.reset(key_token)
+
+
+@pytest.mark.django_db
+def test_a_disabled_tool_cannot_be_called_by_name(data_fixture):
+    """Filtering `tools/list` is not a gate.
+
+    Nothing obliges a client to ask for the listing first, so a disabled tool
+    stays reachable unless the call itself checks. `delete_table` is the one
+    that makes the consequence concrete.
+    """
+
+    user = data_fixture.create_user()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                result = await client.call_tool("delete_table", {"table_id": table.id})
+                assert "not found" in result.content[0].text
+
+        with transaction.atomic():
+            async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    table.refresh_from_db()
+    assert table.trashed is False

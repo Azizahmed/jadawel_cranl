@@ -196,6 +196,9 @@ class UpcomingDatesWidgetType(
     type = "upcoming_dates"
     model_class = UpcomingDatesWidget
     service_type_name = LocalJadawelUpcomingRowsUserServiceType.type
+    # The date column takes a column of its own, so the fallback leaves room
+    # for it. Mirrors the `2` the widget component passes.
+    default_displayed_field_count = 2
     allowed_fields = WidgetType.allowed_fields + ["field_ids"]
     serializer_field_names = ["data_source_id", "field_ids"]
     request_serializer_field_names = ["field_ids"]

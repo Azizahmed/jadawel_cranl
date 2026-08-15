@@ -6,9 +6,14 @@ the dashboard; a password turns the link into a two-step flow; and the link
 never becomes a way to reach a *different* dashboard's data.
 """
 
+from datetime import timedelta
+
+from django.http import HttpRequest
 from django.shortcuts import reverse
+from django.utils import timezone
 
 import pytest
+from freezegun import freeze_time
 from rest_framework.status import (
     HTTP_200_OK,
     HTTP_204_NO_CONTENT,
@@ -17,8 +22,15 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND,
 )
 
-from arabase.dashboard.share.handler import DashboardShareHandler
+from arabase.dashboard.share.handler import DashboardShareHandler, token_lifetime
 from arabase.dashboard.share.models import DashboardShare
+from jadawel.contrib.dashboard.data_sources.dispatch_context import (
+    DashboardDispatchContext,
+)
+from jadawel.contrib.dashboard.data_sources.service import DashboardDataSourceService
+from jadawel.contrib.dashboard.widgets.service import WidgetService
+from jadawel.contrib.database.rows.handler import RowHandler
+from jadawel.core.services.registries import service_type_registry
 
 
 def share_url(dashboard):
@@ -223,7 +235,7 @@ def test_password_protected_link_needs_a_token(api_client, data_fixture):
 
     response = api_client.patch(
         password_url(dashboard),
-        {"password": "letmein"},
+        {"password": "letmein-2026"},
         format="json",
         **{"HTTP_AUTHORIZATION": f"JWT {token}"},
     )
@@ -243,7 +255,7 @@ def test_password_protected_link_needs_a_token(api_client, data_fixture):
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
     response = api_client.post(
-        public_auth_url(slug), {"password": "letmein"}, format="json"
+        public_auth_url(slug), {"password": "letmein-2026"}, format="json"
     )
     assert response.status_code == HTTP_200_OK
     access_token = response.json()["access_token"]
@@ -261,7 +273,7 @@ def test_removing_the_password_reopens_the_link(api_client, data_fixture):
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
     handler = DashboardShareHandler()
-    share = handler.set_password(handler.create_share(dashboard), "letmein")
+    share = handler.set_password(handler.create_share(dashboard), "letmein-2026")
 
     response = api_client.patch(
         password_url(dashboard),
@@ -280,7 +292,7 @@ def test_rotating_the_slug_invalidates_an_issued_password_token(
 ):
     dashboard = data_fixture.create_dashboard_application()
     handler = DashboardShareHandler()
-    share = handler.set_password(handler.create_share(dashboard), "letmein")
+    share = handler.set_password(handler.create_share(dashboard), "letmein-2026")
     access_token = handler.encode_token(share)
 
     handler.rotate_slug(share)
@@ -302,7 +314,7 @@ def test_the_password_applies_to_the_owner_too(api_client, data_fixture):
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
     handler = DashboardShareHandler()
-    share = handler.set_password(handler.create_share(dashboard), "letmein")
+    share = handler.set_password(handler.create_share(dashboard), "letmein-2026")
 
     response = api_client.get(
         public_url(share.slug), **{"HTTP_AUTHORIZATION": f"JWT {token}"}
@@ -335,7 +347,7 @@ def test_password_change_is_rejected_when_the_dashboard_is_not_shared(
 
     response = api_client.patch(
         password_url(dashboard),
-        {"password": "letmein"},
+        {"password": "letmein-2026"},
         format="json",
         **{"HTTP_AUTHORIZATION": f"JWT {token}"},
     )
@@ -425,8 +437,254 @@ def test_dispatch_on_a_password_protected_link_needs_the_token(
         )
     )
     handler = DashboardShareHandler()
-    share = handler.set_password(handler.create_share(dashboard), "letmein")
+    share = handler.set_password(handler.create_share(dashboard), "letmein-2026")
 
     response = api_client.post(dispatch_url(share.slug, data_source.id))
 
     assert response.status_code == HTTP_401_UNAUTHORIZED
+
+
+# --- field scoping ---------------------------------------------------------
+#
+# A visitor is authorised to see the dashboard, which is the fields its widgets
+# display. Serializing the dispatch result straight off the table model would
+# hand them every other column of the same rows, so these tests pin the
+# narrowing in both places it has to happen: the values in the dispatch, and
+# the column names in the schema.
+
+
+@pytest.fixture
+def shared_records_list(data_fixture):
+    """A shared dashboard whose one widget displays a single column."""
+
+    user = data_fixture.create_user()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    name_field = data_fixture.create_text_field(table=table, name="Name")
+    salary_field = data_fixture.create_number_field(table=table, name="Salary")
+    notes_field = data_fixture.create_text_field(table=table, name="Notes")
+
+    RowHandler().create_rows(
+        user,
+        table,
+        [
+            {
+                f"field_{name_field.id}": "Layla",
+                f"field_{salary_field.id}": 90000,
+                f"field_{notes_field.id}": "On probation",
+            }
+        ],
+    )
+
+    dashboard = data_fixture.create_dashboard_application(workspace=workspace)
+    data_fixture.create_local_jadawel_integration(
+        authorized_user=user, application=dashboard
+    )
+    widget = WidgetService().create_widget(
+        user,
+        "records_list",
+        dashboard.id,
+        title="Team",
+        description="",
+        field_ids=[name_field.id],
+    )
+    DashboardDataSourceService().update_data_source(
+        user,
+        widget.data_source_id,
+        service_type_registry.get("local_jadawel_list_rows"),
+        table_id=table.id,
+    )
+
+    return {
+        "user": user,
+        "widget": widget,
+        "dashboard": dashboard,
+        "name_field": name_field,
+        "salary_field": salary_field,
+        "notes_field": notes_field,
+        "slug": DashboardShareHandler().create_share(dashboard).slug,
+    }
+
+
+@pytest.mark.django_db
+def test_public_dispatch_only_returns_the_displayed_fields(
+    api_client, shared_records_list
+):
+    setup = shared_records_list
+
+    response = api_client.post(
+        dispatch_url(setup["slug"], setup["widget"].data_source_id)
+    )
+
+    assert response.status_code == HTTP_200_OK
+    rows = response.json()["results"]
+    assert len(rows) == 1
+    # The widget displays Name. Salary and Notes belong to the same rows and
+    # must not travel with them.
+    assert rows[0]["Name"] == "Layla"
+    assert "Salary" not in rows[0]
+    assert "Notes" not in rows[0]
+
+
+@pytest.mark.django_db
+def test_public_info_schema_only_names_the_displayed_fields(
+    api_client, shared_records_list
+):
+    setup = shared_records_list
+
+    body = api_client.get(public_url(setup["slug"])).json()
+
+    (data_source,) = body["data_sources"]
+    properties = data_source["schema"]["items"]["properties"]
+    assert f"field_{setup['name_field'].id}" in properties
+    # Hiding the values but publishing the column names would still disclose
+    # what the table holds.
+    assert f"field_{setup['salary_field'].id}" not in properties
+    assert f"field_{setup['notes_field'].id}" not in properties
+
+
+@pytest.mark.django_db
+def test_public_info_does_not_leak_the_service_configuration(
+    api_client, shared_records_list
+):
+    body = api_client.get(public_url(shared_records_list["slug"])).json()
+
+    (data_source,) = body["data_sources"]
+    assert set(data_source) == {
+        "id",
+        "type",
+        "schema",
+        "name",
+        "dashboard_id",
+        "order",
+        "date_field_id",
+    }
+
+
+@pytest.mark.django_db
+def test_a_member_still_reads_every_field(shared_records_list):
+    """The narrowing is for visitors only.
+
+    Someone who can already open the table loses nothing, so a regression that
+    restricted the authenticated path too would be caught here rather than in a
+    bug report about missing columns.
+    """
+
+    setup = shared_records_list
+
+    result = DashboardDataSourceService().dispatch_data_source(
+        setup["user"],
+        setup["widget"].data_source_id,
+        DashboardDispatchContext(HttpRequest(), setup["widget"]),
+    )
+
+    assert set(result["results"][0]) >= {"Name", "Salary", "Notes"}
+
+
+@pytest.mark.django_db
+def test_an_empty_field_list_falls_back_to_the_first_columns(api_client, data_fixture):
+    """An unconfigured widget renders the first few columns.
+
+    The frontend resolves that fallback off the schema, so the backend has to
+    resolve it the same way — otherwise the widget would render columns the
+    dispatch refuses to return.
+    """
+
+    user = data_fixture.create_user()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    first = data_fixture.create_text_field(table=table, name="First")
+    second = data_fixture.create_text_field(table=table, name="Second")
+    third = data_fixture.create_text_field(table=table, name="Third")
+    fourth = data_fixture.create_text_field(table=table, name="Fourth")
+    RowHandler().create_rows(
+        user,
+        table,
+        [
+            {
+                f"field_{first.id}": "a",
+                f"field_{second.id}": "b",
+                f"field_{third.id}": "c",
+                f"field_{fourth.id}": "d",
+            }
+        ],
+    )
+
+    dashboard = data_fixture.create_dashboard_application(workspace=workspace)
+    data_fixture.create_local_jadawel_integration(
+        authorized_user=user, application=dashboard
+    )
+    widget = WidgetService().create_widget(
+        user, "records_list", dashboard.id, title="Rows", description=""
+    )
+    DashboardDataSourceService().update_data_source(
+        user,
+        widget.data_source_id,
+        service_type_registry.get("local_jadawel_list_rows"),
+        table_id=table.id,
+    )
+    assert widget.field_ids == []
+    slug = DashboardShareHandler().create_share(dashboard).slug
+
+    row = api_client.post(dispatch_url(slug, widget.data_source_id)).json()["results"][
+        0
+    ]
+
+    # `id` and `order` are row metadata rather than columns of the table.
+    assert set(row) == {"id", "order", "First", "Second", "Third"}
+    assert "Fourth" not in row
+
+
+# --- password and token hardening ------------------------------------------
+
+
+@pytest.mark.django_db
+def test_a_short_share_password_is_rejected(api_client, data_fixture):
+    user, token = data_fixture.create_user_and_token()
+    workspace = data_fixture.create_workspace(user=user)
+    dashboard = data_fixture.create_dashboard_application(workspace=workspace)
+    DashboardShareHandler().create_share(dashboard)
+
+    response = api_client.patch(
+        password_url(dashboard),
+        {"password": "short"},
+        format="json",
+        **{"HTTP_AUTHORIZATION": f"JWT {token}"},
+    )
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
+def test_auth_on_an_unprotected_link_does_not_hand_out_a_token(
+    api_client, data_fixture
+):
+    """The link is already open, so this leaks no access — but an endpoint that
+    reports success for a password it never checked is a lie in the audit log."""
+
+    dashboard = data_fixture.create_dashboard_application()
+    slug = DashboardShareHandler().create_share(dashboard).slug
+
+    response = api_client.post(
+        public_auth_url(slug), {"password": "anything at all"}, format="json"
+    )
+
+    assert response.status_code == HTTP_401_UNAUTHORIZED
+
+
+@pytest.mark.django_db
+def test_a_share_token_expires(data_fixture):
+    dashboard = data_fixture.create_dashboard_application()
+    handler = DashboardShareHandler()
+    share = handler.set_password(handler.create_share(dashboard), "letmein-2026")
+
+    token = handler.encode_token(share)
+    assert handler.is_token_valid(share, token) is True
+    assert "exp" in handler.decode_token(share, token)
+
+    # Rotation revokes every token at once, which is no help against one that
+    # has leaked out of a single visitor's browser. Expiry bounds that.
+    with freeze_time(timezone.now() + token_lifetime() + timedelta(minutes=1)):
+        assert handler.is_token_valid(share, token) is False

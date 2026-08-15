@@ -1,6 +1,9 @@
+import os
+from datetime import timedelta
 from typing import Any, Dict, Optional
 
 from django.conf import settings
+from django.utils import timezone
 
 import jwt
 from rest_framework.request import Request
@@ -12,6 +15,19 @@ from arabase.dashboard.share.exceptions import (
 from arabase.dashboard.share.models import DashboardShare
 from jadawel.contrib.dashboard.models import Dashboard
 
+DEFAULT_TOKEN_LIFETIME_HOURS = 24 * 7
+
+
+def token_lifetime() -> timedelta:
+    """How long a share token stays valid after the password is entered."""
+
+    raw = os.getenv("JADAWEL_DASHBOARD_SHARE_TOKEN_HOURS", "")
+    try:
+        hours = int(raw) if raw else DEFAULT_TOKEN_LIFETIME_HOURS
+    except ValueError:
+        hours = DEFAULT_TOKEN_LIFETIME_HOURS
+    return timedelta(hours=max(hours, 1))
+
 
 class DashboardShareHandler:
     """Create, rotate, protect and resolve the public link of a dashboard.
@@ -21,6 +37,10 @@ class DashboardShareHandler:
     protected views: the secret is derived from the slug, the password hash and
     the server ``SECRET_KEY``, so rotating either the slug or the password
     invalidates every token that was handed out before.
+
+    Tokens also expire on their own. Rotation is the only other revocation, and
+    it revokes for everyone at once — which makes it useless against a single
+    token that has leaked out of one visitor's browser.
     """
 
     TOKEN_ALGORITHM = "HS256"
@@ -127,10 +147,13 @@ class DashboardShareHandler:
         return f"{share.slug}-{share.public_view_password}-{settings.SECRET_KEY}"
 
     def encode_token(self, share: DashboardShare) -> str:
-        """Creates the non-expiring token that authorizes public requests."""
+        """Creates the token that authorizes public requests."""
 
         return jwt.encode(
-            {"slug_id": share.slug},
+            {
+                "slug_id": share.slug,
+                "exp": timezone.now() + token_lifetime(),
+            },
             key=self._get_jwt_secret(share),
             algorithm=self.TOKEN_ALGORITHM,
         )

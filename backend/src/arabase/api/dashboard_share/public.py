@@ -5,6 +5,8 @@ dashboard id: the slug is the only handle a visitor has, and every object it can
 reach is filtered back to the dashboard that slug resolves to.
 """
 
+import os
+
 from django.db import transaction
 
 from drf_spectacular.types import OpenApiTypes
@@ -12,6 +14,7 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.throttling import SimpleRateThrottle
 from rest_framework.views import APIView
 
 from arabase.api.dashboard_share.errors import (
@@ -21,7 +24,12 @@ from arabase.api.dashboard_share.errors import (
 from arabase.api.dashboard_share.serializers import (
     PublicDashboardAuthResponseSerializer,
     PublicDashboardAuthSerializer,
+    PublicDashboardDataSourceSerializer,
     PublicDashboardSerializer,
+)
+from arabase.dashboard.share.dispatch_context import (
+    PublicDashboardDispatchContext,
+    get_public_allowed_properties,
 )
 from arabase.dashboard.share.exceptions import (
     DashboardShareDoesNotExist,
@@ -38,13 +46,7 @@ from jadawel.contrib.dashboard.api.data_sources.errors import (
     ERROR_DASHBOARD_DATA_SOURCE_DOES_NOT_EXIST,
     ERROR_DASHBOARD_DATA_SOURCE_IMPROPERLY_CONFIGURED,
 )
-from jadawel.contrib.dashboard.api.data_sources.serializers import (
-    DashboardDataSourceSerializer,
-)
 from jadawel.contrib.dashboard.api.widgets.serializers import WidgetSerializer
-from jadawel.contrib.dashboard.data_sources.dispatch_context import (
-    DashboardDispatchContext,
-)
 from jadawel.contrib.dashboard.data_sources.exceptions import (
     DashboardDataSourceDoesNotExist,
     DashboardDataSourceImproperlyConfigured,
@@ -56,7 +58,6 @@ from jadawel.core.services.exceptions import (
     DoesNotExist,
     ServiceImproperlyConfiguredDispatchException,
 )
-from jadawel.core.services.registries import service_type_registry
 
 SLUG_PARAMETER = OpenApiParameter(
     name="slug",
@@ -101,6 +102,7 @@ class PublicDashboardInfoView(APIView):
 
         widgets = WidgetHandler().get_widgets(dashboard)
         data_sources = DashboardDataSourceHandler().get_data_sources(dashboard)
+        allowed_properties = get_public_allowed_properties(dashboard)
 
         return Response(
             {
@@ -110,10 +112,17 @@ class PublicDashboardInfoView(APIView):
                     for widget in widgets
                 ],
                 "data_sources": [
-                    service_type_registry.get_serializer(
+                    PublicDashboardDataSourceSerializer(
                         data_source.service,
-                        DashboardDataSourceSerializer,
-                        context={"data_source": data_source},
+                        context={
+                            "data_source": data_source,
+                            # Narrows the schema to the columns this visitor can
+                            # actually dispatch, so the field names of the rest
+                            # of the table are not disclosed either.
+                            "allowed_fields": allowed_properties.get(
+                                data_source.service_id, []
+                            ),
+                        },
                     ).data
                     for data_source in data_sources
                 ],
@@ -182,14 +191,44 @@ class PublicDashboardDispatchView(APIView):
         if data_source.dashboard_id != share.dashboard_id:
             raise DashboardDataSourceDoesNotExist()
 
+        # A visitor is authorised to read the dashboard, which is the fields its
+        # widgets display — not every column of the tables behind them. The
+        # private context places no such limit, so it must not be used here.
         result = DashboardDataSourceHandler().dispatch_data_source(
-            data_source, DashboardDispatchContext(request)
+            data_source,
+            PublicDashboardDispatchContext(
+                request,
+                allowed_properties=get_public_allowed_properties(share.dashboard),
+            ),
         )
         return Response(result)
 
 
+class PublicDashboardAuthThrottle(SimpleRateThrottle):
+    """Per-link, per-caller limit on guessing a share password.
+
+    Without it the only cost of a guess is one PBKDF2-SHA256 verify — which the
+    server pays, not the caller, so the endpoint is both a password oracle and a
+    way to burn CPU. The Traefik limiter in front does not cover this path: its
+    rule matches the four `/api/user/*` credential endpoints only.
+
+    Keyed on the slug as well as the caller so that hammering one link cannot
+    lock a different visitor out of another.
+    """
+
+    scope = "arabase_public_dashboard_auth"
+    rate = os.getenv("JADAWEL_DASHBOARD_AUTH_RATE", "") or "10/hour"
+
+    def get_cache_key(self, request: Request, view) -> str:
+        return self.cache_format % {
+            "scope": self.scope,
+            "ident": f"{view.kwargs.get('slug', '')}-{self.get_ident(request)}",
+        }
+
+
 class PublicDashboardAuthView(APIView):
     permission_classes = (AllowAny,)
+    throttle_classes = (PublicDashboardAuthThrottle,)
 
     @extend_schema(
         parameters=[SLUG_PARAMETER],
@@ -197,7 +236,7 @@ class PublicDashboardAuthView(APIView):
         operation_id="public_dashboard_token_auth",
         description=(
             "Exchanges the password of a protected public dashboard for a "
-            "never-expiring token. Send it back in the "
+            "time limited token. Send it back in the "
             "`Jadawel-View-Authorization` header."
         ),
         request=PublicDashboardAuthSerializer,
@@ -216,7 +255,12 @@ class PublicDashboardAuthView(APIView):
         handler = DashboardShareHandler()
         share = handler.get_share_by_slug(slug)
 
-        if not share.check_public_password(data["password"]):
+        # `check_public_password` answers True for a link that has no password,
+        # so without the first clause this endpoint would mint a valid token for
+        # any string at all. The link is already open to anyone holding the slug,
+        # so nothing is gained by it — but an endpoint whose name is "auth"
+        # should not report success for a credential it never checked.
+        if not share.has_password or not share.check_public_password(data["password"]):
             raise NoAuthorizationToPubliclySharedDashboard(
                 "The provided password is incorrect."
             )

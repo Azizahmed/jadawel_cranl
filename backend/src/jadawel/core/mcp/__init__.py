@@ -86,7 +86,12 @@ class JadawelMCPServer:
         if not endpoint:
             return [TextContent(type="text", text="Endpoint not found.")]
         tool = mcp_tool_registry.match_by_name(name)
-        if not tool:
+        # `enabled` has to be checked here and not only in `list_tools`: a client
+        # is free to skip `tools/list` and call a name it already knows, so
+        # filtering the listing alone leaves every disabled tool reachable. The
+        # answer is deliberately the same as for an unknown name — whether a tool
+        # exists but is switched off is not information a caller needs.
+        if not tool or not tool.enabled:
             return [TextContent(type="text", text=f"Tool '{name}' not found.")]
         try:
             return await tool.call(endpoint, arguments)
