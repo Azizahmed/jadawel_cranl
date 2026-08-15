@@ -12,6 +12,30 @@ Findings split into three groups: **fixed in this repo** (deploy to apply),
 
 ## 1. Fixed in the repo
 
+> **2026-08-15 pre-launch pass.** A full audit closed most of what was
+> outstanding below. Applied in code since this document was written:
+>
+> - §2.3 `JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER` now defaults to `yes` in the
+>   compose file, and switches on `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`
+>   and HSTS with it. `JADAWEL_NUM_PROXIES` was added — without it every DRF
+>   throttle keyed on a header the caller controls, so the contact-form limit
+>   could be bypassed outright.
+> - §2.4 `SYNC_TEMPLATES_ON_STARTUP` now defaults to `false`.
+> - §2.5 The backup variables were never in the compose allowlist, so the job
+>   could not run at all and failed silently. They are now, user files are
+>   archived alongside the dump, and retention refuses an empty prefix — which
+>   would have made the nightly job delete the whole bucket.
+> - §3 Every service now takes a `mem_limit` from an env var, so the Jul 27 OOM
+>   class of failure is bounded. Redis moved off EOL 6 to 7-alpine and gained a
+>   volume, so the schedule survives a redeploy.
+> - §4 `deploy/*/.env.testing` no longer carries usable secrets. CI now runs on
+>   pull requests and on pushes to `main` and the deploy branch — it was
+>   `workflow_dispatch`-only, so nothing was gated.
+>
+> Still outstanding and needing you: §2.1 (sign-ups), §2.2 (JWT key), and a
+> rehearsed restore. `/api/schema.json` still 500s and still predates this fork.
+
+
 ### 1.1 Every page shipped the entire stylesheet inline — 1.8 MB, uncacheable
 
 The single biggest cause of the app feeling slow.
@@ -251,18 +275,20 @@ every restart is the most likely source of a memory spike in this stack.
 
 ## 4. Noted, not acted on
 
-- **`CORS_ORIGIN_ALLOW_ALL = True`** (upstream default). Lower risk than it
-  looks because tokens live in `localStorage`, not cookies, so a hostile origin
-  cannot read them — but it does mean any site can call the API from a browser.
+- **`CORS_ORIGIN_ALLOW_ALL = True`** (upstream default). Re-checked 2026-08-15
+  and left alone deliberately: `CORS_ALLOW_CREDENTIALS` is unset and the API
+  authenticates on a JWT `Authorization` header, so no cross-origin request
+  carries ambient credentials. Wider than it needs to be, not exploitable.
 - **JWT passed in the websocket query string** (`/ws/core/?jwt_token=…`).
   Upstream design. Query strings land in proxy access logs, so treat Traefik and
   Caddy logs as containing credentials, and keep their retention short.
 - **`/api/schema.json` returns 500.** Consequence: `/api/redoc/` serves a broken
   spec. Almost certainly fallout from the premium/enterprise strip. Cosmetic,
   but it is a public endpoint throwing an unhandled error.
-- **`deploy/*/.env.testing` files are committed** with `SECRET_KEY=jadawel`.
-  They are upstream test fixtures for the nginx/apache recipes and are not used
-  by the Coolify deployment — but do not copy one as a starting point.
+- ~~**`deploy/*/.env.testing` files are committed** with `SECRET_KEY=jadawel`.~~
+  Fixed 2026-08-15: the values are blank placeholders now. The compose override
+  beside them tells you to `cp .env.testing .env`, so anyone following the
+  recipe was booting on a published secret.
 - **Anonymous websocket connections are accepted.** Default Jadawel behaviour,
   required for public views. Set
   `DISABLE_ANONYMOUS_PUBLIC_VIEW_WS_CONNECTIONS=yes` if you never share views
