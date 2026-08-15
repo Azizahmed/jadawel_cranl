@@ -3,7 +3,7 @@
 
 # To test this setup you can run:
 # ```
-# cp .env.testing .env
+# cp .env.testing .env  # then fill in the secrets it leaves blank
 # docker-compose -f ../../../docker-compose.no-caddy.yml -f docker-compose.override.apache.yml up
 # ```
 

@@ -118,13 +118,38 @@ x-backend-variables: &backend-variables
   JADAWEL_PLUGIN_GIT_REPOS:
   JADAWEL_PLUGIN_URLS:
 
-  JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER:
+  # Defaulted on. Left unset, Django never sees a request as HTTPS and gunicorn
+  # never gets --forwarded-allow-ips, so REMOTE_ADDR is the proxy for every
+  # request and nothing that counts per client — rate limits included — can
+  # tell callers apart.
+  JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER: ${JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER:-yes}
+  JADAWEL_NUM_PROXIES: ${JADAWEL_NUM_PROXIES:-1}
   MIGRATE_ON_STARTUP: ${MIGRATE_ON_STARTUP:-true}
-  SYNC_TEMPLATES_ON_STARTUP: ${SYNC_TEMPLATES_ON_STARTUP:-true}
+  # Defaults to off. Re-importing every template on each restart costs up to
+  # half an hour of startup, which turns a routine restart into an outage.
+  SYNC_TEMPLATES_ON_STARTUP: ${SYNC_TEMPLATES_ON_STARTUP:-false}
   JADAWEL_SYNC_TEMPLATES_PATTERN:
   DONT_UPDATE_FORMULAS_AFTER_MIGRATION:
   JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION:
   JADAWEL_SYNC_TEMPLATES_TIME_LIMIT:
+
+  # Scheduled database backups (docs/BACKUP_RESTORE.md). This block is an
+  # allowlist, so a variable missing from it never reaches the backend or
+  # celery-beat container — which is why the backup job silently no-opped:
+  # JADAWEL_BACKUP_ENABLED defaulted to false inside the container no matter
+  # what the host environment said.
+  JADAWEL_BACKUP_ENABLED:
+  JADAWEL_BACKUP_S3_BUCKET:
+  JADAWEL_BACKUP_S3_PREFIX:
+  JADAWEL_BACKUP_S3_ENDPOINT_URL:
+  JADAWEL_BACKUP_S3_REGION:
+  JADAWEL_BACKUP_S3_ACCESS_KEY_ID:
+  JADAWEL_BACKUP_S3_SECRET_ACCESS_KEY:
+  JADAWEL_BACKUP_S3_SSE:
+  JADAWEL_BACKUP_RETENTION_DAYS:
+  JADAWEL_BACKUP_CRONTAB:
+  JADAWEL_BACKUP_TIMEOUT_SECONDS:
+  JADAWEL_BACKUP_INCLUDE_MEDIA:
 
   JADAWEL_BACKEND_DEBUG:
   JADAWEL_BACKEND_LOG_LEVEL:
@@ -272,6 +297,7 @@ services:
       dockerfile: ./Caddy.Dockerfile
       context: .
     restart: unless-stopped
+    mem_limit: ${JADAWEL_CADDY_MEM_LIMIT:-192m}
     environment:
       # Controls what port the Caddy server binds to inside its container.
       JADAWEL_CADDY_ADDRESSES: ${JADAWEL_CADDY_ADDRESSES:-:80}
@@ -334,12 +360,15 @@ services:
       context: .
       target: prod
     restart: unless-stopped
+    mem_limit: ${JADAWEL_BACKEND_MEM_LIMIT:-1g}
 
     environment:
       <<: *backend-variables
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - media:/jadawel/media
     networks:
@@ -352,6 +381,7 @@ services:
       context: .
       target: prod
     restart: unless-stopped
+    mem_limit: ${JADAWEL_WEB_FRONTEND_MEM_LIMIT:-768m}
     environment:
       JADAWEL_PUBLIC_URL: ${JADAWEL_PUBLIC_URL-http://localhost}
       MEDIA_URL:
@@ -402,13 +432,15 @@ services:
       JADAWEL_INTEGRATIONS_PERIODIC_MINUTE_MIN:
       JADAWEL_ENTERPRISE_ASSISTANT_LLM_MODEL:
     depends_on:
-      - backend
+      backend:
+        condition: service_started
     networks:
       local:
 
   celery:
     image: jadawel/backend:${JADAWEL_VERSION:-2.2.2}
     restart: unless-stopped
+    mem_limit: ${JADAWEL_CELERY_MEM_LIMIT:-768m}
     environment:
       <<: *backend-variables
     command: celery-worker
@@ -421,8 +453,10 @@ services:
           "/jadawel/backend/docker/docker-entrypoint.sh celery-worker-healthcheck",
         ]
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - media:/jadawel/media
     networks:
@@ -431,6 +465,7 @@ services:
   celery-export-worker:
     image: jadawel/backend:${JADAWEL_VERSION:-2.2.2}
     restart: unless-stopped
+    mem_limit: ${JADAWEL_CELERY_EXPORT_MEM_LIMIT:-768m}
     command: celery-exportworker
     environment:
       <<: *backend-variables
@@ -443,8 +478,10 @@ services:
           "/jadawel/backend/docker/docker-entrypoint.sh celery-exportworker-healthcheck",
         ]
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - media:/jadawel/media
     networks:
@@ -453,6 +490,7 @@ services:
   celery-beat-worker:
     image: jadawel/backend:${JADAWEL_VERSION:-2.2.2}
     restart: unless-stopped
+    mem_limit: ${JADAWEL_CELERY_BEAT_MEM_LIMIT:-384m}
     command: celery-beat
     healthcheck:
       test:
@@ -468,8 +506,10 @@ services:
     # See https://github.com/sibson/redbeat/issues/129#issuecomment-1057478237
     stop_signal: SIGQUIT
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - media:/jadawel/media
     networks:
@@ -482,6 +522,7 @@ services:
     # for more information.
     # image: pgautoupgrade/pgautoupgrade:15-alpine3.8
     restart: unless-stopped
+    mem_limit: ${JADAWEL_DB_MEM_LIMIT:-1g}
     environment:
       - POSTGRES_USER=${DATABASE_USER:-jadawel}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD:?}
@@ -501,19 +542,32 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   redis:
-    image: redis:6
+    # redis:6 is past end of life. 7-alpine is the current supported line.
+    image: redis:7-alpine
     restart: unless-stopped
-    command: redis-server --requirepass ${REDIS_PASSWORD:?}
+    mem_limit: ${JADAWEL_REDIS_MEM_LIMIT:-256m}
+    # Append-only persistence so the RedBeat schedule and the throttle counters
+    # survive a container recreation. Without a volume the scheduled backup
+    # silently loses its next run time on every deploy.
+    command: redis-server --requirepass ${REDIS_PASSWORD:?} --appendonly yes
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      # Authenticated: a bare `redis-cli ping` against a password-protected
+      # server answers NOAUTH, so the probe never actually tested the server.
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       local:
+    volumes:
+      - redisdata:/data
 
   # By default, the media volume will be owned by root on startup. Ensure it is owned by
   # the same user that django is running as, so it can write user files.
   volume-permissions-fixer:
     image: bash:4.4
     restart: unless-stopped
+    mem_limit: ${JADAWEL_FIXER_MEM_LIMIT:-64m}
     command: sh -c "chown 9999:9999 -R /jadawel/media && exec sleep infinity"
     volumes:
       - media:/jadawel/media
@@ -522,6 +576,7 @@ services:
 
 volumes:
   pgdata:
+  redisdata:
   media:
   caddy_data:
   caddy_config:

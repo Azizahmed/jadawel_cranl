@@ -29,6 +29,11 @@ services:
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - JADAWEL_EMBEDDINGS_API_URL=${JADAWEL_EMBEDDINGS_API_URL}
+      # Off for local dev, which is plain http. The production compose defaults
+      # it on, and with it come Secure cookies and HSTS — neither of which a
+      # browser will honour over http://localhost, and HSTS on localhost sticks
+      # around long after you stop working on this.
+      - JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER=
     build:
       dockerfile: ./backend/Dockerfile
       context: .

@@ -19,6 +19,11 @@ on:
         description: "Image tag to publish (also pushed as :latest)"
         required: true
         default: "latest"
+      overwrite:
+        description: "Allow republishing a tag that already exists"
+        type: boolean
+        required: false
+        default: false
   push:
     tags:
       - "v*"
@@ -62,19 +67,53 @@ jobs:
 
       - name: Resolve image name and tag
         id: meta
+        # Both the repository name and the dispatch input arrive through the
+        # environment rather than being interpolated into the script. A `${{ }}`
+        # expansion is pasted in as shell source before bash ever sees it, so a
+        # tag containing shell metacharacters would run as code on the runner.
+        env:
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_TAG: ${{ inputs.tag }}
         run: |
           # Derived from the repository rather than hardcoded: GHCR links a new
           # package to the repo that first pushes it, and GITHUB_TOKEN is only
           # guaranteed write access to that path. GHCR also rejects uppercase,
           # and the owner is `Azizahmed`.
-          repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          if [ "${{ github.event_name }}" = "push" ]; then
+          repo=$(echo "$REPOSITORY" | tr '[:upper:]' '[:lower:]')
+          if [ "$EVENT_NAME" = "push" ]; then
             tag="${GITHUB_REF_NAME#v}"
           else
-            tag="${{ inputs.tag }}"
+            tag="$INPUT_TAG"
           fi
+          case "$tag" in
+            ''|*[!A-Za-z0-9._-]*)
+              echo "Refusing tag '$tag': only A-Za-z0-9._- are allowed." >&2
+              exit 1
+              ;;
+          esac
           echo "image=${{ env.REGISTRY }}/${repo}" >> "$GITHUB_OUTPUT"
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse to overwrite an existing tag
+        # A tag that already exists is already deployed somewhere. Rebuilding it
+        # repoints it, so the digest a Dockerfile pinned no longer matches what
+        # the tag serves and two hosts on "the same version" run different code.
+        # `latest` is exempt: it is mutable by definition.
+        env:
+          IMAGE: ${{ steps.meta.outputs.image }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          OVERWRITE: ${{ inputs.overwrite }}
+        run: |
+          if [ "$TAG" = "latest" ] || [ "$OVERWRITE" = "true" ]; then
+            echo "Skipping the check for tag '$TAG'."
+            exit 0
+          fi
+          if docker manifest inspect "$IMAGE:$TAG" >/dev/null 2>&1; then
+            echo "::error::$IMAGE:$TAG already exists. Publish a new tag, or re-run with 'overwrite' checked." >&2
+            exit 1
+          fi
+          echo "Tag '$TAG' is free."
 
       # Built locally rather than pushed: these two are only inputs to the
       # all-in-one image, not deployable on their own.
@@ -97,7 +136,24 @@ jobs:
           docker push "${{ steps.meta.outputs.image }}:latest"
 
       - name: Summary
+        env:
+          IMAGE: ${{ steps.meta.outputs.image }}
+          TAG: ${{ steps.meta.outputs.tag }}
         run: |
-          echo "Pushed \`${{ steps.meta.outputs.image }}:${{ steps.meta.outputs.tag }}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Pin this tag in the root \`Dockerfile\` to deploy it." >> "$GITHUB_STEP_SUMMARY"
+          digest=$(docker inspect --format='{{index .RepoDigests 0}}' "$IMAGE:$TAG" 2>/dev/null || true)
+          {
+            echo "Pushed \`$IMAGE:$TAG\`"
+            echo ""
+            if [ -n "$digest" ]; then
+              # The digest, not the tag: `:latest` is republished on every run
+              # and a version tag can be repointed, so only the digest names a
+              # fixed image.
+              echo "Pin this in the root \`Dockerfile\` to deploy it:"
+              echo ""
+              echo "\`\`\`"
+              echo "ARG JADAWEL_IMAGE=$digest"
+              echo "\`\`\`"
+            else
+              echo "Could not read the digest; pin it from \`docker buildx imagetools inspect $IMAGE:$TAG\`."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

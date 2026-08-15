@@ -35,7 +35,11 @@
 # Set JADAWEL_* in the dashboard before deploying. The BASEROW_* shims still
 # accept the old names, but JADAWEL_JWT_SIGNING_KEY must carry the same value
 # as BASEROW_JWT_SIGNING_KEY or every issued session is invalidated.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl:2.6.1
+# Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
+# the version tag, and re-running it with a tag that already exists silently
+# repoints that tag — so a tag pin does not identify a fixed image. The digest
+# does, and it is the same 2.6.1 build described above.
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:4097ccfac0690ccc9d49bdddb85ea05bd9d1a5a4cfa6eac3ec7298728822349c
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}

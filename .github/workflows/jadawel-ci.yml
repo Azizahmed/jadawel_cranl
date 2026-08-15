@@ -5,12 +5,24 @@ name: Jadawel CI
 # their secrets), this workflow builds and tests entirely within the job and needs
 # no secrets, so it runs green on any fork.
 
-# Manual-only in this repository. `Azizahmed/Jadawel` is where code changes are
-# reviewed and where this runs on every push; jadawel_cranl exists to build and
-# deploy an image, so running the full suite on each deploy commit would only
-# spend private-repo Actions minutes to re-test unchanged code.
+# Runs on pull requests and on pushes to the two branches that matter: `main`,
+# and the production branch Coolify auto-deploys from. Manual-only was the
+# previous setting, which meant nothing was gated at all — a push to the deploy
+# branch went straight to production without a single test having run.
+#
+# `paths-ignore` keeps documentation-only commits from spending Actions minutes,
+# which was the original reason for holding this back.
 on:
   workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - codex/hostinger-coolify-deploy
+    paths-ignore:
+      - "docs/**"
+      - "website/**"
+      - "**/*.md"
 
 concurrency:
   group: jadawel-ci-${{ github.ref }}

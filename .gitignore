@@ -166,3 +166,14 @@ web-frontend/.nuxt-storybook/
 web-frontend/storybook-static
 
 .agent
+
+# Credentials and database dumps. Nothing of the sort is tracked today; these
+# rules exist so the next one cannot be added by accident.
+*.pem
+*.key
+*.p12
+*.pfx
+*.sql
+*.dump
+# The e2e fixture database is a deliberate exception.
+!e2e-tests/fixtures/e2e-db.dump
