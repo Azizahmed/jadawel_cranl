@@ -17,14 +17,24 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-15 by publish-image.yml from tag v2.7.0 @ 889c97dcf, digest
-# sha256:4de218645668d6ae6252c7d5dfe30f02d71f2efe82105c837a8dbc197328a7ec
+# Published 2026-08-15 by publish-image.yml from tag v2.7.2 @ 2744ce368, digest
+# sha256:a97d0666d2709e3d3baef6f9f3e018373d82cae1bdea0f49ed51f3510e5dfe15
 #
-# **No migrations.** `makemigrations --check` is clean against this tree, and
-# 2.7.0 adds no model fields, so the schema is identical to 2.6.1's and this
-# rolls forward — and back — without touching the database.
+# **One migration**, arabase.0005_backuprun_backupschedule. It creates the two
+# tables behind the Backup admin section and touches nothing that exists, so it
+# rolls forward — and back — without altering existing data.
 #
-# 2.7.0 is a pre-launch audit pass. The two that matter most in production:
+# 2.7.2 adds the Backup admin section (Admin -> Backup): health, an
+# hourly/daily/weekly schedule stored in the database rather than the
+# environment, run history including failures, and a restore that will not
+# write over the live database.
+#
+# It also fixes the Arabic date locale. `ar` was never imported into moment, so
+# every date in the product rendered in Ukrainian — `serp` for August — because
+# `uk` was the last import and moment answers a missing locale by keeping the
+# one it is on. Digits stay Western, as AGENTS.md requires.
+#
+# Carried over from 2.7.0, the two that matter most in production:
 #
 #   - A public dashboard link returned every column of its backing table, not
 #     just the ones its widgets display. Anyone holding a share URL could read
@@ -49,8 +59,8 @@
 #
 # Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
 # the version tag, so a tag pin does not identify a fixed image. The digest
-# does, and it is the 2.7.0 build described above.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:4de218645668d6ae6252c7d5dfe30f02d71f2efe82105c837a8dbc197328a7ec
+# does, and it is the 2.7.2 build described above.
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:a97d0666d2709e3d3baef6f9f3e018373d82cae1bdea0f49ed51f3510e5dfe15
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
