@@ -1,6 +1,6 @@
 .gallery-view {
   overflow: hidden;
-  background-color: $white;
+  background-color: var(--jadawel-app-background, #f5faf7);
 
   @include absolute(0);
 }

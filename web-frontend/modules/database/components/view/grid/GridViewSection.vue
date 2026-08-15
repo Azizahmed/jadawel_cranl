@@ -174,7 +174,9 @@ import GridViewRowAdd from '@jadawel/modules/database/components/view/grid/GridV
 import gridViewHelpers from '@jadawel/modules/database/mixins/gridViewHelpers'
 import GridViewFieldFooter from '@jadawel/modules/database/components/view/grid/GridViewFieldFooter'
 import HorizontalResize from '@jadawel/modules/core/components/HorizontalResize'
+import { isRtlElement } from '@jadawel/modules/core/utils/dom'
 import { fieldValuesAreEqualInObjects } from '@jadawel/modules/database/utils/groupBy'
+import { getInlineScrollOffset } from '@jadawel/modules/database/utils/gridViewDrag'
 
 export default {
   name: 'GridViewSection',
@@ -571,7 +573,8 @@ export default {
     updateVisibleFieldsInRow() {
       if (!this.$el) return
       const width = this.$el.clientWidth
-      const scrollLeft = this.$el.scrollLeft
+      const isRtl = isRtlElement(this.$el)
+      const scrollLeft = getInlineScrollOffset(this.$el.scrollLeft, isRtl)
       // The padding is added to the start and end of the viewport to make sure that
       // cells nearby will always be ready to be displayed.
       const padding = 200
@@ -587,7 +590,7 @@ export default {
         const right = left + width
         const visible = right >= viewportStart && left <= viewportEnd
         if (visible && leftOffset === null) {
-          leftOffset = left
+          leftOffset = isRtl ? -left : left
         }
         left = right
         return visible

@@ -145,15 +145,15 @@ $palette-purple-1100: #46205e !default;
 // The interface accent. Points at the brand scale, not at blue — this is what
 // turns buttons, links, active nav, focus rings and progress markers green.
 // The $colors map further down deliberately does NOT read these tokens.
-$color-primary-100: $palette-brand-50 !default;
-$color-primary-200: $palette-brand-100 !default;
-$color-primary-300: $palette-brand-200 !default;
-$color-primary-400: $palette-brand-400 !default;
-$color-primary-500: $palette-brand-500 !default;
-$color-primary-600: $palette-brand-700 !default;
-$color-primary-700: $palette-brand-800 !default;
-$color-primary-800: $palette-brand-900 !default;
-$color-primary-900: $palette-brand-1100 !default;
+$color-primary-100: var(--jadawel-primary-100, #{$palette-brand-50}) !default;
+$color-primary-200: var(--jadawel-primary-200, #{$palette-brand-100}) !default;
+$color-primary-300: var(--jadawel-primary-300, #{$palette-brand-200}) !default;
+$color-primary-400: var(--jadawel-primary-400, #{$palette-brand-400}) !default;
+$color-primary-500: var(--jadawel-primary-500, #{$palette-brand-500}) !default;
+$color-primary-600: var(--jadawel-primary-600, #{$palette-brand-700}) !default;
+$color-primary-700: var(--jadawel-primary-700, #{$palette-brand-800}) !default;
+$color-primary-800: var(--jadawel-primary-800, #{$palette-brand-900}) !default;
+$color-primary-900: var(--jadawel-primary-900, #{$palette-brand-1100}) !default;
 
 $color-neutral-10: $palette-neutral-25 !default;
 $color-neutral-50: $palette-neutral-25 !default;
@@ -223,7 +223,6 @@ $color-cyan-300: $palette-cyan-300 !default;
 $color-cyan-400: $palette-cyan-400 !default;
 
 // Should stay in sync with 'backend/src/jadawel/core/constants.py::JADAWEL_COLORS'.
-//
 // These are USER DATA, not interface styling: the key is what gets written to
 // the database when someone picks a colour for a select option, a view or a
 // calendar label. So this map reads raw $palette-* values and never the

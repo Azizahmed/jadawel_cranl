@@ -243,4 +243,56 @@ describe('GalleryView component with decoration', () => {
 
     expect(wrapper1.element).toMatchSnapshot()
   })
+
+  test('positions cards toward inline-end in an RTL gallery', async () => {
+    const { application, table, fields, view } = await populateStore([])
+    const wrapper = await mountComponent({
+      database: application,
+      table,
+      view,
+      fields,
+      readOnly: false,
+      storePrefix: 'page/',
+      row: null,
+    })
+    const scroll = wrapper.find('.gallery-view__scroll').element
+
+    wrapper.element.style.direction = 'rtl'
+    Object.defineProperties(scroll, {
+      clientWidth: { configurable: true, value: 640 },
+      clientHeight: { configurable: true, value: 600 },
+    })
+    wrapper.vm.updateBuffer(false)
+    await wrapper.vm.$nextTick()
+
+    const cards = wrapper.findAll('.gallery-view__card')
+    expect(cards[0].attributes('style')).toContain('translateX(-30px)')
+    expect(cards[1].attributes('style')).toContain('translateX(-335px)')
+  })
+
+  test('keeps LTR gallery card positioning unchanged', async () => {
+    const { application, table, fields, view } = await populateStore([])
+    const wrapper = await mountComponent({
+      database: application,
+      table,
+      view,
+      fields,
+      readOnly: false,
+      storePrefix: 'page/',
+      row: null,
+    })
+    const scroll = wrapper.find('.gallery-view__scroll').element
+
+    wrapper.element.style.direction = 'ltr'
+    Object.defineProperties(scroll, {
+      clientWidth: { configurable: true, value: 640 },
+      clientHeight: { configurable: true, value: 600 },
+    })
+    wrapper.vm.updateBuffer(false)
+    await wrapper.vm.$nextTick()
+
+    const cards = wrapper.findAll('.gallery-view__card')
+    expect(cards[0].attributes('style')).toContain('translateX(30px)')
+    expect(cards[1].attributes('style')).toContain('translateX(335px)')
+  })
 })

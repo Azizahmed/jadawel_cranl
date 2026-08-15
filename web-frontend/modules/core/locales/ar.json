@@ -928,10 +928,20 @@
     "trash": "سلة المهملات",
     "settings": "إعداداتي",
     "notifications": "الإشعارات",
+    "quickTools": "أدوات مساحة العمل",
     "adminSettings": "إعدادات المشرف",
     "general": "عام",
     "people": "الأشخاص",
     "licenses": "التراخيص"
+  },
+  "interfaceTheme": {
+    "title": "لون الواجهة",
+    "sage": "الأخضر الهادئ",
+    "blue": "الأزرق البحري",
+    "purple": "البنفسجي الملكي",
+    "rose": "الوردي الهادئ",
+    "amber": "الكهرماني الدافئ",
+    "teal": "الفيروزي الداكن"
   },
   "sidebarApplication": {
     "rename": "إعادة تسمية",

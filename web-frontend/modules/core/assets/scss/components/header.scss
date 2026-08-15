@@ -1,8 +1,8 @@
 .header {
   display: flex;
   justify-content: flex-start;
-  background-color: $white;
-  border-block-end: 1px solid $palette-neutral-200;
+  background-color: var(--jadawel-header-background, #f0f7f3);
+  border-block-end: 1px solid var(--jadawel-border-color, #e0f1e7);
 
   &.header--space-between {
     justify-content: space-between;
@@ -115,7 +115,7 @@
 
   &:hover {
     text-decoration: none;
-    background-color: $color-neutral-100;
+    background-color: var(--jadawel-hover-background, #f7fbf8);
   }
 
   &--disabled:hover {
@@ -262,7 +262,7 @@
   justify-content: center;
 
   &--with-separator {
-    border-inline-start: 1px solid $palette-neutral-200;
+    border-inline-start: 1px solid var(--jadawel-border-color, #e0f1e7);
   }
 }
 

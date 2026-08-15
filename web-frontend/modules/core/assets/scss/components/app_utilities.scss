@@ -53,6 +53,91 @@
   }
 }
 
+.app-utilities__context {
+  inline-size: 248px;
+  padding-block-end: 6px;
+}
+
+.app-utilities__context-title {
+  padding-inline: 12px;
+  margin-block-end: 6px;
+  color: $palette-neutral-800;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.app-utilities__menu {
+  margin-block: 0 6px;
+}
+
+.app-utilities__theme {
+  margin-inline: 8px;
+  padding: 12px 4px 4px;
+  border-block-start: 1px solid $palette-neutral-200;
+}
+
+.app-utilities__theme-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-block-end: 11px;
+  color: $palette-neutral-1000;
+  font-size: 12px;
+  font-weight: 500;
+
+  i {
+    color: $palette-neutral-700;
+    font-size: 16px;
+  }
+}
+
+.app-utilities__theme-options {
+  display: grid;
+  grid-template-columns: repeat(6, 28px);
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.app-utilities__theme-option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  padding: 0;
+  color: $white;
+  background: var(--theme-color);
+  border: 2px solid $white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px $palette-neutral-400;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 2px var(--theme-color),
+      0 4px 10px rgba($palette-neutral-1300, 0.14);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-color);
+    outline-offset: 3px;
+  }
+
+  &.app-utilities__theme-option--active {
+    box-shadow: 0 0 0 2px var(--theme-color);
+  }
+
+  i {
+    font-size: 15px;
+    filter: drop-shadow(0 1px 1px rgba($palette-neutral-1300, 0.25));
+  }
+}
+
 /*
  * Shrunk from the default badge so it reads as a marker on a 30px button rather
  * than swallowing it. Both classes are needed: `.badge-counter` sets its own

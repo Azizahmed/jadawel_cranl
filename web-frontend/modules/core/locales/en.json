@@ -58,10 +58,20 @@
     "trash": "Trash",
     "settings": "My settings",
     "notifications": "Notifications",
+    "quickTools": "Workspace tools",
     "adminSettings": "Admin settings",
     "general": "General",
     "people": "People",
     "licenses": "Licenses"
+  },
+  "interfaceTheme": {
+    "title": "Interface color",
+    "sage": "Sage green",
+    "blue": "Ocean blue",
+    "purple": "Royal purple",
+    "rose": "Soft rose",
+    "amber": "Warm amber",
+    "teal": "Deep teal"
   },
   "accountForm": {
     "nameLabel": "Your name",

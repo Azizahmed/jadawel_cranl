@@ -176,6 +176,7 @@ import viewHelpers from '@jadawel/modules/database/mixins/viewHelpers'
 import viewDecoration from '@jadawel/modules/database/mixins/viewDecoration'
 import { populateRow } from '@jadawel/modules/database/store/view/grid'
 import { clone } from '@jadawel/modules/core/utils/object'
+import { isRtlElement } from '@jadawel/modules/core/utils/dom'
 
 export default {
   name: 'GalleryView',
@@ -403,6 +404,7 @@ export default {
       const gutterSize = this.gutterSize
       const containerWidth = el.clientWidth
       const containerHeight = el.clientHeight
+      const inlineDirection = isRtlElement(this.$el) ? -1 : 1
 
       const cardsPerRow = Math.min(
         Math.max(Math.floor(containerWidth / this.minimumCardWidth), 1),
@@ -429,8 +431,9 @@ export default {
         const positionInAll = startIndex + positionInVisible
         return {
           left:
-            gutterSize +
-            (positionInAll % cardsPerRow) * (gutterSize + cardWidth),
+            inlineDirection *
+            (gutterSize +
+              (positionInAll % cardsPerRow) * (gutterSize + cardWidth)),
           top:
             gutterSize +
             Math.floor(positionInAll / cardsPerRow) * (gutterSize + cardHeight),

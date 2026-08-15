@@ -18,7 +18,10 @@
       <div
         ref="scrollbarHorizontal"
         class="scrollbars__horizontal"
-        :style="{ left: horizontalLeft + '%', width: horizontalWidth + '%' }"
+        :style="{
+          insetInlineStart: horizontalLeft + '%',
+          width: horizontalWidth + '%',
+        }"
         @mousedown="mouseDownHorizontal($event)"
       ></div>
     </div>
@@ -27,6 +30,7 @@
 
 <script>
 import { floor, ceil } from '@jadawel/modules/core/utils/number'
+import { isRtlElement } from '@jadawel/modules/core/utils/dom'
 
 /**
  * This component will render custom scrollbars to a scrollable div. They will
@@ -129,11 +133,14 @@ export default {
     updateHorizontal() {
       const element = this.$parent[this.horizontal]()
       const show = element.scrollWidth > element.clientWidth
+      const inlineScrollOffset = isRtlElement(element)
+        ? Math.abs(element.scrollLeft)
+        : element.scrollLeft
       const width = Math.max(
         floor((element.clientWidth / element.scrollWidth) * 100, 2),
         2
       )
-      const left = ceil((element.scrollLeft / element.scrollWidth) * 100, 2)
+      const left = ceil((inlineScrollOffset / element.scrollWidth) * 100, 2)
       this.horizontalShow = show
       this.horizontalWidth = width
       this.horizontalLeft = left
@@ -154,8 +161,9 @@ export default {
      */
     mouseDownHorizontal(event) {
       event.preventDefault()
+      const element = this.$parent[this.horizontal]()
       this.dragging = 'horizontal'
-      this.elementStart = this.$refs.scrollbarHorizontal.offsetLeft
+      this.elementStart = (this.horizontalLeft / 100) * element.clientWidth
       this.mouseStart = event.clientX
     },
     /**
@@ -177,9 +185,13 @@ export default {
       if (this.dragging === 'horizontal') {
         event.preventDefault()
         const element = this.$parent[this.horizontal]()
-        const delta = event.clientX - this.mouseStart
+        const rtl = isRtlElement(element)
+        const delta = rtl
+          ? this.mouseStart - event.clientX
+          : event.clientX - this.mouseStart
         const pixel = element.scrollWidth / element.clientWidth
-        const left = Math.ceil((this.elementStart + delta) * pixel)
+        const inlineOffset = Math.ceil((this.elementStart + delta) * pixel)
+        const left = rtl ? -inlineOffset : inlineOffset
 
         this.$emit('horizontal', left)
         this.updateHorizontal()
