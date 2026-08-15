@@ -186,6 +186,8 @@ exports[`GridViewRows component > With row details 1`] = `
         <a
           class="grid-view__row-more"
           row="[object Object]"
+          table="[object Object]"
+          workspace-id="1"
         >
           <i
             class="jadawel-icon-enlarge-row"
@@ -265,6 +267,8 @@ exports[`GridViewRows component > With row details 1`] = `
         <a
           class="grid-view__row-more"
           row="[object Object]"
+          table="[object Object]"
+          workspace-id="1"
         >
           <i
             class="jadawel-icon-enlarge-row"
@@ -346,6 +350,8 @@ exports[`GridViewRows component > With row details 1`] = `
         <a
           class="grid-view__row-more"
           row="[object Object]"
+          table="[object Object]"
+          workspace-id="1"
         >
           <i
             class="jadawel-icon-enlarge-row"

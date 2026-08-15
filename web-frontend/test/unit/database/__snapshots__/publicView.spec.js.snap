@@ -43,25 +43,18 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
           <li
             class="header__filter-item"
           >
-            <a
-              class="header__filter-logo"
-              href="https://jadawl.site"
-              target="_blank"
-              title="Jadawel - open source no-code database tool and Airtable alternative"
+            <div
+              alt="جداول"
+              class="logo header__filter-logo"
+              height="14"
             >
-              <div
-                alt="Jadawel - open source no-code database tool and Airtable alternative"
-                class="logo"
+              <img
+                alt="جداول"
+                class="header__filter-logo header__filter-logo"
                 height="14"
-              >
-                <img
-                  alt="Jadawel - open source no-code database tool and Airtable alternative"
-                  class=""
-                  height="14"
-                  src="/modules/core/static/img/logo.svg"
-                />
-              </div>
-            </a>
+                src="/modules/core/static/img/logo.svg"
+              />
+            </div>
           </li>
           <li
             class="header__filter-item header__filter-item--grids"
@@ -92,7 +85,6 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
           </li>
           <!--v-if-->
           
-          <!--v-if-->
           
           <li
             class="header__filter-item"
@@ -327,7 +319,7 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
         >
           <div
             class="scrollbars"
-            style="left: 72px;"
+            style="inset-inline-start: 72px;"
           >
             <!--v-if-->
             <!--v-if-->
@@ -404,12 +396,12 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
           </div>
           <div
             class="grid-view__divider"
-            style="left: 72px;"
+            style="inset-inline-start: 72px;"
           />
           <!--v-if-->
           <div
             class="grid-view__right"
-            style="left: 72px;"
+            style="inset-inline-start: 72px;"
           >
             
             
@@ -455,7 +447,6 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
                       class="grid-view__description-options"
                     >
                       
-                      <!--v-if-->
                       
                       <!--v-if-->
                       <!--v-if-->
@@ -495,7 +486,6 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
                       class="grid-view__description-options"
                     >
                       
-                      <!--v-if-->
                       
                       <!--v-if-->
                       <!--v-if-->
@@ -535,7 +525,6 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
                       class="grid-view__description-options"
                     >
                       
-                      <!--v-if-->
                       
                       <!--v-if-->
                       <!--v-if-->
@@ -647,15 +636,15 @@ exports[`Public View Page Tests > Can see a publicly shared grid view 1`] = `
           </div>
           <div
             class="grid-view__field-dragging-container"
-            style="left: 0px; right: 0px; display: none;"
+            style="inset-inline-start: 0px; inset-inline-end: 0; display: none;"
           >
             <div
               class="grid-view__field-dragging"
-              style="width: 0px; left: 0px;"
+              style="width: 0px; inset-inline-start: 0px;"
             />
             <div
               class="grid-view__field-target"
-              style="left: 0px;"
+              style="inset-inline-start: 0px;"
             />
           </div>
           <div

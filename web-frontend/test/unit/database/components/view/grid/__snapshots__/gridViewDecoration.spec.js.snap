@@ -6,7 +6,7 @@ exports[`GridView component with decoration > Default component with first_cell 
 >
   <div
     class="scrollbars"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   >
     <!--v-if-->
     <!--v-if-->
@@ -96,6 +96,8 @@ exports[`GridView component with decoration > Default component with first_cell 
                   <a
                     class="grid-view__row-more"
                     row="[object Object]"
+                    table="[object Object]"
+                    workspace-id="1"
                   >
                     <i
                       class="jadawel-icon-enlarge-row"
@@ -152,12 +154,12 @@ exports[`GridView component with decoration > Default component with first_cell 
   </div>
   <div
     class="grid-view__divider"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   />
   <!--v-if-->
   <div
     class="grid-view__right"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   >
     
     
@@ -203,7 +205,6 @@ exports[`GridView component with decoration > Default component with first_cell 
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -248,7 +249,6 @@ exports[`GridView component with decoration > Default component with first_cell 
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -418,15 +418,15 @@ exports[`GridView component with decoration > Default component with first_cell 
   </div>
   <div
     class="grid-view__field-dragging-container"
-    style="left: 0px; right: 0px; display: none;"
+    style="inset-inline-start: 0px; inset-inline-end: 0; display: none;"
   >
     <div
       class="grid-view__field-dragging"
-      style="width: 0px; left: 0px;"
+      style="width: 0px; inset-inline-start: 0px;"
     />
     <div
       class="grid-view__field-target"
-      style="left: 0px;"
+      style="inset-inline-start: 0px;"
     />
   </div>
   <div
@@ -451,7 +451,7 @@ exports[`GridView component with decoration > Default component with row wrapper
 >
   <div
     class="scrollbars"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   >
     <!--v-if-->
     <!--v-if-->
@@ -548,6 +548,8 @@ exports[`GridView component with decoration > Default component with row wrapper
                       <a
                         class="grid-view__row-more"
                         row="[object Object]"
+                        table="[object Object]"
+                        workspace-id="1"
                       >
                         <i
                           class="jadawel-icon-enlarge-row"
@@ -599,12 +601,12 @@ exports[`GridView component with decoration > Default component with row wrapper
   </div>
   <div
     class="grid-view__divider"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   />
   <!--v-if-->
   <div
     class="grid-view__right"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   >
     
     
@@ -650,7 +652,6 @@ exports[`GridView component with decoration > Default component with row wrapper
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -695,7 +696,6 @@ exports[`GridView component with decoration > Default component with row wrapper
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -873,15 +873,15 @@ exports[`GridView component with decoration > Default component with row wrapper
   </div>
   <div
     class="grid-view__field-dragging-container"
-    style="left: 0px; right: 0px; display: none;"
+    style="inset-inline-start: 0px; inset-inline-end: 0; display: none;"
   >
     <div
       class="grid-view__field-dragging"
-      style="width: 0px; left: 0px;"
+      style="width: 0px; inset-inline-start: 0px;"
     />
     <div
       class="grid-view__field-target"
-      style="left: 0px;"
+      style="inset-inline-start: 0px;"
     />
   </div>
   <div
@@ -906,7 +906,7 @@ exports[`GridView component with decoration > Default component with unavailable
 >
   <div
     class="scrollbars"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   >
     <!--v-if-->
     <!--v-if-->
@@ -996,6 +996,8 @@ exports[`GridView component with decoration > Default component with unavailable
                   <a
                     class="grid-view__row-more"
                     row="[object Object]"
+                    table="[object Object]"
+                    workspace-id="1"
                   >
                     <i
                       class="jadawel-icon-enlarge-row"
@@ -1046,12 +1048,12 @@ exports[`GridView component with decoration > Default component with unavailable
   </div>
   <div
     class="grid-view__divider"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   />
   <!--v-if-->
   <div
     class="grid-view__right"
-    style="left: 72px;"
+    style="inset-inline-start: 72px;"
   >
     
     
@@ -1097,7 +1099,6 @@ exports[`GridView component with decoration > Default component with unavailable
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -1142,7 +1143,6 @@ exports[`GridView component with decoration > Default component with unavailable
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -1312,15 +1312,15 @@ exports[`GridView component with decoration > Default component with unavailable
   </div>
   <div
     class="grid-view__field-dragging-container"
-    style="left: 0px; right: 0px; display: none;"
+    style="inset-inline-start: 0px; inset-inline-end: 0; display: none;"
   >
     <div
       class="grid-view__field-dragging"
-      style="width: 0px; left: 0px;"
+      style="width: 0px; inset-inline-start: 0px;"
     />
     <div
       class="grid-view__field-target"
-      style="left: 0px;"
+      style="inset-inline-start: 0px;"
     />
   </div>
   <div
