@@ -17,29 +17,40 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-09 by publish-image.yml from main @ d5698cc, digest
-# sha256:4097ccfac0690ccc9d49bdddb85ea05bd9d1a5a4cfa6eac3ec7298728822349c
+# Published 2026-08-15 by publish-image.yml from tag v2.7.0 @ 889c97dcf, digest
+# sha256:4de218645668d6ae6252c7d5dfe30f02d71f2efe82105c837a8dbc197328a7ec
 #
-# Carries one migration, arabase.0004_dashboard_share, which creates the
-# DashboardShare table behind the new public dashboard links. Nothing in it
-# touches an existing table, so it is safe to roll forward on a live database.
+# **No migrations.** `makemigrations --check` is clean against this tree, and
+# 2.7.0 adds no model fields, so the schema is identical to 2.6.1's and this
+# rolls forward — and back — without touching the database.
 #
-# Also in this image: workspace-level generative AI key settings are gone (the
-# API route 404s and the workspace Settings menu entry no longer renders), and
-# dashboard widgets can be dragged and resized on the grid board.
+# 2.7.0 is a pre-launch audit pass. The two that matter most in production:
 #
-# 2.6.1 over 2.6.0: a password-protected dashboard link waved through anyone
-# signed in to the owning workspace, so the owner could never verify their own
-# password. The password now applies to every request on the public URL.
+#   - A public dashboard link returned every column of its backing table, not
+#     just the ones its widgets display. Anyone holding a share URL could read
+#     the rest of the row. Existing links keep working and are now scoped.
+#   - Backup retention listed by prefix and deleted anything past the window,
+#     so an empty JADAWEL_BACKUP_S3_PREFIX meant the whole bucket. The config
+#     now refuses an empty prefix, which means a backup job configured that way
+#     will fail loudly on this image instead of running.
+#
+# Also: rate limits are countable per client (they keyed on a caller-controlled
+# header before, so the contact form was an open mail relay), disabled MCP tools
+# can no longer be invoked by name, share tokens expire, chart and agenda
+# widgets read date columns correctly, and user files are archived alongside the
+# database dump.
 #
 # Set JADAWEL_* in the dashboard before deploying. The BASEROW_* shims still
 # accept the old names, but JADAWEL_JWT_SIGNING_KEY must carry the same value
 # as BASEROW_JWT_SIGNING_KEY or every issued session is invalidated.
+#
+# JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER=yes is worth setting here: it is what
+# turns on Secure cookies and HSTS, and the all-in-one image defaults it empty.
+#
 # Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
-# the version tag, and re-running it with a tag that already exists silently
-# repoints that tag — so a tag pin does not identify a fixed image. The digest
-# does, and it is the same 2.6.1 build described above.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:4097ccfac0690ccc9d49bdddb85ea05bd9d1a5a4cfa6eac3ec7298728822349c
+# the version tag, so a tag pin does not identify a fixed image. The digest
+# does, and it is the 2.7.0 build described above.
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:4de218645668d6ae6252c7d5dfe30f02d71f2efe82105c837a8dbc197328a7ec
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
