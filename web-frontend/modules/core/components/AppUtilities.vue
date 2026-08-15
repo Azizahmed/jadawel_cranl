@@ -141,7 +141,11 @@
             :class="{
               'app-utilities__theme-option--active': activeTheme === theme.id,
             }"
-            :style="{ '--theme-color': theme.colors[500] }"
+            :style="{
+              '--theme-color': theme.swatch || theme.colors[500],
+              '--theme-outline-color': theme.swatchOutline || theme.colors[500],
+              '--theme-check-color': theme.checkColor || '#ffffff',
+            }"
             type="button"
             role="radio"
             :aria-label="theme.label"
@@ -221,9 +225,14 @@ export default {
     }),
   },
   mounted() {
-    this.activeTheme = applyInterfaceTheme(
-      localStorage.getItem(INTERFACE_THEME_STORAGE_KEY)
-    )
+    const stored = localStorage.getItem(INTERFACE_THEME_STORAGE_KEY)
+    this.activeTheme = applyInterfaceTheme(stored)
+    // `applyInterfaceTheme` falls back to the default when the stored id no
+    // longer names a theme, but the dead id stayed in storage — so every load
+    // resolved it again, and the picker and storage disagreed for ever.
+    if (stored !== this.activeTheme) {
+      localStorage.setItem(INTERFACE_THEME_STORAGE_KEY, this.activeTheme)
+    }
   },
   methods: {
     selectTheme(themeId) {

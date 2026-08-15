@@ -106,7 +106,7 @@
   inline-size: 28px;
   block-size: 28px;
   padding: 0;
-  color: $white;
+  color: var(--theme-check-color, $white);
   background: var(--theme-color);
   border: 2px solid $white;
   border-radius: 50%;
@@ -119,17 +119,17 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 0 0 2px var(--theme-color),
+      0 0 0 2px var(--theme-outline-color, var(--theme-color)),
       0 4px 10px rgba($palette-neutral-1300, 0.14);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--theme-color);
+    outline: 2px solid var(--theme-outline-color, var(--theme-color));
     outline-offset: 3px;
   }
 
   &.app-utilities__theme-option--active {
-    box-shadow: 0 0 0 2px var(--theme-color);
+    box-shadow: 0 0 0 2px var(--theme-outline-color, var(--theme-color));
   }
 
   i {

@@ -17,6 +17,51 @@ export const INTERFACE_THEMES = [
     },
   },
   {
+    id: 'white',
+    swatch: '#ffffff',
+    swatchOutline: '#aeb4bc',
+    checkColor: '#434a53',
+    colors: {
+      100: '#ffffff',
+      200: '#f5f6f7',
+      300: '#e7e9ec',
+      400: '#c4c8ce',
+      500: '#69717d',
+      600: '#565e68',
+      700: '#434a53',
+      800: '#30363d',
+      900: '#1d2228',
+    },
+    // The derived surfaces mix *towards* white, which for a palette whose 100
+    // step already is white collapses every one of them to #ffffff and leaves
+    // the border at #f7f7f8 — a contrast ratio of 1.04, so every sidebar,
+    // header, card and grid line disappears. A palette this light has to state
+    // its surfaces rather than derive them, stepping down its own neutrals.
+    surfaces: {
+      '--jadawel-app-background': '#f5f6f7',
+      '--jadawel-header-background': '#ffffff',
+      '--jadawel-sidebar-background': '#fafbfc',
+      '--jadawel-content-background': '#ffffff',
+      '--jadawel-raised-background': '#ffffff',
+      '--jadawel-hover-background': '#f0f2f4',
+      '--jadawel-border-color': '#e7e9ec',
+    },
+  },
+  {
+    id: 'gray',
+    colors: {
+      100: '#f3f4f5',
+      200: '#e1e3e6',
+      300: '#c2c6cb',
+      400: '#8f969f',
+      500: '#5f6670',
+      600: '#4d535c',
+      700: '#3c4148',
+      800: '#2b2f35',
+      900: '#1b1e22',
+    },
+  },
+  {
     id: 'blue',
     colors: {
       100: '#f0f4fc',
@@ -28,20 +73,6 @@ export const INTERFACE_THEMES = [
       700: '#124377',
       800: '#0d355e',
       900: '#05223f',
-    },
-  },
-  {
-    id: 'purple',
-    colors: {
-      100: '#f9f1fd',
-      200: '#efdcfb',
-      300: '#dfb9f7',
-      400: '#af50ea',
-      500: '#7b38a4',
-      600: '#69308c',
-      700: '#582875',
-      800: '#46205e',
-      900: '#301540',
     },
   },
   {
@@ -72,20 +103,6 @@ export const INTERFACE_THEMES = [
       900: '#271c08',
     },
   },
-  {
-    id: 'teal',
-    colors: {
-      100: '#ecfbfd',
-      200: '#cff5fa',
-      300: '#a0ebf5',
-      400: '#11cce5',
-      500: '#0a7a89',
-      600: '#096673',
-      700: '#07525c',
-      800: '#053d45',
-      900: '#03282d',
-    },
-  },
 ]
 
 export const mixWithWhite = (hexColor, amount = 0.5) => {
@@ -101,16 +118,31 @@ export const mixWithWhite = (hexColor, amount = 0.5) => {
   return `#${mixed.join('')}`
 }
 
-export const getInterfaceThemeSurfaces = (colors) => ({
+/**
+ * The surface colours a palette resolves to.
+ *
+ * `overrides` lets a theme state a surface outright instead of deriving it.
+ * Deriving works by mixing towards white, which needs the palette to have
+ * somewhere to travel — a near-white 100 step has none, and every surface
+ * collapses onto the same colour.
+ */
+export const getInterfaceThemeSurfaces = (colors, overrides = {}) => ({
   '--jadawel-app-background': mixWithWhite(colors[100], 0.35),
   '--jadawel-header-background': colors[100],
   '--jadawel-sidebar-background': mixWithWhite(colors[100], 0.18),
   '--jadawel-content-background': mixWithWhite(colors[100], 0.78),
   '--jadawel-raised-background': mixWithWhite(colors[100], 0.7),
   '--jadawel-hover-background': mixWithWhite(colors[100], 0.45),
-  '--jadawel-border-color': mixWithWhite(colors[200], 0.15),
-  '--jadawel-grid-surface': mixWithWhite(colors[100]),
-  '--jadawel-grid-line': mixWithWhite(colors[200]),
+  // From the 300 step, not the 200. The 200 step is near-white on the lighter
+  // palettes, so mixing it further left amber at 1.076 contrast and white at
+  // 1.071 — borders nobody can see. The 300 step is the first genuinely tinted
+  // one, and mixing it back keeps the line subtle without erasing it.
+  '--jadawel-border-color': mixWithWhite(colors[300], 0.35),
+  // Keep the data canvas neutral so theme colors frame the table instead of
+  // tinting the workspace where users read and edit values.
+  '--jadawel-grid-surface': '#ffffff',
+  '--jadawel-grid-line': '#e5e7eb',
+  ...overrides,
 })
 
 export const applyInterfaceTheme = (
@@ -127,9 +159,9 @@ export const applyInterfaceTheme = (
   Object.entries(theme.colors).forEach(([step, color]) => {
     root.style.setProperty(`--jadawel-primary-${step}`, color)
   })
-  Object.entries(getInterfaceThemeSurfaces(theme.colors)).forEach(
-    ([property, color]) => root.style.setProperty(property, color)
-  )
+  Object.entries(
+    getInterfaceThemeSurfaces(theme.colors, theme.surfaces)
+  ).forEach(([property, color]) => root.style.setProperty(property, color))
   root.dataset.interfaceTheme = theme.id
 
   return theme.id

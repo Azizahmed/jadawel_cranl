@@ -3,7 +3,7 @@
 
   overflow: hidden;
   isolation: isolate;
-  background-color: var(--jadawel-app-background, #f5faf7);
+  background-color: var(--jadawel-grid-surface, #fff);
 
   .scrollbars__vertical-wrapper {
     // We don't want to scrollbar to go over the header and footer.
@@ -53,7 +53,7 @@
 .grid-view__left {
   // Jadawel: frozen section anchors to the inline-start edge (right in RTL).
   inset-inline-start: 0;
-  background-color: var(--jadawel-header-background, #f0f7f3);
+  background-color: var(--jadawel-grid-surface, #fff);
 
   // Let the last frozen column's resize handle extend past the boundary.
   overflow: visible;
@@ -189,7 +189,7 @@
   display: flex;
   block-size: 33px;
   background-color: var(--jadawel-header-background, #f0f7f3);
-  border-block-end: 1px solid var(--jadawel-border-color, #e0f1e7);
+  border-block-end: 1px solid var(--jadawel-border-color, #cfe8d9);
 }
 
 .grid-view__left .grid-view__head {
@@ -242,7 +242,7 @@
   display: flex;
   block-size: 48px;
   background-color: var(--jadawel-header-background, #f0f7f3);
-  border-block-start: 1px solid var(--jadawel-border-color, #e0f1e7);
+  border-block-start: 1px solid var(--jadawel-border-color, #cfe8d9);
 }
 
 .grid-view__foot-info {
@@ -266,11 +266,11 @@
 
 .grid-view__placeholder {
   position: relative;
-  background-color: var(--jadawel-grid-surface, #f8fbf9);
+  background-color: var(--jadawel-grid-surface, #fff);
   background-image: linear-gradient(
     0deg,
-    var(--jadawel-grid-line, #edf7f1) 1px,
-    var(--jadawel-grid-surface, #f8fbf9) 1px $grid-view-row-height-small
+    var(--jadawel-grid-line, #e5e7eb) 1px,
+    var(--jadawel-grid-surface, #fff) 1px $grid-view-row-height-small
   );
   background-size: 100% $grid-view-row-height-small;
 
@@ -278,8 +278,8 @@
     background-size: 100% $grid-view-row-height-medium;
     background-image: linear-gradient(
       0deg,
-      var(--jadawel-grid-line, #edf7f1) 1px,
-      var(--jadawel-grid-surface, #f8fbf9) 1px $grid-view-row-height-medium
+      var(--jadawel-grid-line, #e5e7eb) 1px,
+      var(--jadawel-grid-surface, #fff) 1px $grid-view-row-height-medium
     );
   }
 
@@ -287,8 +287,8 @@
     background-size: 100% $grid-view-row-height-large;
     background-image: linear-gradient(
       0deg,
-      var(--jadawel-grid-line, #edf7f1) 1px,
-      var(--jadawel-grid-surface, #f8fbf9) 1px $grid-view-row-height-large
+      var(--jadawel-grid-line, #e5e7eb) 1px,
+      var(--jadawel-grid-surface, #fff) 1px $grid-view-row-height-large
     );
   }
 }
@@ -296,13 +296,13 @@
 .grid-view__placeholder-groups {
   @include absolute(0, auto, 0, 0);
 
-  background-color: var(--jadawel-app-background, #f5faf7);
+  background-color: var(--jadawel-grid-surface, #fff);
 }
 
 .grid-view__placeholder-column {
   @include absolute(0, auto, 0, auto);
 
-  border-inline-end: 1px solid var(--jadawel-grid-line, #edf7f1);
+  border-inline-end: 1px solid var(--jadawel-grid-line, #e5e7eb);
 
   &.grid-view__placeholder-column--no-border-right {
     border-inline-end: none;
@@ -341,7 +341,7 @@
   // lines up with the flex header, which already packs to inline-start. Without this
   // the wrapper defaults to the physical left and desyncs from the header in RTL.
   inset-inline-start: 0;
-  background-color: var(--jadawel-content-background, #fcfdfc);
+  background-color: var(--jadawel-grid-surface, #fff);
 }
 
 .grid-view__row {

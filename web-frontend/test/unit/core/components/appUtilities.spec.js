@@ -81,9 +81,7 @@ describe('AppUtilities component', () => {
       wrapper.find('.app-utilities__item .iconoir-view-grid').exists()
     ).toBe(true)
     expect(wrapper.find('.context__menu .iconoir-group').exists()).toBe(true)
-    expect(wrapper.find('.context__menu .iconoir-add-user').exists()).toBe(
-      true
-    )
+    expect(wrapper.find('.context__menu .iconoir-add-user').exists()).toBe(true)
     expect(wrapper.find('.context__menu .iconoir-bin').exists()).toBe(true)
 
     const colorOptions = wrapper.findAll('.app-utilities__theme-option')
@@ -93,20 +91,26 @@ describe('AppUtilities component', () => {
     await colorOptions[1].trigger('click')
 
     expect(colorOptions[1].attributes('aria-checked')).toBe('true')
-    expect(document.documentElement.dataset.interfaceTheme).toBe('blue')
+    expect(document.documentElement.dataset.interfaceTheme).toBe('white')
     expect(
       document.documentElement.style.getPropertyValue('--jadawel-primary-500')
-    ).toBe('#275d9f')
+    ).toBe('#69717d')
     expect(
       document.documentElement.style.getPropertyValue(
         '--jadawel-header-background'
       )
-    ).toBe('#f0f4fc')
+    ).toBe('#ffffff')
+    // The app ground must stay distinguishable from the header. Deriving these
+    // by mixing towards white flattened both to #ffffff on this palette, which
+    // is why the theme states its surfaces outright.
     expect(
       document.documentElement.style.getPropertyValue(
         '--jadawel-app-background'
       )
-    ).toBe('#f5f8fd')
-    expect(localStorage.getItem(INTERFACE_THEME_STORAGE_KEY)).toBe('blue')
+    ).toBe('#f5f6f7')
+    expect(
+      document.documentElement.style.getPropertyValue('--jadawel-border-color')
+    ).toBe('#e7e9ec')
+    expect(localStorage.getItem(INTERFACE_THEME_STORAGE_KEY)).toBe('white')
   })
 })

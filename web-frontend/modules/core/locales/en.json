@@ -67,11 +67,11 @@
   "interfaceTheme": {
     "title": "Interface color",
     "sage": "Sage green",
+    "white": "Clean white",
+    "gray": "Neutral gray",
     "blue": "Ocean blue",
-    "purple": "Royal purple",
     "rose": "Soft rose",
-    "amber": "Warm amber",
-    "teal": "Deep teal"
+    "amber": "Warm amber"
   },
   "accountForm": {
     "nameLabel": "Your name",
