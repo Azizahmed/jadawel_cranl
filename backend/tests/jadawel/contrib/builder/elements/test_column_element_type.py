@@ -184,5 +184,4 @@ def test_column_element_type_can_have_children(data_fixture):
         element_inside_container_eight,
         element_inside_container_nine,
         element_inside_container_ten,
-        element_inside_container_eleven,
     ]

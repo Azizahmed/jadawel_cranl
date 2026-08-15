@@ -167,6 +167,17 @@ if CACHALOT_ENABLED:
 
 JADAWEL_ENABLE_CAPTCHA = ""
 
+# Arabic is the product's default locale, and there is no LocaleMiddleware, so
+# every DRF and Django error message is rendered in Arabic. A large number of
+# the inherited tests assert those messages in English and fail on the string
+# rather than on the behaviour they exist to check.
+#
+# Pinning English here keeps those assertions meaningful without weakening them
+# to a status-code check. It does not touch the shipped default: production
+# reads JADAWEL_DEFAULT_LOCALE, and the fork's own tests exercise Arabic through
+# request data rather than through translated framework strings.
+LANGUAGE_CODE = "en"
+
 try:
     from .local_test import *  # noqa: F403, F401
 except ImportError:

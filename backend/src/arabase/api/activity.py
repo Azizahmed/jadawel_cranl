@@ -74,7 +74,7 @@ def _rows_created_per_day(table_ids, since):
     ]
 
     sql = (
-        "SELECT day, SUM(c) FROM ("
+        "SELECT day, SUM(c) FROM ("  # noqa: S608
         + " UNION ALL ".join(parts)
         + ") AS per_table GROUP BY day"
     )

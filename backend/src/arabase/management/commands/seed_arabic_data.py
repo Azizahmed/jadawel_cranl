@@ -168,18 +168,22 @@ def gregorian_to_hijri(g: date):
         + gd
         - 32075
     )
-    l = jd - 1948440 + 10632
-    n = (l - 1) // 10631
-    l = l - 10631 * n + 354
-    j = ((10985 - l) // 5316) * ((50 * l) // 17719) + (l // 5670) * ((43 * l) // 15238)
-    l = (
-        l
+    # `days` is the algorithm's `l`, renamed: a lone `l` is indistinguishable
+    # from `1` in most fonts, which is why Ruff rejects it (E741).
+    days = jd - 1948440 + 10632
+    n = (days - 1) // 10631
+    days = days - 10631 * n + 354
+    j = ((10985 - days) // 5316) * ((50 * days) // 17719) + (days // 5670) * (
+        (43 * days) // 15238
+    )
+    days = (
+        days
         - ((30 - j) // 15) * ((17719 * j) // 50)
         - (j // 16) * ((15238 * j) // 43)
         + 29
     )
-    im = (24 * l) // 709
-    id_ = l - (709 * im) // 24
+    im = (24 * days) // 709
+    id_ = days - (709 * im) // 24
     iy = 30 * n + j - 30
     return iy, im, id_
 
