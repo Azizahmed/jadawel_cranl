@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import subprocess
+import tarfile
 import tempfile
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -20,6 +21,18 @@ logger = logging.getLogger(__name__)
 # with pg_restore, which plain SQL is not.
 DUMP_FORMAT_ARGS = ["--format=custom", "--compress=9"]
 
+DEFAULT_TIMEOUT_SECONDS = 3600
+
+
+def dump_timeout_seconds() -> int:
+    """How long pg_dump may run. Also bounds the Celery task's soft limit."""
+
+    try:
+        seconds = int(os.getenv("JADAWEL_BACKUP_TIMEOUT_SECONDS", ""))
+    except ValueError:
+        seconds = DEFAULT_TIMEOUT_SECONDS
+    return max(seconds, 60)
+
 
 class BackupError(Exception):
     """Raised when a backup cannot be produced or stored."""
@@ -31,6 +44,8 @@ class BackupResult:
     size_bytes: int
     duration_seconds: float
     pruned_keys: list[str]
+    media_key: str | None = None
+    media_size_bytes: int = 0
 
 
 def _pg_dump_path() -> str:
@@ -116,16 +131,26 @@ def _dump_to_file(path: str) -> int:
         # Passed via the environment, never argv, so it stays out of `ps`.
         env["PGPASSWORD"] = db["PASSWORD"]
 
-    with open(path, "wb") as handle:
-        # S603: argv is built from Django's DATABASES setting, not from any
-        # request input, and the password is passed through the environment.
-        process = subprocess.run(  # noqa: S603
-            _dump_argv(db),
-            stdout=handle,
-            stderr=subprocess.PIPE,
-            env=env,
-            timeout=int(os.getenv("JADAWEL_BACKUP_TIMEOUT_SECONDS", "3600")),
-        )
+    try:
+        with open(path, "wb") as handle:
+            # S603: argv is built from Django's DATABASES setting, not from any
+            # request input, and the password is passed through the environment.
+            process = subprocess.run(  # noqa: S603
+                _dump_argv(db),
+                stdout=handle,
+                stderr=subprocess.PIPE,
+                env=env,
+                timeout=dump_timeout_seconds(),
+            )
+    except subprocess.TimeoutExpired as exc:
+        # Everything else in this module reports failure as BackupError, and the
+        # task only catches that. A timeout or an unwritable dump path escaping
+        # as itself is still a failed backup, so it has to arrive the same way.
+        raise BackupError(
+            f"pg_dump did not finish within {dump_timeout_seconds()}s."
+        ) from exc
+    except OSError as exc:
+        raise BackupError(f"Could not write the dump to {path}: {exc}") from exc
 
     if process.returncode != 0:
         stderr = process.stderr.decode("utf-8", errors="replace").strip()
@@ -157,11 +182,46 @@ def _upload(client, config: BackupConfig, path: str, key: str) -> None:
         client.upload_fileobj(handle, config.bucket, key, ExtraArgs=extra)
 
 
+BACKUP_KEY_RE = re.compile(r"jadawel-\d{8}T\d{6}Z\.(dump|media\.tar\.gz)$")
+"""Matches the keys `run_backup` writes. Retention deletes only what matches."""
+
+
+def _archive_media(path: str) -> int:
+    """Tar and gzip MEDIA_ROOT into ``path``, returning the size written.
+
+    The database alone is not a restore point. Every file cell, every uploaded
+    image and every export in the database refers to a file on disk, so a
+    database restored without them comes back with broken references
+    everywhere. When user files already live in object storage (`AWS_*` is
+    configured) this is skipped — they are covered by that bucket's own
+    lifecycle instead.
+    """
+
+    media_root = getattr(settings, "MEDIA_ROOT", "") or ""
+    if not media_root or not os.path.isdir(media_root):
+        raise BackupError(
+            f"MEDIA_ROOT ({media_root!r}) is not a directory, so user files "
+            "cannot be archived. Set JADAWEL_BACKUP_INCLUDE_MEDIA=false if the "
+            "files live in object storage."
+        )
+
+    with tarfile.open(path, "w:gz") as archive:
+        archive.add(media_root, arcname="media")
+
+    return os.path.getsize(path)
+
+
 def _prune(client, config: BackupConfig, now: datetime) -> list[str]:
     """Delete backups older than the retention window.
 
     Age comes from the object's own LastModified rather than its name, so a
-    hand-uploaded or renamed object is still aged out correctly.
+    backup re-uploaded by hand is still aged out on its real age.
+
+    The *name* still decides what is eligible at all. Listing by prefix and
+    deleting whatever is old enough makes this job destructive to anything that
+    happens to share the bucket — a misconfigured prefix, or a colleague using
+    the same bucket for something else, and the nightly backup becomes a
+    nightly delete. Retention should only ever remove objects this code wrote.
     """
 
     cutoff = now - timedelta(days=config.retention_days)
@@ -169,9 +229,15 @@ def _prune(client, config: BackupConfig, now: datetime) -> list[str]:
     paginator = client.get_paginator("list_objects_v2")
     for page in paginator.paginate(Bucket=config.bucket, Prefix=config.prefix):
         for obj in page.get("Contents", []):
-            if obj["LastModified"] < cutoff:
-                client.delete_object(Bucket=config.bucket, Key=obj["Key"])
-                pruned.append(obj["Key"])
+            if obj["LastModified"] >= cutoff:
+                continue
+            if not BACKUP_KEY_RE.search(obj["Key"]):
+                logger.debug(
+                    "Leaving %s alone: not a backup this job produced.", obj["Key"]
+                )
+                continue
+            client.delete_object(Bucket=config.bucket, Key=obj["Key"])
+            pruned.append(obj["Key"])
     return pruned
 
 
@@ -189,27 +255,52 @@ def run_backup(config: BackupConfig | None = None) -> BackupResult:
     key = f"{config.prefix}jadawel-{now:%Y%m%dT%H%M%SZ}.dump"
     started = now
 
+    media_key = None
+    media_size = 0
+    media_path = None
+
     handle, path = tempfile.mkstemp(prefix="jadawel-backup-", suffix=".dump")
     os.close(handle)
     try:
         size = _dump_to_file(path)
         client = _client(config)
         _upload(client, config, path, key)
+
+        # Uploaded in the same run and stamped with the same timestamp, so the
+        # database and the files it references share a restore point.
+        if config.include_media:
+            media_key = f"{config.prefix}jadawel-{now:%Y%m%dT%H%M%SZ}.media.tar.gz"
+            handle, media_path = tempfile.mkstemp(
+                prefix="jadawel-media-", suffix=".tar.gz"
+            )
+            os.close(handle)
+            media_size = _archive_media(media_path)
+            _upload(client, config, media_path, media_key)
+
         pruned = _prune(client, config, now)
     finally:
-        try:
-            os.remove(path)
-        except OSError:
-            logger.warning("Could not remove the temporary dump at %s.", path)
+        for temporary in (path, media_path):
+            if temporary is None:
+                continue
+            try:
+                os.remove(temporary)
+            except OSError:
+                logger.warning("Could not remove the temporary file at %s.", temporary)
 
     duration = (datetime.now(timezone.utc) - started).total_seconds()
     logger.info(
-        "Database backup uploaded to %s (%s bytes) in %.1fs; pruned %s expired.",
+        "Database backup uploaded to %s (%s bytes)%s in %.1fs; pruned %s expired.",
         key,
         size,
+        f" with user files at {media_key} ({media_size} bytes)" if media_key else "",
         duration,
         len(pruned),
     )
     return BackupResult(
-        key=key, size_bytes=size, duration_seconds=duration, pruned_keys=pruned
+        key=key,
+        size_bytes=size,
+        duration_seconds=duration,
+        pruned_keys=pruned,
+        media_key=media_key,
+        media_size_bytes=media_size,
     )

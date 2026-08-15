@@ -50,6 +50,11 @@ class BackupConfig:
     # Server-side encryption header. Empty disables it; not every
     # S3-compatible provider implements SSE, so it must be opt-in.
     sse: str | None
+    # Whether user-uploaded files are archived alongside the database dump.
+    # The database is not a restore point on its own: every file cell and
+    # export in it names a file that has to come back with it. Defaults on
+    # unless the files already live in object storage.
+    include_media: bool
 
     @classmethod
     def from_env(cls) -> "BackupConfig":
@@ -69,6 +74,12 @@ class BackupConfig:
             ),
             crontab=os.getenv("JADAWEL_BACKUP_CRONTAB", DEFAULT_CRONTAB),
             sse=os.getenv("JADAWEL_BACKUP_S3_SSE") or None,
+            # Files already in object storage are covered by that bucket's own
+            # lifecycle, so archiving them again would only duplicate them.
+            include_media=_env_flag(
+                "JADAWEL_BACKUP_INCLUDE_MEDIA",
+                default=not os.getenv("AWS_STORAGE_BUCKET_NAME", ""),
+            ),
         )
 
     def validation_errors(self) -> list[str]:
@@ -83,6 +94,15 @@ class BackupConfig:
             errors.append("JADAWEL_BACKUP_S3_SECRET_ACCESS_KEY is not set.")
         if self.retention_days < 1:
             errors.append("JADAWEL_BACKUP_RETENTION_DAYS must be at least 1.")
+        if not self.prefix:
+            # Retention lists and deletes under this prefix. Empty means "the
+            # whole bucket", which turns the nightly job into a delete of every
+            # object older than the window — including ones it never wrote.
+            errors.append(
+                "JADAWEL_BACKUP_S3_PREFIX must not be empty: retention deletes "
+                "expired objects under the prefix, and an empty prefix is the "
+                "entire bucket."
+            )
         media_bucket = os.getenv("AWS_STORAGE_BUCKET_NAME", "")
         if media_bucket and media_bucket == self.bucket and not self.prefix:
             errors.append(

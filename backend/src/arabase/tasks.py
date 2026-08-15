@@ -7,11 +7,17 @@ so this module needs no registration in ``ArabaseConfig.ready()``.
 import logging
 
 from arabase.backup.config import BackupConfig
-from arabase.backup.runner import BackupError, run_backup
+from arabase.backup.runner import BackupError, dump_timeout_seconds, run_backup
 from jadawel.config.celery import app
 from jadawel.config.settings.utils import get_crontab_from_env
 
 logger = logging.getLogger(__name__)
+
+# Derived from the dump timeout rather than fixed, so that raising
+# JADAWEL_BACKUP_TIMEOUT_SECONDS for a large database actually takes effect
+# instead of being cut short by a hard-coded limit an operator cannot see.
+# The margin covers the upload and the prune that follow the dump.
+_SOFT_TIME_LIMIT = dump_timeout_seconds() + 600
 
 
 @app.task(
@@ -20,8 +26,8 @@ logger = logging.getLogger(__name__)
     # The deployment runs one worker at concurrency 1, so a dump occupies the
     # only slot for its duration. The soft limit lets a stuck pg_dump be
     # interrupted rather than blocking exports and imports indefinitely.
-    soft_time_limit=3600,
-    time_limit=3900,
+    soft_time_limit=_SOFT_TIME_LIMIT,
+    time_limit=_SOFT_TIME_LIMIT + 300,
 )
 def backup_database():
     config = BackupConfig.from_env()
