@@ -1,5 +1,11 @@
-// The Backup admin section. Uses logical properties throughout — `csstools/use-logical` is a hard error under
-// this module, and the section has to read correctly in both directions.
+// The Backup admin section. Uses logical properties throughout —
+// `csstools/use-logical` is a hard error under this module, and the section has
+// to read correctly in both directions.
+// A standalone stylesheet registered by modules/arabase/module.js, so it has to
+// import the palette itself: nothing is in scope for a file that is not part of
+// core's aggregated default.scss. Stylelint does not resolve variables, so a
+// missing import here fails only at build time.
+@import '@jadawel/modules/core/assets/scss/colors';
 
 .admin-backup {
   padding-block: 30px;

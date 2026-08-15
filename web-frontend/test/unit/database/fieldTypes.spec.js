@@ -351,14 +351,10 @@ const mockedFields = {
     type: 'password',
     testingRowData: [null, true, 'test'],
   },
-  ai: {
-    id: 26,
-    name: 'ai',
-    order: 26,
-    primary: false,
-    table_id: 42,
-    ai_output_type: 'text',
-  },
+  // No `ai` entry: the AI field type ships with baserow_premium, which this
+  // fork deletes for licence reasons, so it is not in the field registry. The
+  // suite asserts the mocks and the registry match exactly, so leaving it here
+  // failed every test in this file.
 }
 
 const valuesToCall = [null, undefined]
