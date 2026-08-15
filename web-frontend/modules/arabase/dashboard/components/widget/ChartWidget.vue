@@ -194,9 +194,16 @@ export default {
       if (this.groups.length === 0) {
         return this.series.map((s) => this.seriesLabel(s))
       }
-      return this.groups.map(
-        (group) => group?.value || this.$t('chartWidget.emptyGroup')
-      )
+      // `||` treated every falsy bucket value as empty, so grouping by a number
+      // field labelled each `0` bucket "Empty" and grouping by a boolean did the
+      // same to `false`. Only null, undefined and the empty string are absent.
+      return this.groups.map((group) => {
+        const value = group?.value
+        if (value === null || value === undefined || value === '') {
+          return this.$t('chartWidget.emptyGroup')
+        }
+        return String(value)
+      })
     },
     /**
      * Colours the buckets take when the chart draws one slice per bucket. A

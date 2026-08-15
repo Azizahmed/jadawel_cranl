@@ -91,3 +91,43 @@ describe('findGridDropIndex', () => {
     expect(findGridDropIndex(rtlRects, 130, 80, true)).toBe(2)
   })
 })
+
+describe('findGridDropIndex with dense grid flow', () => {
+  test('follows visual order, not DOM order', () => {
+    // `grid-auto-flow: dense` backfills gaps, so a narrow widget later in the
+    // DOM can render before a wider one that precedes it. Here W3 (index 2)
+    // occupies the first row's trailing slot while W2 (index 1) is pushed to
+    // the second row — the layout the old DOM-order scan got wrong.
+    const rects = [
+      { left: 0, top: 0, width: 200, height: 100 }, // W1, row 1 left
+      { left: 0, top: 100, width: 200, height: 100 }, // W2, row 2 left
+      { left: 200, top: 0, width: 100, height: 100 }, // W3, row 1 right
+    ]
+
+    // Cursor in the first row, left of W3's midline: the drop belongs before
+    // W3, whose DOM index is 2.
+    expect(findGridDropIndex(rects, 220, 50)).toBe(2)
+  })
+
+  test('still handles a plain monotonic layout', () => {
+    const rects = [
+      { left: 0, top: 0, width: 100, height: 100 },
+      { left: 100, top: 0, width: 100, height: 100 },
+    ]
+
+    expect(findGridDropIndex(rects, 10, 50)).toBe(0)
+    expect(findGridDropIndex(rects, 110, 50)).toBe(1)
+    expect(findGridDropIndex(rects, 190, 50)).toBe(2)
+  })
+
+  test('mirrors the inline axis in RTL', () => {
+    const rects = [
+      { left: 200, top: 0, width: 100, height: 100 }, // first in reading order
+      { left: 100, top: 0, width: 100, height: 100 },
+    ]
+
+    // In RTL the row is read right to left, so a cursor at the far right is
+    // before the first item.
+    expect(findGridDropIndex(rects, 290, 50, true)).toBe(0)
+  })
+})

@@ -21,8 +21,22 @@ import { calculateTempOrder } from '@jadawel/modules/core/utils/order'
  * @returns The index to insert before, or `rects.length` for the end.
  */
 export function findGridDropIndex(rects, clientX, clientY, rtl = false) {
-  for (let index = 0; index < rects.length; index++) {
-    const rect = rects[index]
+  // The board is laid out with `grid-auto-flow: dense`, which backfills gaps —
+  // so a narrow widget later in the DOM can render *before* a wider one that
+  // precedes it. Scanning in DOM order then compares the cursor against boxes
+  // that are not in the order the reader sees, and the computed index lands one
+  // slot out. Walking in visual order and reporting the DOM index of whatever
+  // is found keeps both halves honest.
+  const ordered = rects
+    .map((rect, index) => ({ rect, index }))
+    .sort((a, b) => {
+      if (a.rect.top !== b.rect.top) {
+        return a.rect.top - b.rect.top
+      }
+      return rtl ? b.rect.left - a.rect.left : a.rect.left - b.rect.left
+    })
+
+  for (const { rect, index } of ordered) {
     const midX = rect.left + rect.width / 2
     const bottom = rect.top + rect.height
     const inRowBand = clientY >= rect.top && clientY < bottom

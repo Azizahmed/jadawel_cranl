@@ -71,9 +71,9 @@ describe('dashboardApplication store (grid layout)', () => {
     seedWidget()
     mock.onPatch('/dashboard/widgets/1/').reply(200, { id: 1 })
 
-    // The first (cancelled) dispatch never settles; the second carries both
-    // changes.
-    store.dispatch('dashboardApplication/updateWidget', {
+    // The first dispatch is superseded; it settles with the merged call's
+    // outcome rather than hanging.
+    const drag = store.dispatch('dashboardApplication/updateWidget', {
       widgetId: 1,
       values: { order: '2.5' },
       originalValues: { order: '1' },
@@ -85,7 +85,7 @@ describe('dashboardApplication store (grid layout)', () => {
     })
 
     await vi.advanceTimersByTimeAsync(1000)
-    await resize
+    await Promise.all([drag, resize])
 
     expect(mock.history.patch).toHaveLength(1)
     expect(JSON.parse(mock.history.patch[0].data)).toEqual({
@@ -205,6 +205,69 @@ describe('dashboardApplication store (grid layout)', () => {
     expect(
       store.getters['dashboardApplication/getDataForDataSource'](1)
     ).toEqual({ result: { rows: [] } })
+  })
+
+  test('a superseded update settles instead of hanging', async () => {
+    // `cancel()` discards the closure holding the earlier call's resolve and
+    // reject. Callers await this action — the size picker closes on it — so a
+    // promise that never settles leaves the picker open for ever.
+    seedWidget()
+    mock.onPatch('/dashboard/widgets/1/').reply(200, { id: 1, width: 1 })
+
+    const superseded = store.dispatch('dashboardApplication/updateWidget', {
+      widgetId: 1,
+      values: { width: 2 },
+      originalValues: { width: 3 },
+    })
+    let settled = false
+    superseded.then(() => {
+      settled = true
+    })
+
+    store.dispatch('dashboardApplication/updateWidget', {
+      widgetId: 1,
+      values: { width: 1 },
+      originalValues: { width: 3 },
+    })
+
+    await vi.advanceTimersByTimeAsync(1000)
+    await superseded
+    await flushPromises()
+
+    expect(settled).toBe(true)
+  })
+
+  test('a rejected update is not replayed into the next one', async () => {
+    // The pending-update pointer was cleared only on success, so after a
+    // failure it still referenced the rejected values — and the next change to
+    // the same widget merged them straight back into its PATCH.
+    seedWidget()
+    mock.onPatch('/dashboard/widgets/1/').replyOnce(500)
+    mock.onPatch('/dashboard/widgets/1/').reply(200, { id: 1, height: 4 })
+
+    const failing = store.dispatch('dashboardApplication/updateWidget', {
+      widgetId: 1,
+      values: { width: 1 },
+      originalValues: { width: 3 },
+    })
+    failing.catch(() => {})
+
+    await vi.advanceTimersByTimeAsync(1000)
+    await flushPromises()
+
+    // Rolled back locally.
+    expect(getWidget(1).width).toBe(3)
+
+    const second = store.dispatch('dashboardApplication/updateWidget', {
+      widgetId: 1,
+      values: { height: 4 },
+      originalValues: { height: 2 },
+    })
+
+    await vi.advanceTimersByTimeAsync(1000)
+    await second
+
+    expect(JSON.parse(mock.history.patch[1].data)).toEqual({ height: 4 })
   })
 })
 

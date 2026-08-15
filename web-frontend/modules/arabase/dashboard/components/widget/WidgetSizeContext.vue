@@ -88,6 +88,14 @@ export default {
       )
     },
     async selectSize({ width, height }) {
+      // Closed before the request, not after it. The store debounces the PATCH
+      // by a second, so awaiting it first held the picker open for at least
+      // that long on every click. The store already rolls the widget back if
+      // the request fails, so there is nothing for the open picker to do in the
+      // meantime.
+      this.hide()
+      this.$emit('selected')
+
       try {
         await this.$store.dispatch('dashboardApplication/updateWidget', {
           widgetId: this.widget.id,
@@ -100,8 +108,6 @@ export default {
       } catch (error) {
         notifyIf(error, 'dashboard')
       }
-      this.hide()
-      this.$emit('selected')
     },
   },
 }

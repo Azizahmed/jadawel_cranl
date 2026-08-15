@@ -105,6 +105,12 @@ export const actions = {
 
       let previousOriginalValues = originalValues
       let mergedValues = values
+      // Callers await this action — the size picker closes on it — so a
+      // superseded call has to settle with the outcome of the one that
+      // replaced it. `cancel()` discards the closure holding its resolve and
+      // reject, which left that promise pending for ever and the picker open.
+      let settlers = [{ resolve, reject }]
+
       if (debouncedWidgetUpdate) {
         if (debouncedWidgetUpdate.widgetId === widgetId) {
           // Jadawel fork (grid board): a drag (`order`) followed within the
@@ -114,6 +120,7 @@ export const actions = {
           debouncedWidgetUpdate.cancel()
           previousOriginalValues = debouncedWidgetUpdate.originalValues
           mergedValues = { ...debouncedWidgetUpdate.values, ...values }
+          settlers = [...debouncedWidgetUpdate.settlers, ...settlers]
         } else {
           // Another widget's update is still pending; flush it now so that
           // change is not lost.
@@ -127,24 +134,29 @@ export const actions = {
             widgetId,
             mergedValues
           )
-          if (debouncedWidgetUpdate === debounced) {
-            debouncedWidgetUpdate = null
-          }
           // Refresh the local values from the response — e.g. the exact
           // `order` the backend computed after a drag.
           commit('UPDATE_WIDGET', { widgetId, values: data })
-          resolve()
+          settlers.forEach((settler) => settler.resolve())
         } catch (error) {
           commit('UPDATE_WIDGET', {
             widgetId,
             values: previousOriginalValues,
           })
-          reject(error)
+          settlers.forEach((settler) => settler.reject(error))
+        } finally {
+          // Cleared however the request ended. Left pointing at a failed
+          // update, the next change to the same widget merges the values the
+          // server just rejected straight back into its PATCH.
+          if (debouncedWidgetUpdate === debounced) {
+            debouncedWidgetUpdate = null
+          }
         }
       }, 1000)
       debounced.originalValues = previousOriginalValues
       debounced.values = mergedValues
       debounced.widgetId = widgetId
+      debounced.settlers = settlers
       debouncedWidgetUpdate = debounced
       debounced()
     })
