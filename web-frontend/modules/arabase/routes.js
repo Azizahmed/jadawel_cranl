@@ -18,4 +18,11 @@ export const routes = [
     path: '/public/dashboard/:slug/auth',
     file: path.resolve(__dirname, 'pages/publicDashboardLogin.vue'),
   },
+  {
+    // The password prompt is core's `database-public-view-auth`, reused as-is:
+    // it is generic over the slug, so a page view needs no login page of its own.
+    name: 'arabase-public-page-view',
+    path: '/public/page/:slug',
+    file: path.resolve(__dirname, 'pages/publicPageView.vue'),
+  },
 ]

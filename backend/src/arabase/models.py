@@ -20,6 +20,11 @@ from arabase.integrations.local_jadawel.models import (
     LocalJadawelTableServiceAggregationSortBy,
     LocalJadawelUpcomingRows,
 )
+from arabase.views.models import (
+    HtmlPageView,
+    HtmlPageViewFieldOptions,
+    HtmlPageViewRevision,
+)
 
 __all__ = [
     "BackupRun",
@@ -34,4 +39,7 @@ __all__ = [
     "LocalJadawelTableServiceAggregationSeries",
     "LocalJadawelTableServiceAggregationSortBy",
     "LocalJadawelUpcomingRows",
+    "HtmlPageView",
+    "HtmlPageViewFieldOptions",
+    "HtmlPageViewRevision",
 ]

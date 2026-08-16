@@ -33,6 +33,7 @@ variable and the two should always be set together.
 | `JADAWEL_CONTACT_FORM_RATE` | DRF rate for the public contact endpoint, e.g. `5/hour`. An unparseable value is ignored with a warning rather than failing every request. | `5/hour` |
 | `JADAWEL_DASHBOARD_AUTH_RATE` | DRF rate for guessing a public dashboard's share password, keyed per link and caller. | `10/hour` |
 | `JADAWEL_DASHBOARD_SHARE_TOKEN_HOURS` | How long the token issued after entering a share password stays valid. | `168` |
+| `JADAWEL_PAGE_VIEW_EXTERNAL_HOSTS` | Comma-separated CDN origins a Page view may load scripts, styles and fonts from, and only when that view has `allow_external_resources` turned on. Never widens `connect-src`, so a page still cannot send its rows anywhere. See `docs/PAGE_VIEW.md`. | jsDelivr, unpkg, cdnjs, Google Fonts |
 
 ## Database backups
 

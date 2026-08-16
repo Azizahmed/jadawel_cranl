@@ -44,6 +44,7 @@ term exists).
 | Kanban | كانبان |
 | Calendar | تقويم |
 | Timeline | خط زمني |
+| Page | صفحة |
 
 ## Common field types
 

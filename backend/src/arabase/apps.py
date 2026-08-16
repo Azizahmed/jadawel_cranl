@@ -52,3 +52,29 @@ class ArabaseConfig(AppConfig):
         widget_type_registry.register(RecordsListWidgetType())
         widget_type_registry.register(ProgressWidgetType())
         widget_type_registry.register(UpcomingDatesWidgetType())
+
+        from arabase.views.view_types import HtmlPageViewType
+        from jadawel.contrib.database.views.registries import view_type_registry
+
+        # Registering is all it takes to mount /api/database/views/html-page/:
+        # core builds that urlconf from `view_type_registry.api_urls`.
+        view_type_registry.register(HtmlPageViewType())
+
+        from arabase.mcp.page.tools import (
+            CreatePageViewMcpTool,
+            GetPageViewMcpTool,
+            ListPageViewRevisionsMcpTool,
+            ListPageViewsMcpTool,
+            RestorePageViewRevisionMcpTool,
+            UpdatePageViewMcpTool,
+        )
+        from jadawel.core.mcp.registries import mcp_tool_registry
+
+        # How a page is authored: an AI client drives these instead of Jadawel
+        # calling a model itself, so no provider credentials live in the app.
+        mcp_tool_registry.register(ListPageViewsMcpTool())
+        mcp_tool_registry.register(GetPageViewMcpTool())
+        mcp_tool_registry.register(CreatePageViewMcpTool())
+        mcp_tool_registry.register(UpdatePageViewMcpTool())
+        mcp_tool_registry.register(ListPageViewRevisionsMcpTool())
+        mcp_tool_registry.register(RestorePageViewRevisionMcpTool())

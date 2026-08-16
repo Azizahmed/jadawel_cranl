@@ -11,6 +11,8 @@ import {
 import { BackupAdminType } from '@jadawel/modules/arabase/adminTypes'
 import { ArabasePlugin } from '@jadawel/modules/arabase/plugins'
 import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/store/publicDashboardApplication'
+import { HtmlPageViewType } from '@jadawel/modules/arabase/views/viewTypes'
+import htmlPageViewStore from '@jadawel/modules/arabase/views/store/htmlPageView'
 
 /**
  * Registry registrations for the fork's own types.
@@ -22,10 +24,21 @@ import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/
  */
 export default defineNuxtPlugin({
   name: 'arabase-registry',
-  dependsOn: ['core', 'store', 'dashboard'],
+  dependsOn: ['core', 'store', 'dashboard', 'database'],
   setup(nuxtApp) {
     const { $registry, $store } = nuxtApp
     const context = { app: nuxtApp }
+
+    // The page view's row feed, under both prefixes core uses: the plain one
+    // for the app, and `page/` for the public share page.
+    if (!$store.hasModule('view/html_page')) {
+      $store.registerModuleNuxtSafe('view/html_page', htmlPageViewStore)
+    }
+    if (!$store.hasModule('page/view/html_page')) {
+      $store.registerModuleNuxtSafe('page/view/html_page', htmlPageViewStore)
+    }
+
+    $registry.register('view', new HtmlPageViewType(context))
 
     // Read-only twin of `dashboardApplication`, under the `public/` prefix the
     // public dashboard page passes to `DashboardContent` as its store prefix.
