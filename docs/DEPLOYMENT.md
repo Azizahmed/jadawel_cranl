@@ -1,18 +1,26 @@
-# Deploying Jadawel with Coolify
+# Deploying Jadawel with Coolify — RETIRED
 
-> Deploying to **CranL** instead? None of this applies — it has no Docker
-> Compose build pack and cannot build this repo at all. See
-> [DEPLOY_CRANL.md](DEPLOY_CRANL.md).
+> **This deployment no longer exists.** `jadawel.azoz.cloud` has been switched
+> off and will not be used again. Nothing in this document describes anything
+> currently running.
+>
+> **The live deployment is CranL** — see [DEPLOY_CRANL.md](DEPLOY_CRANL.md).
+> None of the setup below applies there: CranL has no Docker Compose build pack,
+> terminates TLS itself, and runs a prebuilt image rather than building the repo.
+>
+> Kept as reference, not instruction. The Traefik/Compose wiring described here
+> is the starting point if the fork is ever self-hosted on Coolify again, and the
+> `codex/hostinger-coolify-deploy` branch it refers to is now stale and unwatched.
 
-Jadawel is deployed through **Coolify**. Traefik (managed by Coolify) terminates
-TLS and routes to the app's Caddy container; Caddy handles internal routing to
-the backend, web-frontend and media files.
+Jadawel *was* deployed through **Coolify**. Traefik (managed by Coolify)
+terminated TLS and routed to the app's Caddy container; Caddy handled internal
+routing to the backend, web-frontend and media files.
 
-Do **not** run `docker compose up` by hand on the server. `docker-compose.yml`
+Do **not** run `docker compose up` by hand on a server. `docker-compose.yml`
 joins an external Docker network named `coolify`, which only exists once Coolify
 has created it — a manual bring-up fails immediately.
 
-Production domain: **jadawel.azoz.cloud**
+Former production domain: **jadawel.azoz.cloud** (offline)
 
 ## How the routing fits together
 

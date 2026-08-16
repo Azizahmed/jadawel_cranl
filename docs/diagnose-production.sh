@@ -2,7 +2,13 @@
 #
 # Read-only production diagnostics for Jadawel.
 #
-# Run on the VPS that hosts the Coolify deployment:
+# RETIRED. Written for the Coolify VPS at jadawel.azoz.cloud, which is switched
+# off and will not be used again. CranL gives no shell on the host, so this
+# script has nowhere to run there; use the CranL dashboard logs, or
+# `docker exec` against the container locally. Kept for the checks themselves,
+# which are still the right things to look at.
+#
+# Was run on the VPS that hosted the Coolify deployment:
 #
 #   bash docs/diagnose-production.sh > jadawel-diagnostics.txt 2>&1
 #

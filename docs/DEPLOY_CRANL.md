@@ -2,18 +2,21 @@
 
 ## Which repository is this?
 
-`Azizahmed/jadawel_cranl` — a deployment copy, branched from
+`Azizahmed/jadawel_cranl` — a deployment copy, originally branched from
 `Azizahmed/Jadawel` at `codex/hostinger-coolify-deploy` and carrying the root
-`Dockerfile` and `publish-image.yml` on top of it. It exists so that CranL work
-cannot disturb the running Coolify deployment, which continues to be served from
-the original repository.
+`Dockerfile` and `publish-image.yml` on top of it.
 
-Code changes belong in `Azizahmed/Jadawel`. To bring them here, merge that
-branch into this repository's `main` and publish a new image. Committing feature
-work directly here diverges the two trees with no path back.
+**This is now the only deployment.** The Coolify instance it was once kept
+separate from, `jadawel.azoz.cloud`, has been switched off and will not be used
+again; `codex/hostinger-coolify-deploy` is stale and nothing watches it.
 
-CranL is not Coolify, and none of [DEPLOYMENT.md](DEPLOYMENT.md) applies here.
-The differences that shape everything below:
+Code changes belong in `Azizahmed/Jadawel`. To bring them here, fast-forward this
+repository's `main` from the `origin` branch being released, then publish a new
+image. Committing feature work directly here diverges the two trees with no path
+back.
+
+[DEPLOYMENT.md](DEPLOYMENT.md) describes the retired Coolify setup and applies to
+nothing that runs. The differences that shape everything below:
 
 - **No Docker Compose build pack.** The new-app wizard offers Railpack
   (auto-detect) and Dockerfile, nothing else. `docker-compose.yml` is unusable.

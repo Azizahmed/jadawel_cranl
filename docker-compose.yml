@@ -311,6 +311,13 @@ services:
       - media:/jadawel/media
       - caddy_config:/config
       - caddy_data:/data
+    # RETIRED. These Traefik labels configured the Coolify deployment at
+    # jadawel.azoz.cloud, which has been switched off and will not be used
+    # again. Nothing reads them today: CranL terminates TLS itself and routes
+    # straight to the container, so it needs no proxy labels at all — see
+    # docs/DEPLOY_CRANL.md. Left in place because they are the reference for the
+    # rate limiting and TLS wiring if the fork is ever self-hosted again; the
+    # hostnames below are the old domain and would need changing first.
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=coolify"
@@ -546,6 +553,8 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     mem_limit: ${JADAWEL_REDIS_MEM_LIMIT:-256m}
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?}
     # Append-only persistence so the RedBeat schedule and the throttle counters
     # survive a container recreation. Without a volume the scheduled backup
     # silently loses its next run time on every deploy.

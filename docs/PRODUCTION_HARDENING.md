@@ -1,8 +1,16 @@
 # Production hardening — findings and what is left to do
 
-Audit of `https://jadawel.azoz.cloud` performed 2026-07-29 against the live
-deployment. Everything below was measured against production, not inferred from
+Audit of `https://jadawel.azoz.cloud` performed 2026-07-29 against what was then
+the live deployment. Everything below was measured against it, not inferred from
 the source.
+
+> **That host is gone.** `jadawel.azoz.cloud` has been switched off and will not
+> be used again; the live deployment is CranL, serving `jadawl.site`
+> ([DEPLOY_CRANL.md](DEPLOY_CRANL.md)). The findings still matter — they were
+> fixes to *this codebase*, and they ship wherever it is deployed — but any
+> "still to do" item that depends on the Coolify dashboard or its environment
+> now has to be re-checked against CranL instead, where the environment is set
+> per the table in DEPLOY_CRANL.md §4.
 
 Findings split into three groups: **fixed in this repo** (deploy to apply),
 **you must change in the admin panel or Coolify** (I cannot reach either), and

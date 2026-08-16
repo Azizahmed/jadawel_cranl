@@ -5,10 +5,16 @@ name: Jadawel CI
 # their secrets), this workflow builds and tests entirely within the job and needs
 # no secrets, so it runs green on any fork.
 
-# Runs on pull requests and on pushes to the two branches that matter: `main`,
-# and the production branch Coolify auto-deploys from. Manual-only was the
-# previous setting, which meant nothing was gated at all — a push to the deploy
-# branch went straight to production without a single test having run.
+# Runs on pull requests and on pushes to `main` and
+# `codex/hostinger-coolify-deploy`. Manual-only was the previous setting, which
+# meant nothing was gated at all.
+#
+# Note that `codex/hostinger-coolify-deploy` no longer auto-deploys anything:
+# the Coolify instance it fed, jadawel.azoz.cloud, is switched off. It is still
+# gated here because it costs nothing, but it is no longer the branch a release
+# comes from — CranL releases from whichever branch is fast-forwarded onto
+# `cranl/main`, so add that branch here when it changes. See
+# docs/DEPLOY_CRANL.md.
 #
 # `paths-ignore` keeps documentation-only commits from spending Actions minutes,
 # which was the original reason for holding this back.

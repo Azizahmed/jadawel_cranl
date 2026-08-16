@@ -13,22 +13,34 @@ with no path back:
 
 - `origin` (`Azizahmed/Jadawel`) — the real dev repo. All feature commits belong
   here.
-- `cranl` (`Azizahmed/jadawel_cranl`) — a deploy-only mirror carrying an extra
-  root `Dockerfile` and publish workflow. Never commit feature work directly to
-  it; bring changes over by merging `origin`'s `codex/hostinger-coolify-deploy`
-  into its `main` and publishing a new image.
-
-Production branch is `codex/hostinger-coolify-deploy`.
+- `cranl` (`Azizahmed/jadawel_cranl`) — the deploy mirror, carrying an extra root
+  `Dockerfile` and publish workflow. Never commit feature work directly to it;
+  fast-forward its `main` from the `origin` branch being released, then publish
+  an image.
 
 ## Deploying
 
-Two separate, non-interchangeable deploy targets:
+**CranL is the only deploy target.** It serves `jadawl.site` from a prebuilt
+image: the monorepo cannot be built there (no Compose pack, Railpack finds no
+manifest, 4 GB RAM ceiling), so GitHub Actions builds it and CranL only pulls
+the result. Procedure in `docs/DEPLOY_CRANL.md`.
 
-- **Coolify** (production, `jadawel.azoz.cloud`) — auto-deploys on push to
-  `codex/hostinger-coolify-deploy`. See `docs/DEPLOYMENT.md`.
-- **CranL** — can't build this monorepo directly (no Compose pack, Railpack
-  finds no manifest, 4 GB RAM ceiling); GitHub Actions builds the image and
-  CranL only pulls it. See `docs/DEPLOY_CRANL.md`.
+Pushing code deploys nothing. The root `Dockerfile` pins an image by digest, so
+shipping is: push → run *Publish all-in-one image* → bump `ARG JADAWEL_IMAGE` →
+redeploy.
+
+### Coolify is decommissioned
+
+`jadawel.azoz.cloud` is switched off and is not coming back. Treat every
+mention of it as history:
+
+- `docs/DEPLOYMENT.md` describes that setup and no longer applies to anything
+  running. Kept because the Traefik/compose detail is the reference if the fork
+  is ever self-hosted again.
+- `codex/hostinger-coolify-deploy` is no longer the production branch and is far
+  behind. Do not merge into it expecting a release — nothing watches it now.
+- `docker-compose.yml`'s Coolify/Traefik wiring is unused by CranL, which
+  terminates TLS itself and routes straight to the container.
 
 ## Fork-specific docs
 

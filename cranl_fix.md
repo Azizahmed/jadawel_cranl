@@ -18,7 +18,7 @@ app, while the Nuxt production build peaks above that. So the build happens on a
 GitHub runner and CranL only pulls the result:
 
 ```
-Azizahmed/Jadawel  (source of truth, Coolify prod at jadawel.azoz.cloud)
+Azizahmed/Jadawel  (source of truth — dev repo)
    │  copied to
    ▼
 Azizahmed/jadawel_cranl @ main   ← deployment repo, this one
