@@ -51,6 +51,7 @@ See `docs/BACKUP_RESTORE.md` for the full procedure.
 | `JADAWEL_BACKUP_S3_ACCESS_KEY_ID` | Required. Keep separate from the `AWS_*` user-file credentials — the media bucket is public-read. | — |
 | `JADAWEL_BACKUP_S3_SECRET_ACCESS_KEY` | Required. | — |
 | `JADAWEL_BACKUP_S3_SSE` | Server-side encryption header, e.g. `AES256`. Empty disables it. | off |
+| `JADAWEL_BACKUP_S3_ACL` | Canned ACL sent with each upload. Leave empty: R2 has no object ACLs, and an AWS bucket created since April 2023 rejects the header. An object is private without it. | off |
 | `JADAWEL_BACKUP_RETENTION_DAYS` | Age after which a backup is deleted. Only objects named `jadawel-<timestamp>.dump` are ever removed. | `14` |
 | `JADAWEL_BACKUP_CRONTAB` | Schedule. Default is 23:00 UTC = 02:00 Riyadh. | `0 23 * * *` |
 | `JADAWEL_BACKUP_TIMEOUT_SECONDS` | pg_dump timeout. The Celery soft limit is derived from this. | `3600` |

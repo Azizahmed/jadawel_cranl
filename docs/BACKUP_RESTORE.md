@@ -88,8 +88,43 @@ Set these on the app in the CranL dashboard, then reload it.
 | `JADAWEL_BACKUP_RETENTION_DAYS` | no | `14` | Age is taken from the object's `LastModified`. |
 | `JADAWEL_BACKUP_CRONTAB` | no | `0 23 * * *` | Fallback only. The frequency is set in **Admin → Backup** and stored in the database; this applies when that row cannot be read. |
 | `JADAWEL_BACKUP_S3_SSE` | no | — | e.g. `AES256`. Not every provider implements it. |
+| `JADAWEL_BACKUP_S3_ACL` | no | — | Leave empty. See [Object ACLs](#object-acls). |
 | `JADAWEL_BACKUP_TIMEOUT_SECONDS` | no | `3600` | `pg_dump` is killed past this. The Celery soft limit is derived from it. |
 | `JADAWEL_BACKUP_INCLUDE_MEDIA` | no | on, unless `AWS_STORAGE_BUCKET_NAME` is set | Archives user-uploaded files alongside the dump. Turn it off only when the files already live in object storage. |
+
+### Object ACLs
+
+Uploads send **no ACL header** unless `JADAWEL_BACKUP_S3_ACL` is set, and it
+should stay unset. Both likely targets refuse the header:
+
+- Cloudflare R2 does not implement object ACLs at all.
+- An AWS bucket created since April 2023 defaults to Object Ownership *bucket
+  owner enforced*, which answers `x-amz-acl` with `AccessControlListNotSupported`.
+
+Sending `private` was doing nothing useful even where it was accepted — an
+object is private unless a bucket policy says otherwise — while making the
+upload fail outright everywhere else. Set this only for a legacy bucket that
+still has ACLs switched on.
+
+### Cloudflare R2
+
+R2 is S3-compatible through `boto3` with two provider-specific values:
+
+```
+JADAWEL_BACKUP_S3_ENDPOINT_URL=https://<account-id>.r2.cloudflarestorage.com
+JADAWEL_BACKUP_S3_REGION=auto
+```
+
+`auto` is not a placeholder — it is the only region R2 accepts, and `boto3`
+requires *some* region to sign the request.
+
+Create the API token as **Object Read & Write scoped to the backup bucket**.
+Retention needs delete, which R2 includes in write; nothing here needs account
+scope. The token secret is shown once.
+
+Note that R2 is not inside Saudi Arabia. For a deployment where residency is
+the point, Google Cloud Storage in `me-central2` (Dammam) or Oracle Object
+Storage in Jeddah are the S3-compatible options that keep the dumps in-country.
 
 Verify without dumping anything:
 

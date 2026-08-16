@@ -50,6 +50,18 @@ class BackupConfig:
     # Server-side encryption header. Empty disables it; not every
     # S3-compatible provider implements SSE, so it must be opt-in.
     sse: str | None
+    # Canned ACL sent with each upload. Empty — the default — sends no ACL
+    # header at all, which is what almost every target now wants:
+    #
+    #   - Cloudflare R2 does not implement object ACLs.
+    #   - An AWS bucket created since April 2023 defaults to Object Ownership
+    #     "bucket owner enforced", which rejects `x-amz-acl` outright with
+    #     AccessControlListNotSupported.
+    #
+    # Omitting it costs nothing: an object is private unless a bucket policy
+    # says otherwise, so `private` was only ever restating the default. Set
+    # this for a legacy bucket that genuinely still has ACLs switched on.
+    acl: str | None
     # Whether user-uploaded files are archived alongside the database dump.
     # The database is not a restore point on its own: every file cell and
     # export in it names a file that has to come back with it. Defaults on
@@ -74,6 +86,7 @@ class BackupConfig:
             ),
             crontab=os.getenv("JADAWEL_BACKUP_CRONTAB", DEFAULT_CRONTAB),
             sse=os.getenv("JADAWEL_BACKUP_S3_SSE") or None,
+            acl=os.getenv("JADAWEL_BACKUP_S3_ACL") or None,
             # Files already in object storage are covered by that bucket's own
             # lifecycle, so archiving them again would only duplicate them.
             include_media=_env_flag(

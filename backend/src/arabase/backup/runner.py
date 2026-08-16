@@ -175,7 +175,15 @@ def _client(config: BackupConfig):
 
 
 def _upload(client, config: BackupConfig, path: str, key: str) -> None:
-    extra = {"ACL": "private"}
+    # No ACL unless one is configured. This used to send `private`
+    # unconditionally, which fails against both of the targets most likely to
+    # be used: Cloudflare R2 has no object ACLs, and an AWS bucket created
+    # since April 2023 rejects the header outright. Neither made an object
+    # public — they refused the upload — so the effect was a backup that never
+    # ran rather than one exposed.
+    extra = {}
+    if config.acl:
+        extra["ACL"] = config.acl
     if config.sse:
         extra["ServerSideEncryption"] = config.sse
     with open(path, "rb") as handle:

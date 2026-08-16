@@ -21,6 +21,7 @@ def _config(**overrides):
         retention_days=14,
         crontab="0 23 * * *",
         sse=None,
+        acl=None,
         include_media=False,
     )
     defaults.update(overrides)
@@ -70,6 +71,55 @@ class TestConfig:
         monkeypatch.setenv("AWS_STORAGE_BUCKET_NAME", "shared")
 
         assert _config(bucket="shared", prefix="postgres/").validation_errors() == []
+
+    def test_sends_no_acl_unless_one_is_configured(self, monkeypatch):
+        monkeypatch.delenv("JADAWEL_BACKUP_S3_ACL", raising=False)
+
+        assert BackupConfig.from_env().acl is None
+
+    def test_reads_an_explicit_acl(self, monkeypatch):
+        monkeypatch.setenv("JADAWEL_BACKUP_S3_ACL", "private")
+
+        assert BackupConfig.from_env().acl == "private"
+
+
+class TestUpload:
+    """What goes on the PutObject call.
+
+    An ACL header is the one thing here that a storage provider will reject the
+    whole upload over. Cloudflare R2 does not implement object ACLs, and an AWS
+    bucket created since April 2023 defaults to Object Ownership `bucket owner
+    enforced`, which answers `x-amz-acl` with AccessControlListNotSupported. So
+    the default has to be to send nothing.
+    """
+
+    def _upload_extra_args(self, config, tmp_path):
+        path = tmp_path / "dump"
+        path.write_bytes(b"dump")
+        client = MagicMock()
+
+        runner._upload(client, config, str(path), "postgres/jadawel.dump")
+
+        return client.upload_fileobj.call_args.kwargs["ExtraArgs"]
+
+    def test_omits_the_acl_by_default(self, tmp_path):
+        assert "ACL" not in self._upload_extra_args(_config(), tmp_path)
+
+    def test_sends_an_acl_when_one_is_configured(self, tmp_path):
+        extra = self._upload_extra_args(_config(acl="private"), tmp_path)
+
+        assert extra["ACL"] == "private"
+
+    def test_sends_encryption_only_when_configured(self, tmp_path):
+        assert "ServerSideEncryption" not in self._upload_extra_args(
+            _config(), tmp_path
+        )
+        assert (
+            self._upload_extra_args(_config(sse="AES256"), tmp_path)[
+                "ServerSideEncryption"
+            ]
+            == "AES256"
+        )
 
 
 @patch("arabase.backup.runner._pg_dump_path", return_value="/usr/bin/pg_dump")
