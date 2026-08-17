@@ -17,15 +17,34 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-16 by publish-image.yml from tag v2.8.0 @ a5f4e7ae9, digest
-# sha256:820418421d6517a4140d40335c2aa4997c01e1f0d18d8b6720b45340b3b3f49c
+# Published 2026-08-17 by publish-image.yml from tag v2.8.1 @ c3639cd64, digest
+# sha256:1047c4c1658496d8b94be17ec1eb7e00a6d5f2beff0bad4c44b8afad44bbba6e
 #
-# **One migration**, arabase.0006_html_page_view. It creates the three tables
-# behind the Page view — the view, its field options and its revisions — and
-# alters nothing that exists, so it rolls forward and back without touching
-# existing data.
+# **No migration.** 2.8.1 changes one package in the image and one path lookup
+# in the backup code.
 #
-# 2.8.0 adds the Page view, a fourth view type beside Grid, Gallery and Form.
+# 2.8.1 makes backups possible at all. The image installed postgresql-client
+# from POSTGRES_VERSION, the same variable that selects the *embedded* Postgres
+# server, so it shipped pg_dump 15 — and this deployment backs up CranL's
+# managed Postgres 16, which pg_dump refuses to touch because it will not dump
+# a server newer than itself. Every backup failed on the version check.
+#
+# POSTGRES_CLIENT_VERSION=18 is now separate from POSTGRES_VERSION=15. Raising
+# the latter would have fixed the dump and broken the image for anyone using
+# the embedded database: a Postgres 16 server will not start on a data
+# directory that 15 initialised. Newer is free for the client, which reads
+# older servers and refuses only newer ones.
+#
+# Installing a newer client is not sufficient on its own. /usr/bin/pg_dump is
+# Debian's pg_wrapper, which picks a major version from the default *cluster*
+# — the embedded one — rather than from the server being contacted, and the
+# prod stage still carries client 15 as a dependency of postgresql-15. So
+# arabase.backup.runner.client_binary() reads /usr/lib/postgresql/*/bin/ and
+# takes the highest major itself. pg_restore resolves the same way: a dump
+# written by a newer pg_dump is unreadable by an older pg_restore.
+#
+# Carried over from 2.8.0, the Page view, a fourth view type beside Grid,
+# Gallery and Form.
 # A Page renders an HTML document written by an AI over MCP, fed with the
 # view's live rows, and shares on a public link with the optional password a
 # form already had. A new Page opens on a setup panel carrying the workspace's
@@ -73,8 +92,13 @@
 #
 # Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
 # the version tag, so a tag pin does not identify a fixed image. The digest
-# does, and it is the 2.8.0 build described above.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:820418421d6517a4140d40335c2aa4997c01e1f0d18d8b6720b45340b3b3f49c
+# does, and it is the 2.8.1 build described above.
+#
+# Changing only this line has not been enough to swap the container: CranL
+# reported the 2.7.2 deploy `done` while the old workers kept running, because
+# a digest-only edit to a `FROM` does not invalidate its build cache. Follow
+# the deploy with a reload, and verify behaviour rather than trusting `done`.
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:1047c4c1658496d8b94be17ec1eb7e00a6d5f2beff0bad4c44b8afad44bbba6e
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
