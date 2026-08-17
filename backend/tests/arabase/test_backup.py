@@ -83,6 +83,66 @@ class TestConfig:
         assert BackupConfig.from_env().acl == "private"
 
 
+class TestClientBinary:
+    """Which pg_dump gets run.
+
+    `/usr/bin/pg_dump` on Debian is pg_wrapper, which resolves a major version
+    from the default *cluster*. In the all-in-one image that is the embedded
+    Postgres, whose version has nothing to do with the external managed server
+    being backed up — so trusting PATH can hand back a client older than the
+    database, which pg_dump refuses to dump.
+    """
+
+    def _bin_root(self, tmp_path, majors):
+        for major in majors:
+            path = tmp_path / str(major) / "bin"
+            path.mkdir(parents=True)
+            binary = path / "pg_dump"
+            binary.write_text("#!/bin/sh\n")
+            binary.chmod(0o755)
+        return str(tmp_path)
+
+    def test_prefers_the_newest_installed_major(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(
+            runner, "POSTGRES_BIN_ROOT", self._bin_root(tmp_path, [15, 18, 16])
+        )
+
+        assert runner.client_binary("pg_dump").endswith("18/bin/pg_dump")
+
+    def test_compares_majors_as_numbers_not_strings(self, tmp_path, monkeypatch):
+        # A plain string sort puts "9" above "18", which would pick a client
+        # nine majors too old and fail every dump.
+        monkeypatch.setattr(
+            runner, "POSTGRES_BIN_ROOT", self._bin_root(tmp_path, [9, 18])
+        )
+
+        assert runner.client_binary("pg_dump").endswith("18/bin/pg_dump")
+
+    def test_falls_back_to_path_when_nothing_is_installed(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(runner, "POSTGRES_BIN_ROOT", str(tmp_path / "absent"))
+        monkeypatch.setattr(runner.shutil, "which", lambda name: "/usr/bin/" + name)
+
+        assert runner.client_binary("pg_dump") == "/usr/bin/pg_dump"
+
+    def test_returns_none_when_there_is_nothing_anywhere(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(runner, "POSTGRES_BIN_ROOT", str(tmp_path / "absent"))
+        monkeypatch.setattr(runner.shutil, "which", lambda name: None)
+
+        assert runner.client_binary("pg_dump") is None
+
+    def test_names_the_client_version_setting_when_too_old(self, monkeypatch):
+        # The message is the whole value of this check: it fires at 02:00 into a
+        # log nobody is reading, so it has to say what to change.
+        monkeypatch.setattr(runner, "_pg_dump_major_version", lambda: 15)
+        monkeypatch.setattr(runner, "_server_major_version", lambda: 16)
+
+        with pytest.raises(BackupError) as caught:
+            runner.check_versions()
+
+        assert "POSTGRES_CLIENT_VERSION" in str(caught.value)
+        assert "16" in str(caught.value)
+
+
 class TestUpload:
     """What goes on the PutObject call.
 

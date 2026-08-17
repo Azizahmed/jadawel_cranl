@@ -1,5 +1,6 @@
 """Dump the database with ``pg_dump`` and upload it to object storage."""
 
+import glob
 import logging
 import os
 import re
@@ -48,14 +49,50 @@ class BackupResult:
     media_size_bytes: int = 0
 
 
+POSTGRES_BIN_ROOT = "/usr/lib/postgresql"
+"""Where Debian installs each major version's binaries, one directory per major."""
+
+
+def client_binary(name: str) -> str | None:
+    """The newest installed Postgres client program called ``name``.
+
+    ``/usr/bin/pg_dump`` on Debian is not pg_dump: it is ``pg_wrapper``, which
+    chooses a major version from the default *cluster* rather than from the
+    server the command is about to contact. The all-in-one image installs an
+    embedded Postgres, so that cluster is the embedded one — and its version has
+    nothing to do with the database being backed up, which here is an external
+    managed instance several majors ahead.
+
+    Picking the newest installed version instead is always correct for these
+    two programs: pg_dump reads older servers without complaint and refuses only
+    newer ones, so the newest client is the one that can talk to the most
+    servers. Returns None when nothing is installed, leaving the error message
+    to the caller, which knows whether it is dumping or restoring.
+    """
+
+    candidates = []
+    for path in glob.glob(os.path.join(POSTGRES_BIN_ROOT, "*", "bin", name)):
+        major = os.path.basename(os.path.dirname(os.path.dirname(path)))
+        if major.isdigit() and os.access(path, os.X_OK):
+            candidates.append((int(major), path))
+
+    if candidates:
+        return max(candidates)[1]
+
+    # No versioned layout — a slim image, a Mac, or a developer's virtualenv.
+    # PATH is then the only answer available and pg_wrapper is not in the way.
+    return shutil.which(name)
+
+
 def _pg_dump_path() -> str:
     """Resolve pg_dump to an absolute path, failing with a useful message."""
 
-    path = shutil.which("pg_dump")
+    path = client_binary("pg_dump")
     if path is None:
         raise BackupError(
-            "pg_dump is not on PATH. It ships with the postgresql-client "
-            "package, which the all-in-one image installs in its base stage."
+            "pg_dump is not installed. It ships with the postgresql-client "
+            "package, which the all-in-one image installs in its base stage "
+            "at the version in POSTGRES_CLIENT_VERSION."
         )
     return path
 
@@ -97,9 +134,11 @@ def check_versions() -> tuple[int, int]:
     if client < server:
         raise BackupError(
             f"pg_dump is version {client} but the server is version {server}. "
-            f"pg_dump refuses to dump a newer server. Install "
-            f"postgresql-client-{server} in the image (see "
-            f"deploy/all-in-one/Dockerfile, POSTGRES_VERSION)."
+            f"pg_dump refuses to dump a newer server. Set "
+            f"POSTGRES_CLIENT_VERSION to {server} or higher in "
+            f"deploy/all-in-one/Dockerfile and publish a new image. Leave "
+            f"POSTGRES_VERSION alone — that is the embedded server, and "
+            f"raising it strands any existing data directory."
         )
     return client, server
 

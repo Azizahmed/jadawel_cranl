@@ -135,6 +135,32 @@ Verify without dumping anything:
 That validates the credentials and compares the `pg_dump` version against the
 server, which is the one failure that would otherwise only surface at 02:00.
 
+### Postgres client version
+
+`pg_dump` refuses to dump a server newer than itself, so the client in the
+image has to be at least as new as the database. Two settings look like they
+control this and only one of them does:
+
+| Setting | What it is |
+|---|---|
+| `POSTGRES_CLIENT_VERSION` | `pg_dump` and `pg_restore`. Raise this. |
+| `POSTGRES_VERSION` | The **embedded** Postgres server. Leave it alone. |
+
+They are separate on purpose. The database being backed up is CranL's managed
+instance, not the embedded server, and the two are on different majors. Raising
+`POSTGRES_VERSION` to fix a dump would also mean a newer embedded server, which
+will not start on a data directory an older major initialised — so it trades a
+failed backup for a dead database.
+
+Raising the client is free: `pg_dump` reads older servers happily and refuses
+only newer ones. The image ships 18 for that headroom.
+
+Note that `/usr/bin/pg_dump` is Debian's `pg_wrapper`, which picks a major from
+the default *cluster* rather than from the server being contacted — the
+embedded one, in this image. `arabase.backup.runner.client_binary()` therefore
+resolves `/usr/lib/postgresql/*/bin/` itself and takes the highest major, so
+installing a newer client is enough to change what actually runs.
+
 ## The admin section
 
 **Admin → Backup** is the page to look at, and the reason it exists is that a

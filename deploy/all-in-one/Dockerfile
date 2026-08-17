@@ -19,8 +19,23 @@ ARG GID
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# POSTGRES_VERSION is the *embedded server*. Leave it alone: raising it makes
+# the image refuse to start on any existing PGDATA directory that an older
+# major initialised, which is a data-loss trap for anyone running the embedded
+# database.
+#
+# POSTGRES_CLIENT_VERSION is pg_dump and pg_restore, and it is deliberately
+# separate. The client has to be at least as new as whatever server it talks
+# to — pg_dump refuses outright to dump a newer server — and that server is not
+# necessarily the embedded one. CranL provides Postgres 16 externally while the
+# embedded server here is 15, so a single version cannot satisfy both.
+#
+# Newer is always safe for the client: pg_dump reads older servers happily, it
+# only refuses newer ones. 18 therefore leaves room for the managed database to
+# be upgraded without this breaking again.
 ENV DOCKER_USER=jadawel_docker_user \
     POSTGRES_VERSION=15 \
+    POSTGRES_CLIENT_VERSION=18 \
     JADAWEL_IMAGE_TYPE="all-in-one" \
     DATA_DIR=/jadawel/data \
     JADAWEL_PLUGIN_DIR=/jadawel/data/plugins
@@ -37,7 +52,7 @@ RUN apt-get update && \
     supervisor \
     psmisc \
     gawk \
-    postgresql-client-"${POSTGRES_VERSION}" \
+    postgresql-client-"${POSTGRES_CLIENT_VERSION}" \
     xmlsec1 \
     gettext \
     tini \

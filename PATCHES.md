@@ -1022,3 +1022,38 @@ The frontend half of the AI change needs no core edit: `registryPlugin.js` calls
 `$registry.unregister('workspaceSettings', 'generative-ai')`, so
 `GenerativeAIWorkspaceSettings.vue` and the two `workspace.js` service methods stay in
 the tree as unreachable upstream code rather than becoming a deletion to re-apply.
+
+---
+
+## Phase — Split the Postgres client version from the embedded server (2026-08-17)
+
+**Context:** The first real backup on CranL failed with *"pg_dump is version 15 but the
+server is version 16"*. The all-in-one image derived both the embedded Postgres server
+and the `postgresql-client` package from one `POSTGRES_VERSION=15`, but the database
+being backed up is CranL's managed Postgres 16, which has nothing to do with the
+embedded one. pg_dump refuses outright to dump a server newer than itself.
+
+Raising `POSTGRES_VERSION` would have fixed the client and broken something worse: a
+Postgres 16 server will not start on a PGDATA directory that 15 initialised, so every
+existing embedded deployment would come up dead. The two versions are answering
+different questions and are now separate.
+
+Everything else is additive and not listed here: `client_binary()` and its tests live in
+`backend/src/arabase/backup/`.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `deploy/all-in-one/Dockerfile` | Added `POSTGRES_CLIENT_VERSION=18`; the base stage installs `postgresql-client-${POSTGRES_CLIENT_VERSION}` instead of `postgresql-client-${POSTGRES_VERSION}` | The client must be ≥ the server it dumps; the embedded server version is unrelated to that and must not move | med |
+
+`POSTGRES_VERSION=15` is deliberately unchanged — it still selects the embedded
+`postgresql-15` and `postgresql-15-pgvector` in the `prod` stage.
+
+18 rather than 16 because a newer pg_dump reads older servers without complaint and
+refuses only newer ones, so the headroom is free and survives a managed-database upgrade.
+
+One consequence worth knowing: the `prod` stage now has two clients installed, since
+`postgresql-15` depends on `postgresql-client-15`. Debian's `/usr/bin/pg_dump` is
+`pg_wrapper`, which picks a major from the default *cluster* — the embedded one — so it
+can still hand back the older binary. `arabase.backup.runner.client_binary()` therefore
+resolves `/usr/lib/postgresql/*/bin/` itself and takes the highest major, rather than
+trusting PATH.

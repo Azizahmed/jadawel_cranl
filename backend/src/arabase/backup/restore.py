@@ -15,14 +15,13 @@ restores under whatever role the target URL connects as.
 import logging
 import os
 import re
-import shutil
 import subprocess
 import tempfile
 from dataclasses import dataclass
 from urllib.parse import urlparse
 
 from arabase.backup.config import BackupConfig
-from arabase.backup.runner import BackupError, _client
+from arabase.backup.runner import BackupError, _client, client_binary
 
 logger = logging.getLogger(__name__)
 
@@ -41,11 +40,17 @@ class RestoreResult:
 
 
 def _pg_restore_path() -> str:
-    path = shutil.which("pg_restore")
+    # Resolved the same way as pg_dump, and for the same reason: /usr/bin is
+    # pg_wrapper, which picks a major version from the embedded cluster rather
+    # than from the dump being restored. A dump written by a newer pg_dump is
+    # unreadable by an older pg_restore, so the two must agree — taking the
+    # newest installed version in both places is what makes them agree.
+    path = client_binary("pg_restore")
     if path is None:
         raise RestoreError(
-            "pg_restore is not on PATH. It ships with the postgresql-client "
-            "package, which the all-in-one image installs in its base stage."
+            "pg_restore is not installed. It ships with the postgresql-client "
+            "package, which the all-in-one image installs in its base stage "
+            "at the version in POSTGRES_CLIENT_VERSION."
         )
     return path
 
