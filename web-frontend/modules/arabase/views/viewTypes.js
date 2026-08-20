@@ -89,10 +89,20 @@ export class HtmlPageViewType extends ViewType {
     await this._refetchSelected(context, storePrefix)
   }
 
-  async _refetchSelected({ store }, storePrefix) {
-    const view = store.getters['view/getSelected']
+  /**
+   * Called from the `field` store's `forceUpdate`/`forceDelete` actions, which
+   * pass the Vuex action context — not a `{ store }` object like the realtime
+   * hooks do. Read the root getter/dispatch the same way the grid view type
+   * does, otherwise `store` is undefined and `store.getters` throws.
+   */
+  async _refetchSelected({ dispatch, rootGetters }, storePrefix) {
+    const view = rootGetters['view/getSelected']
     if (view?.type === HtmlPageViewType.getType()) {
-      await store.dispatch(storePrefix + 'view/html_page/fetch', { view })
+      await dispatch(
+        storePrefix + 'view/html_page/fetch',
+        { view },
+        { root: true }
+      )
     }
   }
 
