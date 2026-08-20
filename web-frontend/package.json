@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "APP_ENV=dev nuxt prepare",
+    "postinstall": "node scripts/patch-datepicker-locale.mjs && APP_ENV=dev nuxt prepare",
     "dev": "APP_ENV=dev node --import ./env-remap.mjs ./node_modules/.bin/nuxt dev",
     "build": "APP_ENV=production NODE_OPTIONS=--max-old-space-size=8192 nuxt build",
     "preview": "node --import ./env-remap.mjs ./node_modules/.bin/nuxt preview",
