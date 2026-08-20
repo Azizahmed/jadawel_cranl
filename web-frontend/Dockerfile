@@ -46,6 +46,7 @@ WORKDIR /jadawel/web-frontend
 RUN --mount=type=cache,target=$YARN_CACHE_FOLDER,uid=$UID,gid=$GID,sharing=locked \
     --mount=type=bind,source=web-frontend/package.json,target=/jadawel/web-frontend/package.json \
     --mount=type=bind,source=web-frontend/yarn.lock,target=/jadawel/web-frontend/yarn.lock \
+    --mount=type=bind,source=web-frontend/scripts/patch-datepicker-locale.mjs,target=/jadawel/web-frontend/scripts/patch-datepicker-locale.mjs \
     yarn install --pure-lockfile --cache-folder $YARN_CACHE_FOLDER
 
 
@@ -213,7 +214,7 @@ RUN dos2unix /jadawel/web-frontend/docker/docker-entrypoint.sh \
     && chmod a+x /jadawel/web-frontend/docker/docker-entrypoint.sh
 
 COPY --chown=$UID:$GID web-frontend/package.json /jadawel/web-frontend/package.json
-COPY --chown=$UID:$GID web-frontend/yarn.lock /jadawel/web-frontend/yarn.lock
+COPY --chown=$UID:$GID web-frontend/scripts/patch-datepicker-locale.mjs /jadawel/web-frontend/scripts/patch-datepicker-locale.mjs
 
 # Make sure these directories exist and are owned by the non-root user
 RUN mkdir -p /jadawel/web-frontend/.nuxt /jadawel/web-frontend/.cache /jadawel/web-frontend/.nuxt-storybook /jadawel/web-frontend/.output
