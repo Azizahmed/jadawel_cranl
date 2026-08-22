@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.conf import settings
 from django.db.models.signals import post_migrate
 
 
@@ -62,11 +63,19 @@ class ArabaseConfig(AppConfig):
         view_type_registry.register(HtmlPageViewType())
 
         from arabase.template_catalog import (
-            schedule_local_template_catalog_reconciliation,
+            LOCAL_TEMPLATE_PATTERN,
+            reconcile_local_template_catalog_after_migrate,
         )
 
+        # This fork's six bundled templates are the authoritative local-only
+        # catalog. Prevent core's broad post-migration sync from importing all
+        # 150+ upstream templates, and constrain any task left in Redis by an
+        # older deployment to the same local pattern.
+        settings.JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = False
+        settings.JADAWEL_SYNC_TEMPLATES_PATTERN = LOCAL_TEMPLATE_PATTERN
+
         post_migrate.connect(
-            schedule_local_template_catalog_reconciliation,
+            reconcile_local_template_catalog_after_migrate,
             sender=self,
             dispatch_uid="arabase_reconcile_local_template_catalog",
         )

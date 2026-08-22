@@ -109,14 +109,20 @@ def reconcile_local_template_catalog() -> dict:
     }
 
 
-def schedule_local_template_catalog_reconciliation(sender, **kwargs):
-    """Queue reconciliation after migrations, when the worker and tables exist."""
+def reconcile_local_template_catalog_after_migrate(sender, **kwargs):
+    """Reconcile synchronously so startup cannot expose a stale catalog.
+
+    CranL runs one combined Celery worker. Queueing this behind core's broad
+    template sync left the old 157-template catalog live with no dependable
+    completion signal. Running here makes a successful migration/startup the
+    signal that the authoritative local catalog is ready.
+    """
 
     from django.conf import settings
 
     if settings.TESTS:
         return
 
-    from arabase.tasks import reconcile_local_template_catalog_task
-
-    reconcile_local_template_catalog_task.delay()
+    result = reconcile_local_template_catalog()
+    logger.info("Local template catalog is ready after migrations: %s", result)
+    return result
