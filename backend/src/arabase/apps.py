@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.db.models.signals import post_migrate
 
 
 class ArabaseConfig(AppConfig):
@@ -59,6 +60,16 @@ class ArabaseConfig(AppConfig):
         # Registering is all it takes to mount /api/database/views/html-page/:
         # core builds that urlconf from `view_type_registry.api_urls`.
         view_type_registry.register(HtmlPageViewType())
+
+        from arabase.template_catalog import (
+            schedule_local_template_catalog_reconciliation,
+        )
+
+        post_migrate.connect(
+            schedule_local_template_catalog_reconciliation,
+            sender=self,
+            dispatch_uid="arabase_reconcile_local_template_catalog",
+        )
 
         from arabase.mcp.page.tools import (
             CreatePageViewMcpTool,
