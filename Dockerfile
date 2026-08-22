@@ -17,13 +17,18 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-22 by publish-image.yml from release 2.9.0 @ 0848521d7,
-# digest sha256:19ed2e7cce2e6f22709ad28b94ba32fac8b6bc5524eb04e89ca920c725f6068f.
+# Published 2026-08-22 by publish-image.yml from release 2.9.1 @ ae5d0dd9d,
+# digest sha256:104732cf25e91c6788c7f4cfbfb147d592141e9ae4b80ddb6e44d95db0461bf9.
 #
-# 2.9.0 adds matched Arabic and English project-management templates, plus
-# Arabic and English Saudi budget-consolidation templates. It also enforces
-# the Gregorian Arabic month names familiar in Saudi Arabia and clears Vite's
-# generated dependency cache when correcting the datepicker locale.
+# 2.9.1 reconciles the database-backed template picker after deployment. It
+# imports and verifies the six approved local Arabic and English templates
+# before removing obsolete system template previews; user workspaces are not
+# part of that cleanup. Once the catalog matches, later restarts are a no-op.
+#
+# Carried over from 2.9.0, matched Arabic and English project-management
+# templates, plus Arabic and English Saudi budget-consolidation templates. It
+# also enforces the Gregorian Arabic month names familiar in Saudi Arabia and
+# clears Vite's generated dependency cache when correcting the datepicker locale.
 #
 # Previously published 2026-08-17 by publish-image.yml from tag v2.8.1 @
 # c3639cd64, digest
@@ -107,7 +112,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:19ed2e7cce2e6f22709ad28b94ba32fac8b6bc5524eb04e89ca920c725f6068f
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:104732cf25e91c6788c7f4cfbfb147d592141e9ae4b80ddb6e44d95db0461bf9
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
