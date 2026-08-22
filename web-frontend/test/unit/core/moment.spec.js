@@ -24,9 +24,12 @@ describe('moment locales', () => {
   // `en` is built into moment itself and needs no import.
   const OFFERED = ['ar', 'fr', 'nl', 'de', 'es', 'it', 'pl', 'ko', 'uk']
 
-  test.each(OFFERED)('imports the %s locale so the bundle contains it', (locale) => {
-    expect(source).toContain(`import 'moment/dist/locale/${locale}'`)
-  })
+  test.each(OFFERED)(
+    'imports the %s locale so the bundle contains it',
+    (locale) => {
+      expect(source).toContain(`import 'moment/dist/locale/${locale}'`)
+    }
+  )
 
   test('sets the starting locale explicitly rather than inheriting it', () => {
     expect(source).toMatch(/^moment\.locale\('en'\)$/m)
@@ -37,12 +40,26 @@ describe('moment locales', () => {
     expect(source).toContain('postformat')
   })
 
-  test('renders Arabic month names, not Ukrainian ones', () => {
+  test('renders Saudi-familiar Gregorian Arabic month names', () => {
     moment.locale('ar')
-    const august = moment('2026-08-15').format('MMM D')
+    const months = Array.from({ length: 12 }, (_, month) =>
+      moment([2026, month, 1]).format('MMMM')
+    )
 
-    expect(august).not.toContain('серп')
-    expect(august).toMatch(/[؀-ۿ]/)
+    expect(months).toStrictEqual([
+      'يناير',
+      'فبراير',
+      'مارس',
+      'أبريل',
+      'مايو',
+      'يونيو',
+      'يوليو',
+      'أغسطس',
+      'سبتمبر',
+      'أكتوبر',
+      'نوفمبر',
+      'ديسمبر',
+    ])
   })
 
   test('keeps Western digits under the Arabic locale', () => {
