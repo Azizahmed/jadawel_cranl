@@ -1,0 +1,882 @@
+{
+  "jadawel_template_version": 1,
+  "name": "Project Management",
+  "icon": "iconoir-task-list",
+  "keywords": [
+    "project management",
+    "projects",
+    "tasks",
+    "team",
+    "tracking",
+    "Saudi Arabia"
+  ],
+  "categories": [
+    "English Templates"
+  ],
+  "export": [
+    {
+      "id": 392,
+      "name": "Project Management",
+      "order": 1,
+      "type": "database",
+      "tables": [
+        {
+          "id": 1195,
+          "name": "Team",
+          "order": 1,
+          "fields": [
+            {
+              "id": 11602,
+              "type": "text",
+              "name": "Name",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 11605,
+              "type": "text",
+              "name": "Job Title",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 11606,
+              "type": "single_select",
+              "name": "Department",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 4359,
+                  "value": "Engineering",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 4360,
+                  "value": "Marketing",
+                  "color": "green",
+                  "order": 1
+                },
+                {
+                  "id": 4361,
+                  "value": "Sales",
+                  "color": "orange",
+                  "order": 2
+                },
+                {
+                  "id": 4362,
+                  "value": "Operations",
+                  "color": "red",
+                  "order": 3
+                },
+                {
+                  "id": 4363,
+                  "value": "Finance",
+                  "color": "dark-blue",
+                  "order": 4
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 11607,
+              "type": "email",
+              "name": "Email",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": []
+            },
+            {
+              "id": 11608,
+              "type": "phone_number",
+              "name": "Mobile Number",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": []
+            },
+            {
+              "id": 11614,
+              "type": "link_row",
+              "name": "Projects",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1196,
+              "link_row_related_field_id": 11613,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": true,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 11626,
+              "type": "link_row",
+              "name": "Tasks",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1197,
+              "link_row_related_field_id": 11625,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": true,
+              "link_row_multiple_relationships": true
+            }
+          ],
+          "views": [
+            {
+              "id": 4419,
+              "type": "grid",
+              "name": "Grid",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": "admin@jadawel.local",
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": []
+            }
+          ],
+          "rows": [
+            {
+              "id": 3,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-07-27T19:13:10.505707+00:00",
+              "updated_on": "2026-07-27T19:13:10.505707+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11602": "Sarah Al-Otaibi",
+              "field_11605": "Project Manager",
+              "field_11606": 4362,
+              "field_11607": "sara@example.com",
+              "field_11608": "+966501234567",
+              "field_11614": [
+                3
+              ],
+              "field_11626": []
+            },
+            {
+              "id": 4,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-07-27T19:13:11.308467+00:00",
+              "updated_on": "2026-07-27T19:13:11.308467+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11602": "Khalid Al-Harbi",
+              "field_11605": "Senior Software Engineer",
+              "field_11606": 4359,
+              "field_11607": "khalid@example.com",
+              "field_11608": "+966502345678",
+              "field_11614": [
+                4
+              ],
+              "field_11626": [
+                4,
+                5
+              ]
+            },
+            {
+              "id": 5,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-07-27T19:13:12.057948+00:00",
+              "updated_on": "2026-07-27T19:13:12.057948+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11602": "Nora Al-Qahtani",
+              "field_11605": "Marketing Specialist",
+              "field_11606": 4360,
+              "field_11607": "noura@example.com",
+              "field_11608": "+966503456789",
+              "field_11614": [
+                5
+              ],
+              "field_11626": [
+                3,
+                6
+              ]
+            },
+            {
+              "id": 6,
+              "order": "4.00000000000000000000",
+              "created_on": "2026-07-27T19:13:12.851992+00:00",
+              "updated_on": "2026-07-27T19:13:12.851992+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11602": "Abdullah Al-Shammari",
+              "field_11605": "Business Analyst",
+              "field_11606": 4363,
+              "field_11607": "abdullah@example.com",
+              "field_11608": "+966504567890",
+              "field_11614": [
+                6
+              ],
+              "field_11626": [
+                7
+              ]
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        },
+        {
+          "id": 1196,
+          "name": "Projects",
+          "order": 2,
+          "fields": [
+            {
+              "id": 11609,
+              "type": "text",
+              "name": "Project Name",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 11612,
+              "type": "single_select",
+              "name": "Status",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 4364,
+                  "value": "Planning",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 4365,
+                  "value": "In Progress",
+                  "color": "green",
+                  "order": 1
+                },
+                {
+                  "id": 4366,
+                  "value": "On Hold",
+                  "color": "orange",
+                  "order": 2
+                },
+                {
+                  "id": 4367,
+                  "value": "Completed",
+                  "color": "red",
+                  "order": 3
+                },
+                {
+                  "id": 4368,
+                  "value": "Cancelled",
+                  "color": "dark-blue",
+                  "order": 4
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 11613,
+              "type": "link_row",
+              "name": "Project Manager",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1195,
+              "link_row_related_field_id": 11614,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": true,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 11615,
+              "type": "date",
+              "name": "Start Date",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "ISO",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 11616,
+              "type": "date",
+              "name": "Expected End Date",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "ISO",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 11617,
+              "type": "number",
+              "name": "Budget (SAR)",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 0,
+              "number_negative": false,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 11618,
+              "type": "number",
+              "name": "Completion %",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 0,
+              "number_negative": false,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 11619,
+              "type": "long_text",
+              "name": "Description",
+              "description": null,
+              "order": 7,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": null
+            },
+            {
+              "id": 11624,
+              "type": "link_row",
+              "name": "Tasks",
+              "description": null,
+              "order": 8,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1197,
+              "link_row_related_field_id": 11623,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": true,
+              "link_row_multiple_relationships": true
+            }
+          ],
+          "views": [
+            {
+              "id": 4420,
+              "type": "grid",
+              "name": "Grid",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": "admin@jadawel.local",
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": []
+            }
+          ],
+          "rows": [
+            {
+              "id": 3,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-07-27T19:13:36.415831+00:00",
+              "updated_on": "2026-07-27T19:13:36.415831+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11609": "Develop E-commerce Store",
+              "field_11612": 4365,
+              "field_11613": [
+                3
+              ],
+              "field_11615": "2026-01-15",
+              "field_11616": "2026-06-30",
+              "field_11617": "450000",
+              "field_11618": "65",
+              "field_11619": "Build an integrated e-commerce store supporting mada and Apple Pay.",
+              "field_11624": [
+                3,
+                4
+              ]
+            },
+            {
+              "id": 4,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-07-27T19:13:38.863326+00:00",
+              "updated_on": "2026-07-27T19:13:38.863326+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11609": "Upgrade Cloud Infrastructure",
+              "field_11612": 4364,
+              "field_11613": [
+                4
+              ],
+              "field_11615": "2026-03-01",
+              "field_11616": "2026-09-15",
+              "field_11617": "780000",
+              "field_11618": "10",
+              "field_11619": "Migrate systems to in-country cloud infrastructure in compliance with data residency requirements.",
+              "field_11624": [
+                5
+              ]
+            },
+            {
+              "id": 5,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-07-27T19:13:41.215916+00:00",
+              "updated_on": "2026-07-27T19:13:41.215916+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11609": "New Brand Identity Campaign",
+              "field_11612": 4367,
+              "field_11613": [
+                5
+              ],
+              "field_11615": "2025-09-01",
+              "field_11616": "2025-12-20",
+              "field_11617": "220000",
+              "field_11618": "100",
+              "field_11619": "Relaunch the visual identity across all digital channels.",
+              "field_11624": [
+                6
+              ]
+            },
+            {
+              "id": 6,
+              "order": "4.00000000000000000000",
+              "created_on": "2026-07-27T19:13:43.253384+00:00",
+              "updated_on": "2026-07-27T19:13:43.253384+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11609": "Financial Report Automation",
+              "field_11612": 4366,
+              "field_11613": [
+                6
+              ],
+              "field_11615": "2026-02-01",
+              "field_11616": "2026-05-31",
+              "field_11617": "160000",
+              "field_11618": "30",
+              "field_11619": "Automate monthly reporting and connect it to a dashboard.",
+              "field_11624": [
+                7
+              ]
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        },
+        {
+          "id": 1197,
+          "name": "Tasks",
+          "order": 3,
+          "fields": [
+            {
+              "id": 11620,
+              "type": "text",
+              "name": "Task Title",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 11623,
+              "type": "link_row",
+              "name": "Project",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1196,
+              "link_row_related_field_id": 11624,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": true,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 11625,
+              "type": "link_row",
+              "name": "Assignee",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1195,
+              "link_row_related_field_id": 11626,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": true,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 11627,
+              "type": "single_select",
+              "name": "Priority",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 4369,
+                  "value": "Urgent",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 4370,
+                  "value": "High",
+                  "color": "green",
+                  "order": 1
+                },
+                {
+                  "id": 4371,
+                  "value": "Medium",
+                  "color": "orange",
+                  "order": 2
+                },
+                {
+                  "id": 4372,
+                  "value": "Low",
+                  "color": "red",
+                  "order": 3
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 11628,
+              "type": "single_select",
+              "name": "Status",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 4373,
+                  "value": "Not Started",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 4374,
+                  "value": "In Progress",
+                  "color": "green",
+                  "order": 1
+                },
+                {
+                  "id": 4375,
+                  "value": "Under Review",
+                  "color": "orange",
+                  "order": 2
+                },
+                {
+                  "id": 4376,
+                  "value": "Completed",
+                  "color": "red",
+                  "order": 3
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 11629,
+              "type": "date",
+              "name": "Due Date",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "ISO",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 11630,
+              "type": "boolean",
+              "name": "Completed",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "boolean_default": false
+            },
+            {
+              "id": 11631,
+              "type": "long_text",
+              "name": "Details",
+              "description": null,
+              "order": 7,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": null
+            }
+          ],
+          "views": [
+            {
+              "id": 4421,
+              "type": "grid",
+              "name": "Grid",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": "admin@jadawel.local",
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": []
+            }
+          ],
+          "rows": [
+            {
+              "id": 3,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-07-27T19:14:17.282207+00:00",
+              "updated_on": "2026-07-27T19:14:17.282207+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11620": "Design Checkout Page",
+              "field_11623": [
+                3
+              ],
+              "field_11625": [
+                5
+              ],
+              "field_11627": 4370,
+              "field_11628": 4375,
+              "field_11629": "2026-03-10",
+              "field_11630": "false",
+              "field_11631": "Design the complete checkout flow with Arabic-language support."
+            },
+            {
+              "id": 4,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-07-27T19:14:22.439632+00:00",
+              "updated_on": "2026-07-27T19:14:22.439632+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11620": "Integrate mada Payment Gateway",
+              "field_11623": [
+                3
+              ],
+              "field_11625": [
+                4
+              ],
+              "field_11627": 4369,
+              "field_11628": 4374,
+              "field_11629": "2026-03-20",
+              "field_11630": "false",
+              "field_11631": "Integrate the API and test the staging environment."
+            },
+            {
+              "id": 5,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-07-27T19:14:27.256929+00:00",
+              "updated_on": "2026-07-27T19:14:27.256929+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11620": "Prepare Data Migration Plan",
+              "field_11623": [
+                4
+              ],
+              "field_11625": [
+                4
+              ],
+              "field_11627": 4371,
+              "field_11628": 4373,
+              "field_11629": "2026-04-05",
+              "field_11630": "false",
+              "field_11631": "Inventory databases and define permitted downtime windows."
+            },
+            {
+              "id": 6,
+              "order": "4.00000000000000000000",
+              "created_on": "2026-07-27T19:14:32.177451+00:00",
+              "updated_on": "2026-07-27T19:14:32.177451+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11620": "Deliver the Campaign Final Report",
+              "field_11623": [
+                5
+              ],
+              "field_11625": [
+                5
+              ],
+              "field_11627": 4372,
+              "field_11628": 4376,
+              "field_11629": "2025-12-22",
+              "field_11630": "true",
+              "field_11631": "Summary of results and performance indicators."
+            },
+            {
+              "id": 7,
+              "order": "5.00000000000000000000",
+              "created_on": "2026-07-27T19:14:36.808299+00:00",
+              "updated_on": "2026-07-27T19:14:36.808299+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11620": "Review Compliance Requirements",
+              "field_11623": [
+                6
+              ],
+              "field_11625": [
+                6
+              ],
+              "field_11627": 4370,
+              "field_11628": 4374,
+              "field_11629": "2026-04-15",
+              "field_11630": "false",
+              "field_11631": "Ensure reports comply with accounting standards."
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        }
+      ]
+    }
+  ]
+}
