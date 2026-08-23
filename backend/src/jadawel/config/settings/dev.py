@@ -25,7 +25,10 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 if "numpy" in JADAWEL_LAZY_LOADED_LIBRARIES:  # noqa: F405
     JADAWEL_LAZY_LOADED_LIBRARIES.remove("numpy")  # noqa: F405
 
-JADAWEL_ENABLE_SILK = str_to_bool(os.getenv("JADAWEL_ENABLE_SILK", "on"))
+# Profiling every request adds substantial database writes and django-silk is not
+# safe under concurrent application traffic. Keep it opt-in so ordinary local
+# development and E2E runs exercise the same middleware shape as production.
+JADAWEL_ENABLE_SILK = str_to_bool(os.getenv("JADAWEL_ENABLE_SILK", "off"))
 if JADAWEL_ENABLE_SILK:
     INSTALLED_APPS += ["silk"]  # noqa: F405
     MIDDLEWARE += [  # noqa: F405

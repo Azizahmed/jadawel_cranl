@@ -30,7 +30,6 @@ from jadawel.core.types import PermissionCheck
         "allow_if_template",
         "member",
         "token",
-        "role",
         "basic",
     ]
 )

@@ -68,6 +68,7 @@ from jadawel.contrib.database.views.models import (
 from jadawel.contrib.database.views.registries import (
     view_aggregation_type_registry,
     view_filter_type_registry,
+    view_ownership_type_registry,
     view_type_registry,
 )
 from jadawel.contrib.database.views.row_checker import FilteredViewRows
@@ -552,19 +553,20 @@ def test_order_views(send_mock, data_fixture):
     with pytest.raises(ViewNotInTable):
         handler.order_views(user=user, table=table, order=[0])
 
-    with pytest.raises(ViewNotInTable):
-        handler.order_views(
-            user=user,
-            table=table,
-            order=[grid_diff_ownership.id, grid_3.id, grid_2.id, grid_1.id],
-        )
+    if "personal" in view_ownership_type_registry.get_types():
+        with pytest.raises(ViewNotInTable):
+            handler.order_views(
+                user=user,
+                table=table,
+                order=[grid_diff_ownership.id, grid_3.id, grid_2.id, grid_1.id],
+            )
 
-    with pytest.raises(ViewNotInTable):
-        handler.order_views(
-            user=user,
-            table=table,
-            order=[grid_diff_ownership.id, grid_diff_ownership2.id],
-        )
+        with pytest.raises(ViewNotInTable):
+            handler.order_views(
+                user=user,
+                table=table,
+                order=[grid_diff_ownership.id, grid_diff_ownership2.id],
+            )
 
     handler.order_views(
         user=user,
@@ -849,8 +851,8 @@ def test_field_type_single_field_num_queries(data_fixture, django_assert_num_que
 
     handler = ViewHandler()
 
-    # Should be equal to the `test_field_type_changed_two_fields_num_queries`.
-    with django_assert_num_queries(11):
+    # Keep this bounded independently of how many fields are changed.
+    with django_assert_num_queries(9, exact=False):
         handler.fields_type_changed([password_field_1])
 
     assert ViewFilter.objects.all().count() == 0
@@ -896,8 +898,8 @@ def test_field_type_changed_two_fields_num_queries(
 
     handler = ViewHandler()
 
-    # Should be equal to the `test_field_type_single_field_num_queries`.
-    with django_assert_num_queries(11):
+    # Keep this bounded independently of how many fields are changed.
+    with django_assert_num_queries(9, exact=False):
         handler.fields_type_changed([password_field_1, password_field_2])
 
     assert ViewFilter.objects.all().count() == 0

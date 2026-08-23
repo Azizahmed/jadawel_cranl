@@ -222,16 +222,16 @@ msgstr ""
 #: src/jadawel/core/emails.py:115
 #, python-format
 msgid "%(by)s invited you to %(workspace_name)s - جداول"
-msgstr ""
+msgstr "%(by)s invited you to %(workspace_name)s - Jadawel"
 
 #: src/jadawel/core/emails.py:148
 msgid "You have 1 new notification - جداول"
-msgstr ""
+msgstr "You have 1 new notification - Jadawel"
 
 #: src/jadawel/core/emails.py:150
 #, python-format
 msgid "You have %(count)d new notifications - جداول"
-msgstr ""
+msgstr "You have %(count)d new notifications - Jadawel"
 
 #: src/jadawel/core/fields.py:114
 #, python-format
@@ -636,20 +636,24 @@ msgstr ""
 
 #: src/jadawel/core/user/emails.py:16
 msgid "Reset password - جداول"
-msgstr ""
+msgstr "Reset password - Jadawel"
+
+#: src/jadawel/core/user/emails.py:36
+msgid "Password changed - جداول"
+msgstr "Password changed - Jadawel"
 
 #: src/jadawel/core/user/emails.py:37
 msgid "Account deletion scheduled - جداول"
-msgstr ""
+msgstr "Account deletion scheduled - Jadawel"
 
 #: src/jadawel/core/user/emails.py:56
 msgid "Account permanently deleted - جداول"
-msgstr ""
+msgstr "Account permanently deleted - Jadawel"
 
 #: src/jadawel/core/user/emails.py:74
 msgid "Account deletion cancelled - جداول"
-msgstr ""
+msgstr "Account deletion cancelled - Jadawel"
 
 #: src/jadawel/core/user/emails.py:94
 msgid "Confirm email address change - جداول"
-msgstr ""
+msgstr "Confirm email address change - Jadawel"

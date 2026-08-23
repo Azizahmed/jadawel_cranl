@@ -2,6 +2,9 @@ from typing import List
 
 from django.contrib.contenttypes.models import ContentType
 
+import pytest
+
+from jadawel.core.exceptions import InstanceTypeDoesNotExist
 from jadawel.core.user_sources.models import UserSource
 from jadawel.core.user_sources.registries import (
     UserSourceType,
@@ -10,8 +13,34 @@ from jadawel.core.user_sources.registries import (
 
 
 class UserSourceFixtures:
+    def _get_user_source_type_or_skip(self, type_name=None):
+        """Return a concrete user-source type or skip in the OSS-only fork.
+
+        Jadawel's only concrete user-source implementation is supplied by the
+        deleted enterprise package. The generic core fixtures are still useful
+        when a downstream package registers a type, but they cannot construct a
+        model in this OSS-only repository by themselves.
+        """
+
+        if type_name is not None:
+            try:
+                return user_source_type_registry.get(type_name)
+            except InstanceTypeDoesNotExist:
+                pytest.skip(
+                    f"User-source type {type_name!r} is not available in the "
+                    "OSS-only Jadawel build."
+                )
+
+        user_source_type = next(iter(user_source_type_registry.get_all()), None)
+        if user_source_type is None:
+            pytest.skip(
+                "No concrete user-source type is available in the OSS-only "
+                "Jadawel build."
+            )
+        return user_source_type
+
     def create_user_source_with_first_type(self, **kwargs):
-        first_user_source_type = list(user_source_type_registry.get_all())[0]
+        first_user_source_type = self._get_user_source_type_or_skip()
         return self.create_user_source(first_user_source_type.model_class, **kwargs)
 
     def create_user_source(self, model_class, user=None, application=None, **kwargs):
@@ -66,7 +95,7 @@ class UserSourceFixtures:
             user=user, application=builder
         )
         user_source = self.create_user_source(
-            user_source_type_registry.get("local_jadawel").model_class,
+            self._get_user_source_type_or_skip("local_jadawel").model_class,
             application=builder,
             integration=integration,
             table=user_table,
@@ -111,7 +140,9 @@ class UserSourceFixtures:
             name_field = table.field_set.get(name="Name")
             role_field = table.field_set.get(name="Role")
 
-        local_jadawel_user_source_type = user_source_type_registry.get("local_jadawel")
+        local_jadawel_user_source_type = self._get_user_source_type_or_skip(
+            "local_jadawel"
+        )
         return self.create_user_source(
             local_jadawel_user_source_type.model_class,
             application=application,

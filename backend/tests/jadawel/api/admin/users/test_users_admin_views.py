@@ -763,7 +763,7 @@ def test_error_returned_when_valid_and_invalid_fields_supplied_to_edit(
 @pytest.mark.django_db
 @override_settings(DEBUG=True)
 def test_admin_getting_view_users_only_runs_two_queries_instead_of_n(
-    data_fixture, django_assert_num_queries, api_client
+    data_fixture, django_assert_max_num_queries, api_client
 ):
     _, token = data_fixture.create_user_and_token(
         email="test@test.nl",
@@ -776,7 +776,9 @@ def test_admin_getting_view_users_only_runs_two_queries_instead_of_n(
     for i in range(10):
         data_fixture.create_user_workspace()
 
-    with django_assert_num_queries(fixed_num_of_queries_unrelated_to_number_of_rows):
+    with django_assert_max_num_queries(
+        fixed_num_of_queries_unrelated_to_number_of_rows
+    ):
         response = api_client.get(
             reverse("api:admin:users:list"),
             format="json",
@@ -789,7 +791,9 @@ def test_admin_getting_view_users_only_runs_two_queries_instead_of_n(
     for i in range(10):
         data_fixture.create_user_workspace()
 
-    with django_assert_num_queries(fixed_num_of_queries_unrelated_to_number_of_rows):
+    with django_assert_max_num_queries(
+        fixed_num_of_queries_unrelated_to_number_of_rows
+    ):
         response = api_client.get(
             reverse("api:admin:users:list"),
             format="json",

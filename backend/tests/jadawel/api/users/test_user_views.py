@@ -57,15 +57,15 @@ def test_create_user(client, data_fixture):
             "name": "Test1Bis",
             "email": "test1bis@test.nl",
             "password": valid_password,
-            "language": "fr",
+            "language": "ar",
         },
         format="json",
     )
     response_json = response.json()
     assert response.status_code == HTTP_200_OK
     user = User.objects.get(email="test1bis@test.nl")
-    assert user.profile.language == "fr"
-    assert response_json["user"]["language"] == "fr"
+    assert user.profile.language == "ar"
+    assert response_json["user"]["language"] == "ar"
 
     response_failed = client.post(
         reverse("api:user:index"),
@@ -223,7 +223,7 @@ def test_user_account(data_fixture, api_client):
         reverse("api:user:account"),
         {
             "first_name": "NewOriginalName",
-            "language": "fr",
+            "language": "ar",
         },
         format="json",
         HTTP_AUTHORIZATION=f"JWT {token}",
@@ -232,13 +232,13 @@ def test_user_account(data_fixture, api_client):
 
     assert response.status_code == HTTP_200_OK
     assert response_json["first_name"] == "NewOriginalName"
-    assert response_json["language"] == "fr"
+    assert response_json["language"] == "ar"
     assert response_json["completed_onboarding"] is False
     assert response_json["completed_guided_tours"] == []
 
     user.refresh_from_db()
     assert user.first_name == "NewOriginalName"
-    assert user.profile.language == "fr"
+    assert user.profile.language == "ar"
 
     response = api_client.patch(
         reverse("api:user:account"),
@@ -302,7 +302,7 @@ def test_user_account(data_fixture, api_client):
     response_json = response.json()
     assert response.status_code == 200
     assert response_json["first_name"] == "NewOriginalName"
-    assert response_json["language"] == "fr"
+    assert response_json["language"] == "ar"
     assert response_json["email_notification_frequency"] == "daily"
 
     response = api_client.patch(
@@ -316,7 +316,7 @@ def test_user_account(data_fixture, api_client):
     response_json = response.json()
     assert response.status_code == 200
     assert response_json["first_name"] == "NewOriginalName"
-    assert response_json["language"] == "fr"
+    assert response_json["language"] == "ar"
     assert response_json["email_notification_frequency"] == "daily"
     assert response_json["completed_onboarding"] is True
     assert response_json["completed_guided_tours"] == []
@@ -333,7 +333,7 @@ def test_user_account(data_fixture, api_client):
     response_json = response.json()
     assert response.status_code == 200
     assert response_json["first_name"] == "NewOriginalName"
-    assert response_json["language"] == "fr"
+    assert response_json["language"] == "ar"
     assert response_json["email_notification_frequency"] == "daily"
     assert response_json["completed_onboarding"] is True
     assert response_json["completed_guided_tours"] == ["core"]

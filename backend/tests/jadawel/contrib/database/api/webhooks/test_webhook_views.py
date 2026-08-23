@@ -15,6 +15,16 @@ from jadawel.contrib.database.webhooks.models import TableWebhook, TableWebhookE
 from jadawel.core.utils import truncate_middle
 
 
+@pytest.fixture(autouse=True)
+def avoid_external_dns_in_url_validation(monkeypatch):
+    """Keep API contract tests independent of the placeholder domain's DNS."""
+
+    monkeypatch.setattr(
+        "jadawel.contrib.database.webhooks.validators.validating_create_connection",
+        lambda *args, **kwargs: None,
+    )
+
+
 @pytest.mark.django_db
 def test_list_webhooks(api_client, data_fixture):
     user, jwt_token = data_fixture.create_user_and_token()
