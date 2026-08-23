@@ -274,6 +274,8 @@ test *ARGS:
 
     echo "Running E2E tests..."
     if [ -z "{{ ARGS }}" ]; then
+        export LOAD_AUTH_EMAIL="${LOAD_AUTH_EMAIL:-e2e@jadawl.site}"
+        export LOAD_AUTH_PASSWORD="${LOAD_AUTH_PASSWORD:-testpassword}"
         node scripts/production-load-smoke.mjs
         yarn playwright test --project=chrome
         yarn playwright test --project=firefox --grep=@fast

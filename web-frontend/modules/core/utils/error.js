@@ -27,3 +27,11 @@ export function notifyIf(error, name = null) {
     throw error
   }
 }
+
+/**
+ * Returns the HTTP status represented by a Nuxt error or an HTTP client error.
+ * Network failures do not have either status shape and remain server errors.
+ */
+export function getPageErrorStatus(error, fallback = 500) {
+  return error?.statusCode || error?.response?.status || fallback
+}

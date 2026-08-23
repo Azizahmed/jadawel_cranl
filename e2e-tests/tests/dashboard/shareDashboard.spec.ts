@@ -2,15 +2,6 @@ import { expect, test } from "../jadawelTest";
 import { getClient } from "../../client";
 import { jadawelConfig } from "../../playwright.config";
 
-test.use({
-  // Chromium logs a failed-resource console error for the documented owner
-  // GET-404. The response body is still asserted below, and POST 404s are not
-  // accepted by the test's explicit status assertion.
-  expectedHttpErrors: [
-    { status: 404, urlIncludes: "/api/arabase/dashboard/" },
-  ],
-});
-
 test("an owner can create and open a public dashboard link", async ({
   page,
   workspacePage,
@@ -20,13 +11,12 @@ test("an owner can create and open a public dashboard link", async ({
     {
       name: "Share regression dashboard",
       type: "dashboard",
-    }
+    },
   );
   const dashboard = dashboardResponse.data;
   const sharePath = `/api/arabase/dashboard/${dashboard.id}/share/`;
-  const expectedBackendOrigin = new URL(
-    jadawelConfig.PUBLIC_BACKEND_URL
-  ).origin;
+  const expectedBackendOrigin = new URL(jadawelConfig.PUBLIC_BACKEND_URL)
+    .origin;
   const shareResponses: any[] = [];
   const malformedApiRequests: string[] = [];
 
@@ -43,26 +33,31 @@ test("an owner can create and open a public dashboard link", async ({
   });
 
   await page.goto(
-    `${jadawelConfig.PUBLIC_WEB_FRONTEND_URL}/dashboard/${dashboard.id}`
+    `${jadawelConfig.PUBLIC_WEB_FRONTEND_URL}/dashboard/${dashboard.id}`,
   );
   await expect(
-    page.locator(".header__filter-name", { hasText: "Share dashboard" })
+    page.locator(".header__filter-name", { hasText: "Share dashboard" }),
   ).toBeVisible();
-  await expect.poll(() => shareResponses.length).toBeGreaterThan(0);
+  await expect
+    .poll(
+      () =>
+        shareResponses.filter(
+          (response) => response.request().method() === "GET",
+        ).length,
+    )
+    .toBe(1);
 
   const initialGet = shareResponses.find(
-    (response) => response.request().method() === "GET"
+    (response) => response.request().method() === "GET",
   );
   if (!initialGet) {
     throw new Error("The dashboard share GET response was not captured");
   }
   expect(new URL(initialGet.url()).origin).toBe(expectedBackendOrigin);
   expect(new URL(initialGet.url()).pathname).toBe(sharePath);
-  expect(initialGet.status()).toBe(404);
+  expect(initialGet.status()).toBe(200);
   expect(initialGet.headers()["content-type"]).toContain("application/json");
-  await expect(initialGet.json()).resolves.toMatchObject({
-    error: "ERROR_DASHBOARD_SHARE_DOES_NOT_EXIST",
-  });
+  await expect(initialGet.json()).resolves.toBeNull();
 
   await page
     .locator(".header__filter-link", { hasText: "Share dashboard" })
@@ -74,14 +69,17 @@ test("an owner can create and open a public dashboard link", async ({
   await page.evaluate(() => window.dispatchEvent(new Event("resize")));
 
   await createLink.click();
-  await expect.poll(
-    () =>
-      shareResponses.filter((response) => response.request().method() === "POST")
-        .length
-  ).toBe(1);
+  await expect
+    .poll(
+      () =>
+        shareResponses.filter(
+          (response) => response.request().method() === "POST",
+        ).length,
+    )
+    .toBe(1);
 
   const postResponse = shareResponses.find(
-    (response) => response.request().method() === "POST"
+    (response) => response.request().method() === "POST",
   );
   if (!postResponse) {
     throw new Error("The dashboard share POST response was not captured");
@@ -107,5 +105,11 @@ test("an owner can create and open a public dashboard link", async ({
   const publicResponse = await page.goto(publicUrl);
   expect(publicResponse?.status()).toBe(200);
   await expect(page.locator(".dashboard-app")).toBeVisible();
+  expect(
+    shareResponses.filter((response) => response.request().method() === "GET"),
+  ).toHaveLength(1);
+  expect(
+    shareResponses.filter((response) => response.request().method() === "POST"),
+  ).toHaveLength(1);
   expect(malformedApiRequests).toEqual([]);
 });

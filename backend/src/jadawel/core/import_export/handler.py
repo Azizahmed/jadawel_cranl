@@ -7,7 +7,7 @@ import zipfile
 from datetime import datetime, timedelta, timezone
 from io import IOBase
 from os.path import join
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Collection, Dict, List, Optional, Tuple
 from zipfile import ZipFile
 
 from django.conf import settings
@@ -1069,27 +1069,28 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
         return join(base_path, normalized)
 
     @staticmethod
-    def _build_allowed_files(manifest_data: dict) -> list:
+    def _build_allowed_files(manifest_data: dict) -> set[str]:
         """
-        Builds the complete list of filenames allowed in an import ZIP archive
+        Builds the complete set of filenames allowed in an import ZIP archive
         from the manifest data. Includes checksummed data files plus the
         manifest and signature meta files.
 
         :param manifest_data: The parsed manifest dictionary.
-        :return: List of allowed filenames.
+        :return: Set of allowed filenames for constant-time membership checks.
         """
 
-        allowed = list(manifest_data.get("checksums", {}).keys())
-        allowed.append(MANIFEST_NAME)
-        allowed.append(SIGNATURE_NAME)
-        return allowed
+        return {
+            *manifest_data.get("checksums", {}).keys(),
+            MANIFEST_NAME,
+            SIGNATURE_NAME,
+        }
 
     def extract_files_from_zip(
         self,
         tmp_import_path: str,
         zip_file: ZipFile,
         storage: Storage,
-        allowed_files: list,
+        allowed_files: Collection[str],
         progress_builder: Optional[ChildProgressBuilder] = None,
     ):
         """
@@ -1102,12 +1103,13 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
             extracted.
         :param zip_file: The ZipFile instance containing the files to be extracted.
         :param storage: The storage instance used to save the extracted files.
-        :param allowed_files: List of filenames permitted to be extracted. Files
+        :param allowed_files: Filenames permitted to be extracted. Files
             not in this list cause the import to fail.
         :param progress_builder: A progress builder that allows for publishing progress.
         """
 
         file_list = zip_file.infolist()
+        allowed_file_names = set(allowed_files)
         self._validate_archive(zip_file)
         progress = ChildProgressBuilder.build(
             progress_builder, child_total=len(file_list)
@@ -1118,7 +1120,7 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
                 progress.increment()
                 continue
 
-            if file_info.filename not in allowed_files:
+            if file_info.filename not in allowed_file_names:
                 raise ImportExportResourceInvalidFile(
                     f"Archive contains unexpected file not listed in "
                     f"manifest: {file_info.filename}"

@@ -1071,9 +1071,9 @@ caps JSON inputs, and streams accepted entries to storage.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `backend/src/jadawel/config/settings/base.py` | Added configurable total-expanded and per-JSON workspace-import limits | Let deployments align archive bounds with worker and storage capacity | low |
-| `backend/src/jadawel/core/import_export/handler.py` | Validate entry count, duplicate/encrypted entries and expanded sizes before parsing; use bounded JSON reads; stream extraction | Prevent ZIP-bomb memory and storage amplification before authenticity checks | medium |
-| `backend/tests/jadawel/core/import_export/test_import_manifest.py` | Added compressed-manifest, aggregate-size and application-JSON regression tests | Prove malicious archives fail before unbounded JSON parsing | low |
-| `backend/tests/jadawel/core/import_export/test_import_applications.py` | Added a streamed-extraction regression test | Prevent reintroduction of whole-entry `read()` buffering | low |
+| `backend/src/jadawel/core/import_export/handler.py` | Validate entry count, duplicate/encrypted entries and expanded sizes before parsing; use bounded JSON reads; stream extraction with a constant-time filename allowlist | Prevent ZIP-bomb memory, storage and CPU amplification before authenticity checks | medium |
+| `backend/tests/jadawel/core/import_export/test_import_manifest.py` | Added file-count, duplicate/encrypted-entry, signature, missing-schema, compressed-manifest, aggregate-size and application-JSON regression tests | Prove malformed or malicious archives fail before unbounded parsing or extraction | low |
+| `backend/tests/jadawel/core/import_export/test_import_applications.py` | Added streamed-extraction and set-backed allowlist regression tests | Prevent reintroduction of whole-entry `read()` buffering or quadratic filename checks | low |
 
 ---
 
@@ -1115,10 +1115,13 @@ during concurrent authenticated testing even though production never enables Sil
 | `backend/tests/jadawel/contrib/builder/api/domains/test_domain_public_views.py` | Remove the deleted enterprise licence payload from public builder workspace expectations | Match the OSS public-builder serializer contract | low |
 | `backend/tests/jadawel/api/users/test_user_views.py` | Exercise Arabic instead of removed French in API language updates | Keep user API tests aligned with the fork's Arabic/English-only contract | low |
 | `backend/src/jadawel/contrib/integrations/local_jadawel/service_types.py` | Check automation row-write permissions against the target table workspace | Published workflow clones have no application workspace; using that nullable scope silently discarded every mapped field value | low |
+| `backend/tests/jadawel/contrib/integrations/local_jadawel/service_types/test_upsert_row_service_type.py` | Dispatch a mapped upsert through an integration whose application is null | Prove published workflow clones retain mapped row values | low |
 | `backend/src/jadawel/config/settings/dev.py` | Make django-silk profiling opt-in | Prevent profiler-induced failures from contaminating functional and load results | low |
 | `web-frontend/modules/core/assets/scss/components/highlight.scss` | Remove the superseded relative-position declaration | Make the guided-tour RTL fix pass the enforced no-duplicate-properties rule | low |
 | `web-frontend/modules/core/plugins/posthog.js` | Load PostHog only when analytics is configured | Keep the optional analytics SDK out of every default browser session | low |
-| `web-frontend/modules/core/pages/template.vue` | Replace the obsolete Nuxt 2 `asyncData` page hook with Nuxt 3 `useAsyncData` | Restore public template rendering, which previously always fell through to `error` | low |
+| `web-frontend/modules/core/pages/template.vue` | Replace the obsolete Nuxt 2 `asyncData` page hook with Nuxt 3 `useAsyncData` and preserve upstream HTTP failures | Restore public template rendering without disguising backend outages as cacheable 404s | low |
+| `web-frontend/modules/core/utils/error.js` | Add shared page-error status normalization | Keep Nuxt errors, HTTP client errors and network failures distinguishable | low |
+| `web-frontend/test/unit/core/utils/errors.spec.js` | Cover 404, upstream 5xx and network-error status normalization | Prevent public pages from collapsing every fetch failure into not-found | low |
 | `web-frontend/modules/core/components/dashboard/DashboardApplication.vue` | Render the relative creation time client-side | Prevent second-boundary SSR hydration mismatches on newly created applications | low |
 | `web-frontend/modules/automation/applicationTypes.js` | Lazy-load the workflow template UI | Keep the Vue Flow editor out of unrelated initial page bundles | low |
 | `web-frontend/modules/builder/realtime.js` | Ignore `page_created` events when their builder is no longer in the application store | Prevent delayed WebSocket events from dereferencing a deleted builder during navigation or cleanup | low |
@@ -1131,3 +1134,4 @@ during concurrent authenticated testing even though production never enables Sil
 |------|--------|--------|------------|
 | `web-frontend/modules/core/plugins/clientHandler.js` | Normalize trailing slashes before appending `/api` | Prevent production origins such as `https://jadawl.site/` from producing a `//api` request path | low |
 | `web-frontend/modules/core/components/Context.vue` | Keep a stable raw HTMLElement for geometry/listener registration and make listener cleanup idempotent | Prevent stale resize callbacks or Vue root transitions from calling geometry methods on a comment node; preserve edge flipping in LTR and RTL | medium |
+| `web-frontend/package.json` | Run ESLint from the frontend package instead of its parent directory | Prevent ESLint from resolving Ubuntu's system parser packages, whose placeholder version breaks the full lint gate | low |

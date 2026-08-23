@@ -555,9 +555,7 @@ const prepareRequestHeaders = (store) => (config) => {
  */
 export const getApiBaseUrl = (baseBackendUrl = '') => {
   const normalizedBackendUrl =
-    typeof baseBackendUrl === 'string'
-      ? baseBackendUrl.replace(/\/+$/, '')
-      : ''
+    typeof baseBackendUrl === 'string' ? baseBackendUrl.replace(/\/+$/, '') : ''
 
   return `${normalizedBackendUrl}/api`
 }

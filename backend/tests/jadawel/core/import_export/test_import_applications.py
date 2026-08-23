@@ -308,11 +308,12 @@ def test_extract_files_streams_allowed_file(tmp_path, use_tmp_media_root):
 def test_build_allowed_files_includes_checksums_and_meta():
     manifest = {"checksums": {"data.json": "abc", "file.bin": "def"}}
     result = ImportExportHandler._build_allowed_files(manifest)
-    assert "data.json" in result
-    assert "file.bin" in result
-    assert "manifest.json" in result
-    assert "manifest_signature.json" in result
-    assert len(result) == 4
+    assert result == {
+        "data.json",
+        "file.bin",
+        "manifest.json",
+        "manifest_signature.json",
+    }
 
 
 @pytest.mark.import_export_workspace

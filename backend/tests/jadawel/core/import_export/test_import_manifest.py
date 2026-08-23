@@ -2,7 +2,7 @@ import json
 import os
 import zipfile
 from io import BytesIO
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from django.conf import settings
 from django.test import override_settings
@@ -124,6 +124,98 @@ def test_validate_manifest_rejects_oversized_application_json():
         with pytest.raises(
             ImportExportResourceInvalidFile,
             match="Application data file database.json exceeds the allowed size limit",
+        ):
+            ImportExportHandler().validate_manifest(zip_file)
+
+
+@pytest.mark.import_export_workspace
+def test_validate_archive_rejects_too_many_files():
+    stream = make_zip({"manifest.json": "{}", "extra.json": "{}"})
+
+    with zipfile.ZipFile(stream) as zip_file:
+        with patch(
+            "jadawel.core.import_export.handler.IMPORT_ARCHIVE_MAX_FILE_COUNT", 1
+        ):
+            with pytest.raises(
+                ImportExportResourceInvalidFile, match="Archive contains too many files"
+            ):
+                ImportExportHandler._validate_archive(zip_file)
+
+
+@pytest.mark.import_export_workspace
+def test_validate_archive_rejects_duplicate_names():
+    stream = BytesIO()
+    with pytest.warns(UserWarning, match="Duplicate name"):
+        with zipfile.ZipFile(stream, "w") as zip_file:
+            zip_file.writestr("manifest.json", "{}")
+            zip_file.writestr("manifest.json", "{}")
+    stream.seek(0)
+
+    with zipfile.ZipFile(stream) as zip_file:
+        with pytest.raises(
+            ImportExportResourceInvalidFile, match="duplicate file names"
+        ):
+            ImportExportHandler._validate_archive(zip_file)
+
+
+@pytest.mark.import_export_workspace
+def test_validate_archive_rejects_encrypted_entries():
+    encrypted_entry = MagicMock(filename="manifest.json", flag_bits=0x1, file_size=2)
+    zip_file = MagicMock()
+    zip_file.infolist.return_value = [encrypted_entry]
+
+    with pytest.raises(ImportExportResourceInvalidFile, match="encrypted files"):
+        ImportExportHandler._validate_archive(zip_file)
+
+
+@pytest.mark.import_export_workspace
+def test_validate_archive_rejects_oversized_signature():
+    stream = make_zip({"manifest_signature.json": b"A" * 64})
+
+    with zipfile.ZipFile(stream) as zip_file:
+        with patch(
+            "jadawel.core.import_export.handler.IMPORT_ARCHIVE_MAX_SIGNATURE_SIZE_BYTES",
+            32,
+        ):
+            with pytest.raises(
+                ImportExportResourceInvalidFile,
+                match="Signature file exceeds the allowed size limit",
+            ):
+                ImportExportHandler._validate_archive(zip_file)
+
+
+@pytest.mark.import_export_workspace
+@override_settings(IMPORT_ARCHIVE_MAX_JSON_SIZE_BYTES=1024)
+def test_validate_manifest_rejects_missing_application_schema_file():
+    manifest = json.dumps(
+        {
+            "version": "1.0.0",
+            "configuration": {"only_structure": True},
+            "applications": {
+                "database": {
+                    "version": "1.0.0",
+                    "configuration": {},
+                    "items": [
+                        {
+                            "id": 1,
+                            "type": "database",
+                            "name": "Database",
+                            "uuid": "application-uuid",
+                            "files": {"schema": "database.json"},
+                        }
+                    ],
+                }
+            },
+            "checksums": {"database.json": "unused-by-manifest-validation"},
+            "total_files": 1,
+        }
+    )
+    stream = make_zip({"manifest.json": manifest})
+
+    with zipfile.ZipFile(stream) as zip_file:
+        with pytest.raises(
+            ImportExportResourceInvalidFile,
+            match="Application data file database.json is missing",
         ):
             ImportExportHandler().validate_manifest(zip_file)
 

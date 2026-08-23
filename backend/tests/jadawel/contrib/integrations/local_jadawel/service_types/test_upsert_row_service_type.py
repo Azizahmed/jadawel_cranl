@@ -75,6 +75,39 @@ def test_local_jadawel_upsert_row_service_dispatch_data_without_row_id(
 
 
 @pytest.mark.django_db
+def test_published_upsert_service_without_application_writes_mapped_values(
+    data_fixture,
+):
+    user = data_fixture.create_user()
+    database = data_fixture.create_database_application(user=user)
+    table = TableHandler().create_table_and_fields(
+        user=user,
+        database=database,
+        name=data_fixture.fake.name(),
+        fields=[("Ingredient", "text", {})],
+    )
+    ingredient = table.field_set.get(name="Ingredient")
+    integration = data_fixture.create_local_jadawel_integration(
+        application=None, user=user, authorized_user=user
+    )
+    service = data_fixture.create_local_jadawel_upsert_row_service(
+        integration=integration,
+        table=table,
+    )
+    field_mapping = service.field_mappings.create(
+        field=ingredient, value="'Published value'"
+    )
+
+    dispatch_data = service.get_type().dispatch_data(
+        service,
+        {field_mapping.id: "Published value"},
+        FakeDispatchContext(),
+    )
+
+    assert getattr(dispatch_data["data"], ingredient.db_column) == "Published value"
+
+
+@pytest.mark.django_db
 def test_local_jadawel_upsert_row_service_dispatch_data_without_row_id_with_file(
     data_fixture, fake
 ):

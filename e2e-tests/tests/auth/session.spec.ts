@@ -1,15 +1,16 @@
 import { expect, test } from "../jadawelTest";
 import { LoginPage } from "../../pages/loginPage";
-import { existingUserCredentials } from "../../fixtures/user";
 
 test.describe("Session lifecycle", () => {
   test("An anonymous visitor is sent to the login page @fast", async ({
     page,
   }) => {
-    await page.goto(`${process.env.PUBLIC_WEB_FRONTEND_URL || "http://localhost:3000"}/dashboard`);
+    await page.goto(
+      `${process.env.PUBLIC_WEB_FRONTEND_URL || "http://localhost:3000"}/dashboard`,
+    );
 
     await expect(page, "A protected route redirects to login.").toHaveURL(
-      /\/login/
+      /\/login/,
     );
   });
 
@@ -22,7 +23,7 @@ test.describe("Session lifecycle", () => {
 
     await expect(
       workspacePage.page,
-      "Logging out returns the user to the login page."
+      "Logging out returns the user to the login page.",
     ).toHaveURL(/\/login/);
   });
 
@@ -32,25 +33,31 @@ test.describe("Session lifecycle", () => {
 
     await expect(
       workspacePage.sidebar.workspaceSelector,
-      "The user is still signed in after reloading."
+      "The user is still signed in after reloading.",
     ).toBeVisible();
   });
 
   test("An existing account can sign in through the form @fast", async ({
     page,
     goto,
+    workspacePage,
   }) => {
-    // Exercises the real sign-in form with an account that already exists on
-    // the instance, rather than the token short-circuit the fixtures use.
-    const { email, password } = existingUserCredentials();
+    // Log out the fixture account, then exercise the real sign-in form with the
+    // same account. It already has a workspace and completed onboarding.
+    await workspacePage.goto();
+    await workspacePage.sidebar.logout();
+
+    const { email, password } = workspacePage.user;
+    if (!password) {
+      throw new Error("The fixture user must retain its generated password");
+    }
     const loginPage = new LoginPage({ page, goto });
-    await loginPage.goto();
 
     await loginPage.loginWithPassword(email, password);
 
     await expect(
       page.locator(".sidebar__workspaces-selector"),
-      "The account lands on its own workspace."
+      "The account lands on its own workspace.",
     ).toBeVisible();
   });
 });

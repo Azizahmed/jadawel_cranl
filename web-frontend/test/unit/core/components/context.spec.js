@@ -147,10 +147,7 @@ describe('Context.vue', () => {
     wrapper.vm.$.vnode.el = originalRoot
 
     await wrapper.unmount()
-    expect(removeEventListener).toHaveBeenCalledWith(
-      'resize',
-      resizeHandler
-    )
+    expect(removeEventListener).toHaveBeenCalledWith('resize', resizeHandler)
     expect(contextElement.isConnected).toBe(false)
     expect(() => window.dispatchEvent(new Event('resize'))).not.toThrow()
     target.remove()

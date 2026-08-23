@@ -12,9 +12,8 @@ name: Jadawel CI
 # Note that `codex/hostinger-coolify-deploy` no longer auto-deploys anything:
 # the Coolify instance it fed, jadawel.azoz.cloud, is switched off. It is still
 # gated here because it costs nothing, but it is no longer the branch a release
-# comes from — CranL releases from whichever branch is fast-forwarded onto
-# `cranl/main`, so add that branch here when it changes. See
-# docs/DEPLOY_CRANL.md.
+# comes from — CranL releases from this repository's `main` branch after the
+# image-publish and digest-pin steps in docs/DEPLOY_CRANL.md.
 #
 # `paths-ignore` keeps documentation-only commits from spending Actions minutes,
 # which was the original reason for holding this back.

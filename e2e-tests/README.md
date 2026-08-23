@@ -3,7 +3,7 @@
 ```bash
 cd e2e-tests
 # This will do all the yarn installs for you
-./run-e2e-tests-locally.sh 
+./run-e2e-tests-locally.sh
 # Once done you can easily just re-run the following:
 yarn run test
 ```
@@ -33,21 +33,10 @@ single threaded.
 
 ### Test users
 
-Nearly every test creates its own throwaway user over the API and deletes it
-again afterwards, so the tests stay independent and leave no data behind.
-
-The exception is `tests/auth/session.spec.ts`, which signs in through the real
-login form with an account that already exists on the instance. It defaults to
-`test@test.com` / `test1234` and reads these environment variables when a
-different instance is targeted:
-
-```bash
-export E2E_EXISTING_USER_EMAIL=someone@example.com
-export E2E_EXISTING_USER_PASSWORD=...
-```
-
-That test only reads: it signs in and out again without touching the account's
-data.
+The browser tests create throwaway users over the API and delete them again
+afterwards, so the tests stay independent and leave no data behind. The session
+test logs its fixture user out and signs the same account back in through the
+real login form, avoiding assumptions about accounts on the target instance.
 
 ### Fork specific coverage
 
@@ -56,12 +45,17 @@ default locale, `<html dir="rtl">`, and the interface language switch. Because
 the UI is translated, page objects anchor on icons and structure (for example
 `.context__menu-item-link:has(.iconoir-log-out)`) instead of on button labels
 wherever a test has to work in both languages.
+
 ### Production-shaped load gate
 
-The default `just e2e test` run first sends 600 requests at concurrency 60 to
-the production frontend's plain `/_health` Nitro route. It requires zero errors
-and a p95 no higher than 1.5 seconds before Playwright starts. Override the
-gate with `LOAD_TOTAL`, `LOAD_CONCURRENCY`, `LOAD_TIMEOUT_MS`,
-`LOAD_MAX_ERROR_RATE`, `LOAD_MAX_P95_MS`, `LOAD_BASE_URL`, or comma-separated
-`LOAD_PATHS`. `LOAD_BEARER_TOKEN` adds a Jadawel JWT header for authenticated
-read-only endpoints. Only configure read-only paths.
+The default `just e2e test` run first sends 600 requests at concurrency 60,
+spread across the production frontend's plain `/_health` route, the SSR login
+page, the backend's database-backed `/api/settings/` endpoint, and an
+authenticated `/api/workspaces/` read. It requires zero errors and a p95 no
+higher than 1.5 seconds before Playwright starts. The clean E2E stack supplies
+its seeded account through `LOAD_AUTH_EMAIL` and `LOAD_AUTH_PASSWORD`;
+`LOAD_BEARER_TOKEN` can supply a token directly for another environment.
+Override the gate with `LOAD_TOTAL`, `LOAD_CONCURRENCY`, `LOAD_TIMEOUT_MS`,
+`LOAD_MAX_ERROR_RATE`, `LOAD_MAX_P95_MS`, `LOAD_BASE_URL`, `LOAD_BACKEND_URL`,
+or comma-separated `LOAD_URLS`. `LOAD_PATHS` remains a compatibility alias for
+frontend-relative targets. Only configure read-only targets.

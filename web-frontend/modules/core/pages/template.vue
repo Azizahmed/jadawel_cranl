@@ -6,6 +6,7 @@
 <script setup>
 import TemplatePreview from '@jadawel/modules/core/components/template/TemplatePreview'
 import TemplateService from '@jadawel/modules/core/services/template'
+import { getPageErrorStatus } from '@jadawel/modules/core/utils/error'
 
 const route = useRoute()
 const { $client } = useNuxtApp()
@@ -20,9 +21,11 @@ const { data: template, error } = await useAsyncData(
 )
 
 if (error.value) {
+  const statusCode = getPageErrorStatus(error.value)
   throw createError({
-    statusCode: 404,
-    statusMessage: 'Template not found',
+    statusCode,
+    statusMessage:
+      statusCode === 404 ? 'Template not found' : 'Failed to load template',
   })
 }
 </script>

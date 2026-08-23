@@ -292,11 +292,7 @@ export default {
           updatePosition()
         }
       }
-      window.addEventListener(
-        'scroll',
-        this.updatePositionViaScrollEvent,
-        true
-      )
+      window.addEventListener('scroll', this.updatePositionViaScrollEvent, true)
 
       this.updatePositionViaResizeEvent = () => {
         if (this.hideOnResize) {
