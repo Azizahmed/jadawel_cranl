@@ -22,8 +22,10 @@
             <span class="dashboard__application-more-separator">&#8226;</span>
             {{ part }}
           </template>
-          <span class="dashboard__application-more-separator">&#8226;</span>
-          {{ $t('dashboardApplication.createdAt') }} {{ humanCreatedAt }}
+          <ClientOnly>
+            <span class="dashboard__application-more-separator">&#8226;</span>
+            {{ $t('dashboardApplication.createdAt') }} {{ humanCreatedAt }}
+          </ClientOnly>
         </div>
       </div>
     </div>
@@ -116,7 +118,8 @@ export default {
      */
     counted(base, count) {
       const keys = pluralKeys(base, this.$i18n.locale, count)
-      const key = keys.find((candidate) => this.$te(candidate)) || keys[keys.length - 1]
+      const key =
+        keys.find((candidate) => this.$te(candidate)) || keys[keys.length - 1]
       return this.$t(key, { count })
     },
   },

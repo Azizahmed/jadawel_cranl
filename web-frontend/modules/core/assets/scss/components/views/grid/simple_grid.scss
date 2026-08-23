@@ -177,11 +177,7 @@
 .simple-grid__row--hover.simple-grid__row--checked {
   .simple-grid__cell,
   .grid-view__cell {
-    background-color: color-mix(
-      in srgb,
-      #{$color-primary-100} 98%,
-      $black
-    );
+    background-color: color-mix(in srgb, #{$color-primary-100} 98%, $black);
   }
 }
 

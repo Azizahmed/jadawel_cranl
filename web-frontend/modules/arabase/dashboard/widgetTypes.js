@@ -1,12 +1,5 @@
+import { defineAsyncComponent } from 'vue'
 import { WidgetType } from '@jadawel/modules/dashboard/widgetTypes'
-import ChartWidget from '@jadawel/modules/arabase/dashboard/components/widget/ChartWidget'
-import ChartWidgetSettings from '@jadawel/modules/arabase/dashboard/components/widget/ChartWidgetSettings'
-import ProgressWidget from '@jadawel/modules/arabase/dashboard/components/widget/ProgressWidget'
-import ProgressWidgetSettings from '@jadawel/modules/arabase/dashboard/components/widget/ProgressWidgetSettings'
-import RecordsListWidget from '@jadawel/modules/arabase/dashboard/components/widget/RecordsListWidget'
-import RecordsListWidgetSettings from '@jadawel/modules/arabase/dashboard/components/widget/RecordsListWidgetSettings'
-import UpcomingDatesWidget from '@jadawel/modules/arabase/dashboard/components/widget/UpcomingDatesWidget'
-import UpcomingDatesWidgetSettings from '@jadawel/modules/arabase/dashboard/components/widget/UpcomingDatesWidgetSettings'
 import BarChartSvg from '@jadawel/modules/arabase/assets/images/widgets/bar_chart_widget.svg?url'
 import LineChartSvg from '@jadawel/modules/arabase/assets/images/widgets/line_chart_widget.svg?url'
 import PieChartSvg from '@jadawel/modules/arabase/assets/images/widgets/pie_chart_widget.svg?url'
@@ -14,6 +7,39 @@ import DoughnutChartSvg from '@jadawel/modules/arabase/assets/images/widgets/dou
 import RecordsListSvg from '@jadawel/modules/arabase/assets/images/widgets/records_list_widget.svg?url'
 import ProgressSvg from '@jadawel/modules/arabase/assets/images/widgets/progress_widget.svg?url'
 import UpcomingDatesSvg from '@jadawel/modules/arabase/assets/images/widgets/upcoming_dates_widget.svg?url'
+
+const ChartWidget = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/ChartWidget')
+)
+const ChartWidgetSettings = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/ChartWidgetSettings')
+)
+const ProgressWidget = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/ProgressWidget')
+)
+const ProgressWidgetSettings = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/ProgressWidgetSettings')
+)
+const RecordsListWidget = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/RecordsListWidget')
+)
+const RecordsListWidgetSettings = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/RecordsListWidgetSettings')
+)
+const UpcomingDatesWidget = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/UpcomingDatesWidget')
+)
+const UpcomingDatesWidgetSettings = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/arabase/dashboard/components/widget/UpcomingDatesWidgetSettings')
+)
 
 /**
  * Widgets whose data arrives as one dispatch are loading until that dispatch

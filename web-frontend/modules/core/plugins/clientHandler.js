@@ -546,13 +546,29 @@ const prepareRequestHeaders = (store) => (config) => {
   return config
 }
 
+/**
+ * Build the API base URL from a backend origin or supported relative fallback.
+ *
+ * Runtime configuration commonly comes from an environment variable, so an
+ * origin may contain one or more trailing slashes. Strip only those slashes
+ * before adding the API path to keep the request URL unambiguous.
+ */
+export const getApiBaseUrl = (baseBackendUrl = '') => {
+  const normalizedBackendUrl =
+    typeof baseBackendUrl === 'string'
+      ? baseBackendUrl.replace(/\/+$/, '')
+      : ''
+
+  return `${normalizedBackendUrl}/api`
+}
+
 const createAxiosInstance = (runtimeConfig) => {
   const publicBackendUrl = runtimeConfig.public.publicBackendUrl
 
   const baseBackendUrl = import.meta.client
     ? publicBackendUrl
     : runtimeConfig.privateBackendUrl || publicBackendUrl
-  const url = `${baseBackendUrl || ''}/api`
+  const url = getApiBaseUrl(baseBackendUrl)
 
   return axios.create({
     baseURL: url,

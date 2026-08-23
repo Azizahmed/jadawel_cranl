@@ -1,3 +1,4 @@
+import { defineAsyncComponent } from 'vue'
 import { ApplicationType } from '@jadawel/modules/core/applicationTypes'
 import ApplicationContext from '@jadawel/modules/automation/components/application/ApplicationContext'
 import AutomationForm from '@jadawel/modules/automation/components/form/AutomationForm'
@@ -6,8 +7,15 @@ import { populateAutomationWorkflow } from '@jadawel/modules/automation/store/au
 import { DEVELOPMENT_STAGES } from '@jadawel/modules/core/constants'
 import { pageFinished } from '@jadawel/modules/core/utils/routing'
 import { nextTick } from '#imports'
-import WorkflowTemplate from '@jadawel/modules/automation/components/workflow/WorkflowTemplate.vue'
-import WorkflowTemplateSideBar from '@jadawel/modules/automation/components/workflow/WorkflowTemplateSideBar.vue'
+
+const WorkflowTemplate = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/automation/components/workflow/WorkflowTemplate.vue')
+)
+const WorkflowTemplateSideBar = defineAsyncComponent(
+  () =>
+    import('@jadawel/modules/automation/components/workflow/WorkflowTemplateSideBar.vue')
+)
 
 export class AutomationApplicationType extends ApplicationType {
   static getType() {

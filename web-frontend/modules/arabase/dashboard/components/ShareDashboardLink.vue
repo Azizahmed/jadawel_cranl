@@ -128,6 +128,8 @@ import DashboardShareService from '@jadawel/modules/arabase/services/dashboardSh
 import DashboardRotateSlugModal from '@jadawel/modules/arabase/dashboard/components/DashboardRotateSlugModal'
 import DashboardSharePasswordModal from '@jadawel/modules/arabase/dashboard/components/DashboardSharePasswordModal'
 
+const DASHBOARD_SHARE_NOT_FOUND = 'ERROR_DASHBOARD_SHARE_DOES_NOT_EXIST'
+
 export default {
   name: 'ShareDashboardLink',
   components: { DashboardRotateSlugModal, DashboardSharePasswordModal },
@@ -181,7 +183,10 @@ export default {
         )
         this.share = data
       } catch (e) {
-        if (e.response?.status === 404) {
+        if (
+          e.response?.status === 404 &&
+          e.response?.data?.error === DASHBOARD_SHARE_NOT_FOUND
+        ) {
           this.share = null
         } else {
           this.handleError(e, 'dashboard')

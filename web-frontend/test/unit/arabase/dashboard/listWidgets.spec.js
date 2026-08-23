@@ -17,7 +17,12 @@ const mountListWidget = async (
   component,
   { widget = {}, dataSource = {}, results = [], error = false }
 ) => {
-  const source = { id: 7, type: 'local_jadawel_list_rows', schema: SCHEMA, ...dataSource }
+  const source = {
+    id: 7,
+    type: 'local_jadawel_list_rows',
+    schema: SCHEMA,
+    ...dataSource,
+  }
   const store = {
     getters: {
       'dashboardApplication/getDataSourceById': () => source,
@@ -114,7 +119,9 @@ describe('UpcomingDatesWidget', () => {
   test('the date column is trailing and not repeated among the fields', async () => {
     const wrapper = await mountAgenda({
       widget: { field_ids: [1, 3] },
-      results: [{ id: 1, Name: 'Renewal', Region: 'Riyadh', Due: isoDaysFromNow(3) }],
+      results: [
+        { id: 1, Name: 'Renewal', Region: 'Riyadh', Due: isoDaysFromNow(3) },
+      ],
     })
 
     // 'Due' appears once, as the trailing column, even though it was also
@@ -139,7 +146,9 @@ describe('UpcomingDatesWidget', () => {
     // The boundary matters: "overdue" means before the start of today, so
     // something due later today is still upcoming.
     const wrapper = await mountAgenda({
-      results: [{ id: 1, Name: 'Today', Region: 'Riyadh', Due: isoDaysFromNow(0) }],
+      results: [
+        { id: 1, Name: 'Today', Region: 'Riyadh', Due: isoDaysFromNow(0) },
+      ],
     })
 
     expect(wrapper.find('tbody tr').classes()).not.toContain(

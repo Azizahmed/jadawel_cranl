@@ -23,7 +23,7 @@
   &.ab-input {
     border: none;
     padding: 0 var(--input-horizontal-padding, 12px);
-    width: 14ch; // 14 characters is enough to fit a date format ('YYYY-MM-DD')
+    inline-size: 14ch; // 14 characters is enough to fit a date format ('YYYY-MM-DD')
   }
 }
 
@@ -36,7 +36,7 @@
   /* Behave similar to database date picker, except for the AB theming overrides */
   border: none;
   border-radius: var(--input-border-radius, 0);
-  width: 280px;
+  inline-size: 280px;
   padding: 16px;
   box-sizing: content-box;
   background-color: var(--input-background-color, $white);
@@ -44,7 +44,7 @@
 
   // Remove vuejs3-datepicker default shadow and margin
   box-shadow: none;
-  margin-top: 0;
+  margin-block-start: 0;
 
   // Disable vuejs3-datepicker transition when switching between days
   * {
@@ -52,7 +52,7 @@
   }
 
   &.vuejs3-datepicker__calendar--small {
-    width: 280px;
+    inline-size: 280px;
     padding: 0;
   }
 
@@ -68,7 +68,7 @@
 
   .month,
   .year {
-    width: calc(33.333% - 4px);
+    inline-size: calc(33.333% - 4px);
   }
 
   .cell {
@@ -106,8 +106,8 @@
   .next {
     font-size: 0;
     cursor: pointer;
-    width: 36px;
-    height: 36px;
+    inline-size: 36px;
+    block-size: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,8 +140,8 @@
 
   .cell.day,
   .cell.day-header {
-    width: 36px;
-    height: 36px;
+    inline-size: 36px;
+    block-size: 36px;
     line-height: 36px;
   }
 
@@ -164,7 +164,7 @@
   .cell.month,
   .cell.year {
     padding: 0;
-    height: $datepicker-month-year-cell-height;
+    block-size: $datepicker-month-year-cell-height;
     line-height: $datepicker-month-year-cell-height;
   }
 
@@ -204,7 +204,7 @@
 
   .month__year_btn,
   .day__month_btn {
-    height: 36px;
+    block-size: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -228,17 +228,17 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    max-height: (6 * (24px + 4px + 4px)) + 40px;
-    min-height: 0;
-    width: 92px;
+    max-block-size: (6 * (24px + 4px + 4px)) + 40px;
+    min-block-size: 0;
+    inline-size: 92px;
     overflow: auto;
 
     &::before,
     &::after {
       content: '';
       display: block;
-      height: 10px;
-      width: 100%;
+      block-size: 10px;
+      inline-size: 100%;
     }
   }
 

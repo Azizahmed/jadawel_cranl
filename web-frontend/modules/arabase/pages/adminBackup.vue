@@ -58,7 +58,11 @@
             </Dropdown>
             <span class="admin-backup__next-run">
               <template v-if="health.next_run_on">
-                {{ $t('adminBackup.nextRun', { when: formatDate(health.next_run_on) }) }}
+                {{
+                  $t('adminBackup.nextRun', {
+                    when: formatDate(health.next_run_on),
+                  })
+                }}
               </template>
             </span>
             <Button
@@ -227,7 +231,9 @@ export default {
     async changeFrequency(frequency) {
       this.savingFrequency = true
       try {
-        const { data } = await BackupService(this.$client).setFrequency(frequency)
+        const { data } = await BackupService(this.$client).setFrequency(
+          frequency
+        )
         this.applyOverview(data)
       } catch (error) {
         notifyIf(error, 'settings')
@@ -267,9 +273,7 @@ export default {
         return '—'
       }
       const mb = total / (1024 * 1024)
-      return mb < 1024
-        ? `${mb.toFixed(1)} MB`
-        : `${(mb / 1024).toFixed(2)} GB`
+      return mb < 1024 ? `${mb.toFixed(1)} MB` : `${(mb / 1024).toFixed(2)} GB`
     },
   },
 }

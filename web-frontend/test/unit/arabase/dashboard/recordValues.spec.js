@@ -22,7 +22,9 @@ describe('formatRecordValue', () => {
   })
 
   test('a single select object renders its value', () => {
-    expect(formatRecordValue({ id: 1, value: 'Open', color: 'blue' })).toBe('Open')
+    expect(formatRecordValue({ id: 1, value: 'Open', color: 'blue' })).toBe(
+      'Open'
+    )
   })
 
   test('link rows and collaborators render as a joined list', () => {

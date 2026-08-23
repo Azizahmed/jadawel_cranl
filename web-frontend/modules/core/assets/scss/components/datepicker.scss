@@ -12,10 +12,10 @@
 
 .vuejs3-datepicker.datepicker .vuejs3-datepicker__calendar {
   border: none;
-  width: 312px;
+  inline-size: 312px;
   padding: 16px;
   box-sizing: border-box;
-  margin-top: 0;
+  margin-block-start: 0;
   box-shadow: none;
   background: $white;
 
@@ -24,7 +24,7 @@
   }
 
   &.vuejs3-datepicker__calendar--small {
-    width: 280px;
+    inline-size: 280px;
     padding: 0;
   }
 
@@ -38,7 +38,7 @@
 
   .month,
   .year {
-    width: calc(33.333% - 4px);
+    inline-size: calc(33.333% - 4px);
   }
 
   @include rounded($rounded-md);
@@ -76,8 +76,8 @@
   .next {
     font-size: 0;
     cursor: pointer;
-    width: 36px;
-    height: 36px;
+    inline-size: 36px;
+    block-size: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,8 +110,8 @@
 
   .cell.day,
   .cell.day-header {
-    width: 36px;
-    height: 36px;
+    inline-size: 36px;
+    block-size: 36px;
     line-height: 36px;
   }
 
@@ -129,7 +129,7 @@
   .cell.month,
   .cell.year {
     padding: 0;
-    height: $datepicker-month-year-cell-height;
+    block-size: $datepicker-month-year-cell-height;
     line-height: $datepicker-month-year-cell-height;
   }
 
@@ -186,7 +186,7 @@
 
   .month__year_btn,
   .day__month_btn {
-    height: 36px;
+    block-size: 36px;
     display: flex;
     align-items: center;
     justify-content: center;

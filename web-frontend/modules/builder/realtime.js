@@ -21,6 +21,8 @@ export const registerRealtimeEvents = (realtime) => {
   // Page events
   realtime.registerEvent('page_created', ({ store }, data) => {
     const builder = store.getters['application/get'](data.page.builder_id)
+    if (builder === undefined) return
+
     store.dispatch('page/forceCreate', { builder, page: data.page })
   })
 

@@ -24,9 +24,12 @@ describe('moment locales', () => {
   // `en` is built into moment itself and needs no import.
   const OFFERED = ['ar', 'fr', 'nl', 'de', 'es', 'it', 'pl', 'ko', 'uk']
 
-  test.each(OFFERED)('imports the %s locale so the bundle contains it', (locale) => {
-    expect(source).toContain(`import 'moment/dist/locale/${locale}'`)
-  })
+  test.each(OFFERED)(
+    'imports the %s locale so the bundle contains it',
+    (locale) => {
+      expect(source).toContain(`import 'moment/dist/locale/${locale}'`)
+    }
+  )
 
   test('sets the starting locale explicitly rather than inheriting it', () => {
     expect(source).toMatch(/^moment\.locale\('en'\)$/m)
