@@ -4,8 +4,16 @@ set -Eeo pipefail
 # This script waits 60 seconds by default for the backend and web-frontend services
 # to become healthy.
 
-# Keep in sync with src/jadawel/config/settings/base.py:594
-DEFAULT_APPLICATION_TEMPLATES=("project-tracker" "ab_ivory_theme")
+# Keep in sync with arabase.template_catalog.LOCAL_TEMPLATE_CATALOG. Production
+# startup is not complete until the fork's authoritative local-only catalog is live.
+LOCAL_APPLICATION_TEMPLATES=(
+  "arabic-performance-review"
+  "arabic-project-management"
+  "saudi-budget-consolidation"
+  "performance-reviews"
+  "project-management-en"
+  "saudi-budget-consolidation-en"
+)
 
 jadawel_ready() {
     curlf() {
@@ -19,7 +27,7 @@ jadawel_ready() {
 
     templates_ready(){
       TEMPLATES_JSON=$(curl --silent --max-time 10 "${PUBLIC_BACKEND_URL:-http://backend:8000}/api/templates/")
-      for template in "${DEFAULT_APPLICATION_TEMPLATES[@]}"; do
+      for template in "${LOCAL_APPLICATION_TEMPLATES[@]}"; do
         if [[ ${TEMPLATES_JSON} != *"$template"* ]] ; then
           echo "Template $template is missing..."
           return 22
