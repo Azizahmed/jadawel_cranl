@@ -271,6 +271,40 @@ def test_extract_files_rejects_files_not_in_manifest(tmp_path, use_tmp_media_roo
 
 
 @pytest.mark.import_export_workspace
+@pytest.mark.django_db
+def test_extract_files_streams_allowed_file(tmp_path, use_tmp_media_root):
+    zip_path = f"{tmp_path}/streaming_test.zip"
+    content = b"A" * (256 * 1024)
+    with zipfile.ZipFile(
+        zip_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9
+    ) as zip_file:
+        zip_file.writestr("trusted.data", content)
+
+    storage = get_default_storage()
+    extract_dir = "import_test/streaming"
+    read_sizes = []
+    original_read = zipfile.ZipExtFile.read
+
+    def tracked_read(zip_entry, size=-1):
+        read_sizes.append(size)
+        return original_read(zip_entry, size)
+
+    with zipfile.ZipFile(zip_path, "r") as zip_file:
+        with patch.object(zipfile.ZipExtFile, "read", new=tracked_read):
+            ImportExportHandler().extract_files_from_zip(
+                extract_dir,
+                zip_file,
+                storage,
+                allowed_files=["trusted.data"],
+            )
+
+    assert read_sizes
+    assert all(size >= 0 for size in read_sizes)
+    with storage.open(f"{extract_dir}/trusted.data", "rb") as extracted_file:
+        assert extracted_file.read() == content
+
+
+@pytest.mark.import_export_workspace
 def test_build_allowed_files_includes_checksums_and_meta():
     manifest = {"checksums": {"data.json": "abc", "file.bin": "def"}}
     result = ImportExportHandler._build_allowed_files(manifest)

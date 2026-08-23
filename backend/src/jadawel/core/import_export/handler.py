@@ -13,7 +13,7 @@ from zipfile import ZipFile
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import SuspiciousOperation
-from django.core.files.base import ContentFile
+from django.core.files.base import File
 from django.core.files.storage import Storage
 from django.db import transaction
 from django.db.models import Exists, OuterRef, QuerySet
@@ -74,6 +74,10 @@ EXPORT_FORMAT_VERSION = "1.0.0"
 MANIFEST_NAME = "manifest.json"
 SIGNATURE_NAME = "manifest_signature.json"
 INDENT = settings.DEBUG and 4 or None
+IMPORT_ARCHIVE_MAX_FILE_COUNT = 100_000
+IMPORT_ARCHIVE_MAX_MANIFEST_SIZE_BYTES = 8 * 1024 * 1024
+IMPORT_ARCHIVE_MAX_SIGNATURE_SIZE_BYTES = 256 * 1024
+IMPORT_ARCHIVE_READ_CHUNK_SIZE = 64 * 1024
 
 
 class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
@@ -614,6 +618,101 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
         if not zipfile.is_zipfile(stream):
             raise InvalidFileStreamError("The provided file is not a valid zip file.")
 
+    @staticmethod
+    def _read_with_limit(stream, max_size: int, too_large_message: str) -> bytes:
+        content = bytearray()
+
+        while True:
+            chunk = stream.read(
+                min(IMPORT_ARCHIVE_READ_CHUNK_SIZE, max_size + 1 - len(content))
+            )
+            if not chunk:
+                return bytes(content)
+
+            content.extend(chunk)
+            if len(content) > max_size:
+                raise ImportExportResourceInvalidFile(too_large_message)
+
+    @classmethod
+    def _load_json_with_limit(
+        cls,
+        stream,
+        max_size: int,
+        too_large_message: str,
+        corrupted_message: str,
+    ):
+        content = cls._read_with_limit(stream, max_size, too_large_message)
+        try:
+            return json.loads(content)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            raise ImportExportResourceInvalidFile(corrupted_message)
+
+    @staticmethod
+    def _validate_archive(zip_file: ZipFile) -> Dict[str, zipfile.ZipInfo]:
+        file_list = zip_file.infolist()
+        if len(file_list) > IMPORT_ARCHIVE_MAX_FILE_COUNT:
+            raise ImportExportResourceInvalidFile("Archive contains too many files.")
+
+        files_by_name = {}
+        uncompressed_size = 0
+        for file_info in file_list:
+            if file_info.filename in files_by_name:
+                raise ImportExportResourceInvalidFile(
+                    "Archive contains duplicate file names."
+                )
+            if file_info.flag_bits & 0x1:
+                raise ImportExportResourceInvalidFile(
+                    "Archive contains encrypted files."
+                )
+
+            files_by_name[file_info.filename] = file_info
+            uncompressed_size += file_info.file_size
+            if uncompressed_size > settings.IMPORT_ARCHIVE_MAX_UNCOMPRESSED_SIZE_BYTES:
+                raise ImportExportResourceInvalidFile(
+                    "Archive uncompressed size exceeds the allowed limit."
+                )
+
+        manifest = files_by_name.get(MANIFEST_NAME)
+        manifest_limit = min(
+            IMPORT_ARCHIVE_MAX_MANIFEST_SIZE_BYTES,
+            settings.IMPORT_ARCHIVE_MAX_JSON_SIZE_BYTES,
+        )
+        if manifest is not None and manifest.file_size > manifest_limit:
+            raise ImportExportResourceInvalidFile(
+                "Manifest file exceeds the allowed size limit."
+            )
+
+        signature = files_by_name.get(SIGNATURE_NAME)
+        if (
+            signature is not None
+            and signature.file_size > IMPORT_ARCHIVE_MAX_SIGNATURE_SIZE_BYTES
+        ):
+            raise ImportExportResourceInvalidFile(
+                "Signature file exceeds the allowed size limit."
+            )
+
+        return files_by_name
+
+    @staticmethod
+    def _validate_application_json_files(
+        manifest_data: Dict, files_by_name: Dict[str, zipfile.ZipInfo]
+    ):
+        for application_type in manifest_data.get("applications", {}).values():
+            if not isinstance(application_type, dict):
+                continue
+            for application in application_type.get("items", []):
+                schema_file_name = application["files"]["schema"]
+                schema_file = files_by_name.get(schema_file_name)
+                if schema_file is None:
+                    raise ImportExportResourceInvalidFile(
+                        f"Application data file {schema_file_name} is missing."
+                    )
+                if schema_file.file_size > settings.IMPORT_ARCHIVE_MAX_JSON_SIZE_BYTES:
+                    raise ImportExportResourceInvalidFile(
+                        f"Application data file {schema_file_name} exceeds the "
+                        "allowed size limit."
+                    )
+
     def validate_manifest(self, zip_file):
         """
         Validates the manifest file within the provided zip file.
@@ -632,16 +731,22 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
 
         schema_dir = os.path.join(settings.BASE_DIR, "../core/import_export/schema")
 
-        zip_file_names = zip_file.namelist()
+        files_by_name = self._validate_archive(zip_file)
+        zip_file_names = list(files_by_name)
 
         if MANIFEST_NAME not in zip_file_names:
             raise ImportExportResourceInvalidFile("Manifest file is missing.")
 
         with zip_file.open(MANIFEST_NAME) as manifest_handler:
-            try:
-                manifest_data = json.load(manifest_handler)
-            except json.JSONDecodeError:
-                raise ImportExportResourceInvalidFile("Manifest file is corrupted.")
+            manifest_data = self._load_json_with_limit(
+                manifest_handler,
+                min(
+                    IMPORT_ARCHIVE_MAX_MANIFEST_SIZE_BYTES,
+                    settings.IMPORT_ARCHIVE_MAX_JSON_SIZE_BYTES,
+                ),
+                "Manifest file exceeds the allowed size limit.",
+                "Manifest file is corrupted.",
+            )
 
             manifest_version = manifest_data.get("version")
             manifest_schema_file = f"schema_v{manifest_version}.json"
@@ -661,6 +766,8 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
                 raise ImportExportResourceInvalidFile(
                     "Manifest file is corrupted: Files count doesn't match"
                 )
+
+        self._validate_application_json_files(manifest_data, files_by_name)
 
         core_settings = CoreHandler().get_settings()
 
@@ -692,10 +799,12 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
             raise ImportExportResourceInvalidFile("Signature file is missing.")
 
         with zip_file.open(SIGNATURE_NAME) as manifest_handler:
-            try:
-                signature_data = json.load(manifest_handler)
-            except json.JSONDecodeError:
-                raise ImportExportResourceInvalidFile("Signature file is corrupted.")
+            signature_data = self._load_json_with_limit(
+                manifest_handler,
+                IMPORT_ARCHIVE_MAX_SIGNATURE_SIZE_BYTES,
+                "Signature file exceeds the allowed size limit.",
+                "Signature file is corrupted.",
+            )
 
             public_key_pem = base64.b64decode(
                 signature_data.get("public_key_pem") or ""
@@ -807,8 +916,13 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
                 f"The file {data_file_path} does not exist."
             )
 
-        with storage.open(data_file_path) as data_file:
-            application_data = json.load(data_file)
+        with storage.open(data_file_path, "rb") as data_file:
+            application_data = self._load_json_with_limit(
+                data_file,
+                settings.IMPORT_ARCHIVE_MAX_JSON_SIZE_BYTES,
+                "Application data file exceeds the allowed size limit.",
+                "Application data file is corrupted.",
+            )
 
         application_type = application_type_registry.get(application_manifest["type"])
         imported_application = application_type.import_serialized(
@@ -994,6 +1108,7 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
         """
 
         file_list = zip_file.infolist()
+        self._validate_archive(zip_file)
         progress = ChildProgressBuilder.build(
             progress_builder, child_total=len(file_list)
         )
@@ -1014,8 +1129,9 @@ class ImportExportHandler(metaclass=jadawel_trace_methods(tracer)):
             )
 
             with zip_file.open(file_info) as extracted_file:
-                file_content = extracted_file.read()
-                storage.save(extracted_file_path, ContentFile(file_content))
+                file_content = File(extracted_file, name=file_info.filename)
+                file_content.size = file_info.file_size
+                storage.save(extracted_file_path, file_content)
 
             progress.increment()
 

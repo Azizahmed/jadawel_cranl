@@ -67,6 +67,24 @@ host without editing the compose file: `JADAWEL_BACKEND_MEM_LIMIT` (`1g`),
 `JADAWEL_DB_MEM_LIMIT` (`1g`), `JADAWEL_REDIS_MEM_LIMIT` (`256m`),
 `JADAWEL_CADDY_MEM_LIMIT` (`192m`), `JADAWEL_FIXER_MEM_LIMIT` (`64m`).
 
+| Variable | Description | Default |
+|---|---|---|
+| `JADAWEL_IMPORT_ARCHIVE_MAX_UNCOMPRESSED_SIZE_MB` | Maximum combined expanded size of every entry in a workspace import ZIP. Archives over this limit are rejected before any entry is parsed or extracted. Raise it only when the storage and worker limits can safely handle larger exports. | `1024` |
+| `JADAWEL_IMPORT_ARCHIVE_MAX_JSON_SIZE_MB` | Maximum expanded size of an application-data JSON entry. The manifest has a stricter built-in 8 MiB ceiling. | `64` |
+
+### Development profiling
+
+`JADAWEL_ENABLE_SILK` defaults to `false`, including in the development
+compose stack. Set it to `true` only while profiling an isolated request and
+turn it off before functional, E2E, or concurrency testing. Silk records each
+request and query in the application database and is not a production load
+testing tool. `JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES` remains a separate,
+more dangerous opt-in and must never be enabled during functional testing.
+
+The development compose stack publishes its media-only Caddy service on
+`WEB_FRONTEND_PORT` (`4000` by default). Keep `MEDIA_URL` on that same port so
+uploaded previews and downloads are exercised in local browser tests.
+
 ## Notes
 
 - Anonymous visitors may still be served English if their browser sends
