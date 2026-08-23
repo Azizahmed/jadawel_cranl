@@ -12,6 +12,11 @@ The tests point at `http://localhost:3000` (web-frontend) and
 `http://localhost:8000` (backend) unless `PUBLIC_WEB_FRONTEND_URL` and
 `PUBLIC_BACKEND_URL` say otherwise.
 
+The clean-stack runner allows up to three minutes for migrations, the frontend,
+and all six production templates to become ready. Override that bounded startup
+window with `JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS` when diagnosing slower
+hosts; a timeout prints the backend, frontend, and Celery container tails.
+
 Run them one at a time against a dev stack:
 
 ```bash

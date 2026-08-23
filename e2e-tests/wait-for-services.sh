@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -Eeo pipefail
 
-# This script waits 60 seconds by default for the backend and web-frontend services
-# to become healthy.
+# A fresh database must migrate and import six templates before it is ready. GitHub
+# runners vary enough that this can exceed one minute, so allow three minutes while
+# still polling every second and failing immediately after the bounded window.
 
 # Keep in sync with arabase.template_catalog.LOCAL_TEMPLATE_CATALOG. Production
 # startup is not complete until the fork's authoritative local-only catalog is live.
@@ -43,7 +44,7 @@ jadawel_ready() {
     fi
 }
 
-for _ in $(seq 1 "${JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-60}")
+for _ in $(seq 1 "${JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-180}")
 do
   echo 'Waiting for backend, web-frontend and synced templates to be ready'
   if jadawel_ready; then
@@ -53,4 +54,10 @@ do
   sleep 1
 done
 echo 'E2E services failed to startup in time, crashing the test.'
+if command -v docker >/dev/null 2>&1; then
+  for service in e2e-backend e2e-frontend e2e-celery; do
+    echo "=== ${service} logs ==="
+    docker logs --tail 200 "${service}" 2>&1 || true
+  done
+fi
 exit 1
