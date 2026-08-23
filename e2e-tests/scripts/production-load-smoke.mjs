@@ -67,6 +67,7 @@ const targets = configuredTargets
     ];
 const total = Number(process.env.LOAD_TOTAL || 600);
 const concurrency = Number(process.env.LOAD_CONCURRENCY || 60);
+const warmupRounds = Number(process.env.LOAD_WARMUP_ROUNDS || 1);
 const timeoutMs = Number(process.env.LOAD_TIMEOUT_MS || 10_000);
 const maxErrorRate = Number(process.env.LOAD_MAX_ERROR_RATE || 0);
 const maxP95Ms = Number(process.env.LOAD_MAX_P95_MS || 1_500);
@@ -77,10 +78,54 @@ if (!Number.isInteger(total) || total < 1) {
 if (!Number.isInteger(concurrency) || concurrency < 1) {
   throw new Error("LOAD_CONCURRENCY must be a positive integer.");
 }
+if (!Number.isInteger(warmupRounds) || warmupRounds < 0) {
+  throw new Error("LOAD_WARMUP_ROUNDS must be a non-negative integer.");
+}
+
+async function requestTarget(target) {
+  const requestStartedAt = performance.now();
+
+  try {
+    const response = await fetch(target.url, {
+      headers:
+        target.authenticated && bearerToken
+          ? { authorization: `JWT ${bearerToken}` }
+          : undefined,
+      redirect: "error",
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    await response.arrayBuffer();
+    return {
+      duration: performance.now() - requestStartedAt,
+      failure: response.ok ? null : `${response.status} ${target.url}`,
+    };
+  } catch (error) {
+    return {
+      duration: performance.now() - requestStartedAt,
+      failure: `${error.name}: ${target.url}`,
+    };
+  }
+}
+
+// Readiness proves that each process answers, but the first application request
+// still pays route compilation, connection-pool, and cache initialization costs.
+// Warm every measured target serially so the p95 gate represents sustained load
+// rather than deployment startup. A warm-up failure still fails immediately.
+for (let round = 0; round < warmupRounds; round++) {
+  for (const target of targets) {
+    const result = await requestTarget(target);
+    if (result.failure) {
+      throw new Error(`Load-test warm-up failed: ${result.failure}`);
+    }
+  }
+}
 
 let nextRequest = 0;
 const durations = [];
 const failures = [];
+const targetResults = new Map(
+  targets.map((target) => [target, { durations: [], failed: 0 }]),
+);
 const startedAt = performance.now();
 
 async function worker() {
@@ -91,26 +136,12 @@ async function worker() {
     }
 
     const target = targets[requestIndex % targets.length];
-    const { url } = target;
-    const requestStartedAt = performance.now();
-
-    try {
-      const response = await fetch(url, {
-        headers:
-          target.authenticated && bearerToken
-            ? { authorization: `JWT ${bearerToken}` }
-            : undefined,
-        redirect: "error",
-        signal: AbortSignal.timeout(timeoutMs),
-      });
-      await response.arrayBuffer();
-      durations.push(performance.now() - requestStartedAt);
-      if (!response.ok) {
-        failures.push(`${response.status} ${url}`);
-      }
-    } catch (error) {
-      durations.push(performance.now() - requestStartedAt);
-      failures.push(`${error.name}: ${url}`);
+    const result = await requestTarget(target);
+    durations.push(result.duration);
+    targetResults.get(target).durations.push(result.duration);
+    if (result.failure) {
+      failures.push(result.failure);
+      targetResults.get(target).failed++;
     }
   }
 }
@@ -120,26 +151,35 @@ await Promise.all(
 );
 
 durations.sort((left, right) => left - right);
-const percentile = (value) =>
-  durations[
-    Math.min(durations.length - 1, Math.ceil(value * durations.length) - 1)
-  ];
+const percentile = (values, value) =>
+  values[Math.min(values.length - 1, Math.ceil(value * values.length) - 1)];
 const elapsedMs = performance.now() - startedAt;
 const errorRate = failures.length / total;
 const summary = {
-  targets: targets.map(({ url, authenticated }) => ({
-    url: url.toString(),
-    authenticated,
-  })),
+  targets: targets.map((target) => {
+    const result = targetResults.get(target);
+    result.durations.sort((left, right) => left - right);
+    return {
+      url: target.url.toString(),
+      authenticated: target.authenticated,
+      total: result.durations.length,
+      failed: result.failed,
+      p95Ms:
+        result.durations.length > 0
+          ? Number(percentile(result.durations, 0.95).toFixed(1))
+          : null,
+    };
+  }),
   total,
   concurrency,
+  warmupRounds,
   succeeded: total - failures.length,
   failed: failures.length,
   errorRate,
   requestsPerSecond: Number((total / (elapsedMs / 1000)).toFixed(1)),
-  p50Ms: Number(percentile(0.5).toFixed(1)),
-  p95Ms: Number(percentile(0.95).toFixed(1)),
-  p99Ms: Number(percentile(0.99).toFixed(1)),
+  p50Ms: Number(percentile(durations, 0.5).toFixed(1)),
+  p95Ms: Number(percentile(durations, 0.95).toFixed(1)),
+  p99Ms: Number(percentile(durations, 0.99).toFixed(1)),
 };
 
 console.log(JSON.stringify(summary, null, 2));
