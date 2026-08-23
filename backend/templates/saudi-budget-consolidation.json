@@ -1,0 +1,5940 @@
+{
+  "jadawel_template_version": 1,
+  "name": "تجميع واعتماد الميزانية",
+  "icon": "iconoir-bank",
+  "keywords": [
+    "تجميع الميزانية",
+    "الميزانية السعودية",
+    "اعتماد الميزانية",
+    "الميزانية",
+    "المالية",
+    "مجلس الإدارة",
+    "ريال سعودي",
+    "VAT",
+    "Saudi budget consolidation",
+    "budget approval",
+    "finance",
+    "board",
+    "SAR"
+  ],
+  "categories": [
+    "قوالب عربية",
+    "Arabic templates",
+    "Finance and Accounting"
+  ],
+  "open_application": 2,
+  "export": [
+    {
+      "id": 1,
+      "name": "تجميع الميزانية",
+      "order": 0,
+      "type": "database",
+      "tables": [
+        {
+          "id": 1,
+          "name": "دورات الميزانية",
+          "order": 1,
+          "fields": [
+            {
+              "id": 1,
+              "type": "text",
+              "name": "اسم الدورة",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 2,
+              "type": "number",
+              "name": "السنة المالية",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 0,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 3,
+              "type": "single_select",
+              "name": "العملة",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 1,
+                  "value": "SAR - ريال سعودي",
+                  "color": "blue",
+                  "order": 0
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 4,
+              "type": "single_select",
+              "name": "الحالة",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 2,
+                  "value": "مسودة",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 3,
+                  "value": "استقبال الملفات",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 4,
+                  "value": "مراجعة المالية",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 5,
+                  "value": "جاهزة للمجلس",
+                  "color": "blue",
+                  "order": 3
+                },
+                {
+                  "id": 6,
+                  "value": "معتمدة",
+                  "color": "blue",
+                  "order": 4
+                },
+                {
+                  "id": 7,
+                  "value": "مغلقة",
+                  "color": "blue",
+                  "order": 5
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 5,
+              "type": "date",
+              "name": "بداية التقديم",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "EU",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 6,
+              "type": "date",
+              "name": "الموعد النهائي",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "EU",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 7,
+              "type": "date",
+              "name": "تاريخ اعتماد المجلس",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "EU",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 8,
+              "type": "text",
+              "name": "رقم قرار المجلس",
+              "description": null,
+              "order": 7,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 9,
+              "type": "long_text",
+              "name": "ملاحظات المجلس",
+              "description": null,
+              "order": 8,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            },
+            {
+              "id": 10,
+              "type": "long_text",
+              "name": "تعليمات الاستخدام",
+              "description": null,
+              "order": 9,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            }
+          ],
+          "views": [
+            {
+              "id": 1,
+              "type": "grid",
+              "name": "الكل",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 1,
+                  "field_id": 1,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 2,
+                  "field_id": 2,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 3,
+                  "field_id": 3,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 4,
+                  "field_id": 4,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 5,
+                  "field_id": 5,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 6,
+                  "field_id": 6,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 7,
+                  "field_id": 7,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 8,
+                  "field_id": 8,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 9,
+                  "field_id": 9,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 10,
+                  "field_id": 10,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.463978+00:00",
+              "updated_on": "2026-08-22T12:00:03.463978+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_1": "ميزانية 2027 - دورة الاعتماد",
+              "field_2": "2027",
+              "field_3": 1,
+              "field_4": 5,
+              "field_5": null,
+              "field_6": null,
+              "field_7": null,
+              "field_8": null,
+              "field_9": null,
+              "field_10": null
+            },
+            {
+              "id": 2,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.464028+00:00",
+              "updated_on": "2026-08-22T12:00:03.464028+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_1": "ميزانية 2026 - معتمدة",
+              "field_2": "2026",
+              "field_3": 1,
+              "field_4": 6,
+              "field_5": null,
+              "field_6": null,
+              "field_7": null,
+              "field_8": null,
+              "field_9": null,
+              "field_10": null
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        },
+        {
+          "id": 2,
+          "name": "دليل الحسابات الموحد",
+          "order": 2,
+          "fields": [
+            {
+              "id": 11,
+              "type": "text",
+              "name": "رمز الحساب",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 12,
+              "type": "text",
+              "name": "اسم الحساب بالعربية",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 13,
+              "type": "text",
+              "name": "اسم الحساب بالإنجليزية",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 14,
+              "type": "single_select",
+              "name": "التصنيف المالي",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 8,
+                  "value": "الإيرادات",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 9,
+                  "value": "تكلفة الإيرادات",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 10,
+                  "value": "المصروفات التشغيلية",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 11,
+                  "value": "المصروفات الرأسمالية",
+                  "color": "blue",
+                  "order": 3
+                },
+                {
+                  "id": 12,
+                  "value": "التمويل",
+                  "color": "blue",
+                  "order": 4
+                },
+                {
+                  "id": 13,
+                  "value": "الزكاة والضرائب",
+                  "color": "blue",
+                  "order": 5
+                },
+                {
+                  "id": 14,
+                  "value": "أخرى",
+                  "color": "blue",
+                  "order": 6
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 15,
+              "type": "single_select",
+              "name": "نوع الميزانية",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 15,
+                  "value": "OPEX",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 16,
+                  "value": "CAPEX",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 17,
+                  "value": "Revenue",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 18,
+                  "value": "Other",
+                  "color": "blue",
+                  "order": 3
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 16,
+              "type": "single_select",
+              "name": "معالجة VAT الافتراضية",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 19,
+                  "value": "قياسية قابلة للاسترداد",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 20,
+                  "value": "قياسية غير قابلة للاسترداد",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 21,
+                  "value": "صفرية",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 22,
+                  "value": "معفاة",
+                  "color": "blue",
+                  "order": 3
+                },
+                {
+                  "id": 23,
+                  "value": "خارج النطاق",
+                  "color": "blue",
+                  "order": 4
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 17,
+              "type": "boolean",
+              "name": "نشط",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "boolean_default": true
+            },
+            {
+              "id": 18,
+              "type": "long_text",
+              "name": "ملاحظة التصنيف",
+              "description": null,
+              "order": 7,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            }
+          ],
+          "views": [
+            {
+              "id": 2,
+              "type": "grid",
+              "name": "الكل",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 11,
+                  "field_id": 11,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 12,
+                  "field_id": 12,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 13,
+                  "field_id": 13,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 14,
+                  "field_id": 14,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 15,
+                  "field_id": 15,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 16,
+                  "field_id": 16,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 17,
+                  "field_id": 17,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 18,
+                  "field_id": 18,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.484755+00:00",
+              "updated_on": "2026-08-22T12:00:03.484755+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11": "610100",
+              "field_12": "رواتب ومزايا",
+              "field_13": "Salaries and benefits",
+              "field_14": 10,
+              "field_15": 15,
+              "field_16": 19,
+              "field_17": "true",
+              "field_18": null
+            },
+            {
+              "id": 2,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.484789+00:00",
+              "updated_on": "2026-08-22T12:00:03.484789+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11": "620200",
+              "field_12": "خدمات تقنية",
+              "field_13": "Technology services",
+              "field_14": 10,
+              "field_15": 15,
+              "field_16": 20,
+              "field_17": "true",
+              "field_18": null
+            },
+            {
+              "id": 3,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.484802+00:00",
+              "updated_on": "2026-08-22T12:00:03.484802+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11": "150100",
+              "field_12": "أصول تقنية",
+              "field_13": "Technology assets",
+              "field_14": 11,
+              "field_15": 16,
+              "field_16": 19,
+              "field_17": "true",
+              "field_18": null
+            },
+            {
+              "id": 4,
+              "order": "4.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.484814+00:00",
+              "updated_on": "2026-08-22T12:00:03.484814+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11": "410100",
+              "field_12": "إيرادات الخدمات",
+              "field_13": "Service revenue",
+              "field_14": 8,
+              "field_15": 17,
+              "field_16": 19,
+              "field_17": "true",
+              "field_18": null
+            },
+            {
+              "id": 5,
+              "order": "5.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555900+00:00",
+              "updated_on": "2026-08-22T12:00:03.555900+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11": "510100",
+              "field_12": "إيجارات",
+              "field_13": "Rent",
+              "field_14": 10,
+              "field_15": 15,
+              "field_16": 19,
+              "field_17": "true",
+              "field_18": null
+            },
+            {
+              "id": 6,
+              "order": "6.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555900+00:00",
+              "updated_on": "2026-08-22T12:00:03.555900+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_11": "710100",
+              "field_12": "الزكاة والضرائب",
+              "field_13": "Zakat and taxes",
+              "field_14": 13,
+              "field_15": 18,
+              "field_16": 23,
+              "field_17": "true",
+              "field_18": null
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        },
+        {
+          "id": 3,
+          "name": "الإدارات ومراكز التكلفة",
+          "order": 3,
+          "fields": [
+            {
+              "id": 19,
+              "type": "text",
+              "name": "رمز مركز التكلفة",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 20,
+              "type": "text",
+              "name": "اسم الإدارة بالعربية",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 21,
+              "type": "text",
+              "name": "اسم الإدارة بالإنجليزية",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 22,
+              "type": "text",
+              "name": "الكيان",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 23,
+              "type": "text",
+              "name": "المسؤول عن الميزانية",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 24,
+              "type": "boolean",
+              "name": "نشط",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "boolean_default": true
+            }
+          ],
+          "views": [
+            {
+              "id": 3,
+              "type": "grid",
+              "name": "الكل",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 19,
+                  "field_id": 19,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 20,
+                  "field_id": 20,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 21,
+                  "field_id": 21,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 22,
+                  "field_id": 22,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 23,
+                  "field_id": 23,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 24,
+                  "field_id": 24,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.496597+00:00",
+              "updated_on": "2026-08-22T12:00:03.496597+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_19": "IT-100",
+              "field_20": "تقنية المعلومات",
+              "field_21": "Information Technology",
+              "field_22": "شركة مثال السعودية",
+              "field_23": "سارة العتيبي",
+              "field_24": "true"
+            },
+            {
+              "id": 2,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.496632+00:00",
+              "updated_on": "2026-08-22T12:00:03.496632+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_19": "FIN-100",
+              "field_20": "المالية",
+              "field_21": "Finance",
+              "field_22": "شركة مثال السعودية",
+              "field_23": "خالد القحطاني",
+              "field_24": "true"
+            },
+            {
+              "id": 3,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.496644+00:00",
+              "updated_on": "2026-08-22T12:00:03.496644+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_19": "OPS-100",
+              "field_20": "العمليات",
+              "field_21": "Operations",
+              "field_22": "شركة مثال السعودية",
+              "field_23": "نورة الحربي",
+              "field_24": "true"
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        },
+        {
+          "id": 4,
+          "name": "ملفات الميزانية",
+          "order": 4,
+          "fields": [
+            {
+              "id": 25,
+              "type": "text",
+              "name": "رمز الملف",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 26,
+              "type": "link_row",
+              "name": "دورة الميزانية",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1,
+              "link_row_related_field_id": null,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": false,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 27,
+              "type": "link_row",
+              "name": "الإدارة",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 3,
+              "link_row_related_field_id": null,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": false,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 28,
+              "type": "text",
+              "name": "اسم الملف الأصلي",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 29,
+              "type": "file",
+              "name": "الملف الأصلي",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": []
+            },
+            {
+              "id": 30,
+              "type": "number",
+              "name": "رقم النسخة",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 0,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 31,
+              "type": "number",
+              "name": "إجمالي الملف المعلن",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 2,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 32,
+              "type": "text",
+              "name": "مقدم الملف",
+              "description": null,
+              "order": 7,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 33,
+              "type": "date",
+              "name": "تاريخ الاستلام",
+              "description": null,
+              "order": 8,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "date_format": "EU",
+              "date_include_time": false,
+              "date_time_format": "24",
+              "date_show_tzinfo": false,
+              "date_force_timezone": null
+            },
+            {
+              "id": 34,
+              "type": "single_select",
+              "name": "حالة الملف",
+              "description": null,
+              "order": 9,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 24,
+                  "value": "وارد",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 25,
+                  "value": "قيد المراجعة",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 26,
+                  "value": "صالح للتجميع",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 27,
+                  "value": "يحتاج تصحيح",
+                  "color": "blue",
+                  "order": 3
+                },
+                {
+                  "id": 28,
+                  "value": "مستبعد",
+                  "color": "blue",
+                  "order": 4
+                },
+                {
+                  "id": 29,
+                  "value": "استبدلته نسخة أحدث",
+                  "color": "blue",
+                  "order": 5
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 35,
+              "type": "long_text",
+              "name": "ملاحظات المراجعة",
+              "description": null,
+              "order": 10,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            }
+          ],
+          "views": [
+            {
+              "id": 4,
+              "type": "grid",
+              "name": "الكل",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 25,
+                  "field_id": 25,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 26,
+                  "field_id": 26,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 27,
+                  "field_id": 27,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 28,
+                  "field_id": 28,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 29,
+                  "field_id": 29,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 30,
+                  "field_id": 30,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 31,
+                  "field_id": 31,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 32,
+                  "field_id": 32,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 33,
+                  "field_id": 33,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 34,
+                  "field_id": 34,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 35,
+                  "field_id": 35,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.510724+00:00",
+              "updated_on": "2026-08-22T12:00:03.510724+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_25": "IT-2027-V1",
+              "field_26": [
+                1
+              ],
+              "field_27": [
+                1
+              ],
+              "field_28": "it_budget_2027_v1.csv",
+              "field_29": [],
+              "field_30": "1",
+              "field_31": "1380000.00",
+              "field_32": "سارة العتيبي",
+              "field_33": null,
+              "field_34": 26,
+              "field_35": null
+            },
+            {
+              "id": 2,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.510778+00:00",
+              "updated_on": "2026-08-22T12:00:03.510778+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_25": "FIN-2027-V1",
+              "field_26": [
+                1
+              ],
+              "field_27": [
+                2
+              ],
+              "field_28": "finance_budget_2027.csv",
+              "field_29": [],
+              "field_30": "1",
+              "field_31": "620000.00",
+              "field_32": "خالد القحطاني",
+              "field_33": null,
+              "field_34": 26,
+              "field_35": null
+            },
+            {
+              "id": 3,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.510805+00:00",
+              "updated_on": "2026-08-22T12:00:03.510805+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_25": "OPS-2027-V1",
+              "field_26": [
+                1
+              ],
+              "field_27": [
+                3
+              ],
+              "field_28": "ops_budget_2027.csv",
+              "field_29": [],
+              "field_30": "1",
+              "field_31": "910000.00",
+              "field_32": "نورة الحربي",
+              "field_33": null,
+              "field_34": 27,
+              "field_35": null
+            },
+            {
+              "id": 4,
+              "order": "4.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.510828+00:00",
+              "updated_on": "2026-08-22T12:00:03.510828+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_25": "IT-2027-V0",
+              "field_26": [
+                1
+              ],
+              "field_27": [
+                1
+              ],
+              "field_28": "it_budget_2027_v0.csv",
+              "field_29": [],
+              "field_30": "0",
+              "field_31": "1300000.00",
+              "field_32": "سارة العتيبي",
+              "field_33": null,
+              "field_34": 29,
+              "field_35": null
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        },
+        {
+          "id": 5,
+          "name": "بنود الميزانية",
+          "order": 5,
+          "fields": [
+            {
+              "id": 36,
+              "type": "text",
+              "name": "معرف البند",
+              "description": null,
+              "order": 0,
+              "primary": true,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 37,
+              "type": "text",
+              "name": "رمز الملف",
+              "description": null,
+              "order": 1,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 38,
+              "type": "number",
+              "name": "السنة المالية",
+              "description": null,
+              "order": 2,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 0,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 39,
+              "type": "single_select",
+              "name": "الشهر",
+              "description": null,
+              "order": 3,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 30,
+                  "value": "يناير",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 31,
+                  "value": "فبراير",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 32,
+                  "value": "مارس",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 33,
+                  "value": "أبريل",
+                  "color": "blue",
+                  "order": 3
+                },
+                {
+                  "id": 34,
+                  "value": "مايو",
+                  "color": "blue",
+                  "order": 4
+                },
+                {
+                  "id": 35,
+                  "value": "يونيو",
+                  "color": "blue",
+                  "order": 5
+                },
+                {
+                  "id": 36,
+                  "value": "يوليو",
+                  "color": "blue",
+                  "order": 6
+                },
+                {
+                  "id": 37,
+                  "value": "أغسطس",
+                  "color": "blue",
+                  "order": 7
+                },
+                {
+                  "id": 38,
+                  "value": "سبتمبر",
+                  "color": "blue",
+                  "order": 8
+                },
+                {
+                  "id": 39,
+                  "value": "أكتوبر",
+                  "color": "blue",
+                  "order": 9
+                },
+                {
+                  "id": 40,
+                  "value": "نوفمبر",
+                  "color": "blue",
+                  "order": 10
+                },
+                {
+                  "id": 41,
+                  "value": "ديسمبر",
+                  "color": "blue",
+                  "order": 11
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 40,
+              "type": "text",
+              "name": "الكيان الأصلي",
+              "description": null,
+              "order": 4,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 41,
+              "type": "text",
+              "name": "الإدارة الأصلية",
+              "description": null,
+              "order": 5,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 42,
+              "type": "text",
+              "name": "مركز التكلفة الأصلي",
+              "description": null,
+              "order": 6,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 43,
+              "type": "text",
+              "name": "رمز الحساب الأصلي",
+              "description": null,
+              "order": 7,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 44,
+              "type": "text",
+              "name": "اسم الحساب الأصلي",
+              "description": null,
+              "order": 8,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "text_default": ""
+            },
+            {
+              "id": 45,
+              "type": "long_text",
+              "name": "وصف البند",
+              "description": null,
+              "order": 9,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            },
+            {
+              "id": 46,
+              "type": "number",
+              "name": "المبلغ المطلوب قبل VAT",
+              "description": null,
+              "order": 10,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 2,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 47,
+              "type": "long_text",
+              "name": "ملاحظات المصدر",
+              "description": null,
+              "order": 11,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            },
+            {
+              "id": 48,
+              "type": "link_row",
+              "name": "دورة الميزانية",
+              "description": null,
+              "order": 12,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 1,
+              "link_row_related_field_id": null,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": false,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 49,
+              "type": "link_row",
+              "name": "ملف الميزانية",
+              "description": null,
+              "order": 13,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 4,
+              "link_row_related_field_id": null,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": false,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 50,
+              "type": "lookup",
+              "name": "حالة الملف",
+              "description": null,
+              "order": 14,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": "references the deleted or unknown field ",
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": null,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "through_field_id": 49,
+              "through_field_name": "",
+              "target_field_id": 34,
+              "target_field_name": ""
+            },
+            {
+              "id": 51,
+              "type": "link_row",
+              "name": "الحساب الموحد",
+              "description": null,
+              "order": 15,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 2,
+              "link_row_related_field_id": null,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": false,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 52,
+              "type": "link_row",
+              "name": "مركز التكلفة الموحد",
+              "description": null,
+              "order": 16,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "link_row_table_id": 3,
+              "link_row_related_field_id": null,
+              "link_row_limit_selection_view_id": null,
+              "has_related_field": false,
+              "link_row_multiple_relationships": true
+            },
+            {
+              "id": 53,
+              "type": "lookup",
+              "name": "التصنيف المالي",
+              "description": null,
+              "order": 17,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": "references the deleted or unknown field ",
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": null,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "through_field_id": 51,
+              "through_field_name": "",
+              "target_field_id": 14,
+              "target_field_name": ""
+            },
+            {
+              "id": 54,
+              "type": "lookup",
+              "name": "نوع الميزانية",
+              "description": null,
+              "order": 18,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": "references the deleted or unknown field ",
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": null,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "through_field_id": 51,
+              "through_field_name": "",
+              "target_field_id": 15,
+              "target_field_name": ""
+            },
+            {
+              "id": 55,
+              "type": "single_select",
+              "name": "معالجة VAT",
+              "description": null,
+              "order": 19,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 42,
+                  "value": "قياسية قابلة للاسترداد",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 43,
+                  "value": "قياسية غير قابلة للاسترداد",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 44,
+                  "value": "صفرية",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 45,
+                  "value": "معفاة",
+                  "color": "blue",
+                  "order": 3
+                },
+                {
+                  "id": 46,
+                  "value": "خارج النطاق",
+                  "color": "blue",
+                  "order": 4
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 56,
+              "type": "number",
+              "name": "نسبة VAT %",
+              "description": null,
+              "order": 20,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 2,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 57,
+              "type": "number",
+              "name": "تعديل المالية قبل VAT",
+              "description": null,
+              "order": 21,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 2,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 58,
+              "type": "long_text",
+              "name": "سبب التعديل",
+              "description": null,
+              "order": 22,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "long_text_enable_rich_text": false
+            },
+            {
+              "id": 59,
+              "type": "single_select",
+              "name": "حالة مراجعة المالية",
+              "description": null,
+              "order": 23,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "select_options": [
+                {
+                  "id": 47,
+                  "value": "غير مراجع",
+                  "color": "blue",
+                  "order": 0
+                },
+                {
+                  "id": 48,
+                  "value": "يحتاج استكمال",
+                  "color": "blue",
+                  "order": 1
+                },
+                {
+                  "id": 49,
+                  "value": "مراجع",
+                  "color": "blue",
+                  "order": 2
+                },
+                {
+                  "id": 50,
+                  "value": "مستبعد",
+                  "color": "blue",
+                  "order": 3
+                }
+              ],
+              "single_select_default": null
+            },
+            {
+              "id": 60,
+              "type": "number",
+              "name": "المبلغ المعتمد",
+              "description": null,
+              "order": 24,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "number_decimal_places": 2,
+              "number_negative": true,
+              "number_prefix": "",
+              "number_suffix": "",
+              "number_separator": "",
+              "number_default": null
+            },
+            {
+              "id": 61,
+              "type": "formula",
+              "name": "صافي المبلغ قبل VAT",
+              "description": null,
+              "order": 25,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": null,
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": 2,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "formula": "field('المبلغ المطلوب قبل VAT') + field('تعديل المالية قبل VAT')",
+              "formula_type": "number"
+            },
+            {
+              "id": 62,
+              "type": "formula",
+              "name": "VAT غير القابل للاسترداد",
+              "description": null,
+              "order": 26,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": null,
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": 2,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "formula": "if(field('معالجة VAT') = 'قياسية غير قابلة للاسترداد', field('صافي المبلغ قبل VAT') * field('نسبة VAT %') / 100, 0)",
+              "formula_type": "number"
+            },
+            {
+              "id": 63,
+              "type": "formula",
+              "name": "توصية المالية",
+              "description": null,
+              "order": 27,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": null,
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": 2,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "formula": "round(field('صافي المبلغ قبل VAT') + field('VAT غير القابل للاسترداد'), 2)",
+              "formula_type": "number"
+            },
+            {
+              "id": 64,
+              "type": "formula",
+              "name": "فرق المالية",
+              "description": null,
+              "order": 28,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": null,
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": 2,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "formula": "field('توصية المالية') - field('المبلغ المطلوب قبل VAT')",
+              "formula_type": "number"
+            },
+            {
+              "id": 65,
+              "type": "formula",
+              "name": "حالة التحقق",
+              "description": null,
+              "order": 29,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": null,
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": null,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": false,
+              "formula": "if(field('رمز الملف') = '', '⚠️ رمز الملف ناقص', if(count(field('ملف الميزانية')) = 0, '⚠️ اربط ملف الميزانية', if(field('السنة المالية') = 0, '⚠️ السنة المالية ناقصة', if(totext(field('الشهر')) = '', '⚠️ الشهر ناقص', if(count(field('الحساب الموحد')) = 0, '⚠️ الحساب الموحد ناقص', if(count(field('مركز التكلفة الموحد')) = 0, '⚠️ مركز التكلفة ناقص', if(field('المبلغ المطلوب قبل VAT') = 0, '⚠️ المبلغ ناقص', if(totext(field('معالجة VAT')) = '', '⚠️ معالجة VAT ناقصة', if(and(field('تعديل المالية قبل VAT') != 0, field('سبب التعديل') = ''), '⚠️ اذكر سبب التعديل', if(totext(field('حالة مراجعة المالية')) != 'مراجع', '⚠️ لم تراجع المالية', '✅ صالح للتجميع'))))))))))",
+              "formula_type": "text"
+            },
+            {
+              "id": 66,
+              "type": "formula",
+              "name": "المبلغ المعروض للمجلس",
+              "description": null,
+              "order": 30,
+              "primary": false,
+              "read_only": false,
+              "db_index": false,
+              "immutable_type": false,
+              "immutable_properties": false,
+              "field_constraints": [],
+              "error": null,
+              "date_show_tzinfo": null,
+              "number_separator": "",
+              "array_formula_type": null,
+              "date_time_format": null,
+              "date_include_time": null,
+              "date_force_timezone": null,
+              "date_format": null,
+              "number_suffix": "",
+              "number_decimal_places": 2,
+              "number_prefix": "",
+              "duration_format": null,
+              "nullable": true,
+              "formula": "if(field('المبلغ المعتمد') > 0, field('المبلغ المعتمد'), field('توصية المالية'))",
+              "formula_type": "number"
+            }
+          ],
+          "views": [
+            {
+              "id": 5,
+              "type": "grid",
+              "name": "الكل",
+              "order": 1,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 36,
+                  "field_id": 36,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 37,
+                  "field_id": 37,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 38,
+                  "field_id": 38,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 39,
+                  "field_id": 39,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 40,
+                  "field_id": 40,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 41,
+                  "field_id": 41,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 42,
+                  "field_id": 42,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 43,
+                  "field_id": 43,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 44,
+                  "field_id": 44,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 45,
+                  "field_id": 45,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 46,
+                  "field_id": 46,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 47,
+                  "field_id": 47,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 48,
+                  "field_id": 48,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 49,
+                  "field_id": 49,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 50,
+                  "field_id": 50,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 51,
+                  "field_id": 51,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 52,
+                  "field_id": 52,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 53,
+                  "field_id": 53,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 54,
+                  "field_id": 54,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 55,
+                  "field_id": 55,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 56,
+                  "field_id": 56,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 57,
+                  "field_id": 57,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 58,
+                  "field_id": 58,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 59,
+                  "field_id": 59,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 60,
+                  "field_id": 60,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 61,
+                  "field_id": 61,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 62,
+                  "field_id": 62,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 63,
+                  "field_id": 63,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 64,
+                  "field_id": 64,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 65,
+                  "field_id": 65,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 66,
+                  "field_id": 66,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "type": "grid",
+              "name": "جاهز للمجلس",
+              "order": 2,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [
+                {
+                  "id": 1,
+                  "field_id": 59,
+                  "type": "single_select_equal",
+                  "value": "مراجع",
+                  "group": null
+                }
+              ],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 67,
+                  "field_id": 36,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 68,
+                  "field_id": 37,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 69,
+                  "field_id": 38,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 70,
+                  "field_id": 39,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 71,
+                  "field_id": 40,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 72,
+                  "field_id": 41,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 73,
+                  "field_id": 42,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 74,
+                  "field_id": 43,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 75,
+                  "field_id": 44,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 76,
+                  "field_id": 45,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 77,
+                  "field_id": 46,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 78,
+                  "field_id": 47,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 79,
+                  "field_id": 48,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 80,
+                  "field_id": 49,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 81,
+                  "field_id": 50,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 82,
+                  "field_id": 51,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 83,
+                  "field_id": 52,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 84,
+                  "field_id": 53,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 85,
+                  "field_id": 54,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 86,
+                  "field_id": 55,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 87,
+                  "field_id": 56,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 88,
+                  "field_id": 57,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 89,
+                  "field_id": 58,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 90,
+                  "field_id": 59,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 91,
+                  "field_id": 60,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 92,
+                  "field_id": 61,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 93,
+                  "field_id": 62,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 94,
+                  "field_id": 63,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 95,
+                  "field_id": 64,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 96,
+                  "field_id": 65,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 97,
+                  "field_id": 66,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "type": "grid",
+              "name": "أخطاء البيانات",
+              "order": 3,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 98,
+                  "field_id": 36,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 99,
+                  "field_id": 37,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 100,
+                  "field_id": 38,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 101,
+                  "field_id": 39,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 102,
+                  "field_id": 40,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 103,
+                  "field_id": 41,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 104,
+                  "field_id": 42,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 105,
+                  "field_id": 43,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 106,
+                  "field_id": 44,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 107,
+                  "field_id": 45,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 108,
+                  "field_id": 46,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 109,
+                  "field_id": 47,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 110,
+                  "field_id": 48,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 111,
+                  "field_id": 49,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 112,
+                  "field_id": 50,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 113,
+                  "field_id": 51,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 114,
+                  "field_id": 52,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 115,
+                  "field_id": 53,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 116,
+                  "field_id": 54,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 117,
+                  "field_id": 55,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 118,
+                  "field_id": 56,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 119,
+                  "field_id": 57,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 120,
+                  "field_id": 58,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 121,
+                  "field_id": 59,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 122,
+                  "field_id": 60,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 123,
+                  "field_id": 61,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 124,
+                  "field_id": 62,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 125,
+                  "field_id": 63,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 126,
+                  "field_id": 64,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 127,
+                  "field_id": 65,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 128,
+                  "field_id": 66,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "type": "grid",
+              "name": "مراجعة المالية",
+              "order": 4,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 129,
+                  "field_id": 36,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 130,
+                  "field_id": 37,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 131,
+                  "field_id": 38,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 132,
+                  "field_id": 39,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 133,
+                  "field_id": 40,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 134,
+                  "field_id": 41,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 135,
+                  "field_id": 42,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 136,
+                  "field_id": 43,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 137,
+                  "field_id": 44,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 138,
+                  "field_id": 45,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 139,
+                  "field_id": 46,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 140,
+                  "field_id": 47,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 141,
+                  "field_id": 48,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 142,
+                  "field_id": 49,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 143,
+                  "field_id": 50,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 144,
+                  "field_id": 51,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 145,
+                  "field_id": 52,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 146,
+                  "field_id": 53,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 147,
+                  "field_id": 54,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 148,
+                  "field_id": 55,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 149,
+                  "field_id": 56,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 150,
+                  "field_id": 57,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 151,
+                  "field_id": 58,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 152,
+                  "field_id": 59,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 153,
+                  "field_id": 60,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 154,
+                  "field_id": 61,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 155,
+                  "field_id": 62,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 156,
+                  "field_id": 63,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 157,
+                  "field_id": 64,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 158,
+                  "field_id": 65,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 159,
+                  "field_id": 66,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "type": "grid",
+              "name": "مستبعد",
+              "order": 5,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 160,
+                  "field_id": 36,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 161,
+                  "field_id": 37,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 162,
+                  "field_id": 38,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 163,
+                  "field_id": 39,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 164,
+                  "field_id": 40,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 165,
+                  "field_id": 41,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 166,
+                  "field_id": 42,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 167,
+                  "field_id": 43,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 168,
+                  "field_id": 44,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 169,
+                  "field_id": 45,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 170,
+                  "field_id": 46,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 171,
+                  "field_id": 47,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 172,
+                  "field_id": 48,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 173,
+                  "field_id": 49,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 174,
+                  "field_id": 50,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 175,
+                  "field_id": 51,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 176,
+                  "field_id": 52,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 177,
+                  "field_id": 53,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 178,
+                  "field_id": 54,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 179,
+                  "field_id": 55,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 180,
+                  "field_id": 56,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 181,
+                  "field_id": 57,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 182,
+                  "field_id": 58,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 183,
+                  "field_id": 59,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 184,
+                  "field_id": 60,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 185,
+                  "field_id": 61,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 186,
+                  "field_id": 62,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 187,
+                  "field_id": 63,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 188,
+                  "field_id": 64,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 189,
+                  "field_id": 65,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 190,
+                  "field_id": 66,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "type": "grid",
+              "name": "بنود تحتاج متابعة",
+              "order": 6,
+              "ownership_type": "collaborative",
+              "owned_by": null,
+              "filter_type": "AND",
+              "filters_disabled": false,
+              "filters": [
+                {
+                  "id": 2,
+                  "field_id": 59,
+                  "type": "single_select_not_equal",
+                  "value": "مراجع",
+                  "group": null
+                }
+              ],
+              "filter_groups": [],
+              "sortings": [],
+              "group_bys": [],
+              "decorations": [],
+              "public": false,
+              "row_identifier_type": "id",
+              "row_height_size": "small",
+              "frozen_column_count": 1,
+              "field_options": [
+                {
+                  "id": 191,
+                  "field_id": 36,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 192,
+                  "field_id": 37,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 193,
+                  "field_id": 38,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 194,
+                  "field_id": 39,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 195,
+                  "field_id": 40,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 196,
+                  "field_id": 41,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 197,
+                  "field_id": 42,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 198,
+                  "field_id": 43,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 199,
+                  "field_id": 44,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 200,
+                  "field_id": 45,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 201,
+                  "field_id": 46,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 202,
+                  "field_id": 47,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 203,
+                  "field_id": 48,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 204,
+                  "field_id": 49,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 205,
+                  "field_id": 50,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 206,
+                  "field_id": 51,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 207,
+                  "field_id": 52,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 208,
+                  "field_id": 53,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 209,
+                  "field_id": 54,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 210,
+                  "field_id": 55,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 211,
+                  "field_id": 56,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 212,
+                  "field_id": 57,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 213,
+                  "field_id": 58,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 214,
+                  "field_id": 59,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 215,
+                  "field_id": 60,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 216,
+                  "field_id": 61,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 217,
+                  "field_id": 62,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 218,
+                  "field_id": 63,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 219,
+                  "field_id": 64,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 220,
+                  "field_id": 65,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                },
+                {
+                  "id": 221,
+                  "field_id": 66,
+                  "width": 200,
+                  "hidden": false,
+                  "order": 32767,
+                  "aggregation_type": "",
+                  "aggregation_raw_type": ""
+                }
+              ]
+            }
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "order": "1.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555717+00:00",
+              "updated_on": "2026-08-22T12:00:03.555717+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-001",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "240000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 43,
+              "field_56": "15.00",
+              "field_57": "12000.00",
+              "field_58": "تعديل مركزي بعد مراجعة العقود",
+              "field_59": 49,
+              "field_60": "248000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 2,
+              "order": "2.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555772+00:00",
+              "updated_on": "2026-08-22T12:00:03.555772+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-002",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "610100",
+              "field_44": "610100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "480000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [
+                1
+              ],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 49,
+              "field_60": "480000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 3,
+              "order": "3.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555797+00:00",
+              "updated_on": "2026-08-22T12:00:03.555797+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-003",
+              "field_37": "OPS-2027-V1",
+              "field_38": "2027",
+              "field_39": 32,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "OPS-100",
+              "field_42": "OPS-100",
+              "field_43": "150100",
+              "field_44": "150100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "650000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                3
+              ],
+              "field_50": null,
+              "field_51": [
+                3
+              ],
+              "field_52": [
+                3
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 4,
+              "order": "4.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555820+00:00",
+              "updated_on": "2026-08-22T12:00:03.555820+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-004",
+              "field_37": "IT-2027-V0",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "180000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                4
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 50,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 5,
+              "order": "5.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-005",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "510100",
+              "field_44": "510100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "300000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                5
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 6,
+              "order": "6.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-006",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "MISSING",
+              "field_44": "Unmapped account",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "90000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 7,
+              "order": "7.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555717+00:00",
+              "updated_on": "2026-08-22T12:00:03.555717+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-007",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "240000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 43,
+              "field_56": "15.00",
+              "field_57": "12000.00",
+              "field_58": "تعديل مركزي بعد مراجعة العقود",
+              "field_59": 49,
+              "field_60": "248000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 8,
+              "order": "8.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555772+00:00",
+              "updated_on": "2026-08-22T12:00:03.555772+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-008",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "610100",
+              "field_44": "610100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "480000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [
+                1
+              ],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 49,
+              "field_60": "480000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 9,
+              "order": "9.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555797+00:00",
+              "updated_on": "2026-08-22T12:00:03.555797+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-009",
+              "field_37": "OPS-2027-V1",
+              "field_38": "2027",
+              "field_39": 32,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "OPS-100",
+              "field_42": "OPS-100",
+              "field_43": "150100",
+              "field_44": "150100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "650000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                3
+              ],
+              "field_50": null,
+              "field_51": [
+                3
+              ],
+              "field_52": [
+                3
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 10,
+              "order": "10.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555820+00:00",
+              "updated_on": "2026-08-22T12:00:03.555820+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-010",
+              "field_37": "IT-2027-V0",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "180000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                4
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 50,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 11,
+              "order": "11.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-011",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "510100",
+              "field_44": "510100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "300000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                5
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 12,
+              "order": "12.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-012",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "MISSING",
+              "field_44": "Unmapped account",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "90000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 13,
+              "order": "13.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555717+00:00",
+              "updated_on": "2026-08-22T12:00:03.555717+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-013",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "240000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 43,
+              "field_56": "15.00",
+              "field_57": "12000.00",
+              "field_58": "تعديل مركزي بعد مراجعة العقود",
+              "field_59": 49,
+              "field_60": "248000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 14,
+              "order": "14.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555772+00:00",
+              "updated_on": "2026-08-22T12:00:03.555772+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-014",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "610100",
+              "field_44": "610100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "480000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [
+                1
+              ],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 49,
+              "field_60": "480000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 15,
+              "order": "15.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555797+00:00",
+              "updated_on": "2026-08-22T12:00:03.555797+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-015",
+              "field_37": "OPS-2027-V1",
+              "field_38": "2027",
+              "field_39": 32,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "OPS-100",
+              "field_42": "OPS-100",
+              "field_43": "150100",
+              "field_44": "150100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "650000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                3
+              ],
+              "field_50": null,
+              "field_51": [
+                3
+              ],
+              "field_52": [
+                3
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 16,
+              "order": "16.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555820+00:00",
+              "updated_on": "2026-08-22T12:00:03.555820+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-016",
+              "field_37": "IT-2027-V0",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "180000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                4
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 50,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 17,
+              "order": "17.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-017",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "510100",
+              "field_44": "510100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "300000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                5
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 18,
+              "order": "18.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-018",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "MISSING",
+              "field_44": "Unmapped account",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "90000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 19,
+              "order": "19.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555717+00:00",
+              "updated_on": "2026-08-22T12:00:03.555717+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-019",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "240000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 43,
+              "field_56": "15.00",
+              "field_57": "12000.00",
+              "field_58": "تعديل مركزي بعد مراجعة العقود",
+              "field_59": 49,
+              "field_60": "248000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 20,
+              "order": "20.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555772+00:00",
+              "updated_on": "2026-08-22T12:00:03.555772+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-020",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "610100",
+              "field_44": "610100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "480000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [
+                1
+              ],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 49,
+              "field_60": "480000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 21,
+              "order": "21.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555797+00:00",
+              "updated_on": "2026-08-22T12:00:03.555797+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-021",
+              "field_37": "OPS-2027-V1",
+              "field_38": "2027",
+              "field_39": 32,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "OPS-100",
+              "field_42": "OPS-100",
+              "field_43": "150100",
+              "field_44": "150100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "650000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                3
+              ],
+              "field_50": null,
+              "field_51": [
+                3
+              ],
+              "field_52": [
+                3
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 22,
+              "order": "22.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555820+00:00",
+              "updated_on": "2026-08-22T12:00:03.555820+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-022",
+              "field_37": "IT-2027-V0",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "180000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                4
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 50,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 23,
+              "order": "23.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-023",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "510100",
+              "field_44": "510100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "300000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                5
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 24,
+              "order": "24.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-024",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "MISSING",
+              "field_44": "Unmapped account",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "90000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 25,
+              "order": "25.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555717+00:00",
+              "updated_on": "2026-08-22T12:00:03.555717+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-025",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "240000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 43,
+              "field_56": "15.00",
+              "field_57": "12000.00",
+              "field_58": "تعديل مركزي بعد مراجعة العقود",
+              "field_59": 49,
+              "field_60": "248000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 26,
+              "order": "26.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555772+00:00",
+              "updated_on": "2026-08-22T12:00:03.555772+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-026",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "610100",
+              "field_44": "610100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "480000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [
+                1
+              ],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 49,
+              "field_60": "480000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 27,
+              "order": "27.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555797+00:00",
+              "updated_on": "2026-08-22T12:00:03.555797+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-027",
+              "field_37": "OPS-2027-V1",
+              "field_38": "2027",
+              "field_39": 32,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "OPS-100",
+              "field_42": "OPS-100",
+              "field_43": "150100",
+              "field_44": "150100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "650000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                3
+              ],
+              "field_50": null,
+              "field_51": [
+                3
+              ],
+              "field_52": [
+                3
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 28,
+              "order": "28.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555820+00:00",
+              "updated_on": "2026-08-22T12:00:03.555820+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-028",
+              "field_37": "IT-2027-V0",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "180000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                4
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 50,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 29,
+              "order": "29.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-029",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "510100",
+              "field_44": "510100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "300000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                5
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 30,
+              "order": "30.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-030",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "MISSING",
+              "field_44": "Unmapped account",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "90000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 31,
+              "order": "31.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555717+00:00",
+              "updated_on": "2026-08-22T12:00:03.555717+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-031",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "240000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 43,
+              "field_56": "15.00",
+              "field_57": "12000.00",
+              "field_58": "تعديل مركزي بعد مراجعة العقود",
+              "field_59": 49,
+              "field_60": "248000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 32,
+              "order": "32.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555772+00:00",
+              "updated_on": "2026-08-22T12:00:03.555772+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-032",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "610100",
+              "field_44": "610100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "480000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [
+                1
+              ],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 49,
+              "field_60": "480000.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 33,
+              "order": "33.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555797+00:00",
+              "updated_on": "2026-08-22T12:00:03.555797+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-033",
+              "field_37": "OPS-2027-V1",
+              "field_38": "2027",
+              "field_39": 32,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "OPS-100",
+              "field_42": "OPS-100",
+              "field_43": "150100",
+              "field_44": "150100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "650000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                3
+              ],
+              "field_50": null,
+              "field_51": [
+                3
+              ],
+              "field_52": [
+                3
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 34,
+              "order": "34.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555820+00:00",
+              "updated_on": "2026-08-22T12:00:03.555820+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-034",
+              "field_37": "IT-2027-V0",
+              "field_38": "2027",
+              "field_39": 30,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "620200",
+              "field_44": "620200",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "180000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                4
+              ],
+              "field_50": null,
+              "field_51": [
+                2
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 50,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 35,
+              "order": "35.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-035",
+              "field_37": "IT-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "IT-100",
+              "field_42": "IT-100",
+              "field_43": "510100",
+              "field_44": "510100",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "300000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                1
+              ],
+              "field_50": null,
+              "field_51": [
+                5
+              ],
+              "field_52": [
+                1
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            },
+            {
+              "id": 36,
+              "order": "36.00000000000000000000",
+              "created_on": "2026-08-22T12:00:03.555842+00:00",
+              "updated_on": "2026-08-22T12:00:03.555842+00:00",
+              "created_by": "admin@jadawel.local",
+              "last_modified_by": "admin@jadawel.local",
+              "field_36": "BUD-036",
+              "field_37": "FIN-2027-V1",
+              "field_38": "2027",
+              "field_39": 31,
+              "field_40": "شركة مثال السعودية",
+              "field_41": "FIN-100",
+              "field_42": "FIN-100",
+              "field_43": "MISSING",
+              "field_44": "Unmapped account",
+              "field_45": "مصروف تجريبي للميزانية",
+              "field_46": "90000.00",
+              "field_47": null,
+              "field_48": [
+                1
+              ],
+              "field_49": [
+                2
+              ],
+              "field_50": null,
+              "field_51": [],
+              "field_52": [
+                2
+              ],
+              "field_53": null,
+              "field_54": null,
+              "field_55": 42,
+              "field_56": "15.00",
+              "field_57": "0.00",
+              "field_58": "",
+              "field_59": 47,
+              "field_60": "0.00",
+              "field_61": null,
+              "field_62": null,
+              "field_63": null,
+              "field_64": null,
+              "field_65": null,
+              "field_66": null
+            }
+          ],
+          "data_sync": null,
+          "field_rules": []
+        }
+      ]
+    },
+    {
+      "description": "",
+      "integrations": [
+        {
+          "id": 1,
+          "name": "",
+          "order": "1.00000000000000000000",
+          "type": "local_jadawel",
+          "authorized_user": "admin@jadawel.local"
+        }
+      ],
+      "data_sources": [
+        {
+          "id": 1,
+          "name": "WidgetDataSource",
+          "order": "1.00000000000000000000",
+          "service": {
+            "id": 1,
+            "integration_id": 1,
+            "type": "local_jadawel_aggregate_rows",
+            "sample_data": null,
+            "table_id": 5,
+            "view_id": 6,
+            "search_query": {
+              "mode": "simple",
+              "version": "0.1",
+              "formula": ""
+            },
+            "filter_type": "AND",
+            "filters": [],
+            "field_id": 46,
+            "aggregation_type": "sum"
+          }
+        },
+        {
+          "id": 2,
+          "name": "WidgetDataSource 2",
+          "order": "2.00000000000000000000",
+          "service": {
+            "id": 2,
+            "integration_id": 1,
+            "type": "local_jadawel_aggregate_rows",
+            "sample_data": null,
+            "table_id": 5,
+            "view_id": 6,
+            "search_query": {
+              "mode": "simple",
+              "version": "0.1",
+              "formula": ""
+            },
+            "filter_type": "AND",
+            "filters": [],
+            "field_id": 63,
+            "aggregation_type": "sum"
+          }
+        },
+        {
+          "id": 3,
+          "name": "WidgetDataSource 3",
+          "order": "3.00000000000000000000",
+          "service": {
+            "id": 3,
+            "integration_id": 1,
+            "type": "local_jadawel_aggregate_rows",
+            "sample_data": null,
+            "table_id": 5,
+            "view_id": 6,
+            "search_query": {
+              "mode": "simple",
+              "version": "0.1",
+              "formula": ""
+            },
+            "filter_type": "AND",
+            "filters": [],
+            "field_id": 60,
+            "aggregation_type": "sum"
+          }
+        },
+        {
+          "id": 4,
+          "name": "WidgetDataSource 4",
+          "order": "4.00000000000000000000",
+          "service": {
+            "id": 4,
+            "integration_id": 1,
+            "type": "local_jadawel_aggregate_rows",
+            "sample_data": null,
+            "table_id": 5,
+            "view_id": 10,
+            "search_query": {
+              "mode": "simple",
+              "version": "0.1",
+              "formula": ""
+            },
+            "filter_type": "AND",
+            "filters": [],
+            "field_id": 36,
+            "aggregation_type": "count"
+          }
+        },
+        {
+          "id": 5,
+          "name": "WidgetDataSource 5",
+          "order": "5.00000000000000000000",
+          "service": {
+            "id": 5,
+            "integration_id": 1,
+            "type": "local_jadawel_grouped_aggregate_rows",
+            "sample_data": null,
+            "table_id": 5,
+            "view_id": 6,
+            "search_query": {
+              "mode": "simple",
+              "version": "0.1",
+              "formula": ""
+            },
+            "filter_type": "AND",
+            "filters": [],
+            "service_aggregation_series": [
+              {
+                "field_id": 66,
+                "aggregation_type": "sum"
+              }
+            ],
+            "service_aggregation_group_bys": [
+              {
+                "field_id": 41
+              }
+            ],
+            "service_aggregation_sorts": [
+              {
+                "sort_on": "SERIES",
+                "reference": "field_66_sum",
+                "direction": "DESC"
+              }
+            ]
+          }
+        },
+        {
+          "id": 6,
+          "name": "WidgetDataSource 6",
+          "order": "6.00000000000000000000",
+          "service": {
+            "id": 6,
+            "integration_id": 1,
+            "type": "local_jadawel_list_rows",
+            "sample_data": null,
+            "table_id": 5,
+            "view_id": 10,
+            "sortings": [],
+            "search_query": {
+              "mode": "simple",
+              "version": "0.1",
+              "formula": ""
+            },
+            "filter_type": "AND",
+            "filters": [],
+            "default_result_count": 10
+          }
+        }
+      ],
+      "widgets": [
+        {
+          "id": 1,
+          "title": "إجمالي المطلوب",
+          "description": "",
+          "order": "1.00000000000000000000",
+          "type": "summary",
+          "data_source_id": 1
+        },
+        {
+          "id": 2,
+          "title": "توصية المالية",
+          "description": "",
+          "order": "2.00000000000000000000",
+          "type": "summary",
+          "data_source_id": 2
+        },
+        {
+          "id": 3,
+          "title": "المعتمد",
+          "description": "",
+          "order": "3.00000000000000000000",
+          "type": "summary",
+          "data_source_id": 3
+        },
+        {
+          "id": 4,
+          "title": "بنود تحتاج متابعة",
+          "description": "",
+          "order": "4.00000000000000000000",
+          "type": "summary",
+          "data_source_id": 4
+        },
+        {
+          "id": 5,
+          "title": "المعروض للمجلس حسب الإدارة",
+          "description": "",
+          "order": "5.00000000000000000000",
+          "type": "chart",
+          "data_source_id": 5,
+          "chart_type": "bar",
+          "series_config": {},
+          "show_legend": true
+        },
+        {
+          "id": 6,
+          "title": "بنود تحتاج متابعة",
+          "description": "",
+          "order": "6.00000000000000000000",
+          "type": "records_list",
+          "data_source_id": 6,
+          "field_ids": [
+            36,
+            41,
+            64,
+            65
+          ]
+        }
+      ],
+      "id": 2,
+      "name": "ملخص الميزانية للمجلس",
+      "order": 1,
+      "type": "dashboard"
+    }
+  ]
+}

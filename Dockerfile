@@ -17,7 +17,22 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-17 by publish-image.yml from tag v2.8.1 @ c3639cd64, digest
+# Published 2026-08-22 by publish-image.yml from release 2.9.2 @ 8f38f549d,
+# digest sha256:f2a9aca605656e3361b19baedb866fd883a9fd46fa74aa3985341c02c49d7659.
+#
+# 2.9.2 makes the database-backed template catalog a startup invariant. It
+# disables core's broad 150+ template sync, constrains any older queued task to
+# the six local slugs, and reconciles synchronously after migrations. A
+# successful startup therefore cannot expose the stale upstream catalog.
+# User workspaces are not part of the cleanup, and later restarts are a no-op.
+#
+# Carried over from 2.9.0, matched Arabic and English project-management
+# templates, plus Arabic and English Saudi budget-consolidation templates. It
+# also enforces the Gregorian Arabic month names familiar in Saudi Arabia and
+# clears Vite's generated dependency cache when correcting the datepicker locale.
+#
+# Previously published 2026-08-17 by publish-image.yml from tag v2.8.1 @
+# c3639cd64, digest
 # sha256:1047c4c1658496d8b94be17ec1eb7e00a6d5f2beff0bad4c44b8afad44bbba6e
 #
 # **No migration.** 2.8.1 changes one package in the image and one path lookup
@@ -98,7 +113,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:935935b85fc00d69b2d5829269e19b1f323845293db60f0a04b2a31340447fc0
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:f2a9aca605656e3361b19baedb866fd883a9fd46fa74aa3985341c02c49d7659
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}

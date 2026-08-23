@@ -121,7 +121,12 @@ path-dependent responses instead.
 Expected, not a fault. Django migrations resume where they left off, so the
 restarts worked through them and it came up clean.
 
-### 6. All 157 templates missing from the template picker
+### 6. Historical: all 157 templates missing from the template picker
+
+> Superseded by release 2.9.2. The fork now treats six bundled Arabic/English
+> templates as an authoritative local-only catalog, disables core's broad sync,
+> and reconciles synchronously after migrations. The notes below explain the old
+> production failure but are no longer the operating procedure.
 
 Found after the deploy was otherwise healthy. Nothing was lost: the templates
 ship inside the image as `backend/templates/*.json` and had simply never been
@@ -141,7 +146,7 @@ one too. The two are separable, and want opposite values here:
 | Variable | Value | Effect |
 |---|---|---|
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Boot does **not** wait for the sync |
-| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Sync runs in celery *after* startup |
+| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `false` | Broad core sync is disabled; the fork reconciles its local catalog during migration startup |
 
 Fix was to set the trigger to `true` and Reload. The task routes to the `export`
 queue (`backend/src/jadawel/core/tasks.py:23`), which under `JADAWEL_RUN_MINIMAL`
@@ -158,11 +163,10 @@ warnings during the sync are expected and not CranL-specific: those view types
 are premium/enterprise, which this fork removes. Templates import with those
 views dropped.
 
-Left `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true` afterwards. It is
-idempotent and self-healing, so a future fresh database gets templates without
-anyone remembering this page. The cost is that each deploy spends ~13 minutes of
-the single combined worker on it, during which user exports and file imports
-queue behind it. Set it to `false` if that ever matters more.
+Release 2.9.2 replaces this queue-based workaround. Leave
+`JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=false`; a successful migration
+now means the six-template local catalog is ready, and normal restarts use the
+fast idempotent state check.
 
 ### 7. `/api/*` returns a Nuxt 404 on the `cranl.net` hostname
 
@@ -210,7 +214,7 @@ URLs in `JADAWEL_PUBLIC_URL`.
 | `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |
 | `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Removes a step that can take 30 minutes from every boot. |
-| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | **Must be set explicitly.** It defaults to `SYNC_TEMPLATES_ON_STARTUP`, so the line above otherwise leaves the instance with zero templates (§6). |
+| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `false` | Keep the broad upstream sync disabled. The fork enforces and reconciles its six local templates synchronously after migrations (§6). |
 
 Leave `JADAWEL_CADDY_ADDRESSES` unset. Its `:80` default is correct — CranL owns
 TLS, and pointing Caddy at an `https://` address makes it try to obtain its own
@@ -299,7 +303,7 @@ tolerates it, but it is worth trimming next time the variable is touched.
 | Container restarts repeatedly on first boot | Migrations in progress | Expected; they resume and finish |
 | Killed / exit 137 | OOM on the 4 GB plan | `JADAWEL_RUN_MINIMAL=yes`, `JADAWEL_AMOUNT_OF_WORKERS=1`, `SYNC_TEMPLATES_ON_STARTUP=false` |
 | UI loads, grid empty, websockets fail | `JADAWEL_PUBLIC_URL` does not match the browser URL | Correct it and Reload |
-| Template picker empty | Sync never ran on this database | `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION=true`, Reload, wait ~13 min (§6) |
+| Template picker empty or shows 157 templates | Local catalog reconciliation did not complete | Keep both template-sync variables `false`, redeploy, and require the migration log to report `Local template catalog is ready after migrations` (§6) |
 | `/api/*` returns JSON with `"message": "لم يتم العثور على الموقع"` | Request host is not in `JADAWEL_PUBLIC_URL`, so Caddy sent it to Nuxt instead of Django | Add the host to `JADAWEL_EXTRA_PUBLIC_URLS` (§7) |
 | Uploaded files vanish after a deploy | No S3 configured | Set the `AWS_*` variables |
 | Everyone logged out after a deploy | `SECRET_KEY` / `JADAWEL_JWT_SIGNING_KEY` being regenerated | Set both explicitly |

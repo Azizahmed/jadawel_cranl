@@ -117,7 +117,7 @@ working set and why each is needed.
 | `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker on a 4 GB plan. |
 | `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Drops a step that can take 30 minutes from every boot. |
-| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `true` | Must be set alongside the row above, which it silently defaults to (`backend/docker/docker-entrypoint.sh:30`). Without it the instance has **no templates at all**; with it they import in celery after boot instead of blocking it. |
+| `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `false` | The fork reconciles its six authoritative local templates synchronously after migrations. Leave core's broad 150+ template sync disabled; `ArabaseConfig` also enforces this setting in-process. |
 | `SECRET_KEY` | *generated* | Must be set explicitly. `jadawel.sh` otherwise generates one into `/jadawel/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |
 | `JADAWEL_JWT_SIGNING_KEY` | *generated* | Same, via `.jwt_signing_key`. Regenerating it logs everyone out. |
 | `JADAWEL_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
@@ -179,8 +179,11 @@ and CranL has no credential for it. See §1.
 **UI loads but the grid stays empty and websockets fail** —
 `JADAWEL_PUBLIC_URL` does not exactly match the browser URL.
 
-**The template picker is empty** — the sync never ran against this database. See
-§4; it is a separate variable from `SYNC_TEMPLATES_ON_STARTUP`.
+**The template picker is empty or shows the upstream catalog** — startup did not
+finish the fork's local catalog reconciliation. Read the migration/container log;
+a successful startup records `Local template catalog is ready after migrations`
+and exposes exactly six templates in two categories. Do not enable the broad core
+template sync.
 
 **`/api/*` returns a Nuxt 404 page instead of JSON** — the host being requested
 is not named in `JADAWEL_PUBLIC_URL`, so `Caddyfile:82-131` routes backend paths

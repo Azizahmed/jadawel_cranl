@@ -6,6 +6,10 @@ so this module needs no registration in ``ArabaseConfig.ready()``.
 
 import logging
 
+from django.conf import settings
+
+from celery_singleton import Singleton
+
 from arabase.backup.config import BackupConfig
 from arabase.backup.runner import BackupError, dump_timeout_seconds, run_backup
 from jadawel.config.celery import app
@@ -21,6 +25,22 @@ existing entry rather than adding a second one beside it."""
 # instead of being cut short by a hard-coded limit an operator cannot see.
 # The margin covers the upload and the prune that follow the dump.
 _SOFT_TIME_LIMIT = dump_timeout_seconds() + 600
+
+
+@app.task(
+    name="arabase.tasks.reconcile_local_template_catalog",
+    base=Singleton,
+    raise_on_duplicate=False,
+    queue="export",
+    time_limit=settings.JADAWEL_SYNC_TEMPLATES_TIME_LIMIT,
+    lock_expiry=settings.JADAWEL_SYNC_TEMPLATES_TIME_LIMIT,
+)
+def reconcile_local_template_catalog_task():
+    """Ensure the database picker matches the six bundled local templates."""
+
+    from arabase.template_catalog import reconcile_local_template_catalog
+
+    return reconcile_local_template_catalog()
 
 
 @app.task(

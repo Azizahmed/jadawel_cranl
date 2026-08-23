@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -69,4 +69,13 @@ for (const relativePath of BUNDLE_FILES) {
 
 if (!patchedAny) {
   console.log('no Levantine month names found; datepicker left unchanged')
+} else {
+  // Vite pre-bundles dependencies and can otherwise keep serving the old
+  // locale even after the package bundle is patched. This directory is a
+  // generated cache and will be recreated from the corrected source.
+  await rm(path.join(projectRoot, 'node_modules/.cache/vite/client/deps'), {
+    recursive: true,
+    force: true,
+  })
+  console.log('cleared the Vite dependency cache after patching the datepicker')
 }
