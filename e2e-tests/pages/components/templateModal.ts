@@ -8,7 +8,7 @@ export class TemplateModal {
 
   constructor(page: Page) {
     this.page = page;
-    this.templateBodyLayout = this.page.locator(".templates__body .layout");
+    this.templateBodyLayout = this.page.locator(".templates__body");
     this.modelLoadingSpinner = this.page.locator(
       ".modal__box .header__loading"
     );
@@ -17,6 +17,7 @@ export class TemplateModal {
 
   async waitUntilLoaded() {
     await this.templateBodyLayout.waitFor();
+    await this.useThisTemplateButton.waitFor();
   }
 
   getLoadingSpinner() {

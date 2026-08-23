@@ -3,7 +3,8 @@ import { jadawelConfig } from './playwright.config'
 import { User } from './fixtures/user'
 
 export function getClient(user?: User) {
-  const baseURL = `${jadawelConfig.PUBLIC_BACKEND_URL}/api/`
+  const backendUrl = jadawelConfig.PUBLIC_BACKEND_URL.replace(/\/+$/, '')
+  const baseURL = `${backendUrl}/api/`
   const instance = axios.create({
     baseURL,
     headers: {

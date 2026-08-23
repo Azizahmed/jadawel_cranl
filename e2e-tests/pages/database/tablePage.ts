@@ -66,6 +66,57 @@ export class TablePage extends JadawelPage {
     this.firstRowIdDiv = this.page.locator(".grid-view__row-info").first();
   }
 
+  /**
+   * Rows as they are rendered in the frozen left section of the grid: the row
+   * number plus the primary field.
+   */
+  rowsInLeftSection() {
+    return this.page.locator(
+      ".grid-view__left .grid-view__rows .grid-view__row"
+    );
+  }
+
+  /**
+   * The primary field cell of the given row, zero indexed. The first column of
+   * the left section is the row number, so the cell is looked up by class
+   * rather than by position.
+   */
+  primaryCellOfRow(index: number) {
+    return this.rowsInLeftSection().nth(index).locator(".grid-view__cell");
+  }
+
+  async clickAddRow() {
+    const rowCountBefore = await this.rowsInLeftSection().count();
+    await this.page.locator(".grid-view__add-row").first().click();
+    await expect(this.rowsInLeftSection()).toHaveCount(rowCountBefore + 1);
+  }
+
+  /**
+   * Selects the cell, types into it and commits the value with Enter, which is
+   * how a user fills a grid cell.
+   */
+  async fillPrimaryCellOfRow(index: number, value: string) {
+    await this.primaryCellOfRow(index).click();
+    await this.page.keyboard.type(value);
+    await this.page.keyboard.press("Enter");
+    await expect(this.primaryCellOfRow(index)).toContainText(value);
+  }
+
+  /**
+   * Deletes a row through the right click menu, the way a user does it.
+   */
+  async deleteRow(index: number) {
+    const rowCountBefore = await this.rowsInLeftSection().count();
+    await this.primaryCellOfRow(index).click({ button: "right" });
+    // Right clicking opens both the cell selection menu and the row menu; the
+    // row menu is the one offering "insert row below".
+    const rowMenu = this.page
+      .locator(".context__menu")
+      .filter({ has: this.page.locator(".iconoir-arrow-down") });
+    await rowMenu.locator(".context__menu-item-link:has(.iconoir-bin)").click();
+    await expect(this.rowsInLeftSection()).toHaveCount(rowCountBefore - 1);
+  }
+
   async addNewFieldOfType(type: string) {
     await this.addColumnLocator.click();
     await this.page.locator(`.select__item-name-text[title="${type}"]`).click();
@@ -108,10 +159,21 @@ export class TablePage extends JadawelPage {
 
   async getWidthOfFirstFileFieldCellImage() {
     await this.waitForFileFieldCellImage();
-    return await this.page.evaluate(() => {
-      const element = document.querySelector(".grid-field-file__image");
-      return element.clientWidth;
+    return await this.fileCellImageLocator.first().evaluate((element) => {
+      return (element as HTMLImageElement).naturalWidth;
     });
+  }
+
+  async downloadFirstFileFieldImage() {
+    await this.fileCellImageLocator.first().click();
+    const downloadButton = this.page.locator(".file-field-modal__action").first();
+    await expect(downloadButton).toBeVisible();
+
+    const downloadPromise = this.page.waitForEvent("download");
+    await downloadButton.click();
+    const download = await downloadPromise;
+    expect(await download.failure()).toBeNull();
+    return download.suggestedFilename();
   }
 
   async goToTable(table: Table) {

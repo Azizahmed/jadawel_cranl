@@ -3,14 +3,27 @@ import { TemplateModal } from "./templateModal";
 
 export class Sidebar {
   page: Page;
+  readonly root: Locator;
+  readonly workspaceSelector: Locator;
+  readonly logoutLink: Locator;
+  readonly mySettingsLink: Locator;
   private createNewAppButton: Locator;
   private readonly createTemplateFromAppButton;
 
   constructor(page: Page) {
     this.page = page;
-    this.createNewAppButton = page
-      .locator(".sidebar__new")
-      .getByText("Add new");
+    this.root = page.locator(".sidebar");
+    this.workspaceSelector = page.locator(".sidebar__workspaces-selector");
+    // The labels in this menu are translated, so anchor on the icons, which
+    // are the same in every language.
+    this.logoutLink = page.locator(
+      ".context__menu-item-link:has(.iconoir-log-out)"
+    );
+    this.mySettingsLink = page.locator(
+      ".context__menu-item-link:has(.iconoir-user-circle)"
+    );
+    // The "Add new..." label is translated; the element itself is not.
+    this.createNewAppButton = page.locator(".sidebar__new");
     this.createTemplateFromAppButton = this.page
       .locator(".context__menu")
       .getByText("From template");
@@ -22,7 +35,7 @@ export class Sidebar {
   }
 
   async selectDatabaseByName(name: string) {
-    await this.page.getByTitle(name).click();
+    await this.root.getByTitle(name).click();
   }
 
   clickCreateNewApplication() {
@@ -41,7 +54,39 @@ export class Sidebar {
     return templateModal;
   }
 
+  // Scoped to the sidebar and exact: the same table name usually also appears
+  // in the dashboard behind it, and a substring match on a name like "Table"
+  // also hits the "New table" link.
   async selectTableByName(name: string) {
-    await this.page.getByText(name).click();
+    await this.root.locator(`.tree__sub-link[title="${name}"]`).click();
+  }
+
+  /**
+   * Opens the menu behind the workspace selector, which holds the account
+   * links (settings, log out).
+   */
+  async openUserContext() {
+    await this.workspaceSelector.click();
+    await this.logoutLink.waitFor();
+  }
+
+  async logout() {
+    await this.openUserContext();
+    await this.logoutLink.click();
+  }
+
+  async openMySettings() {
+    await this.openUserContext();
+    await this.mySettingsLink.click();
+  }
+
+  /**
+   * The names of the application types the "Add new..." menu offers.
+   */
+  async openCreateApplicationMenu(): Promise<Locator> {
+    await this.clickCreateNewApplication();
+    const menu = this.page.locator(".context__menu").last();
+    await menu.waitFor();
+    return menu;
   }
 }

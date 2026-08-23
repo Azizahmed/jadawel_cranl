@@ -274,7 +274,9 @@ test *ARGS:
 
     echo "Running E2E tests..."
     if [ -z "{{ ARGS }}" ]; then
-        yarn run test
+        node scripts/production-load-smoke.mjs
+        yarn playwright test --project=chrome
+        yarn playwright test --project=firefox --grep=@fast
     else
         yarn playwright test {{ ARGS }}
     fi

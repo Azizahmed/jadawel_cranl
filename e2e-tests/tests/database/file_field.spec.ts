@@ -6,8 +6,9 @@ test.describe("File field tests", () => {
     await workspacePage.goto();
   });
 
-  test.skip("User can upload an image and download it again @upload", async ({
+  test("User can upload an image and download it again @upload", async ({
     page,
+    goto,
     workspacePage,
   }) => {
     // Click "Add new" > "From template".
@@ -29,11 +30,14 @@ test.describe("File field tests", () => {
       "Projects"
     );
 
-    const tablePage = new TablePage(page);
+    const tablePage = new TablePage({ page, goto });
     await tablePage.addNewFieldOfType("File");
     const imageWidth =
       await tablePage.uploadImageToFirstFileFieldCellAndGetWidth();
 
     expect(imageWidth).toBeGreaterThan(0);
+    expect(await tablePage.downloadFirstFileFieldImage()).toBe(
+      "testuploadimage.png"
+    );
   });
 });

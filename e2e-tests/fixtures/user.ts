@@ -72,3 +72,22 @@ export async function createUser(
 export async function deleteUser(user: User): Promise<any> {
   await getClient(user).post("user/schedule-account-deletion/");
 }
+
+/**
+ * Credentials of an account that already exists on the target instance. Used by
+ * the tests that must exercise the real sign-in form rather than the token
+ * short-circuit the other fixtures use. Override per environment with
+ * E2E_EXISTING_USER_EMAIL / E2E_EXISTING_USER_PASSWORD.
+ */
+export function existingUserCredentials(): { email: string; password: string } {
+  return {
+    email: process.env.E2E_EXISTING_USER_EMAIL || "test@test.com",
+    password: process.env.E2E_EXISTING_USER_PASSWORD || "test1234",
+  };
+}
+
+export async function getExistingUser(): Promise<User> {
+  const { email, password } = existingUserCredentials();
+  const user = await getTokenAuth(email, password);
+  return { ...user, password };
+}

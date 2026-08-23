@@ -1,4 +1,3 @@
-import { Page } from "@playwright/test";
 import { JadawelPage, PageConfig } from "../jadawelPage";
 import { Automation } from "../../fixtures/automation/automation";
 import { AutomationWorkflow } from "../../fixtures/automation/automationWorkflow";
@@ -23,5 +22,10 @@ export class AutomationWorkflowPage extends JadawelPage {
 
   getFullUrl() {
     return `${this.baseUrl}/automation/${this.automation.id}/workflow/${this.automationWorkflow.id}`;
+  }
+
+  async goto(params = {}) {
+    await super.goto(params);
+    await this.page.locator(".workflow-editor").waitFor({ state: "visible" });
   }
 }

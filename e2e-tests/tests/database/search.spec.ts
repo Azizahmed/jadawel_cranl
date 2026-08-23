@@ -1,4 +1,4 @@
-import { expect, test } from "../jadawelTest";
+import { expect, monitorBrowserErrors, test } from "../jadawelTest";
 import { TablePage } from "../../pages/database/tablePage";
 import { createUser, deleteUser, User } from "../../fixtures/user";
 import { createWorkspace, Workspace } from "../../fixtures/workspace";
@@ -18,19 +18,27 @@ import { WorkspacePage } from "../../pages/workspacePage";
 let user: User;
 let sharedPageTestData: SharedTestData;
 let page;
-let workspacePage;
+let tablePage: TablePage;
+let verifyBrowserErrors;
 
 test.describe.configure({ mode: "serial" });
 
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
+  verifyBrowserErrors = monitorBrowserErrors(page);
 
   user = await createUser();
   const workspace = await createWorkspace(user);
-  workspacePage = new WorkspacePage(page, user, workspace);
+  const pageConfig = {
+    page,
+    goto: async (url) => page.goto(url, { waitUntil: "domcontentloaded" }),
+  };
+  const workspacePage = new WorkspacePage(pageConfig, user, workspace);
   await workspacePage.authenticate();
-
-  sharedPageTestData = await setupTestTablesAndUser(workspacePage);
+  sharedPageTestData = await setupTestTablesAndUser({ user, workspace });
+  tablePage = new TablePage(pageConfig);
+  await tablePage.goToTable(sharedPageTestData.tableA);
+  await expect(tablePage.rowsInLeftSection()).toHaveCount(2);
 });
 
 test.afterAll(async () => {
@@ -40,6 +48,7 @@ test.afterAll(async () => {
   if (!process.env.CI) {
     await deleteUser(user);
   }
+  verifyBrowserErrors();
   await page.close();
 });
 
@@ -112,8 +121,9 @@ class TestCase {
       await updateRows(user, sharedPageTestData.tableA, [rowValue]);
       rowValue[this.subFieldSetup.field.name] = this.cellValue;
       await updateRows(user, sharedPageTestData.tableA, [rowValue]);
-      await tablePage.waitForFirstCellNotBeBlank();
     }
+    await tablePage.goToTable(sharedPageTestData.tableA);
+    await tablePage.waitForFirstCellNotBeBlank();
     // Nothing should have changed as no search term is set
     await expect(tablePage.rows()).toHaveCount(2);
     await expect(tablePage.searchMatchingCells()).toHaveCount(0);
@@ -195,6 +205,7 @@ class SubFieldSetup {
       this.fieldSettings(),
       this.field
     );
+    await tablePage.goToTable(sharedPageTestData.tableA);
     // Double check page is as expected
     await tablePage.waitForLoadingOverlayToDisappear();
     await expect(tablePage.fields()).toHaveCount(this.expectedNumFields(), {
@@ -546,7 +557,6 @@ const fieldTypes = [
   ),
 ];
 
-let tablePageLoaded = false;
 let testIdx = 0;
 
 fieldTypes.forEach((fieldType) => {
@@ -556,23 +566,13 @@ fieldTypes.forEach((fieldType) => {
         const cellValue = testCase.matchRowIdColumn
           ? "row id"
           : testCase.cellValue;
-        test.skip(
+        test(
           `${testIdx++} FullTextTest @search => ${subFieldSetup.name}
             - ${cellValue} should ${
             testCase.expectsCellToMatch ? "match" : "not match"
           }: ${searchTerm}\n`,
           { tag: "@slow" },
           async () => {
-            const tablePage = new TablePage(page);
-
-            if (!tablePageLoaded) {
-              // Load the page
-              await tablePage.goToTable(sharedPageTestData.tableA);
-              // Wait for websockets to connect!
-              await page.waitForTimeout(5000);
-              tablePageLoaded = true;
-            }
-
             if (!subFieldSetup.setup) {
               await subFieldSetup.doSetup(tablePage);
             }
