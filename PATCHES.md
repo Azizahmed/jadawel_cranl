@@ -1168,3 +1168,20 @@ turned otherwise-successful shared dashboard requests into HTTP 500 responses.
 |------|--------|--------|------------|
 | `web-frontend/modules/integrations/localJadawel/serviceTypes.js` | Return the already-serialized aggregate result when private formatting context is absent | Render anonymous dashboard summaries without exposing private data-source configuration | low |
 | `web-frontend/test/unit/integrations/localJadawel/serviceTypes.spec.js` | Cover reduced public services and fully configured private services | Prevent the SSR crash from returning while preserving private result formatting | low |
+
+## Phase — Default to white and localize English template samples (2026-08-24)
+
+**Context:** The interface theme picker listed the green sage palette first and used it
+for users without a stored preference. The English template catalog also mixed a Saudi
+product context with generic or US-oriented sample records. White now leads the theme
+row and is the true fallback, while English table and field labels keep their language
+and the records use Saudi personal names transliterated into English plus Saudi
+organisations, phone numbers, locations, payment methods, finance terms and operating
+examples.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/utils/interfaceThemes.js` | Put white first, set it as the default, and keep sage second | Make the neutral workspace the first-run experience without removing the green option | low |
+| `backend/templates/{performance-reviews,project-management-en,saudi-budget-consolidation-en}.json` | Replace generic and US-oriented records with English-transliterated Saudi names and Saudi sample context; remove invalid average footers from the two link-derived count formulas | Make every approved English template feel locally relevant while preserving English schemas, and keep the performance preview aggregation endpoints from returning 500 | low |
+| `backend/src/arabase/template_catalog.py` | Include bundled export hashes in the current-catalog check | Refresh edited template previews instead of treating matching slugs and categories as current forever | low |
+| `web-frontend/test/unit/core/{utils/interfaceThemes.spec.js,components/appUtilities.spec.js}` and `backend/tests/arabase/test_*_template*.py` | Cover theme order/default, English schema language, Saudi records, installability and content refresh | Keep both visible changes and the catalog refresh path regression-tested | low |

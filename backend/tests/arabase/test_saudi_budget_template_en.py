@@ -16,15 +16,19 @@ TEMPLATE_PATH = (
 )
 
 
-def _collect_strings(value):
-    if isinstance(value, str):
-        yield value
-    elif isinstance(value, list):
-        for item in value:
-            yield from _collect_strings(item)
-    elif isinstance(value, dict):
-        for item in value.values():
-            yield from _collect_strings(item)
+def _contains_arabic(value):
+    return any("\u0600" <= char <= "\u06ff" for char in value)
+
+
+def _schema_strings(payload):
+    yield payload["name"]
+    yield from payload["categories"]
+    for application in payload["export"]:
+        yield application["name"]
+        for table in application.get("tables", []):
+            yield table["name"]
+            yield from (field["name"] for field in table["fields"])
+            yield from (view["name"] for view in table["views"])
 
 
 @pytest.mark.django_db(transaction=True)
@@ -33,11 +37,33 @@ def test_english_saudi_budget_template_syncs_and_installs(data_fixture, tmpdir):
     assert payload["jadawel_template_version"] == 1
     assert payload["name"] == "Saudi Budget Consolidation and Approval"
     assert payload["categories"] == ["English Templates"]
-    assert not any(
-        "\u0600" <= char <= "\u06ff"
-        for value in _collect_strings(payload)
-        for char in value
+    assert not any(_contains_arabic(value) for value in _schema_strings(payload))
+
+    database_export = next(
+        application
+        for application in payload["export"]
+        if application["type"] == "database"
     )
+    tables = {table["name"]: table for table in database_export["tables"]}
+    cost_centers = tables["Departments and Cost Centers"]["rows"]
+    assert [row["field_23"] for row in cost_centers] == [
+        "Sara AlOtaibi",
+        "Khalid AlQahtani",
+        "Nora AlHarbi",
+    ]
+    assert not any(_contains_arabic(row["field_23"]) for row in cost_centers)
+    assert {row["field_22"] for row in cost_centers} == {"Najd Vision Company"}
+
+    budget_items = tables["Budget Items"]["rows"]
+    assert {row["field_40"] for row in budget_items} == {"Najd Vision Company"}
+    assert {row["field_45"] for row in budget_items} == {
+        "Saudi cloud hosting renewal",
+        "Riyadh headquarters lease",
+        "Eastern Province fleet maintenance",
+        "ZATCA e-invoicing platform",
+        "Arabic customer support training",
+        "Jeddah branch network upgrade",
+    }
 
     handler = CoreHandler()
     storage = FileSystemStorage(location=str(tmpdir), base_url="http://localhost")

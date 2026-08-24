@@ -14,15 +14,19 @@ ARABIC_TEMPLATE_PATH = TEMPLATES_DIR / "arabic-project-management.json"
 ENGLISH_TEMPLATE_PATH = TEMPLATES_DIR / "project-management-en.json"
 
 
-def _collect_strings(value):
-    if isinstance(value, str):
-        yield value
-    elif isinstance(value, list):
-        for item in value:
-            yield from _collect_strings(item)
-    elif isinstance(value, dict):
-        for item in value.values():
-            yield from _collect_strings(item)
+def _contains_arabic(value):
+    return any("\u0600" <= char <= "\u06ff" for char in value)
+
+
+def _schema_strings(payload):
+    yield payload["name"]
+    yield from payload["categories"]
+    for application in payload["export"]:
+        yield application["name"]
+        for table in application.get("tables", []):
+            yield table["name"]
+            yield from (field["name"] for field in table["fields"])
+            yield from (view["name"] for view in table["views"])
 
 
 def _database_shape(payload):
@@ -45,11 +49,29 @@ def test_english_project_management_mirrors_arabic_template(data_fixture, tmpdir
     assert english["name"] == "Project Management"
     assert english["categories"] == ["English Templates"]
     assert _database_shape(english) == _database_shape(arabic)
-    assert not any(
-        "\u0600" <= char <= "\u06ff"
-        for value in _collect_strings(english)
-        for char in value
-    )
+    assert not any(_contains_arabic(value) for value in _schema_strings(english))
+
+    tables = {table["name"]: table for table in english["export"][0]["tables"]}
+    team_rows = tables["Team"]["rows"]
+    assert [row["field_11602"] for row in team_rows] == [
+        "Sara AlOtaibi",
+        "Khalid AlHarbi",
+        "Nora AlQahtani",
+        "Abdullah AlShammari",
+    ]
+    assert not any(_contains_arabic(row["field_11602"]) for row in team_rows)
+    assert all(row["field_11608"].startswith("+966") for row in team_rows)
+    assert all(row["field_11607"].endswith("@riyadh.example") for row in team_rows)
+
+    project_rows = tables["Projects"]["rows"]
+    assert {row["field_11609"] for row in project_rows} == {
+        "Riyadh E-commerce Platform",
+        "Saudi Cloud Migration",
+        "Arabic Brand Launch",
+        "ZATCA Reporting Automation",
+    }
+    task_titles = {row["field_11620"] for row in tables["Tasks"]["rows"]}
+    assert "Integrate mada and SADAD Payments" in task_titles
 
     handler = CoreHandler()
     storage = FileSystemStorage(location=str(tmpdir), base_url="http://localhost")
