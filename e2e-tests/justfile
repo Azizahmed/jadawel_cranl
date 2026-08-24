@@ -140,14 +140,28 @@ up: _ensure-images
     docker volume rm e2e-media 2>/dev/null || true
     docker volume create --driver local --opt type=tmpfs --opt device=tmpfs --opt o=size=512m,uid=9999,gid=9999 e2e-media
 
-    # Wait for PostgreSQL to be ready
+    # Wait for the entrypoint to hand PID 1 over to the final PostgreSQL server.
+    # pg_isready can briefly succeed against the temporary initialization server,
+    # which is stopped before the real server starts.
     echo "Waiting for PostgreSQL..."
-    for i in {1..30}; do
-        if docker exec e2e-db pg_isready -U jadawel > /dev/null 2>&1; then
+    postgres_ready=false
+    for i in {1..90}; do
+        if docker exec e2e-db sh -ec '
+            [ "$(cat /proc/1/comm)" = "postgres" ]
+            pg_isready -U jadawel -d jadawel
+            psql -U jadawel -d postgres -Atqc "SELECT 1"
+        ' > /dev/null 2>&1; then
+            postgres_ready=true
+            echo "PostgreSQL is ready."
             break
         fi
         sleep 1
     done
+    if [ "$postgres_ready" != true ]; then
+        echo "PostgreSQL did not become ready within 90 seconds."
+        docker logs --tail 100 e2e-db 2>&1 || true
+        exit 1
+    fi
 
     # Restore database from dump (fast - migrations pre-applied)
     echo "Restoring database from dump..."
@@ -316,14 +330,27 @@ db-dump:
         -e POSTGRES_DB=jadawel \
         {{ db_image }}
 
-    # Wait for PostgreSQL
+    # Wait for the final PostgreSQL server, not the temporary initialization
+    # server started by the image entrypoint.
     echo "Waiting for PostgreSQL to be ready..."
-    for i in {1..30}; do
-        if docker exec {{ dump_db }} pg_isready -U jadawel > /dev/null 2>&1; then
+    postgres_ready=false
+    for i in {1..90}; do
+        if docker exec {{ dump_db }} sh -ec '
+            [ "$(cat /proc/1/comm)" = "postgres" ]
+            pg_isready -U jadawel -d jadawel
+            psql -U jadawel -d postgres -Atqc "SELECT 1"
+        ' > /dev/null 2>&1; then
+            postgres_ready=true
+            echo "PostgreSQL is ready."
             break
         fi
         sleep 1
     done
+    if [ "$postgres_ready" != true ]; then
+        echo "PostgreSQL did not become ready within 90 seconds."
+        docker logs --tail 100 {{ dump_db }} 2>&1 || true
+        exit 1
+    fi
 
     # Build backend image if needed
     if ! docker image inspect {{ backend_image }} > /dev/null 2>&1; then
