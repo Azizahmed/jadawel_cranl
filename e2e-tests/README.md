@@ -53,19 +53,28 @@ wherever a test has to work in both languages.
 
 ### Production-shaped load gate
 
-The default `just e2e test` run first sends 600 requests at concurrency 60,
-spread across the production frontend's plain `/_health` route, the SSR login
-page, the backend's database-backed `/api/settings/` endpoint, and an
-authenticated `/api/workspaces/` read. It requires zero errors and a p95 no
-higher than 1.5 seconds before Playwright starts. Each target receives one
-serial warm-up request first so the measured p95 reflects sustained traffic,
-while any warm-up error still fails the gate. The summary also reports p95 and
-failures per target. The clean E2E stack runs two bounded Nitro SSR workers,
-matching the CranL deployment override, and supplies its seeded account through
-`LOAD_AUTH_EMAIL` and `LOAD_AUTH_PASSWORD`;
+The default `just e2e test` run separates high-volume capacity from sustained
+latency. Its capacity phase sends 600 requests at concurrency 60, requires zero
+errors, at least 90 requests per second, and an aggregate p95 no higher than 3
+seconds. Its latency phase sends another 600 requests at concurrency 30 and
+requires zero errors with an aggregate p95 no higher than 1.5 seconds. Both
+phases spread traffic across the production frontend's plain `/_health` route,
+the SSR login page, the backend's database-backed `/api/settings/` endpoint,
+and an authenticated `/api/workspaces/` read. This keeps saturation queueing
+from weakening the normal-load latency objective while still proving the stack
+can sustain the high-concurrency workload.
+
+Each target receives one serial warm-up request per phase so the measured p95
+reflects sustained traffic, while any warm-up error still fails the gate. The
+summary also reports p95 and failures per target. The clean E2E stack runs two
+bounded Nitro SSR workers, matching the CranL deployment override, and supplies
+its seeded account through `LOAD_AUTH_EMAIL` and `LOAD_AUTH_PASSWORD`;
 `LOAD_BEARER_TOKEN` can supply a token directly for another environment.
-Override the gate with `LOAD_TOTAL`, `LOAD_CONCURRENCY`, `LOAD_TIMEOUT_MS`,
-`LOAD_MAX_ERROR_RATE`, `LOAD_MAX_P95_MS`, `LOAD_BASE_URL`, `LOAD_BACKEND_URL`,
-`LOAD_WARMUP_ROUNDS`, or comma-separated `LOAD_URLS`. `LOAD_PATHS` remains a
-compatibility alias for frontend-relative targets. Only configure read-only
-targets.
+Override the composite gate with the `LOAD_CAPACITY_*` or `LOAD_LATENCY_*`
+versions of `TOTAL`, `CONCURRENCY`, `MAX_ERROR_RATE`, `MAX_P95_MS`, and
+`MIN_RPS`. Shared connection settings are `LOAD_TIMEOUT_MS`, `LOAD_BASE_URL`,
+`LOAD_BACKEND_URL`, `LOAD_WARMUP_ROUNDS`, and comma-separated `LOAD_URLS`.
+The underlying script also accepts the unprefixed `LOAD_TOTAL`,
+`LOAD_CONCURRENCY`, `LOAD_MAX_ERROR_RATE`, `LOAD_MAX_P95_MS`, and
+`LOAD_MIN_RPS` when run directly. `LOAD_PATHS` remains a compatibility alias
+for frontend-relative targets. Only configure read-only targets.

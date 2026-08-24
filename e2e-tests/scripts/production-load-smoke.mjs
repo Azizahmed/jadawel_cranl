@@ -71,6 +71,8 @@ const warmupRounds = Number(process.env.LOAD_WARMUP_ROUNDS || 1);
 const timeoutMs = Number(process.env.LOAD_TIMEOUT_MS || 10_000);
 const maxErrorRate = Number(process.env.LOAD_MAX_ERROR_RATE || 0);
 const maxP95Ms = Number(process.env.LOAD_MAX_P95_MS || 1_500);
+const minRequestsPerSecond = Number(process.env.LOAD_MIN_RPS || 0);
+const label = process.env.LOAD_LABEL || "load";
 
 if (!Number.isInteger(total) || total < 1) {
   throw new Error("LOAD_TOTAL must be a positive integer.");
@@ -80,6 +82,18 @@ if (!Number.isInteger(concurrency) || concurrency < 1) {
 }
 if (!Number.isInteger(warmupRounds) || warmupRounds < 0) {
   throw new Error("LOAD_WARMUP_ROUNDS must be a non-negative integer.");
+}
+if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
+  throw new Error("LOAD_TIMEOUT_MS must be a positive number.");
+}
+if (!Number.isFinite(maxErrorRate) || maxErrorRate < 0 || maxErrorRate > 1) {
+  throw new Error("LOAD_MAX_ERROR_RATE must be between 0 and 1.");
+}
+if (!Number.isFinite(maxP95Ms) || maxP95Ms <= 0) {
+  throw new Error("LOAD_MAX_P95_MS must be a positive number.");
+}
+if (!Number.isFinite(minRequestsPerSecond) || minRequestsPerSecond < 0) {
+  throw new Error("LOAD_MIN_RPS must be a non-negative number.");
 }
 
 async function requestTarget(target) {
@@ -156,6 +170,12 @@ const percentile = (values, value) =>
 const elapsedMs = performance.now() - startedAt;
 const errorRate = failures.length / total;
 const summary = {
+  label,
+  thresholds: {
+    maxErrorRate,
+    maxP95Ms,
+    minRequestsPerSecond,
+  },
   targets: targets.map((target) => {
     const result = targetResults.get(target);
     result.durations.sort((left, right) => left - right);
@@ -191,5 +211,11 @@ if (errorRate > maxErrorRate) {
 }
 if (summary.p95Ms > maxP95Ms) {
   console.error(`p95 ${summary.p95Ms}ms exceeded ${maxP95Ms}ms.`);
+  process.exitCode = 1;
+}
+if (summary.requestsPerSecond < minRequestsPerSecond) {
+  console.error(
+    `Throughput ${summary.requestsPerSecond} requests/second was below ${minRequestsPerSecond}.`,
+  );
   process.exitCode = 1;
 }

@@ -291,7 +291,26 @@ test *ARGS:
     if [ -z "{{ ARGS }}" ]; then
         export LOAD_AUTH_EMAIL="${LOAD_AUTH_EMAIL:-e2e@jadawl.site}"
         export LOAD_AUTH_PASSWORD="${LOAD_AUTH_PASSWORD:-testpassword}"
+        node --test scripts/production-load-smoke.test.mjs
+
+        echo "Running high-concurrency capacity gate..."
+        LOAD_LABEL=capacity \
+        LOAD_TOTAL="${LOAD_CAPACITY_TOTAL:-600}" \
+        LOAD_CONCURRENCY="${LOAD_CAPACITY_CONCURRENCY:-60}" \
+        LOAD_MAX_ERROR_RATE="${LOAD_CAPACITY_MAX_ERROR_RATE:-0}" \
+        LOAD_MAX_P95_MS="${LOAD_CAPACITY_MAX_P95_MS:-3000}" \
+        LOAD_MIN_RPS="${LOAD_CAPACITY_MIN_RPS:-90}" \
         node scripts/production-load-smoke.mjs
+
+        echo "Running sustained latency gate..."
+        LOAD_LABEL=latency \
+        LOAD_TOTAL="${LOAD_LATENCY_TOTAL:-600}" \
+        LOAD_CONCURRENCY="${LOAD_LATENCY_CONCURRENCY:-30}" \
+        LOAD_MAX_ERROR_RATE="${LOAD_LATENCY_MAX_ERROR_RATE:-0}" \
+        LOAD_MAX_P95_MS="${LOAD_LATENCY_MAX_P95_MS:-1500}" \
+        LOAD_MIN_RPS="${LOAD_LATENCY_MIN_RPS:-0}" \
+        node scripts/production-load-smoke.mjs
+
         yarn playwright test --project=chrome
         yarn playwright test --project=firefox --grep=@fast
     else
