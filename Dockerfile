@@ -17,8 +17,19 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-22 by publish-image.yml from release 2.9.2 @ 8f38f549d,
-# digest sha256:f2a9aca605656e3361b19baedb866fd883a9fd46fa74aa3985341c02c49d7659.
+# Published 2026-08-24 by publish-image.yml from release 2.9.3 @ 779aaab,
+# digest sha256:5d5c56e13f794f3cfb4d8ed118d338cdbe80c0e06c8cb26ad43768861428200b.
+#
+# 2.9.3 is the desktop-browser production-readiness release. It fixes malformed
+# shared-dashboard API URLs and public positioning crashes, makes the default
+# local template selectable again, hardens archive imports, raises backend
+# keep-alive above Node's pooled-socket lifetime, and runs two bounded Nitro
+# workers. Its release gate covered the full backend/frontend suites, Chrome
+# and Firefox E2E, and two 600-request production-load phases with zero errors.
+#
+# Previously published 2026-08-22 by publish-image.yml from release 2.9.2 @
+# 8f38f549d, digest
+# sha256:f2a9aca605656e3361b19baedb866fd883a9fd46fa74aa3985341c02c49d7659.
 #
 # 2.9.2 makes the database-backed template catalog a startup invariant. It
 # disables core's broad 150+ template sync, constrains any older queued task to
@@ -107,13 +118,13 @@
 #
 # Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
 # the version tag, so a tag pin does not identify a fixed image. The digest
-# does, and it is the 2.8.1 build described above.
+# does, and it is the 2.9.3 build described above.
 #
 # Changing only this line has not been enough to swap the container: CranL
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:f2a9aca605656e3361b19baedb866fd883a9fd46fa74aa3985341c02c49d7659
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:5d5c56e13f794f3cfb4d8ed118d338cdbe80c0e06c8cb26ad43768861428200b
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
