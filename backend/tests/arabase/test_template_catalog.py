@@ -11,6 +11,7 @@ from arabase.template_catalog import (
     LOCAL_TEMPLATE_CATALOG,
     LOCAL_TEMPLATE_PATTERN,
     LocalTemplateCatalogIncomplete,
+    _local_template_export_hashes,
     local_template_catalog_is_current,
     reconcile_local_template_catalog,
     reconcile_local_template_catalog_after_migrate,
@@ -18,8 +19,12 @@ from arabase.template_catalog import (
 from jadawel.core.models import Template, TemplateCategory, Workspace
 
 
-def create_template(data_fixture, slug, category):
-    return data_fixture.create_template(slug=slug, category=category)
+def create_template(data_fixture, slug, category, export_hash=None):
+    if export_hash is None and slug in LOCAL_TEMPLATE_CATALOG:
+        export_hash = _local_template_export_hashes()[slug]
+    return data_fixture.create_template(
+        slug=slug, category=category, export_hash=export_hash or ""
+    )
 
 
 @pytest.mark.django_db
@@ -92,6 +97,44 @@ def test_reconcile_local_template_catalog_is_noop_when_current(
         "templates": 6,
     }
     sync_templates.assert_not_called()
+
+
+@pytest.mark.django_db
+@patch("arabase.template_catalog.CoreHandler.sync_templates")
+def test_reconcile_local_template_catalog_refreshes_changed_template(
+    sync_templates, data_fixture
+):
+    categories = {
+        ARABIC_TEMPLATE_CATEGORY: data_fixture.create_template_category(
+            name=ARABIC_TEMPLATE_CATEGORY
+        ),
+        ENGLISH_TEMPLATE_CATEGORY: data_fixture.create_template_category(
+            name=ENGLISH_TEMPLATE_CATEGORY
+        ),
+    }
+    changed_slug = "performance-reviews"
+    for slug, category_name in LOCAL_TEMPLATE_CATALOG.items():
+        create_template(
+            data_fixture,
+            slug,
+            categories[category_name],
+            export_hash="stale" if slug == changed_slug else None,
+        )
+
+    def refresh_changed_template(*args, **kwargs):
+        Template.objects.filter(slug=changed_slug).update(
+            export_hash=_local_template_export_hashes()[changed_slug]
+        )
+
+    sync_templates.side_effect = refresh_changed_template
+
+    assert reconcile_local_template_catalog() == {
+        "changed": True,
+        "removed": 0,
+        "templates": 6,
+    }
+    sync_templates.assert_called_once_with(pattern=LOCAL_TEMPLATE_PATTERN)
+    assert local_template_catalog_is_current()
 
 
 def test_local_catalog_disables_core_broad_template_sync():

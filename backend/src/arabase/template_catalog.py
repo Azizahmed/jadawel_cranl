@@ -1,8 +1,12 @@
 """Keep the hosted Jadawel template picker limited to the local catalog."""
 
+import hashlib
+import json
 import logging
 import re
+from pathlib import Path
 
+from django.conf import settings
 from django.db import transaction
 
 from jadawel.core.handler import CoreHandler
@@ -32,16 +36,37 @@ class LocalTemplateCatalogIncomplete(Exception):
     """Raised before pruning when a required local template failed to import."""
 
 
+def _local_template_export_hashes() -> dict[str, str]:
+    """Return the content hash CoreHandler stores for each approved template."""
+
+    templates_dir = Path(settings.APPLICATION_TEMPLATES_DIR)
+    return {
+        slug: hashlib.sha256(
+            json.dumps(
+                json.loads((templates_dir / f"{slug}.json").read_text())["export"]
+            ).encode("utf-8")
+        ).hexdigest()
+        for slug in LOCAL_TEMPLATE_CATALOG
+    }
+
+
 def local_template_catalog_is_current() -> bool:
     """Return whether the database contains exactly the approved local catalog."""
 
+    expected_hashes = _local_template_export_hashes()
     templates = {}
-    for slug, category_name in Template.objects.values_list("slug", "categories__name"):
-        templates.setdefault(slug, set())
+    for slug, category_name, export_hash in Template.objects.values_list(
+        "slug", "categories__name", "export_hash"
+    ):
+        templates.setdefault(slug, {"categories": set(), "export_hash": export_hash})
         if category_name is not None:
-            templates[slug].add(category_name)
+            templates[slug]["categories"].add(category_name)
     expected = {
-        slug: {category_name} for slug, category_name in LOCAL_TEMPLATE_CATALOG.items()
+        slug: {
+            "categories": {category_name},
+            "export_hash": expected_hashes[slug],
+        }
+        for slug, category_name in LOCAL_TEMPLATE_CATALOG.items()
     }
     category_names = set(TemplateCategory.objects.values_list("name", flat=True))
     expected_category_names = {
