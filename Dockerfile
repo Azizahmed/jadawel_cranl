@@ -17,8 +17,16 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-24 by publish-image.yml from release 2.9.3 @ 779aaab,
-# digest sha256:5d5c56e13f794f3cfb4d8ed118d338cdbe80c0e06c8cb26ad43768861428200b.
+# Published 2026-08-24 by publish-image.yml from release 2.9.4 @ 81827c1,
+# digest sha256:be3bb8ec43803377a7515df5cb2e19ee5671184bb7860cb68f60b9c5064ea1c7.
+#
+# 2.9.4 normalizes the configured embedded-share base URL before joining the
+# public dashboard route, so both base URL forms render and copy the same
+# single-slash link. The focused component regression covers both forms.
+#
+# Previously published 2026-08-24 by publish-image.yml from release 2.9.3 @
+# 779aaab, digest
+# sha256:5d5c56e13f794f3cfb4d8ed118d338cdbe80c0e06c8cb26ad43768861428200b.
 #
 # 2.9.3 is the desktop-browser production-readiness release. It fixes malformed
 # shared-dashboard API URLs and public positioning crashes, makes the default
@@ -118,13 +126,13 @@
 #
 # Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
 # the version tag, so a tag pin does not identify a fixed image. The digest
-# does, and it is the 2.9.3 build described above.
+# does, and it is the 2.9.4 build described above.
 #
 # Changing only this line has not been enough to swap the container: CranL
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:5d5c56e13f794f3cfb4d8ed118d338cdbe80c0e06c8cb26ad43768861428200b
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:be3bb8ec43803377a7515df5cb2e19ee5671184bb7860cb68f60b9c5064ea1c7
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
