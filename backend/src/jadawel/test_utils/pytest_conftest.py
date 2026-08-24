@@ -447,7 +447,12 @@ def stub_user_source_registry(data_fixture, mutable_user_source_registry, fake):
 
         from jadawel.core.user_sources.registries import user_source_type_registry
 
-        user_source_type = list(mutable_user_source_registry.get_all())[0]
+        user_source_type = next(iter(mutable_user_source_registry.get_all()), None)
+        if user_source_type is None:
+            pytest.skip(
+                "No concrete user-source type is available in the OSS-only "
+                "Jadawel build."
+            )
 
         class StubbedUserSourceType(UserSourceType):
             type = user_source_type.type

@@ -444,6 +444,13 @@ def get_example_row_metadata_serializer() -> serializers.Serializer:
     for metadata_type in metadata_types:
         fields[metadata_type.type] = metadata_type.get_example_serializer_field()
 
+    if not fields:
+        # An empty Serializer maps to ``None`` in drf-spectacular. When it is used as
+        # the child of a DictField below, schema generation then crashes while trying
+        # to add validators to that missing schema. OSS has no row metadata providers,
+        # so describe the still-valid empty/free-form metadata object explicitly.
+        return serializers.DictField
+
     return type("RowMetadataSerializer", (serializers.Serializer,), fields)
 
 

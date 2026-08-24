@@ -42,6 +42,8 @@ describe('plural category selection', () => {
       'a.rowCount.many',
       'a.rowCount.other',
     ])
-    expect(pluralKeys('a.rowCount', 'en', 24)).toStrictEqual(['a.rowCount.other'])
+    expect(pluralKeys('a.rowCount', 'en', 24)).toStrictEqual([
+      'a.rowCount.other',
+    ])
   })
 })

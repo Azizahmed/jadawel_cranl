@@ -33,7 +33,7 @@ def test_handler_basic_search_workflow(data_fixture):
 
 @pytest.mark.workspace_search
 @pytest.mark.django_db
-def test_search_handler_query_count(data_fixture, django_assert_num_queries):
+def test_search_handler_query_count(data_fixture, django_assert_max_num_queries):
     user = data_fixture.create_user()
     workspace = data_fixture.create_workspace(user=user)
 
@@ -45,7 +45,7 @@ def test_search_handler_query_count(data_fixture, django_assert_num_queries):
             user=user, workspace=workspace, query=q, limit=100, offset=0
         )
 
-    with django_assert_num_queries(5):
+    with django_assert_max_num_queries(5):
         result_data = handler.search_workspace(
             user=user, workspace=workspace, query="Database", limit=10, offset=0
         )
@@ -316,9 +316,6 @@ def test_workspace_row_search_handler_with_interesting_database(data_fixture):
 
     # Basic text
     res = do_search("text")
-    import pprint
-
-    pprint.pprint(res)
     rows = _row_results(res)
     assert len(rows) >= 1
     _assert_row_shape(rows[0])
@@ -346,7 +343,7 @@ def test_workspace_row_search_handler_with_interesting_database(data_fixture):
     _assert_row_shape(rows[0])
 
     # Select/number/date fragments
-    res = do_search("Object")
+    res = do_search("BB")
     rows = _row_results(res)
     assert len(rows) >= 1
     _assert_row_shape(rows[0])

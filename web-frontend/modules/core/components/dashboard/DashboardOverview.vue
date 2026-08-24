@@ -1,6 +1,8 @@
 <template>
   <section class="dashboard__overview">
-    <h4 class="dashboard__section-title">{{ $t('dashboardOverview.title') }}</h4>
+    <h4 class="dashboard__section-title">
+      {{ $t('dashboardOverview.title') }}
+    </h4>
 
     <div class="dashboard__stat-tiles">
       <div v-for="tile in tiles" :key="tile.key" class="dashboard__stat-tile">

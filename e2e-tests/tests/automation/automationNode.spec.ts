@@ -4,15 +4,22 @@ import { createAutomationNode } from "../../fixtures/automation/automationNode";
 
 test.describe("Automation node test suite", () => {
   let trigger;
+  // The automation editor does not subscribe to realtime page updates the way
+  // the database module does, so a node created over the API only shows up if
+  // it already exists when the workflow page fetches its nodes. Create it
+  // first and open the page afterwards, otherwise the test is a race against
+  // that fetch.
   test.beforeEach(async ({ automationWorkflowPage, page }) => {
-    await automationWorkflowPage.goto();
-
     trigger = await createAutomationNode(
       automationWorkflowPage.automationWorkflow,
       "periodic"
     );
 
-    const startsWhen = page.getByText("Configure");
+    await automationWorkflowPage.goto();
+
+    // Exact: the configuration panel of the node also contains the sentence
+    // "The node must be configured before it can be tested".
+    const startsWhen = page.getByText("Configure", { exact: true });
     await expect(startsWhen).toBeVisible();
   });
 
@@ -37,13 +44,17 @@ test.describe("Automation node test suite", () => {
     page,
     automationWorkflowPage,
   }) => {
-    const createNode = await createAutomationNode(
+    await createAutomationNode(
       automationWorkflowPage.automationWorkflow,
       "local_jadawel_create_row",
       trigger.id,
       "south",
       ""
     );
+
+    // Same reason as in beforeEach: reopen the page so the new node is part of
+    // the fetched workflow.
+    await automationWorkflowPage.goto();
 
     const nodeDiv = page.getByRole("heading", {
       name: "Create a row",

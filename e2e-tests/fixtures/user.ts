@@ -12,7 +12,7 @@ export type User = {
 
 export async function getTokenAuth(
   email: String,
-  password: String
+  password: String,
 ): Promise<User> {
   /**
    * Authenticates an existing user.
@@ -40,7 +40,7 @@ export async function getStaffUser(): Promise<User> {
 
 export async function createUser(
   skipOnboarding = true,
-  skipGuidedTours = true
+  skipGuidedTours = true,
 ): Promise<User> {
   const password = faker.internet.password();
   const response: any = await getClient().post("user/", {

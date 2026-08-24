@@ -31,7 +31,7 @@ const config: PlaywrightTestConfig = {
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI ? true : false,
   retries: !!process.env.CI ? 3 : 0,
-  workers: !!process.env.CI ? 1 : 3,
+  workers: process.env.E2E_WORKERS ? Number(process.env.E2E_WORKERS) : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: !!process.env.CI ? [["blob"], ["html"]] : "list",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

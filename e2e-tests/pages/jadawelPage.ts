@@ -24,7 +24,6 @@ export class JadawelPage {
   }
 
   async goto(params = {}) {
-    await this.page.waitForTimeout(100); // Small delay before navigation to help with Firefox timing issues
     await this._goto(this.getFullUrl(), {
       waitUntil: "hydration",
       ...params,

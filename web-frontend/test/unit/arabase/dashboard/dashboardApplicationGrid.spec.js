@@ -189,9 +189,7 @@ describe('dashboardApplication store (grid layout)', () => {
         table_id: 1,
         schema: { type: 'object' },
         context_data: { series: [] },
-        aggregation_series: [
-          { field_id: 1, aggregation_type: 'sum' },
-        ],
+        aggregation_series: [{ field_id: 1, aggregation_type: 'sum' }],
       },
     ])
     mock.onPost('/dashboard/data-sources/1/dispatch/').reply(200, {
@@ -270,4 +268,3 @@ describe('dashboardApplication store (grid layout)', () => {
     expect(JSON.parse(mock.history.patch[1].data)).toEqual({ height: 4 })
   })
 })
-

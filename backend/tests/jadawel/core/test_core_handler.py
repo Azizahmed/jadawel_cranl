@@ -575,7 +575,7 @@ def test_send_workspace_invitation_email(data_fixture, mailoutbox):
 def test_send_workspace_invitation_email_in_different_language(
     data_fixture, mailoutbox
 ):
-    user = data_fixture.create_user(language="fr")
+    user = data_fixture.create_user(language="ar")
     workspace_invitation = data_fixture.create_workspace_invitation(invited_by=user)
 
     handler = CoreHandler()
@@ -587,8 +587,8 @@ def test_send_workspace_invitation_email_in_different_language(
     assert len(mailoutbox) == 1
     assert (
         mailoutbox[0].subject
-        == f"{workspace_invitation.invited_by.first_name} vous a invité à "
-        f"{workspace_invitation.workspace.name} - Jadawel"
+        == f"دعاك {workspace_invitation.invited_by.first_name} إلى "
+        f"{workspace_invitation.workspace.name} - جداول"
     )
 
 

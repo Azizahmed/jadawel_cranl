@@ -1,5 +1,6 @@
 import re
-from ipaddress import ip_network
+import socket
+from ipaddress import ip_address, ip_network
 
 from django.core.exceptions import ValidationError
 from django.test import override_settings
@@ -26,8 +27,27 @@ class _DummySocket:
 
 @pytest.fixture(autouse=True)
 def _disable_real_network(monkeypatch):
+    def deterministic_getaddrinfo(host, port, *args, **kwargs):
+        try:
+            resolved_address = str(ip_address(host))
+        except ValueError:
+            resolved_address = "2.2.2.2"
+
+        return [
+            (
+                socket.AF_INET,
+                socket.SOCK_STREAM,
+                socket.IPPROTO_TCP,
+                host,
+                (resolved_address, port),
+            )
+        ]
+
     monkeypatch.setattr(
         advocate_connection.socket, "socket", lambda *args, **kwargs: _DummySocket()
+    )
+    monkeypatch.setattr(
+        advocate_connection.socket, "getaddrinfo", deterministic_getaddrinfo
     )
 
 

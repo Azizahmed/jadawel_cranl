@@ -23,6 +23,12 @@ ENABLED_TOOL_NAMES = {
     "update_rows",
     "delete_rows",
     "create_table",
+    "list_page_views",
+    "get_page_view",
+    "create_page_view",
+    "update_page_view",
+    "list_page_view_revisions",
+    "restore_page_view_revision",
 }
 
 DISABLED_TOOL_NAMES = {

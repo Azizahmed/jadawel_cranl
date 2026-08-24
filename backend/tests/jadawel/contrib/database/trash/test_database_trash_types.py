@@ -22,6 +22,7 @@ from jadawel.contrib.database.table.cache import invalidate_table_in_model_cache
 from jadawel.contrib.database.table.models import Table
 from jadawel.contrib.database.trash.models import TrashedRows
 from jadawel.contrib.database.views.handler import ViewHandler
+from jadawel.contrib.database.views.registries import view_ownership_type_registry
 from jadawel.core.exceptions import PermissionDenied
 from jadawel.core.models import TrashEntry
 from jadawel.core.trash.exceptions import (
@@ -1474,6 +1475,8 @@ def test_trash_restore_view(data_fixture):
     assert view.trashed is False
 
     # test view ownership
+    if "personal" not in view_ownership_type_registry.get_types():
+        return
 
     view2 = data_fixture.create_grid_view(name="View 1", table=table)
     view2.ownership_type = "personal"

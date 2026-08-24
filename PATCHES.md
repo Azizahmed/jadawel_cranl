@@ -1057,3 +1057,102 @@ One consequence worth knowing: the `prod` stage now has two clients installed, s
 can still hand back the older binary. `arabase.backup.runner.client_binary()` therefore
 resolves `/usr/lib/postgresql/*/bin/` itself and takes the highest major, rather than
 trusting PATH.
+
+---
+
+## Phase — Bound workspace import archive expansion (2026-08-22)
+
+**Context:** The workspace import API limited only the compressed upload size, then
+fully decompressed `manifest.json` and every extracted entry into process memory before
+schema or signature validation. A small, highly compressible ZIP could therefore kill a
+web or Celery worker. The importer now rejects oversized archive metadata before parsing,
+caps JSON inputs, and streams accepted entries to storage.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/config/settings/base.py` | Added configurable total-expanded and per-JSON workspace-import limits | Let deployments align archive bounds with worker and storage capacity | low |
+| `backend/src/jadawel/core/import_export/handler.py` | Validate entry count, duplicate/encrypted entries and expanded sizes before parsing; use bounded JSON reads; stream extraction with a constant-time filename allowlist | Prevent ZIP-bomb memory, storage and CPU amplification before authenticity checks | medium |
+| `backend/tests/jadawel/core/import_export/test_import_manifest.py` | Added file-count, duplicate/encrypted-entry, signature, missing-schema, compressed-manifest, aggregate-size and application-JSON regression tests | Prove malformed or malicious archives fail before unbounded parsing or extraction | low |
+| `backend/tests/jadawel/core/import_export/test_import_applications.py` | Added streamed-extraction and set-backed allowlist regression tests | Prevent reintroduction of whole-entry `read()` buffering or quadratic filename checks | low |
+
+---
+
+## Phase — Make OSS tests and dev profiling production-shaped (2026-08-23)
+
+**Context:** Upstream's enterprise package supplies the only concrete user-source
+type, but this OSS-only fork deliberately deletes that package. Generic upstream
+test fixtures were still indexing an empty registry and failing instead of marking
+the enterprise dependency unsupported. Separately, development settings enabled
+django-silk for every request, which caused database contention and 500 responses
+during concurrent authenticated testing even though production never enables Silk.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/test_utils/fixtures/user_source.py` | Skip concrete user-source fixtures when the deleted provider is unavailable | Keep the full OSS suite meaningful without recreating licensed enterprise code | low |
+| `backend/tests/jadawel/{api,core}/user_sources/conftest.py` | Mark provider-dependent user-source modules unsupported when the registry is empty | Preserve generic source code while making the licensed test boundary explicit | low |
+| `backend/src/jadawel/test_utils/pytest_conftest.py` | Give the registry-stub fixture the same explicit OSS boundary | Avoid misleading index errors from an intentionally empty registry | low |
+| `backend/src/jadawel/test_utils/helpers.py` | Make `AnyList` inherit from `list` instead of `dict` | Keep response-shape assertions symmetric and compatible with Python 3.14 equality dispatch | low |
+| `backend/src/jadawel/contrib/database/fields/field_helpers.py` and interesting-table tests | Remove the proprietary AI field from the all-field test matrix | Keep generic field coverage aligned with the OSS registry without importing `baserow_premium` | low |
+| `backend/src/jadawel/contrib/database/api/rows/serializers.py` | Represent empty row metadata as a free-form dictionary in OpenAPI examples | Prevent `/api/schema.json` from crashing when the OSS row-metadata registry is empty | low |
+| `backend/tests/jadawel/contrib/builder/test_builder_application_type.py` | Expect builder imports to omit unavailable proprietary user sources and skip provider-only role remapping | Verify the existing partial-import fallback while preserving the rest of the builder | low |
+| `backend/tests/jadawel/contrib/database/api/views/test_view_views.py` | Expect only the collaborative ownership type in API validation | Match the OSS ownership registry without restoring proprietary personal/restricted modes | low |
+| `backend/tests/jadawel/contrib/{builder,database}/test_permissions_manager.py` | Remove the unavailable proprietary role manager from template-manager test settings | Keep the tests focused on the core template permission manager | low |
+| `backend/tests/jadawel/contrib/database/{api/webhooks/test_webhook_views.py,webhooks/test_webhook_validators.py}` | Stub outbound address probes and DNS in webhook tests | Make tests deterministic without weakening dedicated SSRF hostname and IP allow/deny coverage | low |
+| `backend/tests/jadawel/contrib/database/mcp/test_mcp_table_tools.py` | Include the fork's page-view tools in the enabled MCP inventory | Keep the static registry assertion aligned with additive Arabase tools | low |
+| `backend/tests/jadawel/contrib/integrations/local_jadawel/test_service_types.py` | Include the fork's upcoming-rows service in the dispatch inventory | Keep the static registry assertion aligned with additive Arabase services | low |
+| `backend/tests/jadawel/contrib/database/trash/test_database_trash_types.py` | Omit the proprietary personal-view subcase when its ownership type is unregistered | Preserve collaborative trash coverage without fabricating enterprise ownership behavior | low |
+| `backend/tests/jadawel/contrib/database/view/{conftest.py,test_view_handler.py}` | Skip personal-ownership cases when only collaborative ownership is registered | Preserve collaborative ordering coverage without relying on the deleted proprietary permission manager | low |
+| `backend/tests/jadawel/core/app_auth_providers/conftest.py` | Mark provider-dependent handler tests unsupported when the registry is empty | Keep the licensed app-auth provider boundary explicit instead of failing on an empty registry | low |
+| `backend/tests/jadawel/contrib/database/view/test_view_handler.py` | Bound field-change cleanup at nine queries for both one and two fields | Keep the N+1 regression check aligned with the smaller OSS registry | low |
+| `backend/tests/jadawel/core/test_basic_permissions.py` | Remove the deleted view-ownership manager from permission payload expectations | Match the permission-manager list that OSS settings intentionally expose | low |
+| `backend/tests/jadawel/contrib/database/view/test_view_types.py` | Mark personal-view import coverage with the existing ownership capability marker | Skip only the unavailable proprietary ownership branch in OSS | low |
+| `backend/src/jadawel/core/locale/ar/LC_MESSAGES/django.po` and core/user tests | Translate the default workspace name and account-email subjects; replace removed French coverage with Arabic | Keep onboarding and account email flows aligned with the supported Arabic-first locale set | low |
+| `backend/src/jadawel/core/locale/en/LC_MESSAGES/django.po` | Make English email subject branding explicit instead of depending on a stale compiled catalogue | Keep English and Arabic brand rendering deterministic after locale compilation | low |
+| `backend/tests/jadawel/api/import_export/sources/interesting_database_export.zip` | Remove six deleted proprietary AI fields and re-sign with the fixed test key | Keep the signed full-import fixture representative of fields the OSS registry can actually import | low |
+| `backend/tests/jadawel/contrib/database/search/test_workspace_search_handler.py` | Treat five search queries as a regression ceiling and search a core select value instead of removed AI output | Keep N+1 and field-search coverage aligned with the OSS interesting-table fixture | low |
+| `backend/tests/jadawel/api/admin/users/test_users_admin_views.py` | Treat seven queries as a regression ceiling, not an exact requirement | Allow the OSS fork to perform fewer queries while still catching N+1 growth | low |
+| `backend/tests/jadawel/api/two_factor_auth/test_two_factor_views.py` | Remove the deleted enterprise licence payload from OSS 2FA response expectations | Match the actual core authentication contract without restoring enterprise serializers | low |
+| `backend/tests/jadawel/contrib/builder/api/domains/test_domain_public_views.py` | Remove the deleted enterprise licence payload from public builder workspace expectations | Match the OSS public-builder serializer contract | low |
+| `backend/tests/jadawel/api/users/test_user_views.py` | Exercise Arabic instead of removed French in API language updates | Keep user API tests aligned with the fork's Arabic/English-only contract | low |
+| `backend/src/jadawel/contrib/integrations/local_jadawel/service_types.py` | Check automation row-write permissions against the target table workspace | Published workflow clones have no application workspace; using that nullable scope silently discarded every mapped field value | low |
+| `backend/tests/jadawel/contrib/integrations/local_jadawel/service_types/test_upsert_row_service_type.py` | Dispatch a mapped upsert through an integration whose application is null | Prove published workflow clones retain mapped row values | low |
+| `backend/src/jadawel/config/settings/dev.py` | Make django-silk profiling opt-in | Prevent profiler-induced failures from contaminating functional and load results | low |
+| `web-frontend/modules/core/assets/scss/components/highlight.scss` | Remove the superseded relative-position declaration | Make the guided-tour RTL fix pass the enforced no-duplicate-properties rule | low |
+| `web-frontend/modules/core/plugins/posthog.js` | Load PostHog only when analytics is configured | Keep the optional analytics SDK out of every default browser session | low |
+| `web-frontend/modules/core/pages/template.vue` | Replace the obsolete Nuxt 2 `asyncData` page hook with Nuxt 3 `useAsyncData` and preserve upstream HTTP failures | Restore public template rendering without disguising backend outages as cacheable 404s | low |
+| `web-frontend/modules/core/utils/error.js` | Add shared page-error status normalization | Keep Nuxt errors, HTTP client errors and network failures distinguishable | low |
+| `web-frontend/test/unit/core/utils/errors.spec.js` | Cover 404, upstream 5xx and network-error status normalization | Prevent public pages from collapsing every fetch failure into not-found | low |
+| `backend/src/jadawel/config/settings/e2e.py` | Delegate template startup to the fork's production catalog reconciler instead of importing the upstream default pair | Keep clean-stack browser tests aligned with the six-template production catalog | low |
+| `web-frontend/modules/core/components/dashboard/DashboardApplication.vue` | Render the relative creation time client-side | Prevent second-boundary SSR hydration mismatches on newly created applications | low |
+| `web-frontend/modules/automation/applicationTypes.js` | Lazy-load the workflow template UI | Keep the Vue Flow editor out of unrelated initial page bundles | low |
+| `web-frontend/modules/builder/realtime.js` | Ignore `page_created` events when their builder is no longer in the application store | Prevent delayed WebSocket events from dereferencing a deleted builder during navigation or cleanup | low |
+| `web-frontend/modules/core/assets/scss/components/{auth,datepicker,tree}.scss` and `builder/elements/ab_components/ab_datetime_picker.scss` | Replace physical dimensions and block margins/borders with logical properties | Keep desktop layout direction-safe and make Stylelint warning-free | low |
+| `web-frontend/.stylelintignore` | Exclude Nuxt production output directories | Keep lint deterministic after a local or CI production build creates symlinked server dependencies | low |
+
+## Phase — Harden dashboard sharing and Context lifecycle (2026-08-23)
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/plugins/clientHandler.js` | Normalize trailing slashes before appending `/api` | Prevent production origins such as `https://jadawl.site/` from producing a `//api` request path | low |
+| `web-frontend/modules/core/components/Context.vue` | Keep a stable raw HTMLElement for geometry/listener registration and make listener cleanup idempotent | Prevent stale resize callbacks or Vue root transitions from calling geometry methods on a comment node; preserve edge flipping in LTR and RTL | medium |
+| `web-frontend/package.json` | Run ESLint from the frontend package instead of its parent directory | Prevent ESLint from resolving Ubuntu's system parser packages, whose placeholder version breaks the full lint gate | low |
+
+## Phase — Bound and parallelize production SSR (2026-08-24)
+
+**Context:** The production-shaped load gate showed that the backend remained below
+436 ms p95 with 60 concurrent clients, while a single Nitro process serialized SSR
+login rendering and made both `/login` and the otherwise-lightweight `/_health` route
+wait for more than five seconds. Nitro's cluster preset fixes that head-of-line
+blocking, but its default is one worker per visible host CPU, which is unsafe when a
+container can see more CPUs than its 4 GB CranL memory allocation can support. The
+portable image therefore defaults to one; CranL and the production load gate explicitly
+run the measured two-worker profile. The two-worker load test also exposed Gunicorn's
+two-second keep-alive racing Node 24's five-second pooled sockets: roughly 0.2% of SSR
+login requests reused a connection while the backend closed it and returned a 500.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/config/nuxt.config.prod.ts` | Build the production server with Nitro's `node-cluster` preset | Use more than one CPU for concurrent SSR document requests | medium |
+| `web-frontend/env-remap.mjs` | Default `NITRO_CLUSTER_WORKERS` to one while preserving an explicit override | Prevent host CPU count from turning into an unbounded number of full Nuxt worker processes; resource-aware deployments opt into more | low |
+| `backend/docker/docker-entrypoint.sh` | Set Gunicorn's backend keep-alive to ten seconds | Keep backend sockets open beyond Node's five-second pool lifetime and prevent intermittent SSR `socket hang up` responses | low |
+| `backend/src/jadawel/config/settings/base.py` | Select `project-management-en` as the default application template | Keep the template modal usable after the hosted catalog prunes the former `project-tracker` default | low |

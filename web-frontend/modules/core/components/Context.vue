@@ -17,6 +17,7 @@ import {
   isDomElement,
   onClickOutside,
 } from '@jadawel/modules/core/utils/dom'
+import { markRaw } from 'vue'
 
 import MoveToBody from '@jadawel/modules/core/mixins/moveToBody'
 
@@ -69,9 +70,65 @@ export default {
       // If opened once, should stay in DOM to keep nested content
       openedOnce: false,
       maxHeightOffset: 10,
+      // Vue can temporarily expose a comment node through $el while a root is
+      // being replaced. Keep the moved Context element stable for geometry and
+      // event registration instead.
+      contextElement: null,
+      cancelOnClickOutside: null,
+      updatePositionViaScrollEvent: null,
+      updatePositionViaResizeEvent: null,
+    }
+  },
+  mounted() {
+    if (isDomElement(this.$el)) {
+      this.contextElement = markRaw(this.$el)
+    }
+  },
+  beforeUnmount() {
+    // MoveToBody normally removes $el. If Vue has already exposed a replaced
+    // root node, remove the original moved element that owns our listeners too.
+    const contextElement = this.contextElement
+    if (
+      isDomElement(contextElement) &&
+      contextElement !== this.$el &&
+      contextElement.parentNode
+    ) {
+      contextElement.parentNode.removeChild(contextElement)
     }
   },
   methods: {
+    getContextElement() {
+      if (isDomElement(this.contextElement)) {
+        return this.contextElement
+      }
+
+      if (isDomElement(this.$el)) {
+        this.contextElement = markRaw(this.$el)
+        return this.contextElement
+      }
+
+      return null
+    },
+    removePositionListeners() {
+      if (this.cancelOnClickOutside) {
+        this.cancelOnClickOutside()
+        this.cancelOnClickOutside = null
+      }
+
+      if (this.updatePositionViaScrollEvent) {
+        window.removeEventListener(
+          'scroll',
+          this.updatePositionViaScrollEvent,
+          true
+        )
+        this.updatePositionViaScrollEvent = null
+      }
+
+      if (this.updatePositionViaResizeEvent) {
+        window.removeEventListener('resize', this.updatePositionViaResizeEvent)
+        this.updatePositionViaResizeEvent = null
+      }
+    },
     /**
      * Toggles the open state of the context menu.
      *
@@ -130,6 +187,7 @@ export default {
       horizontalOffset = 0
     ) {
       const isElementOrigin = isDomElement(target)
+      const contextElement = this.getContextElement()
       const updatePosition = () => {
         const css = isElementOrigin
           ? this.calculatePositionElement(
@@ -164,7 +222,7 @@ export default {
         for (const key in css) {
           const cssValue =
             css[key] !== null ? Math.ceil(css[key]) + 'px' : 'auto'
-          this.$el.style[key] = cssValue
+          contextElement.style[key] = cssValue
         }
 
         // The max height can optionally be automatically to prevent the context from
@@ -178,7 +236,7 @@ export default {
                   this.getWindowScrollHeight()
                 }px)`
               : 'none'
-          this.$el.style['max-height'] = maxHeight
+          contextElement.style['max-height'] = maxHeight
         }
 
         this.updatedOnce = true
@@ -193,9 +251,14 @@ export default {
       // Delay the position update to the next tick to let the Context content
       // be available in DOM for accurate positioning.
       await this.$nextTick()
+      if (!contextElement) {
+        this.hide(false)
+        return
+      }
       updatePosition()
 
-      this.$el.cancelOnClickOutside = onClickOutside(this.$el, (target) => {
+      this.removePositionListeners()
+      this.cancelOnClickOutside = onClickOutside(contextElement, (target) => {
         if (
           this.open &&
           // If the prop allows it to be closed by clicking outside.
@@ -206,43 +269,39 @@ export default {
           // If the click was not inside one of the context children of this context
           // menu.
           !this.moveToBody.children.some((child) => {
-            return isElement(child.$el, target)
+            return isDomElement(child.$el) && isElement(child.$el, target)
           })
         ) {
           this.hide()
         }
       })
 
-      this.$el.updatePositionViaScrollEvent = (event) => {
+      this.updatePositionViaScrollEvent = (event) => {
         if (this.hideOnScroll) {
           this.hide()
         } else if (
           // The context menu itself can have a scrollbar, and resizing everytime you
           // scroll internally doesn't make sense because it can't influence the position.
-          !isElement(this.$el, event.target) &&
+          !isElement(contextElement, event.target) &&
           // If the scroll was not inside one of the context children of this context
           // menu.
           !this.moveToBody.children.some((child) => {
-            return isElement(child.$el, target)
+            return isDomElement(child.$el) && isElement(child.$el, target)
           })
         ) {
           updatePosition()
         }
       }
-      window.addEventListener(
-        'scroll',
-        this.$el.updatePositionViaScrollEvent,
-        true
-      )
+      window.addEventListener('scroll', this.updatePositionViaScrollEvent, true)
 
-      this.$el.updatePositionViaResizeEvent = () => {
+      this.updatePositionViaResizeEvent = () => {
         if (this.hideOnResize) {
           this.hide()
         } else {
           updatePosition()
         }
       }
-      window.addEventListener('resize', this.$el.updatePositionViaResizeEvent)
+      window.addEventListener('resize', this.updatePositionViaResizeEvent)
 
       this.$emit('shown')
     },
@@ -309,22 +368,7 @@ export default {
         this.$emit('hidden')
       }
 
-      // If the context menu was never opened, it doesn't have the
-      // `cancelOnClickOutside`, so we can't call it.
-      if (
-        Object.prototype.hasOwnProperty.call(this.$el, 'cancelOnClickOutside')
-      ) {
-        this.$el.cancelOnClickOutside()
-      }
-      window.removeEventListener(
-        'scroll',
-        this.$el.updatePositionViaScrollEvent,
-        true
-      )
-      window.removeEventListener(
-        'resize',
-        this.$el.updatePositionViaResizeEvent
-      )
+      this.removePositionListeners()
     },
     /**
      * Calculates the absolute position of the context based on the original clicked
@@ -497,11 +541,15 @@ export default {
       verticalOffset,
       horizontalOffset
     ) {
-      const contextRect = this.$el.getBoundingClientRect()
+      const contextElement = this.getContextElement()
+      if (!contextElement) {
+        return { vertical, horizontal }
+      }
+      const contextRect = contextElement.getBoundingClientRect()
       // We need to use the scrollHeight in the calculations because we need to work
       // with the full height of the element without scrollbar to calculate the optimal
       // position.
-      const scrollHeight = this.$el.scrollHeight
+      const scrollHeight = contextElement.scrollHeight
       const canTop =
         targetRect.top -
           scrollHeight -

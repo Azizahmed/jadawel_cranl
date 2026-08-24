@@ -88,7 +88,7 @@ def test_create_share_returns_a_slug_and_is_idempotent(api_client, data_fixture)
 
 
 @pytest.mark.django_db
-def test_get_share_is_404_until_the_dashboard_is_shared(api_client, data_fixture):
+def test_get_share_is_null_until_the_dashboard_is_shared(api_client, data_fixture):
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     dashboard = data_fixture.create_dashboard_application(workspace=workspace)
@@ -96,8 +96,8 @@ def test_get_share_is_404_until_the_dashboard_is_shared(api_client, data_fixture
     response = api_client.get(
         share_url(dashboard), **{"HTTP_AUTHORIZATION": f"JWT {token}"}
     )
-    assert response.status_code == HTTP_404_NOT_FOUND
-    assert response.json()["error"] == "ERROR_DASHBOARD_SHARE_DOES_NOT_EXIST"
+    assert response.status_code == HTTP_200_OK
+    assert response.json() is None
 
     DashboardShareHandler().create_share(dashboard)
 
@@ -595,10 +595,13 @@ def test_an_empty_field_list_falls_back_to_the_first_columns(api_client, data_fi
     workspace = data_fixture.create_workspace(user=user)
     database = data_fixture.create_database_application(workspace=workspace)
     table = data_fixture.create_database_table(database=database)
-    first = data_fixture.create_text_field(table=table, name="First")
-    second = data_fixture.create_text_field(table=table, name="Second")
-    third = data_fixture.create_text_field(table=table, name="Third")
-    fourth = data_fixture.create_text_field(table=table, name="Fourth")
+    # The fixture defaults every directly-created field to order 0. Give these
+    # fields the distinct ordering that real fields receive so the schema's
+    # "first three" is deterministic on PostgreSQL.
+    first = data_fixture.create_text_field(table=table, name="First", order=0)
+    second = data_fixture.create_text_field(table=table, name="Second", order=1)
+    third = data_fixture.create_text_field(table=table, name="Third", order=2)
+    fourth = data_fixture.create_text_field(table=table, name="Fourth", order=3)
     RowHandler().create_rows(
         user,
         table,

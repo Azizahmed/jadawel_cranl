@@ -3,6 +3,15 @@ import {
   makeErrorResponseInterceptor,
   ResponseErrorMessage,
 } from '@jadawel/modules/core/plugins/clientHandler'
+import { getPageErrorStatus } from '@jadawel/modules/core/utils/error'
+
+describe('getPageErrorStatus', () => {
+  test('preserves Nuxt and HTTP client statuses and defaults network errors to 500', () => {
+    expect(getPageErrorStatus({ statusCode: 404 })).toBe(404)
+    expect(getPageErrorStatus({ response: { status: 503 } })).toBe(503)
+    expect(getPageErrorStatus(new Error('network unavailable'))).toBe(500)
+  })
+})
 
 function errorInterceptorWithStubAppAndStore(
   storeDispatches = [],

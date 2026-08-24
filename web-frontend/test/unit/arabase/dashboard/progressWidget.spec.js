@@ -76,14 +76,14 @@ describe('ProgressWidget', () => {
     )
 
     const warning = await mountWidget({ result: '60' })
-    expect(warning.find('.dashboard-progress-widget__fill').classes()).toContain(
-      'dashboard-progress-widget--warning'
-    )
+    expect(
+      warning.find('.dashboard-progress-widget__fill').classes()
+    ).toContain('dashboard-progress-widget--warning')
 
     const success = await mountWidget({ result: '100' })
-    expect(success.find('.dashboard-progress-widget__fill').classes()).toContain(
-      'dashboard-progress-widget--success'
-    )
+    expect(
+      success.find('.dashboard-progress-widget__fill').classes()
+    ).toContain('dashboard-progress-widget--success')
   })
 
   test('a non-numeric result shows a dash instead of NaN', async () => {
@@ -105,7 +105,9 @@ describe('ProgressWidget', () => {
       result: '50',
     })
 
-    expect(wrapper.find('.dashboard-progress-widget__fill').exists()).toBe(false)
+    expect(wrapper.find('.dashboard-progress-widget__fill').exists()).toBe(
+      false
+    )
     const arc = wrapper.find('.dashboard-progress-widget__ring-value')
     const [drawn, total] = arc
       .attributes('stroke-dasharray')
@@ -118,7 +120,11 @@ describe('ProgressWidget', () => {
   test('nothing is drawn when the data source is misconfigured', async () => {
     const wrapper = await mountWidget({ error: true })
 
-    expect(wrapper.find('.dashboard-progress-widget__empty').exists()).toBe(true)
-    expect(wrapper.find('.dashboard-progress-widget__fill').exists()).toBe(false)
+    expect(wrapper.find('.dashboard-progress-widget__empty').exists()).toBe(
+      true
+    )
+    expect(wrapper.find('.dashboard-progress-widget__fill').exists()).toBe(
+      false
+    )
   })
 })

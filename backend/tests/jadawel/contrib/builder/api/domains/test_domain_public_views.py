@@ -149,7 +149,6 @@ def test_get_public_builder_by_domain_name(api_client, data_fixture):
         "generative_ai_models_enabled": {},
         "id": workspace.id,
         "name": workspace.name,
-        "licenses": [],
     }
     assert response_json["pages"] == [
         {
@@ -281,7 +280,6 @@ def test_get_public_builder_by_id(api_client, data_fixture):
         "generative_ai_models_enabled": {},
         "id": page.builder.workspace.id,
         "name": page.builder.workspace.name,
-        "licenses": [],
     }
     assert response_json["pages"] == [
         {

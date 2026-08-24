@@ -154,7 +154,8 @@
 
   .toast__loading {
     &::after {
-      border-color: $palette-brand-800 transparent $palette-brand-800 transparent;
+      border-color: $palette-brand-800 transparent $palette-brand-800
+        transparent;
     }
   }
 }

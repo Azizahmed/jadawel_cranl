@@ -45,7 +45,9 @@ describe('notification panel anchoring', () => {
   })
 
   test('the panel is positioned with logical insets, not physical ones', () => {
-    const block = panelStyles.slice(panelStyles.indexOf('.notification-panel {'))
+    const block = panelStyles.slice(
+      panelStyles.indexOf('.notification-panel {')
+    )
     const rules = block.slice(0, block.indexOf('}'))
 
     // A physical `left`/`right` here would pin the panel to one side of the

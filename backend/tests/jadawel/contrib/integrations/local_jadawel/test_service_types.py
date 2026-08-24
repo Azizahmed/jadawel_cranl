@@ -60,6 +60,10 @@ def test_local_jadawel_service_type_dispatch_types():
         LocalJadawelRowsUpdatedServiceType.type: [DispatchTypes.EVENT],
         LocalJadawelRowsDeletedServiceType.type: [DispatchTypes.EVENT],
         "local_jadawel_grouped_aggregate_rows": [DispatchTypes.DATA],
+        "local_jadawel_upcoming_rows": [
+            DispatchTypes.DATA,
+            DispatchTypes.ACTION,
+        ],
     }
 
 
@@ -1054,31 +1058,6 @@ def test_local_jadawel_table_service_generate_schema_with_interesting_test_table
             "original_type": "form_view_edit_row",
             "metadata": {},
             "type": None,
-        },
-        field_db_column_by_name["ai"]: {
-            "title": "ai",
-            "default": None,
-            "searchable": True,
-            "sortable": True,
-            "filterable": True,
-            "original_type": "ai",
-            "metadata": {},
-            "type": "string",
-        },
-        field_db_column_by_name["ai_choice"]: {
-            "title": "ai_choice",
-            "default": None,
-            "searchable": True,
-            "sortable": True,
-            "filterable": True,
-            "original_type": "ai",
-            "metadata": {},
-            "properties": {
-                "color": {"title": "color", "type": "string"},
-                "id": {"title": "id", "type": "number"},
-                "value": {"title": "value", "type": "string"},
-            },
-            "type": "object",
         },
         "id": {
             "type": "number",

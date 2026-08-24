@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 set -Eeo pipefail
 
-# This script waits 60 seconds by default for the backend and web-frontend services
-# to become healthy.
+# A fresh database must migrate and import six templates before it is ready. GitHub
+# runners vary enough that this can exceed one minute, so allow three minutes while
+# still polling every second and failing immediately after the bounded window.
 
-# Keep in sync with src/jadawel/config/settings/base.py:594
-DEFAULT_APPLICATION_TEMPLATES=("project-tracker" "ab_ivory_theme")
+# Keep in sync with arabase.template_catalog.LOCAL_TEMPLATE_CATALOG. Production
+# startup is not complete until the fork's authoritative local-only catalog is live.
+LOCAL_APPLICATION_TEMPLATES=(
+  "arabic-performance-review"
+  "arabic-project-management"
+  "saudi-budget-consolidation"
+  "performance-reviews"
+  "project-management-en"
+  "saudi-budget-consolidation-en"
+)
 
 jadawel_ready() {
     curlf() {
@@ -19,7 +28,7 @@ jadawel_ready() {
 
     templates_ready(){
       TEMPLATES_JSON=$(curl --silent --max-time 10 "${PUBLIC_BACKEND_URL:-http://backend:8000}/api/templates/")
-      for template in "${DEFAULT_APPLICATION_TEMPLATES[@]}"; do
+      for template in "${LOCAL_APPLICATION_TEMPLATES[@]}"; do
         if [[ ${TEMPLATES_JSON} != *"$template"* ]] ; then
           echo "Template $template is missing..."
           return 22
@@ -35,7 +44,7 @@ jadawel_ready() {
     fi
 }
 
-for _ in $(seq 1 "${JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-60}")
+for _ in $(seq 1 "${JADAWEL_E2E_STARTUP_MAX_WAIT_TIME_SECONDS:-180}")
 do
   echo 'Waiting for backend, web-frontend and synced templates to be ready'
   if jadawel_ready; then
@@ -45,4 +54,10 @@ do
   sleep 1
 done
 echo 'E2E services failed to startup in time, crashing the test.'
+if command -v docker >/dev/null 2>&1; then
+  for service in e2e-backend e2e-frontend e2e-celery; do
+    echo "=== ${service} logs ==="
+    docker logs --tail 200 "${service}" 2>&1 || true
+  done
+fi
 exit 1

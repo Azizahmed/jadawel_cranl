@@ -2072,7 +2072,7 @@ class LocalJadawelUpsertRowServiceType(
                 )
                 for fm in field_mappings
             ],
-            workspace=service.integration.application.workspace,
+            workspace=table.database.workspace,
         )
 
         # Only iterate over field mappings which we know our authorized user is

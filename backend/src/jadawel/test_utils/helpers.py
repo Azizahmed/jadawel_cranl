@@ -276,10 +276,6 @@ def setup_interesting_test_table(
         ],
         "phone_number": "+4412345678",
         "password": "test",
-        "ai": "I'm an AI.",
-        "ai_choice": SelectOption.objects.get(
-            value="Object", field_id=name_to_field_id["ai_choice"]
-        ).id,
     }
 
     with freeze_time("2020-02-01 01:23"):
@@ -671,7 +667,7 @@ class AnyDict(dict):
         return isinstance(other, dict)
 
 
-class AnyList(dict):
+class AnyList(list):
     """
     A class that can be used to check if a value is a list. Useful in tests when
     you don't care about the contents.

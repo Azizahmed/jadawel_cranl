@@ -9,6 +9,13 @@
  * Import this file before starting Nuxt (dev or prod).
  */
 
+// The production Nitro build uses its node-cluster preset. Never accept the
+// preset's unbounded CPU-count default in containers, where the visible host
+// CPU count can be much larger than the app's memory allocation. Keep the
+// portable image at one worker; resource-aware deployments such as CranL and
+// the production load gate opt into two explicitly.
+process.env.NITRO_CLUSTER_WORKERS ||= '1'
+
 // Accept the legacy BASEROW_* names. Deployments still set them, so copy each
 // one to its JADAWEL_* spelling before anything below reads it. The new name
 // always wins. Mirrors backend/src/jadawel/config/legacy_env.py; remove both

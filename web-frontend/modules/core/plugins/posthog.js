@@ -1,8 +1,7 @@
-import posthog from 'posthog-js'
 import { nextTick } from 'vue'
 import { useNuxtApp, useRouter, useRuntimeConfig } from '#imports'
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin(async () => {
   const router = useRouter()
   const runtimeConfig = useRuntimeConfig()
   const nuxtApp = useNuxtApp()
@@ -13,6 +12,8 @@ export default defineNuxtPlugin(() => {
   if (!import.meta.client || (!projectApiKey && !host)) {
     return
   }
+
+  const { default: posthog } = await import('posthog-js')
 
   posthog.init(projectApiKey, {
     api_host: host,

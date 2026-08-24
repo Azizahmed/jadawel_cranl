@@ -6,8 +6,9 @@ test.describe("File field tests", () => {
     await workspacePage.goto();
   });
 
-  test.skip("User can upload an image and download it again @upload", async ({
+  test("User can upload an image and download it again @upload", async ({
     page,
+    goto,
     workspacePage,
   }) => {
     // Click "Add new" > "From template".
@@ -19,21 +20,24 @@ test.describe("File field tests", () => {
 
     await expect(
       templatesLoadingSpinner,
-      "Checking that the templates modal spinner is hidden."
+      "Checking that the templates modal spinner is hidden.",
     ).toBeHidden();
 
     await templateModal.clickUseThisTemplateButton();
 
     await workspacePage.sidebar.selectDatabaseAndTableByName(
-      "Project Tracker",
-      "Projects"
+      "Project Management",
+      "Projects",
     );
 
-    const tablePage = new TablePage(page);
+    const tablePage = new TablePage({ page, goto });
     await tablePage.addNewFieldOfType("File");
     const imageWidth =
       await tablePage.uploadImageToFirstFileFieldCellAndGetWidth();
 
     expect(imageWidth).toBeGreaterThan(0);
+    expect(await tablePage.downloadFirstFileFieldImage()).toBe(
+      "testuploadimage.png",
+    );
   });
 });

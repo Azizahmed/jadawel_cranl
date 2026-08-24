@@ -213,6 +213,7 @@ URLs in `JADAWEL_PUBLIC_URL`.
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
 | `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |
 | `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
+| `NITRO_CLUSTER_WORKERS` | `2` | Runs the bounded two-worker SSR cluster validated at 600 requests and concurrency 60; the root Dockerfile supplies the same value. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Removes a step that can take 30 minutes from every boot. |
 | `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `false` | Keep the broad upstream sync disabled. The fork enforces and reconciles its six local templates synchronously after migrations (§6). |
 

@@ -18,21 +18,13 @@ body {
   background-image:
     linear-gradient(
       to right,
-      color-mix(
-          in srgb,
-          var(--jadawel-border-color, #e0f1e7) 48%,
-          transparent
-        )
+      color-mix(in srgb, var(--jadawel-border-color, #e0f1e7) 48%, transparent)
         1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(
-          in srgb,
-          var(--jadawel-border-color, #e0f1e7) 48%,
-          transparent
-        )
+      color-mix(in srgb, var(--jadawel-border-color, #e0f1e7) 48%, transparent)
         1px,
       transparent 1px
     );

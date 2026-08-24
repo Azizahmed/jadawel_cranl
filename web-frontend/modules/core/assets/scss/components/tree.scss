@@ -5,12 +5,12 @@
   margin: 0;
 
   &:not(:last-child) {
-    margin-bottom: 8px;
+    margin-block-end: 8px;
   }
 
   .tree__item & {
     padding-inline-start: 8px;
-    margin-top: 6px;
+    margin-block-start: 6px;
   }
 }
 
@@ -133,7 +133,7 @@
   @extend %ellipsis;
 
   display: flex;
-  min-width: 0;
+  min-inline-size: 0;
   color: $palette-neutral-900;
   font-weight: 500;
 
@@ -168,7 +168,7 @@
 
 %tree-sub-size {
   line-height: 32px;
-  height: 32px;
+  block-size: 32px;
 }
 
 .tree__subs {
@@ -212,7 +212,7 @@
   }
 
   &:not(:last-child) {
-    margin-bottom: 2px;
+    margin-block-end: 2px;
 
     &::before {
       block-size: 34px;
@@ -224,7 +224,7 @@
   padding: 0;
 
   & .tree__sub:last-child::before {
-    height: 28px;
+    block-size: 28px;
   }
 }
 
@@ -370,8 +370,8 @@
 
 .tree__heading-add {
   color: $palette-neutral-600;
-  width: 16px;
-  height: 16px;
+  inline-size: 16px;
+  block-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -389,6 +389,6 @@
 }
 
 .tree__separator {
-  border-bottom: solid 1px $palette-neutral-200;
+  border-block-end: solid 1px $palette-neutral-200;
   margin: 8px 8px 16px;
 }

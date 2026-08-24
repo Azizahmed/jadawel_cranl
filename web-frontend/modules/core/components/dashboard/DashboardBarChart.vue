@@ -9,7 +9,9 @@
     -->
     <ul v-if="items.length" class="chart__bars">
       <li v-for="item in scaled" :key="item.key" class="chart__bar-row">
-        <span class="chart__bar-label" :title="item.label">{{ item.label }}</span>
+        <span class="chart__bar-label" :title="item.label">{{
+          item.label
+        }}</span>
         <span class="chart__bar-track">
           <span
             class="chart__bar-fill"

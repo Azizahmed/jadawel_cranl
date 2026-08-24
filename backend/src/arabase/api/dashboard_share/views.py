@@ -6,6 +6,7 @@ frontend uses to decide whether to render the sharing menu at all.
 """
 
 from django.db import transaction
+from django.http import JsonResponse
 
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
@@ -61,24 +62,22 @@ class DashboardShareView(APIView):
         tags=["Arabase dashboard sharing"],
         operation_id="get_dashboard_share",
         description=(
-            "Returns the public link of the dashboard. Responds with 404 when the "
-            "dashboard is not shared."
+            "Returns the public link of the dashboard, or null when the dashboard "
+            "is not shared."
         ),
         responses={
-            200: DashboardShareSerializer,
+            200: DashboardShareSerializer(allow_null=True),
             401: get_error_schema(["ERROR_PERMISSION_DENIED"]),
-            404: SHARE_ERRORS,
+            404: get_error_schema(["ERROR_DASHBOARD_DOES_NOT_EXIST"]),
         },
     )
-    @map_exceptions(
-        {
-            DashboardDoesNotExist: ERROR_DASHBOARD_DOES_NOT_EXIST,
-            DashboardShareDoesNotExist: ERROR_DASHBOARD_SHARE_DOES_NOT_EXIST,
-        }
-    )
+    @map_exceptions({DashboardDoesNotExist: ERROR_DASHBOARD_DOES_NOT_EXIST})
     def get(self, request: Request, dashboard_id: int) -> Response:
         dashboard = _get_dashboard_for_sharing(request, dashboard_id)
-        share = DashboardShareHandler().get_share(dashboard)
+        try:
+            share = DashboardShareHandler().get_share(dashboard)
+        except DashboardShareDoesNotExist:
+            return JsonResponse(None, safe=False)
         return Response(DashboardShareSerializer(share).data)
 
     @extend_schema(

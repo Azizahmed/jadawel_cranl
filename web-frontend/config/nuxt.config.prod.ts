@@ -15,6 +15,13 @@
 import baseConfig from './nuxt.config.base.ts'
 export default {
   ...baseConfig,
+  nitro: {
+    ...baseConfig.nitro,
+    // A single SSR process serializes CPU-heavy document rendering and causes
+    // unrelated health requests to queue behind login traffic. The cluster
+    // entrypoint lets the runtime use a small, explicitly bounded worker pool.
+    preset: 'node-cluster',
+  },
   sourcemap: {
     // Server maps stay on: they are never served to a browser and they are what
     // makes a backend stack trace readable.

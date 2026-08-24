@@ -6,11 +6,7 @@
     that reads like a failed image load. This card leads with an icon in the
     brand tint and spends its space on the description instead.
   -->
-  <a
-    v-if="!viewMore"
-    class="dashboard__template-card"
-    @click="$emit('click')"
-  >
+  <a v-if="!viewMore" class="dashboard__template-card" @click="$emit('click')">
     <span class="dashboard__template-card-icon">
       <i :class="icon"></i>
     </span>
@@ -18,7 +14,11 @@
     <span class="dashboard__template-card-description">{{ description }}</span>
   </a>
 
-  <a v-else class="dashboard__template-card dashboard__template-card--more" @click="$emit('click')">
+  <a
+    v-else
+    class="dashboard__template-card dashboard__template-card--more"
+    @click="$emit('click')"
+  >
     <i class="dashboard__template-card-more-icon iconoir-plus"></i>
     <span class="dashboard__template-card-name">{{ name }}</span>
   </a>

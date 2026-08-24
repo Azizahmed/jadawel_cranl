@@ -160,7 +160,9 @@ export default {
       const max = Math.max(...this.series.map((point) => point.count), 0)
       const usable = this.height - PADDING * 2
       const step =
-        this.series.length > 1 ? (this.width - PADDING * 2) / (this.series.length - 1) : 0
+        this.series.length > 1
+          ? (this.width - PADDING * 2) / (this.series.length - 1)
+          : 0
 
       return this.series.map((point, index) => ({
         point,
@@ -172,7 +174,9 @@ export default {
     },
     linePath() {
       return this.points
-        .map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)} ${p.y.toFixed(2)}`)
+        .map(
+          (p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)} ${p.y.toFixed(2)}`
+        )
         .join(' ')
     },
     areaPath() {

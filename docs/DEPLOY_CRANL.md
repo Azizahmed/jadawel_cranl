@@ -116,6 +116,7 @@ working set and why each is needed.
 | `DISABLE_VOLUME_CHECK` | `yes` | Boot otherwise stops at the unmounted-data-folder warning. Safe: Postgres and Redis are external. |
 | `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker on a 4 GB plan. |
 | `JADAWEL_AMOUNT_OF_WORKERS` | `1` | Required for the above to take effect. |
+| `NITRO_CLUSTER_WORKERS` | `2` | Uses both bounded SSR workers validated by the production load gate. The root Dockerfile also sets this value; keep it explicit if the app is recreated from another deployment file. |
 | `SYNC_TEMPLATES_ON_STARTUP` | `false` | Drops a step that can take 30 minutes from every boot. |
 | `JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION` | `false` | The fork reconciles its six authoritative local templates synchronously after migrations. Leave core's broad 150+ template sync disabled; `ArabaseConfig` also enforces this setting in-process. |
 | `SECRET_KEY` | *generated* | Must be set explicitly. `jadawel.sh` otherwise generates one into `/jadawel/data/.secret`, which is ephemeral here — so every redeploy would invalidate all sessions. |

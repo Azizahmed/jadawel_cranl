@@ -1,25 +1,29 @@
 import { expect, test } from "../jadawelTest";
+import { createAutomation } from "../../fixtures/automation/automation";
 
+/**
+ * Jadawel fork: automations are hidden from the "Add new" menu (canBeCreated()
+ * returns false in web-frontend/modules/automation/applicationTypes.js), so
+ * these tests create the automation over the API — which is how an automation
+ * that predates that change reaches its users. That the creation option is
+ * gone is asserted in tests/dashboard/createApplication.spec.ts.
+ */
 test.describe("Automation application test suite", () => {
-  test.beforeEach(async ({ workspacePage }) => {
-    await workspacePage.goto();
-  });
-
-  test("Can create automation application - default name", async ({ page }) => {
-    await page.locator(".sidebar__new").click();
-
-    await page.locator(".context__menu").getByText("Automation").click();
-    await page.locator(".modal__box").getByText("Add automation").click();
+  test("Can open an existing automation on its workflow", async ({
+    page,
+    automationWorkflowPage,
+  }) => {
+    await automationWorkflowPage.goto();
 
     await expect(
-      page.locator(".tree__link").getByText("Untitled Automation"),
-      "Ensure the default automation name is displayed in the sidebar."
+      page.locator(".tree__link").getByText("Test automation"),
+      "Ensure the automation name is displayed in the sidebar."
     ).toBeVisible();
 
-    const workflowLink = page.getByRole("link", { name: "Workflow" });
+    const workflowLink = page.getByRole("link", { name: "Default workflow" });
     await expect(
       workflowLink,
-      "Ensure the default Workflow has been created and is visible."
+      "Ensure the workflow is visible."
     ).toBeVisible();
 
     const chooseTriggerTitle = page.getByText("Choose an event...");
@@ -29,30 +33,17 @@ test.describe("Automation application test suite", () => {
     ).toBeVisible();
   });
 
-  test("Can create automation application - custom name", async ({ page }) => {
-    // Create an automation application
-    await page.locator(".sidebar__new").getByText("Add new").click();
-    await page.locator(".context__menu").getByText("Automation").click();
+  test("Can see an automation by name in the sidebar", async ({
+    page,
+    workspacePage,
+  }) => {
+    await createAutomation("Foo Automation", workspacePage.workspace);
 
-    // Specify a custom name for the automation
-    await page.locator(".modal__box input").fill("Foo Automation");
-    await page.locator(".modal__box").getByText("Add automation").click();
+    await workspacePage.goto();
 
     await expect(
       page.locator(".tree__link").getByText("Foo Automation"),
       "Ensure the custom automation name is displayed in the sidebar."
-    ).toBeVisible();
-
-    const workflowLink = page.getByRole("link", { name: "Workflow" });
-    await expect(
-      workflowLink,
-      "Ensure the default Workflow has been created and is visible."
-    ).toBeVisible();
-
-    const chooseTriggerTitle = page.getByText("Choose an event...");
-    await expect(
-      chooseTriggerTitle,
-      "Ensure the trigger chooser is visible."
     ).toBeVisible();
   });
 });

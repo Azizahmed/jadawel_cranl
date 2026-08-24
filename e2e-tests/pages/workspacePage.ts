@@ -17,7 +17,11 @@ export class WorkspacePage extends JadawelPage {
   }
 
   async authenticate() {
+    const realtimeReady = this.page.waitForEvent("websocket", {
+      predicate: (socket) => socket.url().includes("/ws/core/"),
+    });
     await this.page.goto(`${this.baseUrl}?token=${this.user.refreshToken}`);
+    return await realtimeReady;
   }
 
   getFullUrl() {

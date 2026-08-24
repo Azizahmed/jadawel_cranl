@@ -18,6 +18,8 @@ services:
   # server in the dev env. Devs will instead directly connect to the backend and
   # web frontend services.
   caddy:
+    ports:
+      - "${HOST_PUBLISH_IP:-127.0.0.1}:${WEB_FRONTEND_PORT:-4000}:80"
     volumes:
       - $PWD/Caddyfile.dev:/etc/caddy/Caddyfile
 
@@ -26,6 +28,7 @@ services:
     environment:
       - JADAWEL_BACKEND_DEBUGGER_ENABLED
       - JADAWEL_BACKEND_DEBUGGER_PORT=${JADAWEL_BACKEND_DEBUGGER_PORT:-5678}
+      - JADAWEL_ENABLE_SILK=${JADAWEL_ENABLE_SILK:-false}
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - JADAWEL_EMBEDDINGS_API_URL=${JADAWEL_EMBEDDINGS_API_URL}
@@ -69,6 +72,14 @@ services:
         UID: $UID
         GID: $GID
     command: "nuxt-dev"
+    environment:
+      # The Nuxt dev server accumulates SSR state as pages are rendered, and a
+      # full e2e run pushes its Nitro worker past Node's default heap ceiling.
+      # Once that happens every page returns a 500 with "Worker terminated due
+      # to reaching memory limit: JS heap out of memory" and the rest of the run
+      # fails for reasons unrelated to the tests. Keep this below
+      # JADAWEL_WEB_FRONTEND_MEM_LIMIT so the container is not OOM killed first.
+      NODE_OPTIONS: ${JADAWEL_WEB_FRONTEND_NODE_OPTIONS:---max-old-space-size=4096}
     ports:
       - "${HOST_PUBLISH_IP:-127.0.0.1}:3000:3000"
     volumes:
@@ -122,6 +133,7 @@ services:
     command: "watch-py celery-worker"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
+      - JADAWEL_ENABLE_SILK=${JADAWEL_ENABLE_SILK:-false}
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
     volumes:
       - ./docs:/jadawel/docs
@@ -139,6 +151,7 @@ services:
     command: "watch-py celery-exportworker"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
+      - JADAWEL_ENABLE_SILK=${JADAWEL_ENABLE_SILK:-false}
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
     volumes:
       - ./docs:/jadawel/docs

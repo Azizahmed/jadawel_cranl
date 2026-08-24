@@ -181,11 +181,7 @@ export default {
         )
         this.share = data
       } catch (e) {
-        if (e.response?.status === 404) {
-          this.share = null
-        } else {
-          this.handleError(e, 'dashboard')
-        }
+        this.handleError(e, 'dashboard')
       }
       this.loading = false
     },

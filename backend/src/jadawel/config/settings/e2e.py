@@ -5,26 +5,10 @@ from .utils import setup_dev_e2e
 
 DEBUG = True
 
-
-def sync_templates_only_for_e2e(sender, **kwargs):
-    """
-    Some tests work with templates, to keep things fast in the e2e CI job we only
-    want to sync one template instead of all of them.
-    """
-
-    from django.conf import settings
-
-    from jadawel.core.handler import CoreHandler
-
-    pattern = f"^({'|'.join(settings.DEFAULT_APPLICATION_TEMPLATES)})$"
-
-    CoreHandler().sync_templates(pattern=pattern)
-
-
-# Disable normal template syncing in CI as we will sync a single template ourselves
-# instead.
+# ArabaseConfig synchronously reconciles the same six-template catalog used in
+# production. The former E2E-only receiver imported upstream defaults which the
+# production receiver then correctly removed, leaving readiness checks stale.
 JADAWEL_TRIGGER_SYNC_TEMPLATES_AFTER_MIGRATION = False
-post_migrate.connect(sync_templates_only_for_e2e)
 
 # Don't bother waiting for the non-existent license authority
 LICENSE_AUTHORITY_CHECK_TIMEOUT_SECONDS = 0.001
