@@ -60,7 +60,8 @@ authenticated `/api/workspaces/` read. It requires zero errors and a p95 no
 higher than 1.5 seconds before Playwright starts. Each target receives one
 serial warm-up request first so the measured p95 reflects sustained traffic,
 while any warm-up error still fails the gate. The summary also reports p95 and
-failures per target. The clean E2E stack supplies its seeded account through
+failures per target. The clean E2E stack runs two bounded Nitro SSR workers,
+matching the CranL deployment override, and supplies its seeded account through
 `LOAD_AUTH_EMAIL` and `LOAD_AUTH_PASSWORD`;
 `LOAD_BEARER_TOKEN` can supply a token directly for another environment.
 Override the gate with `LOAD_TOTAL`, `LOAD_CONCURRENCY`, `LOAD_TIMEOUT_MS`,

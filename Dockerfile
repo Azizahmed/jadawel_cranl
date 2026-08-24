@@ -118,6 +118,12 @@ ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:f2a9aca605656e3361b19ba
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
 
+# The portable image defaults to one Nitro worker so it remains safe under its
+# documented 768 MB frontend cap. CranL has a 4 GB whole-app allocation, and
+# the two-worker production benchmark removes single-process SSR queueing while
+# keeping aggregate frontend RSS bounded at roughly 1.3 GB.
+ENV NITRO_CLUSTER_WORKERS=2
+
 # Inherited from the base image and repeated here only so the deployment target
 # is readable without chasing the base: ENTRYPOINT ["/jadawel.sh"], CMD ["start"].
 EXPOSE 80

@@ -67,6 +67,12 @@ host without editing the compose file: `JADAWEL_BACKEND_MEM_LIMIT` (`1g`),
 `JADAWEL_DB_MEM_LIMIT` (`1g`), `JADAWEL_REDIS_MEM_LIMIT` (`256m`),
 `JADAWEL_CADDY_MEM_LIMIT` (`192m`), `JADAWEL_FIXER_MEM_LIMIT` (`64m`).
 
+Production frontend images use Nitro's Node cluster preset with
+`NITRO_CLUSTER_WORKERS=1` by default. Keep the worker count explicitly bounded in
+containers: raising it can improve SSR throughput, but each worker loads a complete
+copy of the Nuxt server bundle. The CranL deployment copy explicitly uses `2`; raise it
+only after measuring both steady-state memory and p95 document latency.
+
 | Variable | Description | Default |
 |---|---|---|
 | `JADAWEL_IMPORT_ARCHIVE_MAX_UNCOMPRESSED_SIZE_MB` | Maximum combined expanded size of every entry in a workspace import ZIP. Archives over this limit are rejected before any entry is parsed or extracted. Raise it only when the storage and worker limits can safely handle larger exports. | `1024` |

@@ -1136,3 +1136,19 @@ during concurrent authenticated testing even though production never enables Sil
 | `web-frontend/modules/core/plugins/clientHandler.js` | Normalize trailing slashes before appending `/api` | Prevent production origins such as `https://jadawl.site/` from producing a `//api` request path | low |
 | `web-frontend/modules/core/components/Context.vue` | Keep a stable raw HTMLElement for geometry/listener registration and make listener cleanup idempotent | Prevent stale resize callbacks or Vue root transitions from calling geometry methods on a comment node; preserve edge flipping in LTR and RTL | medium |
 | `web-frontend/package.json` | Run ESLint from the frontend package instead of its parent directory | Prevent ESLint from resolving Ubuntu's system parser packages, whose placeholder version breaks the full lint gate | low |
+
+## Phase — Bound and parallelize production SSR (2026-08-24)
+
+**Context:** The production-shaped load gate showed that the backend remained below
+436 ms p95 with 60 concurrent clients, while a single Nitro process serialized SSR
+login rendering and made both `/login` and the otherwise-lightweight `/_health` route
+wait for more than five seconds. Nitro's cluster preset fixes that head-of-line
+blocking, but its default is one worker per visible host CPU, which is unsafe when a
+container can see more CPUs than its 4 GB CranL memory allocation can support. The
+portable image therefore defaults to one; CranL and the production load gate explicitly
+run the measured two-worker profile.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/config/nuxt.config.prod.ts` | Build the production server with Nitro's `node-cluster` preset | Use more than one CPU for concurrent SSR document requests | medium |
+| `web-frontend/env-remap.mjs` | Default `NITRO_CLUSTER_WORKERS` to one while preserving an explicit override | Prevent host CPU count from turning into an unbounded number of full Nuxt worker processes; resource-aware deployments opt into more | low |
