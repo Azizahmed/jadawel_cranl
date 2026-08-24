@@ -54,7 +54,7 @@ describe('AppUtilities component', () => {
     await testApp.afterEach()
   })
 
-  test('groups workspace services and exposes six interface colors', async () => {
+  test('defaults to white first and keeps green as the second interface color', async () => {
     const wrapper = await testApp.mount(AppUtilities, {
       props: {
         workspace: { id: 1, users: [{ id: 1 }, { id: 2 }] },
@@ -87,30 +87,28 @@ describe('AppUtilities component', () => {
     const colorOptions = wrapper.findAll('.app-utilities__theme-option')
     expect(colorOptions).toHaveLength(6)
     expect(colorOptions[0].attributes('aria-checked')).toBe('true')
+    expect(document.documentElement.dataset.interfaceTheme).toBe('white')
 
     await colorOptions[1].trigger('click')
 
     expect(colorOptions[1].attributes('aria-checked')).toBe('true')
-    expect(document.documentElement.dataset.interfaceTheme).toBe('white')
+    expect(document.documentElement.dataset.interfaceTheme).toBe('sage')
     expect(
       document.documentElement.style.getPropertyValue('--jadawel-primary-500')
-    ).toBe('#69717d')
+    ).toBe('#278053')
     expect(
       document.documentElement.style.getPropertyValue(
         '--jadawel-header-background'
       )
-    ).toBe('#ffffff')
-    // The app ground must stay distinguishable from the header. Deriving these
-    // by mixing towards white flattened both to #ffffff on this palette, which
-    // is why the theme states its surfaces outright.
+    ).toBe('#f0f7f3')
     expect(
       document.documentElement.style.getPropertyValue(
         '--jadawel-app-background'
       )
-    ).toBe('#f5f6f7')
+    ).toBe('#f5faf7')
     expect(
       document.documentElement.style.getPropertyValue('--jadawel-border-color')
-    ).toBe('#e7e9ec')
-    expect(localStorage.getItem(INTERFACE_THEME_STORAGE_KEY)).toBe('white')
+    ).toBe('#cfe8d9')
+    expect(localStorage.getItem(INTERFACE_THEME_STORAGE_KEY)).toBe('sage')
   })
 })

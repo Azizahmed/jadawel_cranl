@@ -1,21 +1,7 @@
 export const INTERFACE_THEME_STORAGE_KEY = 'jadawel.interfaceTheme'
-export const DEFAULT_INTERFACE_THEME = 'sage'
+export const DEFAULT_INTERFACE_THEME = 'white'
 
 export const INTERFACE_THEMES = [
-  {
-    id: 'sage',
-    colors: {
-      100: '#f0f7f3',
-      200: '#dbeee3',
-      300: '#b5dcc5',
-      400: '#55a97d',
-      500: '#278053',
-      600: '#1b5a3a',
-      700: '#15472e',
-      800: '#103522',
-      900: '#06170e',
-    },
-  },
   {
     id: 'white',
     swatch: '#ffffff',
@@ -45,6 +31,20 @@ export const INTERFACE_THEMES = [
       '--jadawel-raised-background': '#ffffff',
       '--jadawel-hover-background': '#f0f2f4',
       '--jadawel-border-color': '#e7e9ec',
+    },
+  },
+  {
+    id: 'sage',
+    colors: {
+      100: '#f0f7f3',
+      200: '#dbeee3',
+      300: '#b5dcc5',
+      400: '#55a97d',
+      500: '#278053',
+      600: '#1b5a3a',
+      700: '#15472e',
+      800: '#103522',
+      900: '#06170e',
     },
   },
   {

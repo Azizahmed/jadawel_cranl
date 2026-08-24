@@ -1,5 +1,6 @@
 import {
   applyInterfaceTheme,
+  DEFAULT_INTERFACE_THEME,
   getInterfaceThemeSurfaces,
   INTERFACE_THEMES,
   mixWithWhite,
@@ -24,8 +25,8 @@ describe('interface themes', () => {
   test('contains six complete color palettes in the requested order', () => {
     expect(INTERFACE_THEMES).toHaveLength(6)
     expect(INTERFACE_THEMES.map(({ id }) => id)).toEqual([
-      'sage',
       'white',
+      'sage',
       'gray',
       'blue',
       'rose',
@@ -51,7 +52,9 @@ describe('interface themes', () => {
   })
 
   test('derives themed chrome and a fixed white table workspace', () => {
-    expect(getInterfaceThemeSurfaces(INTERFACE_THEMES[0].colors)).toEqual({
+    const sage = INTERFACE_THEMES.find(({ id }) => id === 'sage')
+
+    expect(getInterfaceThemeSurfaces(sage.colors)).toEqual({
       '--jadawel-app-background': '#f5faf7',
       '--jadawel-header-background': '#f0f7f3',
       '--jadawel-sidebar-background': '#f3f8f5',
@@ -101,14 +104,16 @@ describe('interface themes', () => {
     expect(surfaces['--jadawel-grid-line']).toBe('#e5e7eb')
   })
 
-  test('falls back to sage for an unknown theme', () => {
+  test('defaults and falls back to the first white theme', () => {
     const root = document.createElement('div')
 
-    expect(applyInterfaceTheme('unknown', root)).toBe('sage')
-    expect(root.dataset.interfaceTheme).toBe('sage')
-    expect(root.style.getPropertyValue('--jadawel-primary-500')).toBe('#278053')
+    expect(DEFAULT_INTERFACE_THEME).toBe('white')
+    expect(INTERFACE_THEMES[0].id).toBe(DEFAULT_INTERFACE_THEME)
+    expect(applyInterfaceTheme('unknown', root)).toBe('white')
+    expect(root.dataset.interfaceTheme).toBe('white')
+    expect(root.style.getPropertyValue('--jadawel-primary-500')).toBe('#69717d')
     expect(root.style.getPropertyValue('--jadawel-header-background')).toBe(
-      '#f0f7f3'
+      '#ffffff'
     )
     expect(root.style.getPropertyValue('--jadawel-grid-surface')).toBe(
       '#ffffff'
