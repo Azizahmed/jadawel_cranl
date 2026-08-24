@@ -2,6 +2,7 @@ import {
   LocalJadawelListRowsServiceType,
   LocalJadawelGetRowServiceType,
   LocalJadawelTableServiceType,
+  LocalJadawelAggregateRowsServiceType,
   LocalJadawelCreateRowWorkflowServiceType,
   LocalJadawelDeleteRowWorkflowServiceType,
 } from '@jadawel/modules/integrations/localJadawel/serviceTypes'
@@ -181,6 +182,37 @@ describe('Local jadawel service types', () => {
     const result = serviceType.supportedTables(tables)
     expect(result).toEqual(tables)
     expect(result.length).toBe(3)
+  })
+
+  test('Aggregate rows service returns the raw public result when private formatting context is omitted', () => {
+    const serviceType = new LocalJadawelAggregateRowsServiceType({})
+
+    expect(serviceType.getResult({ schema: {} }, { result: '42' })).toBe('42')
+  })
+
+  test('Aggregate rows service formats private results when formatting context is available', () => {
+    const fieldType = {}
+    const aggregationType = { formatValue: vi.fn(() => '42 formatted') }
+    const registry = {
+      get: vi.fn((namespace) =>
+        namespace === 'field' ? fieldType : aggregationType
+      ),
+    }
+    const serviceType = new LocalJadawelAggregateRowsServiceType({
+      app: { $registry: registry },
+    })
+    const field = { type: 'number' }
+
+    expect(
+      serviceType.getResult(
+        { context_data: { field }, aggregation_type: 'sum' },
+        { result: 42 }
+      )
+    ).toBe('42 formatted')
+    expect(aggregationType.formatValue).toHaveBeenCalledWith(42, {
+      field,
+      fieldType,
+    })
   })
 
   test('LocalJadawelCreateRowWorkflowServiceType supportedTables returns non data-synced tables or two-way data-synced tables.', () => {

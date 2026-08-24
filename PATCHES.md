@@ -1156,3 +1156,15 @@ login requests reused a connection while the backend closed it and returned a 50
 | `web-frontend/env-remap.mjs` | Default `NITRO_CLUSTER_WORKERS` to one while preserving an explicit override | Prevent host CPU count from turning into an unbounded number of full Nuxt worker processes; resource-aware deployments opt into more | low |
 | `backend/docker/docker-entrypoint.sh` | Set Gunicorn's backend keep-alive to ten seconds | Keep backend sockets open beyond Node's five-second pool lifetime and prevent intermittent SSR `socket hang up` responses | low |
 | `backend/src/jadawel/config/settings/base.py` | Select `project-management-en` as the default application template | Keep the template modal usable after the hosted catalog prunes the former `project-tracker` default | low |
+
+## Phase — Render shared dashboard aggregates (2026-08-24)
+
+**Context:** Public dashboard serializers deliberately omit table, field, filter and
+aggregation configuration. Summary widgets still passed that reduced service object to
+the private aggregate formatter during SSR, which dereferenced the missing field and
+turned otherwise-successful shared dashboard requests into HTTP 500 responses.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/integrations/localJadawel/serviceTypes.js` | Return the already-serialized aggregate result when private formatting context is absent | Render anonymous dashboard summaries without exposing private data-source configuration | low |
+| `web-frontend/test/unit/integrations/localJadawel/serviceTypes.spec.js` | Cover reduced public services and fully configured private services | Prevent the SSR crash from returning while preserving private result formatting | low |

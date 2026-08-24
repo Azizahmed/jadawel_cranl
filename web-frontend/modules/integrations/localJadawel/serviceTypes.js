@@ -351,7 +351,11 @@ export class LocalJadawelAggregateRowsServiceType extends DataSourceLocalJadawel
 
   getResult(service, data) {
     if (data && data.result !== undefined && service !== undefined) {
-      const field = service.context_data.field
+      const field = service.context_data?.field
+      if (!field || !service.aggregation_type) {
+        // Public dashboards intentionally omit private formatting context.
+        return data.result
+      }
       const fieldType = this.app.$registry.get('field', field.type)
       const aggregationType = this.app.$registry.get(
         'viewAggregation',
