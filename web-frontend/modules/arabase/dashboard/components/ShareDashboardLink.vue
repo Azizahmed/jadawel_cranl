@@ -155,13 +155,18 @@ export default {
       if (!this.share) {
         return ''
       }
-      return (
-        this.$config.public.jadawelEmbeddedShareUrl +
-        this.$router.resolve({
+      const baseUrl = this.$config.public.jadawelEmbeddedShareUrl.replace(
+        /\/+$/,
+        ''
+      )
+      const sharePath = this.$router
+        .resolve({
           name: 'arabase-public-dashboard',
           params: { slug: this.share.slug },
-        }).href
-      )
+        })
+        .href.replace(/^\/+/, '')
+
+      return `${baseUrl}/${sharePath}`
     },
     optionPasswordText() {
       return this.share && this.share.has_password
