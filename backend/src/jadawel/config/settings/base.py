@@ -1137,7 +1137,7 @@ APPLICATION_TEMPLATES_DIR = os.path.join(BASE_DIR, "../../../templates")
 # The template that must be selected when the user first opens the templates select
 # modal.
 # IF CHANGING KEEP IN SYNC WITH e2e-tests/wait-for-services.sh
-DEFAULT_APPLICATION_TEMPLATES = ["project-tracker", "ab_ivory_theme"]
+DEFAULT_APPLICATION_TEMPLATES = ["project-management-en"]
 JADAWEL_SYNC_TEMPLATES_PATTERN = os.getenv("JADAWEL_SYNC_TEMPLATES_PATTERN", None)
 
 MAX_FIELD_LIMIT = int(os.getenv("JADAWEL_MAX_FIELD_LIMIT", 600))

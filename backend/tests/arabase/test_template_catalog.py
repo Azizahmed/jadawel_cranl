@@ -99,6 +99,11 @@ def test_local_catalog_disables_core_broad_template_sync():
     assert settings.JADAWEL_SYNC_TEMPLATES_PATTERN == LOCAL_TEMPLATE_PATTERN
 
 
+def test_local_catalog_contains_the_default_application_template():
+    assert settings.DEFAULT_APPLICATION_TEMPLATES == ["project-management-en"]
+    assert settings.DEFAULT_APPLICATION_TEMPLATES[0] in LOCAL_TEMPLATE_CATALOG
+
+
 @override_settings(TESTS=False)
 @patch("arabase.template_catalog.reconcile_local_template_catalog")
 def test_reconcile_local_template_catalog_after_migrate_runs_synchronously(reconcile):

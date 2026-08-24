@@ -62,7 +62,9 @@ test("an owner can create and open a public dashboard link", async ({
   await page
     .locator(".header__filter-link", { hasText: "Share dashboard" })
     .click();
-  const createLink = page.getByRole("button", { name: "Create link" });
+  const createLink = page
+    .locator(".view-sharing__share-link-options")
+    .getByRole("button");
   await expect(createLink).toBeVisible();
 
   await page.setViewportSize({ width: 1280, height: 720 });
@@ -104,7 +106,9 @@ test("an owner can create and open a public dashboard link", async ({
 
   const publicResponse = await page.goto(publicUrl);
   expect(publicResponse?.status()).toBe(200);
-  await expect(page.locator(".dashboard-app")).toBeVisible();
+  await expect(
+    page.locator(".public-dashboard .dashboard-app__content"),
+  ).toBeVisible();
   expect(
     shareResponses.filter((response) => response.request().method() === "GET"),
   ).toHaveLength(1);

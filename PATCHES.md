@@ -1155,3 +1155,4 @@ login requests reused a connection while the backend closed it and returned a 50
 | `web-frontend/config/nuxt.config.prod.ts` | Build the production server with Nitro's `node-cluster` preset | Use more than one CPU for concurrent SSR document requests | medium |
 | `web-frontend/env-remap.mjs` | Default `NITRO_CLUSTER_WORKERS` to one while preserving an explicit override | Prevent host CPU count from turning into an unbounded number of full Nuxt worker processes; resource-aware deployments opt into more | low |
 | `backend/docker/docker-entrypoint.sh` | Set Gunicorn's backend keep-alive to ten seconds | Keep backend sockets open beyond Node's five-second pool lifetime and prevent intermittent SSR `socket hang up` responses | low |
+| `backend/src/jadawel/config/settings/base.py` | Select `project-management-en` as the default application template | Keep the template modal usable after the hosted catalog prunes the former `project-tracker` default | low |

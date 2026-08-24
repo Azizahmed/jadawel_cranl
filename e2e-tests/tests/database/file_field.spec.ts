@@ -20,14 +20,14 @@ test.describe("File field tests", () => {
 
     await expect(
       templatesLoadingSpinner,
-      "Checking that the templates modal spinner is hidden."
+      "Checking that the templates modal spinner is hidden.",
     ).toBeHidden();
 
     await templateModal.clickUseThisTemplateButton();
 
     await workspacePage.sidebar.selectDatabaseAndTableByName(
-      "Project Tracker",
-      "Projects"
+      "Project Management",
+      "Projects",
     );
 
     const tablePage = new TablePage({ page, goto });
@@ -37,7 +37,7 @@ test.describe("File field tests", () => {
 
     expect(imageWidth).toBeGreaterThan(0);
     expect(await tablePage.downloadFirstFileFieldImage()).toBe(
-      "testuploadimage.png"
+      "testuploadimage.png",
     );
   });
 });
