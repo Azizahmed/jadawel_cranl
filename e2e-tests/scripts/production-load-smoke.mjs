@@ -108,10 +108,22 @@ async function requestTarget(target) {
       redirect: "error",
       signal: AbortSignal.timeout(timeoutMs),
     });
+    if (!response.ok) {
+      const responseBody = (await response.text())
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 500);
+      return {
+        duration: performance.now() - requestStartedAt,
+        failure: `${response.status} ${target.url}${
+          responseBody ? `: ${responseBody}` : ""
+        }`,
+      };
+    }
     await response.arrayBuffer();
     return {
       duration: performance.now() - requestStartedAt,
-      failure: response.ok ? null : `${response.status} ${target.url}`,
+      failure: null,
     };
   } catch (error) {
     return {

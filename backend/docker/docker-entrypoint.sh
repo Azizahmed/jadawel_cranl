@@ -251,8 +251,12 @@ run_backend_server(){
   #    why we set worker-tmp-dir to /dev/shm by default.
   # 2. Log to stdout
   # 3. Log requests to stdout
+  # 4. Keep ASGI connections alive longer than Node's five-second pooled-socket
+  #    lifetime. Gunicorn's two-second default lets SSR reuse a socket while the
+  #    backend is closing it, which surfaces as a rare "socket hang up" HTTP 500.
   exec gunicorn --workers="$JADAWEL_AMOUNT_OF_GUNICORN_WORKERS" \
     --worker-tmp-dir "${TMPDIR:-/dev/shm}" \
+    --keep-alive=10 \
     --log-file=- \
     --access-logfile=- \
     --capture-output \

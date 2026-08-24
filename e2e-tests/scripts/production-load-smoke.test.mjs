@@ -84,6 +84,27 @@ test("fails when measured throughput is below the configured minimum", async (co
   assert.match(result.stderr, /Throughput .* was below 100/);
 });
 
+test("includes a bounded response body when an HTTP request fails", async (context) => {
+  const server = createServer((_request, response) => {
+    response.writeHead(503, { "content-type": "application/json" });
+    response.end(JSON.stringify({ detail: "backend temporarily unavailable" }));
+  });
+  server.listen(0, "127.0.0.1");
+  await once(server, "listening");
+  context.after(() => server.close());
+  const { port } = server.address();
+
+  const result = await runLoadGate({
+    LOAD_BASE_URL: `http://127.0.0.1:${port}`,
+    LOAD_CONCURRENCY: "1",
+    LOAD_TOTAL: "1",
+    LOAD_URLS: "/_health",
+  });
+
+  assert.equal(result.exitCode, 1);
+  assert.match(result.stderr, /503 .*backend temporarily unavailable/);
+});
+
 test("rejects a negative minimum throughput", async () => {
   const result = await runLoadGate({ LOAD_MIN_RPS: "-1" });
 

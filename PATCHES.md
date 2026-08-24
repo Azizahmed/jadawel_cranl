@@ -1146,9 +1146,12 @@ wait for more than five seconds. Nitro's cluster preset fixes that head-of-line
 blocking, but its default is one worker per visible host CPU, which is unsafe when a
 container can see more CPUs than its 4 GB CranL memory allocation can support. The
 portable image therefore defaults to one; CranL and the production load gate explicitly
-run the measured two-worker profile.
+run the measured two-worker profile. The two-worker load test also exposed Gunicorn's
+two-second keep-alive racing Node 24's five-second pooled sockets: roughly 0.2% of SSR
+login requests reused a connection while the backend closed it and returned a 500.
 
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `web-frontend/config/nuxt.config.prod.ts` | Build the production server with Nitro's `node-cluster` preset | Use more than one CPU for concurrent SSR document requests | medium |
 | `web-frontend/env-remap.mjs` | Default `NITRO_CLUSTER_WORKERS` to one while preserving an explicit override | Prevent host CPU count from turning into an unbounded number of full Nuxt worker processes; resource-aware deployments opt into more | low |
+| `backend/docker/docker-entrypoint.sh` | Set Gunicorn's backend keep-alive to ten seconds | Keep backend sockets open beyond Node's five-second pool lifetime and prevent intermittent SSR `socket hang up` responses | low |
