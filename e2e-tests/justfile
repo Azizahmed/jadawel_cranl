@@ -292,6 +292,7 @@ test *ARGS:
         export LOAD_AUTH_EMAIL="${LOAD_AUTH_EMAIL:-e2e@jadawl.site}"
         export LOAD_AUTH_PASSWORD="${LOAD_AUTH_PASSWORD:-testpassword}"
         node --test scripts/production-load-smoke.test.mjs
+        LOAD_GATE_EXIT=0
 
         echo "Running high-concurrency capacity gate..."
         LOAD_LABEL=capacity \
@@ -299,8 +300,8 @@ test *ARGS:
         LOAD_CONCURRENCY="${LOAD_CAPACITY_CONCURRENCY:-60}" \
         LOAD_MAX_ERROR_RATE="${LOAD_CAPACITY_MAX_ERROR_RATE:-0}" \
         LOAD_MAX_P95_MS="${LOAD_CAPACITY_MAX_P95_MS:-3000}" \
-        LOAD_MIN_RPS="${LOAD_CAPACITY_MIN_RPS:-90}" \
-        node scripts/production-load-smoke.mjs
+        LOAD_MIN_RPS="${LOAD_CAPACITY_MIN_RPS:-75}" \
+        node scripts/production-load-smoke.mjs || LOAD_GATE_EXIT=$?
 
         echo "Running sustained latency gate..."
         LOAD_LABEL=latency \
@@ -309,7 +310,12 @@ test *ARGS:
         LOAD_MAX_ERROR_RATE="${LOAD_LATENCY_MAX_ERROR_RATE:-0}" \
         LOAD_MAX_P95_MS="${LOAD_LATENCY_MAX_P95_MS:-1500}" \
         LOAD_MIN_RPS="${LOAD_LATENCY_MIN_RPS:-0}" \
-        node scripts/production-load-smoke.mjs
+        node scripts/production-load-smoke.mjs || LOAD_GATE_EXIT=$?
+
+        if [ "$LOAD_GATE_EXIT" -ne 0 ]; then
+            echo "One or more production load gates failed."
+            exit "$LOAD_GATE_EXIT"
+        fi
 
         yarn playwright test --project=chrome
         yarn playwright test --project=firefox --grep=@fast

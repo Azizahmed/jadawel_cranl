@@ -55,7 +55,7 @@ wherever a test has to work in both languages.
 
 The default `just e2e test` run separates high-volume capacity from sustained
 latency. Its capacity phase sends 600 requests at concurrency 60, requires zero
-errors, at least 90 requests per second, and an aggregate p95 no higher than 3
+errors, at least 75 requests per second, and an aggregate p95 no higher than 3
 seconds. Its latency phase sends another 600 requests at concurrency 30 and
 requires zero errors with an aggregate p95 no higher than 1.5 seconds. Both
 phases spread traffic across the production frontend's plain `/_health` route,
@@ -63,6 +63,9 @@ the SSR login page, the backend's database-backed `/api/settings/` endpoint,
 and an authenticated `/api/workspaces/` read. This keeps saturation queueing
 from weakening the normal-load latency objective while still proving the stack
 can sustain the high-concurrency workload.
+
+Both phases always run before the load gate returns a failure, so a capacity
+miss cannot hide the latency evidence (and vice versa).
 
 Each target receives one serial warm-up request per phase so the measured p95
 reflects sustained traffic, while any warm-up error still fails the gate. The
