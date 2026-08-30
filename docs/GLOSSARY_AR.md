@@ -66,6 +66,15 @@ term exists).
 | Email | بريد إلكتروني |
 | Duration | مدة |
 
+## MCP data protection
+
+| English | Arabic | Notes |
+|---------|--------|-------|
+| Protected field | حقل محمي | A field whose non-empty values are replaced with mask tokens at its MCP endpoint boundary. Do not use حقل مشفّر. |
+| Endpoint protection policy | سياسة حماية الحقول | The protected fields selected for one MCP endpoint. |
+| Mask token | رمز إخفاء | An opaque reference returned through MCP instead of a protected value. |
+| Protected derivative | مشتق محمي | A value that would reproduce or expose information from a protected field. |
+
 ## Common actions (verbs)
 
 | English | Arabic |
