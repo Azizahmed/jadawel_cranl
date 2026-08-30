@@ -1,0 +1,60 @@
+flowchart TB
+  U["Browser<br/>Arabic RTL or English LTR"]
+
+  subgraph BUILD["Release pipeline"]
+    direction LR
+    REPO["Source repository<br/>plus digest pin"]
+    GHA["GitHub Actions<br/>build prod-lite"]
+    GHCR["GHCR<br/>all-in-one image"]
+    PIN["Root Dockerfile<br/>immutable digest"]
+    REPO -->|"publish workflow"| GHA
+    GHA -->|"push version and latest"| GHCR
+    GHCR -->|"copy image digest"| PIN
+  end
+
+  subgraph CRANL["CranL application: one prod-lite container"]
+    direction LR
+    EDGE["CranL edge<br/>TLS termination"]
+    CADDY["Caddy<br/>port 80 router"]
+    NUXT["Nuxt 3 frontend<br/>Nitro SSR workers"]
+    AUI["Arabase UI module<br/>RTL, Arabic, fork features"]
+    API["Django ASGI<br/>REST, WebSocket, MCP"]
+    ABE["Arabase backend plugin<br/>registries and fork API"]
+    JOBS["Celery runtime<br/>worker, export, beat"]
+
+    EDGE --> CADDY
+    CADDY -->|"pages and assets"| NUXT
+    CADDY -->|"/api /ws /mcp"| API
+    NUXT -->|"SSR and API calls"| API
+    AUI -->|"additive Nuxt module"| NUXT
+    ABE -->|"additive Django hooks"| API
+    API -->|"enqueue background work"| JOBS
+  end
+
+  subgraph DATA["Managed persistent services"]
+    direction LR
+    PG[("PostgreSQL + pgvector<br/>system of record")]
+    REDIS[("Redis<br/>cache, channels, broker")]
+    S3[("S3-compatible storage<br/>uploads and backups")]
+  end
+
+  U -->|"HTTPS"| EDGE
+  PIN -->|"CranL redeploy and reload"| EDGE
+  API <-->|"Django ORM"| PG
+  API <-->|"cache and realtime"| REDIS
+  API -->|"media objects"| S3
+  JOBS <-->|"queues and schedules"| REDIS
+  JOBS <-->|"async reads and writes"| PG
+  JOBS -->|"exports and backups"| S3
+
+  classDef client fill:#fff7ed,stroke:#ea580c,color:#7c2d12,stroke-width:2px;
+  classDef delivery fill:#eff6ff,stroke:#2563eb,color:#1e3a8a,stroke-width:2px;
+  classDef runtime fill:#f0fdf4,stroke:#16a34a,color:#14532d,stroke-width:2px;
+  classDef fork fill:#faf5ff,stroke:#9333ea,color:#581c87,stroke-width:2px;
+  classDef data fill:#fefce8,stroke:#ca8a04,color:#713f12,stroke-width:2px;
+
+  class U client;
+  class REPO,GHA,GHCR,PIN,EDGE delivery;
+  class CADDY,NUXT,API,JOBS runtime;
+  class AUI,ABE fork;
+  class PG,REDIS,S3 data;
