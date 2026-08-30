@@ -7,17 +7,34 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from arabase.api.mcp_protection.serializers import (
+    CreatedProtectedMCPEndpointSerializer,
+    CreateProtectedMCPEndpointSerializer,
     MCPEndpointProtectionSummarySerializer,
     MCPProtectionPolicySerializer,
 )
+from arabase.mcp.protection.creation import (
+    create_protected_mcp_endpoint,
+    validate_idempotency_key,
+)
 from arabase.mcp.protection.models import MCPProtectionPolicy
-from jadawel.api.decorators import map_exceptions
-from jadawel.api.mcp.errors import ERROR_MCP_ENDPOINT_DOES_NOT_EXIST
+from jadawel.api.decorators import map_exceptions, validate_body
+from jadawel.api.errors import ERROR_GROUP_DOES_NOT_EXIST, ERROR_USER_NOT_IN_GROUP
+from jadawel.api.mcp.errors import (
+    ERROR_MAXIMUM_UNIQUE_ENDPOINT_TRIES,
+    ERROR_MCP_ENDPOINT_DOES_NOT_EXIST,
+)
 from jadawel.api.schemas import get_error_schema
 from jadawel.contrib.database.fields.operations import ReadFieldOperationType
-from jadawel.core.exceptions import PermissionException
+from jadawel.core.exceptions import (
+    PermissionException,
+    UserNotInWorkspace,
+    WorkspaceDoesNotExist,
+)
 from jadawel.core.handler import CoreHandler
-from jadawel.core.mcp.exceptions import MCPEndpointDoesNotExist
+from jadawel.core.mcp.exceptions import (
+    MaximumUniqueEndpointTriesError,
+    MCPEndpointDoesNotExist,
+)
 from jadawel.core.mcp.handler import MCPEndpointHandler
 from jadawel.core.mcp.models import MCPEndpoint
 
@@ -85,3 +102,36 @@ class MCPEndpointProtectionSummariesView(APIView):
         return Response(
             MCPEndpointProtectionSummarySerializer(endpoints, many=True).data
         )
+
+    @extend_schema(
+        tags=["Arabase MCP protection"],
+        operation_id="create_protected_mcp_endpoint",
+        request=CreateProtectedMCPEndpointSerializer,
+        responses={201: CreatedProtectedMCPEndpointSerializer},
+    )
+    @validate_body(CreateProtectedMCPEndpointSerializer)
+    @map_exceptions(
+        {
+            UserNotInWorkspace: ERROR_USER_NOT_IN_GROUP,
+            WorkspaceDoesNotExist: ERROR_GROUP_DOES_NOT_EXIST,
+            MaximumUniqueEndpointTriesError: ERROR_MAXIMUM_UNIQUE_ENDPOINT_TRIES,
+        }
+    )
+    def post(self, request: Request, data: dict) -> Response:
+        idempotency_key = validate_idempotency_key(
+            request.headers.get("Idempotency-Key")
+        )
+        result = create_protected_mcp_endpoint(
+            user=request.user,
+            idempotency_key=idempotency_key,
+            **data,
+        )
+        policy = result.endpoint.arabase_protection_policy
+        display_field_ids = {
+            relation.field_id for relation in policy.protected_fields.all()
+        }
+        body = CreatedProtectedMCPEndpointSerializer(
+            result.endpoint,
+            context={"display_field_ids": display_field_ids},
+        ).data
+        return Response(body, status=201)

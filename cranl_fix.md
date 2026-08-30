@@ -209,6 +209,9 @@ URLs in `JADAWEL_PUBLIC_URL`.
 | `JADAWEL_PUBLIC_URL` | current domain, no trailing slash | Jadawel rejects requests on any host that does not match. Must be switched when the domain changes. |
 | `DATABASE_URL` | internal, from `jadawel-postgres` | |
 | `REDIS_URL` | internal, from `jadawel-redis` | Celery and websockets do not work without Redis; no BaaS replaces it. |
+| `JADAWEL_MCP_PROTECTION_REDIS_URL` | dedicated managed Redis | Required before protected MCP fields can be enabled; shared Redis is forbidden in production. |
+| `JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS` | private JSON keyring | Base64-encoded 32-byte HMAC keys. Never copy this value into frontend configuration or logs. |
+| `JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID` | current key ID | Must select a configured fingerprint key. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | Required on the lite image — the startup script otherwise runs `chown -R postgres:postgres` for a user that exists only in the full image. |
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
 | `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |
@@ -226,6 +229,7 @@ certificate on a port it cannot reach, which hangs the deploy.
 | Variable | Why |
 |---|---|
 | `JADAWEL_ENABLE_SECURE_PROXY_SSL_HEADER=yes` | TLS terminates at CranL's proxy, so Django cannot currently tell requests arrived over HTTPS. Also passes `--forwarded-allow-ips='*'` to gunicorn so real client IPs are visible. See `docs/PRODUCTION_HARDENING.md` §2.3. |
+| MCP protection Redis and fingerprint keyring | Provision and set the three `JADAWEL_MCP_PROTECTION_*` values above before enabling protected-field rollout flags. Without them, protected MCP calls fail closed. |
 | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_STORAGE_BUCKET_NAME`, `AWS_S3_REGION_NAME`, `AWS_S3_ENDPOINT_URL` | **Uploaded files are lost on every redeploy until these exist.** Blocked on a CranL bug: creating a bucket token returns "Quota limit exceeded. You can create no more than 50 tokens". Any S3-compatible provider works as a fallback, at the cost of files leaving Saudi Arabia. |
 
 ---

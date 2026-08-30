@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionPolicy
+from jadawel.api.mcp.serializers import MCPEndpointSerializer
 from jadawel.core.mcp.models import MCPEndpoint
 
 
@@ -95,3 +96,26 @@ class MCPEndpointProtectionSummarySerializer(serializers.ModelSerializer):
             "lifecycle_status",
             "safe_reason_code",
         )
+
+
+class CreateProtectedMCPEndpointSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    workspace_id = serializers.IntegerField(min_value=1)
+    protected_field_ids = serializers.ListField(
+        child=serializers.IntegerField(min_value=1), allow_empty=True
+    )
+    confirm_empty_policy = serializers.BooleanField(default=False)
+
+    def validate_protected_field_ids(self, value):
+        if len(value) != len(set(value)):
+            raise serializers.ValidationError("Field IDs must be unique.")
+        return value
+
+
+class CreatedProtectedMCPEndpointSerializer(MCPEndpointSerializer):
+    protection_policy = MCPProtectionPolicySerializer(
+        source="arabase_protection_policy", read_only=True
+    )
+
+    class Meta(MCPEndpointSerializer.Meta):
+        fields = (*MCPEndpointSerializer.Meta.fields, "protection_policy")

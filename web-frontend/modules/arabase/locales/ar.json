@@ -1,4 +1,19 @@
 {
+  "mcpProtection": {
+    "steps": "خطوات إنشاء نقطة النهاية",
+    "detailsStep": "التفاصيل",
+    "fieldsStep": "الحقول المحمية",
+    "reviewStep": "المراجعة",
+    "chooseWorkspace": "اختر مساحة عمل",
+    "fieldsHelp": "اختر الحقول التي يجب أن تبقى قيمها غير الفارغة داخل جداول عند استخدام نقطة النهاية هذه.",
+    "selectedCount": "عدد الحقول المحمية المحددة: {count}",
+    "fieldsLoadError": "تعذر تحميل الحقول. حاول توسيع هذا الجدول مرة أخرى.",
+    "reviewTitle": "راجع سياسة حماية الحقول الأولية",
+    "confirmEmptyPolicy": "أفهم أن نقطة النهاية هذه لن تحمي أي حقول في البداية.",
+    "next": "التالي",
+    "back": "رجوع",
+    "review": "مراجعة السياسة"
+  },
   "arabaseServiceType": {
     "groupedAggregateRows": "تجميع مُصنَّف",
     "groupedAggregateRowsDescription": "تجميع قيم حقل وتصنيف النتيجة حسب حقل آخر",

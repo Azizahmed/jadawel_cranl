@@ -194,6 +194,19 @@ REDIS_URL = os.getenv(
     f"{REDIS_PROTOCOL}://{redis_auth}{REDIS_HOST}:{REDIS_PORT}/0{redis_url_suffix}",
 )
 
+# Private MCP protected-field storage. A dedicated Redis URL is required in
+# production; shared Redis is an explicit development/test-only opt-in.
+MCP_PROTECTION_REDIS_URL = os.getenv("JADAWEL_MCP_PROTECTION_REDIS_URL", "")
+MCP_PROTECTION_ALLOW_SHARED_REDIS = str_to_bool(
+    os.getenv("JADAWEL_MCP_PROTECTION_ALLOW_SHARED_REDIS", "false")
+)
+MCP_PROTECTION_FINGERPRINT_KEYS = json.loads(
+    os.getenv("JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS", "{}")
+)
+MCP_PROTECTION_ACTIVE_KEY_ID = os.getenv(
+    "JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID", ""
+)
+
 JADAWEL_GROUP_STORAGE_USAGE_QUEUE = os.getenv(
     "JADAWEL_GROUP_STORAGE_USAGE_QUEUE", "export"
 )

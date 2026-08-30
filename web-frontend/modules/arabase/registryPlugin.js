@@ -13,6 +13,7 @@ import { ArabasePlugin } from '@jadawel/modules/arabase/plugins'
 import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/store/publicDashboardApplication'
 import { HtmlPageViewType } from '@jadawel/modules/arabase/views/viewTypes'
 import htmlPageViewStore from '@jadawel/modules/arabase/views/store/htmlPageView'
+import { McpProtectedEndpointSettingsType } from '@jadawel/modules/arabase/mcp/settingsTypes'
 
 /**
  * Registry registrations for the fork's own types.
@@ -66,6 +67,14 @@ export default defineNuxtPlugin({
     $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
 
     $registry.register('plugin', new ArabasePlugin(context))
+
+    // Replace only the settings presentation; the core endpoint card and legacy
+    // endpoint APIs remain reusable and upstream-owned.
+    $registry.unregister('settings', 'mcp-endpoint')
+    $registry.register(
+      'settings',
+      new McpProtectedEndpointSettingsType(context)
+    )
 
     // Generative AI keys are not configurable per workspace in Jadawel: the
     // provider credentials are an instance-level concern (env vars) or an

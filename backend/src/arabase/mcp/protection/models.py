@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from jadawel.contrib.database.fields.models import Field
@@ -126,4 +127,35 @@ class MCPProtectedField(CreatedAndUpdatedOnMixin, models.Model):
                 fields=("policy", "state"),
                 name="ara_mcp_pf_policy_state_idx",
             ),
+        ]
+
+
+class MCPProtectionCommand(CreatedAndUpdatedOnMixin, models.Model):
+    """Bounded idempotency state for one composite endpoint creation command."""
+
+    actor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="mcp_protection_commands",
+    )
+    idempotency_key = models.CharField(max_length=128)
+    request_fingerprint = models.CharField(max_length=64)
+    endpoint = models.OneToOneField(
+        MCPEndpoint,
+        on_delete=models.CASCADE,
+        related_name="arabase_creation_command",
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("actor", "idempotency_key"),
+                name="arabase_unique_mcp_command_key",
+            )
+        ]
+        indexes = [
+            models.Index(
+                fields=("actor", "created_on"),
+                name="ara_mcp_cmd_actor_created_idx",
+            )
         ]

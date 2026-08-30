@@ -124,6 +124,9 @@ working set and why each is needed.
 | `JADAWEL_PUBLIC_URL` | `https://jadawl.site` | Must exactly match the browser URL, scheme included, no trailing slash. |
 | `DATABASE_URL` | *from managed Postgres* | Or the `DATABASE_HOST` / `PORT` / `NAME` / `USER` / `PASSWORD` set. |
 | `REDIS_URL` | *from managed Redis* | Or the `REDIS_HOST` / `PORT` / `PASSWORD` set. |
+| `JADAWEL_MCP_PROTECTION_REDIS_URL` | *from a dedicated managed Redis* | Required before enabling MCP protected fields. Do not reuse `REDIS_URL` in production. |
+| `JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS` | *generated JSON keyring* | Private base64-encoded 32-byte HMAC keys; retain the previous key for at least 24 hours during rotation. |
+| `JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID` | *current key ID* | Must name one entry in the fingerprint keyring. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | **Required on the lite image.** Without it the startup script runs `chown -R postgres:postgres` for a user that only exists in the full image, and a missing database silently becomes a confusing failure instead of a loud one. |
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
 | `AWS_ACCESS_KEY_ID` | | Uploads are lost on redeploy without S3. |

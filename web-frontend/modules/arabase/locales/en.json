@@ -1,4 +1,19 @@
 {
+  "mcpProtection": {
+    "steps": "Endpoint creation steps",
+    "detailsStep": "Details",
+    "fieldsStep": "Protected fields",
+    "reviewStep": "Review",
+    "chooseWorkspace": "Choose a workspace",
+    "fieldsHelp": "Choose fields whose non-empty values must stay inside Jadawel when this endpoint is used.",
+    "selectedCount": "{count} protected fields selected",
+    "fieldsLoadError": "The fields could not be loaded. Try expanding this table again.",
+    "reviewTitle": "Review the initial protection policy",
+    "confirmEmptyPolicy": "I understand that this endpoint will initially protect no fields.",
+    "next": "Next",
+    "back": "Back",
+    "review": "Review policy"
+  },
   "arabaseServiceType": {
     "groupedAggregateRows": "Grouped aggregation",
     "groupedAggregateRowsDescription": "Aggregate a field and group the result by another field",

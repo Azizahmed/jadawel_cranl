@@ -35,6 +35,18 @@ variable and the two should always be set together.
 | `JADAWEL_DASHBOARD_SHARE_TOKEN_HOURS` | How long the token issued after entering a share password stays valid. | `168` |
 | `JADAWEL_PAGE_VIEW_EXTERNAL_HOSTS` | Comma-separated CDN origins a Page view may load scripts, styles and fonts from, and only when that view has `allow_external_resources` turned on. Never widens `connect-src`, so a page still cannot send its rows anywhere. See `docs/PAGE_VIEW.md`. | jsDelivr, unpkg, cdnjs, Google Fonts |
 
+### MCP protected fields
+
+These settings are backend-only. Never expose the Redis credential or fingerprint
+keyring through Nuxt, API output, logs, or MCP model configuration.
+
+| Variable | Description | Default |
+|---|---|---|
+| `JADAWEL_MCP_PROTECTION_REDIS_URL` | Dedicated Redis URL for the digest-only 24-hour mask-token vault. Required in production when protected fields are enabled. | — |
+| `JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS` | JSON object mapping short key IDs to base64-encoded 32-byte HMAC keys. Retain previous verification keys for at least 24 hours during rotation. | `{}` |
+| `JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID` | Key ID from the fingerprint keyring used for new mask tokens. | — |
+| `JADAWEL_MCP_PROTECTION_ALLOW_SHARED_REDIS` | Allows the vault to fall back to `REDIS_URL`. Use only for tests or local development; keep disabled in production. | `false` |
+
 ## Database backups
 
 Read by `arabase.backup` and the `arabase.tasks.backup_database` Celery task. All of

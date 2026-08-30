@@ -1204,3 +1204,14 @@ examples.
 | `backend/templates/{performance-reviews,project-management-en,saudi-budget-consolidation-en}.json` | Replace generic and US-oriented records with English-transliterated Saudi names and Saudi sample context; remove invalid average footers from the two link-derived count formulas | Make every approved English template feel locally relevant while preserving English schemas, and keep the performance preview aggregation endpoints from returning 500 | low |
 | `backend/src/arabase/template_catalog.py` | Include bundled export hashes in the current-catalog check | Refresh edited template previews instead of treating matching slugs and categories as current forever | low |
 | `web-frontend/test/unit/core/{utils/interfaceThemes.spec.js,components/appUtilities.spec.js}` and `backend/tests/arabase/test_*_template*.py` | Cover theme order/default, English schema language, Saudi records, installability and content refresh | Keep both visible changes and the catalog refresh path regression-tested | low |
+
+## Phase — Isolate MCP protected-value token storage (2026-08-30)
+
+**Context:** Protected MCP responses need short-lived opaque handles whose bindings
+and keyed fingerprints are stored outside the relational database. These settings
+are private backend configuration and therefore cannot live exclusively in the
+additive Arabase module.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/config/settings/base.py` | Added private MCP protection Redis and HMAC keyring settings | Give the additive Arabase protection boundary a fail-closed, deployment-configurable token vault without exposing secrets to the frontend | low |
