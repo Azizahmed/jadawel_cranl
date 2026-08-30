@@ -4,7 +4,4 @@ export default (client) => ({
       headers: { 'Idempotency-Key': idempotencyKey },
     })
   },
-  getPolicy(endpointId) {
-    return client.get(`/arabase/mcp/endpoints/${endpointId}/protection-policy/`)
-  },
 })
