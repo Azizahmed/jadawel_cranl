@@ -8,6 +8,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from arabase.api.html_page.errors import ERROR_HTML_PAGE_DOES_NOT_EXIST
+from arabase.mcp.protection.artifact_boundary import (
+    ArtifactExposureBlocked,
+    page_feed_field_ids,
+    view_query_uses_protected_fields,
+)
+from arabase.mcp.protection.models import ArtifactAudience
 from arabase.views.models import HtmlPageView
 from jadawel.api.decorators import map_exceptions, validate_query_parameters
 from jadawel.api.errors import ERROR_USER_NOT_IN_GROUP
@@ -114,6 +120,13 @@ class HtmlPageViewRowsView(APIView):
 
         model = view.table.get_model()
         hidden_field_ids = get_hidden_field_ids_for_view_user(request.user, view)
+        allowed_field_ids = page_feed_field_ids(
+            view, audience=ArtifactAudience.AUTHENTICATED, user=request.user
+        )
+        if allowed_field_ids is not None and view_query_uses_protected_fields(
+            view, _artifact_endpoint_for_view(view)
+        ):
+            raise ArtifactExposureBlocked()
 
         only_search_by_field_ids = None
         if hidden_field_ids:
@@ -122,6 +135,11 @@ class HtmlPageViewRowsView(APIView):
                 for field_id in model._field_objects.keys()
                 if field_id not in hidden_field_ids
             ]
+        if allowed_field_ids is not None:
+            only_search_by_field_ids = sorted(
+                set(only_search_by_field_ids or model._field_objects.keys())
+                & allowed_field_ids
+            )
 
         queryset = view_handler.get_queryset(
             request.user,
@@ -139,6 +157,7 @@ class HtmlPageViewRowsView(APIView):
             model,
             RowSerializer,
             is_response=True,
+            field_ids=allowed_field_ids,
             exclude_field_ids=hidden_field_ids,
         )
 
@@ -208,6 +227,14 @@ class PublicHtmlPageViewRowsView(APIView):
         view_type = view_type_registry.get_by_model(view)
         model = view.table.get_model()
 
+        allowed_field_ids = page_feed_field_ids(
+            view, audience=ArtifactAudience.PUBLIC, user=request.user
+        )
+        if allowed_field_ids is not None and view_query_uses_protected_fields(
+            view, _artifact_endpoint_for_view(view)
+        ):
+            raise ArtifactExposureBlocked()
+
         (
             queryset,
             field_ids,
@@ -228,8 +255,29 @@ class PublicHtmlPageViewRowsView(APIView):
             RowSerializer,
             is_response=True,
             field_ids=field_ids,
+            exclude_field_ids=(
+                set(field_ids) - allowed_field_ids
+                if allowed_field_ids is not None
+                else None
+            ),
         )
 
         return _feed_response(
             serializer_class(rows, many=True).data, total_count, view.row_limit
         )
+
+
+def _artifact_endpoint_for_view(view: HtmlPageView):
+    """Resolve the endpoint bound to the page without exposing it to callers."""
+
+    from arabase.mcp.protection.models import ArtifactDraft, HtmlPageArtifactState
+
+    state = HtmlPageArtifactState.objects.filter(view_id=view.id).first()
+    if state is not None and state.active_approval is not None:
+        return state.active_approval.endpoint
+    draft = (
+        ArtifactDraft.objects.filter(view_id=view.id)
+        .order_by("-created_on", "-id")
+        .first()
+    )
+    return draft.endpoint if draft else None

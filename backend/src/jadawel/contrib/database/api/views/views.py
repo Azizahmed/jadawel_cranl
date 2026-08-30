@@ -601,6 +601,13 @@ class ViewView(APIView):
             return_validated=True,
         )
 
+        handle_view_update = getattr(view_type, "handle_view_update", None)
+        if handle_view_update is not None:
+            with view_type.map_api_exceptions():
+                artifact_result = handle_view_update(data, view, request.user)
+            if artifact_result is not None:
+                return Response(artifact_result, status=202)
+
         with view_type.map_api_exceptions():
             view = action_type_registry.get_by_type(UpdateViewActionType).do(
                 request.user, view, **data
@@ -2159,6 +2166,13 @@ class PublicViewInfoView(APIView):
         )
         view_specific = view.specific
         view_type = view_type_registry.get_by_model(view_specific)
+
+        # Fork view types may require a durable, audience-bound approval before
+        # the generic serializer returns a public document.  This hook is
+        # intentionally optional so upstream view types remain unchanged.
+        before_public_info = getattr(view_type, "before_public_info", None)
+        if before_public_info is not None:
+            before_public_info(view_specific, request.user)
 
         if not view_type.has_public_info:
             raise ViewDoesNotExist()

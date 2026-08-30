@@ -39,7 +39,11 @@ class GetPageViewMcpTool(MCPTool):
 
     def _sync_call(self, endpoint: MCPEndpoint, args: GetPageViewInput) -> dict:
         return services.get_page_view(
-            endpoint.user, endpoint.workspace, args.view_id, args.include_rows
+            endpoint.user,
+            endpoint.workspace,
+            args.view_id,
+            args.include_rows,
+            endpoint=endpoint,
         )
 
 
@@ -60,6 +64,9 @@ class CreatePageViewMcpTool(MCPTool):
             args.table_id,
             args.name,
             args.html,
+            endpoint=endpoint,
+            protected_field_ids=args.protected_field_ids,
+            audience=args.audience,
         )
 
 
@@ -82,6 +89,9 @@ class UpdatePageViewMcpTool(MCPTool):
             name=args.name,
             allow_external_resources=args.allow_external_resources,
             row_limit=args.row_limit,
+            endpoint=endpoint,
+            protected_field_ids=args.protected_field_ids,
+            audience=args.audience,
         )
 
 
@@ -115,5 +125,11 @@ class RestorePageViewRevisionMcpTool(MCPTool):
         self, endpoint: MCPEndpoint, args: RestorePageViewRevisionInput
     ) -> dict:
         return services.restore_page_revision(
-            endpoint.user, endpoint.workspace, args.view_id, args.revision_id
+            endpoint.user,
+            endpoint.workspace,
+            args.view_id,
+            args.revision_id,
+            endpoint=endpoint,
+            protected_field_ids=args.protected_field_ids,
+            audience=args.audience,
         )

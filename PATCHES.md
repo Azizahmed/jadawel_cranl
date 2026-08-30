@@ -35,6 +35,13 @@ behavior.
 `backend/tests/jadawel/core/mcp/test_mcp_sse.py`, and
 `backend/tests/arabase/test_mcp_protection_boundary.py`.
 
+## MCP artifact approval boundary (2026-08-30)
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/contrib/database/api/views/views.py` | Added an optional `before_public_info` hook before the generic public-view serializer | Let the additive HTML-page view type deny stale or missing protected-artifact approvals before raw page metadata/HTML is returned | low |
+| `backend/src/jadawel/contrib/database/api/views/views.py` | Added an optional `handle_view_update` hook before the generic undoable view update action | Let the additive HTML-page view type route direct REST source edits into a content-blind protected-artifact draft | low |
+
 ## Phase 0 — Strip proprietary `premium/` and `enterprise/` (2026-07-03)
 
 **Context:** The Baserow repo is open-core. Per the non-negotiable legal guardrail, the

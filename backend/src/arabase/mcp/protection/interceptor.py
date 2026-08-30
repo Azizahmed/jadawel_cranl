@@ -53,6 +53,18 @@ def intercept_mcp_tool_call(
         MCPToolOutputContract.MUTATION_RECEIPT,
     ):
         return execute()
+    # Page tools own their artifact draft/approval and runtime projection
+    # checks.  They must not be treated as ordinary row tools (which would
+    # incorrectly reject every protected page call before the service can
+    # return safe metadata or create a draft).
+    if tool.type in {
+        "get_page_view",
+        "create_page_view",
+        "update_page_view",
+        "list_page_view_revisions",
+        "restore_page_view_revision",
+    }:
+        return execute()
     if tool.type not in ("list_table_rows", "create_rows", "update_rows"):
         raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
     if tool.type == "list_table_rows" and not table_has_protected_output(

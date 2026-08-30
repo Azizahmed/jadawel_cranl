@@ -1,3 +1,5 @@
+import uuid
+
 from django.conf import settings
 from django.db import models
 
@@ -229,5 +231,241 @@ class MCPProtectionMutationAudit(CreatedAndUpdatedOnMixin, models.Model):
             models.Index(
                 fields=("endpoint", "created_on"),
                 name="ara_mcp_audit_ep_created_idx",
+            )
+        ]
+
+
+class ArtifactAudience(models.TextChoices):
+    """The two deliberately separate runtime exposure scopes."""
+
+    AUTHENTICATED = "authenticated", "Authenticated viewers"
+    PUBLIC = "public", "Public viewers"
+
+
+class ArtifactDraftStatus(models.TextChoices):
+    PENDING = "pending", "Pending approval"
+    APPROVED = "approved", "Approved"
+    SUPERSEDED = "superseded", "Superseded"
+    REVOKED = "revoked", "Revoked"
+
+
+class ArtifactProvenance(models.TextChoices):
+    DIRECT = "direct", "Direct protected field"
+    DERIVED = "derived", "Derived protected field"
+
+
+class HtmlPageArtifactState(CreatedAndUpdatedOnMixin, models.Model):
+    """Durable runtime pointer for the protected artifact attached to a page."""
+
+    view = models.OneToOneField(
+        "arabase.HtmlPageView",
+        on_delete=models.CASCADE,
+        related_name="mcp_artifact_state",
+    )
+    endpoint = models.ForeignKey(
+        MCPEndpoint,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_states",
+    )
+    active_approval = models.ForeignKey(
+        "arabase.ArtifactApproval",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="active_for_states",
+    )
+    target_generation = models.PositiveBigIntegerField(default=1)
+    # A page that deliberately requested no protected fields can remain live
+    # without a human approval, while the runtime still withholds the protected
+    # projection.  ``False`` plus no approval means blocked, never public-only.
+    public_only = models.BooleanField(default=False)
+
+
+class ArtifactDraft(CreatedAndUpdatedOnMixin, models.Model):
+    """An immutable candidate until an authorized human promotes it."""
+
+    endpoint = models.ForeignKey(
+        MCPEndpoint,
+        on_delete=models.CASCADE,
+        related_name="mcp_artifact_drafts",
+    )
+    view = models.ForeignKey(
+        "arabase.HtmlPageView",
+        on_delete=models.CASCADE,
+        related_name="mcp_artifact_drafts",
+    )
+    candidate_html = models.TextField(blank=True)
+    content_digest = models.CharField(max_length=64)
+    configuration_fingerprint = models.CharField(max_length=64)
+    manifest_fingerprint = models.CharField(max_length=64)
+    requested_field_ids = models.JSONField(default=list)
+    pending_view_values = models.JSONField(default=dict)
+    audience = models.CharField(
+        max_length=16,
+        choices=ArtifactAudience.choices,
+        default=ArtifactAudience.AUTHENTICATED,
+    )
+    status = models.CharField(
+        max_length=16,
+        choices=ArtifactDraftStatus.choices,
+        default=ArtifactDraftStatus.PENDING,
+    )
+    nonce = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    submitted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_drafts_submitted",
+    )
+
+    class Meta:
+        ordering = ("-created_on", "-id")
+        indexes = [
+            models.Index(
+                fields=("endpoint", "view", "status"),
+                name="ara_art_draft_ep_view_idx",
+            ),
+            models.Index(
+                fields=("view", "created_on"),
+                name="ara_art_draft_view_created_idx",
+            ),
+        ]
+
+
+class ArtifactManifestField(CreatedAndUpdatedOnMixin, models.Model):
+    """A stable, content-blind field declaration made by the MCP caller."""
+
+    draft = models.ForeignKey(
+        ArtifactDraft,
+        on_delete=models.CASCADE,
+        related_name="manifest_fields",
+    )
+    field = models.ForeignKey(
+        Field,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_manifest_fields",
+    )
+    stable_field_id = models.PositiveBigIntegerField()
+    field_name_snapshot = models.CharField(max_length=255)
+    table_id_snapshot = models.PositiveBigIntegerField()
+    provenance = models.CharField(max_length=16, choices=ArtifactProvenance.choices)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("draft", "stable_field_id"),
+                name="ara_art_manifest_draft_field_unique",
+            )
+        ]
+        indexes = [
+            models.Index(
+                fields=("stable_field_id", "provenance"),
+                name="ara_art_manifest_field_idx",
+            )
+        ]
+
+
+class ArtifactApproval(CreatedAndUpdatedOnMixin, models.Model):
+    """Exact revision/audience binding that permits runtime projection."""
+
+    draft = models.OneToOneField(
+        ArtifactDraft,
+        on_delete=models.CASCADE,
+        related_name="approval",
+    )
+    endpoint = models.ForeignKey(
+        MCPEndpoint,
+        on_delete=models.CASCADE,
+        related_name="mcp_artifact_approvals",
+    )
+    view = models.ForeignKey(
+        "arabase.HtmlPageView",
+        on_delete=models.CASCADE,
+        related_name="mcp_artifact_approvals",
+    )
+    content_digest = models.CharField(max_length=64)
+    configuration_fingerprint = models.CharField(max_length=64)
+    manifest_fingerprint = models.CharField(max_length=64)
+    policy_revision = models.PositiveBigIntegerField()
+    access_generation = models.PositiveBigIntegerField()
+    target_generation = models.PositiveBigIntegerField()
+    audience = models.CharField(max_length=16, choices=ArtifactAudience.choices)
+    audience_fingerprint = models.CharField(max_length=64)
+    approved_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_approvals_granted",
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    revoked_at = models.DateTimeField(null=True, blank=True)
+    revocation_reason = models.CharField(max_length=64, blank=True, default="")
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=("view", "audience", "revoked_at"),
+                name="ara_art_ap_view_scope_idx",
+            ),
+            models.Index(
+                fields=("endpoint", "policy_revision"),
+                name="ara_art_ap_ep_rev_idx",
+            ),
+        ]
+
+
+class ArtifactAuditEvent(CreatedAndUpdatedOnMixin, models.Model):
+    """Append-only, content-blind audit trail for artifact transitions."""
+
+    endpoint = models.ForeignKey(
+        MCPEndpoint,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_audit_events",
+    )
+    view = models.ForeignKey(
+        "arabase.HtmlPageView",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_audit_events",
+    )
+    draft = models.ForeignKey(
+        ArtifactDraft,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="audit_events",
+    )
+    approval = models.ForeignKey(
+        ArtifactApproval,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="audit_events",
+    )
+    actor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="mcp_artifact_audit_events",
+    )
+    event_type = models.CharField(max_length=32)
+    audience = models.CharField(max_length=16, blank=True, default="")
+    metadata = models.JSONField(default=dict)
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=("view", "created_on"),
+                name="ara_art_audit_view_created_idx",
             )
         ]

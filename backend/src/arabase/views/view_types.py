@@ -90,6 +90,22 @@ class HtmlPageViewType(ViewType):
     # someone actually wants a live-ticking page.
     when_shared_publicly_requires_realtime_events = False
 
+    def before_public_info(self, view: HtmlPageView, user) -> None:
+        """Enforce the artifact binding before the generic public serializer runs."""
+
+        from arabase.mcp.protection.artifact_boundary import page_runtime_access
+
+        page_runtime_access(view, audience="public", user=user)
+
+    def handle_view_update(self, values: dict, view: HtmlPageView, user):
+        """Return a safe pending result for direct REST source edits."""
+
+        from arabase.mcp.protection.artifact_boundary import (
+            human_page_update_as_artifact,
+        )
+
+        return human_page_update_as_artifact(user=user, view=view, values=values)
+
     def get_api_urls(self):
         from arabase.api.html_page import urls as api_urls
 

@@ -49,6 +49,26 @@
   font-size: 12px;
 }
 
+.mcp-artifact-approval {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 6px;
+  padding-inline: 12px;
+  border-block-end: 1px solid $palette-neutral-200;
+  background-color: $palette-yellow-50;
+  color: $palette-neutral-800;
+  font-size: 12px;
+}
+
+.mcp-artifact-approval__label {
+  font-weight: 600;
+}
+
+.mcp-artifact-approval__state {
+  color: $palette-neutral-700;
+}
+
 .html-page-source__description {
   margin-block-end: 12px;
   color: $palette-neutral-700;

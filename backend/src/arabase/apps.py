@@ -102,6 +102,7 @@ class ArabaseConfig(AppConfig):
         from arabase.mcp.protection.actions import (
             register_content_blind_mcp_action_types,
         )
+        from arabase.mcp.protection.artifact_boundary import connect_artifact_lifecycle
         from arabase.mcp.protection.contracts import (
             validate_mcp_tool_protection_contracts,
         )
@@ -110,5 +111,6 @@ class ArabaseConfig(AppConfig):
 
         register_content_blind_mcp_action_types()
         connect_mcp_protection_lifecycle()
+        connect_artifact_lifecycle()
         validate_mcp_tool_protection_contracts(mcp_tool_registry.get_all())
         mcp_tool_registry.register_call_interceptor(intercept_mcp_tool_call)

@@ -31,6 +31,17 @@ class CreatePageViewInput(BaseModel):
             "sandboxed with no network access, which changes how you write it."
         ),
     )
+    protected_field_ids: list[int] = Field(
+        default_factory=list,
+        description=(
+            "Stable IDs of protected fields the artifact intends to expose. "
+            "Supplying any ID creates a pending draft that requires human approval."
+        ),
+    )
+    audience: str = Field(
+        "authenticated",
+        description="Approval audience: authenticated or public.",
+    )
 
 
 class UpdatePageViewInput(BaseModel):
@@ -59,6 +70,17 @@ class UpdatePageViewInput(BaseModel):
             "are clamped rather than rejected."
         ),
     )
+    protected_field_ids: list[int] = Field(
+        default_factory=list,
+        description=(
+            "Stable IDs of protected fields the replacement artifact intends to expose. "
+            "Supplying any ID creates a pending draft that requires human approval."
+        ),
+    )
+    audience: str = Field(
+        "authenticated",
+        description="Approval audience: authenticated or public.",
+    )
 
 
 class ListPageViewRevisionsInput(BaseModel):
@@ -69,4 +91,12 @@ class RestorePageViewRevisionInput(BaseModel):
     view_id: int = Field(..., description="The ID of the page view.")
     revision_id: int = Field(
         ..., description="The ID of the revision to restore, from list_page_revisions."
+    )
+    protected_field_ids: list[int] = Field(
+        default_factory=list,
+        description="Protected field IDs to expose in the restored artifact.",
+    )
+    audience: str = Field(
+        "authenticated",
+        description="Approval audience: authenticated or public.",
     )

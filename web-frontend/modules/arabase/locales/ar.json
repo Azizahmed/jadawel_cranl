@@ -266,6 +266,18 @@
     "settings": "الإعدادات",
     "truncated": "يُعرض {limit} صفًا من أصل {count}."
   },
+  "mcpArtifactApproval": {
+    "label": "حماية صفحة MCP",
+    "approve": "اعتماد المسودة",
+    "approving": "جارٍ الاعتماد…",
+    "states": {
+      "unmanaged": "غير مُدارة",
+      "pending_approval": "بانتظار الاعتماد",
+      "approved": "معتمدة",
+      "public_only": "الحقول الحساسة مخفية",
+      "blocked": "محجوبة حتى الاعتماد"
+    }
+  },
   "htmlPageSourceModal": {
     "title": "مصدر الصفحة",
     "description": "شيفرة HTML التي تُعرض داخل إطار معزول. لا تستطيع الصفحة الوصول إلى الشبكة ولا إلى جلستك.",

@@ -266,6 +266,18 @@
     "settings": "Settings",
     "truncated": "Showing {limit} of {count} rows."
   },
+  "mcpArtifactApproval": {
+    "label": "MCP page protection",
+    "approve": "Approve draft",
+    "approving": "Approving…",
+    "states": {
+      "unmanaged": "Not managed",
+      "pending_approval": "Waiting for approval",
+      "approved": "Approved",
+      "public_only": "Protected fields hidden",
+      "blocked": "Blocked until approval"
+    }
+  },
   "htmlPageSourceModal": {
     "title": "Page source",
     "description": "The HTML rendered inside a sandboxed frame. The page cannot reach the network or your session.",

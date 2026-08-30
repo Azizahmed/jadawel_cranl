@@ -17,6 +17,12 @@ from arabase.api.dashboard_share.views import (
     DashboardShareRotateSlugView,
     DashboardShareView,
 )
+from arabase.api.mcp_protection.artifacts import (
+    ArtifactDraftApprovalView,
+    ArtifactDraftView,
+    ArtifactRevokeView,
+    ArtifactStateView,
+)
 from arabase.api.mcp_protection.views import (
     MCPEndpointProtectionSummariesView,
     MCPProtectionPolicyView,
@@ -27,6 +33,26 @@ from arabase.api.views import WorkspaceActivityView, WorkspaceDatabaseStatsView
 app_name = "arabase.api"
 
 urlpatterns = [
+    re_path(
+        r"^mcp/protection/artifacts/drafts/$",
+        ArtifactDraftView.as_view(),
+        name="mcp_artifact_draft",
+    ),
+    re_path(
+        r"^mcp/protection/artifacts/drafts/(?P<draft_id>[0-9]+)/approve/$",
+        ArtifactDraftApprovalView.as_view(),
+        name="mcp_artifact_draft_approve",
+    ),
+    re_path(
+        r"^mcp/protection/artifacts/views/(?P<view_id>[0-9]+)/revoke/$",
+        ArtifactRevokeView.as_view(),
+        name="mcp_artifact_revoke",
+    ),
+    re_path(
+        r"^mcp/protection/artifacts/views/(?P<view_id>[0-9]+)/$",
+        ArtifactStateView.as_view(),
+        name="mcp_artifact_state",
+    ),
     re_path(
         r"^mcp/endpoints/$",
         MCPEndpointProtectionSummariesView.as_view(),
