@@ -98,3 +98,15 @@ class ArabaseConfig(AppConfig):
         mcp_tool_registry.register(UpdatePageViewMcpTool())
         mcp_tool_registry.register(ListPageViewRevisionsMcpTool())
         mcp_tool_registry.register(RestorePageViewRevisionMcpTool())
+
+        from arabase.mcp.protection.actions import (
+            register_content_blind_mcp_action_types,
+        )
+        from arabase.mcp.protection.contracts import (
+            validate_mcp_tool_protection_contracts,
+        )
+        from arabase.mcp.protection.interceptor import intercept_mcp_tool_call
+
+        register_content_blind_mcp_action_types()
+        validate_mcp_tool_protection_contracts(mcp_tool_registry.get_all())
+        mcp_tool_registry.register_call_interceptor(intercept_mcp_tool_call)

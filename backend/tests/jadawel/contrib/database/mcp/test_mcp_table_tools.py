@@ -2,6 +2,7 @@
 
 import json
 from contextlib import contextmanager
+from uuid import UUID
 
 from django.db import transaction
 
@@ -486,7 +487,12 @@ def test_a_disabled_tool_cannot_be_called_by_name(data_fixture):
         async def inner():
             async with client_session(mcp._mcp_server) as client:
                 result = await client.call_tool("delete_table", {"table_id": table.id})
-                assert "not found" in result.content[0].text
+                assert result.isError is True
+                error = json.loads(result.content[0].text)["error"]
+                assert error["code"] == "MCP_TOOL_NOT_FOUND"
+                assert error["retryable"] is False
+                UUID(error["correlation_id"])
+                assert "delete_table" not in result.content[0].text
 
         with transaction.atomic():
             async_to_sync(inner)()

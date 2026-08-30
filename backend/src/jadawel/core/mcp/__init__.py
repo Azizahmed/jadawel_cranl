@@ -1,9 +1,12 @@
 import contextvars
+import json
 from typing import TYPE_CHECKING
+from uuid import UUID, uuid4
 
 from asgiref.sync import sync_to_async
 from loguru import logger
 
+from jadawel.core.mcp.errors import MCPErrorCode, SafeMCPToolError
 from jadawel.core.mcp.sse import DjangoChannelsSseServerTransport
 
 if TYPE_CHECKING:
@@ -11,6 +14,27 @@ if TYPE_CHECKING:
     from starlette.applications import Starlette
 
 current_key: contextvars.ContextVar[str] = contextvars.ContextVar("current_key")
+
+
+def _safe_tool_error(code: MCPErrorCode, *, retryable: bool, correlation_id: UUID):
+    from mcp.types import CallToolResult, TextContent
+
+    payload = {
+        "error": {
+            "code": code,
+            "correlation_id": str(correlation_id),
+            "retryable": retryable,
+        }
+    }
+    return CallToolResult(
+        content=[
+            TextContent(
+                type="text",
+                text=json.dumps(payload, separators=(",", ":"), sort_keys=True),
+            )
+        ],
+        isError=True,
+    )
 
 
 class JadawelMCPServer:
@@ -78,13 +102,15 @@ class JadawelMCPServer:
             return None
 
     async def call_tool(self, name: str, arguments):
-        from mcp.types import TextContent
-
         from jadawel.core.mcp.registries import mcp_tool_registry
 
         endpoint = await self.get_endpoint()
         if not endpoint:
-            return [TextContent(type="text", text="Endpoint not found.")]
+            return _safe_tool_error(
+                MCPErrorCode.ACCESS_DENIED,
+                retryable=False,
+                correlation_id=uuid4(),
+            )
         tool = mcp_tool_registry.match_by_name(name)
         # `enabled` has to be checked here and not only in `list_tools`: a client
         # is free to skip `tools/list` and call a name it already knows, so
@@ -92,12 +118,39 @@ class JadawelMCPServer:
         # answer is deliberately the same as for an unknown name — whether a tool
         # exists but is switched off is not information a caller needs.
         if not tool or not tool.enabled:
-            return [TextContent(type="text", text=f"Tool '{name}' not found.")]
+            return _safe_tool_error(
+                MCPErrorCode.TOOL_NOT_FOUND,
+                retryable=False,
+                correlation_id=uuid4(),
+            )
         try:
             return await tool.call(endpoint, arguments)
-        except Exception as e:
-            logger.exception("Unhandled exception in MCP tool '{}'", name)
-            return [TextContent(type="text", text=f"Error: {e}")]
+        except SafeMCPToolError as exc:
+            correlation_id = uuid4()
+            logger.bind(
+                correlation_id=str(correlation_id),
+                tool=name,
+                outcome="error",
+                safe_reason=exc.code.value,
+            ).error("MCP tool call rejected")
+            return _safe_tool_error(
+                exc.code,
+                retryable=exc.retryable,
+                correlation_id=correlation_id,
+            )
+        except Exception:
+            correlation_id = uuid4()
+            logger.bind(
+                correlation_id=str(correlation_id),
+                tool=name,
+                outcome="error",
+                safe_reason="MCP_TOOL_FAILED",
+            ).error("MCP tool call failed")
+            return _safe_tool_error(
+                MCPErrorCode.TOOL_FAILED,
+                retryable=False,
+                correlation_id=correlation_id,
+            )
 
     async def list_tools(self) -> list["Tool"]:
         from jadawel.core.mcp.registries import mcp_tool_registry
@@ -157,7 +210,7 @@ class JadawelMCPServer:
                 ) and "after response already completed" in str(exc):
                     return Response(status_code=204)
 
-                logger.exception("Error while handling SSE connection")
+                logger.error("MCP SSE connection failed")
                 return Response("MCP server error", status_code=500)
             finally:
                 # Reset the context variable when done

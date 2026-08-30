@@ -1,5 +1,7 @@
 import json
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Union
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Sequence, Union
+
+from django.core.exceptions import ImproperlyConfigured
 
 from asgiref.sync import sync_to_async
 from pydantic import BaseModel
@@ -83,7 +85,7 @@ class MCPTool(Instance):
             args = self.input_schema(**call_arguments)
         else:
             args = call_arguments
-        result = await sync_to_async(self._sync_call)(endpoint, args)
+        result = await sync_to_async(mcp_tool_registry.call_sync)(self, endpoint, args)
         text = result if isinstance(result, str) else json.dumps(result)
         return [TextContent(type="text", text=text)]
 
@@ -102,6 +104,38 @@ class MCPTool(Instance):
 
 class MCPToolRegistry(Registry[MCPTool]):
     name = "mcp_tools"
+
+    def __init__(self):
+        super().__init__()
+        self._call_interceptor: (
+            Callable[[MCPEndpoint, MCPTool, Any, Callable[[], Any]], Any] | None
+        ) = None
+
+    def call_sync(self, tool: MCPTool, endpoint: MCPEndpoint, args: Any) -> Any:
+        """Execute a validated tool call through the registered interceptor."""
+
+        execute = lambda: tool._sync_call(endpoint, args)
+        if self._call_interceptor is None:
+            return execute()
+        return self._call_interceptor(endpoint, tool, args, execute)
+
+    def register_call_interceptor(
+        self,
+        interceptor: Callable[[MCPEndpoint, MCPTool, Any, Callable[[], Any]], Any],
+    ) -> None:
+        """Register the one process-wide synchronous MCP call interceptor."""
+
+        if self._call_interceptor is not None:
+            raise ImproperlyConfigured(
+                "Only one MCP tool call interceptor can be registered."
+            )
+        self._call_interceptor = interceptor
+
+    @property
+    def call_interceptor(
+        self,
+    ) -> Callable[[MCPEndpoint, MCPTool, Any, Callable[[], Any]], Any] | None:
+        return self._call_interceptor
 
     async def list_all_tools(self, endpoint: MCPEndpoint) -> List["Tool"]:
         """Return only *enabled* tools available to the given endpoint user."""

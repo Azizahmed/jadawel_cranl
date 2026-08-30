@@ -1,6 +1,7 @@
 """Tests for static MCP row tools (list_table_rows, create_rows, update_rows, delete_rows)."""
 
 import json
+from uuid import UUID
 
 from django.db import transaction
 
@@ -11,6 +12,15 @@ from mcp.shared.memory import (
 )
 
 from jadawel.core.mcp import JadawelMCPServer, current_key
+
+
+def assert_safe_tool_error(result, code="MCP_TOOL_FAILED"):
+    assert result.isError is True
+    error = json.loads(result.content[0].text)["error"]
+    assert error["code"] == code
+    assert error["retryable"] is False
+    UUID(error["correlation_id"])
+    assert set(error) == {"code", "correlation_id", "retryable"}
 
 
 @pytest.mark.django_db
@@ -58,7 +68,7 @@ def test_call_tool_list_rows_cross_workspace_returns_error(data_fixture):
                 result = await client.call_tool(
                     "list_table_rows", {"table_id": other_table.id}
                 )
-                assert "does not exist" in result.content[0].text.lower()
+                assert_safe_tool_error(result)
 
         with transaction.atomic():
             async_to_sync(inner)()
@@ -181,7 +191,7 @@ def test_call_tool_create_rows_cross_workspace_returns_error(data_fixture):
                     "create_rows",
                     {"table_id": other_table.id, "rows": [{"Name": "Test"}]},
                 )
-                assert "does not exist" in result.content[0].text.lower()
+                assert_safe_tool_error(result)
 
         with transaction.atomic():
             async_to_sync(inner)()
@@ -207,7 +217,7 @@ def test_call_tool_create_rows_unknown_field_returns_error(data_fixture):
                     "create_rows",
                     {"table_id": table.id, "rows": [{"NoSuchField": "bad"}]},
                 )
-                assert "Unknown field name" in result.content[0].text
+                assert_safe_tool_error(result)
 
         with transaction.atomic():
             async_to_sync(inner)()
@@ -265,7 +275,7 @@ def test_call_tool_update_rows_cross_workspace_returns_error(data_fixture):
                     "update_rows",
                     {"table_id": other_table.id, "rows": [{"id": 1, "Name": "Test"}]},
                 )
-                assert "does not exist" in result.content[0].text.lower()
+                assert_safe_tool_error(result)
 
         with transaction.atomic():
             async_to_sync(inner)()
@@ -320,7 +330,7 @@ def test_call_tool_delete_rows_cross_workspace_returns_error(data_fixture):
                     "delete_rows",
                     {"table_id": other_table.id, "row_ids": [1]},
                 )
-                assert "does not exist" in result.content[0].text.lower()
+                assert_safe_tool_error(result)
 
         with transaction.atomic():
             async_to_sync(inner)()

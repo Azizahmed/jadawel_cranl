@@ -16,6 +16,25 @@ kept as written for the historical record.
 
 ---
 
+## MCP protection boundary (2026-08-30)
+
+**Context:** Endpoint-specific protected fields need one generic enforcement seam
+around every MCP tool call. The fork owns the protection policy and contracts under
+`arabase`; core only exposes the interception point and content-blind transport
+behavior.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/core/mcp/registries.py` | Added one optional synchronous call interceptor around `_sync_call`, after input validation and before serialization | Let Arabase enforce protection in the same worker-thread and transaction context without editing individual core tools | low |
+| `backend/src/jadawel/core/mcp/errors.py` | Added an allowlisted safe tool exception and protocol error codes | Let the additive protection interceptor fail closed without returning caller-controlled exception text | low |
+| `backend/src/jadawel/core/mcp/__init__.py` | Replaced caller-visible endpoint, tool, and exception strings with fixed `CallToolResult` errors carrying a correlation ID and retryability flag | Prevent arguments, keys, values, and exception text from crossing the MCP error boundary | low |
+| `backend/src/jadawel/core/mcp/sse.py` | Removed request bodies, serialized messages, session URIs/IDs, and validation details from transport logs and failure messages | Keep diagnostic sinks content-blind before protected values can traverse MCP | low |
+
+**Tests:** `backend/tests/jadawel/core/mcp/test_mcp_registries.py`,
+`backend/tests/jadawel/core/mcp/test_mcp_server.py`,
+`backend/tests/jadawel/core/mcp/test_mcp_sse.py`, and
+`backend/tests/arabase/test_mcp_protection_boundary.py`.
+
 ## Phase 0 — Strip proprietary `premium/` and `enterprise/` (2026-07-03)
 
 **Context:** The Baserow repo is open-core. Per the non-negotiable legal guardrail, the

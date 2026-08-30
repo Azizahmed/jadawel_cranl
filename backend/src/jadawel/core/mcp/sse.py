@@ -62,9 +62,7 @@ class DjangoChannelsSseServerTransport:
 
         super().__init__()
         self._endpoint = endpoint
-        logger.debug(
-            f"DjangoChannelsSseServerTransport initialized with endpoint: {endpoint}"
-        )
+        logger.debug("MCP SSE transport initialized")
 
     @asynccontextmanager
     async def connect_sse(self, scope: "Scope", receive: "Receive", send: "Send"):
@@ -97,7 +95,7 @@ class DjangoChannelsSseServerTransport:
         full_message_path = root_path.rstrip("/") + self._endpoint
         session_uri = f"{quote(full_message_path)}?session_id={session_id.hex}"
         # self._read_stream_writers[session_id] = read_stream_writer
-        logger.debug(f"Created new session with ID: {session_id}")
+        logger.debug("Created MCP SSE session")
 
         sse_stream_writer, sse_stream_reader = anyio.create_memory_object_stream[
             dict[str, Any]
@@ -117,10 +115,10 @@ class DjangoChannelsSseServerTransport:
                 # endpoint event and the group being ready to receive.
                 await group_ready.wait()
                 await sse_stream_writer.send({"event": "endpoint", "data": session_uri})
-                logger.debug(f"Sent endpoint event: {session_uri}")
+                logger.debug("Sent MCP SSE endpoint event")
 
                 async for session_message in write_stream_reader:
-                    logger.debug(f"Sending message via SSE: {session_message}")
+                    logger.debug("Sending MCP SSE message")
                     await sse_stream_writer.send(
                         {
                             "event": "message",
@@ -131,7 +129,7 @@ class DjangoChannelsSseServerTransport:
                     )
 
         async def group_listener():
-            logger.debug(f"Listening for incoming messages on group: {group_name}")
+            logger.debug("Listening for MCP SSE messages")
             await channel_layer.group_add(group_name, channel_name)
             group_ready.set()
             try:
@@ -143,9 +141,11 @@ class DjangoChannelsSseServerTransport:
                                 incoming["data"]
                             )
                             await read_stream_writer.send(SessionMessage(json_msg))
-                        except ValidationError as e:
-                            logger.error(f"Failed to decode message: {e}")
-                            await read_stream_writer.send(e)
+                        except ValidationError:
+                            logger.error("Failed to decode MCP SSE message")
+                            await read_stream_writer.send(
+                                ValueError("MCP message validation failed")
+                            )
             finally:
                 await channel_layer.group_discard(group_name, channel_name)
 
@@ -158,7 +158,7 @@ class DjangoChannelsSseServerTransport:
                 )(scope, receive, send)
                 await read_stream_writer.aclose()
                 await write_stream_reader.aclose()
-                logger.debug(f"SSE client disconnected {session_id}")
+                logger.debug("MCP SSE client disconnected")
 
             logger.debug("Starting SSE response task")
             tg.start_soon(response_wrapper, scope, receive, send)
@@ -186,34 +186,34 @@ class DjangoChannelsSseServerTransport:
 
         try:
             session_id = UUID(hex=session_id_param)
-            logger.debug(f"Parsed session ID: {session_id}")
+            logger.debug("Accepted MCP SSE session identifier")
         except ValueError:
-            logger.warning(f"Received invalid session ID: {session_id_param}")
+            logger.warning("Received invalid MCP SSE session identifier")
             response = Response("Invalid session ID", status_code=400)
             return await response(scope, receive, send)
 
         body = await request.body()
-        logger.debug(f"Received JSON: {body}")
+        logger.debug("Received MCP SSE request body")
         channel_layer = get_channel_layer()
 
         try:
             message = types.JSONRPCMessage.model_validate_json(body)
             session_message = SessionMessage(message)
-            logger.debug(f"Validated client message: {session_message}")
-        except ValidationError as err:
-            logger.error(f"Failed to parse message: {err}")
+            logger.debug("Validated MCP SSE client message")
+        except ValidationError:
+            logger.error("Failed to parse MCP SSE client message")
             response = Response("Could not parse message", status_code=400)
             await response(scope, receive, send)
             await channel_layer.group_send(
                 f"mcp_sse_{session_id.hex}",
                 {
                     "type": "sse.message",
-                    "data": str(err),
+                    "data": "MCP message validation failed",
                 },
             )
             return
 
-        logger.debug(f"Sending message to group for session: {session_id}")
+        logger.debug("Sending MCP message to SSE session")
         response = Response("Accepted", status_code=202)
         await response(scope, receive, send)
         await channel_layer.group_send(
