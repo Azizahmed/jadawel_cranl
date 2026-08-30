@@ -54,3 +54,17 @@ of the deployed app image; they need separate hosting to go live.
 ## Skills
 
 `.claude/skills` is a symlink to `.agents/skills`, the canonical location for project skills. Both paths resolve to the same directory.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are tracked in GitHub Issues for `Azizahmed/jadawel_cranl`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the canonical triage labels defined for this repository. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repository uses a single-context domain layout. See `docs/agents/domain.md`.
