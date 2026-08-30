@@ -1,3 +1,6 @@
+// Registered as a standalone stylesheet, so it must load its own palette.
+@import '@jadawel/modules/core/assets/scss/colors';
+
 .mcp-protection-flow {
   max-inline-size: 760px;
 
