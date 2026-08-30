@@ -20,6 +20,7 @@ from arabase.integrations.local_jadawel.models import (
     LocalJadawelTableServiceAggregationSortBy,
     LocalJadawelUpcomingRows,
 )
+from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionPolicy
 from arabase.views.models import (
     HtmlPageView,
     HtmlPageViewFieldOptions,
@@ -39,6 +40,8 @@ __all__ = [
     "LocalJadawelTableServiceAggregationSeries",
     "LocalJadawelTableServiceAggregationSortBy",
     "LocalJadawelUpcomingRows",
+    "MCPProtectedField",
+    "MCPProtectionPolicy",
     "HtmlPageView",
     "HtmlPageViewFieldOptions",
     "HtmlPageViewRevision",

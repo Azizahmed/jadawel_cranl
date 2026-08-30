@@ -1,0 +1,97 @@
+from rest_framework import serializers
+
+from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionPolicy
+from jadawel.core.mcp.models import MCPEndpoint
+
+
+class MCPProtectedFieldSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source="field_id", read_only=True)
+    name = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
+    table = serializers.SerializerMethodField()
+    database = serializers.SerializerMethodField()
+
+    class Meta:
+        model = MCPProtectedField
+        fields = (
+            "id",
+            "state",
+            "safe_reason_code",
+            "name",
+            "type",
+            "table",
+            "database",
+        )
+
+    def _may_display(self, instance) -> bool:
+        return instance.field_id in self.context["display_field_ids"]
+
+    def get_name(self, instance) -> str | None:
+        return instance.field.name if self._may_display(instance) else None
+
+    def get_type(self, instance) -> str | None:
+        if not self._may_display(instance):
+            return None
+        return instance.field.get_type().type
+
+    def get_table(self, instance) -> dict | None:
+        if not self._may_display(instance):
+            return None
+        table = instance.field.table
+        return {"id": table.id, "name": table.name}
+
+    def get_database(self, instance) -> dict | None:
+        if not self._may_display(instance):
+            return None
+        database = instance.field.table.database
+        return {"id": database.id, "name": database.name}
+
+
+class MCPProtectionPolicySerializer(serializers.ModelSerializer):
+    endpoint_id = serializers.IntegerField(read_only=True)
+    protected_field_count = serializers.SerializerMethodField()
+    fields = MCPProtectedFieldSerializer(
+        source="protected_fields", many=True, read_only=True
+    )
+
+    class Meta:
+        model = MCPProtectionPolicy
+        fields = (
+            "endpoint_id",
+            "revision",
+            "lifecycle_status",
+            "safe_reason_code",
+            "protected_field_count",
+            "fields",
+            "created_on",
+            "updated_on",
+        )
+
+    @staticmethod
+    def get_protected_field_count(instance) -> int:
+        return len(instance.protected_fields.all())
+
+
+class MCPEndpointProtectionSummarySerializer(serializers.ModelSerializer):
+    endpoint_id = serializers.IntegerField(source="id", read_only=True)
+    workspace_id = serializers.IntegerField(read_only=True)
+    workspace_name = serializers.CharField(source="workspace.name", read_only=True)
+    protected_field_count = serializers.IntegerField(read_only=True)
+    lifecycle_status = serializers.CharField(
+        source="arabase_protection_policy.lifecycle_status", read_only=True
+    )
+    safe_reason_code = serializers.CharField(
+        source="arabase_protection_policy.safe_reason_code", read_only=True
+    )
+
+    class Meta:
+        model = MCPEndpoint
+        fields = (
+            "endpoint_id",
+            "name",
+            "workspace_id",
+            "workspace_name",
+            "protected_field_count",
+            "lifecycle_status",
+            "safe_reason_code",
+        )

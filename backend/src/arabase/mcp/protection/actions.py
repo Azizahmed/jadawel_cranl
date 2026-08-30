@@ -1,6 +1,7 @@
 import dataclasses
 
 from django.contrib.auth.models import AbstractUser
+from django.db import transaction
 
 from jadawel.core.action.registries import action_type_registry
 from jadawel.core.mcp.actions import (
@@ -23,6 +24,7 @@ class ContentBlindCreateMCPEndpointActionType(CreateMCPEndpointActionType):
         workspace_name: str
 
     @classmethod
+    @transaction.atomic
     def do(cls, user: AbstractUser, workspace: Workspace, name: str):
         endpoint = MCPEndpointHandler().create_endpoint(user, workspace, name)
         cls.register_action(
