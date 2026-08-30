@@ -35,9 +35,7 @@ def intercept_mcp_tool_call(
         return execute()
     if tool.type not in ("list_table_rows", "create_rows", "update_rows"):
         raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
-    if not any(
-        field.table_id == args.table_id for field in policy.protected_fields
-    ):
+    if not any(field.table_id == args.table_id for field in policy.protected_fields):
         return execute()
     if tool.type == "list_table_rows" and getattr(args, "search", ""):
         raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
