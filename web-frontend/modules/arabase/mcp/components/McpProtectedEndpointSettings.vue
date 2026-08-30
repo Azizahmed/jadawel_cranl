@@ -20,6 +20,26 @@
           :endpoint="endpoint"
           @deleted="deleteEndpoint(endpoint.id)"
         />
+        <template
+          v-for="endpoint in endpoints"
+          :key="`protection-${endpoint.id}`"
+        >
+          <button
+            type="button"
+            class="button margin-top-1"
+            :data-test-id="`edit-protection-${endpoint.id}`"
+            @click="editingEndpointId = endpoint.id"
+          >
+            {{ $t('mcpProtection.editAction') }}
+          </button>
+          <McpProtectionPolicyEditor
+            v-if="editingEndpointId === endpoint.id"
+            :endpoint="endpoint"
+            :applications="applications"
+            @cancel="editingEndpointId = null"
+            @saved="policySaved"
+          />
+        </template>
       </div>
     </template>
     <template v-else>
@@ -43,13 +63,19 @@ import error from '@jadawel/modules/core/mixins/error'
 import McpEndpoint from '@jadawel/modules/core/components/settings/McpEndpoint'
 import McpEndpointService from '@jadawel/modules/core/services/mcpEndpoint'
 import McpProtectionFlow from '@jadawel/modules/arabase/mcp/components/McpProtectionFlow'
+import McpProtectionPolicyEditor from '@jadawel/modules/arabase/mcp/components/McpProtectionPolicyEditor'
 
 export default {
   name: 'McpProtectedEndpointSettings',
-  components: { McpEndpoint, McpProtectionFlow },
+  components: { McpEndpoint, McpProtectionFlow, McpProtectionPolicyEditor },
   mixins: [error],
   data() {
-    return { page: 'list', endpoints: [], listLoading: true }
+    return {
+      page: 'list',
+      endpoints: [],
+      listLoading: true,
+      editingEndpointId: null,
+    }
   },
   computed: {
     ...mapState({
@@ -76,6 +102,9 @@ export default {
       this.endpoints = this.endpoints.filter(
         (endpoint) => endpoint.id !== endpointId
       )
+    },
+    policySaved() {
+      this.editingEndpointId = null
     },
   },
 }

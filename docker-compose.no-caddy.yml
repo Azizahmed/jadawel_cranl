@@ -53,7 +53,7 @@ x-backend-variables:
   REDIS_USER:
   REDIS_SSL_CERT_REQS:
   REDIS_SSL_CA_CERTS:
-  JADAWEL_MCP_PROTECTION_REDIS_URL:
+  JADAWEL_MCP_PROTECTION_REDIS_URL: ${JADAWEL_MCP_PROTECTION_REDIS_URL:-redis://:${REDIS_PASSWORD}@mcp-protection-redis:6379/0}
   JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS:
   JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID:
   JADAWEL_MCP_PROTECTION_ALLOW_SHARED_REDIS:
@@ -222,6 +222,7 @@ services:
     depends_on:
       - db
       - redis
+      - mcp-protection-redis
     volumes:
       - media:/jadawel/media
     networks:
@@ -370,6 +371,25 @@ services:
     networks:
       local:
 
+  mcp-protection-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    mem_limit: ${JADAWEL_MCP_PROTECTION_REDIS_MEM_LIMIT:-256m}
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?}
+    command: >-
+      redis-server --requirepass ${REDIS_PASSWORD:?} --maxmemory 128mb
+      --maxmemory-policy noeviction --appendonly yes
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      local:
+    volumes:
+      - mcp_protection_redisdata:/data
+
   # By default, the media volume will be owned by root on startup. Ensure it is owned by
   # the same user that django is running as, so it can write user files.
   volume-permissions-fixer:
@@ -382,6 +402,7 @@ services:
 
 volumes:
   pgdata:
+  mcp_protection_redisdata:
   media:
   caddy_data:
   caddy_config:

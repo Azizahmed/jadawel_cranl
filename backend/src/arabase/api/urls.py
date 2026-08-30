@@ -20,6 +20,7 @@ from arabase.api.dashboard_share.views import (
 from arabase.api.mcp_protection.views import (
     MCPEndpointProtectionSummariesView,
     MCPProtectionPolicyView,
+    MCPProtectionReadinessView,
 )
 from arabase.api.views import WorkspaceActivityView, WorkspaceDatabaseStatsView
 
@@ -30,6 +31,11 @@ urlpatterns = [
         r"^mcp/endpoints/$",
         MCPEndpointProtectionSummariesView.as_view(),
         name="mcp_endpoint_protection_summaries",
+    ),
+    re_path(
+        r"^mcp/protection/readiness/$",
+        MCPProtectionReadinessView.as_view(),
+        name="mcp_protection_readiness",
     ),
     re_path(
         r"^mcp/endpoints/(?P<endpoint_id>[0-9]+)/protection-policy/$",

@@ -46,6 +46,7 @@ keyring through Nuxt, API output, logs, or MCP model configuration.
 | `JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS` | JSON object mapping short key IDs to base64-encoded 32-byte HMAC keys. Retain previous verification keys for at least 24 hours during rotation. | `{}` |
 | `JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID` | Key ID from the fingerprint keyring used for new mask tokens. | — |
 | `JADAWEL_MCP_PROTECTION_ALLOW_SHARED_REDIS` | Allows the vault to fall back to `REDIS_URL`. Use only for tests or local development; keep disabled in production. | `false` |
+| `JADAWEL_MCP_PROTECTION_REDIS_MEM_LIMIT` | Container memory limit for the dedicated protection Redis service in Compose. The service itself is capped at 128 MiB with `noeviction`. | `256m` |
 
 ## Database backups
 

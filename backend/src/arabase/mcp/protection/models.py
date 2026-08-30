@@ -22,6 +22,14 @@ class MCPProtectionSafeReason(models.TextChoices):
     POLICY_COUNT_MISMATCH = "POLICY_COUNT_MISMATCH", "Policy count mismatch"
     POLICY_STATE_INVALID = "POLICY_STATE_INVALID", "Policy state invalid"
     POLICY_RELATION_INVALID = "POLICY_RELATION_INVALID", "Policy relation invalid"
+    WORKSPACE_SUSPENDED = "WORKSPACE_SUSPENDED", "Workspace suspended"
+    MEMBERSHIP_CHANGED = "MEMBERSHIP_CHANGED", "Membership changed"
+    USER_INACTIVE = "USER_INACTIVE", "User inactive"
+    CREDENTIAL_ROTATED = "CREDENTIAL_ROTATED", "Credential rotated"
+    PROTECTION_REDIS_UNAVAILABLE = (
+        "PROTECTION_REDIS_UNAVAILABLE",
+        "Protection Redis unavailable",
+    )
 
 
 class MCPProtectionPolicy(CreatedAndUpdatedOnMixin, models.Model):
@@ -157,5 +165,69 @@ class MCPProtectionCommand(CreatedAndUpdatedOnMixin, models.Model):
             models.Index(
                 fields=("actor", "created_on"),
                 name="ara_mcp_cmd_actor_created_idx",
+            )
+        ]
+
+
+class MCPProtectionEditCommand(CreatedAndUpdatedOnMixin, models.Model):
+    """Bounded idempotency state for one endpoint policy replacement."""
+
+    actor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="mcp_protection_edit_commands",
+    )
+    policy = models.ForeignKey(
+        MCPProtectionPolicy,
+        on_delete=models.CASCADE,
+        related_name="edit_commands",
+    )
+    idempotency_key = models.CharField(max_length=128)
+    request_fingerprint = models.CharField(max_length=64)
+    resulting_revision = models.PositiveBigIntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("actor", "idempotency_key"),
+                name="arabase_unique_mcp_edit_command_key",
+            )
+        ]
+        indexes = [
+            models.Index(
+                fields=("actor", "created_on"),
+                name="ara_mcp_edit_actor_created_idx",
+            )
+        ]
+
+
+class MCPProtectionMutationAudit(CreatedAndUpdatedOnMixin, models.Model):
+    """Content-blind audit record for a protected MCP row mutation."""
+
+    endpoint = models.ForeignKey(
+        MCPEndpoint,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="protection_mutation_audits",
+    )
+    actor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="mcp_protection_mutation_audits",
+    )
+    tool_type = models.CharField(max_length=64)
+    table_id = models.PositiveBigIntegerField()
+    row_count = models.PositiveIntegerField()
+    outcome = models.CharField(max_length=24, default="success")
+    policy_revision = models.PositiveBigIntegerField(default=0)
+    access_generation = models.PositiveBigIntegerField(default=0)
+    protected_field_ids = models.JSONField(default=list)
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=("endpoint", "created_on"),
+                name="ara_mcp_audit_ep_created_idx",
             )
         ]

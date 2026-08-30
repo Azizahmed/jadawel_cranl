@@ -1,0 +1,96 @@
+from django.shortcuts import reverse
+
+import pytest
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_409_CONFLICT
+
+from arabase.mcp.protection.models import (
+    MCPProtectedField,
+    MCPProtectionEditCommand,
+)
+
+
+def _url(endpoint):
+    return reverse(
+        "api:arabase:mcp_protection_policy", kwargs={"endpoint_id": endpoint.id}
+    )
+
+
+@pytest.mark.django_db
+def test_policy_replace_is_revisioned_and_idempotent(api_client, data_fixture):
+    user, token = data_fixture.create_user_and_token()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    first = data_fixture.create_text_field(table=table, name="First")
+    second = data_fixture.create_text_field(table=table, name="Second")
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=first
+    )
+    headers = {
+        "HTTP_AUTHORIZATION": f"JWT {token}",
+        "HTTP_IDEMPOTENCY_KEY": "policy-edit-0001",
+    }
+    payload = {
+        "protected_field_ids": [second.id],
+        "expected_revision": 1,
+        "confirm_remove_field_ids": [first.id],
+    }
+
+    response = api_client.patch(_url(endpoint), payload, format="json", **headers)
+    replay = api_client.patch(_url(endpoint), payload, format="json", **headers)
+
+    assert response.status_code == HTTP_200_OK
+    assert replay.status_code == HTTP_200_OK
+    assert response.json() == replay.json()
+    assert response.json()["revision"] == 2
+    assert list(
+        MCPProtectedField.objects.filter(
+            policy=endpoint.arabase_protection_policy
+        ).values_list("field_id", flat=True)
+    ) == [second.id]
+    assert MCPProtectionEditCommand.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_policy_replace_rejects_stale_revision_and_unconfirmed_removal(
+    api_client, data_fixture
+):
+    user, token = data_fixture.create_user_and_token()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(table=table)
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    headers = {
+        "HTTP_AUTHORIZATION": f"JWT {token}",
+        "HTTP_IDEMPOTENCY_KEY": "policy-edit-0002",
+    }
+
+    unconfirmed = api_client.patch(
+        _url(endpoint),
+        {
+            "protected_field_ids": [],
+            "expected_revision": 1,
+            "confirm_remove_field_ids": [],
+        },
+        format="json",
+        **headers,
+    )
+    stale = api_client.patch(
+        _url(endpoint),
+        {
+            "protected_field_ids": [field.id],
+            "expected_revision": 99,
+            "confirm_remove_field_ids": [],
+        },
+        format="json",
+        HTTP_AUTHORIZATION=f"JWT {token}",
+        HTTP_IDEMPOTENCY_KEY="policy-edit-0003",
+    )
+
+    assert unconfirmed.status_code == HTTP_400_BAD_REQUEST
+    assert stale.status_code == HTTP_409_CONFLICT

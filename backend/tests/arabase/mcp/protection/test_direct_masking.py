@@ -12,7 +12,11 @@ from mcp.shared.memory import (
 )
 
 from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionPolicy
-from arabase.mcp.protection.vault import MaskTokenVaultUnavailable, RedisMaskTokenVault
+from arabase.mcp.protection.vault import (
+    MASK_TOKEN_REDIS_PREFIX,
+    MaskTokenVaultUnavailable,
+    RedisMaskTokenVault,
+)
 from jadawel.core.mcp import JadawelMCPServer, current_key
 
 FINGERPRINT_KEY = base64.b64encode(b"f" * 32).decode()
@@ -20,6 +24,13 @@ FINGERPRINT_KEY = base64.b64encode(b"f" * 32).decode()
 
 def _is_mask_token(value):
     return set(value) == {"$jadawelProtected"} and value["$jadawelProtected"]["v"] == 1
+
+
+def _token_record_count(redis):
+    return sum(
+        len(key) == len(MASK_TOKEN_REDIS_PREFIX) + 64
+        for key in redis.scan_iter(match=f"{MASK_TOKEN_REDIS_PREFIX}*")
+    )
 
 
 @pytest.mark.django_db
@@ -74,7 +85,7 @@ def test_list_rows_masks_direct_values_but_preserves_true_empty_values(
     assert _is_mask_token(row["Amount"])
     assert _is_mask_token(row["Approved"])
     assert row["Empty"] == ""
-    assert redis.dbsize() == 3
+    assert _token_record_count(redis) == 3
 
 
 @pytest.mark.django_db
@@ -217,7 +228,63 @@ def test_create_and_update_rows_mask_every_direct_protected_value(
     finally:
         current_key.reset(key_token)
 
-    assert redis.dbsize() == 2
+    assert _token_record_count(redis) == 2
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_update_accepts_only_a_same_cell_preservation_token(data_fixture, monkeypatch):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                created = await client.call_tool(
+                    "create_rows", {"table_id": table.id, "rows": [{"Secret": "keep"}]}
+                )
+                created_row = json.loads(created.content[0].text)[0]
+                preserved = await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {
+                                "id": created_row["id"],
+                                "Secret": created_row["Secret"],
+                            }
+                        ],
+                    },
+                )
+                return created_row, preserved
+
+        with transaction.atomic():
+            created_row, preserved = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert preserved.isError is False
+    assert json.loads(preserved.content[0].text)[0]["Secret"] != "keep"
+    raw = table.get_model(attribute_names=True).objects.get(id=created_row["id"])
+    assert raw.secret == "keep"
 
 
 @pytest.mark.django_db

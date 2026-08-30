@@ -1215,3 +1215,5 @@ additive Arabase module.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `backend/src/jadawel/config/settings/base.py` | Added private MCP protection Redis and HMAC keyring settings | Give the additive Arabase protection boundary a fail-closed, deployment-configurable token vault without exposing secrets to the frontend | low |
+
+| `backend/src/jadawel/contrib/database/rows/actions.py` | Skip content-bearing generic row action history and webhook events while a protected MCP mutation is active | Keep plaintext protected values out of durable action/webhook payloads; the Arabase boundary records a content-blind mutation audit instead | medium |

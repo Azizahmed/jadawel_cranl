@@ -7,6 +7,7 @@ from django.db import IntegrityError, transaction
 
 from rest_framework.exceptions import ValidationError
 
+from arabase.mcp.protection.admission import ensure_policy_admission_allowed
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectionCommand,
@@ -51,6 +52,8 @@ def create_protected_mcp_endpoint(
         raise ValidationError(
             {"confirm_empty_policy": "Confirm an endpoint with no protected fields."}
         )
+    if protected_field_ids:
+        ensure_policy_admission_allowed(user)
 
     fingerprint = _request_fingerprint(
         name, workspace_id, protected_field_ids, confirm_empty_policy

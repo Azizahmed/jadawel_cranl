@@ -1,7 +1,8 @@
 from django.db.models import Count
 
 from drf_spectacular.utils import extend_schema
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,12 +12,21 @@ from arabase.api.mcp_protection.serializers import (
     CreateProtectedMCPEndpointSerializer,
     MCPEndpointProtectionSummarySerializer,
     MCPProtectionPolicySerializer,
+    ReactivateMCPProtectionPolicySerializer,
+    UpdateMCPProtectionPolicySerializer,
 )
 from arabase.mcp.protection.creation import (
     create_protected_mcp_endpoint,
     validate_idempotency_key,
 )
+from arabase.mcp.protection.editing import (
+    MCPProtectionPolicyConflict,
+    MCPProtectionPolicyNotReady,
+    reactivate_mcp_protection_policy,
+    replace_mcp_protection_policy,
+)
 from arabase.mcp.protection.models import MCPProtectionPolicy
+from arabase.mcp.protection.readiness import check_mcp_protection_policy_readiness
 from jadawel.api.decorators import map_exceptions, validate_body
 from jadawel.api.errors import ERROR_GROUP_DOES_NOT_EXIST, ERROR_USER_NOT_IN_GROUP
 from jadawel.api.mcp.errors import (
@@ -78,6 +88,95 @@ class MCPProtectionPolicyView(APIView):
             MCPProtectionPolicySerializer(
                 policy, context={"display_field_ids": display_field_ids}
             ).data
+        )
+
+    @extend_schema(
+        tags=["Arabase MCP protection"],
+        operation_id="replace_mcp_protection_policy",
+        request=UpdateMCPProtectionPolicySerializer,
+        responses={200: MCPProtectionPolicySerializer},
+    )
+    @validate_body(UpdateMCPProtectionPolicySerializer)
+    @map_exceptions(
+        {MCPProtectionPolicyConflict: ("MCP_PROTECTION_REVISION_CONFLICT", 409)}
+    )
+    def patch(self, request: Request, endpoint_id: int, data: dict) -> Response:
+        idempotency_key = validate_idempotency_key(
+            request.headers.get("Idempotency-Key")
+        )
+        result = replace_mcp_protection_policy(
+            user=request.user,
+            endpoint_id=endpoint_id,
+            idempotency_key=idempotency_key,
+            **data,
+        )
+        policy = result.policy
+        display_field_ids = {
+            relation.field_id
+            for relation in policy.protected_fields.select_related(
+                "field__table__database__workspace"
+            ).all()
+            if _may_display_field_metadata(request.user, relation.field)
+        }
+        return Response(
+            MCPProtectionPolicySerializer(
+                policy, context={"display_field_ids": display_field_ids}
+            ).data
+        )
+
+    # The policy is a full-set replacement; keep PATCH for existing clients and
+    # accept PUT for clients that model replacement semantics explicitly.
+    put = patch
+
+    @extend_schema(
+        tags=["Arabase MCP protection"],
+        operation_id="reactivate_mcp_protection_policy",
+        request=ReactivateMCPProtectionPolicySerializer,
+        responses={200: MCPProtectionPolicySerializer},
+    )
+    @validate_body(ReactivateMCPProtectionPolicySerializer)
+    @map_exceptions(
+        {
+            MCPProtectionPolicyConflict: ("MCP_PROTECTION_REVISION_CONFLICT", 409),
+            MCPProtectionPolicyNotReady: ("MCP_PROTECTION_NOT_READY", 409),
+        }
+    )
+    def post(self, request: Request, endpoint_id: int, data: dict) -> Response:
+        policy = reactivate_mcp_protection_policy(
+            user=request.user, endpoint_id=endpoint_id, **data
+        )
+        display_field_ids = {
+            relation.field_id
+            for relation in policy.protected_fields.select_related(
+                "field__table__database__workspace"
+            ).all()
+            if _may_display_field_metadata(request.user, relation.field)
+        }
+        return Response(
+            MCPProtectionPolicySerializer(
+                policy, context={"display_field_ids": display_field_ids}
+            ).data
+        )
+
+
+class MCPProtectionReadinessView(APIView):
+    """Public, content-blind readiness probe for the protected-value boundary."""
+
+    permission_classes = (AllowAny,)
+
+    @extend_schema(
+        tags=["Arabase MCP protection"],
+        operation_id="mcp_protection_readiness",
+        responses={200: dict, 503: dict},
+    )
+    def get(self, request: Request) -> Response:
+        readiness = check_mcp_protection_policy_readiness()
+        payload = {"ready": readiness.ready, "reason": readiness.safe_reason_code}
+        return Response(
+            payload,
+            status=status.HTTP_200_OK
+            if readiness.ready
+            else status.HTTP_503_SERVICE_UNAVAILABLE,
         )
 
 

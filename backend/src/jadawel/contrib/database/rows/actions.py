@@ -140,6 +140,10 @@ class CreateRowActionType(UndoableActionType):
             raise CannotCreateRowsInTable(
                 "Can't create rows because it has a data sync."
             )
+        from arabase.mcp.protection.audit import is_content_blind_mcp_mutation
+
+        if is_content_blind_mcp_mutation():
+            send_webhook_events = False
         rh = RowHandler()
         row = rh.create_row(
             user,
@@ -175,9 +179,12 @@ class CreateRowActionType(UndoableActionType):
             view_id=view.id if view else None,
             view_name=view.name if view else None,
         )
-        cls.register_action(
-            user, params, scope=cls.scope(table.id), workspace=workspace
-        )
+        from arabase.mcp.protection.audit import is_content_blind_mcp_mutation
+
+        if not is_content_blind_mcp_mutation():
+            cls.register_action(
+                user, params, scope=cls.scope(table.id), workspace=workspace
+            )
 
         return row
 
@@ -258,6 +265,10 @@ class CreateRowsActionType(UndoableActionType):
             raise CannotCreateRowsInTable(
                 "Can't create rows because it has a data sync."
             )
+        from arabase.mcp.protection.audit import is_content_blind_mcp_mutation
+
+        if is_content_blind_mcp_mutation():
+            send_webhook_events = False
         rh = RowHandler()
         created_rows = rh.create_rows(
             user,
@@ -295,9 +306,12 @@ class CreateRowsActionType(UndoableActionType):
             view_id=view.id if view else None,
             view_name=view.name if view else None,
         )
-        cls.register_action(
-            user, params, scope=cls.scope(table.id), workspace=workspace
-        )
+        from arabase.mcp.protection.audit import is_content_blind_mcp_mutation
+
+        if not is_content_blind_mcp_mutation():
+            cls.register_action(
+                user, params, scope=cls.scope(table.id), workspace=workspace
+            )
 
         return rows
 
@@ -992,6 +1006,11 @@ class UpdateRowsActionType(UndoableActionType):
 
         row_handler = RowHandler()
 
+        from arabase.mcp.protection.audit import is_content_blind_mcp_mutation
+
+        if is_content_blind_mcp_mutation():
+            send_webhook_events = False
+
         result = row_handler.update_rows(
             user,
             table,
@@ -1015,7 +1034,10 @@ class UpdateRowsActionType(UndoableActionType):
             view_id=view.id if view else None,
             view_name=view.name if view else None,
         )
-        cls.register_action(user, params, cls.scope(table.id), workspace=workspace)
+        from arabase.mcp.protection.audit import is_content_blind_mcp_mutation
+
+        if not is_content_blind_mcp_mutation():
+            cls.register_action(user, params, cls.scope(table.id), workspace=workspace)
 
         return result
 

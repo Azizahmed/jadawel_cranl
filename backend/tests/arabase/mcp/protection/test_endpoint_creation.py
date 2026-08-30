@@ -1,4 +1,5 @@
 from django.shortcuts import reverse
+from django.test import override_settings
 
 import pytest
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
@@ -65,6 +66,32 @@ def test_empty_policy_requires_explicit_confirmation(api_client, data_fixture):
     assert rejected.status_code == HTTP_400_BAD_REQUEST
     assert created.status_code == HTTP_201_CREATED
     assert created.json()["protection_policy"]["protected_field_count"] == 0
+
+
+@pytest.mark.django_db
+@override_settings(FEATURE_FLAGS=[])
+def test_non_empty_policy_admission_is_feature_gated(api_client, data_fixture):
+    user, token = data_fixture.create_user_and_token()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(table=table)
+
+    response = api_client.post(
+        reverse("api:arabase:mcp_endpoint_protection_summaries"),
+        {
+            "name": "Gated endpoint",
+            "workspace_id": workspace.id,
+            "protected_field_ids": [field.id],
+            "confirm_empty_policy": False,
+        },
+        format="json",
+        HTTP_AUTHORIZATION=f"JWT {token}",
+        HTTP_IDEMPOTENCY_KEY="gated-policy-creation-1",
+    )
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert MCPEndpoint.objects.count() == 0
 
 
 @pytest.mark.django_db

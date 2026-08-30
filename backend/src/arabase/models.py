@@ -23,6 +23,8 @@ from arabase.integrations.local_jadawel.models import (
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectionCommand,
+    MCPProtectionEditCommand,
+    MCPProtectionMutationAudit,
     MCPProtectionPolicy,
 )
 from arabase.views.models import (
@@ -46,6 +48,8 @@ __all__ = [
     "LocalJadawelUpcomingRows",
     "MCPProtectedField",
     "MCPProtectionCommand",
+    "MCPProtectionEditCommand",
+    "MCPProtectionMutationAudit",
     "MCPProtectionPolicy",
     "HtmlPageView",
     "HtmlPageViewFieldOptions",

@@ -2,6 +2,7 @@ import base64
 import hashlib
 import secrets
 from dataclasses import dataclass
+from typing import Any
 
 MASK_TOKEN_RESERVED_KEY = "$jadawelProtected"
 MASK_TOKEN_VERSION = 1
@@ -30,3 +31,34 @@ def generate_mask_token() -> GeneratedMaskToken:
         raw_handle=raw_handle,
         digest=hashlib.sha256(raw_handle.encode("ascii")).hexdigest(),
     )
+
+
+def extract_mask_token_handle(value: Any) -> str | None:
+    """Return a syntactically valid raw handle from an exact token envelope.
+
+    The envelope is deliberately strict.  A token-looking object nested inside a
+    user value is not a protected-cell redemption and must never be forwarded to
+    the row service as ordinary data.
+    """
+
+    if not isinstance(value, dict) or set(value) != {MASK_TOKEN_RESERVED_KEY}:
+        return None
+    payload = value.get(MASK_TOKEN_RESERVED_KEY)
+    if not isinstance(payload, dict) or set(payload) != {"v", "token"}:
+        return None
+    if payload.get("v") != MASK_TOKEN_VERSION:
+        return None
+    handle = payload.get("token")
+    if not isinstance(handle, str) or not handle or "=" in handle:
+        return None
+    try:
+        decoded = base64.urlsafe_b64decode(handle + "=" * (-len(handle) % 4))
+    except (ValueError, UnicodeEncodeError):
+        return None
+    if len(decoded) != MASK_TOKEN_HANDLE_BYTES:
+        return None
+    try:
+        canonical = base64.urlsafe_b64encode(decoded).rstrip(b"=").decode("ascii")
+    except UnicodeDecodeError:
+        return None
+    return handle if canonical == handle else None

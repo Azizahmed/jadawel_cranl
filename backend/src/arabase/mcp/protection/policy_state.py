@@ -67,6 +67,9 @@ def get_mcp_protection_policy_state(
                 and relation.safe_reason_code == MCPProtectionSafeReason.NONE
             )
             or relation.field.table.database.workspace_id != endpoint.workspace_id
+            or relation.field.trashed
+            or relation.field.table.trashed
+            or relation.field.table.database.trashed
         ):
             _raise_protection_unavailable()
 

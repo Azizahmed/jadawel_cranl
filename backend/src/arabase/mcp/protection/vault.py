@@ -19,6 +19,29 @@ from arabase.mcp.protection.tokens import GeneratedMaskToken, generate_mask_toke
 
 MASK_TOKEN_TTL_SECONDS = 24 * 60 * 60
 MASK_TOKEN_REDIS_PREFIX = "jadawel:mcp-protection:v1:"
+MASK_TOKEN_EXPIRY_INDEX = f"{MASK_TOKEN_REDIS_PREFIX}expiry"
+MASK_TOKEN_ENDPOINT_INDEX_PREFIX = f"{MASK_TOKEN_REDIS_PREFIX}endpoint:"
+MAX_ENDPOINT_TOKENS = 10_000
+MAX_GLOBAL_TOKENS = 50_000
+
+_ISSUE_TOKEN_SCRIPT = """
+local now = tonumber(redis.call('TIME')[1])
+redis.call('ZREMRANGEBYSCORE', KEYS[1], '-inf', now)
+redis.call('ZREMRANGEBYSCORE', KEYS[2], '-inf', now)
+if redis.call('ZCARD', KEYS[1]) >= tonumber(ARGV[2]) then
+  return -1
+end
+if redis.call('ZCARD', KEYS[2]) >= tonumber(ARGV[3]) then
+  return -1
+end
+local stored = redis.call('SET', KEYS[3], ARGV[4], 'NX', 'EX', ARGV[1])
+if not stored then
+  return 0
+end
+redis.call('ZADD', KEYS[1], ARGV[5], ARGV[6])
+redis.call('ZADD', KEYS[2], ARGV[5], ARGV[6])
+return 1
+"""
 
 
 class MaskTokenVaultUnavailable(Exception):
@@ -60,6 +83,19 @@ def _load_active_fingerprint_key() -> tuple[str, bytes]:
     return key_id, key
 
 
+def _load_fingerprint_key(key_id: str) -> bytes:
+    encoded_key = settings.MCP_PROTECTION_FINGERPRINT_KEYS.get(key_id)
+    if not encoded_key:
+        raise MaskTokenVaultUnavailable
+    try:
+        key = base64.b64decode(encoded_key, validate=True)
+    except (ValueError, TypeError) as exc:
+        raise MaskTokenVaultUnavailable from exc
+    if len(key) != 32:
+        raise MaskTokenVaultUnavailable
+    return key
+
+
 class RedisMaskTokenVault:
     """Digest-addressed Redis vault which never persists the token or value."""
 
@@ -98,27 +134,105 @@ class RedisMaskTokenVault:
             "value_fingerprint": fingerprint,
         }
         try:
-            stored = self.redis.set(
-                f"{MASK_TOKEN_REDIS_PREFIX}{token.digest}",
-                json.dumps(record, separators=(",", ":"), sort_keys=True),
-                ex=MASK_TOKEN_TTL_SECONDS,
-                nx=True,
+            result = self.redis.register_script(_ISSUE_TOKEN_SCRIPT)(
+                keys=[
+                    MASK_TOKEN_EXPIRY_INDEX,
+                    f"{MASK_TOKEN_ENDPOINT_INDEX_PREFIX}{binding.endpoint_id}",
+                    f"{MASK_TOKEN_REDIS_PREFIX}{token.digest}",
+                ],
+                args=[
+                    MASK_TOKEN_TTL_SECONDS,
+                    MAX_GLOBAL_TOKENS,
+                    MAX_ENDPOINT_TOKENS,
+                    json.dumps(record, separators=(",", ":"), sort_keys=True),
+                    # Keep the reservation at least as long as the Redis TTL;
+                    # flooring a fractional Unix timestamp could release it early.
+                    int(expires_at.timestamp()) + 1,
+                    token.digest,
+                ],
             )
         except RedisError as exc:
             raise MaskTokenVaultUnavailable from exc
-        if not stored:
+        if result != 1:
             raise MaskTokenVaultUnavailable
         return _issued(token)
+
+    def redeem(
+        self, raw_handle: str, binding: MaskTokenBinding, current_value: Any
+    ) -> bool:
+        """Validate a same-cell token against its current row state.
+
+        A successful redemption is intentionally non-consuming: retries of an
+        idempotent MCP request must preserve the same cell while the token remains
+        valid.  Redis contains only the binding and a keyed fingerprint, never the
+        raw value or handle.
+        """
+
+        try:
+            digest = hashlib.sha256(raw_handle.encode("ascii")).hexdigest()
+            stored = self.redis.get(f"{MASK_TOKEN_REDIS_PREFIX}{digest}")
+        except (AttributeError, TypeError, UnicodeEncodeError):
+            return False
+        except RedisError as exc:
+            raise MaskTokenVaultUnavailable from exc
+        if not stored:
+            return False
+        try:
+            record = json.loads(stored)
+            expires_at = datetime.fromisoformat(record["expires_at"])
+            if expires_at <= datetime.now(UTC):
+                return False
+            expected = asdict(binding)
+            if any(record.get(key) != value for key, value in expected.items()):
+                return False
+            if record.get("canonicalization_version") != CANONICAL_VALUE_VERSION:
+                return False
+            fingerprint_key = _load_fingerprint_key(record["fingerprint_key_id"])
+            canonical_value = canonicalize_typed_value(
+                binding.field_type, current_value
+            )
+            fingerprint = hmac.new(
+                fingerprint_key, canonical_value, hashlib.sha256
+            ).hexdigest()
+        except (
+            KeyError,
+            AttributeError,
+            TypeError,
+            ValueError,
+            OverflowError,
+            UnicodeEncodeError,
+            MaskTokenVaultUnavailable,
+        ):
+            return False
+        return hmac.compare_digest(record.get("value_fingerprint", ""), fingerprint)
 
     def delete(self, digests: list[str]) -> None:
         if not digests:
             return
-        try:
-            self.redis.delete(
-                *(f"{MASK_TOKEN_REDIS_PREFIX}{digest}" for digest in digests)
-            )
-        except RedisError:
-            pass
+        for digest in digests:
+            key = f"{MASK_TOKEN_REDIS_PREFIX}{digest}"
+            try:
+                record = self.redis.get(key)
+            except RedisError:
+                # An uncertain cleanup keeps the sorted-set reservation until TTL.
+                continue
+            endpoint_id = None
+            try:
+                endpoint_id = json.loads(record)["endpoint_id"] if record else None
+            except (KeyError, TypeError, ValueError):
+                pass
+            try:
+                deleted = self.redis.delete(key)
+                if deleted:
+                    self.redis.zrem(MASK_TOKEN_EXPIRY_INDEX, digest)
+                    if endpoint_id is not None:
+                        self.redis.zrem(
+                            f"{MASK_TOKEN_ENDPOINT_INDEX_PREFIX}{endpoint_id}",
+                            digest,
+                        )
+            except RedisError:
+                # An uncertain cleanup keeps the sorted-set reservation until TTL.
+                pass
 
 
 def _issued(token: GeneratedMaskToken) -> IssuedMaskToken:

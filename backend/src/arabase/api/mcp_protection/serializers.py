@@ -112,6 +112,30 @@ class CreateProtectedMCPEndpointSerializer(serializers.Serializer):
         return value
 
 
+class UpdateMCPProtectionPolicySerializer(serializers.Serializer):
+    protected_field_ids = serializers.ListField(
+        child=serializers.IntegerField(min_value=1), allow_empty=True
+    )
+    expected_revision = serializers.IntegerField(min_value=1)
+    confirm_remove_field_ids = serializers.ListField(
+        child=serializers.IntegerField(min_value=1), allow_empty=True, default=list
+    )
+
+    def validate_protected_field_ids(self, value):
+        if len(value) != len(set(value)):
+            raise serializers.ValidationError("Field IDs must be unique.")
+        return value
+
+    def validate_confirm_remove_field_ids(self, value):
+        if len(value) != len(set(value)):
+            raise serializers.ValidationError("Field IDs must be unique.")
+        return value
+
+
+class ReactivateMCPProtectionPolicySerializer(serializers.Serializer):
+    expected_revision = serializers.IntegerField(min_value=1)
+
+
 class CreatedProtectedMCPEndpointSerializer(MCPEndpointSerializer):
     protection_policy = MCPProtectionPolicySerializer(
         source="arabase_protection_policy", read_only=True
