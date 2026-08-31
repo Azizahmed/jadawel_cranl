@@ -17,6 +17,7 @@
     "back": "Back",
     "review": "Review policy",
     "editAction": "Edit protection",
+    "editEndpointAction": "Edit protection for {name}",
     "editTitle": "Edit the protection policy",
     "editHelp": "Replace the protected-field set. Existing mask tokens stop working after a change.",
     "protectionSuspended": "Protection is paused until the reported issue is fixed.",

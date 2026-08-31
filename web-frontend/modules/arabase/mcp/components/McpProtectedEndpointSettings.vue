@@ -14,23 +14,26 @@
         <p v-if="endpoints.length === 0" class="margin-top-3">
           {{ $t('mcpEndpointSettings.noEndpointsMessage') }}
         </p>
-        <McpEndpoint
+        <div
           v-for="endpoint in endpoints"
           :key="endpoint.id"
-          :endpoint="endpoint"
-          @deleted="deleteEndpoint(endpoint.id)"
-        />
-        <template
-          v-for="endpoint in endpoints"
-          :key="`protection-${endpoint.id}`"
+          class="mcp-protected-endpoint-settings__item"
         >
+          <McpEndpoint
+            :endpoint="endpoint"
+            @deleted="deleteEndpoint(endpoint.id)"
+          />
           <button
             type="button"
-            class="button margin-top-1"
+            class="button margin-top-1 margin-bottom-1"
             :data-test-id="`edit-protection-${endpoint.id}`"
             @click="editingEndpointId = endpoint.id"
           >
-            {{ $t('mcpProtection.editAction') }}
+            {{
+              $t('mcpProtection.editEndpointAction', {
+                name: endpoint.name,
+              })
+            }}
           </button>
           <McpProtectionPolicyEditor
             v-if="editingEndpointId === endpoint.id"
@@ -39,7 +42,7 @@
             @cancel="editingEndpointId = null"
             @saved="policySaved"
           />
-        </template>
+        </div>
       </div>
     </template>
     <template v-else>
