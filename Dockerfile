@@ -17,7 +17,14 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-31 by publish-image.yml from release 2.9.8 @ 0c21e63,
+# Published 2026-08-31 by publish-image.yml from release 2.9.9 @ ee6082d,
+# digest sha256:16692878d8569ffb1205e2230d9c8e43906b109182c2e7aa3b5388508b37877b.
+#
+# 2.9.9 keeps each MCP protection action with the endpoint it edits, names the
+# endpoint in the action label, and adds explicit spacing between actions.
+#
+# Previously published 2026-08-31 by publish-image.yml from release 2.9.8 @
+# 0c21e63,
 # digest sha256:5c03b0e117e1e2edeae6d2d8febb8bb990a9dddde225c59cd4ddf7e9ccf737b3.
 #
 # 2.9.8 allows the MCP policy idempotency header through cross-origin
@@ -141,13 +148,13 @@
 #
 # Pinned by digest, not by tag. The publish workflow pushes `:latest` alongside
 # the version tag, so a tag pin does not identify a fixed image. The digest
-# does, and it is the 2.9.6 build described above.
+# does, and it is the release build described above.
 #
 # Changing only this line has not been enough to swap the container: CranL
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:5c03b0e117e1e2edeae6d2d8febb8bb990a9dddde225c59cd4ddf7e9ccf737b3
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:16692878d8569ffb1205e2230d9c8e43906b109182c2e7aa3b5388508b37877b
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
