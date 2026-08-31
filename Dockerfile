@@ -17,12 +17,12 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-30 by publish-image.yml from release 2.9.7 @ efd7d3e,
-# digest sha256:518816a4aef2410fafe59759ca561a631dd6830510f4dedc0689c2a982da7220.
+# Published 2026-08-31 by publish-image.yml from release 2.9.8 @ 0c21e63,
+# digest sha256:5c03b0e117e1e2edeae6d2d8febb8bb990a9dddde225c59cd4ddf7e9ccf737b3.
 #
-# 2.9.7 adds protected MCP page artifacts with content-blind drafts, exact
-# audience/revision-bound approvals, safe public/authenticated projections, and
-# distributed issuance admission control for masked protected values.
+# 2.9.8 allows the MCP policy idempotency header through cross-origin
+# preflights so CranL's preview hostname can save protected-field policies to
+# the canonical Jadawel API.
 #
 # Previously published 2026-08-24 by publish-image.yml from release 2.9.5 @
 # 3f28dfc,
@@ -147,7 +147,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:518816a4aef2410fafe59759ca561a631dd6830510f4dedc0689c2a982da7220
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:5c03b0e117e1e2edeae6d2d8febb8bb990a9dddde225c59cd4ddf7e9ccf737b3
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
