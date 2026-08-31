@@ -144,18 +144,18 @@ def _protected_output_fields(
     table_id: int, direct_fields, protected_fields, workspace_id: int
 ):
     """Include derived fields whose dependency graph contains a protected leaf."""
-
-    if FieldDependency.objects.filter(
-        dependant__table__database__workspace_id=workspace_id,
-        dependency__isnull=True,
-    ).exists():
-        _raise_protection_unavailable()
     all_fields = list(
         Field.objects.filter(
             table__database__workspace_id=workspace_id, trashed=False
         ).prefetch_related("field_dependencies")
     )
     protected_ids = {field.field_id for field in protected_fields}
+    broken_dependant_ids = set(
+        FieldDependency.objects.filter(
+            dependant__table__database__workspace_id=workspace_id,
+            dependency__isnull=True,
+        ).values_list("dependant_id", flat=True)
+    )
     direct_by_id = {field.field_id: field for field in direct_fields}
     dependencies = {
         field.id: {dependency.id for dependency in field.field_dependencies.all()}
@@ -171,6 +171,12 @@ def _protected_output_fields(
             if field_dependencies & (protected_ids | derived_ids):
                 derived_ids.add(field_id)
                 changed = True
+    # A broken reference is only relevant when it belongs to a protected leaf
+    # or to a derived field whose value is transitively protected.  An unrelated
+    # broken formula elsewhere in the workspace must not make every protected
+    # table unreadable; the affected field itself remains fail-closed.
+    if broken_dependant_ids & (protected_ids | derived_ids):
+        _raise_protection_unavailable()
     output_fields = list(direct_fields)
     for field in all_fields:
         if field.id in derived_ids:

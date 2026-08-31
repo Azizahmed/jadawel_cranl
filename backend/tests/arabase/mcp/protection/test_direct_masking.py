@@ -17,6 +17,7 @@ from arabase.mcp.protection.vault import (
     MaskTokenVaultUnavailable,
     RedisMaskTokenVault,
 )
+from jadawel.contrib.database.fields.dependencies.models import FieldDependency
 from jadawel.core.mcp import JadawelMCPServer, current_key
 
 FINGERPRINT_KEY = base64.b64encode(b"f" * 32).decode()
@@ -328,3 +329,103 @@ def test_protection_on_another_table_leaves_unprotected_search_unchanged(
 
     assert result.isError is False
     assert json.loads(result.content[0].text)["results"][0]["Name"] == "search canary"
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_unrelated_broken_dependency_does_not_block_protected_rows(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    protected = data_fixture.create_text_field(
+        name="Secret", table=table, primary=True
+    )
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=protected
+    )
+
+    unrelated_table = data_fixture.create_database_table(database=database)
+    unrelated = data_fixture.create_text_field(name="Broken", table=unrelated_table)
+    FieldDependency.objects.create(
+        dependant=unrelated,
+        dependency=None,
+        broken_reference_field_name="Missing field",
+    )
+    table.get_model(attribute_names=True).objects.create(secret="protected canary")
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool("list_table_rows", {"table_id": table.id})
+
+        with transaction.atomic():
+            result = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert result.isError is False
+    serialized = result.content[0].text
+    assert "protected canary" not in serialized
+    assert _is_mask_token(json.loads(serialized)["results"][0]["Secret"])
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_broken_dependency_on_a_protected_field_still_fails_closed(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    protected = data_fixture.create_text_field(
+        name="Secret", table=table, primary=True
+    )
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=protected
+    )
+    FieldDependency.objects.create(
+        dependant=protected,
+        dependency=None,
+        broken_reference_field_name="Missing field",
+    )
+    table.get_model(attribute_names=True).objects.create(secret="protected canary")
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool("list_table_rows", {"table_id": table.id})
+
+        with transaction.atomic():
+            result = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert result.isError is True
+    assert "protected canary" not in result.content[0].text
+    assert json.loads(result.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
