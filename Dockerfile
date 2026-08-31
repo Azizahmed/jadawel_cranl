@@ -17,11 +17,11 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-08-31 by publish-image.yml from release 2.9.9 @ ee6082d,
-# digest sha256:16692878d8569ffb1205e2230d9c8e43906b109182c2e7aa3b5388508b37877b.
+# Published 2026-09-01 by publish-image.yml from commit b09cf8d (2.9.9-mcp-fix),
+# digest sha256:c0be7c70dfd893848fdfb3081b36f7f3e5b723f512778e5eb7a30533b9f545b1.
 #
-# 2.9.9 keeps each MCP protection action with the endpoint it edits, names the
-# endpoint in the action label, and adds explicit spacing between actions.
+# 2.9.9-mcp-fix scopes broken dependency fail-closed checks to protected and
+# transitively-derived fields so unrelated broken formulas do not block all rows.
 #
 # Previously published 2026-08-31 by publish-image.yml from release 2.9.8 @
 # 0c21e63,
@@ -154,7 +154,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:16692878d8569ffb1205e2230d9c8e43906b109182c2e7aa3b5388508b37877b
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:c0be7c70dfd893848fdfb3081b36f7f3e5b723f512778e5eb7a30533b9f545b1
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
