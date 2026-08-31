@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import reverse
 
 import pytest
@@ -13,6 +14,11 @@ def _url(endpoint):
     return reverse(
         "api:arabase:mcp_protection_policy", kwargs={"endpoint_id": endpoint.id}
     )
+
+
+def test_policy_replace_cors_preflight_allows_idempotency_header():
+    allowed_headers = {header.lower() for header in settings.CORS_ALLOW_HEADERS}
+    assert "idempotency-key" in allowed_headers
 
 
 @pytest.mark.django_db

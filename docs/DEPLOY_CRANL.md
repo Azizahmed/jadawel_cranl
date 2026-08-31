@@ -127,6 +127,7 @@ working set and why each is needed.
 | `JADAWEL_MCP_PROTECTION_REDIS_URL` | *from a dedicated managed Redis* | Required before enabling MCP protected fields. Do not reuse `REDIS_URL` in production. |
 | `JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS` | *generated JSON keyring* | Private base64-encoded 32-byte HMAC keys; retain the previous key for at least 24 hours during rotation. |
 | `JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID` | *current key ID* | Must name one entry in the fingerprint keyring. |
+| `FEATURE_FLAGS` | `mcp-protected-fields` | Enables admission of non-empty endpoint protection policies after the dedicated Redis and fingerprint-key settings above are ready. Without it, enforcement remains fail-closed and policy writes are rejected. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | **Required on the lite image.** Without it the startup script runs `chown -R postgres:postgres` for a user that only exists in the full image, and a missing database silently becomes a confusing failure instead of a loud one. |
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
 | `AWS_ACCESS_KEY_ID` | | Uploads are lost on redeploy without S3. |
@@ -192,5 +193,11 @@ template sync.
 **`/api/*` returns a Nuxt 404 page instead of JSON** — the host being requested
 is not named in `JADAWEL_PUBLIC_URL`, so `Caddyfile:82-131` routes backend paths
 to the frontend. Add the extra host to `JADAWEL_EXTRA_PUBLIC_URLS`.
+
+**Saving an MCP protection policy shows a network error or a CORS failure** —
+confirm the running image allows `Idempotency-Key` in
+`Access-Control-Allow-Headers`, and set `FEATURE_FLAGS=mcp-protected-fields`
+before redeploying. A CranL environment save alone does not recreate the running
+container.
 
 **Uploaded files disappear after a deploy** — no S3 configured. See §4.

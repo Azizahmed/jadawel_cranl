@@ -212,6 +212,7 @@ URLs in `JADAWEL_PUBLIC_URL`.
 | `JADAWEL_MCP_PROTECTION_REDIS_URL` | dedicated managed Redis | Required before protected MCP fields can be enabled; shared Redis is forbidden in production. |
 | `JADAWEL_MCP_PROTECTION_FINGERPRINT_KEYS` | private JSON keyring | Base64-encoded 32-byte HMAC keys. Never copy this value into frontend configuration or logs. |
 | `JADAWEL_MCP_PROTECTION_ACTIVE_KEY_ID` | current key ID | Must select a configured fingerprint key. |
+| `FEATURE_FLAGS` | `mcp-protected-fields` | Enables non-empty MCP protection policies after the dedicated Redis and fingerprint-key settings are ready. Save the value once; duplicated flag text does not match the rollout gate. |
 | `DISABLE_EMBEDDED_PSQL` | `yes` | Required on the lite image — the startup script otherwise runs `chown -R postgres:postgres` for a user that exists only in the full image. |
 | `DISABLE_EMBEDDED_REDIS` | `yes` | Same, for `chown -R redis:redis`. |
 | `JADAWEL_RUN_MINIMAL` | `yes` | Folds the export worker into the main worker (`backend/docker/docker-entrypoint.sh:373-393`). |

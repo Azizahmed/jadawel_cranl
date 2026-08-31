@@ -16,6 +16,20 @@ kept as written for the historical record.
 
 ---
 
+## MCP protection CORS header (2026-08-31)
+
+**Context:** CranL's preview hostname serves the Nuxt frontend while its runtime
+configuration can point API calls at the canonical Jadawel hostname. MCP policy
+create/replace requests carry an `Idempotency-Key`, so cross-origin browsers must
+be allowed to include that header in their CORS preflight.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/config/settings/base.py` | Added `Idempotency-Key` to `CORS_ALLOW_HEADERS` | Prevent the browser from blocking protected-policy POST/PATCH requests before they reach the additive Arabase API | low |
+
+**Test:**
+`backend/tests/arabase/mcp/protection/test_policy_editing.py::test_policy_replace_cors_preflight_allows_idempotency_header`.
+
 ## MCP protection boundary (2026-08-30)
 
 **Context:** Endpoint-specific protected fields need one generic enforcement seam
