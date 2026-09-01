@@ -17,11 +17,12 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit b7d3f63 (2.9.9-mcp-metadata),
-# digest sha256:dad37eacaf10fc4ec0945561e0bd896a57962d329335f4bd91351b64f3c35576.
+# Published 2026-09-01 by publish-image.yml from commit 70f4f00 (2.9.9-mcp-lifecycle),
+# digest sha256:fa81db5504448c5d5bdd6d778ab176ee94231014104ed6b93cfcfcd9ffe201c1.
 #
-# 2.9.9-mcp-metadata makes policy counts active-only and keeps unavailable
-# field adapters from turning safe metadata reads into generic server errors.
+# 2.9.9-mcp-lifecycle adds ownerless-admin endpoint cleanup with append-only
+# lifecycle audits, enforces Redis memory headroom before token issuance, and
+# checks current artifact viewer permission at runtime.
 #
 # Previously published 2026-08-31 by publish-image.yml from release 2.9.8 @
 # 0c21e63,
@@ -154,7 +155,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:dad37eacaf10fc4ec0945561e0bd896a57962d329335f4bd91351b64f3c35576
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:fa81db5504448c5d5bdd6d778ab176ee94231014104ed6b93cfcfcd9ffe201c1
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
