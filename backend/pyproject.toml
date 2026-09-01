@@ -29,7 +29,7 @@ dependencies = [
     # Transitive (pysaml2, azure-storage-blob, autobahn), pinned directly
     # because the version those pulled in predates the RFC 7250 fix in
     # 44.0.1 (CVE-2024-12797) and nothing else was going to raise it.
-    "cryptography>=44.0.1,<45",
+    "cryptography>=44.0.1,<51",
     "itsdangerous==2.2.0",
     "Pillow==12.2.0",
     "drf-spectacular==0.29.0",
