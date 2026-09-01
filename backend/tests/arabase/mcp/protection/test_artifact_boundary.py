@@ -124,6 +124,72 @@ def test_public_and_authenticated_approvals_are_separate(protected_page):
 
 
 @pytest.mark.django_db
+def test_private_approval_remains_independent_when_public_audience_is_approved(
+    protected_page,
+):
+    user, workspace, _table, secret, _visible, endpoint, view = protected_page
+    ViewHandler().update_view(user, view, public=True)
+
+    private = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html=PAGE_V2,
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+        audience=ArtifactAudience.AUTHENTICATED,
+    )
+    approve_artifact_draft(user=user, draft_id=private["draft_id"])
+
+    public = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html=PAGE_V2,
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+        audience=ArtifactAudience.PUBLIC,
+    )
+    approve_artifact_draft(user=user, draft_id=public["draft_id"])
+    view.refresh_from_db()
+
+    assert page_runtime_access(view, audience=ArtifactAudience.PUBLIC).required
+    assert page_runtime_access(view, user=user).required
+    assert ArtifactApproval.objects.filter(
+        view=view, audience=ArtifactAudience.AUTHENTICATED, revoked_at__isnull=True
+    ).exists()
+    assert ArtifactApproval.objects.filter(
+        view=view, audience=ArtifactAudience.PUBLIC, revoked_at__isnull=True
+    ).exists()
+
+
+@pytest.mark.django_db
+def test_approved_protected_page_rejects_search_before_queryset(
+    api_client, protected_page
+):
+    user, workspace, table, secret, _visible, endpoint, view = protected_page
+    pending = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html=PAGE_V2,
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+    )
+    approve_artifact_draft(user=user, draft_id=pending["draft_id"])
+    table.get_model(attribute_names=True).objects.create(secret="query canary")
+    api_client.force_authenticate(user=user)
+
+    response = api_client.get(
+        reverse("api:database:views:html_page:list", kwargs={"view_id": view.id}),
+        {"search": "query canary"},
+    )
+
+    assert response.status_code == 423
+    assert "query canary" not in response.content.decode()
+
+
+@pytest.mark.django_db
 def test_public_only_artifact_removes_protected_projection(protected_page):
     user, workspace, _table, secret, visible, endpoint, view = protected_page
 

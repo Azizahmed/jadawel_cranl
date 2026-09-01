@@ -7,6 +7,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_409_CO
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectionEditCommand,
+    MCPProtectionLifecycleAudit,
 )
 
 
@@ -56,6 +57,36 @@ def test_policy_replace_is_revisioned_and_idempotent(api_client, data_fixture):
         ).values_list("field_id", flat=True)
     ) == [second.id]
     assert MCPProtectionEditCommand.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_first_non_empty_policy_edit_records_forward_only_rollout_boundary(
+    data_fixture,
+):
+    user = data_fixture.create_user()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(table=table, name="First")
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+
+    from arabase.mcp.protection.editing import replace_mcp_protection_policy
+
+    replace_mcp_protection_policy(
+        user=user,
+        endpoint_id=endpoint.id,
+        protected_field_ids=[field.id],
+        expected_revision=1,
+        confirm_remove_field_ids=[],
+        idempotency_key="policy-boundary-1",
+    )
+
+    boundary = MCPProtectionLifecycleAudit.objects.get(
+        endpoint=endpoint, event_type="POLICY_BECAME_NONEMPTY"
+    )
+    assert boundary.policy_revision == 2
+    assert boundary.access_generation == 2
+    assert boundary.metadata == {"protected_field_count": 1}
 
 
 @pytest.mark.django_db

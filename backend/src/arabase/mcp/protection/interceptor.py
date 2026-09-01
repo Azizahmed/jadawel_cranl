@@ -1,6 +1,7 @@
 from collections.abc import Callable
 from typing import Any
 
+from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 
 from arabase.mcp.protection.audit import content_blind_mcp_mutation
@@ -42,12 +43,16 @@ def intercept_mcp_tool_call(
 ) -> Any:
     """Apply the declared MCP contract before executing a validated tool call."""
 
-    contract = get_mcp_tool_protection_contract(tool.type)
+    # Load the durable policy before resolving the contract.  An unprotected
+    # endpoint must remain compatible with an additive tool that has not yet
+    # opted into the inventory, while a non-empty policy must fail closed with
+    # the same fixed protection error rather than leaking a configuration
+    # traceback.
+    policy = get_mcp_protection_policy_state(endpoint)
     if tool.type == "create_rows":
         # The reserved envelope is never an ordinary user value, even for an
         # endpoint whose policy is currently empty.
         _reject_token_envelopes(args.rows)
-    policy = get_mcp_protection_policy_state(endpoint)
     # A mask envelope is an authority-bearing handle, never an ordinary cell
     # value.  Reject it even when the policy is empty or the target table is
     # outside the protected set.  The only supported update path is a
@@ -64,6 +69,14 @@ def intercept_mcp_tool_call(
         )
     ):
         raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
+    try:
+        contract = get_mcp_tool_protection_contract(tool.type)
+    except ImproperlyConfigured as exc:
+        if not policy.has_protected_fields:
+            return execute()
+        raise SafeMCPToolError(
+            MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+        ) from exc
     if not policy.has_protected_fields:
         return execute()
     if not policy.protected_fields:

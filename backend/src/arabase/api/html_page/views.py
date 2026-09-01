@@ -13,7 +13,7 @@ from arabase.mcp.protection.artifact_boundary import (
     page_feed_field_ids,
     view_query_uses_protected_fields,
 )
-from arabase.mcp.protection.models import ArtifactAudience
+from arabase.mcp.protection.models import ArtifactApproval, ArtifactAudience
 from arabase.views.models import HtmlPageView
 from jadawel.api.decorators import map_exceptions, validate_query_parameters
 from jadawel.api.errors import ERROR_USER_NOT_IN_GROUP
@@ -123,6 +123,12 @@ class HtmlPageViewRowsView(APIView):
         allowed_field_ids = page_feed_field_ids(
             view, audience=ArtifactAudience.AUTHENTICATED, user=request.user
         )
+        if allowed_field_ids is not None and query_params.get("search"):
+            # The page feed's search implementation can inspect every visible
+            # field.  Once a protected projection is approved, accepting an
+            # arbitrary search term would make a protected value a membership
+            # oracle even if the response cells were later masked.
+            raise ArtifactExposureBlocked()
         if allowed_field_ids is not None and view_query_uses_protected_fields(
             view, _artifact_endpoint_for_view(view)
         ):
@@ -230,6 +236,8 @@ class PublicHtmlPageViewRowsView(APIView):
         allowed_field_ids = page_feed_field_ids(
             view, audience=ArtifactAudience.PUBLIC, user=request.user
         )
+        if allowed_field_ids is not None and query_params.get("search"):
+            raise ArtifactExposureBlocked()
         if allowed_field_ids is not None and view_query_uses_protected_fields(
             view, _artifact_endpoint_for_view(view)
         ):
@@ -272,9 +280,16 @@ def _artifact_endpoint_for_view(view: HtmlPageView):
 
     from arabase.mcp.protection.models import ArtifactDraft, HtmlPageArtifactState
 
+    approval = (
+        ArtifactApproval.objects.filter(view_id=view.id, revoked_at__isnull=True)
+        .order_by("-approved_at", "-id")
+        .first()
+    )
+    if approval is not None:
+        return approval.endpoint
     state = HtmlPageArtifactState.objects.filter(view_id=view.id).first()
-    if state is not None and state.active_approval is not None:
-        return state.active_approval.endpoint
+    if state is not None and state.endpoint is not None:
+        return state.endpoint
     draft = (
         ArtifactDraft.objects.filter(view_id=view.id)
         .order_by("-created_on", "-id")

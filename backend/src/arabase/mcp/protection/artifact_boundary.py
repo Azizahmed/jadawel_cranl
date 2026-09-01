@@ -344,6 +344,25 @@ def _get_or_create_state(view: HtmlPageView) -> HtmlPageArtifactState:
     return state
 
 
+def _active_approval_for_audience(
+    view_id: int, audience: str
+) -> ArtifactApproval | None:
+    """Return the newest live approval for one audience.
+
+    The state row keeps a pointer to the most recently approved projection for
+    compact status responses, but private and public approvals are independent
+    authorities.  Looking them up by audience prevents a public approval from
+    silently replacing (or expanding) a private one.
+    """
+
+    return (
+        ArtifactApproval.objects.select_related("draft", "endpoint")
+        .filter(view_id=view_id, audience=audience, revoked_at__isnull=True)
+        .order_by("-approved_at", "-id")
+        .first()
+    )
+
+
 def _safe_update_view(view: HtmlPageView, values: dict[str, Any], user) -> None:
     """Apply a content-blind artifact promotion without the undo HTML payload."""
 
@@ -416,8 +435,12 @@ def submit_mcp_page_change(
     if not requested:
         state = _get_or_create_state(view)
         state.endpoint = endpoint
-        old_approval = state.active_approval
-        if old_approval is not None and old_approval.revoked_at is None:
+        active_approvals = list(
+            ArtifactApproval.objects.select_related("draft").filter(
+                view=view, revoked_at__isnull=True
+            )
+        )
+        for old_approval in active_approvals:
             old_approval.revoked_at = timezone.now()
             old_approval.revocation_reason = "public_only_replacement"
             old_approval.save(
@@ -557,8 +580,8 @@ def approve_artifact_draft(*, user, draft_id: int) -> dict[str, Any]:
     if draft.audience not in ArtifactAudience.values:
         raise ArtifactExposureBlocked()
 
-    old_approval = state.active_approval
-    if old_approval is not None and old_approval.revoked_at is None:
+    old_approval = _active_approval_for_audience(view.id, draft.audience)
+    if old_approval is not None:
         old_approval.revoked_at = timezone.now()
         old_approval.revocation_reason = "superseded"
         old_approval.save(
@@ -647,13 +670,22 @@ def revoke_artifact(
         endpoint = endpoint.endpoint if endpoint else None
     if endpoint is None or endpoint.user_id != getattr(user, "id", None):
         raise PermissionDenied("Only the artifact endpoint owner may revoke it.")
-    approval = state.active_approval
-    if approval is not None:
-        approval.revoked_at = timezone.now()
-        approval.revocation_reason = reason[:64]
-        approval.save(update_fields=["revoked_at", "revocation_reason", "updated_on"])
-        approval.draft.status = ArtifactDraftStatus.REVOKED
-        approval.draft.save(update_fields=["status", "updated_on"])
+    approvals = list(
+        ArtifactApproval.objects.select_related("draft").filter(
+            view=view, revoked_at__isnull=True
+        )
+    )
+    approval = approvals[0] if approvals else None
+    now = timezone.now()
+    for live_approval in approvals:
+        live_approval.revoked_at = now
+        live_approval.revocation_reason = reason[:64]
+        live_approval.save(
+            update_fields=["revoked_at", "revocation_reason", "updated_on"]
+        )
+        live_approval.draft.status = ArtifactDraftStatus.REVOKED
+        live_approval.draft.save(update_fields=["status", "updated_on"])
+    if approvals:
         state.active_approval = None
     state.public_only = False
     state.target_generation += 1
@@ -679,7 +711,11 @@ def revoke_artifact(
 def _page_artifact_summary(
     view: HtmlPageView, state: HtmlPageArtifactState
 ) -> dict[str, Any]:
-    approval = state.active_approval
+    approval = (
+        ArtifactApproval.objects.filter(view=view, revoked_at__isnull=True)
+        .order_by("-approved_at", "-id")
+        .first()
+    )
     pending_draft = ArtifactDraft.objects.filter(
         view=view, status=ArtifactDraftStatus.PENDING
     ).first()
@@ -737,10 +773,15 @@ def _page_artifact_summary(
 def _validated_active_approval(
     *, view: HtmlPageView, state: HtmlPageArtifactState, audience: str, user=None
 ) -> ArtifactRuntimeAccess:
-    approval = state.active_approval
-    if state.public_only:
-        if approval is not None and approval.revoked_at is None:
+    approval = _active_approval_for_audience(view.id, audience)
+    if approval is None and state.public_only:
+        if (
+            state.active_approval is not None
+            and state.active_approval.revoked_at is None
+        ):
             raise ArtifactExposureBlocked()
+        return ArtifactRuntimeAccess(required=True, public_only=True)
+    if state.public_only:
         return ArtifactRuntimeAccess(required=True, public_only=True)
     if approval is None or approval.revoked_at is not None:
         raise ArtifactExposureBlocked()
@@ -763,8 +804,11 @@ def _validated_active_approval(
             allowed = True
         if allowed is not True:
             raise ArtifactExposureBlocked()
-    if approval.target_generation != state.target_generation:
-        raise ArtifactExposureBlocked()
+    # ``target_generation`` is a view-level status counter.  It can advance
+    # when an independent audience (private/public) is approved, so it is not
+    # itself an authority check for this audience.  Content/configuration,
+    # policy generations, and the audience fingerprint below are the exact
+    # bindings; explicit replacement/revocation marks the old approval dead.
     if approval.content_digest != _sha256(view.html):
         raise ArtifactExposureBlocked()
     if approval.configuration_fingerprint != configuration_fingerprint(view):
@@ -808,7 +852,7 @@ def page_runtime_access(
     )
     if state is None:
         return ArtifactRuntimeAccess(required=False)
-    approval = state.active_approval
+    approval = _active_approval_for_audience(view.id, audience)
     endpoint = approval.endpoint if approval is not None else state.endpoint
     if endpoint is None:
         latest_draft = (
@@ -843,7 +887,7 @@ def page_feed_field_ids(
     state = HtmlPageArtifactState.objects.filter(view=view).first()
     if state is None:
         return None
-    approval = state.active_approval
+    approval = _active_approval_for_audience(view.id, audience)
     latest_draft = (
         ArtifactDraft.objects.filter(view=view).order_by("-created_on", "-id").first()
     )
@@ -951,14 +995,20 @@ def invalidate_artifact_for_view(
     )
     if state is None:
         return
-    approval = state.active_approval
-    if approval is not None and approval.revoked_at is None:
-        approval.revoked_at = timezone.now()
+    approvals = list(
+        ArtifactApproval.objects.select_related("draft", "endpoint").filter(
+            view_id=view.id, revoked_at__isnull=True
+        )
+    )
+    approval = approvals[0] if approvals else None
+    now = timezone.now()
+    for approval in approvals:
+        approval.revoked_at = now
         approval.revocation_reason = reason[:64]
         approval.save(update_fields=["revoked_at", "revocation_reason", "updated_on"])
         approval.draft.status = ArtifactDraftStatus.REVOKED
         approval.draft.save(update_fields=["status", "updated_on"])
-        state.active_approval = None
+    state.active_approval = None
     state.public_only = False
     state.target_generation += 1
     state.save(
@@ -969,14 +1019,14 @@ def invalidate_artifact_for_view(
             "updated_on",
         ]
     )
-    endpoint = approval.endpoint if approval is not None else None
+    endpoint = approvals[0].endpoint if approvals else None
     _audit(
         event_type="invalidated",
         actor=actor,
         endpoint=endpoint,
         view=view,
         approval=approval,
-        audience=approval.audience if approval is not None else "",
+        audience=approvals[0].audience if approvals else "",
         metadata={"reason": reason[:64], "target_generation": state.target_generation},
     )
 

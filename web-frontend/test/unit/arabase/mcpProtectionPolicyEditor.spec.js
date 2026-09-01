@@ -91,4 +91,32 @@ describe('McpProtectionPolicyEditor', () => {
       expect.any(String)
     )
   })
+
+  test('keeps unavailable protected identities visible during review', async () => {
+    const policy = {
+      revision: 4,
+      lifecycle_status: 'active',
+      fields: [{ id: 41, name: null, type: null, table: null, database: null }],
+    }
+    fetchPolicy.mockResolvedValue({ data: policy })
+
+    const wrapper = await mountSuspended(McpProtectionPolicyEditor, {
+      props: { endpoint: { id: 9, workspace_id: 1 }, applications: [] },
+      global: {
+        mocks: {
+          $client: {},
+          $t: (key, params) => `${key}:${params?.id || ''}`,
+        },
+        stubs: {
+          Error: true,
+          McpProtectionFieldSelector: true,
+        },
+      },
+    })
+
+    expect(
+      wrapper.get('[data-test-id="unavailable-protected-field-41"]').text()
+    ).toContain('unavailableField:41')
+    expect(wrapper.vm.unavailableFieldIds).toStrictEqual([41])
+  })
 })

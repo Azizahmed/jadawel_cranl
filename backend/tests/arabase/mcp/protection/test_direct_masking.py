@@ -527,6 +527,44 @@ def test_broken_dependency_on_a_protected_field_still_fails_closed(
 
 
 @pytest.mark.django_db
+def test_cycle_in_protected_provenance_fails_closed(data_fixture, monkeypatch):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    protected = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    derived = data_fixture.create_text_field(name="Derived", table=table)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=protected
+    )
+    FieldDependency.objects.create(dependant=derived, dependency=protected)
+    FieldDependency.objects.create(dependant=protected, dependency=derived)
+    table.get_model(attribute_names=True).objects.create(secret="cycle canary")
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool("list_table_rows", {"table_id": table.id})
+
+        result = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert result.isError is True
+    assert "cycle canary" not in result.content[0].text
+    assert json.loads(result.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+
+
+@pytest.mark.django_db
 def test_unknown_protected_field_adapter_fails_closed_with_safe_error(
     data_fixture, monkeypatch
 ):

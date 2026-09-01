@@ -10,6 +10,7 @@ from arabase.mcp.protection.admission import ensure_policy_admission_allowed
 from arabase.mcp.protection.creation import _load_and_validate_fields
 from arabase.mcp.protection.lifecycle import (
     record_mcp_protection_lifecycle_transition,
+    record_policy_became_nonempty,
 )
 from arabase.mcp.protection.models import (
     MCPProtectedField,
@@ -140,6 +141,8 @@ def _replace_mcp_protection_policy(
         policy.revision += 1
         policy.access_generation += 1
         policy.save(update_fields=["revision", "access_generation", "updated_on"])
+        if not current_ids and requested_ids:
+            record_policy_became_nonempty(policy=policy, actor=user)
     MCPProtectionEditCommand.objects.create(
         actor=user,
         policy=policy,

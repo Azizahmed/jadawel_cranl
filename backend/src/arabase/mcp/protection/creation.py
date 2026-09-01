@@ -8,6 +8,7 @@ from django.db import IntegrityError, transaction
 from rest_framework.exceptions import ValidationError
 
 from arabase.mcp.protection.admission import ensure_policy_admission_allowed
+from arabase.mcp.protection.lifecycle import record_policy_became_nonempty
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectionCommand,
@@ -122,6 +123,8 @@ def _create_protected_mcp_endpoint(
     MCPProtectedField.objects.bulk_create(
         [MCPProtectedField(policy=policy, field=field) for field in fields]
     )
+    if fields:
+        record_policy_became_nonempty(policy=policy, actor=user)
     MCPProtectionCommand.objects.create(
         actor=user,
         idempotency_key=idempotency_key,

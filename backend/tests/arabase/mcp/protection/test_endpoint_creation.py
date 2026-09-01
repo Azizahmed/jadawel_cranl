@@ -5,7 +5,11 @@ import pytest
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
 from arabase.mcp.protection.creation import create_protected_mcp_endpoint
-from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionCommand
+from arabase.mcp.protection.models import (
+    MCPProtectedField,
+    MCPProtectionCommand,
+    MCPProtectionLifecycleAudit,
+)
 from jadawel.core.mcp.models import MCPEndpoint
 
 
@@ -41,6 +45,12 @@ def test_composite_endpoint_creation_is_atomic_and_idempotent(api_client, data_f
     assert body["protection_policy"]["fields"][0]["id"] == field.id
     assert MCPProtectionCommand.objects.count() == 1
     assert MCPEndpoint.objects.count() == 1
+    boundary = MCPProtectionLifecycleAudit.objects.get(
+        event_type="POLICY_BECAME_NONEMPTY"
+    )
+    assert boundary.endpoint_id == body["id"]
+    assert boundary.actor_id == user.id
+    assert boundary.metadata == {"protected_field_count": 1}
 
 
 @pytest.mark.django_db

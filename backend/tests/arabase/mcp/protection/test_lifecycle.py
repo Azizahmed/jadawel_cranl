@@ -50,6 +50,48 @@ def test_field_trash_and_restore_suspends_and_restores_protection(protected_endp
 
 
 @pytest.mark.django_db
+def test_field_rename_preserves_membership_and_invalidates_generation(
+    protected_endpoint,
+):
+    _, _, _, _, field, endpoint = protected_endpoint
+    policy = endpoint.arabase_protection_policy
+    previous_revision = policy.revision
+    previous_generation = policy.access_generation
+
+    field.name = "Renamed sensitive field"
+    field.save(update_fields=["name"])
+
+    relation = policy.protected_fields.get()
+    policy.refresh_from_db()
+    assert relation.field_id == field.id
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
+    assert policy.revision == previous_revision + 1
+    assert policy.access_generation == previous_generation + 1
+
+
+@pytest.mark.django_db
+def test_account_reactivation_requires_owner_review_and_new_key(
+    protected_endpoint,
+):
+    user, _, _, _, _, endpoint = protected_endpoint
+    policy = endpoint.arabase_protection_policy
+    user.is_active = False
+    user.save(update_fields=["is_active"])
+    policy.refresh_from_db()
+    old_key = endpoint.key
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.SUSPENDED
+    assert policy.safe_reason_code == MCPProtectionSafeReason.USER_INACTIVE
+
+    user.is_active = True
+    user.save(update_fields=["is_active"])
+    policy.refresh_from_db()
+    endpoint.refresh_from_db()
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.SUSPENDED
+    assert policy.safe_reason_code == MCPProtectionSafeReason.USER_INACTIVE
+    assert endpoint.key == old_key
+
+
+@pytest.mark.django_db
 def test_table_and_database_trash_never_leave_an_active_relation(protected_endpoint):
     _, _, database, table, _, endpoint = protected_endpoint
     policy = endpoint.arabase_protection_policy

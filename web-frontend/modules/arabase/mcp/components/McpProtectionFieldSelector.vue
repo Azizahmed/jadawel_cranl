@@ -105,6 +105,15 @@
         <div v-if="loadingTableId === table.id" class="loading"></div>
         <p v-else-if="errors[table.id]" class="error">
           {{ $t('mcpProtection.fieldsLoadError') }}
+          <button
+            type="button"
+            class="button button--small"
+            :disabled="disabled || metadataLoading"
+            :data-test-id="`retry-fields-${table.id}`"
+            @click="loadTable(table)"
+          >
+            {{ $t('mcpProtection.retryFieldMetadata') }}
+          </button>
         </p>
         <ul
           v-else-if="fieldsByTable[table.id]"
@@ -127,6 +136,7 @@
               <input
                 type="checkbox"
                 :data-test-id="`protected-field-${field.id}`"
+                :aria-label="fieldPath(database, table, field)"
                 :checked="isSelected(field.id)"
                 :disabled="disabled"
                 @change="toggleField(database, table, field)"
@@ -163,11 +173,16 @@ export default {
       query: '',
       databaseConfirmationId: null,
       confirmDatabaseScope: false,
+      searchLoading: false,
     }
   },
   computed: {
     metadataLoading() {
-      return this.loadingTableId !== null || this.databaseLoadingId !== null
+      return (
+        this.loadingTableId !== null ||
+        this.databaseLoadingId !== null ||
+        this.searchLoading
+      )
     },
     metadataError() {
       return Object.values(this.errors).some(Boolean)
@@ -176,6 +191,11 @@ export default {
       return this.databases.filter(
         (database) => this.visibleTables(database).length
       )
+    },
+  },
+  watch: {
+    query(value) {
+      if (value.trim().length >= 2) this.loadSearchMetadata()
     },
   },
   mounted() {
@@ -203,6 +223,9 @@ export default {
           field.name.toLocaleLowerCase().includes(query)
         )
       })
+    },
+    fieldPath(database, table, field) {
+      return `${database.name} / ${table.name} / ${field.name}`
     },
     tableSelectionState(table) {
       const fields = this.fieldsByTable[table.id] || []
@@ -274,6 +297,23 @@ export default {
         this.errors = { ...this.errors, [table.id]: true }
       } finally {
         this.loadingTableId = null
+        this.emitStatus()
+      }
+    },
+    async loadSearchMetadata() {
+      if (this.searchLoading) return
+      this.searchLoading = true
+      this.emitStatus()
+      try {
+        for (const database of this.databases) {
+          for (const table of database.tables) {
+            if (!this.fieldsByTable[table.id] && !this.errors[table.id]) {
+              await this.loadTable(table)
+            }
+          }
+        }
+      } finally {
+        this.searchLoading = false
         this.emitStatus()
       }
     },

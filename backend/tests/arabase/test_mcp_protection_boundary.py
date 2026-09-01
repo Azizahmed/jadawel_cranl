@@ -6,6 +6,7 @@ import pytest
 
 from arabase.mcp.protection.contracts import (
     MCPToolInputContract,
+    MCPToolOperationClass,
     MCPToolOutputContract,
     get_mcp_tool_protection_contract,
     validate_mcp_tool_protection_contracts,
@@ -26,6 +27,7 @@ def test_every_registered_mcp_tool_uses_the_base_call_and_has_a_contract():
         contract = get_mcp_tool_protection_contract(tool.type)
         assert isinstance(contract.input, MCPToolInputContract), tool.type
         assert isinstance(contract.output, MCPToolOutputContract), tool.type
+        assert isinstance(contract.operation_class, MCPToolOperationClass), tool.type
 
 
 def test_arabase_registers_the_protection_interceptor():
@@ -56,6 +58,43 @@ def test_empty_policy_preserves_existing_tool_behavior(monkeypatch):
 
     assert result == {"unchanged": True}
     assert executed is True
+
+
+def test_empty_policy_preserves_an_additive_tool_without_a_contract(monkeypatch):
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mcp_protection_policy_state",
+        lambda endpoint: EMPTY_MCP_PROTECTION_POLICY,
+    )
+    executed = False
+
+    def execute():
+        nonlocal executed
+        executed = True
+        return {"unchanged": True}
+
+    result = intercept_mcp_tool_call(object(), _UndeclaredTestTool(), {}, execute)
+
+    assert result == {"unchanged": True}
+    assert executed is True
+
+
+def test_non_empty_policy_rejects_an_additive_tool_without_a_contract(monkeypatch):
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mcp_protection_policy_state",
+        lambda endpoint: MCPProtectionPolicyState(has_protected_fields=True),
+    )
+    executed = False
+
+    def execute():
+        nonlocal executed
+        executed = True
+
+    with pytest.raises(SafeMCPToolError) as exc_info:
+        intercept_mcp_tool_call(object(), _UndeclaredTestTool(), {}, execute)
+
+    assert exc_info.value.code is MCPErrorCode.PROTECTION_UNAVAILABLE
+    assert exc_info.value.retryable is False
+    assert executed is False
 
 
 def test_non_empty_policy_fails_closed_until_enforcement_is_available(monkeypatch):
@@ -101,6 +140,13 @@ def test_contract_inventory_rejects_a_tool_that_bypasses_the_base_call():
 
 class _DeclaredTestTool(MCPTool):
     type = "list_table_rows"
+
+    def _sync_call(self, endpoint, args):
+        return {}
+
+
+class _UndeclaredTestTool(MCPTool):
+    type = "undeclared_runtime_test_tool"
 
     def _sync_call(self, endpoint, args):
         return {}

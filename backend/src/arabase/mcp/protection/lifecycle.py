@@ -62,6 +62,22 @@ def record_mcp_protection_lifecycle_transition(
     )
 
 
+def record_policy_became_nonempty(*, policy: MCPProtectionPolicy, actor=None) -> None:
+    """Persist the forward-only rollout boundary for first protected admission."""
+
+    MCPProtectionLifecycleAudit.objects.create(
+        endpoint_id=policy.endpoint_id,
+        actor=actor,
+        event_type="POLICY_BECAME_NONEMPTY",
+        from_lifecycle_status=policy.lifecycle_status,
+        to_lifecycle_status=policy.lifecycle_status,
+        reason_code=MCPProtectionSafeReason.NONE,
+        policy_revision=policy.revision,
+        access_generation=policy.access_generation,
+        metadata={"protected_field_count": policy.protected_fields.count()},
+    )
+
+
 @transaction.atomic
 def delete_ownerless_suspended_endpoint(*, user, endpoint_id: int) -> None:
     """Let a workspace admin remove only an endpoint with no viable owner.
@@ -289,7 +305,7 @@ def _capture_field_state(sender, instance: Field, **kwargs):
         return
     previous = (
         Field.objects_and_trash.filter(pk=instance.pk)
-        .values("content_type_id", "trashed")
+        .values("content_type_id", "trashed", "name")
         .first()
     )
     if previous is not None:
@@ -351,6 +367,7 @@ def _safe_current_field_type(instance: Field) -> str | None:
         return None
 
 
+@transaction.atomic
 def _field_changed(sender, instance: Field, created: bool, **kwargs):
     if not isinstance(instance, Field):
         return
@@ -359,7 +376,8 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
         previous is not None and previous["content_type_id"] != instance.content_type_id
     )
     changed_trash = previous is not None and previous["trashed"] != instance.trashed
-    if not created and not changed_type and not changed_trash:
+    changed_name = previous is not None and previous["name"] != instance.name
+    if not created and not changed_type and not changed_trash and not changed_name:
         return
     relations = MCPProtectedField.objects.filter(field_id=instance.id)
     if not relations.exists():
@@ -392,7 +410,7 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
             reason=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
             lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
         )
-    elif changed_type or changed_trash:
+    elif changed_type or changed_trash or changed_name:
         if changed_trash and not (
             instance.trashed
             or instance.table.trashed
@@ -435,6 +453,7 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
                     )
 
 
+@transaction.atomic
 def _workspace_changed(sender, instance: Workspace, created: bool, **kwargs):
     previous = getattr(instance, "_mcp_protection_previous_trash_state", None)
     if not created and previous is not None and previous != instance.trashed:
@@ -463,6 +482,7 @@ def _capture_hierarchy_state(sender, instance, **kwargs):
     )
 
 
+@transaction.atomic
 def _table_changed(sender, instance: Table, created: bool, **kwargs):
     previous = getattr(instance, "_mcp_protection_previous_trash_state", None)
     if not created and previous is not None and previous != instance.trashed:
@@ -471,6 +491,7 @@ def _table_changed(sender, instance: Table, created: bool, **kwargs):
         )
 
 
+@transaction.atomic
 def _database_changed(sender, instance: Database, created: bool, **kwargs):
     previous = getattr(instance, "_mcp_protection_previous_trash_state", None)
     if not created and previous is not None and previous != instance.trashed:
@@ -479,6 +500,7 @@ def _database_changed(sender, instance: Database, created: bool, **kwargs):
         )
 
 
+@transaction.atomic
 def _workspace_user_changed(sender, instance: WorkspaceUser, **kwargs):
     endpoint_ids = MCPEndpoint.objects.filter(
         user_id=instance.user_id, workspace_id=instance.workspace_id
@@ -495,10 +517,12 @@ def _workspace_user_changed(sender, instance: WorkspaceUser, **kwargs):
         _bump_policies(endpoint_ids)
 
 
+@transaction.atomic
 def _workspace_user_deleted(sender, instance: WorkspaceUser, **kwargs):
     _workspace_user_changed(sender, instance)
 
 
+@transaction.atomic
 def _user_changed(sender, instance, **kwargs):
     previous = getattr(instance, "_mcp_protection_previous_active_state", None)
     if previous is not None and previous == instance.is_active:
@@ -513,33 +537,13 @@ def _user_changed(sender, instance, **kwargs):
             lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
         )
         return
-    policies = list(
-        MCPProtectionPolicy.objects.filter(
-            endpoint_id__in=endpoint_ids,
-            lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
-            safe_reason_code=MCPProtectionSafeReason.USER_INACTIVE,
-        )
-    )
-    MCPProtectionPolicy.objects.filter(
-        id__in=[policy.id for policy in policies]
-    ).update(
-        revision=F("revision") + 1,
-        access_generation=F("access_generation") + 1,
-        lifecycle_status=MCPProtectionLifecycleStatus.ACTIVE,
-        safe_reason_code=MCPProtectionSafeReason.NONE,
-    )
-    for policy in policies:
-        policy.revision += 1
-        policy.access_generation += 1
-        record_mcp_protection_lifecycle_transition(
-            policy=policy,
-            from_lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
-            to_lifecycle_status=MCPProtectionLifecycleStatus.ACTIVE,
-            reason_code=MCPProtectionSafeReason.NONE,
-            metadata={"trigger": "user_reactivated"},
-        )
+    # Account reactivation is deliberately not an authority grant.  Keep the
+    # endpoint suspended until its owner explicitly reviews the policy and
+    # calls the reactivation path, which rotates the endpoint key.
+    _bump_policies(endpoint_ids)
 
 
+@transaction.atomic
 def _user_profile_changed(sender, instance: UserProfile, **kwargs):
     endpoint_ids = MCPEndpoint.objects.filter(user_id=instance.user_id).values_list(
         "id", flat=True
@@ -574,6 +578,7 @@ def _capture_endpoint_state(sender, instance: MCPEndpoint, **kwargs):
     )
 
 
+@transaction.atomic
 def _endpoint_changed(sender, instance: MCPEndpoint, created: bool, **kwargs):
     previous_key = getattr(instance, "_mcp_protection_previous_key", None)
     if not created and previous_key is not None and previous_key != instance.key:

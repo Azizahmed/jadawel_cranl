@@ -189,6 +189,31 @@
   &__warning {
     color: $color-warning-700;
   }
+
+  &__unavailable {
+    padding: 12px;
+    color: $color-warning-700;
+    background: $color-warning-100;
+    border-radius: 6px;
+
+    h4,
+    p {
+      margin-block: 0 8px;
+    }
+
+    ul {
+      display: grid;
+      gap: 4px;
+      margin: 0;
+      padding-inline-start: 20px;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+  }
 }
 
 .mcp-protection-review {

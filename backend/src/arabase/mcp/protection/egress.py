@@ -162,6 +162,7 @@ def _protected_output_fields(
         field.id: {dependency.id for dependency in field.field_dependencies.all()}
         for field in all_fields
     }
+    known_field_ids = set(dependencies)
     derived_ids = set()
     changed = True
     while changed:
@@ -172,6 +173,32 @@ def _protected_output_fields(
             if field_dependencies & (protected_ids | derived_ids):
                 derived_ids.add(field_id)
                 changed = True
+
+    # A cycle makes the dependency provenance unprovable.  Restrict the check
+    # to the protected lineage so an unrelated broken formula elsewhere in the
+    # workspace does not take every protected table offline.
+    affected_ids = protected_ids | derived_ids
+    visiting: set[int] = set()
+    visited: set[int] = set()
+
+    def visit(field_id: int) -> None:
+        if field_id in visiting:
+            _raise_protection_unavailable()
+        if field_id in visited:
+            return
+        visiting.add(field_id)
+        for dependency_id in dependencies.get(field_id, ()):
+            if dependency_id in affected_ids:
+                visit(dependency_id)
+            elif dependency_id not in known_field_ids:
+                # A dependency that disappeared from the active field graph
+                # cannot be proven public or protected.
+                _raise_protection_unavailable()
+        visiting.remove(field_id)
+        visited.add(field_id)
+
+    for field_id in affected_ids:
+        visit(field_id)
     # A broken reference is only relevant when it belongs to a protected leaf
     # or to a derived field whose value is transitively protected.  An unrelated
     # broken formula elsewhere in the workspace must not make every protected

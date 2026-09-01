@@ -66,6 +66,30 @@
           <dd>{{ unavailableFieldIds.length }}</dd>
         </div>
       </dl>
+      <section
+        v-if="unavailableFieldIds.length"
+        class="mcp-protection-editor__unavailable"
+        role="status"
+        aria-live="polite"
+      >
+        <h4>{{ $t('mcpProtection.unavailableFields') }}</h4>
+        <p>{{ $t('mcpProtection.unavailableFieldsHelp') }}</p>
+        <ul>
+          <li
+            v-for="field in unavailableFields"
+            :key="field.id"
+            :data-test-id="`unavailable-protected-field-${field.id}`"
+          >
+            <bdi>
+              {{
+                field.name ||
+                $t('mcpProtection.unavailableField', { id: field.id })
+              }}
+            </bdi>
+            <span>{{ $t('mcpProtection.protectedUntilResolved') }}</span>
+          </li>
+        </ul>
+      </section>
       <label
         v-if="removedFieldIds.length && !readOnly"
         class="mcp-protection-editor__confirm"
@@ -164,6 +188,12 @@ export default {
         .filter((field) => !field.name || !field.table || !field.database)
         .map((field) => field.id)
     },
+    unavailableFields() {
+      const unavailable = new Set(this.unavailableFieldIds)
+      return (this.policy?.fields || []).filter((field) =>
+        unavailable.has(field.id)
+      )
+    },
   },
   async mounted() {
     await this.loadPolicy()
@@ -188,7 +218,8 @@ export default {
       } catch (loadError) {
         if (
           loadError?.response?.status === 403 ||
-          loadError?.response?.status === 401
+          loadError?.response?.status === 401 ||
+          loadError?.response?.status === 404
         ) {
           this.readOnly = true
         } else {

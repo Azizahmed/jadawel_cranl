@@ -85,4 +85,30 @@ describe('McpProtectionFieldSelector', () => {
     expect(fetchAll).toHaveBeenCalledWith(20)
     expect(fetchAll).toHaveBeenCalledWith(21)
   })
+
+  test('offers an explicit retry after a metadata load failure', async () => {
+    fetchAll.mockRejectedValueOnce(new Error('temporary failure'))
+    const wrapper = await mountSuspended(McpProtectionFieldSelector, {
+      props: {
+        databases: [
+          { id: 10, name: 'Customers', tables: [{ id: 20, name: 'People' }] },
+        ],
+        modelValue: [],
+      },
+      global: { mocks: { $client: {}, $t: (key) => key } },
+    })
+
+    await wrapper.get('[data-test-id="expand-table-20"]').trigger('click')
+    await flushPromises()
+    expect(wrapper.get('[data-test-id="retry-fields-20"]').exists()).toBe(true)
+
+    fetchAll.mockResolvedValueOnce({
+      data: [{ id: 41, name: 'National ID', type: 'text' }],
+    })
+    await wrapper.get('[data-test-id="retry-fields-20"]').trigger('click')
+    await flushPromises()
+    expect(wrapper.get('[data-test-id="protected-field-41"]').exists()).toBe(
+      true
+    )
+  })
 })

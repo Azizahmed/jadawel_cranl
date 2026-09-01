@@ -24,31 +24,46 @@ class MCPToolOutputContract(StrEnum):
     MUTATION_RECEIPT = "mutation_receipt"
 
 
+class MCPToolOperationClass(StrEnum):
+    """The protection boundary's coarse operation class for one MCP tool."""
+
+    METADATA = "metadata"
+    QUERY = "query"
+    MUTATION = "mutation"
+    ARTIFACT = "artifact"
+
+
 @dataclass(frozen=True, slots=True)
 class MCPToolProtectionContract:
     input: MCPToolInputContract
     output: MCPToolOutputContract
+    operation_class: MCPToolOperationClass = MCPToolOperationClass.METADATA
 
 
 PUBLIC_METADATA = MCPToolProtectionContract(
     MCPToolInputContract.PUBLIC_METADATA,
     MCPToolOutputContract.PUBLIC_METADATA,
+    MCPToolOperationClass.METADATA,
 )
 PROTECTED_QUERY = MCPToolProtectionContract(
     MCPToolInputContract.PROTECTED_QUERY,
     MCPToolOutputContract.PROTECTED_STRUCTURED,
+    MCPToolOperationClass.QUERY,
 )
 PROTECTED_VALUES = MCPToolProtectionContract(
     MCPToolInputContract.PROTECTED_VALUES,
     MCPToolOutputContract.PROTECTED_STRUCTURED,
+    MCPToolOperationClass.MUTATION,
 )
 PROTECTED_ARTIFACT = MCPToolProtectionContract(
     MCPToolInputContract.PROTECTED_ARTIFACT,
     MCPToolOutputContract.PROTECTED_STRUCTURED,
+    MCPToolOperationClass.ARTIFACT,
 )
 MUTATION_RECEIPT = MCPToolProtectionContract(
     MCPToolInputContract.PUBLIC_METADATA,
     MCPToolOutputContract.MUTATION_RECEIPT,
+    MCPToolOperationClass.MUTATION,
 )
 
 
