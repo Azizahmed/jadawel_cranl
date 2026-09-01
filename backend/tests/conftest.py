@@ -4,7 +4,7 @@ from io import IOBase
 from pathlib import Path
 
 from django.core.management import call_command
-from django.db import connections
+from django.db import connection, connections
 from django.test.testcases import TransactionTestCase
 
 import pytest
@@ -48,6 +48,24 @@ def _fixture_teardown(self):
 
 
 TransactionTestCase._fixture_teardown = _fixture_teardown
+
+
+@pytest.fixture
+def data_fixture(fake):
+    """Use the database's deferred foreign-key semantics for fixture tests.
+
+    The upstream fixture forces every constraint immediate, which conflicts with
+    PostgreSQL's deferrable relations used by Jadawel's multi-step delete and
+    schema-update handlers. Keep this override in the fork's test layer so the
+    upstream-derived fixture remains untouched.
+    """
+
+    from jadawel.test_utils.fixtures import Fixtures
+
+    with connection.cursor() as cursor:
+        cursor.execute("SET CONSTRAINTS ALL DEFERRED")
+
+    return Fixtures(fake)
 
 
 @pytest.fixture()

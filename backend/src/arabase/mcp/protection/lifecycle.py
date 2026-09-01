@@ -408,7 +408,6 @@ def _safe_current_field_type(instance: Field) -> str | None:
         return None
 
 
-@transaction.atomic
 def _field_changed(sender, instance: Field, created: bool, **kwargs):
     if not isinstance(instance, Field):
         return
@@ -423,75 +422,78 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
     relations = MCPProtectedField.objects.filter(field_id=instance.id)
     if not relations.exists():
         return
-    hierarchy_trashed = (
-        instance.trashed or instance.table.trashed or instance.table.database.trashed
-    )
-    if hierarchy_trashed:
-        active_relations = relations.filter(state=MCPProtectedFieldState.ACTIVE)
-        active_relations.update(
-            state=MCPProtectedFieldState.SUSPENDED,
-            safe_reason_code=MCPProtectionSafeReason.POLICY_RELATION_INVALID,
-        )
-        _bump_policies(
-            relations.values_list("policy__endpoint_id", flat=True),
-            reason=MCPProtectionSafeReason.POLICY_RELATION_INVALID,
-            lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
-        )
-    elif changed_type and not _supported_protected_field_conversion(
-        previous.get("field_type"),
-        _safe_current_field_type(instance),
-    ):
-        active_relations = relations.filter(state=MCPProtectedFieldState.ACTIVE)
-        active_relations.update(
-            state=MCPProtectedFieldState.SUSPENDED,
-            safe_reason_code=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
-        )
-        _bump_policies(
-            relations.values_list("policy__endpoint_id", flat=True),
-            reason=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
-            lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
-        )
-    elif changed_type or changed_trash or changed_name:
-        if changed_trash and not (
+    with transaction.atomic():
+        hierarchy_trashed = (
             instance.trashed
             or instance.table.trashed
             or instance.table.database.trashed
-        ):
-            relations.filter(
+        )
+        if hierarchy_trashed:
+            active_relations = relations.filter(state=MCPProtectedFieldState.ACTIVE)
+            active_relations.update(
                 state=MCPProtectedFieldState.SUSPENDED,
                 safe_reason_code=MCPProtectionSafeReason.POLICY_RELATION_INVALID,
-            ).update(
-                state=MCPProtectedFieldState.ACTIVE,
-                safe_reason_code=MCPProtectionSafeReason.NONE,
             )
-        endpoint_ids = list(
-            relations.values_list("policy__endpoint_id", flat=True).distinct()
-        )
-        _bump_policies(endpoint_ids)
-        if changed_trash and not instance.trashed:
-            for policy in MCPProtectionPolicy.objects.filter(
-                endpoint_id__in=endpoint_ids
+            _bump_policies(
+                relations.values_list("policy__endpoint_id", flat=True),
+                reason=MCPProtectionSafeReason.POLICY_RELATION_INVALID,
+                lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
+            )
+        elif changed_type and not _supported_protected_field_conversion(
+            previous.get("field_type"),
+            _safe_current_field_type(instance),
+        ):
+            active_relations = relations.filter(state=MCPProtectedFieldState.ACTIVE)
+            active_relations.update(
+                state=MCPProtectedFieldState.SUSPENDED,
+                safe_reason_code=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
+            )
+            _bump_policies(
+                relations.values_list("policy__endpoint_id", flat=True),
+                reason=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
+                lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
+            )
+        elif changed_type or changed_trash or changed_name:
+            if changed_trash and not (
+                instance.trashed
+                or instance.table.trashed
+                or instance.table.database.trashed
             ):
-                if not policy.protected_fields.filter(
-                    state=MCPProtectedFieldState.SUSPENDED
-                ).exists():
-                    previous_status = policy.lifecycle_status
-                    policy.lifecycle_status = MCPProtectionLifecycleStatus.ACTIVE
-                    policy.safe_reason_code = MCPProtectionSafeReason.NONE
-                    policy.save(
-                        update_fields=[
-                            "lifecycle_status",
-                            "safe_reason_code",
-                            "updated_on",
-                        ]
-                    )
-                    record_mcp_protection_lifecycle_transition(
-                        policy=policy,
-                        from_lifecycle_status=previous_status,
-                        to_lifecycle_status=policy.lifecycle_status,
-                        reason_code=MCPProtectionSafeReason.NONE,
-                        metadata={"trigger": "hierarchy_restored"},
-                    )
+                relations.filter(
+                    state=MCPProtectedFieldState.SUSPENDED,
+                    safe_reason_code=MCPProtectionSafeReason.POLICY_RELATION_INVALID,
+                ).update(
+                    state=MCPProtectedFieldState.ACTIVE,
+                    safe_reason_code=MCPProtectionSafeReason.NONE,
+                )
+            endpoint_ids = list(
+                relations.values_list("policy__endpoint_id", flat=True).distinct()
+            )
+            _bump_policies(endpoint_ids)
+            if changed_trash and not instance.trashed:
+                for policy in MCPProtectionPolicy.objects.filter(
+                    endpoint_id__in=endpoint_ids
+                ):
+                    if not policy.protected_fields.filter(
+                        state=MCPProtectedFieldState.SUSPENDED
+                    ).exists():
+                        previous_status = policy.lifecycle_status
+                        policy.lifecycle_status = MCPProtectionLifecycleStatus.ACTIVE
+                        policy.safe_reason_code = MCPProtectionSafeReason.NONE
+                        policy.save(
+                            update_fields=[
+                                "lifecycle_status",
+                                "safe_reason_code",
+                                "updated_on",
+                            ]
+                        )
+                        record_mcp_protection_lifecycle_transition(
+                            policy=policy,
+                            from_lifecycle_status=previous_status,
+                            to_lifecycle_status=policy.lifecycle_status,
+                            reason_code=MCPProtectionSafeReason.NONE,
+                            metadata={"trigger": "hierarchy_restored"},
+                        )
 
 
 def _reject_unsupported_protected_field_conversion(

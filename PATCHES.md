@@ -30,6 +30,21 @@ be allowed to include that header in their CORS preflight.
 **Test:**
 `backend/tests/arabase/mcp/protection/test_policy_editing.py::test_policy_replace_cors_preflight_allows_idempotency_header`.
 
+## MCP lifecycle and view-filter query budget (2026-09-01)
+
+**Context:** The protection lifecycle receiver was opening a nested transaction for
+every model save, including unprotected objects. Django's delete collector also ran
+unneeded discovery queries when removing standalone view sort/group/filter rows during
+field-type changes. Both regressions broke existing query-budget tests and obscured
+the actual protected-field lifecycle work.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/contrib/database/views/handler.py` | Use router-aware `_raw_delete` for standalone incompatible view sort, group-by, and filter rows | Preserve the existing explicit indexing hook while removing collector queries; these models have no dependent cascade receivers in this path | low |
+
+**Test:** The full backend suite (`pytest tests -q -n 2`) passes with 8,000 passed and
+441 skipped; the former 28-test failure set passes in full.
+
 ## MCP protection boundary (2026-08-30)
 
 **Context:** Endpoint-specific protected fields need one generic enforcement seam
