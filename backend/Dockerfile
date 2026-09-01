@@ -196,6 +196,11 @@ RUN mkdir -p /jadawel/backend/reports /jadawel/media && \
 COPY --chown=$UID:$GID --from=builder-ci /jadawel /jadawel
 COPY --chown=$UID:$GID ./docs /jadawel/docs/
 COPY --chown=$UID:$GID deploy/plugins/*.sh /jadawel/plugins/
+# The fork-hygiene suite checks the upstream attribution carried by these
+# repository-level sources. Keep the CI image layout faithful to the checkout
+# so the full test gate does not fail for missing, rather than altered, notices.
+COPY --chown=$UID:$GID deploy/helm/jadawel/values.yaml /jadawel/deploy/helm/jadawel/values.yaml
+COPY --chown=$UID:$GID formula/JadawelFormulaLexer.g4 /jadawel/formula/JadawelFormulaLexer.g4
 
 USER $UID:$GID
 WORKDIR /jadawel/backend
