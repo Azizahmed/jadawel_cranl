@@ -124,18 +124,24 @@
           $t('mcpEndpoint.reveal')
         }}</a>
       </Tab>
-      <Tab title="Windsurf">
+      <Tab title="Codex">
         <MarkdownIt
           class="mcp-endpoint__instructions margin-bottom-1"
-          :content="$t('mcpEndpoint.windsurfInstructions')"
+          :content="$t('mcpEndpoint.codexInstructions')"
         ></MarkdownIt>
-        <pre><code class="mcp-endpoint__code">{
-  "mcpServers": {
-    "Jadawel MCP": {
-      "serverUrl": "{{ endpointUrl }}"
-    }
-  }
-}</code></pre>
+        <pre><code class="mcp-endpoint__code">codex mcp add jadawel -- npx -y mcp-remote "{{ endpointUrl }}"</code></pre>
+        <a v-if="!reveal" href="#" @click.prevent="reveal = true">{{
+          $t('mcpEndpoint.reveal')
+        }}</a>
+      </Tab>
+      <Tab :title="$t('mcpEndpoint.otherClientsTitle')">
+        <MarkdownIt
+          class="mcp-endpoint__instructions margin-bottom-1"
+          :content="$t('mcpEndpoint.otherClientsInstructions')"
+        ></MarkdownIt>
+        <pre><code class="mcp-endpoint__code">{{
+          $t('mcpEndpoint.otherClientsPrompt', { endpointUrl })
+        }}</code></pre>
         <a v-if="!reveal" href="#" @click.prevent="reveal = true">{{
           $t('mcpEndpoint.reveal')
         }}</a>

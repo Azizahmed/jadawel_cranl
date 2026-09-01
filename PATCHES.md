@@ -1238,3 +1238,9 @@ additive Arabase module.
 | `backend/src/jadawel/config/settings/base.py` | Added private MCP protection Redis and HMAC keyring settings | Give the additive Arabase protection boundary a fail-closed, deployment-configurable token vault without exposing secrets to the frontend | low |
 
 | `backend/src/jadawel/contrib/database/rows/actions.py` | Skip content-bearing generic row action history and webhook events while a protected MCP mutation is active | Keep plaintext protected values out of durable action/webhook payloads; the Arabase boundary records a content-blind mutation audit instead | medium |
+
+## Phase — Expand MCP client setup guidance (2026-08-31)
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/components/settings/McpEndpoint.vue` and `web-frontend/modules/core/locales/{ar,en}.json` | Replace the Windsurf setup tab with Codex CLI guidance and add a localized prompt for other AI clients | Make the default setup choices match the supported Jadawel workflows while giving any MCP-capable agent enough safe, endpoint-specific context to configure itself | low |
