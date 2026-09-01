@@ -18,7 +18,10 @@ from arabase.mcp.protection.vault import (
 MAX_ACTIVE_ISSUERS_PER_ENDPOINT = 2
 MAX_ACTIVE_ISSUERS_GLOBAL = 6
 ISSUER_LEASE_SECONDS = 2
-ISSUER_WAIT_SECONDS = 0.25
+# Keep a 50 ms scheduling/serialization margin under the externally promised
+# 250 ms rejection ceiling.  The semaphore itself therefore waits no longer
+# than 200 ms before failing closed.
+ISSUER_WAIT_SECONDS = 0.20
 ISSUER_INDEX = f"{MASK_TOKEN_REDIS_PREFIX}issuers"
 ISSUER_ENDPOINT_INDEX_PREFIX = f"{MASK_TOKEN_REDIS_PREFIX}issuers:endpoint:"
 

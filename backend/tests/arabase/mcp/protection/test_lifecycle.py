@@ -1,3 +1,6 @@
+from django.core.exceptions import ValidationError
+from django.db import transaction
+
 import pytest
 from rest_framework.exceptions import PermissionDenied
 
@@ -10,6 +13,8 @@ from arabase.mcp.protection.models import (
     MCPProtectionLifecycleStatus,
     MCPProtectionSafeReason,
 )
+from jadawel.contrib.database.fields.handler import FieldHandler
+from jadawel.contrib.database.fields.models import Field
 from jadawel.core.models import WORKSPACE_USER_PERMISSION_ADMIN
 
 
@@ -67,6 +72,61 @@ def test_field_rename_preserves_membership_and_invalidates_generation(
     assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
     assert policy.revision == previous_revision + 1
     assert policy.access_generation == previous_generation + 1
+
+
+@pytest.mark.django_db
+def test_unsupported_protected_field_conversion_is_blocked_before_schema_change(
+    protected_endpoint,
+):
+    user, _, _, _, field, endpoint = protected_endpoint
+    field_id = field.id
+    policy = endpoint.arabase_protection_policy
+    previous_revision = policy.revision
+
+    with pytest.raises(ValidationError):
+        with transaction.atomic():
+            FieldHandler().update_field(
+                user=user,
+                field=field,
+                new_type_name="formula",
+                formula="'converted'",
+                formula_type="text",
+                internal_formula="'converted'",
+                requires_refresh_after_insert=False,
+            )
+
+    field = Field.objects_and_trash.get(id=field_id).specific
+    policy.refresh_from_db()
+    assert field.get_type().type == "text"
+    assert policy.revision == previous_revision
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
+
+
+@pytest.mark.django_db
+def test_supported_protected_field_conversion_preserves_membership_and_generation(
+    protected_endpoint,
+):
+    user, _, _, _, field, endpoint = protected_endpoint
+    field_id = field.id
+    policy = endpoint.arabase_protection_policy
+    previous_revision = policy.revision
+    previous_generation = policy.access_generation
+
+    FieldHandler().update_field(
+        user=user,
+        field=field,
+        new_type_name="long_text",
+    )
+
+    converted = Field.objects_and_trash.get(id=field_id).specific
+    relation = policy.protected_fields.get()
+    policy.refresh_from_db()
+    assert converted.get_type().type == "long_text"
+    assert relation.field_id == field_id
+    assert relation.state == MCPProtectedFieldState.ACTIVE
+    assert policy.revision == previous_revision + 1
+    assert policy.access_generation == previous_generation + 1
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
 
 
 @pytest.mark.django_db

@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import F
-from django.db.models.signals import post_delete, post_save, pre_save
+from django.db.models.signals import post_delete, post_save, pre_delete, pre_save
 
 from rest_framework.exceptions import PermissionDenied
 
@@ -301,7 +302,12 @@ def _capture_field_state(sender, instance: Field, **kwargs):
     if not isinstance(instance, Field):
         return
     if not instance.pk:
-        instance._mcp_protection_previous_state = None
+        # ``change_polymorphic_type_to`` deletes the old child row with
+        # ``keep_parents=True`` before saving the replacement. Django clears the
+        # instance primary key during that delete, so retain the snapshot captured
+        # by the pre-delete receiver below for the replacement save.
+        if not hasattr(instance, "_mcp_protection_previous_state"):
+            instance._mcp_protection_previous_state = None
         return
     previous = (
         Field.objects_and_trash.filter(pk=instance.pk)
@@ -322,6 +328,37 @@ def _capture_field_state(sender, instance: Field, **kwargs):
             # policy rather than allowing a potentially lossy value through.
             previous["field_type"] = None
     instance._mcp_protection_previous_state = previous
+
+
+def _capture_field_delete_state(sender, instance: Field, **kwargs):
+    """Retain protected-field state across polymorphic child replacement.
+
+    The upstream conversion helper deletes the old child object before creating
+    the new one.  A pre-save-only guard cannot see that conversion because the
+    delete clears the in-memory primary key.  Keep a content-blind snapshot on
+    the object so the replacement save can still reject unsupported adapters.
+    """
+
+    if not isinstance(instance, Field) or not instance.pk:
+        return
+    previous = (
+        Field.objects_and_trash.filter(pk=instance.pk)
+        .values("content_type_id", "trashed", "name")
+        .first()
+    )
+    if previous is None:
+        return
+    try:
+        previous_model = ContentType.objects.get_for_id(
+            previous["content_type_id"]
+        ).model_class()
+        previous["field_type"] = field_type_registry.get_by_model(previous_model).type
+    except Exception:
+        previous["field_type"] = None
+    instance._mcp_protection_previous_state = previous
+    instance._mcp_protection_relation_exists = MCPProtectedField.objects.filter(
+        field_id=instance.pk
+    ).exists()
 
 
 _UNSUPPORTED_PROTECTED_CONVERSION_TYPES = frozenset(
@@ -451,6 +488,42 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
                         reason_code=MCPProtectionSafeReason.NONE,
                         metadata={"trigger": "hierarchy_restored"},
                     )
+
+
+def _reject_unsupported_protected_field_conversion(
+    sender, instance: Field, **kwargs
+) -> None:
+    """Prevent an unsupported type change from landing before review.
+
+    The post-save lifecycle hook still marks legacy/direct ORM changes blocked,
+    but normal field updates must not first rewrite the column and then leave a
+    protected policy unusable.  A protected relation can be removed explicitly
+    before the conversion, or the conversion can proceed when both adapters are
+    value-preserving.
+    """
+
+    if not isinstance(instance, Field):
+        return
+    previous = getattr(instance, "_mcp_protection_previous_state", None)
+    if previous is None:
+        return
+    if previous["content_type_id"] == instance.content_type_id:
+        return
+    relation_exists = getattr(instance, "_mcp_protection_relation_exists", None)
+    if relation_exists is None:
+        relation_exists = bool(
+            instance.pk
+            and MCPProtectedField.objects.filter(field_id=instance.id).exists()
+        )
+    if not relation_exists:
+        return
+    if _supported_protected_field_conversion(
+        previous.get("field_type"), _safe_current_field_type(instance)
+    ):
+        return
+    raise ValidationError(
+        "Unsupported field-type conversion is blocked while the field is protected."
+    )
 
 
 @transaction.atomic
@@ -606,6 +679,16 @@ def connect_mcp_protection_lifecycle() -> None:
         _capture_field_state,
         sender=None,
         dispatch_uid="arabase_capture_mcp_protection_field_state",
+    )
+    pre_delete.connect(
+        _capture_field_delete_state,
+        sender=None,
+        dispatch_uid="arabase_capture_mcp_protection_field_delete_state",
+    )
+    pre_save.connect(
+        _reject_unsupported_protected_field_conversion,
+        sender=None,
+        dispatch_uid="arabase_reject_unsupported_mcp_field_conversion",
     )
     post_save.connect(
         _field_changed,

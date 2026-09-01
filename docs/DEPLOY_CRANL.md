@@ -162,6 +162,27 @@ redirects to `/signup` permanently, with no way in through the UI.
 
 Skipping step 2 or 3 redeploys the same image.
 
+## MCP protection load canary
+
+After provisioning the dedicated protection Redis, run the release canary from
+an application container that can resolve its private Redis hostname:
+
+```bash
+docker exec jadawel_cranl-backend-1 sh -lc \
+  'cd /jadawel/backend/src/jadawel && /jadawel/venv/bin/python manage.py mcp_protection_load --yes'
+```
+
+The command uses synthetic values, creates and removes its digest-only test
+reservations, and prints only aggregate counts, memory, latency, and admission
+results. It proves the 50,000-token global boundary, five-endpoint distribution,
+cross-worker redemption, and six-issuer/250 ms contention gate against the
+actual Redis configuration. Run it only against the isolated protection vault;
+it deliberately removes keys under the MCP protection namespace during cleanup.
+
+The Redis-interruption mutation rollback and production observability canaries
+still require an operational drill with the deployment's normal database and
+logging capture. Do not interrupt the live service to manufacture that evidence.
+
 ## Troubleshooting
 
 **`Railpack could not determine how to build the app`** — the app was created

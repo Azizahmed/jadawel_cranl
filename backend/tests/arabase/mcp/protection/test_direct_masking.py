@@ -243,6 +243,132 @@ def test_create_and_update_rows_mask_every_direct_protected_value(
     MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
     MCP_PROTECTION_ACTIVE_KEY_ID="current",
 )
+def test_redis_interruption_rolls_back_a_protected_create_batch(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    redis = fakeredis.FakeRedis(decode_responses=True)
+
+    class InterruptedVault(RedisMaskTokenVault):
+        issued_count = 0
+
+        def issue(self, binding, value):
+            self.issued_count += 1
+            if self.issued_count == 2:
+                raise MaskTokenVaultUnavailable
+            return super().issue(binding, value)
+
+    vault = InterruptedVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool(
+                    "create_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {"Secret": "first interruption canary"},
+                            {"Secret": "second interruption canary"},
+                        ],
+                    },
+                )
+
+        result = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert result.isError is True
+    assert json.loads(result.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+    assert table.get_model(attribute_names=True).objects.count() == 0
+    assert _token_record_count(redis) == 0
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_redis_interruption_rolls_back_a_two_hundred_row_update(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    model = table.get_model(attribute_names=True)
+    rows = model.objects.bulk_create(
+        [model(secret=f"before interruption {index}") for index in range(200)]
+    )
+    redis = fakeredis.FakeRedis(decode_responses=True)
+
+    class InterruptedVault(RedisMaskTokenVault):
+        issued_count = 0
+
+        def issue(self, binding, value):
+            self.issued_count += 1
+            if self.issued_count == 101:
+                raise MaskTokenVaultUnavailable
+            return super().issue(binding, value)
+
+    vault = InterruptedVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {"id": row.id, "Secret": f"after interruption {index}"}
+                            for index, row in enumerate(rows)
+                        ],
+                    },
+                )
+
+        result = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert result.isError is True
+    assert json.loads(result.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+    persisted = list(model.objects.order_by("id").values_list("secret", flat=True))
+    assert persisted == [f"before interruption {index}" for index in range(200)]
+    assert _token_record_count(redis) == 0
+    assert (
+        MCPProtectionMutationAudit.objects.filter(tool_type="update_rows").count() == 0
+    )
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
 def test_update_accepts_only_a_same_cell_preservation_token(data_fixture, monkeypatch):
     endpoint = data_fixture.create_mcp_endpoint()
     database = data_fixture.create_database_application(workspace=endpoint.workspace)
@@ -494,6 +620,95 @@ def test_copied_token_rejects_the_entire_update_batch(data_fixture, monkeypatch)
     assert (
         MCPProtectionMutationAudit.objects.filter(tool_type="update_rows").count() == 0
     )
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_tokens_reject_cross_endpoint_cross_field_and_malformed_reuse(
+    data_fixture, monkeypatch
+):
+    user = data_fixture.create_user()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    secret = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    other = data_fixture.create_text_field(name="Other", table=table)
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+    foreign_endpoint = data_fixture.create_mcp_endpoint(
+        user=user, workspace=workspace, name="Foreign endpoint"
+    )
+    for target in (endpoint, foreign_endpoint):
+        MCPProtectedField.objects.bulk_create(
+            [
+                MCPProtectedField(
+                    policy=target.arabase_protection_policy,
+                    field=secret,
+                ),
+                MCPProtectedField(
+                    policy=target.arabase_protection_policy,
+                    field=other,
+                ),
+            ]
+        )
+    model = table.get_model(attribute_names=True)
+    row = model.objects.create(secret="secret", other="other")
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+
+    async def call(endpoint_to_use, tool, arguments):
+        key_token = current_key.set(endpoint_to_use.key)
+        try:
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool(tool, arguments)
+        finally:
+            current_key.reset(key_token)
+
+    listed = async_to_sync(call)(
+        endpoint,
+        "list_table_rows",
+        {"table_id": table.id, "size": 1},
+    )
+    listed_row = json.loads(listed.content[0].text)["results"][0]
+    source_token = listed_row["Secret"]
+
+    foreign = async_to_sync(call)(
+        foreign_endpoint,
+        "update_rows",
+        {"table_id": table.id, "rows": [{"id": row.id, "Secret": source_token}]},
+    )
+    copied_to_other_field = async_to_sync(call)(
+        endpoint,
+        "update_rows",
+        {"table_id": table.id, "rows": [{"id": row.id, "Other": source_token}]},
+    )
+    malformed_create = async_to_sync(call)(
+        endpoint,
+        "create_rows",
+        {
+            "table_id": table.id,
+            "rows": [{"Secret": {"$jadawelProtected": {"v": 1, "token": "malformed"}}}],
+        },
+    )
+
+    for result in (foreign, copied_to_other_field, malformed_create):
+        assert result.isError is True
+        assert json.loads(result.content[0].text)["error"]["code"] == (
+            "PROTECTION_UNAVAILABLE"
+        )
+    row.refresh_from_db()
+    assert row.secret == "secret"
+    assert row.other == "other"
+    assert model.objects.count() == 1
 
 
 @pytest.mark.django_db
