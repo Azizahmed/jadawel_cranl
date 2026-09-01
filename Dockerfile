@@ -17,12 +17,13 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit 70f4f00 (2.9.9-mcp-lifecycle),
-# digest sha256:fa81db5504448c5d5bdd6d778ab176ee94231014104ed6b93cfcfcd9ffe201c1.
+# Published 2026-09-01 by publish-image.yml from commit 3df47be (2.9.11-mcp-admin-summaries),
+# digest sha256:8b6ddba8252f8e85956d47751374889d96321e0cfa59e91cfee6e3a3ec743421.
 #
-# 2.9.9-mcp-lifecycle adds ownerless-admin endpoint cleanup with append-only
-# lifecycle audits, enforces Redis memory headroom before token issuance, and
-# checks current artifact viewer permission at runtime.
+# 2.9.11-mcp-admin-summaries adds ownerless-admin protection summaries, blocks
+# unsupported protected-field type conversions, hardens readiness with a bounded
+# Redis canary and token headroom check, and ships the loading/conflict/read-only
+# Arabic-first protection UX and responsive coverage.
 #
 # Previously published 2026-08-31 by publish-image.yml from release 2.9.8 @
 # 0c21e63,
@@ -155,7 +156,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:fa81db5504448c5d5bdd6d778ab176ee94231014104ed6b93cfcfcd9ffe201c1
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:8b6ddba8252f8e85956d47751374889d96321e0cfa59e91cfee6e3a3ec743421
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
