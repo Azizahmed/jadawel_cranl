@@ -42,7 +42,12 @@ def _connect(redis_url: str) -> Redis:
         redis_url,
         decode_responses=True,
         socket_connect_timeout=0.25,
-        socket_timeout=0.5,
+        # The canary intentionally runs a large concurrent reservation batch.
+        # Hosted CI runners can briefly pause Redis while its configured
+        # no-eviction instance performs a background snapshot; keep the
+        # timeout bounded, but avoid treating that short persistence pause as
+        # a capacity failure.
+        socket_timeout=2.0,
     )
 
 
