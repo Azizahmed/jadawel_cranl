@@ -102,6 +102,39 @@ def test_approval_is_invalidated_when_view_configuration_changes(protected_page)
 
 
 @pytest.mark.django_db
+def test_approved_artifact_remains_active_while_replacement_awaits_review(
+    protected_page,
+):
+    user, workspace, _table, secret, _visible, endpoint, view = protected_page
+    initial = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html=PAGE_V2,
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+    )
+    approve_artifact_draft(user=user, draft_id=initial["draft_id"])
+    view.refresh_from_db()
+
+    replacement = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html="<!doctype html><body><h1>replacement</h1></body>",
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+    )
+    view.refresh_from_db()
+
+    assert replacement["status"] == "pending_approval"
+    assert view.html == PAGE_V2
+    assert page_runtime_access(view, user=user).allowed_protected_field_ids == {
+        secret.id
+    }
+
+
+@pytest.mark.django_db
 def test_public_and_authenticated_approvals_are_separate(protected_page):
     user, workspace, _table, secret, _visible, endpoint, view = protected_page
     ViewHandler().update_view(user, view, public=True)
