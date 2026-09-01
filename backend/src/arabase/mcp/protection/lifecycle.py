@@ -1,10 +1,14 @@
 from django.contrib.auth import get_user_model
+from django.db import transaction
 from django.db.models import F
 from django.db.models.signals import post_delete, post_save, pre_save
+
+from rest_framework.exceptions import PermissionDenied
 
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectedFieldState,
+    MCPProtectionLifecycleAudit,
     MCPProtectionLifecycleStatus,
     MCPProtectionPolicy,
     MCPProtectionSafeReason,
@@ -12,8 +16,14 @@ from arabase.mcp.protection.models import (
 from jadawel.contrib.database.fields.models import Field
 from jadawel.contrib.database.models import Database
 from jadawel.contrib.database.table.models import Table
+from jadawel.core.mcp.exceptions import MCPEndpointDoesNotExist
 from jadawel.core.mcp.models import MCPEndpoint
-from jadawel.core.models import UserProfile, Workspace, WorkspaceUser
+from jadawel.core.models import (
+    WORKSPACE_USER_PERMISSION_ADMIN,
+    UserProfile,
+    Workspace,
+    WorkspaceUser,
+)
 
 
 def create_empty_mcp_protection_policy(
@@ -21,6 +31,79 @@ def create_empty_mcp_protection_policy(
 ) -> None:
     if created:
         MCPProtectionPolicy.objects.create(endpoint=instance)
+
+
+@transaction.atomic
+def delete_ownerless_suspended_endpoint(*, user, endpoint_id: int) -> None:
+    """Let a workspace admin remove only an endpoint with no viable owner.
+
+    The owner-only core MCP delete path remains unchanged.  This additive path is
+    intentionally narrower: an admin must be an active workspace administrator,
+    the endpoint must be suspended or protection-blocked, and the original owner
+    must no longer be an active workspace member/account.  The audit is written
+    before deletion and survives through its nullable endpoint foreign key.
+    """
+
+    try:
+        endpoint = (
+            MCPEndpoint.objects.select_for_update(of=("self",))
+            .select_related("workspace", "user__profile", "arabase_protection_policy")
+            .get(id=endpoint_id)
+        )
+    except MCPEndpoint.DoesNotExist as exc:
+        raise MCPEndpointDoesNotExist from exc
+
+    if not getattr(user, "is_authenticated", False) or not user.is_active:
+        raise PermissionDenied(
+            "Only an active workspace administrator may delete this endpoint."
+        )
+    if (
+        endpoint.workspace.trashed
+        or not WorkspaceUser.objects.filter(
+            user_id=user.id,
+            workspace_id=endpoint.workspace_id,
+            permissions=WORKSPACE_USER_PERMISSION_ADMIN,
+        ).exists()
+    ):
+        raise PermissionDenied(
+            "Only a workspace administrator may delete this endpoint."
+        )
+
+    policy = endpoint.arabase_protection_policy
+    if policy.lifecycle_status not in (
+        MCPProtectionLifecycleStatus.SUSPENDED,
+        MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
+    ):
+        raise PermissionDenied(
+            "Only a suspended or blocked ownerless endpoint may be deleted."
+        )
+
+    owner_active_member = (
+        endpoint.user is not None
+        and endpoint.user.is_active
+        and not getattr(getattr(endpoint.user, "profile", None), "to_be_deleted", False)
+        and WorkspaceUser.objects.filter(
+            user_id=endpoint.user_id,
+            workspace_id=endpoint.workspace_id,
+        ).exists()
+    )
+    if owner_active_member:
+        raise PermissionDenied(
+            "The endpoint owner must be inactive or absent from the workspace."
+        )
+
+    MCPProtectionLifecycleAudit.objects.create(
+        endpoint=endpoint,
+        actor=user,
+        event_type="ownerless_admin_delete",
+        from_lifecycle_status=policy.lifecycle_status,
+        to_lifecycle_status="deleted",
+        reason_code=policy.safe_reason_code,
+        policy_revision=policy.revision,
+        access_generation=policy.access_generation,
+        metadata={"endpoint_id": endpoint.id},
+    )
+    endpoint.delete()
 
 
 def _bump_policies(endpoint_ids, *, reason=None, lifecycle_status=None):

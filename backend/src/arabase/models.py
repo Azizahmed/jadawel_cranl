@@ -32,6 +32,7 @@ from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectionCommand,
     MCPProtectionEditCommand,
+    MCPProtectionLifecycleAudit,
     MCPProtectionMutationAudit,
     MCPProtectionPolicy,
 )
@@ -57,6 +58,7 @@ __all__ = [
     "MCPProtectedField",
     "MCPProtectionCommand",
     "MCPProtectionEditCommand",
+    "MCPProtectionLifecycleAudit",
     "MCPProtectionMutationAudit",
     "MCPProtectionPolicy",
     "ArtifactAudience",

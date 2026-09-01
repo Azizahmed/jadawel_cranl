@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db.models import Count, Q
 
 from drf_spectacular.utils import extend_schema
@@ -25,6 +26,7 @@ from arabase.mcp.protection.editing import (
     reactivate_mcp_protection_policy,
     replace_mcp_protection_policy,
 )
+from arabase.mcp.protection.lifecycle import delete_ownerless_suspended_endpoint
 from arabase.mcp.protection.models import MCPProtectedFieldState, MCPProtectionPolicy
 from arabase.mcp.protection.readiness import check_mcp_protection_policy_readiness
 from jadawel.api.decorators import map_exceptions, validate_body
@@ -157,6 +159,27 @@ class MCPProtectionPolicyView(APIView):
                 policy, context={"display_field_ids": display_field_ids}
             ).data
         )
+
+    @extend_schema(
+        tags=["Arabase MCP protection"],
+        operation_id="delete_ownerless_mcp_endpoint",
+        description=(
+            "Allows a workspace administrator to delete only an ownerless "
+            "suspended or protection-blocked endpoint."
+        ),
+        responses={
+            204: None,
+            404: get_error_schema(["ERROR_MCP_ENDPOINT_DOES_NOT_EXIST"]),
+        },
+    )
+    @map_exceptions({MCPEndpointDoesNotExist: ERROR_MCP_ENDPOINT_DOES_NOT_EXIST})
+    @transaction.atomic
+    def delete(self, request: Request, endpoint_id: int) -> Response:
+        delete_ownerless_suspended_endpoint(
+            user=request.user,
+            endpoint_id=endpoint_id,
+        )
+        return Response(status=204)
 
 
 class MCPProtectionReadinessView(APIView):

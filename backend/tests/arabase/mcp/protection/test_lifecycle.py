@@ -1,12 +1,16 @@
 import pytest
+from rest_framework.exceptions import PermissionDenied
 
 from arabase.mcp.protection.editing import reactivate_mcp_protection_policy
+from arabase.mcp.protection.lifecycle import delete_ownerless_suspended_endpoint
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectedFieldState,
+    MCPProtectionLifecycleAudit,
     MCPProtectionLifecycleStatus,
     MCPProtectionSafeReason,
 )
+from jadawel.core.models import WORKSPACE_USER_PERMISSION_ADMIN
 
 
 @pytest.fixture
@@ -115,3 +119,51 @@ def test_key_rotation_blocks_until_reactivation_issues_new_key(protected_endpoin
     endpoint.refresh_from_db()
     assert reactivated.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
     assert endpoint.key != "x" * 32
+
+
+@pytest.mark.django_db
+def test_workspace_admin_can_delete_ownerless_suspended_endpoint(
+    protected_endpoint, data_fixture
+):
+    owner, workspace, _, _, _, endpoint = protected_endpoint
+    workspace.workspaceuser_set.get(user=owner).delete()
+    policy = endpoint.arabase_protection_policy
+    policy.refresh_from_db()
+    admin = data_fixture.create_user()
+    data_fixture.create_user_workspace(
+        user=admin,
+        workspace=workspace,
+        permissions=WORKSPACE_USER_PERMISSION_ADMIN,
+    )
+
+    delete_ownerless_suspended_endpoint(user=admin, endpoint_id=endpoint.id)
+
+    assert not endpoint.__class__.objects.filter(id=endpoint.id).exists()
+    audit = MCPProtectionLifecycleAudit.objects.get()
+    assert audit.endpoint_id is None
+    assert audit.actor_id == admin.id
+    assert audit.event_type == "ownerless_admin_delete"
+    assert audit.from_lifecycle_status == policy.lifecycle_status
+    assert audit.to_lifecycle_status == "deleted"
+    assert audit.metadata == {"endpoint_id": endpoint.id}
+
+
+@pytest.mark.django_db
+def test_workspace_admin_cannot_delete_endpoint_with_active_owner(
+    protected_endpoint, data_fixture
+):
+    _owner, workspace, _, _, field, endpoint = protected_endpoint
+    field.trashed = True
+    field.save(update_fields=["trashed"])
+    admin = data_fixture.create_user()
+    data_fixture.create_user_workspace(
+        user=admin,
+        workspace=workspace,
+        permissions=WORKSPACE_USER_PERMISSION_ADMIN,
+    )
+
+    with pytest.raises(PermissionDenied):
+        delete_ownerless_suspended_endpoint(user=admin, endpoint_id=endpoint.id)
+
+    assert endpoint.__class__.objects.filter(id=endpoint.id).exists()
+    assert MCPProtectionLifecycleAudit.objects.count() == 0

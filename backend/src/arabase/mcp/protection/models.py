@@ -235,6 +235,38 @@ class MCPProtectionMutationAudit(CreatedAndUpdatedOnMixin, models.Model):
         ]
 
 
+class MCPProtectionLifecycleAudit(CreatedAndUpdatedOnMixin, models.Model):
+    """Append-only, content-blind record of protection lifecycle transitions."""
+
+    endpoint = models.ForeignKey(
+        MCPEndpoint,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="protection_lifecycle_audits",
+    )
+    actor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="mcp_protection_lifecycle_audits",
+    )
+    event_type = models.CharField(max_length=64)
+    from_lifecycle_status = models.CharField(max_length=32, blank=True, default="")
+    to_lifecycle_status = models.CharField(max_length=32, blank=True, default="")
+    reason_code = models.CharField(max_length=64, blank=True, default="")
+    policy_revision = models.PositiveBigIntegerField(null=True, blank=True)
+    access_generation = models.PositiveBigIntegerField(null=True, blank=True)
+    metadata = models.JSONField(default=dict)
+
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=("endpoint", "created_on"),
+                name="ara_mcp_lifecycle_created_idx",
+            )
+        ]
+
+
 class ArtifactAudience(models.TextChoices):
     """The two deliberately separate runtime exposure scopes."""
 
