@@ -17,11 +17,11 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit 5435f49 (2.9.9-mcp-boundary),
-# digest sha256:69908c5f1df8453d467f6f3c623f6db4726e1dbc03439509d426a700e9c781ce.
+# Published 2026-09-01 by publish-image.yml from commit b7d3f63 (2.9.9-mcp-metadata),
+# digest sha256:dad37eacaf10fc4ec0945561e0bd896a57962d329335f4bd91351b64f3c35576.
 #
-# 2.9.9-mcp-boundary rejects portable protection-token envelopes on every row
-# mutation path and keeps derived output scoped to the requested table.
+# 2.9.9-mcp-metadata makes policy counts active-only and keeps unavailable
+# field adapters from turning safe metadata reads into generic server errors.
 #
 # Previously published 2026-08-31 by publish-image.yml from release 2.9.8 @
 # 0c21e63,
@@ -154,7 +154,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:69908c5f1df8453d467f6f3c623f6db4726e1dbc03439509d426a700e9c781ce
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:dad37eacaf10fc4ec0945561e0bd896a57962d329335f4bd91351b64f3c35576
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
