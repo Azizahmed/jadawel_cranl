@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from arabase.mcp.protection.models import (
+    ArtifactAudience,
     MCPProtectedField,
     MCPProtectedFieldState,
     MCPProtectionPolicy,
@@ -147,6 +148,45 @@ class UpdateMCPProtectionPolicySerializer(serializers.Serializer):
 
 class ReactivateMCPProtectionPolicySerializer(serializers.Serializer):
     expected_revision = serializers.IntegerField(min_value=1)
+
+
+class ArtifactDraftRequestSerializer(serializers.Serializer):
+    """Validate the content-blind inputs accepted by the artifact boundary."""
+
+    endpoint_id = serializers.IntegerField(min_value=1)
+    view_id = serializers.IntegerField(min_value=1)
+    html = serializers.CharField(allow_blank=True, trim_whitespace=False)
+    protected_field_ids = serializers.ListField(
+        child=serializers.IntegerField(min_value=1),
+        required=False,
+        default=list,
+        allow_empty=True,
+    )
+    audience = serializers.ChoiceField(
+        choices=ArtifactAudience.choices,
+        required=False,
+        default=ArtifactAudience.AUTHENTICATED,
+    )
+    pending_view_values = serializers.DictField(
+        required=False,
+        default=dict,
+        allow_empty=True,
+    )
+
+    def validate_protected_field_ids(self, value):
+        if len(value) != len(set(value)):
+            raise serializers.ValidationError("Field IDs must be unique.")
+        return value
+
+
+class ArtifactRevokeSerializer(serializers.Serializer):
+    reason = serializers.CharField(
+        required=False,
+        default="manual_revocation",
+        allow_blank=False,
+        max_length=64,
+        trim_whitespace=False,
+    )
 
 
 class CreatedProtectedMCPEndpointSerializer(MCPEndpointSerializer):
