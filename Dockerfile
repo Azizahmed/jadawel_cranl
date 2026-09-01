@@ -17,13 +17,12 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit ab9a6ac (2.9.14-capacity-fix),
-# digest sha256:614b4dd9171d6e05ed4b6099f06f45f9a9722682d9252f8ea6a8bde9e246529c.
+# Published 2026-09-01 by publish-image.yml from commit 627f560 (2.9.14-mcp-protection-final),
+# digest sha256:503e2ec44b169acafa6b036f4bd0715796f5f6127df56653283ebe7ce24f8217.
 #
-# 2.9.14 preserves protected cells omitted from an update instead of allowing the
-# upstream row action's defaults to clear them, fixes the endpoint/global issuer
-# capacity dimensions, and retains typed same-cell redemption and the 2.9.12
-# protection boundary.
+# 2.9.14 finalizes protected-field lifecycle, capacity, artifact-boundary, and
+# mobile-layout hardening, including dead-worker lease recovery and sanitized
+# Redis-outage failure behavior.
 #
 # Previously published 2026-09-01 by publish-image.yml from commit 3df47be
 # (2.9.11-mcp-admin-summaries), digest
@@ -165,7 +164,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:9efd420ce3e93e3665d4881068e2733d80abf2a715d526b01141d76fbbf32cbb
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:503e2ec44b169acafa6b036f4bd0715796f5f6127df56653283ebe7ce24f8217
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
