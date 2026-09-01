@@ -60,4 +60,35 @@ describe('McpProtectionPolicyEditor', () => {
       lifecycle_status: 'active',
     })
   })
+
+  test('surfaces a stale revision without overwriting the current policy', async () => {
+    const policy = { revision: 4, lifecycle_status: 'active', fields: [] }
+    fetchPolicy.mockResolvedValue({ data: policy })
+    replacePolicy.mockRejectedValue({ response: { status: 409 } })
+
+    const wrapper = await mountSuspended(McpProtectionPolicyEditor, {
+      props: { endpoint: { id: 9, workspace_id: 1 }, applications: [] },
+      global: {
+        mocks: { $client: {}, $t: (key) => key },
+        stubs: {
+          Error: true,
+          McpProtectionFieldSelector: true,
+        },
+      },
+    })
+
+    await wrapper.vm.save()
+
+    expect(wrapper.vm.conflict).toBe(true)
+    expect(wrapper.emitted('saved')).toBeUndefined()
+    expect(replacePolicy).toHaveBeenCalledWith(
+      9,
+      {
+        protected_field_ids: [],
+        expected_revision: 4,
+        confirm_remove_field_ids: [],
+      },
+      expect.any(String)
+    )
+  })
 })

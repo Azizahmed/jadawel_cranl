@@ -49,6 +49,10 @@
     justify-content: flex-end;
     gap: 12px;
   }
+
+  &__metadata-warning {
+    color: $color-warning-700;
+  }
 }
 
 .mcp-protected-endpoint-settings__status {
@@ -92,6 +96,37 @@
     background: $color-neutral-100;
   }
 
+  &__database-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 16px;
+
+    .mcp-protection-selector__database-name {
+      padding-inline: 0;
+    }
+  }
+
+  &__scope-confirmation {
+    display: grid;
+    gap: 8px;
+    padding: 10px 16px;
+    color: $color-warning-700;
+    background: $color-warning-100;
+
+    label {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+  }
+
+  &__status {
+    margin-block: 8px;
+    color: $color-neutral-600;
+  }
+
   &__table {
     padding: 12px 16px;
     border-block-start: 1px solid $color-neutral-200;
@@ -125,6 +160,34 @@
   &__field-type {
     color: $color-neutral-500;
     font-size: 12px;
+  }
+}
+
+.mcp-protection-editor {
+  &__diff {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+
+    div {
+      padding: 8px;
+      background: $color-neutral-100;
+      border-radius: 6px;
+    }
+
+    dt {
+      color: $color-neutral-500;
+      font-size: 12px;
+    }
+
+    dd {
+      margin: 2px 0 0;
+      font-weight: 600;
+    }
+  }
+
+  &__warning {
+    color: $color-warning-700;
   }
 }
 
@@ -179,5 +242,14 @@
 
   .mcp-protection-review__fields li {
     flex-direction: column;
+  }
+
+  .mcp-protection-selector__database-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mcp-protection-editor__diff {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
