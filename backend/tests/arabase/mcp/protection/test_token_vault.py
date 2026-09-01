@@ -100,6 +100,75 @@ def test_vault_redeems_only_the_same_cell_and_current_value():
     MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
     MCP_PROTECTION_ACTIVE_KEY_ID="current",
 )
+@pytest.mark.parametrize(
+    "variant",
+    [
+        {"endpoint_id": 8},
+        {"workspace_id": 12},
+        {"table_id": 14},
+        {"field_id": 20},
+        {"policy_revision": 3},
+        {"access_generation": 4},
+        {"operation_class": "display_only"},
+    ],
+)
+def test_vault_rejects_foreign_stale_and_display_only_bindings(variant):
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    binding = MaskTokenBinding(
+        endpoint_id=7,
+        workspace_id=11,
+        table_id=13,
+        row_id=17,
+        field_id=19,
+        policy_revision=2,
+        access_generation=3,
+        operation_class="preserve_cell",
+        observed_row_state="2026-08-30T12:00:00+00:00",
+        field_type="text",
+    )
+    issued = vault.issue(binding, "same cell")
+
+    assert (
+        vault.redeem(
+            issued.raw_handle,
+            replace(binding, **variant),
+            "same cell",
+        )
+        is False
+    )
+
+
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_vault_expiry_revokes_a_token_without_plaintext_fallback():
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    binding = MaskTokenBinding(
+        endpoint_id=7,
+        workspace_id=11,
+        table_id=13,
+        row_id=17,
+        field_id=19,
+        policy_revision=2,
+        access_generation=3,
+        operation_class="preserve_cell",
+        observed_row_state="2026-08-30T12:00:00+00:00",
+        field_type="text",
+    )
+    issued = vault.issue(binding, "same cell")
+    digest_key = f"jadawel:mcp-protection:v1:{issued.digest}"
+    redis.expire(digest_key, -1)
+
+    assert vault.redeem(issued.raw_handle, binding, "same cell") is False
+
+
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
 def test_vault_capacity_is_reserved_atomically_and_released_on_cleanup(monkeypatch):
     redis = fakeredis.FakeRedis(decode_responses=True)
     vault = RedisMaskTokenVault(redis_client=redis)
