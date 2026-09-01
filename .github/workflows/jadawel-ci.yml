@@ -66,6 +66,15 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      mcp-protection-redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       DJANGO_SETTINGS_MODULE: jadawel.config.settings.test
       DATABASE_HOST: localhost
@@ -73,6 +82,7 @@ jobs:
       DATABASE_NAME: jadawel
       DATABASE_USER: jadawel
       DATABASE_PASSWORD: jadawel
+      JADAWEL_MCP_PROTECTION_REDIS_URL: redis://localhost:6379/0
       PYTHONPATH: src:tests
     steps:
       - uses: actions/checkout@v4
@@ -89,6 +99,18 @@ jobs:
       - name: Fork-hygiene tests (premium/enterprise must stay gone)
         working-directory: backend
         run: uv run pytest tests/arabase -q
+      - name: Configure bounded MCP protection Redis
+        run: |
+          docker run --rm --network host redis:7-alpine redis-cli -h localhost CONFIG SET maxmemory 128mb
+          docker run --rm --network host redis:7-alpine redis-cli -h localhost CONFIG SET maxmemory-policy noeviction
+      - name: MCP protection strict check
+        working-directory: backend
+        run: |
+          uv run python src/jadawel/manage.py migrate --noinput
+          uv run python src/jadawel/manage.py mcp_protection_check --strict
+      - name: MCP protection capacity canary
+        working-directory: backend
+        run: uv run python src/jadawel/manage.py mcp_protection_load --redis-url "$JADAWEL_MCP_PROTECTION_REDIS_URL" --yes
       - name: Full backend suite
         working-directory: backend
         run: uv run pytest tests -q -n 2
