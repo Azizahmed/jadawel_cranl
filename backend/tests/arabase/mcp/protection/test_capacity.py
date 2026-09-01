@@ -86,7 +86,9 @@ def test_readiness_fails_closed_when_vault_is_unreachable(data_fixture, monkeypa
 
 
 @pytest.mark.django_db
-def test_readiness_alerts_and_rejects_at_memory_safety_floor(data_fixture, monkeypatch):
+def test_readiness_alerts_and_rejects_at_memory_safety_floor(
+    data_fixture, monkeypatch, caplog
+):
     endpoint = data_fixture.create_mcp_endpoint()
     database = data_fixture.create_database_application(workspace=endpoint.workspace)
     table = data_fixture.create_database_table(database=database)
@@ -110,7 +112,9 @@ def test_readiness_alerts_and_rejects_at_memory_safety_floor(data_fixture, monke
     vault = RedisMaskTokenVault(redis_client=redis)
     monkeypatch.setattr(readiness, "get_mask_token_vault", lambda: vault)
 
-    result = readiness.check_mcp_protection_policy_readiness()
+    with caplog.at_level("ERROR", logger="arabase.mcp.protection.readiness"):
+        result = readiness.check_mcp_protection_policy_readiness()
 
     assert result.ready is False
     assert result.safe_reason_code == "PROTECTION_REDIS_UNAVAILABLE"
+    assert "MCP protection Redis memory alert" in caplog.text

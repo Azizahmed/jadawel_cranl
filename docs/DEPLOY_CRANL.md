@@ -175,8 +175,9 @@ docker exec jadawel_cranl-backend-1 sh -lc \
 The command uses synthetic values, creates and removes its digest-only test
 reservations, and prints only aggregate counts, memory, latency, and admission
 results. It proves the 50,000-token global boundary, five-endpoint distribution,
-cross-worker redemption, and six-issuer/250 ms contention gate against the
-actual Redis configuration. Run it only against the isolated protection vault;
+cross-worker redemption, six-issuer/250 ms contention gate, and recovery after a
+worker dies while holding an issuer lease against the actual Redis configuration.
+Run it only against the isolated protection vault;
 it deliberately removes keys under the MCP protection namespace during cleanup.
 
 The Redis-interruption mutation rollback and production observability canaries

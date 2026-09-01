@@ -11,6 +11,7 @@ from __future__ import annotations
 import base64
 import json
 import multiprocessing
+import os
 import secrets
 import time
 from dataclasses import asdict
@@ -22,7 +23,7 @@ from django.core.management.base import BaseCommand, CommandError
 from redis import Redis
 from redis.exceptions import RedisError
 
-from arabase.mcp.protection.capacity import issuance_lease
+from arabase.mcp.protection.capacity import ISSUER_LEASE_SECONDS, issuance_lease
 from arabase.mcp.protection.vault import (
     MASK_TOKEN_REDIS_PREFIX,
     MaskTokenBinding,
@@ -133,6 +134,22 @@ def _issuer_spike(payload: tuple[str, int, float]) -> dict:
     }
 
 
+def _dead_issuer_worker(payload: tuple[str, int]) -> None:
+    """Acquire a short lease and exit without cleanup like a killed worker."""
+
+    redis_url, endpoint_id = payload
+    redis = _connect(redis_url)
+    try:
+        vault = RedisMaskTokenVault(redis_client=redis)
+        lease = issuance_lease(endpoint_id, vault)
+        lease.__enter__()
+        # Deliberately bypass the context manager's cleanup. Redis expiry is the
+        # recovery mechanism used when a worker dies after admission.
+        os._exit(0)
+    except (MaskTokenVaultUnavailable, RedisError):
+        os._exit(2)
+
+
 def _delete_test_keys(redis: Redis) -> None:
     keys = list(redis.scan_iter(match=f"{MASK_TOKEN_REDIS_PREFIX}*"))
     if keys:
@@ -162,6 +179,7 @@ class Command(BaseCommand):
         parser.add_argument("--processes", type=int, default=3)
         parser.add_argument("--endpoints", type=int, default=5)
         parser.add_argument("--skip-concurrency", action="store_true")
+        parser.add_argument("--skip-recovery", action="store_true")
         parser.add_argument(
             "--yes",
             action="store_true",
@@ -272,6 +290,31 @@ class Command(BaseCommand):
                     "max_rejected_ms": round(max(rejected_durations), 2),
                 }
 
+            worker_recovery = None
+            if not options["skip_recovery"]:
+                dead_worker = context.Process(
+                    target=_dead_issuer_worker,
+                    args=((redis_url, 900),),
+                )
+                dead_worker.start()
+                dead_worker.join(timeout=ISSUER_LEASE_SECONDS + 1)
+                if dead_worker.is_alive() or dead_worker.exitcode != 0:
+                    dead_worker.kill()
+                    dead_worker.join()
+                    raise CommandError("Worker-death recovery setup failed.")
+                time.sleep(ISSUER_LEASE_SECONDS + 0.2)
+                try:
+                    with issuance_lease(900, RedisMaskTokenVault(redis_client=redis)):
+                        pass
+                except (MaskTokenVaultUnavailable, RedisError) as exc:
+                    raise CommandError(
+                        "Expired worker lease was not reclaimed."
+                    ) from exc
+                worker_recovery = {
+                    "dead_worker_reclaimed": True,
+                    "lease_seconds": ISSUER_LEASE_SECONDS,
+                }
+
             durations = sorted(item["duration_ms"] for item in successful_batches)
             p95_index = min(len(durations) - 1, int(len(durations) * 0.95))
             self.stdout.write(
@@ -286,6 +329,7 @@ class Command(BaseCommand):
                         "redis_memory_delta_mib": round(memory_delta / 1_048_576, 2),
                         "batch_p95_ms": round(durations[p95_index], 2),
                         "concurrency": concurrency_result,
+                        "worker_recovery": worker_recovery,
                     },
                     sort_keys=True,
                 )

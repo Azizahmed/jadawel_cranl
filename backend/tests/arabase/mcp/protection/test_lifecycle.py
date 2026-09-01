@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models.deletion import ProtectedError
 
 import pytest
 from rest_framework.exceptions import PermissionDenied
@@ -13,8 +14,11 @@ from arabase.mcp.protection.models import (
     MCPProtectionLifecycleStatus,
     MCPProtectionSafeReason,
 )
+from jadawel.contrib.database.fields.constants import DeleteFieldStrategyEnum
 from jadawel.contrib.database.fields.handler import FieldHandler
 from jadawel.contrib.database.fields.models import Field
+from jadawel.contrib.database.table.handler import TableHandler
+from jadawel.core.handler import CoreHandler
 from jadawel.core.models import WORKSPACE_USER_PERMISSION_ADMIN
 
 
@@ -130,6 +134,87 @@ def test_supported_protected_field_conversion_preserves_membership_and_generatio
 
 
 @pytest.mark.django_db
+def test_field_copy_starts_unprotected_even_when_data_is_copied(protected_endpoint):
+    user, _, _, table, field, endpoint = protected_endpoint
+
+    duplicated, _ = FieldHandler().duplicate_field(
+        user=user,
+        field=field,
+        duplicate_data=True,
+    )
+
+    assert duplicated.id != field.id
+    assert not MCPProtectedField.objects.filter(
+        policy=endpoint.arabase_protection_policy,
+        field_id=duplicated.id,
+    ).exists()
+    assert MCPProtectedField.objects.filter(
+        policy=endpoint.arabase_protection_policy,
+        field_id=field.id,
+    ).exists()
+
+
+@pytest.mark.django_db
+def test_table_and_database_copies_do_not_inherit_protected_relations(
+    protected_endpoint,
+):
+    user, _, database, table, field, endpoint = protected_endpoint
+
+    duplicated_table = TableHandler().duplicate_table(user=user, table=table)
+    duplicated_table_field_ids = set(
+        duplicated_table.field_set.values_list("id", flat=True)
+    )
+    assert duplicated_table.id != table.id
+    assert duplicated_table_field_ids
+    assert not MCPProtectedField.objects.filter(
+        policy=endpoint.arabase_protection_policy,
+        field_id__in=duplicated_table_field_ids,
+    ).exists()
+
+    duplicated_database = CoreHandler().duplicate_application(
+        user=user, application=database
+    )
+    duplicated_database_field_ids = set(
+        Field.objects.filter(table__database=duplicated_database).values_list(
+            "id", flat=True
+        )
+    )
+    assert duplicated_database.id != database.id
+    assert duplicated_database_field_ids
+    assert not MCPProtectedField.objects.filter(
+        policy=endpoint.arabase_protection_policy,
+        field_id__in=duplicated_database_field_ids,
+    ).exists()
+    assert MCPProtectedField.objects.filter(
+        policy=endpoint.arabase_protection_policy, field_id=field.id
+    ).exists()
+
+
+@pytest.mark.django_db
+def test_permanent_delete_requires_explicit_unprotection(protected_endpoint):
+    user, _, _, _, field, endpoint = protected_endpoint
+    policy = endpoint.arabase_protection_policy
+
+    with pytest.raises(ProtectedError):
+        FieldHandler().delete_field(
+            user=user,
+            field=field,
+            delete_strategy=DeleteFieldStrategyEnum.PERMANENTLY_DELETE,
+        )
+
+    assert Field.objects_and_trash.filter(id=field.id).exists()
+    assert policy.protected_fields.filter(field_id=field.id).exists()
+
+    policy.protected_fields.filter(field_id=field.id).delete()
+    FieldHandler().delete_field(
+        user=user,
+        field=Field.objects_and_trash.get(id=field.id),
+        delete_strategy=DeleteFieldStrategyEnum.PERMANENTLY_DELETE,
+    )
+    assert not Field.objects_and_trash.filter(id=field.id).exists()
+
+
+@pytest.mark.django_db
 def test_account_reactivation_requires_owner_review_and_new_key(
     protected_endpoint,
 ):
@@ -155,30 +240,36 @@ def test_account_reactivation_requires_owner_review_and_new_key(
 def test_table_and_database_trash_never_leave_an_active_relation(protected_endpoint):
     _, _, database, table, _, endpoint = protected_endpoint
     policy = endpoint.arabase_protection_policy
+    initial_generation = policy.access_generation
 
     table.trashed = True
     table.save(update_fields=["trashed"])
     policy.refresh_from_db()
     assert policy.lifecycle_status == MCPProtectionLifecycleStatus.PROTECTION_BLOCKED
     assert policy.protected_fields.get().state == MCPProtectedFieldState.SUSPENDED
+    assert policy.access_generation == initial_generation + 1
 
     table.trashed = False
     table.save(update_fields=["trashed"])
     policy.refresh_from_db()
     assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
     assert policy.protected_fields.get().state == MCPProtectedFieldState.ACTIVE
+    assert policy.access_generation == initial_generation + 2
 
+    generation_before_database_trash = policy.access_generation
     database.trashed = True
     database.save(update_fields=["trashed"])
     policy.refresh_from_db()
     assert policy.lifecycle_status == MCPProtectionLifecycleStatus.PROTECTION_BLOCKED
     assert policy.protected_fields.get().state == MCPProtectedFieldState.SUSPENDED
+    assert policy.access_generation == generation_before_database_trash + 1
 
     database.trashed = False
     database.save(update_fields=["trashed"])
     policy.refresh_from_db()
     assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
     assert policy.protected_fields.get().state == MCPProtectedFieldState.ACTIVE
+    assert policy.access_generation == generation_before_database_trash + 2
 
 
 @pytest.mark.django_db
@@ -271,3 +362,27 @@ def test_workspace_admin_cannot_delete_endpoint_with_active_owner(
     assert not MCPProtectionLifecycleAudit.objects.filter(
         event_type="ownerless_admin_delete"
     ).exists()
+
+
+@pytest.mark.django_db
+def test_ownerless_admin_delete_rolls_back_when_audit_write_fails(
+    protected_endpoint, data_fixture, monkeypatch
+):
+    owner, workspace, _, _, _, endpoint = protected_endpoint
+    workspace.workspaceuser_set.get(user=owner).delete()
+    admin = data_fixture.create_user()
+    data_fixture.create_user_workspace(
+        user=admin,
+        workspace=workspace,
+        permissions=WORKSPACE_USER_PERMISSION_ADMIN,
+    )
+
+    def fail_audit(*args, **kwargs):
+        raise RuntimeError("audit unavailable")
+
+    monkeypatch.setattr(MCPProtectionLifecycleAudit.objects, "create", fail_audit)
+
+    with pytest.raises(RuntimeError):
+        delete_ownerless_suspended_endpoint(user=admin, endpoint_id=endpoint.id)
+
+    assert endpoint.__class__.objects.filter(id=endpoint.id).exists()
