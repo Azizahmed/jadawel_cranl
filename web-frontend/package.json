@@ -86,7 +86,7 @@
     "chartjs-adapter-moment": "1.0.1",
     "decamelize": "^6.0.1",
     "flush-promises": "^1.0.2",
-    "form-data": "4.0.4",
+    "form-data": "4.0.6",
     "highlight.js": "^11.11.1",
     "iconoir": "^6.11.0",
     "js-sha256": "^0.11.1",
