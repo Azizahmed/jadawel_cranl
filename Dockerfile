@@ -17,11 +17,12 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit 983a723 (2.9.13-mcp-typed-preservation),
-# digest sha256:52e033839d297cc396a4a9a397b66928871e49bac0f0701619005855982135cf.
+# Published 2026-09-01 by publish-image.yml from commit 917193f (2.9.14-mcp-omission-preservation),
+# digest sha256:c4bbf04be5f38f103cf85fc5205013abd83d0c75dc4585ecf5d016dbf47a271e.
 #
-# 2.9.13 preserves typed protected values through same-cell redemption, including
-# response-only select option shapes, while retaining the 2.9.12 protection boundary.
+# 2.9.14 preserves protected cells omitted from an update instead of allowing the
+# upstream row action's defaults to clear them, while retaining typed same-cell
+# redemption and the 2.9.12 protection boundary.
 #
 # Previously published 2026-09-01 by publish-image.yml from commit 3df47be
 # (2.9.11-mcp-admin-summaries), digest
@@ -163,7 +164,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:52e033839d297cc396a4a9a397b66928871e49bac0f0701619005855982135cf
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:c4bbf04be5f38f103cf85fc5205013abd83d0c75dc4585ecf5d016dbf47a271e
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
