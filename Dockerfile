@@ -17,8 +17,8 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit 627f560 (2.9.14-mcp-protection-final),
-# digest sha256:503e2ec44b169acafa6b036f4bd0715796f5f6127df56653283ebe7ce24f8217.
+# Published 2026-09-01 by publish-image.yml from commit b88fb09 (workspace lifecycle protection fix),
+# digest sha256:97f707c626e6f6a2b541d274ee2199475da0d8b7c92c3fa5414aa810cece951b.
 #
 # 2.9.14 finalizes protected-field lifecycle, capacity, artifact-boundary, and
 # mobile-layout hardening, including dead-worker lease recovery and sanitized
@@ -164,7 +164,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:503e2ec44b169acafa6b036f4bd0715796f5f6127df56653283ebe7ce24f8217
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:97f707c626e6f6a2b541d274ee2199475da0d8b7c92c3fa5414aa810cece951b
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
