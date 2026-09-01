@@ -385,6 +385,20 @@ def test_artifact_draft_api_validates_inputs_before_boundary(
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert ArtifactDraft.objects.count() == 0
 
+    response = api_client.post(
+        reverse("api:arabase:mcp_artifact_draft"),
+        {
+            "endpoint_id": endpoint.id,
+            "view_id": view.id,
+            "html": PAGE_V2,
+            "pending_view_values": {"row_limit": {"unexpected": "shape"}},
+        },
+        format="json",
+    )
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert ArtifactDraft.objects.count() == 0
+
 
 @pytest.mark.django_db
 def test_artifact_approval_api_returns_a_safe_not_found(api_client, data_fixture):

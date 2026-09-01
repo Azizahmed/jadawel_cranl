@@ -178,6 +178,34 @@ class ArtifactDraftRequestSerializer(serializers.Serializer):
             raise serializers.ValidationError("Field IDs must be unique.")
         return value
 
+    def validate_pending_view_values(self, value):
+        allowed = {"name", "allow_external_resources", "row_limit"}
+        unsupported = set(value) - allowed
+        if unsupported:
+            raise serializers.ValidationError(
+                "Only safe view configuration fields may be submitted."
+            )
+        if "name" in value and (
+            not isinstance(value["name"], str) or len(value["name"]) > 255
+        ):
+            raise serializers.ValidationError(
+                {"name": "The view name must be a string of at most 255 characters."}
+            )
+        if "allow_external_resources" in value and not isinstance(
+            value["allow_external_resources"], bool
+        ):
+            raise serializers.ValidationError(
+                {"allow_external_resources": "This value must be a boolean."}
+            )
+        if "row_limit" in value and (
+            isinstance(value["row_limit"], bool)
+            or not isinstance(value["row_limit"], int)
+        ):
+            raise serializers.ValidationError(
+                {"row_limit": "This value must be an integer."}
+            )
+        return value
+
 
 class ArtifactRevokeSerializer(serializers.Serializer):
     reason = serializers.CharField(
