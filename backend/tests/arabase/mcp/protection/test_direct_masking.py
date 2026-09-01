@@ -766,6 +766,72 @@ def test_broken_dependency_on_a_protected_field_still_fails_closed(
 
 
 @pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_derived_protected_leaf_is_masked_and_display_token_cannot_mutate(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    protected = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    derived = data_fixture.create_text_field(name="Derived label", table=table)
+    FieldDependency.objects.create(dependant=derived, dependency=protected)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy,
+        field=protected,
+    )
+    model = table.get_model(attribute_names=True)
+    model.objects.create(secret="derived source canary", derived_label="derived canary")
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                listed = await client.call_tool(
+                    "list_table_rows", {"table_id": table.id, "size": 1}
+                )
+                row = json.loads(listed.content[0].text)["results"][0]
+                rejected = await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {"id": row["id"], "Derived label": row["Derived label"]}
+                        ],
+                    },
+                )
+                return listed, row, rejected
+
+        listed, row, rejected = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert listed.isError is False
+    serialized = listed.content[0].text
+    assert "derived source canary" not in serialized
+    assert "derived canary" not in serialized
+    assert _is_mask_token(row["Secret"])
+    assert _is_mask_token(row["Derived label"])
+    assert rejected.isError is True
+    assert json.loads(rejected.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+
+
+@pytest.mark.django_db
 def test_cycle_in_protected_provenance_fails_closed(data_fixture, monkeypatch):
     endpoint = data_fixture.create_mcp_endpoint()
     database = data_fixture.create_database_application(workspace=endpoint.workspace)

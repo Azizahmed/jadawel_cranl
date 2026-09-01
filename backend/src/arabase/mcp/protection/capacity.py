@@ -26,10 +26,10 @@ _ACQUIRE_SCRIPT = """
 local now = tonumber(redis.call('TIME')[1])
 redis.call('ZREMRANGEBYSCORE', KEYS[1], '-inf', now)
 redis.call('ZREMRANGEBYSCORE', KEYS[2], '-inf', now)
-if redis.call('ZCARD', KEYS[1]) >= tonumber(ARGV[2]) then
+if redis.call('ZCARD', KEYS[1]) >= tonumber(ARGV[3]) then
   return 0
 end
-if redis.call('ZCARD', KEYS[2]) >= tonumber(ARGV[3]) then
+if redis.call('ZCARD', KEYS[2]) >= tonumber(ARGV[2]) then
   return 0
 end
 redis.call('ZADD', KEYS[1], ARGV[1], ARGV[4])
