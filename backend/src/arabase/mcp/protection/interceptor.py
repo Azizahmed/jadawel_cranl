@@ -29,6 +29,7 @@ from arabase.mcp.protection.vault import (
     get_mask_token_vault,
 )
 from jadawel.contrib.database.api.rows.serializers import serialize_rows_for_response
+from jadawel.contrib.database.fields.models import Field
 from jadawel.contrib.database.mcp import services
 from jadawel.core.mcp.errors import MCPErrorCode, SafeMCPToolError
 from jadawel.core.mcp.models import MCPEndpoint
@@ -209,6 +210,14 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
         list(locked_by_id.values()), model, user_field_names=True
     )
     serialized_by_id = {row["id"]: row for row in serialized_rows}
+    protected_field_models = {
+        field.id: field
+        for field in Field.objects.filter(
+            id__in=[field.field_id for field in fields.values()],
+            table_id=args.table_id,
+            trashed=False,
+        )
+    }
     vault = None
     originals = []
     redeemed_count = 0
@@ -221,6 +230,13 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
                 if not has_marker:
                     continue
                 if protected_field is None:
+                    raise SafeMCPToolError(
+                        MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+                    )
+                protected_field_model = protected_field_models.get(
+                    protected_field.field_id
+                )
+                if protected_field_model is None:
                     raise SafeMCPToolError(
                         MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
                     )
@@ -262,7 +278,29 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
                         MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
                     )
                 originals.append((spec, name, value))
-                spec.__pydantic_extra__[name] = current[name]
+                try:
+                    field_type = protected_field_model.get_type()
+                    if field_type.read_only:
+                        raise SafeMCPToolError(
+                            MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+                        )
+                    # The response serializer may intentionally expose a richer
+                    # shape than the row write serializer (for example, a
+                    # single-select response is an option object while updates
+                    # accept the option id).  Use the field adapter's internal
+                    # value so same-cell redemption preserves every writable
+                    # field type without forwarding response-only structures.
+                    spec.__pydantic_extra__[name] = (
+                        field_type.get_internal_value_from_db(
+                            observed_row, protected_field_model.db_column
+                        )
+                    )
+                except SafeMCPToolError:
+                    raise
+                except Exception as exc:
+                    raise SafeMCPToolError(
+                        MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+                    ) from exc
     except MaskTokenVaultUnavailable:
         raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
 

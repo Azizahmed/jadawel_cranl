@@ -295,6 +295,70 @@ def test_update_accepts_only_a_same_cell_preservation_token(data_fixture, monkey
 
 
 @pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_same_cell_preservation_uses_write_value_for_single_select(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_single_select_field(
+        name="Status", table=table, primary=True
+    )
+    option = data_fixture.create_select_option(field=field, value="Keep", color="blue")
+    model = table.get_model()
+    row = model.objects.create()
+    setattr(row, f"field_{field.id}_id", option.id)
+    row.save()
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy,
+        field=field,
+    )
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                listed = await client.call_tool(
+                    "list_table_rows", {"table_id": table.id, "size": 1}
+                )
+                listed_row = json.loads(listed.content[0].text)["results"][0]
+                preserved = await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {"id": listed_row["id"], "Status": listed_row["Status"]}
+                        ],
+                    },
+                )
+                return listed_row, preserved
+
+        listed_row, preserved = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert preserved.isError is False
+    preserved_row = json.loads(preserved.content[0].text)[0]
+    assert _is_mask_token(preserved_row["Status"])
+    assert preserved_row["Status"] != listed_row["Status"]
+    assert getattr(model.objects.get(id=row.id), f"field_{field.id}_id") == option.id
+
+
+@pytest.mark.django_db
 def test_protection_on_another_table_leaves_unprotected_search_unchanged(
     data_fixture, monkeypatch
 ):
