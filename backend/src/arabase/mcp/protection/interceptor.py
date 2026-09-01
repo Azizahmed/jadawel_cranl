@@ -43,7 +43,27 @@ def intercept_mcp_tool_call(
     """Apply the declared MCP contract before executing a validated tool call."""
 
     contract = get_mcp_tool_protection_contract(tool.type)
+    if tool.type == "create_rows":
+        # The reserved envelope is never an ordinary user value, even for an
+        # endpoint whose policy is currently empty.
+        _reject_token_envelopes(args.rows)
     policy = get_mcp_protection_policy_state(endpoint)
+    # A mask envelope is an authority-bearing handle, never an ordinary cell
+    # value.  Reject it even when the policy is empty or the target table is
+    # outside the protected set.  The only supported update path is a
+    # same-cell redemption on a table with a direct protected field, which is
+    # validated below.
+    if (
+        tool.type == "update_rows"
+        and any(_contains_token_marker(_row_payload(row)) for row in args.rows)
+        and (
+            not policy.has_protected_fields
+            or not any(
+                field.table_id == args.table_id for field in policy.protected_fields
+            )
+        )
+    ):
+        raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
     if not policy.has_protected_fields:
         return execute()
     if not policy.protected_fields:
@@ -90,6 +110,9 @@ def intercept_mcp_tool_call(
         restore = None
         try:
             if tool.type == "create_rows":
+                # The global check above also covers unprotected tables.  Keep
+                # this local check for clarity if the interceptor is changed to
+                # admit another create path later.
                 _reject_token_envelopes(args.rows)
             elif tool.type == "update_rows":
                 restore = _prepare_update_for_protected_cells(endpoint, args, policy)
@@ -246,3 +269,14 @@ def _contains_token_marker(value: Any) -> bool:
     if isinstance(value, (list, tuple)):
         return any(_contains_token_marker(nested) for nested in value)
     return False
+
+
+def _row_payload(row: Any) -> Any:
+    """Return a row-update payload without trusting arbitrary model objects."""
+
+    extras = getattr(row, "__pydantic_extra__", None)
+    if extras is not None:
+        return {"id": getattr(row, "id", None), **extras}
+    if isinstance(row, dict):
+        return row
+    return None

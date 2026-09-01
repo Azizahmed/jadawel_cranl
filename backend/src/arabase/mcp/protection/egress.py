@@ -180,7 +180,12 @@ def _protected_output_fields(
         _raise_protection_unavailable()
     output_fields = list(direct_fields)
     for field in all_fields:
-        if field.id in derived_ids:
+        # A dependency may live in another table (for example through a link
+        # field), but only fields materialized in this row payload can be
+        # masked here.  Carrying a cross-table dependant into the output list
+        # would make an otherwise valid response fail because its key is not
+        # present in the target table's serialized row.
+        if field.table_id == table_id and field.id in derived_ids:
             output_fields.append(
                 MCPProtectedFieldBinding(
                     field_id=field.id,
