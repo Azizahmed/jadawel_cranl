@@ -5,6 +5,30 @@
       <h3>{{ $t('mcpProtection.editTitle') }}</h3>
       <p>{{ $t('mcpProtection.editHelp') }}</p>
       <p
+        v-if="readOnly"
+        class="mcp-protection-editor__status"
+        role="alert"
+        data-test-id="protection-read-only"
+      >
+        {{ $t('mcpProtection.readOnly') }}
+      </p>
+      <p
+        v-if="conflict"
+        class="mcp-protection-editor__status"
+        role="alert"
+        data-test-id="protection-conflict"
+      >
+        {{ $t('mcpProtection.revisionConflict') }}
+        <button
+          type="button"
+          class="button button--small"
+          :disabled="saving"
+          @click="reloadPolicy"
+        >
+          {{ $t('mcpProtection.reloadAndCompare') }}
+        </button>
+      </p>
+      <p
         v-if="policy.lifecycle_status !== 'active'"
         class="mcp-protection-editor__status"
       >
@@ -12,7 +36,7 @@
         <button
           type="button"
           class="button button--small"
-          :disabled="saving"
+          :disabled="saving || readOnly"
           @click="reactivate"
         >
           {{ $t('mcpProtection.reactivate') }}
@@ -21,14 +45,37 @@
       <McpProtectionFieldSelector
         v-model="selectedFields"
         :databases="databases"
+        :disabled="readOnly"
+        @status="metadataStatus = $event"
       />
+      <dl class="mcp-protection-editor__diff" aria-live="polite">
+        <div>
+          <dt>{{ $t('mcpProtection.addedFields') }}</dt>
+          <dd>{{ addedFieldIds.length }}</dd>
+        </div>
+        <div>
+          <dt>{{ $t('mcpProtection.removedFields') }}</dt>
+          <dd>{{ removedFieldIds.length }}</dd>
+        </div>
+        <div>
+          <dt>{{ $t('mcpProtection.unchangedFields') }}</dt>
+          <dd>{{ unchangedFieldIds.length }}</dd>
+        </div>
+        <div v-if="unavailableFieldIds.length">
+          <dt>{{ $t('mcpProtection.unavailableFields') }}</dt>
+          <dd>{{ unavailableFieldIds.length }}</dd>
+        </div>
+      </dl>
       <label
-        v-if="removedFieldIds.length"
+        v-if="removedFieldIds.length && !readOnly"
         class="mcp-protection-editor__confirm"
       >
         <input v-model="confirmRemoval" type="checkbox" />
         {{ $t('mcpProtection.confirmRemoval') }}
       </label>
+      <p v-if="removedFieldIds.length" class="mcp-protection-editor__warning">
+        {{ $t('mcpProtection.removalWarning') }}
+      </p>
       <Error :error="error"></Error>
       <div class="mcp-protection-flow__actions">
         <button type="button" class="button" @click="$emit('cancel')">
@@ -37,7 +84,13 @@
         <button
           type="button"
           class="button button--primary"
-          :disabled="saving || (removedFieldIds.length > 0 && !confirmRemoval)"
+          :disabled="
+            readOnly ||
+            saving ||
+            metadataStatus.loading ||
+            metadataStatus.error ||
+            (removedFieldIds.length > 0 && !confirmRemoval)
+          "
           @click="save"
         >
           {{ $t('mcpProtection.saveChanges') }}
@@ -70,6 +123,9 @@ export default {
       saving: false,
       confirmRemoval: false,
       idempotencyKey: uuid(),
+      metadataStatus: { loading: false, error: false },
+      conflict: false,
+      readOnly: false,
     }
   },
   computed: {
@@ -87,8 +143,31 @@ export default {
         .map((field) => field.id)
         .filter((fieldId) => !selected.has(fieldId))
     },
+    addedFieldIds() {
+      const existing = new Set((this.policy?.fields || []).map((field) => field.id))
+      return this.selectedFields
+        .map((field) => field.id)
+        .filter((fieldId) => !existing.has(fieldId))
+    },
+    unchangedFieldIds() {
+      const existing = new Set((this.policy?.fields || []).map((field) => field.id))
+      return this.selectedFields
+        .map((field) => field.id)
+        .filter((fieldId) => existing.has(fieldId))
+    },
+    unavailableFieldIds() {
+      return (this.policy?.fields || [])
+        .filter((field) => !field.name || !field.table || !field.database)
+        .map((field) => field.id)
+    },
   },
   async mounted() {
+    await this.loadPolicy()
+  },
+  methods: {
+    async loadPolicy() {
+      this.loading = true
+      this.hideError()
     try {
       const { data } = await ProtectionPolicyService(this.$client).fetchPolicy(
         this.endpoint.id
@@ -101,14 +180,21 @@ export default {
         table: field.table,
         database: field.database,
       }))
+      this.conflict = false
     } catch (loadError) {
-      this.handleError(loadError, 'endpoint')
+      if (loadError?.response?.status === 403 || loadError?.response?.status === 401) {
+        this.readOnly = true
+      } else {
+        this.handleError(loadError, 'endpoint')
+      }
     } finally {
       this.loading = false
     }
-  },
-  methods: {
+    },
     async save() {
+      if (this.readOnly || this.metadataStatus.loading || this.metadataStatus.error) {
+        return
+      }
       this.saving = true
       this.hideError()
       try {
@@ -123,14 +209,24 @@ export default {
           },
           this.idempotencyKey
         )
+        this.idempotencyKey = uuid()
+        this.conflict = false
         this.$emit('saved', data)
       } catch (saveError) {
-        this.handleError(saveError, 'endpoint')
+        const status = saveError?.response?.status
+        if (status === 409) {
+          this.conflict = true
+        } else if (status === 401 || status === 403) {
+          this.readOnly = true
+        } else {
+          this.handleError(saveError, 'endpoint')
+        }
       } finally {
         this.saving = false
       }
     },
     async reactivate() {
+      if (this.readOnly) return
       this.saving = true
       this.hideError()
       try {
@@ -139,10 +235,21 @@ export default {
         ).reactivatePolicy(this.endpoint.id, this.policy.revision)
         this.$emit('saved', data)
       } catch (reactivationError) {
-        this.handleError(reactivationError, 'endpoint')
+        const status = reactivationError?.response?.status
+        if (status === 401 || status === 403) {
+          this.readOnly = true
+        } else if (status === 409) {
+          this.conflict = true
+        } else {
+          this.handleError(reactivationError, 'endpoint')
+        }
       } finally {
         this.saving = false
       }
+    },
+    async reloadPolicy() {
+      await this.loadPolicy()
+      this.confirmRemoval = false
     },
   },
 }

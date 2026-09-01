@@ -1,11 +1,13 @@
 import logging
 import secrets
+import time
 from dataclasses import dataclass
 
 from django.db.models import F, Q
 
 from redis.exceptions import RedisError
 
+from arabase.mcp.protection.egress import MAX_ISSUED_OR_REDEEMED_PER_CALL
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectedFieldState,
@@ -13,10 +15,17 @@ from arabase.mcp.protection.models import (
     MCPProtectionPolicy,
     MCPProtectionSafeReason,
 )
-from arabase.mcp.protection.vault import MaskTokenVaultUnavailable, get_mask_token_vault
+from arabase.mcp.protection.vault import (
+    MASK_TOKEN_EXPIRY_INDEX,
+    MAX_GLOBAL_TOKENS,
+    MaskTokenVaultUnavailable,
+    get_mask_token_vault,
+)
 from jadawel.core.mcp.models import MCPEndpoint
 
 logger = logging.getLogger(__name__)
+
+READINESS_OPERATION_TIMEOUT_SECONDS = 0.5
 
 
 @dataclass(frozen=True, slots=True)
@@ -81,6 +90,7 @@ def check_mcp_protection_policy_readiness() -> MCPProtectionReadiness:
         try:
             vault = get_mask_token_vault()
             redis = vault.redis
+            started = time.monotonic()
             redis.ping()
             config_get = getattr(redis, "config_get", None)
             if config_get is None:
@@ -102,9 +112,17 @@ def check_mcp_protection_policy_readiness() -> MCPProtectionReadiness:
             canary_key = f"jadawel:mcp-protection:readiness:{secrets.token_hex(8)}"
             if not redis.set(canary_key, "1", ex=5, nx=True):
                 raise RedisError("Redis readiness canary could not be written")
-            if redis.get(canary_key) != "1":
+            canary_ttl = redis.ttl(canary_key)
+            if canary_ttl <= 0:
+                raise RedisError("Redis readiness canary did not receive a TTL")
+            if redis.get(canary_key) not in ("1", b"1"):
                 raise RedisError("Redis readiness canary could not be read")
             redis.delete(canary_key)
+            live_tokens = int(redis.zcard(MASK_TOKEN_EXPIRY_INDEX))
+            if live_tokens + MAX_ISSUED_OR_REDEEMED_PER_CALL >= MAX_GLOBAL_TOKENS:
+                raise RedisError("Redis token reservation headroom is exhausted")
+            if time.monotonic() - started > READINESS_OPERATION_TIMEOUT_SECONDS:
+                raise RedisError("Redis readiness exceeded its bounded timeout")
         except (MaskTokenVaultUnavailable, RedisError, OSError, ValueError, TypeError):
             return MCPProtectionReadiness(
                 False, MCPProtectionSafeReason.PROTECTION_REDIS_UNAVAILABLE

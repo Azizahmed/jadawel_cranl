@@ -27,7 +27,11 @@ from arabase.mcp.protection.editing import (
     replace_mcp_protection_policy,
 )
 from arabase.mcp.protection.lifecycle import delete_ownerless_suspended_endpoint
-from arabase.mcp.protection.models import MCPProtectedFieldState, MCPProtectionPolicy
+from arabase.mcp.protection.models import (
+    MCPProtectedFieldState,
+    MCPProtectionLifecycleStatus,
+    MCPProtectionPolicy,
+)
 from arabase.mcp.protection.readiness import check_mcp_protection_policy_readiness
 from jadawel.api.decorators import map_exceptions, validate_body
 from jadawel.api.errors import ERROR_GROUP_DOES_NOT_EXIST, ERROR_USER_NOT_IN_GROUP
@@ -49,6 +53,7 @@ from jadawel.core.mcp.exceptions import (
 )
 from jadawel.core.mcp.handler import MCPEndpointHandler
 from jadawel.core.mcp.models import MCPEndpoint
+from jadawel.core.models import WORKSPACE_USER_PERMISSION_ADMIN, WorkspaceUser
 
 
 def _may_display_field_metadata(user, field) -> bool:
@@ -212,8 +217,25 @@ class MCPEndpointProtectionSummariesView(APIView):
         responses={200: MCPEndpointProtectionSummarySerializer(many=True)},
     )
     def get(self, request: Request) -> Response:
+        # Owners see their own endpoints. Workspace administrators additionally
+        # receive the content-blind status/count projection for suspended or
+        # blocked endpoints in their workspaces, which is all the cleanup path
+        # needs and never includes a key or protected value.
+        admin_workspace_ids = WorkspaceUser.objects.filter(
+            user=request.user,
+            permissions=WORKSPACE_USER_PERMISSION_ADMIN,
+        ).values_list("workspace_id", flat=True)
         endpoints = (
-            MCPEndpoint.objects.filter(user=request.user)
+            MCPEndpoint.objects.filter(
+                Q(user=request.user)
+                | Q(
+                    workspace_id__in=admin_workspace_ids,
+                    arabase_protection_policy__lifecycle_status__in=(
+                        MCPProtectionLifecycleStatus.SUSPENDED,
+                        MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
+                    ),
+                )
+            )
             .select_related("workspace", "arabase_protection_policy")
             .annotate(
                 protected_field_count=Count(

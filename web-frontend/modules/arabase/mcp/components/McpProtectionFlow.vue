@@ -55,7 +55,19 @@
       <McpProtectionFieldSelector
         v-model="selectedFields"
         :databases="databases"
+        @status="metadataStatus = $event"
       />
+      <p
+        v-if="metadataStatus.loading || metadataStatus.error"
+        class="mcp-protection-flow__metadata-warning"
+        role="alert"
+      >
+        {{
+          metadataStatus.loading
+            ? $t('mcpProtection.fieldsLoading')
+            : $t('mcpProtection.fieldsLoadRetryBeforeSave')
+        }}
+      </p>
       <div class="mcp-protection-flow__actions">
         <button type="button" class="button" @click="step = 1">
           {{ $t('mcpProtection.back') }}
@@ -64,6 +76,7 @@
           type="button"
           class="button button--primary"
           data-test-id="next-fields"
+          :disabled="metadataStatus.loading || metadataStatus.error"
           @click="step = 3"
         >
           {{ $t('mcpProtection.review') }}
@@ -88,7 +101,12 @@
           type="button"
           class="button button--primary"
           data-test-id="create-protected-endpoint"
-          :disabled="loading || (!selectedFields.length && !confirmEmptyPolicy)"
+          :disabled="
+            loading ||
+            metadataStatus.loading ||
+            metadataStatus.error ||
+            (!selectedFields.length && !confirmEmptyPolicy)
+          "
           @click="create"
         >
           {{ $t('mcpEndpointSettings.createEndpoint') }}
@@ -123,6 +141,7 @@ export default {
       confirmEmptyPolicy: false,
       loading: false,
       idempotencyKey: uuid(),
+      metadataStatus: { loading: false, error: false },
     }
   },
   computed: {

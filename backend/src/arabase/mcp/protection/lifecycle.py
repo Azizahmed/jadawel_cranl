@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import F
 from django.db.models.signals import post_delete, post_save, pre_save
@@ -14,6 +15,7 @@ from arabase.mcp.protection.models import (
     MCPProtectionSafeReason,
 )
 from jadawel.contrib.database.fields.models import Field
+from jadawel.contrib.database.fields.registries import field_type_registry
 from jadawel.contrib.database.models import Database
 from jadawel.contrib.database.table.models import Table
 from jadawel.core.mcp.exceptions import MCPEndpointDoesNotExist
@@ -285,11 +287,68 @@ def _capture_field_state(sender, instance: Field, **kwargs):
     if not instance.pk:
         instance._mcp_protection_previous_state = None
         return
-    instance._mcp_protection_previous_state = (
+    previous = (
         Field.objects_and_trash.filter(pk=instance.pk)
         .values("content_type_id", "trashed")
         .first()
     )
+    if previous is not None:
+        try:
+            previous_model = ContentType.objects.get_for_id(
+                previous["content_type_id"]
+            ).model_class()
+            previous["field_type"] = field_type_registry.get_by_model(
+                previous_model
+            ).type
+        except Exception:
+            # An adapter that cannot be resolved is itself an unprovable
+            # conversion. Keep the sentinel so the post-save hook blocks the
+            # policy rather than allowing a potentially lossy value through.
+            previous["field_type"] = None
+    instance._mcp_protection_previous_state = previous
+
+
+_UNSUPPORTED_PROTECTED_CONVERSION_TYPES = frozenset(
+    {
+        "autonumber",
+        "count",
+        "created_by",
+        "created_on",
+        "form_view_edit_row",
+        "formula",
+        "last_modified",
+        "last_modified_by",
+        "lookup",
+        "password",
+        "rollup",
+        "uuid",
+    }
+)
+
+
+def _supported_protected_field_conversion(
+    previous_type: str | None, current_type: str | None
+) -> bool:
+    """Allow only conversions with a value-preserving, JSON-safe leaf type.
+
+    Derived/read-only and password adapters can replace or reconstruct their
+    stored representation during a schema change. Protection remains present,
+    but the endpoint is blocked until the owner explicitly reviews and
+    reactivates it. Ordinary editable field types keep their stable relation and
+    simply invalidate old tokens through the policy generation bump.
+    """
+
+    return bool(previous_type and current_type) and not (
+        previous_type in _UNSUPPORTED_PROTECTED_CONVERSION_TYPES
+        or current_type in _UNSUPPORTED_PROTECTED_CONVERSION_TYPES
+    )
+
+
+def _safe_current_field_type(instance: Field) -> str | None:
+    try:
+        return instance.get_type().type
+    except Exception:
+        return None
 
 
 def _field_changed(sender, instance: Field, created: bool, **kwargs):
@@ -317,6 +376,20 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
         _bump_policies(
             relations.values_list("policy__endpoint_id", flat=True),
             reason=MCPProtectionSafeReason.POLICY_RELATION_INVALID,
+            lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
+        )
+    elif changed_type and not _supported_protected_field_conversion(
+        previous.get("field_type"),
+        _safe_current_field_type(instance),
+    ):
+        active_relations = relations.filter(state=MCPProtectedFieldState.ACTIVE)
+        active_relations.update(
+            state=MCPProtectedFieldState.SUSPENDED,
+            safe_reason_code=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
+        )
+        _bump_policies(
+            relations.values_list("policy__endpoint_id", flat=True),
+            reason=MCPProtectionSafeReason.FIELD_TYPE_CONVERSION_UNSUPPORTED,
             lifecycle_status=MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
         )
     elif changed_type or changed_trash:

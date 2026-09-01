@@ -28,6 +28,10 @@ class MCPProtectionSafeReason(models.TextChoices):
     MEMBERSHIP_CHANGED = "MEMBERSHIP_CHANGED", "Membership changed"
     USER_INACTIVE = "USER_INACTIVE", "User inactive"
     CREDENTIAL_ROTATED = "CREDENTIAL_ROTATED", "Credential rotated"
+    FIELD_TYPE_CONVERSION_UNSUPPORTED = (
+        "FIELD_TYPE_CONVERSION_UNSUPPORTED",
+        "Field type conversion requires review",
+    )
     PROTECTION_REDIS_UNAVAILABLE = (
         "PROTECTION_REDIS_UNAVAILABLE",
         "Protection Redis unavailable",

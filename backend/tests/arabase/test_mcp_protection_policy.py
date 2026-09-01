@@ -8,6 +8,7 @@ from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectionLifecycleStatus,
     MCPProtectionPolicy,
+    MCPProtectionSafeReason,
 )
 from arabase.mcp.protection.policy_state import get_mcp_protection_policy_state
 from arabase.mcp.protection.readiness import check_mcp_protection_policy_readiness
@@ -16,6 +17,7 @@ from jadawel.core.action.registries import action_type_registry
 from jadawel.core.mcp.actions import CreateMCPEndpointActionType
 from jadawel.core.mcp.errors import MCPErrorCode, SafeMCPToolError
 from jadawel.core.mcp.models import MCPEndpoint
+from jadawel.core.models import WORKSPACE_USER_PERMISSION_ADMIN
 
 
 @pytest.mark.django_db
@@ -299,6 +301,47 @@ def test_endpoint_summaries_include_safe_policy_status(api_client, data_fixture)
             "protected_field_count": 0,
             "lifecycle_status": "active",
             "safe_reason_code": "",
+        }
+    ]
+    assert endpoint.key not in response.content.decode()
+
+
+@pytest.mark.django_db
+def test_workspace_admin_summaries_include_blocked_endpoint_without_secrets(
+    api_client, data_fixture
+):
+    owner = data_fixture.create_user()
+    workspace = data_fixture.create_workspace(user=owner)
+    endpoint = data_fixture.create_mcp_endpoint(user=owner, workspace=workspace)
+    policy = endpoint.arabase_protection_policy
+    workspace.workspaceuser_set.get(user=owner).delete()
+    policy.refresh_from_db()
+    policy.lifecycle_status = MCPProtectionLifecycleStatus.PROTECTION_BLOCKED
+    policy.safe_reason_code = MCPProtectionSafeReason.CREDENTIAL_ROTATED
+    policy.save(update_fields=["lifecycle_status", "safe_reason_code", "updated_on"])
+
+    admin, token = data_fixture.create_user_and_token()
+    data_fixture.create_user_workspace(
+        user=admin,
+        workspace=workspace,
+        permissions=WORKSPACE_USER_PERMISSION_ADMIN,
+    )
+
+    response = api_client.get(
+        reverse("api:arabase:mcp_endpoint_protection_summaries"),
+        HTTP_AUTHORIZATION=f"JWT {token}",
+    )
+
+    assert response.status_code == HTTP_200_OK
+    assert response.json() == [
+        {
+            "endpoint_id": endpoint.id,
+            "name": endpoint.name,
+            "workspace_id": workspace.id,
+            "workspace_name": workspace.name,
+            "protected_field_count": 0,
+            "lifecycle_status": "protection_blocked",
+            "safe_reason_code": "CREDENTIAL_ROTATED",
         }
     ]
     assert endpoint.key not in response.content.decode()
