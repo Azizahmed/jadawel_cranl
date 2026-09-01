@@ -17,13 +17,17 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit 8c49dd5 (MCP lifecycle/query-budget fix),
-# tag 2.9.15-mcp-query-budget, digest
-# sha256:b3564da531dd8af33566534f0a5117ae888946063ff70cbb5a156351bd050fac.
+# Published 2026-09-01 by publish-image.yml from commit ccadf39 (responsive
+# MCP settings modal fix), tag 2.9.16-mcp-mobile-modal, digest
+# sha256:0310800c82f46c1c6a60ffef5c49122dc0843bb91e35d2c3a8be265f57852c41.
 #
-# 2.9.15-mcp-query-budget carries the protected-field lifecycle/query-budget
-# fixes on top of the 2.9.14 capacity, artifact-boundary, mobile-layout,
-# dead-worker recovery, and sanitized Redis-outage hardening.
+# 2.9.16-mcp-mobile-modal carries the responsive sidebar-modal fix on top of
+# the 2.9.15 protected-field lifecycle/query-budget release and the 2.9.14
+# capacity, artifact-boundary, dead-worker recovery, and Redis-outage hardening.
+#
+# Previously published 2026-09-01 by publish-image.yml from commit 8c49dd5
+# (2.9.15-mcp-query-budget), digest
+# sha256:b3564da531dd8af33566534f0a5117ae888946063ff70cbb5a156351bd050fac.
 #
 # Previously published 2026-09-01 by publish-image.yml from commit 3df47be
 # (2.9.11-mcp-admin-summaries), digest
