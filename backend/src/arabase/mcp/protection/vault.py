@@ -21,6 +21,7 @@ MASK_TOKEN_TTL_SECONDS = 24 * 60 * 60
 MASK_TOKEN_REDIS_PREFIX = "jadawel:mcp-protection:v1:"
 MASK_TOKEN_EXPIRY_INDEX = f"{MASK_TOKEN_REDIS_PREFIX}expiry"
 MASK_TOKEN_ENDPOINT_INDEX_PREFIX = f"{MASK_TOKEN_REDIS_PREFIX}endpoint:"
+MAX_ISSUANCE_MEMORY_RATIO = 0.60
 MAX_ENDPOINT_TOKENS = 10_000
 MAX_GLOBAL_TOKENS = 50_000
 
@@ -100,6 +101,7 @@ class RedisMaskTokenVault:
     """Digest-addressed Redis vault which never persists the token or value."""
 
     def __init__(self, redis_client: Redis | None = None):
+        self._enforce_memory_headroom = redis_client is None
         if redis_client is not None:
             self.redis = redis_client
             return
@@ -119,6 +121,7 @@ class RedisMaskTokenVault:
             raise MaskTokenVaultUnavailable from exc
 
     def issue(self, binding: MaskTokenBinding, value: Any) -> IssuedMaskToken:
+        self._ensure_issuance_headroom()
         key_id, fingerprint_key = _load_active_fingerprint_key()
         canonical_value = canonicalize_typed_value(binding.field_type, value)
         fingerprint = hmac.new(
@@ -156,6 +159,31 @@ class RedisMaskTokenVault:
         if result != 1:
             raise MaskTokenVaultUnavailable
         return _issued(token)
+
+    def _ensure_issuance_headroom(self) -> None:
+        """Stop new issuance before the dedicated vault reaches its safety floor.
+
+        Test fakes and explicitly injected Redis clients are deliberately exempt:
+        production clients are always constructed from the configured URL and
+        therefore get the bounded configuration check on every issuance batch.
+        """
+
+        if not self._enforce_memory_headroom:
+            return
+        try:
+            config_get = getattr(self.redis, "config_get", None)
+            if config_get is None:
+                raise RedisError("Redis configuration cannot be verified")
+            memory = config_get("maxmemory")
+            policy = config_get("maxmemory-policy")
+            maxmemory = int(memory.get("maxmemory", 0))
+            if maxmemory <= 0 or policy.get("maxmemory-policy") != "noeviction":
+                raise RedisError("Redis is not a bounded noeviction vault")
+            used_memory = int(self.redis.info("memory").get("used_memory", 0))
+            if used_memory / maxmemory >= MAX_ISSUANCE_MEMORY_RATIO:
+                raise RedisError("Redis memory headroom is below the safety floor")
+        except (RedisError, OSError, ValueError, TypeError, AttributeError) as exc:
+            raise MaskTokenVaultUnavailable from exc
 
     def redeem(
         self, raw_handle: str, binding: MaskTokenBinding, current_value: Any

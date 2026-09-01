@@ -1,3 +1,4 @@
+import logging
 import secrets
 from dataclasses import dataclass
 
@@ -14,6 +15,8 @@ from arabase.mcp.protection.models import (
 )
 from arabase.mcp.protection.vault import MaskTokenVaultUnavailable, get_mask_token_vault
 from jadawel.core.mcp.models import MCPEndpoint
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
@@ -89,7 +92,12 @@ def check_mcp_protection_policy_readiness() -> MCPProtectionReadiness:
                 raise RedisError("Redis is not a bounded noeviction vault")
             info = redis.info("memory")
             used_memory = int(info.get("used_memory", 0))
-            if used_memory / maxmemory >= 0.60:
+            memory_ratio = used_memory / maxmemory
+            if memory_ratio >= 0.70:
+                logger.error(
+                    "MCP protection Redis memory alert: %.3f used", memory_ratio
+                )
+            if memory_ratio >= 0.60:
                 raise RedisError("Redis memory headroom is below the safety floor")
             canary_key = f"jadawel:mcp-protection:readiness:{secrets.token_hex(8)}"
             if not redis.set(canary_key, "1", ex=5, nx=True):

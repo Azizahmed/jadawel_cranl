@@ -124,3 +124,39 @@ def test_vault_capacity_is_reserved_atomically_and_released_on_cleanup(monkeypat
     vault.delete([first.digest])
     second = vault.issue(binding, "second")
     assert second.digest != first.digest
+
+
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_production_vault_stops_issuance_at_memory_safety_floor(monkeypatch):
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    vault._enforce_memory_headroom = True
+    monkeypatch.setattr(
+        redis,
+        "config_get",
+        lambda name: (
+            {"maxmemory": "100"}
+            if name == "maxmemory"
+            else {"maxmemory-policy": "noeviction"}
+        ),
+    )
+    monkeypatch.setattr(redis, "info", lambda section: {"used_memory": 60})
+    with pytest.raises(MaskTokenVaultUnavailable):
+        vault.issue(
+            MaskTokenBinding(
+                endpoint_id=7,
+                workspace_id=11,
+                table_id=13,
+                row_id=17,
+                field_id=19,
+                policy_revision=2,
+                access_generation=3,
+                operation_class="preserve_cell",
+                observed_row_state="2026-08-30T12:00:00+00:00",
+                field_type="text",
+            ),
+            "blocked at floor",
+        )
