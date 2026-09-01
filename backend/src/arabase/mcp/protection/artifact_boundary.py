@@ -750,7 +750,7 @@ def _validated_active_approval(
         raise ArtifactExposureBlocked()
     if audience == ArtifactAudience.AUTHENTICATED and user is not None:
         try:
-            CoreHandler().check_permissions(
+            allowed = CoreHandler().check_permissions(
                 user,
                 UpdateViewOperationType.type,
                 workspace=view.table.database.workspace,
@@ -760,7 +760,9 @@ def _validated_active_approval(
         except TypeError:
             # Older core permission managers do not expose the optional flag;
             # the outer view endpoint has already performed read permission.
-            pass
+            allowed = True
+        if allowed is not True:
+            raise ArtifactExposureBlocked()
     if approval.target_generation != state.target_generation:
         raise ArtifactExposureBlocked()
     if approval.content_digest != _sha256(view.html):
