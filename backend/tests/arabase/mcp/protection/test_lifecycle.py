@@ -139,7 +139,7 @@ def test_workspace_admin_can_delete_ownerless_suspended_endpoint(
     delete_ownerless_suspended_endpoint(user=admin, endpoint_id=endpoint.id)
 
     assert not endpoint.__class__.objects.filter(id=endpoint.id).exists()
-    audit = MCPProtectionLifecycleAudit.objects.get()
+    audit = MCPProtectionLifecycleAudit.objects.get(event_type="ownerless_admin_delete")
     assert audit.endpoint_id is None
     assert audit.actor_id == admin.id
     assert audit.event_type == "ownerless_admin_delete"
@@ -166,4 +166,6 @@ def test_workspace_admin_cannot_delete_endpoint_with_active_owner(
         delete_ownerless_suspended_endpoint(user=admin, endpoint_id=endpoint.id)
 
     assert endpoint.__class__.objects.filter(id=endpoint.id).exists()
-    assert MCPProtectionLifecycleAudit.objects.count() == 0
+    assert not MCPProtectionLifecycleAudit.objects.filter(
+        event_type="ownerless_admin_delete"
+    ).exists()

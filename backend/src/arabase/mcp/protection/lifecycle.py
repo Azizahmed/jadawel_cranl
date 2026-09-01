@@ -33,6 +33,33 @@ def create_empty_mcp_protection_policy(
         MCPProtectionPolicy.objects.create(endpoint=instance)
 
 
+def record_mcp_protection_lifecycle_transition(
+    *,
+    policy: MCPProtectionPolicy,
+    from_lifecycle_status: str,
+    to_lifecycle_status: str,
+    reason_code: str = "",
+    event_type: str = "lifecycle_transition",
+    actor=None,
+    metadata: dict | None = None,
+) -> None:
+    """Write a content-blind lifecycle transition audit entry."""
+
+    if from_lifecycle_status == to_lifecycle_status and not reason_code:
+        return
+    MCPProtectionLifecycleAudit.objects.create(
+        endpoint_id=policy.endpoint_id,
+        actor=actor,
+        event_type=event_type,
+        from_lifecycle_status=from_lifecycle_status,
+        to_lifecycle_status=to_lifecycle_status,
+        reason_code=reason_code,
+        policy_revision=policy.revision,
+        access_generation=policy.access_generation,
+        metadata=metadata or {},
+    )
+
+
 @transaction.atomic
 def delete_ownerless_suspended_endpoint(*, user, endpoint_id: int) -> None:
     """Let a workspace admin remove only an endpoint with no viable owner.
@@ -107,6 +134,19 @@ def delete_ownerless_suspended_endpoint(*, user, endpoint_id: int) -> None:
 
 
 def _bump_policies(endpoint_ids, *, reason=None, lifecycle_status=None):
+    endpoint_ids = list(set(endpoint_ids))
+    before = {
+        row["endpoint_id"]: row
+        for row in MCPProtectionPolicy.objects.filter(
+            endpoint_id__in=endpoint_ids
+        ).values(
+            "endpoint_id",
+            "revision",
+            "access_generation",
+            "lifecycle_status",
+            "safe_reason_code",
+        )
+    }
     updates = {
         "revision": F("revision") + 1,
         "access_generation": F("access_generation") + 1,
@@ -116,6 +156,30 @@ def _bump_policies(endpoint_ids, *, reason=None, lifecycle_status=None):
     if lifecycle_status is not None:
         updates["lifecycle_status"] = lifecycle_status
     MCPProtectionPolicy.objects.filter(endpoint_id__in=endpoint_ids).update(**updates)
+    if reason is None and lifecycle_status is None:
+        return
+    target_status = lifecycle_status
+    target_reason = reason
+    audits = []
+    for row in before.values():
+        if row["lifecycle_status"] == (
+            target_status or row["lifecycle_status"]
+        ) and row["safe_reason_code"] == (target_reason or row["safe_reason_code"]):
+            continue
+        audits.append(
+            MCPProtectionLifecycleAudit(
+                endpoint_id=row["endpoint_id"],
+                event_type="lifecycle_transition",
+                from_lifecycle_status=row["lifecycle_status"],
+                to_lifecycle_status=target_status or row["lifecycle_status"],
+                reason_code=target_reason or row["safe_reason_code"],
+                policy_revision=row["revision"] + 1,
+                access_generation=row["access_generation"] + 1,
+                metadata={},
+            )
+        )
+    if audits:
+        MCPProtectionLifecycleAudit.objects.bulk_create(audits)
 
 
 def _suspend_workspace_policies(workspace_id: int, suspended: bool) -> None:
@@ -129,16 +193,31 @@ def _suspend_workspace_policies(workspace_id: int, suspended: bool) -> None:
             lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
         )
     else:
+        policies = list(
+            MCPProtectionPolicy.objects.filter(
+                endpoint_id__in=endpoint_ids,
+                lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
+                safe_reason_code=MCPProtectionSafeReason.WORKSPACE_SUSPENDED,
+            )
+        )
         MCPProtectionPolicy.objects.filter(
-            endpoint_id__in=endpoint_ids,
-            lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
-            safe_reason_code=MCPProtectionSafeReason.WORKSPACE_SUSPENDED,
+            id__in=[policy.id for policy in policies]
         ).update(
             revision=F("revision") + 1,
             access_generation=F("access_generation") + 1,
             lifecycle_status=MCPProtectionLifecycleStatus.ACTIVE,
             safe_reason_code=MCPProtectionSafeReason.NONE,
         )
+        for policy in policies:
+            policy.revision += 1
+            policy.access_generation += 1
+            record_mcp_protection_lifecycle_transition(
+                policy=policy,
+                from_lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
+                to_lifecycle_status=MCPProtectionLifecycleStatus.ACTIVE,
+                reason_code=MCPProtectionSafeReason.NONE,
+                metadata={"trigger": "workspace_restored"},
+            )
 
 
 def _set_hierarchy_protection_state(
@@ -185,10 +264,18 @@ def _set_hierarchy_protection_state(
             state=MCPProtectedFieldState.SUSPENDED
         ).exists():
             continue
+        previous_status = policy.lifecycle_status
         policy.lifecycle_status = MCPProtectionLifecycleStatus.ACTIVE
         policy.safe_reason_code = MCPProtectionSafeReason.NONE
         policy.save(
             update_fields=["lifecycle_status", "safe_reason_code", "updated_on"]
+        )
+        record_mcp_protection_lifecycle_transition(
+            policy=policy,
+            from_lifecycle_status=previous_status,
+            to_lifecycle_status=policy.lifecycle_status,
+            reason_code=MCPProtectionSafeReason.NONE,
+            metadata={"trigger": "hierarchy_restored"},
         )
 
 
@@ -256,6 +343,7 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
                 if not policy.protected_fields.filter(
                     state=MCPProtectedFieldState.SUSPENDED
                 ).exists():
+                    previous_status = policy.lifecycle_status
                     policy.lifecycle_status = MCPProtectionLifecycleStatus.ACTIVE
                     policy.safe_reason_code = MCPProtectionSafeReason.NONE
                     policy.save(
@@ -264,6 +352,13 @@ def _field_changed(sender, instance: Field, created: bool, **kwargs):
                             "safe_reason_code",
                             "updated_on",
                         ]
+                    )
+                    record_mcp_protection_lifecycle_transition(
+                        policy=policy,
+                        from_lifecycle_status=previous_status,
+                        to_lifecycle_status=policy.lifecycle_status,
+                        reason_code=MCPProtectionSafeReason.NONE,
+                        metadata={"trigger": "hierarchy_restored"},
                     )
 
 
@@ -345,16 +440,31 @@ def _user_changed(sender, instance, **kwargs):
             lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
         )
         return
+    policies = list(
+        MCPProtectionPolicy.objects.filter(
+            endpoint_id__in=endpoint_ids,
+            lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
+            safe_reason_code=MCPProtectionSafeReason.USER_INACTIVE,
+        )
+    )
     MCPProtectionPolicy.objects.filter(
-        endpoint_id__in=endpoint_ids,
-        lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
-        safe_reason_code=MCPProtectionSafeReason.USER_INACTIVE,
+        id__in=[policy.id for policy in policies]
     ).update(
         revision=F("revision") + 1,
         access_generation=F("access_generation") + 1,
         lifecycle_status=MCPProtectionLifecycleStatus.ACTIVE,
         safe_reason_code=MCPProtectionSafeReason.NONE,
     )
+    for policy in policies:
+        policy.revision += 1
+        policy.access_generation += 1
+        record_mcp_protection_lifecycle_transition(
+            policy=policy,
+            from_lifecycle_status=MCPProtectionLifecycleStatus.SUSPENDED,
+            to_lifecycle_status=MCPProtectionLifecycleStatus.ACTIVE,
+            reason_code=MCPProtectionSafeReason.NONE,
+            metadata={"trigger": "user_reactivated"},
+        )
 
 
 def _user_profile_changed(sender, instance: UserProfile, **kwargs):

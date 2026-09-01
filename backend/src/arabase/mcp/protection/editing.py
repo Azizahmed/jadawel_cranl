@@ -8,6 +8,9 @@ from rest_framework.exceptions import ValidationError
 
 from arabase.mcp.protection.admission import ensure_policy_admission_allowed
 from arabase.mcp.protection.creation import _load_and_validate_fields
+from arabase.mcp.protection.lifecycle import (
+    record_mcp_protection_lifecycle_transition,
+)
 from arabase.mcp.protection.models import (
     MCPProtectedField,
     MCPProtectedFieldState,
@@ -185,6 +188,7 @@ def reactivate_mcp_protection_policy(
         safe_reason_code=MCPProtectionSafeReason.NONE,
     )
     policy.refresh_from_db()
+    previous_status = policy.lifecycle_status
     policy.lifecycle_status = MCPProtectionLifecycleStatus.ACTIVE
     policy.safe_reason_code = MCPProtectionSafeReason.NONE
     policy.revision += 1
@@ -197,6 +201,14 @@ def reactivate_mcp_protection_policy(
             "access_generation",
             "updated_on",
         ]
+    )
+    record_mcp_protection_lifecycle_transition(
+        policy=policy,
+        from_lifecycle_status=previous_status,
+        to_lifecycle_status=policy.lifecycle_status,
+        reason_code=MCPProtectionSafeReason.NONE,
+        actor=user,
+        metadata={"trigger": "owner_reactivation"},
     )
     return policy
 
