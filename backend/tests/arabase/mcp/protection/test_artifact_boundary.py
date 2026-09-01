@@ -10,6 +10,7 @@ from arabase.mcp.protection.artifact_boundary import (
     approve_artifact_draft,
     page_feed_field_ids,
     page_runtime_access,
+    revoke_artifact,
     submit_mcp_page_change,
     validate_artifact_html,
 )
@@ -261,6 +262,32 @@ def test_public_only_artifact_removes_protected_projection(protected_page):
     allowed = page_feed_field_ids(view, user=user)
     assert secret.id not in allowed
     assert visible.id in allowed
+
+
+@pytest.mark.django_db
+def test_manual_artifact_revocation_blocks_document_and_row_projection(protected_page):
+    user, workspace, _table, secret, _visible, endpoint, view = protected_page
+    pending = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html=PAGE_V2,
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+    )
+    approve_artifact_draft(user=user, draft_id=pending["draft_id"])
+
+    result = revoke_artifact(user=user, view_id=view.id)
+
+    assert result["status"] == "revoked"
+    assert (
+        ArtifactApproval.objects.filter(view=view, revoked_at__isnull=True).exists()
+        is False
+    )
+    with pytest.raises(ArtifactExposureBlocked):
+        page_runtime_access(view, user=user)
+    with pytest.raises(ArtifactExposureBlocked):
+        page_feed_field_ids(view, user=user)
 
 
 @pytest.mark.django_db

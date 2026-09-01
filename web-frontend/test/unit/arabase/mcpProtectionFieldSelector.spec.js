@@ -111,4 +111,34 @@ describe('McpProtectionFieldSelector', () => {
       true
     )
   })
+
+  test('exposes live status and keyboard-focusable semantic field controls', async () => {
+    fetchAll.mockResolvedValue({
+      data: [{ id: 41, name: 'National ID', type: 'text' }],
+    })
+    const wrapper = await mountSuspended(McpProtectionFieldSelector, {
+      props: {
+        databases: [
+          { id: 10, name: 'Customers', tables: [{ id: 20, name: 'People' }] },
+        ],
+        modelValue: [],
+      },
+      global: { mocks: { $client: {}, $t: (key) => key } },
+    })
+
+    const selector = wrapper.get('section[aria-live="polite"]')
+    expect(selector.attributes('aria-busy')).toBe('false')
+    const expand = wrapper.get('[data-test-id="expand-table-20"]')
+    expect(expand.attributes('aria-expanded')).toBe('false')
+
+    await expand.trigger('click')
+    const checkbox = wrapper.get('[data-test-id="protected-field-41"]')
+    expect(checkbox.attributes('aria-label')).toContain(
+      'Customers / People / National ID'
+    )
+    expect(checkbox.element.tabIndex).toBe(0)
+    expect(checkbox.element.disabled).toBe(false)
+    await checkbox.setValue(true)
+    expect(wrapper.emitted('update:modelValue')[0][0][0].id).toBe(41)
+  })
 })

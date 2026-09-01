@@ -2,6 +2,7 @@ from django.shortcuts import reverse
 from django.test import override_settings
 
 import pytest
+from rest_framework.exceptions import ValidationError
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
 from arabase.mcp.protection.creation import create_protected_mcp_endpoint
@@ -102,6 +103,45 @@ def test_non_empty_policy_admission_is_feature_gated(api_client, data_fixture):
 
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert MCPEndpoint.objects.count() == 0
+
+
+@pytest.mark.django_db
+@override_settings(FEATURE_FLAGS=["mcp-protected-fields-staff"])
+def test_staff_rollout_flag_allows_staff_but_not_regular_owners(data_fixture):
+    regular = data_fixture.create_user()
+    staff = data_fixture.create_user(is_staff=True)
+    regular_workspace = data_fixture.create_workspace(user=regular)
+    staff_workspace = data_fixture.create_workspace(user=staff)
+    regular_database = data_fixture.create_database_application(
+        workspace=regular_workspace
+    )
+    staff_database = data_fixture.create_database_application(workspace=staff_workspace)
+    regular_table = data_fixture.create_database_table(database=regular_database)
+    staff_table = data_fixture.create_database_table(database=staff_database)
+    regular_field = data_fixture.create_text_field(table=regular_table)
+    staff_field = data_fixture.create_text_field(table=staff_table)
+
+    with pytest.raises(ValidationError):
+        create_protected_mcp_endpoint(
+            user=regular,
+            name="Regular gated endpoint",
+            workspace_id=regular_workspace.id,
+            protected_field_ids=[regular_field.id],
+            confirm_empty_policy=False,
+            idempotency_key="regular-staff-flag-1",
+        )
+
+    created = create_protected_mcp_endpoint(
+        user=staff,
+        name="Staff canary endpoint",
+        workspace_id=staff_workspace.id,
+        protected_field_ids=[staff_field.id],
+        confirm_empty_policy=False,
+        idempotency_key="staff-staff-flag-1",
+    )
+
+    assert created.endpoint.user_id == staff.id
+    assert created.endpoint.arabase_protection_policy.protected_fields.count() == 1
 
 
 @pytest.mark.django_db

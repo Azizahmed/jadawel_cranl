@@ -273,6 +273,27 @@ def test_table_and_database_trash_never_leave_an_active_relation(protected_endpo
 
 
 @pytest.mark.django_db
+def test_workspace_trash_and_restore_suspend_and_reactivate_policy(protected_endpoint):
+    _, workspace, _, _, _, endpoint = protected_endpoint
+    policy = endpoint.arabase_protection_policy
+    initial_generation = policy.access_generation
+
+    workspace.trashed = True
+    workspace.save(update_fields=["trashed"])
+    policy.refresh_from_db()
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.SUSPENDED
+    assert policy.safe_reason_code == MCPProtectionSafeReason.WORKSPACE_SUSPENDED
+    assert policy.access_generation == initial_generation + 1
+
+    workspace.trashed = False
+    workspace.save(update_fields=["trashed"])
+    policy.refresh_from_db()
+    assert policy.lifecycle_status == MCPProtectionLifecycleStatus.ACTIVE
+    assert policy.safe_reason_code == MCPProtectionSafeReason.NONE
+    assert policy.access_generation == initial_generation + 2
+
+
+@pytest.mark.django_db
 def test_membership_loss_requires_explicit_reactivation(
     protected_endpoint, data_fixture
 ):

@@ -202,9 +202,13 @@ def _bump_policies(endpoint_ids, *, reason=None, lifecycle_status=None):
 
 
 def _suspend_workspace_policies(workspace_id: int, suspended: bool) -> None:
-    endpoint_ids = MCPEndpoint.objects.filter(workspace_id=workspace_id).values_list(
-        "id", flat=True
-    )
+    # ``MCPEndpoint.objects`` inherits the parent-workspace trash filter and
+    # therefore returns no endpoints after the workspace has just been marked
+    # trashed.  Lifecycle suspension must still reach those endpoints, so use
+    # the all-rows manager while the parent is transitioning.
+    endpoint_ids = MCPEndpoint.objects_and_trash.filter(
+        workspace_id=workspace_id
+    ).values_list("id", flat=True)
     if suspended:
         _bump_policies(
             endpoint_ids,
