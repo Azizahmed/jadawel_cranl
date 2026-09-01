@@ -144,13 +144,17 @@ export default {
         .filter((fieldId) => !selected.has(fieldId))
     },
     addedFieldIds() {
-      const existing = new Set((this.policy?.fields || []).map((field) => field.id))
+      const existing = new Set(
+        (this.policy?.fields || []).map((field) => field.id)
+      )
       return this.selectedFields
         .map((field) => field.id)
         .filter((fieldId) => !existing.has(fieldId))
     },
     unchangedFieldIds() {
-      const existing = new Set((this.policy?.fields || []).map((field) => field.id))
+      const existing = new Set(
+        (this.policy?.fields || []).map((field) => field.id)
+      )
       return this.selectedFields
         .map((field) => field.id)
         .filter((fieldId) => existing.has(fieldId))
@@ -168,31 +172,38 @@ export default {
     async loadPolicy() {
       this.loading = true
       this.hideError()
-    try {
-      const { data } = await ProtectionPolicyService(this.$client).fetchPolicy(
-        this.endpoint.id
-      )
-      this.policy = data
-      this.selectedFields = data.fields.map((field) => ({
-        id: field.id,
-        name: field.name,
-        type: field.type,
-        table: field.table,
-        database: field.database,
-      }))
-      this.conflict = false
-    } catch (loadError) {
-      if (loadError?.response?.status === 403 || loadError?.response?.status === 401) {
-        this.readOnly = true
-      } else {
-        this.handleError(loadError, 'endpoint')
+      try {
+        const { data } = await ProtectionPolicyService(
+          this.$client
+        ).fetchPolicy(this.endpoint.id)
+        this.policy = data
+        this.selectedFields = data.fields.map((field) => ({
+          id: field.id,
+          name: field.name,
+          type: field.type,
+          table: field.table,
+          database: field.database,
+        }))
+        this.conflict = false
+      } catch (loadError) {
+        if (
+          loadError?.response?.status === 403 ||
+          loadError?.response?.status === 401
+        ) {
+          this.readOnly = true
+        } else {
+          this.handleError(loadError, 'endpoint')
+        }
+      } finally {
+        this.loading = false
       }
-    } finally {
-      this.loading = false
-    }
     },
     async save() {
-      if (this.readOnly || this.metadataStatus.loading || this.metadataStatus.error) {
+      if (
+        this.readOnly ||
+        this.metadataStatus.loading ||
+        this.metadataStatus.error
+      ) {
         return
       }
       this.saving = true

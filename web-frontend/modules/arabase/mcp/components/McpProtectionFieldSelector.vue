@@ -38,7 +38,7 @@
     </label>
 
     <div
-        v-for="database in visibleDatabases"
+      v-for="database in visibleDatabases"
       :key="database.id"
       class="mcp-protection-selector__database"
     >
@@ -66,7 +66,9 @@
             type="checkbox"
             :disabled="disabled || metadataLoading"
           />
-          {{ $t('mcpProtection.confirmDatabaseScope', { name: database.name }) }}
+          {{
+            $t('mcpProtection.confirmDatabaseScope', { name: database.name })
+          }}
         </label>
         <button
           type="button"
@@ -299,7 +301,9 @@ export default {
             throw new Error('Unable to load database metadata')
           }
         }
-        const selected = new Map(this.modelValue.map((field) => [field.id, field]))
+        const selected = new Map(
+          this.modelValue.map((field) => [field.id, field])
+        )
         for (const table of database.tables) {
           for (const field of this.fieldsByTable[table.id] || []) {
             selected.set(field.id, {

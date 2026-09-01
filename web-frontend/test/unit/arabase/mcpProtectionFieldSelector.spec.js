@@ -76,7 +76,9 @@ describe('McpProtectionFieldSelector', () => {
     expect(wrapper.find('[data-test-id="confirm-database-10"]').exists()).toBe(
       true
     )
-    await wrapper.find('.mcp-protection-selector__scope-confirmation input').setValue(true)
+    await wrapper
+      .find('.mcp-protection-selector__scope-confirmation input')
+      .setValue(true)
     await wrapper.get('[data-test-id="confirm-database-10"]').trigger('click')
     await flushPromises()
     expect(wrapper.emitted('update:modelValue')[0][0]).toHaveLength(2)
