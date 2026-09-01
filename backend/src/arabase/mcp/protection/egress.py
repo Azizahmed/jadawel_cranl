@@ -12,6 +12,7 @@ from arabase.mcp.protection.models import (
 from arabase.mcp.protection.policy_state import (
     MCPProtectedFieldBinding,
     MCPProtectionPolicyState,
+    _safe_field_type_name,
 )
 from arabase.mcp.protection.vault import (
     MaskTokenBinding,
@@ -185,7 +186,7 @@ def _protected_output_fields(
                     field_id=field.id,
                     table_id=field.table_id,
                     field_name=field.name,
-                    field_type=field.get_type().type,
+                    field_type=_safe_field_type_name(field),
                 )
             )
     return tuple(

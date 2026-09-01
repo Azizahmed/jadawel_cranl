@@ -18,6 +18,14 @@
     "review": "مراجعة السياسة",
     "editAction": "تعديل الحماية",
     "editEndpointAction": "تعديل حماية {name}",
+    "protectedCountLabel": "الحقول المحمية",
+    "protectedCount": "{count} حقول محمية",
+    "lifecycleLabel": "الحالة",
+    "lifecycle": {
+      "active": "نشطة",
+      "suspended": "معلّقة",
+      "protection_blocked": "محظورة"
+    },
     "editTitle": "تعديل سياسة الحماية",
     "editHelp": "استبدل مجموعة الحقول المحمية. ستتوقف رموز الإخفاء الحالية عن العمل بعد التغيير.",
     "protectionSuspended": "الحماية متوقفة مؤقتاً حتى يتم إصلاح المشكلة المشار إليها.",
@@ -250,7 +258,7 @@
     "configHint": "في Claude Desktop، أضف هذا إلى ملف إعدادات MCP:",
     "manageKeys": "إدارة المفاتيح في الإعدادات",
     "noKeyHint": "لا يوجد لديك مفتاح MCP لمساحة العمل هذه بعد. إنشاء مفتاح يتيح للمساعد قراءة هذا الجدول وكتابة هذه الصفحة.",
-    "createKey": "إنشاء مفتاح MCP",
+    "createKey": "فتح إعداد حماية MCP",
     "createKeyFailed": "تعذّر إنشاء المفتاح.",
     "defaultKeyName": "المساعد الذكي",
     "pageIdTitle": "أعطه رقم هذه الصفحة",

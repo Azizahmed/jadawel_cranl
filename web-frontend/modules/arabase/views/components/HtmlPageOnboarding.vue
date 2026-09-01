@@ -163,7 +163,6 @@
 import McpEndpointService from '@jadawel/modules/core/services/mcpEndpoint'
 import SettingsModal from '@jadawel/modules/core/components/settings/SettingsModal'
 import { copyToClipboard } from '@jadawel/modules/database/utils/clipboard'
-import { notifyIf } from '@jadawel/modules/core/utils/error'
 
 /**
  * What a Page view shows before anything has been written into it.
@@ -255,22 +254,10 @@ export default {
       }
     },
     async createEndpoint() {
-      this.creating = true
-      this.error = null
-      try {
-        const { data } = await McpEndpointService(this.$client).create({
-          name: this.$t('htmlPageOnboarding.defaultKeyName'),
-          workspace_id: this.workspaceId,
-        })
-        this.endpoints.push(data)
-        // Freshly minted and shown once, like any other new credential.
-        this.reveal = true
-      } catch (error) {
-        notifyIf(error)
-        this.error = this.$t('htmlPageOnboarding.createKeyFailed')
-      } finally {
-        this.creating = false
-      }
+      // Do not mint a legacy empty endpoint from this onboarding shortcut.
+      // Every creation path must use the protected three-step flow, including
+      // the explicit zero-policy confirmation and field review.
+      await this.openSettings()
     },
     async openSettings() {
       this.settingsMounted = true

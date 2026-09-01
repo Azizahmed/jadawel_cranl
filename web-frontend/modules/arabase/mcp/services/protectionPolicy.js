@@ -1,4 +1,7 @@
 export default (client) => ({
+  fetchSummaries() {
+    return client.get('/arabase/mcp/endpoints/')
+  },
   fetchPolicy(endpointId) {
     return client.get(`/arabase/mcp/endpoints/${endpointId}/protection-policy/`)
   },

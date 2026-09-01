@@ -51,6 +51,29 @@
   }
 }
 
+.mcp-protected-endpoint-settings__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-block: 8px 4px;
+  color: $color-neutral-600;
+  font-size: 13px;
+
+  div {
+    display: flex;
+    gap: 4px;
+  }
+
+  dt::after {
+    content: ':';
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
 .mcp-protection-selector {
   &__help,
   &__count {

@@ -11,7 +11,12 @@ from mcp.shared.memory import (
     create_connected_server_and_client_session as client_session,
 )
 
-from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionPolicy
+from arabase.mcp.protection.models import (
+    MCPProtectedField,
+    MCPProtectionMutationAudit,
+    MCPProtectionPolicy,
+)
+from arabase.mcp.protection.policy_state import _safe_field_type_name
 from arabase.mcp.protection.vault import (
     MASK_TOKEN_REDIS_PREFIX,
     MaskTokenVaultUnavailable,
@@ -19,6 +24,7 @@ from arabase.mcp.protection.vault import (
 )
 from jadawel.contrib.database.fields.dependencies.models import FieldDependency
 from jadawel.core.mcp import JadawelMCPServer, current_key
+from jadawel.core.mcp.errors import SafeMCPToolError
 
 FINGERPRINT_KEY = base64.b64encode(b"f" * 32).decode()
 
@@ -429,3 +435,100 @@ def test_broken_dependency_on_a_protected_field_still_fails_closed(
     assert json.loads(result.content[0].text)["error"]["code"] == (
         "PROTECTION_UNAVAILABLE"
     )
+
+
+@pytest.mark.django_db
+def test_unknown_protected_field_adapter_fails_closed_with_safe_error(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    protected = data_fixture.create_text_field(
+        name="Secret", table=table, primary=True
+    )
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=protected
+    )
+
+    def broken_adapter(_field):
+        raise RuntimeError("adapter details must not cross the MCP boundary")
+
+    monkeypatch.setattr(type(protected), "get_type", broken_adapter)
+
+    with pytest.raises(SafeMCPToolError) as exc_info:
+        _safe_field_type_name(protected)
+
+    assert exc_info.value.code.name == "PROTECTION_UNAVAILABLE"
+    assert exc_info.value.retryable is False
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_two_hundred_row_update_is_all_or_nothing_on_invalid_token(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                created = await client.call_tool(
+                    "create_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [{"Secret": f"batch-{index}"} for index in range(200)],
+                    },
+                )
+                assert created.isError is False
+                created_rows = json.loads(created.content[0].text)
+                failed = await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {"id": created_rows[0]["id"], "Secret": created_rows[0]["Secret"]},
+                            {
+                                "id": created_rows[1]["id"],
+                                "Secret": {
+                                    "$jadawelProtected": {"v": 1, "token": "invalid"}
+                                },
+                            },
+                        ],
+                    },
+                )
+                return created_rows, failed
+
+        with transaction.atomic():
+            created_rows, failed = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert failed.isError is True
+    assert json.loads(failed.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+    model = table.get_model(attribute_names=True)
+    assert model.objects.get(id=created_rows[0]["id"]).secret == "batch-0"
+    assert model.objects.get(id=created_rows[1]["id"]).secret == "batch-1"
+    assert MCPProtectionMutationAudit.objects.filter(tool_type="update_rows").count() == 0

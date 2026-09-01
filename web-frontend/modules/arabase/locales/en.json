@@ -18,6 +18,14 @@
     "review": "Review policy",
     "editAction": "Edit protection",
     "editEndpointAction": "Edit protection for {name}",
+    "protectedCountLabel": "Protected fields",
+    "protectedCount": "{count} protected",
+    "lifecycleLabel": "Status",
+    "lifecycle": {
+      "active": "Active",
+      "suspended": "Suspended",
+      "protection_blocked": "Blocked"
+    },
     "editTitle": "Edit the protection policy",
     "editHelp": "Replace the protected-field set. Existing mask tokens stop working after a change.",
     "protectionSuspended": "Protection is paused until the reported issue is fixed.",
@@ -250,7 +258,7 @@
     "configHint": "For Claude Desktop, add this to your MCP configuration file:",
     "manageKeys": "Manage keys in settings",
     "noKeyHint": "You do not have an MCP key for this workspace yet. Creating one lets an assistant read this table and write this page.",
-    "createKey": "Create an MCP key",
+    "createKey": "Open MCP protection setup",
     "createKeyFailed": "The key could not be created.",
     "defaultKeyName": "AI assistant",
     "pageIdTitle": "Give it this page's number",

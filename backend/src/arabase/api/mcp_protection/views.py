@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Q
 
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -25,7 +25,7 @@ from arabase.mcp.protection.editing import (
     reactivate_mcp_protection_policy,
     replace_mcp_protection_policy,
 )
-from arabase.mcp.protection.models import MCPProtectionPolicy
+from arabase.mcp.protection.models import MCPProtectedFieldState, MCPProtectionPolicy
 from arabase.mcp.protection.readiness import check_mcp_protection_policy_readiness
 from jadawel.api.decorators import map_exceptions, validate_body
 from jadawel.api.errors import ERROR_GROUP_DOES_NOT_EXIST, ERROR_USER_NOT_IN_GROUP
@@ -194,7 +194,10 @@ class MCPEndpointProtectionSummariesView(APIView):
             .select_related("workspace", "arabase_protection_policy")
             .annotate(
                 protected_field_count=Count(
-                    "arabase_protection_policy__protected_fields"
+                    "arabase_protection_policy__protected_fields",
+                    filter=Q(
+                        arabase_protection_policy__protected_fields__state=MCPProtectedFieldState.ACTIVE
+                    ),
                 )
             )
         )

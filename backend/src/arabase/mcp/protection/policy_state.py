@@ -81,7 +81,7 @@ def get_mcp_protection_policy_state(
             field_id=relation.field_id,
             table_id=relation.field.table_id,
             field_name=relation.field.name,
-            field_type=relation.field.get_type().type,
+            field_type=_safe_field_type_name(relation.field),
         )
         for relation in protected_fields
         if relation.state == MCPProtectedFieldState.ACTIVE
@@ -93,6 +93,26 @@ def get_mcp_protection_policy_state(
         access_generation=policy.access_generation,
         protected_fields=bindings,
     )
+
+
+def _safe_field_type_name(field) -> str:
+    """Resolve a protected field adapter without allowing an opaque exception out.
+
+    A missing or broken field adapter means provenance and canonicalization cannot
+    be proven.  Treat that as protection unavailable before the MCP service has a
+    chance to serialize a value, rather than returning a generic tool failure.
+    """
+
+    try:
+        field_type = field.get_type()
+        field_type_name = field_type.type
+    except Exception as exc:  # adapter failures are intentionally fail-closed
+        raise SafeMCPToolError(
+            MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+        ) from exc
+    if not isinstance(field_type_name, str) or not field_type_name:
+        _raise_protection_unavailable()
+    return field_type_name
 
 
 def _raise_protection_unavailable() -> Never:

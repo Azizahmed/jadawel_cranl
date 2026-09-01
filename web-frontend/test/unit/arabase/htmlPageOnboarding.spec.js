@@ -70,7 +70,7 @@ describe('HtmlPageOnboarding', () => {
     expect(call.params.viewId).toBe(4660)
   })
 
-  test('offers to create a key when the workspace has none', async () => {
+  test('offers the protected setup when the workspace has no endpoint', async () => {
     const wrapper = await mountPanel([])
 
     expect(wrapper.vm.endpoint).toBeUndefined()

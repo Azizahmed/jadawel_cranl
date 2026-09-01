@@ -1,23 +1,40 @@
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { vi } from 'vitest'
+import flushPromises from 'flush-promises'
 
 import McpProtectedEndpointSettings from '@jadawel/modules/arabase/mcp/components/McpProtectedEndpointSettings'
 import { McpProtectedEndpointSettingsType } from '@jadawel/modules/arabase/mcp/settingsTypes'
 
 const fetchAll = vi.fn()
+const fetchSummaries = vi.fn()
 
 vi.mock('@jadawel/modules/core/services/mcpEndpoint', () => ({
   default: () => ({ fetchAll }),
 }))
 
+vi.mock('@jadawel/modules/arabase/mcp/services/protectionPolicy', () => ({
+  default: () => ({ fetchSummaries }),
+}))
+
 describe('McpProtectedEndpointSettings', () => {
   beforeEach(() => {
     fetchAll.mockReset()
+    fetchSummaries.mockReset()
+    fetchSummaries.mockResolvedValue({ data: [] })
   })
 
   test('replaces the core settings type and keeps endpoint list state current', async () => {
     const existing = { id: 1, name: 'Existing endpoint' }
     fetchAll.mockResolvedValue({ data: [existing] })
+    fetchSummaries.mockResolvedValue({
+      data: [
+        {
+          endpoint_id: 1,
+          protected_field_count: 3,
+          lifecycle_status: 'suspended',
+        },
+      ],
+    })
     const wrapper = await mountSuspended(McpProtectedEndpointSettings, {
       global: {
         mocks: {
@@ -37,15 +54,32 @@ describe('McpProtectedEndpointSettings', () => {
         },
       },
     })
+    await flushPromises()
 
     expect(fetchAll).toHaveBeenCalledOnce()
-    expect(wrapper.vm.endpoints).toStrictEqual([existing])
+    expect(fetchSummaries).toHaveBeenCalledOnce()
+    expect(wrapper.vm.endpoints).toHaveLength(1)
+    expect(wrapper.vm.endpoints[0]).toMatchObject({
+      ...existing,
+      protection_summary: {
+        endpoint_id: 1,
+        protected_field_count: 3,
+        lifecycle_status: 'suspended',
+      },
+    })
+    expect(wrapper.vm.protectedFieldCount(existing)).toBe(0)
+    expect(wrapper.vm.lifecycleStatus(existing)).toBe('active')
+    expect(wrapper.vm.protectedFieldCount(wrapper.vm.endpoints[0])).toBe(3)
+    expect(wrapper.vm.lifecycleStatus(wrapper.vm.endpoints[0])).toBe(
+      'suspended'
+    )
 
     const created = { id: 2, name: 'Protected endpoint' }
     wrapper.vm.page = 'create'
     wrapper.vm.endpointCreated(created)
     expect(wrapper.vm.page).toBe('list')
-    expect(wrapper.vm.endpoints).toStrictEqual([existing, created])
+    expect(wrapper.vm.endpoints).toHaveLength(2)
+    expect(wrapper.vm.endpoints[1]).toMatchObject(created)
 
     wrapper.vm.deleteEndpoint(existing.id)
     expect(wrapper.vm.endpoints).toStrictEqual([created])
@@ -86,6 +120,7 @@ describe('McpProtectedEndpointSettings', () => {
         },
       },
     })
+    await flushPromises()
 
     const endpointGroups = wrapper.findAll(
       '.mcp-protected-endpoint-settings__item'
