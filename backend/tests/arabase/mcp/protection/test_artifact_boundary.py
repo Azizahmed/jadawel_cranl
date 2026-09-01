@@ -135,6 +135,28 @@ def test_approved_artifact_remains_active_while_replacement_awaits_review(
 
 
 @pytest.mark.django_db
+def test_duplicated_protected_view_starts_without_approval(protected_page):
+    user, workspace, _table, secret, _visible, endpoint, view = protected_page
+    pending = services.update_page_view(
+        user,
+        workspace,
+        view.id,
+        html=PAGE_V2,
+        endpoint=endpoint,
+        protected_field_ids=[secret.id],
+    )
+    approve_artifact_draft(user=user, draft_id=pending["draft_id"])
+    view.refresh_from_db()
+
+    duplicated = ViewHandler().duplicate_view(user, view)
+
+    assert not ArtifactApproval.objects.filter(view_id=duplicated.id).exists()
+    assert duplicated.html == view.html
+    with pytest.raises(ArtifactExposureBlocked):
+        page_runtime_access(duplicated, user=user)
+
+
+@pytest.mark.django_db
 def test_public_and_authenticated_approvals_are_separate(protected_page):
     user, workspace, _table, secret, _visible, endpoint, view = protected_page
     ViewHandler().update_view(user, view, public=True)

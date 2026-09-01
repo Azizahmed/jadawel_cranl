@@ -851,6 +851,24 @@ def page_runtime_access(
         .first()
     )
     if state is None:
+        # View duplication/import copies the HTML but intentionally does not
+        # copy artifact state or approvals.  Treat an exact copy of a managed
+        # protected page as blocked until it goes through the draft/approval
+        # boundary; otherwise the unmanaged copy would fall through to the
+        # legacy feed and could expose the same protected rows.
+        source_digest = _sha256(view.html)
+        candidate_states = (
+            HtmlPageArtifactState.objects.select_related("endpoint", "view")
+            .filter(view__table_id=view.table_id)
+            .exclude(view_id=view.id)
+        )
+        for candidate_state in candidate_states:
+            if candidate_state.view is None:
+                continue
+            if _sha256(candidate_state.view.html) != source_digest:
+                continue
+            if protected_output_for_view(view, candidate_state.endpoint):
+                raise ArtifactExposureBlocked()
         return ArtifactRuntimeAccess(required=False)
     approval = _active_approval_for_audience(view.id, audience)
     endpoint = approval.endpoint if approval is not None else state.endpoint
