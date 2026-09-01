@@ -720,6 +720,13 @@ def _page_artifact_summary(
         view=view, status=ArtifactDraftStatus.PENDING
     ).first()
     latest_draft = ArtifactDraft.objects.filter(view=view).first()
+    selected_draft = (
+        approval.draft
+        if approval and approval.revoked_at is None
+        else pending_draft
+        if pending_draft is not None
+        else latest_draft
+    )
     if approval and approval.revoked_at is None:
         artifact_state = "approved"
     elif state.public_only:
@@ -767,6 +774,30 @@ def _page_artifact_summary(
                 else []
             )
         ),
+        # This projection is deliberately content-blind: reviewers can verify
+        # the exact stable field identities and render-affecting shape without
+        # receiving candidate HTML, filter values, row values, or credentials.
+        "manifest": [
+            {
+                "field_id": item.stable_field_id,
+                "provenance": item.provenance,
+            }
+            for item in (
+                selected_draft.manifest_fields.order_by("stable_field_id")
+                if selected_draft is not None
+                else ()
+            )
+        ],
+        "view_configuration": {
+            "table_id": view.table_id,
+            "row_limit": view.row_limit,
+            "public": view.public,
+            "allow_external_resources": view.allow_external_resources,
+            "filter_type": view.filter_type,
+            "filter_count": ViewFilter.objects.filter(view_id=view.id).count(),
+            "sort_count": ViewSort.objects.filter(view_id=view.id).count(),
+            "group_count": ViewGroupBy.objects.filter(view_id=view.id).count(),
+        },
     }
 
 

@@ -12,7 +12,7 @@ from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.core.exceptions import FieldDoesNotExist, ValidationError
-from django.db import OperationalError, connection
+from django.db import OperationalError, connection, router
 from django.db import models as django_models
 from django.db.models import Count, Q, prefetch_related_objects
 from django.db.models.expressions import OrderBy
@@ -1507,9 +1507,9 @@ class ViewHandler(metaclass=jadawel_trace_methods(tracer)):
             fields_to_delete_sortings += list(related_fields)
 
         if fields_to_delete_sortings:
-            deleted_count, _ = ViewSort.objects.filter(
+            deleted_count = ViewSort.objects.filter(
                 field_id__in=[field.id for field in fields_to_delete_sortings]
-            ).delete()
+            )._raw_delete(using=router.db_for_write(ViewSort))
             if deleted_count > 0:
                 changed_fields.update(fields_to_delete_sortings)
 
@@ -1526,9 +1526,9 @@ class ViewHandler(metaclass=jadawel_trace_methods(tracer)):
             ).check_can_group_by(all_fields_mapping[sort.field_id], sort.type)
         ]
         if fields_to_delete_groupings:
-            deleted_count, _ = ViewGroupBy.objects.filter(
+            deleted_count = ViewGroupBy.objects.filter(
                 field_id__in=[field.id for field in fields_to_delete_groupings]
-            ).delete()
+            )._raw_delete(using=router.db_for_write(ViewGroupBy))
             if deleted_count > 0:
                 changed_fields.update(fields_to_delete_sortings)
 
@@ -1546,7 +1546,9 @@ class ViewHandler(metaclass=jadawel_trace_methods(tracer)):
             )
         ]
         if len(incompatible_filter_ids) > 0:
-            ViewFilter.objects.filter(id__in=incompatible_filter_ids).delete()
+            ViewFilter.objects.filter(id__in=incompatible_filter_ids)._raw_delete(
+                using=router.db_for_write(ViewFilter)
+            )
 
         # Call view types hook
         for view_type in view_type_registry.get_all():

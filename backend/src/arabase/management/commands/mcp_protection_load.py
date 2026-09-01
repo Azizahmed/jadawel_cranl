@@ -42,7 +42,12 @@ def _connect(redis_url: str) -> Redis:
         redis_url,
         decode_responses=True,
         socket_connect_timeout=0.25,
-        socket_timeout=0.5,
+        # The canary intentionally runs a large concurrent reservation batch.
+        # Hosted CI runners can briefly pause Redis while its configured
+        # no-eviction instance performs a background snapshot; keep the
+        # timeout bounded, but avoid treating that short persistence pause as
+        # a capacity failure.
+        socket_timeout=2.0,
     )
 
 
@@ -225,11 +230,26 @@ class Command(BaseCommand):
                 for index in range(options["calls"] - 1)
             ]
             with context.Pool(processes=options["processes"]) as pool:
-                successful_batches = pool.map(_issue_batch, batch_payloads)
+                # The default Pool chunk size would hand the same first five
+                # endpoint ids to every worker. With the real two-issuer
+                # endpoint ceiling, that creates an artificial three-way
+                # collision and makes the release gate timing-dependent.
+                successful_batches = pool.map(_issue_batch, batch_payloads, chunksize=1)
 
             if not all(item["ok"] for item in successful_batches):
+                failures = [item for item in successful_batches if not item["ok"]]
+                # Keep the failure content-blind while making hosted-runner
+                # diagnosis actionable.  Exception classes and issued counts
+                # contain no handles, values, URLs, or request payloads.
+                failure_summary = ",".join(
+                    sorted(
+                        f"{item.get('error_type', 'unknown')}:{item['issued']}"
+                        for item in failures
+                    )
+                )
                 raise CommandError(
-                    "A token-load batch failed before the quota boundary."
+                    "A token-load batch failed before the quota boundary "
+                    f"({failure_summary})."
                 )
             issued = sum(item["issued"] for item in successful_batches)
             expected_issued = (options["calls"] - 1) * options["tokens_per_call"]
