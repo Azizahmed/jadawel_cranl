@@ -11,6 +11,7 @@ from arabase.mcp.protection.models import (
 )
 from arabase.mcp.protection.policy_state import get_mcp_protection_policy_state
 from arabase.mcp.protection.readiness import check_mcp_protection_policy_readiness
+from jadawel.contrib.database.fields.models import Field
 from jadawel.core.action.registries import action_type_registry
 from jadawel.core.mcp.actions import CreateMCPEndpointActionType
 from jadawel.core.mcp.errors import MCPErrorCode, SafeMCPToolError
@@ -167,6 +168,66 @@ def test_owner_reads_safe_policy_metadata(api_client, data_fixture):
     assert endpoint.key not in serialized
     assert "access_generation" not in body
     assert "token" not in serialized.lower()
+
+
+@pytest.mark.django_db
+def test_policy_metadata_hides_type_when_field_adapter_is_unavailable(
+    api_client, data_fixture, monkeypatch
+):
+    user, token = data_fixture.create_user_and_token()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(table=table, name="Adapter field")
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy,
+        field=field,
+    )
+
+    def unavailable_adapter(_field):
+        raise RuntimeError("adapter unavailable")
+
+    monkeypatch.setattr(Field, "get_type", unavailable_adapter)
+    url = reverse(
+        "api:arabase:mcp_protection_policy", kwargs={"endpoint_id": endpoint.id}
+    )
+
+    response = api_client.get(url, HTTP_AUTHORIZATION=f"JWT {token}")
+
+    assert response.status_code == HTTP_200_OK
+    body = response.json()
+    assert body["protected_field_count"] == 1
+    assert body["fields"][0]["id"] == field.id
+    assert body["fields"][0]["name"] == "Adapter field"
+    assert body["fields"][0]["type"] is None
+
+
+@pytest.mark.django_db
+def test_policy_metadata_count_excludes_suspended_fields(api_client, data_fixture):
+    user, token = data_fixture.create_user_and_token()
+    workspace = data_fixture.create_workspace(user=user)
+    database = data_fixture.create_database_application(workspace=workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(table=table, name="Suspended field")
+    endpoint = data_fixture.create_mcp_endpoint(user=user, workspace=workspace)
+    relation = MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy,
+        field=field,
+    )
+    relation.state = "suspended"
+    relation.safe_reason_code = "WORKSPACE_SUSPENDED"
+    relation.save(update_fields=["state", "safe_reason_code", "updated_on"])
+    url = reverse(
+        "api:arabase:mcp_protection_policy", kwargs={"endpoint_id": endpoint.id}
+    )
+
+    response = api_client.get(url, HTTP_AUTHORIZATION=f"JWT {token}")
+
+    assert response.status_code == HTTP_200_OK
+    body = response.json()
+    assert body["protected_field_count"] == 0
+    assert body["fields"][0]["state"] == "suspended"
 
 
 @pytest.mark.django_db

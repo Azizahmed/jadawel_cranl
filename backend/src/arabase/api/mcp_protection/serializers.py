@@ -1,6 +1,10 @@
 from rest_framework import serializers
 
-from arabase.mcp.protection.models import MCPProtectedField, MCPProtectionPolicy
+from arabase.mcp.protection.models import (
+    MCPProtectedField,
+    MCPProtectedFieldState,
+    MCPProtectionPolicy,
+)
 from jadawel.api.mcp.serializers import MCPEndpointSerializer
 from jadawel.core.mcp.models import MCPEndpoint
 
@@ -33,7 +37,14 @@ class MCPProtectedFieldSerializer(serializers.ModelSerializer):
     def get_type(self, instance) -> str | None:
         if not self._may_display(instance):
             return None
-        return instance.field.get_type().type
+        # Metadata must remain content-blind and safe when an upstream or
+        # extension field adapter is unavailable.  The policy response still
+        # exposes the stable field id/state, while callers receive no guessed
+        # type and no generic 500 that could reveal adapter details.
+        try:
+            return instance.field.get_type().type
+        except Exception:
+            return None
 
     def get_table(self, instance) -> dict | None:
         if not self._may_display(instance):
@@ -70,7 +81,9 @@ class MCPProtectionPolicySerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_protected_field_count(instance) -> int:
-        return len(instance.protected_fields.all())
+        return instance.protected_fields.filter(
+            state=MCPProtectedFieldState.ACTIVE
+        ).count()
 
 
 class MCPEndpointProtectionSummarySerializer(serializers.ModelSerializer):
