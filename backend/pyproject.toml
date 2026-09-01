@@ -140,7 +140,7 @@ dev = [
     "debugpy==1.8.20",
     "backports.cached-property==1.0.2",
     "graphviz==0.21",
-    "pytest-cov==7.0.0",
+    "pytest-cov==7.1.0",
     "django-stubs==5.2.8",
     "django-stubs-ext==5.2.9",
     "mypy==1.19.1",
