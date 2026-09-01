@@ -17,12 +17,13 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit b88fb09 (workspace lifecycle protection fix),
-# digest sha256:97f707c626e6f6a2b541d274ee2199475da0d8b7c92c3fa5414aa810cece951b.
+# Published 2026-09-01 by publish-image.yml from commit 8c49dd5 (MCP lifecycle/query-budget fix),
+# tag 2.9.15-mcp-query-budget, digest
+# sha256:b3564da531dd8af33566534f0a5117ae888946063ff70cbb5a156351bd050fac.
 #
-# 2.9.14 finalizes protected-field lifecycle, capacity, artifact-boundary, and
-# mobile-layout hardening, including dead-worker lease recovery and sanitized
-# Redis-outage failure behavior.
+# 2.9.15-mcp-query-budget carries the protected-field lifecycle/query-budget
+# fixes on top of the 2.9.14 capacity, artifact-boundary, mobile-layout,
+# dead-worker recovery, and sanitized Redis-outage hardening.
 #
 # Previously published 2026-09-01 by publish-image.yml from commit 3df47be
 # (2.9.11-mcp-admin-summaries), digest
@@ -164,7 +165,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:97f707c626e6f6a2b541d274ee2199475da0d8b7c92c3fa5414aa810cece951b
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:b3564da531dd8af33566534f0a5117ae888946063ff70cbb5a156351bd050fac
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
