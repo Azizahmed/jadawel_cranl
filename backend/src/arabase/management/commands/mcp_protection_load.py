@@ -230,7 +230,11 @@ class Command(BaseCommand):
                 for index in range(options["calls"] - 1)
             ]
             with context.Pool(processes=options["processes"]) as pool:
-                successful_batches = pool.map(_issue_batch, batch_payloads)
+                # The default Pool chunk size would hand the same first five
+                # endpoint ids to every worker. With the real two-issuer
+                # endpoint ceiling, that creates an artificial three-way
+                # collision and makes the release gate timing-dependent.
+                successful_batches = pool.map(_issue_batch, batch_payloads, chunksize=1)
 
             if not all(item["ok"] for item in successful_batches):
                 failures = [item for item in successful_batches if not item["ok"]]
