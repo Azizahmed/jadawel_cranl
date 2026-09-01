@@ -103,6 +103,7 @@ const selectedWorkspace = computed(() => store.getters['workspace/getSelected'])
 const applications = computed(() => store.getters['application/getAll'])
 
 const isCollapsed = computed(() => col1Width.value < 170)
+const MOBILE_LAYOUT_BREAKPOINT = 700
 
 const route = useRoute()
 const router = useRouter()
@@ -125,6 +126,14 @@ function resizeCol1(v) {
 }
 function resizeCol3(v) {
   col3Width.value = v
+}
+
+function syncMobileLayout() {
+  if (window.innerWidth <= MOBILE_LAYOUT_BREAKPOINT) {
+    col1Width.value = 52
+  } else if (col1Width.value === 52) {
+    col1Width.value = 240
+  }
 }
 
 function toggleRightSidebar(value = !col3Visible.value) {
@@ -158,6 +167,9 @@ function keyDown(event) {
 onMounted(() => {
   $realtime.connect()
 
+  syncMobileLayout()
+  window.addEventListener('resize', syncMobileLayout)
+
   const handler = (e) => keyDown(e)
   document.body.addEventListener('keydown', handler)
   //nuxtApp.$el = { keydownEvent: handler }
@@ -172,6 +184,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   $realtime.disconnect()
+  window.removeEventListener('resize', syncMobileLayout)
 
   if (app.value?.keydownEvent) {
     document.body.removeEventListener('keydown', app.value?.keydownEvent)

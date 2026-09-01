@@ -75,3 +75,12 @@
   z-index: $z-index-layout-col-3;
   block-size: 100%;
 }
+
+// On a phone the navigation remains available as an icon rail while the
+// content column gets the rest of the viewport.  The inline widths are still
+// driven by app.vue so the sidebar's collapsed state and the inset stay in sync.
+@media screen and (max-width: 700px) {
+  .layout__resize {
+    display: none;
+  }
+}
