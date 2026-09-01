@@ -233,8 +233,19 @@ class Command(BaseCommand):
                 successful_batches = pool.map(_issue_batch, batch_payloads)
 
             if not all(item["ok"] for item in successful_batches):
+                failures = [item for item in successful_batches if not item["ok"]]
+                # Keep the failure content-blind while making hosted-runner
+                # diagnosis actionable.  Exception classes and issued counts
+                # contain no handles, values, URLs, or request payloads.
+                failure_summary = ",".join(
+                    sorted(
+                        f"{item.get('error_type', 'unknown')}:{item['issued']}"
+                        for item in failures
+                    )
+                )
                 raise CommandError(
-                    "A token-load batch failed before the quota boundary."
+                    "A token-load batch failed before the quota boundary "
+                    f"({failure_summary})."
                 )
             issued = sum(item["issued"] for item in successful_batches)
             expected_issued = (options["calls"] - 1) * options["tokens_per_call"]
