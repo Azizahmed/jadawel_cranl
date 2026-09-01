@@ -341,5 +341,10 @@ class Command(BaseCommand):
         finally:
             try:
                 _delete_test_keys(redis)
+            except (RedisError, OSError, ValueError, TypeError):
+                # Redis may be the dependency that failed. Cleanup is best
+                # effort and must never replace the fixed safe error with a
+                # connection traceback or exception details.
+                pass
             finally:
                 redis.close()
