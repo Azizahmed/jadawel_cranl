@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.db.models import Count, Q
+from django.db.models import Count, Exists, OuterRef, Q
 
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -225,6 +225,10 @@ class MCPEndpointProtectionSummariesView(APIView):
             user=request.user,
             permissions=WORKSPACE_USER_PERMISSION_ADMIN,
         ).values_list("workspace_id", flat=True)
+        active_owner_membership = WorkspaceUser.objects.filter(
+            user_id=OuterRef("user_id"),
+            workspace_id=OuterRef("workspace_id"),
+        )
         endpoints = (
             MCPEndpoint.objects.filter(
                 Q(user=request.user)
@@ -234,6 +238,11 @@ class MCPEndpointProtectionSummariesView(APIView):
                         MCPProtectionLifecycleStatus.SUSPENDED,
                         MCPProtectionLifecycleStatus.PROTECTION_BLOCKED,
                     ),
+                )
+                & (
+                    Q(user__is_active=False)
+                    | Q(user__profile__to_be_deleted=True)
+                    | ~Exists(active_owner_membership)
                 )
             )
             .select_related("workspace", "arabase_protection_policy")
