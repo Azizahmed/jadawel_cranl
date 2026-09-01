@@ -64,6 +64,35 @@
     }
   }
 
+  @media (max-width: 720px) {
+    &.modal__box--with-sidebar {
+      display: block;
+      inline-size: calc(100% - 32px);
+      max-inline-size: none;
+      margin: 16px auto;
+
+      > .modal__box-sidebar {
+        inline-size: 100%;
+        flex-basis: auto;
+        box-sizing: border-box;
+        border-inline: 0;
+      }
+
+      > .modal__box-sidebar--left {
+        border-block-end: 1px solid $palette-neutral-200;
+      }
+
+      > .modal__box-sidebar--right {
+        border-block-start: 1px solid $palette-neutral-200;
+      }
+
+      > .modal__box-content {
+        inline-size: auto;
+        padding: 24px 16px;
+      }
+    }
+  }
+
   .box__title {
     margin-block-start: 0;
   }

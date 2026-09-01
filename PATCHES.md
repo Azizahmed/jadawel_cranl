@@ -1259,3 +1259,9 @@ additive Arabase module.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `web-frontend/modules/core/components/settings/McpEndpoint.vue` and `web-frontend/modules/core/locales/{ar,en}.json` | Replace the Windsurf setup tab with Codex CLI guidance and add a localized prompt for other AI clients | Make the default setup choices match the supported Jadawel workflows while giving any MCP-capable agent enough safe, endpoint-specific context to configure itself | low |
+
+## Phase — Keep sidebar modals usable on mobile (2026-09-01)
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/assets/scss/components/modal.scss` | Stack sidebar modals and remove fixed sidebar/content sizing below 720px | Prevent the authenticated Arabic/English settings modal from creating an internal horizontal strip at 390×844 while preserving the desktop two-column layout | low |
