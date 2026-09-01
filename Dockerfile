@@ -17,13 +17,11 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit 5d7f8b6 (2.9.12-mcp-protection-boundaries),
-# digest sha256:5b7d6a79a4c9a51c34f995125b3adef5ef54afd9fbd60331f969e413f49a6f6d.
+# Published 2026-09-01 by publish-image.yml from commit 983a723 (2.9.13-mcp-typed-preservation),
+# digest sha256:52e033839d297cc396a4a9a397b66928871e49bac0f0701619005855982135cf.
 #
-# 2.9.12 closes the protected provenance/query boundary, makes private and public
-# artifact approvals independent, records the non-empty-policy rollout boundary,
-# keeps suspended accounts suspended until explicit owner review, and completes
-# the loading/retry/unavailable-field Arabic-first protection UX.
+# 2.9.13 preserves typed protected values through same-cell redemption, including
+# response-only select option shapes, while retaining the 2.9.12 protection boundary.
 #
 # Previously published 2026-09-01 by publish-image.yml from commit 3df47be
 # (2.9.11-mcp-admin-summaries), digest
@@ -165,7 +163,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:5b7d6a79a4c9a51c34f995125b3adef5ef54afd9fbd60331f969e413f49a6f6d
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:52e033839d297cc396a4a9a397b66928871e49bac0f0701619005855982135cf
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
