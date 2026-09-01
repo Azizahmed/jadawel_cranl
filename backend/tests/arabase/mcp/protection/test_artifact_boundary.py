@@ -342,6 +342,19 @@ def test_artifact_review_api_exposes_only_safe_state(api_client, data_fixture):
     draft_body = draft_response.json()
     assert "candidate_html" not in draft_body
     assert "Secret" not in str(draft_body)
+    assert draft_body["manifest"] == [
+        {"field_id": secret.id, "provenance": ArtifactProvenance.DIRECT}
+    ]
+    assert draft_body["view_configuration"] == {
+        "table_id": table.id,
+        "row_limit": view.row_limit,
+        "public": view.public,
+        "allow_external_resources": view.allow_external_resources,
+        "filter_type": view.filter_type,
+        "filter_count": 0,
+        "sort_count": 0,
+        "group_count": 0,
+    }
 
     state_response = api_client.get(
         reverse("api:arabase:mcp_artifact_state", kwargs={"view_id": view.id}),
