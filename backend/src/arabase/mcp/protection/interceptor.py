@@ -219,11 +219,48 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
         )
     }
     vault = None
+    # The upstream row service treats omitted values as field defaults (for
+    # example, an omitted text value becomes ``""``).  That is correct for a
+    # normal REST update, but it would silently clear a protected cell.  Add
+    # the current internal value for every omitted writable protected field so
+    # the downstream update has explicit preserve semantics.  Keep track of
+    # those temporary values and remove them before the validated Pydantic
+    # object can escape this boundary.
     originals = []
     redeemed_count = 0
     try:
         for spec in args.rows:
-            extras = spec.__pydantic_extra__ or {}
+            extras = spec.__pydantic_extra__
+            if extras is None:
+                extras = {}
+                spec.__pydantic_extra__ = extras
+            observed_row = locked_by_id[spec.id]
+            for name, protected_field in fields.items():
+                if name in extras:
+                    continue
+                protected_field_model = protected_field_models.get(
+                    protected_field.field_id
+                )
+                if protected_field_model is None:
+                    raise SafeMCPToolError(
+                        MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+                    )
+                try:
+                    field_type = protected_field_model.get_type()
+                    # Derived/read-only fields are recomputed by the row
+                    # service and must not be sent back as write inputs.
+                    if field_type.read_only:
+                        continue
+                    extras[name] = field_type.get_internal_value_from_db(
+                        observed_row, protected_field_model.db_column
+                    )
+                except SafeMCPToolError:
+                    raise
+                except Exception as exc:
+                    raise SafeMCPToolError(
+                        MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
+                    ) from exc
+                originals.append((spec, name, None, True))
             for name, value in list(extras.items()):
                 protected_field = fields.get(name)
                 has_marker = _contains_token_marker(value)
@@ -250,7 +287,6 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
                     raise SafeMCPToolError(
                         MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
                     )
-                observed_row = locked_by_id[spec.id]
                 vault = vault or get_mask_token_vault()
                 valid = vault.redeem(
                     handle,
@@ -277,7 +313,7 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
                     raise SafeMCPToolError(
                         MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False
                     )
-                originals.append((spec, name, value))
+                originals.append((spec, name, value, False))
                 try:
                     field_type = protected_field_model.get_type()
                     if field_type.read_only:
@@ -305,9 +341,12 @@ def _prepare_update_for_protected_cells(endpoint, args, policy):
         raise SafeMCPToolError(MCPErrorCode.PROTECTION_UNAVAILABLE, retryable=False)
 
     def restore() -> None:
-        for spec, name, value in originals:
+        for spec, name, value, was_missing in originals:
             if spec.__pydantic_extra__ is not None:
-                spec.__pydantic_extra__[name] = value
+                if was_missing:
+                    spec.__pydantic_extra__.pop(name, None)
+                else:
+                    spec.__pydantic_extra__[name] = value
 
     return restore
 

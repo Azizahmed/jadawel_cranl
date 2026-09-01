@@ -359,6 +359,181 @@ def test_same_cell_preservation_uses_write_value_for_single_select(
 
 
 @pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_update_omission_and_empty_values_follow_field_semantics(
+    data_fixture, monkeypatch
+):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    model = table.get_model(attribute_names=True)
+    row = model.objects.create(secret="preserve me")
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    captured_updates = []
+    from jadawel.contrib.database.mcp import services as mcp_services
+
+    original_update_rows = mcp_services.update_rows
+
+    def capture_update_rows(*args, **kwargs):
+        captured_updates.append(args[3])
+        return original_update_rows(*args, **kwargs)
+
+    monkeypatch.setattr(mcp_services, "update_rows", capture_update_rows)
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                omitted = await client.call_tool(
+                    "update_rows", {"table_id": table.id, "rows": [{"id": row.id}]}
+                )
+                return omitted
+
+        omitted = async_to_sync(inner)()
+        omitted_value = model.objects.get(id=row.id).secret
+
+        async def clear_inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [{"id": row.id, "Secret": ""}],
+                    },
+                )
+
+        cleared = async_to_sync(clear_inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert omitted.isError is False
+    omitted_row = json.loads(omitted.content[0].text)[0]
+    assert _is_mask_token(omitted_row["Secret"])
+    assert captured_updates[0][0]["Secret"] == "preserve me"
+    assert omitted_value == "preserve me"
+
+    assert cleared.isError is False
+    assert json.loads(cleared.content[0].text)[0]["Secret"] == ""
+    assert model.objects.get(id=row.id).secret == ""
+
+
+@pytest.mark.django_db
+@override_settings(
+    MCP_PROTECTION_FINGERPRINT_KEYS={"current": FINGERPRINT_KEY},
+    MCP_PROTECTION_ACTIVE_KEY_ID="current",
+)
+def test_copied_token_rejects_the_entire_update_batch(data_fixture, monkeypatch):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+    model = table.get_model(attribute_names=True)
+    first, second = model.objects.bulk_create(
+        [model(secret="first"), model(secret="second")]
+    )
+
+    redis = fakeredis.FakeRedis(decode_responses=True)
+    vault = RedisMaskTokenVault(redis_client=redis)
+    monkeypatch.setattr(
+        "arabase.mcp.protection.egress.get_mask_token_vault", lambda: vault
+    )
+    monkeypatch.setattr(
+        "arabase.mcp.protection.interceptor.get_mask_token_vault", lambda: vault
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                listed = await client.call_tool(
+                    "list_table_rows", {"table_id": table.id, "size": 2}
+                )
+                rows = json.loads(listed.content[0].text)["results"]
+                source = next(item for item in rows if item["id"] == first.id)
+                copied = await client.call_tool(
+                    "update_rows",
+                    {
+                        "table_id": table.id,
+                        "rows": [
+                            {"id": second.id, "Secret": source["Secret"]},
+                        ],
+                    },
+                )
+                return copied
+
+        copied = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert copied.isError is True
+    assert json.loads(copied.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+    assert model.objects.get(id=first.id).secret == "first"
+    assert model.objects.get(id=second.id).secret == "second"
+    assert (
+        MCPProtectionMutationAudit.objects.filter(tool_type="update_rows").count() == 0
+    )
+
+
+@pytest.mark.django_db
+def test_protected_search_is_rejected_before_row_query(data_fixture, monkeypatch):
+    endpoint = data_fixture.create_mcp_endpoint()
+    database = data_fixture.create_database_application(workspace=endpoint.workspace)
+    table = data_fixture.create_database_table(database=database)
+    field = data_fixture.create_text_field(name="Secret", table=table, primary=True)
+    MCPProtectedField.objects.create(
+        policy=endpoint.arabase_protection_policy, field=field
+    )
+
+    def query_must_not_run(*args, **kwargs):
+        raise AssertionError("protected searches must be rejected before querying")
+
+    monkeypatch.setattr(
+        "jadawel.contrib.database.mcp.services.list_rows", query_must_not_run
+    )
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                return await client.call_tool(
+                    "list_table_rows",
+                    {"table_id": table.id, "search": "sensitive"},
+                )
+
+        result = async_to_sync(inner)()
+    finally:
+        current_key.reset(key_token)
+
+    assert result.isError is True
+    assert json.loads(result.content[0].text)["error"]["code"] == (
+        "PROTECTION_UNAVAILABLE"
+    )
+
+
+@pytest.mark.django_db
 def test_protection_on_another_table_leaves_unprotected_search_unchanged(
     data_fixture, monkeypatch
 ):
