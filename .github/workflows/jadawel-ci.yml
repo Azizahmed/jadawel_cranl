@@ -197,5 +197,17 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn playwright install --with-deps chromium firefox
-      - name: Build, load-test, and run desktop browser suites
-        run: just e2e run
+      - name: Build E2E images
+        run: just e2e build
+      - name: Reclaim Docker build cache
+        run: |
+          # The tagged E2E images are complete at this point. Their intermediate
+          # BuildKit cache can exceed the hosted runner's remaining disk before
+          # PostgreSQL is pulled, so discard only that disposable cache.
+          docker builder prune --all --force
+          docker image prune --force
+          df -h /
+      - name: Run production load gate and desktop browser suites
+        run: |
+          just e2e up
+          just e2e test
