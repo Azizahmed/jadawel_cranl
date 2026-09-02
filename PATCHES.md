@@ -64,6 +64,19 @@ behavior.
 `backend/tests/jadawel/core/mcp/test_mcp_sse.py`, and
 `backend/tests/arabase/test_mcp_protection_boundary.py`.
 
+### Validation-error hardening (2026-09-02)
+
+The MCP SDK's default JSON Schema validator runs before Jadawel's tool handler and
+includes the rejected argument value in its caller-visible error text. Jadawel tools
+already validate their Pydantic input schemas inside the handler.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/core/mcp/__init__.py` | Disabled the SDK's outer input validator while retaining per-tool Pydantic validation inside `call_tool` | Ensure malformed values reach the existing fixed safe-error boundary instead of being echoed to MCP clients | low |
+
+**Test:**
+`backend/tests/jadawel/core/mcp/test_mcp_server.py::test_call_tool_validation_error_does_not_echo_arguments`.
+
 ## MCP artifact approval boundary (2026-08-30)
 
 | File | Change | Reason | Merge risk |
@@ -1259,6 +1272,7 @@ additive Arabase module.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `web-frontend/modules/core/components/settings/McpEndpoint.vue` and `web-frontend/modules/core/locales/{ar,en}.json` | Replace the Windsurf setup tab with Codex CLI guidance and add a localized prompt for other AI clients | Make the default setup choices match the supported Jadawel workflows while giving any MCP-capable agent enough safe, endpoint-specific context to configure itself | low |
+| `web-frontend/modules/core/components/settings/McpEndpoint.vue` | Normalize trailing slashes before appending the MCP route | Keep the displayed and copied credential URL directly usable when CranL's public backend URL ends in `/` | low |
 
 ## Phase — Keep sidebar modals usable on mobile (2026-09-01)
 
