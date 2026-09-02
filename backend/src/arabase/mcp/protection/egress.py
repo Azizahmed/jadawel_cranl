@@ -92,6 +92,8 @@ def mask_direct_row_output(
     issued_digests: list[str] = []
     try:
         vault = get_mask_token_vault()
+        issue_requests = []
+        issue_targets = []
         with issuance_lease(endpoint.id, vault):
             for row in rows:
                 observed_row = observed_rows[row["id"]]
@@ -102,25 +104,32 @@ def mask_direct_row_output(
                     value = row[field.field_name]
                     if _is_empty_value(value):
                         continue
-                    issued = vault.issue(
-                        MaskTokenBinding(
-                            endpoint_id=endpoint.id,
-                            workspace_id=endpoint.workspace_id,
-                            table_id=table_id,
-                            row_id=row["id"],
-                            field_id=field.field_id,
-                            policy_revision=policy.revision,
-                            access_generation=policy.access_generation,
-                            operation_class=field.operation_class,
-                            observed_row_state=observed_state,
-                            field_type=field.field_type,
-                        ),
-                        value,
+                    issue_requests.append(
+                        (
+                            MaskTokenBinding(
+                                endpoint_id=endpoint.id,
+                                workspace_id=endpoint.workspace_id,
+                                table_id=table_id,
+                                row_id=row["id"],
+                                field_id=field.field_id,
+                                policy_revision=policy.revision,
+                                access_generation=policy.access_generation,
+                                operation_class=field.operation_class,
+                                observed_row_state=observed_state,
+                                field_type=field.field_type,
+                            ),
+                            value,
+                        )
                     )
-                    issued_digests.append(issued.digest)
-                    row[field.field_name] = issued.envelope
-                    if len(issued_digests) > MAX_ISSUED_OR_REDEEMED_PER_CALL:
-                        _raise_protection_unavailable()
+                    issue_targets.append((row, field.field_name))
+            issued_tokens = vault.issue_many(issue_requests)
+            for (row, field_name), issued in zip(
+                issue_targets, issued_tokens, strict=True
+            ):
+                issued_digests.append(issued.digest)
+                row[field_name] = issued.envelope
+                if len(issued_digests) > MAX_ISSUED_OR_REDEEMED_PER_CALL:
+                    _raise_protection_unavailable()
         _assert_policy_unchanged(endpoint, policy)
         if (
             len(
