@@ -17,16 +17,25 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-03 by publish-image.yml from commit 08af13a (live canary
-# release gates), tag 2.9.17-mcp-canary-gates, digest
-# sha256:1c47e90074c69a58ee1e72d668b6303e053925a15cb601f3fec5fa19add31ccc.
+# Published 2026-09-03 by publish-image.yml from commit ca0573c (dependency
+# updates), tag 2.9.18-deps-updates, digest
+# sha256:4b6dfe69ae44c09bb43a07656ef0c32fd97acdcf09f88ad68963516e2eec38b5.
 #
-# 2.9.17-mcp-canary-gates closes the three defects the first production
-# protection canary exposed: malformed MCP tool arguments stay inside the
-# content-blind error boundary instead of being echoed by the SDK validator,
-# protected-cell mask-token issuance is batched into one atomic Redis script
-# with exact quota and collision handling, and both MCP setup surfaces
-# normalize trailing slashes so generated SSE URLs never contain //mcp/.
+# 2.9.18-deps-updates carries the nine dependency updates verified by the
+# 2026-09-03 regression gate on main: pyotp 2.10.0, typing-extensions 4.16.0,
+# psycopg2-binary 2.9.12, cryptography 50.0.1, pytest-cov 7.1.0, tiptap
+# extension-gapcursor 3.30.5, form-data 4.0.6, posthog-js 1.422.5 and
+# vue-router 5.3.0. The happy-dom 20.11.15 bump is deliberately excluded: it
+# breaks cookie isolation in the vitest suite (PR #25 stays open).
+#
+# The image moved from ghcr.io/azizahmed/jadawel_cranl to
+# ghcr.io/code92-dev/jadawel_cranl when the repository transferred into the
+# code92-dev organization. The package is public so CranL keeps pulling
+# without registry credentials.
+#
+# Previously published 2026-09-03 by publish-image.yml from commit 08af13a
+# (live canary release gates), tag 2.9.17-mcp-canary-gates, digest
+# sha256:1c47e90074c69a58ee1e72d668b6303e053925a15cb601f3fec5fa19add31ccc.
 #
 # Previously published 2026-09-01 by publish-image.yml from commit ccadf39
 # (responsive MCP settings modal fix), tag 2.9.16-mcp-mobile-modal, digest
@@ -180,7 +189,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:1c47e90074c69a58ee1e72d668b6303e053925a15cb601f3fec5fa19add31ccc
+ARG JADAWEL_IMAGE=ghcr.io/code92-dev/jadawel_cranl@sha256:4b6dfe69ae44c09bb43a07656ef0c32fd97acdcf09f88ad68963516e2eec38b5
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
