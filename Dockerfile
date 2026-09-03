@@ -17,8 +17,19 @@
 #
 # See docs/DEPLOY_CRANL.md for the full deployment procedure.
 
-# Published 2026-09-01 by publish-image.yml from commit ccadf39 (responsive
-# MCP settings modal fix), tag 2.9.16-mcp-mobile-modal, digest
+# Published 2026-09-03 by publish-image.yml from commit 08af13a (live canary
+# release gates), tag 2.9.17-mcp-canary-gates, digest
+# sha256:1c47e90074c69a58ee1e72d668b6303e053925a15cb601f3fec5fa19add31ccc.
+#
+# 2.9.17-mcp-canary-gates closes the three defects the first production
+# protection canary exposed: malformed MCP tool arguments stay inside the
+# content-blind error boundary instead of being echoed by the SDK validator,
+# protected-cell mask-token issuance is batched into one atomic Redis script
+# with exact quota and collision handling, and both MCP setup surfaces
+# normalize trailing slashes so generated SSE URLs never contain //mcp/.
+#
+# Previously published 2026-09-01 by publish-image.yml from commit ccadf39
+# (responsive MCP settings modal fix), tag 2.9.16-mcp-mobile-modal, digest
 # sha256:0310800c82f46c1c6a60ffef5c49122dc0843bb91e35d2c3a8be265f57852c41.
 #
 # 2.9.16-mcp-mobile-modal carries the responsive sidebar-modal fix on top of
@@ -169,7 +180,7 @@
 # reported the 2.7.2 deploy `done` while the old workers kept running, because
 # a digest-only edit to a `FROM` does not invalidate its build cache. Follow
 # the deploy with a reload, and verify behaviour rather than trusting `done`.
-ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:0310800c82f46c1c6a60ffef5c49122dc0843bb91e35d2c3a8be265f57852c41
+ARG JADAWEL_IMAGE=ghcr.io/azizahmed/jadawel_cranl@sha256:1c47e90074c69a58ee1e72d668b6303e053925a15cb601f3fec5fa19add31ccc
 
 # hadolint ignore=DL3006
 FROM ${JADAWEL_IMAGE}
