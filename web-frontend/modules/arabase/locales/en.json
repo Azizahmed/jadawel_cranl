@@ -294,6 +294,22 @@
   },
   "mcpArtifactApproval": {
     "label": "MCP page protection",
+    "details": "Protected artifact review scope",
+    "audienceLabel": "Audience",
+    "audiences": {
+      "authenticated": "Signed-in viewers",
+      "public": "Public viewers"
+    },
+    "endpointLabel": "Endpoint",
+    "viewLabel": "View",
+    "configurationLabel": "View configuration",
+    "configurationSummary": "Rows: {rows}; filters: {filters}; sorts: {sorts}; groups: {groups}",
+    "manifestLabel": "Protected field manifest",
+    "field": "Field #{id}",
+    "provenance": {
+      "direct": "direct",
+      "derived": "derived"
+    },
     "approve": "Approve draft",
     "approving": "Approving…",
     "states": {

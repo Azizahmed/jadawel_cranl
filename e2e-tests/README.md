@@ -53,16 +53,16 @@ wherever a test has to work in both languages.
 
 ### Production-shaped load gate
 
-The default `just e2e test` run separates high-volume capacity from sustained
-latency. Its capacity phase sends 600 requests at concurrency 60, requires zero
-errors, at least 75 requests per second, and an aggregate p95 no higher than 3
-seconds. Its latency phase sends another 600 requests at concurrency 30 and
-requires zero errors with an aggregate p95 no higher than 1.5 seconds. Both
-phases spread traffic across the production frontend's plain `/_health` route,
-the SSR login page, the backend's database-backed `/api/settings/` endpoint,
-and an authenticated `/api/workspaces/` read. This keeps saturation queueing
-from weakening the normal-load latency objective while still proving the stack
-can sustain the high-concurrency workload.
+The default `just e2e test` run separates backend capacity from frontend SSR
+reliability. Its backend phase sends 600 requests at concurrency 60 across the
+database-backed `/api/settings/` endpoint and an authenticated
+`/api/workspaces/` read. It requires zero errors, at least 75 requests per
+second, and an aggregate p95 no higher than 3 seconds. Its frontend phase sends
+another 600 requests at concurrency 20 across the plain `/_health` route and
+the SSR login page. It requires zero errors with an aggregate p95 no higher than
+5 seconds. Keeping the targets separate prevents fast backend responses from
+masking slow SSR responses and avoids treating hosted-runner CPU variance as a
+backend capacity regression.
 
 Both phases always run before the load gate returns a failure, so a capacity
 miss cannot hide the latency evidence (and vice versa).
@@ -75,8 +75,10 @@ its seeded account through `LOAD_AUTH_EMAIL` and `LOAD_AUTH_PASSWORD`;
 `LOAD_BEARER_TOKEN` can supply a token directly for another environment.
 Override the composite gate with the `LOAD_CAPACITY_*` or `LOAD_LATENCY_*`
 versions of `TOTAL`, `CONCURRENCY`, `MAX_ERROR_RATE`, `MAX_P95_MS`, and
-`MIN_RPS`. Shared connection settings are `LOAD_TIMEOUT_MS`, `LOAD_BASE_URL`,
-`LOAD_BACKEND_URL`, `LOAD_WARMUP_ROUNDS`, and comma-separated `LOAD_URLS`.
+`MIN_RPS`. Each phase's targets can be replaced with comma-separated absolute
+URLs through `LOAD_CAPACITY_URLS` or `LOAD_LATENCY_URLS`. Shared connection
+settings are `LOAD_TIMEOUT_MS`, `LOAD_BASE_URL`, `LOAD_BACKEND_URL`,
+`LOAD_WARMUP_ROUNDS`, and comma-separated `LOAD_URLS`.
 The underlying script also accepts the unprefixed `LOAD_TOTAL`,
 `LOAD_CONCURRENCY`, `LOAD_MAX_ERROR_RATE`, `LOAD_MAX_P95_MS`, and
 `LOAD_MIN_RPS` when run directly. `LOAD_PATHS` remains a compatibility alias

@@ -32,13 +32,16 @@ describe('HtmlPageOnboarding', () => {
     return params ? `${key}::${JSON.stringify(params)}` : key
   }
 
-  const mountPanel = async (endpoints = []) => {
+  const mountPanel = async (
+    endpoints = [],
+    publicBackendUrl = 'http://localhost:8000'
+  ) => {
     fetchAll.mockResolvedValue({ data: endpoints })
     return await mountSuspended(HtmlPageOnboarding, {
       props: { database, view },
       global: {
         mocks: {
-          $config: { public: { publicBackendUrl: 'http://localhost:8000' } },
+          $config: { public: { publicBackendUrl } },
           $client: {},
           $t,
         },
@@ -115,6 +118,18 @@ describe('HtmlPageOnboarding', () => {
     expect(wrapper.vm.clientConfig).not.toContain('supersecretkey')
     expect(wrapper.vm.realClientConfig).toContain('supersecretkey')
     expect(() => JSON.parse(wrapper.vm.realClientConfig)).not.toThrow()
+  })
+
+  test('normalizes a trailing slash in the public backend URL', async () => {
+    const wrapper = await mountPanel(
+      [{ id: 2, key: 'supersecretkey', workspace_id: 7 }],
+      'http://localhost:8000/'
+    )
+
+    expect(wrapper.get('.html-page-onboarding__code').text()).toBe(
+      'http://localhost:8000/mcp/•••••••/sse'
+    )
+    expect(wrapper.text()).not.toContain('http://localhost:8000//mcp/')
   })
 
   test('a failed endpoint lookup still leaves a usable panel', async () => {
