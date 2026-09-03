@@ -1,10 +1,8 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./cases",
-        "paths": {
-            "@jadawel_test_cases/*": [
-                "./cases/*"
-            ]
-        }
-    },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@jadawel_test_cases/*": ["./cases/*"]
+    }
+  }
 }
