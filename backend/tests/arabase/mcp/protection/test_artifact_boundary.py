@@ -2,7 +2,13 @@ from django.urls import reverse
 
 import pytest
 from rest_framework.exceptions import ValidationError
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_202_ACCEPTED
+from rest_framework.status import (
+    HTTP_200_OK,
+    HTTP_201_CREATED,
+    HTTP_202_ACCEPTED,
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND,
+)
 
 from arabase.mcp.page import services
 from arabase.mcp.protection.artifact_boundary import (
@@ -336,6 +342,19 @@ def test_artifact_review_api_exposes_only_safe_state(api_client, data_fixture):
     draft_body = draft_response.json()
     assert "candidate_html" not in draft_body
     assert "Secret" not in str(draft_body)
+    assert draft_body["manifest"] == [
+        {"field_id": secret.id, "provenance": ArtifactProvenance.DIRECT}
+    ]
+    assert draft_body["view_configuration"] == {
+        "table_id": table.id,
+        "row_limit": view.row_limit,
+        "public": view.public,
+        "allow_external_resources": view.allow_external_resources,
+        "filter_type": view.filter_type,
+        "filter_count": 0,
+        "sort_count": 0,
+        "group_count": 0,
+    }
 
     state_response = api_client.get(
         reverse("api:arabase:mcp_artifact_state", kwargs={"view_id": view.id}),
@@ -343,6 +362,58 @@ def test_artifact_review_api_exposes_only_safe_state(api_client, data_fixture):
     )
     assert state_response.status_code == HTTP_200_OK
     assert state_response.json()["artifact_state"] == "pending_approval"
+
+
+@pytest.mark.django_db
+def test_artifact_draft_api_validates_inputs_before_boundary(
+    api_client, protected_page
+):
+    user, _workspace, _table, _secret, _visible, endpoint, view = protected_page
+    api_client.force_authenticate(user=user)
+
+    response = api_client.post(
+        reverse("api:arabase:mcp_artifact_draft"),
+        {
+            "endpoint_id": endpoint.id,
+            "view_id": view.id,
+            "html": PAGE_V2,
+            "protected_field_ids": "not-a-list",
+        },
+        format="json",
+    )
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert ArtifactDraft.objects.count() == 0
+
+    response = api_client.post(
+        reverse("api:arabase:mcp_artifact_draft"),
+        {
+            "endpoint_id": endpoint.id,
+            "view_id": view.id,
+            "html": PAGE_V2,
+            "pending_view_values": {"row_limit": {"unexpected": "shape"}},
+        },
+        format="json",
+    )
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert ArtifactDraft.objects.count() == 0
+
+
+@pytest.mark.django_db
+def test_artifact_approval_api_returns_a_safe_not_found(api_client, data_fixture):
+    user, token = data_fixture.create_user_and_token()
+
+    response = api_client.post(
+        reverse(
+            "api:arabase:mcp_artifact_draft_approve",
+            kwargs={"draft_id": 999999},
+        ),
+        format="json",
+        HTTP_AUTHORIZATION=f"JWT {token}",
+    )
+
+    assert response.status_code == HTTP_404_NOT_FOUND
 
 
 @pytest.mark.django_db

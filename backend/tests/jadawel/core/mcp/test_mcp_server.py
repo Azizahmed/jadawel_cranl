@@ -206,6 +206,39 @@ def test_call_tool_returns_a_content_blind_protocol_error(data_fixture):
 
 
 @pytest.mark.django_db
+def test_call_tool_validation_error_does_not_echo_arguments(data_fixture):
+    endpoint = data_fixture.create_mcp_endpoint()
+    mcp = JadawelMCPServer()
+    key_token = current_key.set(endpoint.key)
+    argument_canary = "PROTECTED-ARGUMENT-CANARY"
+    captured_logs = []
+    sink_id = logger.add(captured_logs.append, format="{message}")
+
+    try:
+
+        async def inner():
+            async with client_session(mcp._mcp_server) as client:
+                result = await client.call_tool(
+                    "list_table_rows", {"table_id": argument_canary}
+                )
+                assert result.isError is True
+                error = json.loads(result.content[0].text)["error"]
+                assert error["code"] == "MCP_TOOL_FAILED"
+                assert error["retryable"] is False
+                UUID(error["correlation_id"])
+                assert set(error) == {"code", "correlation_id", "retryable"}
+                assert argument_canary not in result.content[0].text
+
+        with transaction.atomic():
+            async_to_sync(inner)()
+
+        assert argument_canary not in "".join(captured_logs)
+    finally:
+        logger.remove(sink_id)
+        current_key.reset(key_token)
+
+
+@pytest.mark.django_db
 def test_call_tool_returns_allowlisted_protection_error(data_fixture, monkeypatch):
     endpoint = data_fixture.create_mcp_endpoint()
     mcp = JadawelMCPServer()
