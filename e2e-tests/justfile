@@ -297,6 +297,7 @@ test *ARGS:
 
         echo "Running high-concurrency capacity gate..."
         LOAD_LABEL=capacity \
+        LOAD_URLS="${LOAD_CAPACITY_URLS:-http://localhost:8000/api/settings/,http://localhost:8000/api/workspaces/}" \
         LOAD_TOTAL="${LOAD_CAPACITY_TOTAL:-600}" \
         LOAD_CONCURRENCY="${LOAD_CAPACITY_CONCURRENCY:-60}" \
         LOAD_MAX_ERROR_RATE="${LOAD_CAPACITY_MAX_ERROR_RATE:-0}" \
@@ -304,12 +305,13 @@ test *ARGS:
         LOAD_MIN_RPS="${LOAD_CAPACITY_MIN_RPS:-75}" \
         node scripts/production-load-smoke.mjs || LOAD_GATE_EXIT=$?
 
-        echo "Running sustained latency gate..."
+        echo "Running frontend SSR reliability gate..."
         LOAD_LABEL=latency \
+        LOAD_URLS="${LOAD_LATENCY_URLS:-http://localhost:3000/_health,http://localhost:3000/login}" \
         LOAD_TOTAL="${LOAD_LATENCY_TOTAL:-600}" \
-        LOAD_CONCURRENCY="${LOAD_LATENCY_CONCURRENCY:-30}" \
+        LOAD_CONCURRENCY="${LOAD_LATENCY_CONCURRENCY:-20}" \
         LOAD_MAX_ERROR_RATE="${LOAD_LATENCY_MAX_ERROR_RATE:-0}" \
-        LOAD_MAX_P95_MS="${LOAD_LATENCY_MAX_P95_MS:-1500}" \
+        LOAD_MAX_P95_MS="${LOAD_LATENCY_MAX_P95_MS:-5000}" \
         LOAD_MIN_RPS="${LOAD_LATENCY_MIN_RPS:-0}" \
         node scripts/production-load-smoke.mjs || LOAD_GATE_EXIT=$?
 

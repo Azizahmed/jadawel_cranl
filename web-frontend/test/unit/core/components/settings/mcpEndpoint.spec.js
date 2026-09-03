@@ -37,7 +37,9 @@ describe('McpEndpoint setup instructions', () => {
     await testApp.afterEach()
   })
 
-  const mountComponent = async () =>
+  const mountComponent = async (
+    publicBackendUrl = 'https://api.example.test'
+  ) =>
     await testApp.mount(McpEndpoint, {
       props: {
         endpoint: {
@@ -50,7 +52,7 @@ describe('McpEndpoint setup instructions', () => {
       global: {
         mocks: {
           $config: {
-            public: { publicBackendUrl: 'https://api.example.test' },
+            public: { publicBackendUrl },
           },
           $t: getTranslation,
         },
@@ -80,5 +82,14 @@ describe('McpEndpoint setup instructions', () => {
     expect(otherPrompt).toContain('Set up the following Jadawel MCP server')
     expect(otherPrompt).toContain(`Server URL: ${ENDPOINT_URL}`)
     expect(otherPrompt).toContain('Treat this URL as a password')
+  })
+
+  test('normalizes a trailing slash in the public backend URL', async () => {
+    const wrapper = await mountComponent('https://api.example.test/')
+    await wrapper.get('.mcp-endpoint__toggle a').trigger('click')
+    await wrapper.get('.flex > a').trigger('click')
+
+    expect(wrapper.get('.mcp-endpoint__box').text()).toBe(ENDPOINT_URL)
+    expect(wrapper.text()).not.toContain('https://api.example.test//mcp/')
   })
 })

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from arabase.mcp.protection.models import (
+    ArtifactAudience,
     MCPProtectedField,
     MCPProtectedFieldState,
     MCPProtectionPolicy,
@@ -147,6 +148,73 @@ class UpdateMCPProtectionPolicySerializer(serializers.Serializer):
 
 class ReactivateMCPProtectionPolicySerializer(serializers.Serializer):
     expected_revision = serializers.IntegerField(min_value=1)
+
+
+class ArtifactDraftRequestSerializer(serializers.Serializer):
+    """Validate the content-blind inputs accepted by the artifact boundary."""
+
+    endpoint_id = serializers.IntegerField(min_value=1)
+    view_id = serializers.IntegerField(min_value=1)
+    html = serializers.CharField(allow_blank=True, trim_whitespace=False)
+    protected_field_ids = serializers.ListField(
+        child=serializers.IntegerField(min_value=1),
+        required=False,
+        default=list,
+        allow_empty=True,
+    )
+    audience = serializers.ChoiceField(
+        choices=ArtifactAudience.choices,
+        required=False,
+        default=ArtifactAudience.AUTHENTICATED,
+    )
+    pending_view_values = serializers.DictField(
+        required=False,
+        default=dict,
+        allow_empty=True,
+    )
+
+    def validate_protected_field_ids(self, value):
+        if len(value) != len(set(value)):
+            raise serializers.ValidationError("Field IDs must be unique.")
+        return value
+
+    def validate_pending_view_values(self, value):
+        allowed = {"name", "allow_external_resources", "row_limit"}
+        unsupported = set(value) - allowed
+        if unsupported:
+            raise serializers.ValidationError(
+                "Only safe view configuration fields may be submitted."
+            )
+        if "name" in value and (
+            not isinstance(value["name"], str) or len(value["name"]) > 255
+        ):
+            raise serializers.ValidationError(
+                {"name": "The view name must be a string of at most 255 characters."}
+            )
+        if "allow_external_resources" in value and not isinstance(
+            value["allow_external_resources"], bool
+        ):
+            raise serializers.ValidationError(
+                {"allow_external_resources": "This value must be a boolean."}
+            )
+        if "row_limit" in value and (
+            isinstance(value["row_limit"], bool)
+            or not isinstance(value["row_limit"], int)
+        ):
+            raise serializers.ValidationError(
+                {"row_limit": "This value must be an integer."}
+            )
+        return value
+
+
+class ArtifactRevokeSerializer(serializers.Serializer):
+    reason = serializers.CharField(
+        required=False,
+        default="manual_revocation",
+        allow_blank=False,
+        max_length=64,
+        trim_whitespace=False,
+    )
 
 
 class CreatedProtectedMCPEndpointSerializer(MCPEndpointSerializer):

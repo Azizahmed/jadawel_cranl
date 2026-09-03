@@ -30,6 +30,21 @@ be allowed to include that header in their CORS preflight.
 **Test:**
 `backend/tests/arabase/mcp/protection/test_policy_editing.py::test_policy_replace_cors_preflight_allows_idempotency_header`.
 
+## MCP lifecycle and view-filter query budget (2026-09-01)
+
+**Context:** The protection lifecycle receiver was opening a nested transaction for
+every model save, including unprotected objects. Django's delete collector also ran
+unneeded discovery queries when removing standalone view sort/group/filter rows during
+field-type changes. Both regressions broke existing query-budget tests and obscured
+the actual protected-field lifecycle work.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/contrib/database/views/handler.py` | Use router-aware `_raw_delete` for standalone incompatible view sort, group-by, and filter rows | Preserve the existing explicit indexing hook while removing collector queries; these models have no dependent cascade receivers in this path | low |
+
+**Test:** The full backend suite (`pytest tests -q -n 2`) passes with 8,000 passed and
+441 skipped; the former 28-test failure set passes in full.
+
 ## MCP protection boundary (2026-08-30)
 
 **Context:** Endpoint-specific protected fields need one generic enforcement seam
@@ -48,6 +63,19 @@ behavior.
 `backend/tests/jadawel/core/mcp/test_mcp_server.py`,
 `backend/tests/jadawel/core/mcp/test_mcp_sse.py`, and
 `backend/tests/arabase/test_mcp_protection_boundary.py`.
+
+### Validation-error hardening (2026-09-02)
+
+The MCP SDK's default JSON Schema validator runs before Jadawel's tool handler and
+includes the rejected argument value in its caller-visible error text. Jadawel tools
+already validate their Pydantic input schemas inside the handler.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `backend/src/jadawel/core/mcp/__init__.py` | Disabled the SDK's outer input validator while retaining per-tool Pydantic validation inside `call_tool` | Ensure malformed values reach the existing fixed safe-error boundary instead of being echoed to MCP clients | low |
+
+**Test:**
+`backend/tests/jadawel/core/mcp/test_mcp_server.py::test_call_tool_validation_error_does_not_echo_arguments`.
 
 ## MCP artifact approval boundary (2026-08-30)
 
@@ -1244,3 +1272,10 @@ additive Arabase module.
 | File | Change | Reason | Merge risk |
 |------|--------|--------|------------|
 | `web-frontend/modules/core/components/settings/McpEndpoint.vue` and `web-frontend/modules/core/locales/{ar,en}.json` | Replace the Windsurf setup tab with Codex CLI guidance and add a localized prompt for other AI clients | Make the default setup choices match the supported Jadawel workflows while giving any MCP-capable agent enough safe, endpoint-specific context to configure itself | low |
+| `web-frontend/modules/core/components/settings/McpEndpoint.vue` | Normalize trailing slashes before appending the MCP route | Keep the displayed and copied credential URL directly usable when CranL's public backend URL ends in `/` | low |
+
+## Phase — Keep sidebar modals usable on mobile (2026-09-01)
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `web-frontend/modules/core/assets/scss/components/modal.scss` | Stack sidebar modals and remove fixed sidebar/content sizing below 720px | Prevent the authenticated Arabic/English settings modal from creating an internal horizontal strip at 390×844 while preserving the desktop two-column layout | low |
