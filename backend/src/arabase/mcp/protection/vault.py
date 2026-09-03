@@ -25,23 +25,36 @@ MAX_ISSUANCE_MEMORY_RATIO = 0.60
 MAX_ENDPOINT_TOKENS = 10_000
 MAX_GLOBAL_TOKENS = 50_000
 
-_ISSUE_TOKEN_SCRIPT = """
+_RESERVE_TOKEN_BATCH_SCRIPT = """
 local now = tonumber(redis.call('TIME')[1])
 redis.call('ZREMRANGEBYSCORE', KEYS[1], '-inf', now)
 redis.call('ZREMRANGEBYSCORE', KEYS[2], '-inf', now)
-if redis.call('ZCARD', KEYS[1]) >= tonumber(ARGV[2]) then
+local item_count = tonumber(ARGV[1])
+if redis.call('ZCARD', KEYS[1]) + item_count > tonumber(ARGV[3]) then
   return -1
 end
-if redis.call('ZCARD', KEYS[2]) >= tonumber(ARGV[3]) then
+if redis.call('ZCARD', KEYS[2]) + item_count > tonumber(ARGV[4]) then
   return -1
 end
-local stored = redis.call('SET', KEYS[3], ARGV[4], 'NX', 'EX', ARGV[1])
-if not stored then
-  return 0
+local existing = redis.call('MGET', unpack(KEYS, 3, #KEYS))
+for item_index = 1, item_count do
+  if existing[item_index] then
+    return 0
+  end
 end
-redis.call('ZADD', KEYS[1], ARGV[5], ARGV[6])
-redis.call('ZADD', KEYS[2], ARGV[5], ARGV[6])
-return 1
+local zadd_arguments = {}
+for item_index = 1, item_count do
+  local argument_index = 5 + ((item_index - 1) * 3)
+  local expires_at = ARGV[argument_index]
+  local digest = ARGV[argument_index + 1]
+  local record = ARGV[argument_index + 2]
+  redis.call('SET', KEYS[item_index + 2], record, 'EX', ARGV[2])
+  table.insert(zadd_arguments, expires_at)
+  table.insert(zadd_arguments, digest)
+end
+redis.call('ZADD', KEYS[1], unpack(zadd_arguments))
+redis.call('ZADD', KEYS[2], unpack(zadd_arguments))
+return item_count
 """
 
 
@@ -121,44 +134,75 @@ class RedisMaskTokenVault:
             raise MaskTokenVaultUnavailable from exc
 
     def issue(self, binding: MaskTokenBinding, value: Any) -> IssuedMaskToken:
+        return self.issue_many([(binding, value)])[0]
+
+    def issue_many(
+        self, items: list[tuple[MaskTokenBinding, Any]]
+    ) -> list[IssuedMaskToken]:
+        """Issue one endpoint's tokens with one atomic Redis script."""
+
+        if not items:
+            return []
+        endpoint_id = items[0][0].endpoint_id
+        if any(binding.endpoint_id != endpoint_id for binding, _value in items):
+            raise MaskTokenVaultUnavailable
         self._ensure_issuance_headroom()
         key_id, fingerprint_key = _load_active_fingerprint_key()
-        canonical_value = canonicalize_typed_value(binding.field_type, value)
-        fingerprint = hmac.new(
-            fingerprint_key, canonical_value, hashlib.sha256
-        ).hexdigest()
-        token = generate_mask_token()
         expires_at = datetime.now(UTC) + timedelta(seconds=MASK_TOKEN_TTL_SECONDS)
-        record = {
-            **asdict(binding),
-            "canonicalization_version": CANONICAL_VALUE_VERSION,
-            "expires_at": expires_at.isoformat(),
-            "fingerprint_key_id": key_id,
-            "value_fingerprint": fingerprint,
-        }
+        generated: list[tuple[GeneratedMaskToken, str]] = []
+        for binding, value in items:
+            canonical_value = canonicalize_typed_value(binding.field_type, value)
+            fingerprint = hmac.new(
+                fingerprint_key, canonical_value, hashlib.sha256
+            ).hexdigest()
+            token = generate_mask_token()
+            record = {
+                **asdict(binding),
+                "canonicalization_version": CANONICAL_VALUE_VERSION,
+                "expires_at": expires_at.isoformat(),
+                "fingerprint_key_id": key_id,
+                "value_fingerprint": fingerprint,
+            }
+            generated.append(
+                (
+                    token,
+                    json.dumps(record, separators=(",", ":"), sort_keys=True),
+                )
+            )
+        digests = [token.digest for token, _record in generated]
+        if len(set(digests)) != len(digests):
+            raise MaskTokenVaultUnavailable
         try:
-            result = self.redis.register_script(_ISSUE_TOKEN_SCRIPT)(
+            result = self.redis.register_script(_RESERVE_TOKEN_BATCH_SCRIPT)(
                 keys=[
                     MASK_TOKEN_EXPIRY_INDEX,
-                    f"{MASK_TOKEN_ENDPOINT_INDEX_PREFIX}{binding.endpoint_id}",
-                    f"{MASK_TOKEN_REDIS_PREFIX}{token.digest}",
+                    f"{MASK_TOKEN_ENDPOINT_INDEX_PREFIX}{endpoint_id}",
+                    *[f"{MASK_TOKEN_REDIS_PREFIX}{digest}" for digest in digests],
                 ],
                 args=[
+                    len(generated),
                     MASK_TOKEN_TTL_SECONDS,
                     MAX_GLOBAL_TOKENS,
                     MAX_ENDPOINT_TOKENS,
-                    json.dumps(record, separators=(",", ":"), sort_keys=True),
-                    # Keep the reservation at least as long as the Redis TTL;
-                    # flooring a fractional Unix timestamp could release it early.
-                    int(expires_at.timestamp()) + 1,
-                    token.digest,
+                    *[
+                        argument
+                        for token, record in generated
+                        for argument in (
+                            # Keep the reservation at least as long as the Redis TTL;
+                            # flooring a fractional Unix timestamp could release it
+                            # early.
+                            int(expires_at.timestamp()) + 1,
+                            token.digest,
+                            record,
+                        )
+                    ],
                 ],
             )
         except RedisError as exc:
             raise MaskTokenVaultUnavailable from exc
-        if result != 1:
+        if result != len(generated):
             raise MaskTokenVaultUnavailable
-        return _issued(token)
+        return [_issued(token) for token, _record in generated]
 
     def _ensure_issuance_headroom(self) -> None:
         """Stop new issuance before the dedicated vault reaches its safety floor.

@@ -227,7 +227,11 @@ export default {
   },
   methods: {
     buildUrl(key) {
-      return `${this.$config.public.publicBackendUrl}/mcp/${key}/sse`
+      const backendUrl = this.$config.public.publicBackendUrl.replace(
+        /\/+$/,
+        ''
+      )
+      return `${backendUrl}/mcp/${key}/sse`
     },
     buildConfig(url) {
       return `{
