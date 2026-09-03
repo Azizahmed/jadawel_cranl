@@ -294,6 +294,22 @@
   },
   "mcpArtifactApproval": {
     "label": "حماية صفحة MCP",
+    "details": "نطاق مراجعة العنصر المحمي",
+    "audienceLabel": "الجمهور",
+    "audiences": {
+      "authenticated": "المشاهدون المسجّلون",
+      "public": "المشاهدون العموميون"
+    },
+    "endpointLabel": "نقطة النهاية",
+    "viewLabel": "العرض",
+    "configurationLabel": "إعدادات العرض",
+    "configurationSummary": "الصفوف: {rows}؛ عوامل التصفية: {filters}؛ الترتيب: {sorts}؛ التجميع: {groups}",
+    "manifestLabel": "بيان الحقول المحمية",
+    "field": "الحقل رقم {id}",
+    "provenance": {
+      "direct": "مباشر",
+      "derived": "مشتق"
+    },
     "approve": "اعتماد المسودة",
     "approving": "جارٍ الاعتماد…",
     "states": {
