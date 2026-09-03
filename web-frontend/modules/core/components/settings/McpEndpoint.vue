@@ -181,7 +181,11 @@ export default {
   },
   methods: {
     getEndpointUrl(key) {
-      return `${this.$config.public.publicBackendUrl}/mcp/${key}/sse`
+      const backendUrl = this.$config.public.publicBackendUrl.replace(
+        /\/+$/,
+        ''
+      )
+      return `${backendUrl}/mcp/${key}/sse`
     },
     copyShareUrlToClipboard() {
       copyToClipboard(this.getEndpointUrl(this.endpoint.key))

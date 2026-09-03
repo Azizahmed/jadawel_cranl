@@ -155,8 +155,8 @@ def test_policy_revision_change_before_release_discards_complete_response(
     redis = fakeredis.FakeRedis(decode_responses=True)
 
     class RacingVault(RedisMaskTokenVault):
-        def issue(self, binding, value):
-            issued = super().issue(binding, value)
+        def issue_many(self, items):
+            issued = super().issue_many(items)
             MCPProtectionPolicy.objects.filter(endpoint=endpoint).update(revision=2)
             return issued
 
@@ -256,13 +256,8 @@ def test_redis_interruption_rolls_back_a_protected_create_batch(
     redis = fakeredis.FakeRedis(decode_responses=True)
 
     class InterruptedVault(RedisMaskTokenVault):
-        issued_count = 0
-
-        def issue(self, binding, value):
-            self.issued_count += 1
-            if self.issued_count == 2:
-                raise MaskTokenVaultUnavailable
-            return super().issue(binding, value)
+        def issue_many(self, items):
+            raise MaskTokenVaultUnavailable
 
     vault = InterruptedVault(redis_client=redis)
     monkeypatch.setattr(
@@ -319,13 +314,8 @@ def test_redis_interruption_rolls_back_a_two_hundred_row_update(
     redis = fakeredis.FakeRedis(decode_responses=True)
 
     class InterruptedVault(RedisMaskTokenVault):
-        issued_count = 0
-
-        def issue(self, binding, value):
-            self.issued_count += 1
-            if self.issued_count == 101:
-                raise MaskTokenVaultUnavailable
-            return super().issue(binding, value)
+        def issue_many(self, items):
+            raise MaskTokenVaultUnavailable
 
     vault = InterruptedVault(redis_client=redis)
     monkeypatch.setattr(
