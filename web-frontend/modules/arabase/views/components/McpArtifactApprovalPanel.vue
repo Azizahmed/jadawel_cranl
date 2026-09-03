@@ -11,6 +11,58 @@
     <span class="mcp-artifact-approval__state">
       {{ stateLabel }}
     </span>
+    <dl
+      v-if="state.view_configuration"
+      class="mcp-artifact-approval__details"
+      :aria-label="$t('mcpArtifactApproval.details')"
+    >
+      <div>
+        <dt>{{ $t('mcpArtifactApproval.audienceLabel') }}</dt>
+        <dd>
+          {{
+            state.audience
+              ? $t(`mcpArtifactApproval.audiences.${state.audience}`)
+              : '—'
+          }}
+        </dd>
+      </div>
+      <div>
+        <dt>{{ $t('mcpArtifactApproval.endpointLabel') }}</dt>
+        <dd>#{{ state.endpoint_id ?? '—' }}</dd>
+      </div>
+      <div>
+        <dt>{{ $t('mcpArtifactApproval.viewLabel') }}</dt>
+        <dd>#{{ state.view_id }}</dd>
+      </div>
+      <div>
+        <dt>{{ $t('mcpArtifactApproval.configurationLabel') }}</dt>
+        <dd>
+          {{
+            $t('mcpArtifactApproval.configurationSummary', {
+              rows: state.view_configuration.row_limit,
+              filters: state.view_configuration.filter_count,
+              sorts: state.view_configuration.sort_count,
+              groups: state.view_configuration.group_count,
+            })
+          }}
+        </dd>
+      </div>
+      <div
+        v-if="state.manifest?.length"
+        class="mcp-artifact-approval__manifest"
+      >
+        <dt>{{ $t('mcpArtifactApproval.manifestLabel') }}</dt>
+        <dd>
+          <ul>
+            <li v-for="field in state.manifest" :key="field.field_id">
+              {{ $t('mcpArtifactApproval.field', { id: field.field_id }) }}
+              ·
+              {{ $t(`mcpArtifactApproval.provenance.${field.provenance}`) }}
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </dl>
     <button
       v-if="state.artifact_state === 'pending_approval' && state.draft_id"
       type="button"
