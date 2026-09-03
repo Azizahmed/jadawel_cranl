@@ -59,6 +59,7 @@ def _issue_batch(payload: tuple[str, int, int, int]) -> dict:
     first_token = None
     started = perf_counter()
     try:
+        requests = []
         with issuance_lease(endpoint_id, vault):
             for token_index in range(token_count):
                 binding = MaskTokenBinding(
@@ -73,17 +74,21 @@ def _issue_batch(payload: tuple[str, int, int, int]) -> dict:
                     observed_row_state="load-test-state",
                     field_type="text",
                 )
-                token = vault.issue(
-                    binding,
-                    f"load-test-value-{batch_index}-{token_index}",
+                requests.append(
+                    (
+                        binding,
+                        f"load-test-value-{batch_index}-{token_index}",
+                    )
                 )
-                if first_token is None:
-                    first_token = {
-                        "raw_handle": token.raw_handle,
-                        "binding": asdict(binding),
-                        "value": f"load-test-value-{batch_index}-{token_index}",
-                    }
-                issued += 1
+            tokens = vault.issue_many(requests)
+        issued = len(tokens)
+        if tokens:
+            binding, value = requests[0]
+            first_token = {
+                "raw_handle": tokens[0].raw_handle,
+                "binding": asdict(binding),
+                "value": value,
+            }
         return {
             "ok": True,
             "issued": issued,
