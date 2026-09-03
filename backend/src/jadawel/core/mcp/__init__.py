@@ -65,7 +65,11 @@ class JadawelMCPServer:
 
     def _setup_handlers(self):
         self._mcp_server.list_tools()(self.list_tools)
-        self._mcp_server.call_tool()(self.call_tool)
+        # The SDK's JSON Schema validator formats the rejected input value into
+        # its caller-visible error before our handler runs. Validate with each
+        # tool's Pydantic schema inside ``call_tool`` instead, where every
+        # exception is converted to a fixed, content-blind protocol error.
+        self._mcp_server.call_tool(validate_input=False)(self.call_tool)
 
         # Return an empty list because there are no resources, prompts, and
         # resource_templates in Jadawel.
