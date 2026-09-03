@@ -52,6 +52,11 @@ services:
     volumes:
       - ./docs:/jadawel/docs
       - ./backend:/jadawel/backend
+      # Fork-hygiene tests inspect these upstream attribution sources from the
+      # repository root. Keep the dev container's /jadawel tree faithful to the
+      # checkout just like the CI image.
+      - ./deploy/helm/jadawel:/jadawel/deploy/helm/jadawel:ro
+      - ./formula:/jadawel/formula:ro
       - ./deploy/plugins/:/jadawel/plugins/
       - ./tests:/jadawel/tests
     # Open stdin and tty so when attaching key input works as expected.
