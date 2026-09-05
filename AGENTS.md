@@ -122,6 +122,7 @@ checkout leaves as a plain text file, so read through `.agents/skills/`.
 | `add-django-config-env-var` | Adding a Django setting backed by an env var and propagating it to `base.py`, the compose files, `env-remap.mjs` and `docs/CONFIGURATION.md` |
 | `create-in-app-notification` | Adding a `NotificationType` with its frontend rendering, target routing and duplicate prevention |
 | `create-update-service` | Creating or updating an integration type or service type in `contrib/integrations` |
+| `jadawel-plugin` | Building a plugin: registering a new type into one of Jadawel's registries from `arabase/`, adding routes under `/api/arabase/`, or packaging a standalone plugin |
 | `silk-profiler` | Investigating a slow endpoint, an N+1 query or a request's query pattern with Django Silk |
 | `write-backend-unit-test` | Writing pytest tests with the repository's DRF `APIClient` and fixture patterns |
 | `write-frontend-unit-test` | Writing Vitest tests with the repository's `TestApp`, Vue Test Utils and snapshot patterns |

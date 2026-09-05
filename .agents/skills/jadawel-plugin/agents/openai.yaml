@@ -1,0 +1,4 @@
+interface:
+    display_name: 'Jadawel Plugin'
+    short_description: 'Build a Jadawel plugin as additive fork code under arabase/'
+    default_prompt: 'Use $jadawel-plugin to build a new Jadawel plugin.'
