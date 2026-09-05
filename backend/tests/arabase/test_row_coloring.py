@@ -12,7 +12,10 @@ from django.shortcuts import reverse
 import pytest
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
-from arabase.row_coloring.value_providers import SingleSelectColorValueProviderType
+from arabase.row_coloring.value_providers import (
+    ConditionalColorValueProviderType,
+    SingleSelectColorValueProviderType,
+)
 from jadawel.contrib.database.views.models import ViewDecoration
 from jadawel.contrib.database.views.registries import (
     decorator_type_registry,
@@ -228,3 +231,245 @@ def test_import_remaps_field_id(coloring_setup):
 
     dropped = provider.set_import_serialized_value(dict(value), {"database_fields": {}})
     assert dropped["value_provider_conf"] == {"field_id": None}
+
+
+def conditional_conf(field_id, **overrides):
+    """Build a conditional color conf: one matching rule plus a default."""
+
+    conf = {
+        "colors": [
+            {
+                "filters": [
+                    {"id": "01F", "type": "contains", "field": field_id, "value": "x"}
+                ],
+                "filter_groups": [],
+                "operator": "OR",
+                "color": "red",
+            },
+            {
+                "filters": [],
+                "filter_groups": [],
+                "operator": "AND",
+                "color": "gray",
+            },
+        ]
+    }
+    conf["colors"][0].update(overrides)
+    return conf
+
+
+@pytest.mark.django_db
+def test_all_row_coloring_types_are_registered():
+    assert decorator_type_registry.get("left_border_color").type == "left_border_color"
+    assert decorator_type_registry.get("background_color").type == "background_color"
+
+    conditions = decorator_value_provider_type_registry.get("conditional_color")
+    assert isinstance(conditions, ConditionalColorValueProviderType)
+    for decorator in ("background_color", "left_border_color"):
+        assert conditions.decorator_is_compatible(
+            decorator_type_registry.get(decorator)
+        )
+
+
+@pytest.mark.django_db
+def test_create_left_border_color_from_single_select(
+    api_client, data_fixture, coloring_setup
+):
+    setup = coloring_setup
+    response = api_client.post(
+        decorations_url(setup["view"]),
+        {
+            "type": "left_border_color",
+            "value_provider_type": "single_select_color",
+            "value_provider_conf": {"field_id": setup["status"].id},
+        },
+        format="json",
+        **auth(setup["token"]),
+    )
+    assert response.status_code == HTTP_200_OK, response.content
+    assert response.json()["type"] == "left_border_color"
+
+
+@pytest.mark.django_db
+def test_left_border_and_background_coexist(api_client, data_fixture, coloring_setup):
+    setup = coloring_setup
+    for decoration_type in ("background_color", "left_border_color"):
+        response = api_client.post(
+            decorations_url(setup["view"]),
+            {
+                "type": decoration_type,
+                "value_provider_type": "single_select_color",
+                "value_provider_conf": {"field_id": setup["status"].id},
+            },
+            format="json",
+            **auth(setup["token"]),
+        )
+        assert response.status_code == HTTP_200_OK, response.content
+    assert ViewDecoration.objects.filter(view=setup["view"]).count() == 2
+
+
+@pytest.mark.django_db
+def test_second_left_border_is_rejected(api_client, data_fixture, coloring_setup):
+    setup = coloring_setup
+    payload = {
+        "type": "left_border_color",
+        "value_provider_type": "single_select_color",
+        "value_provider_conf": {"field_id": setup["status"].id},
+    }
+    first = api_client.post(
+        decorations_url(setup["view"]), payload, format="json", **auth(setup["token"])
+    )
+    assert first.status_code == HTTP_200_OK, first.content
+
+    second = api_client.post(
+        decorations_url(setup["view"]), payload, format="json", **auth(setup["token"])
+    )
+    assert second.status_code == HTTP_400_BAD_REQUEST
+    assert second.json()["error"] == "ERROR_VIEW_DECORATION_NOT_SUPPORTED"
+
+
+@pytest.mark.django_db
+def test_conditional_conf_rejects_unknown_filter_type(
+    api_client, data_fixture, coloring_setup
+):
+    setup = coloring_setup
+    bad = {
+        "colors": [
+            {
+                "filters": [
+                    {
+                        "id": "01F",
+                        "type": "not_a_filter",
+                        "field": setup["text"].id,
+                        "value": "x",
+                    }
+                ],
+                "filter_groups": [],
+                "operator": "OR",
+                "color": "red",
+            }
+        ]
+    }
+    response = api_client.post(
+        decorations_url(setup["view"]),
+        {
+            "type": "background_color",
+            "value_provider_type": "conditional_color",
+            "value_provider_conf": bad,
+        },
+        format="json",
+        **auth(setup["token"]),
+    )
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert response.json()["error"] == "ERROR_REQUEST_BODY_VALIDATION"
+
+
+@pytest.mark.django_db
+def test_create_conditional_color_decoration(api_client, data_fixture, coloring_setup):
+    setup = coloring_setup
+    conf = conditional_conf(setup["text"].id)
+    response = api_client.post(
+        decorations_url(setup["view"]),
+        {
+            "type": "background_color",
+            "value_provider_type": "conditional_color",
+            "value_provider_conf": conf,
+        },
+        format="json",
+        **auth(setup["token"]),
+    )
+    assert response.status_code == HTTP_200_OK, response.content
+    decoration = ViewDecoration.objects.get(pk=response.json()["id"])
+    stored = decoration.value_provider_conf
+    # The conf serializer fills field defaults, so compare the semantic
+    # content rather than the exact payload.
+    assert [rule["color"] for rule in stored["colors"]] == ["red", "gray"]
+    first_rule = stored["colors"][0]
+    assert first_rule["operator"] == "OR"
+    assert first_rule["filters"][0]["type"] == "contains"
+    assert first_rule["filters"][0]["field"] == setup["text"].id
+    assert first_rule["filters"][0]["value"] == "x"
+    assert stored["colors"][1]["filters"] == []
+
+
+@pytest.mark.django_db
+def test_conditional_conf_rejects_bad_operator_and_color(
+    api_client, data_fixture, coloring_setup
+):
+    setup = coloring_setup
+    for overrides in ({"operator": "XOR"}, {"color": "#ff0000"}):
+        response = api_client.post(
+            decorations_url(setup["view"]),
+            {
+                "type": "background_color",
+                "value_provider_type": "conditional_color",
+                "value_provider_conf": conditional_conf(setup["text"].id, **overrides),
+            },
+            format="json",
+            **auth(setup["token"]),
+        )
+        assert response.status_code == HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
+def test_conditional_update_backstops_stored_conf(coloring_setup):
+    setup = coloring_setup
+    provider = decorator_value_provider_type_registry.get("conditional_color")
+    decoration = ViewDecoration.objects.create(
+        view=setup["view"],
+        type="background_color",
+        value_provider_type="conditional_color",
+        value_provider_conf=conditional_conf(999999),
+        order=1,
+    )
+    problems = provider.validate_conf_for_view(
+        setup["view"], decoration.value_provider_conf
+    )
+    assert "does not exist on the view's table" in problems[0]
+
+    from jadawel.contrib.database.views.exceptions import (
+        DecoratorValueProviderTypeNotCompatible,
+    )
+
+    with pytest.raises(DecoratorValueProviderTypeNotCompatible):
+        provider.before_update_decoration(decoration, None)
+
+
+@pytest.mark.django_db
+def test_conditional_import_drops_unmapped_fields(coloring_setup):
+    setup = coloring_setup
+    provider = decorator_value_provider_type_registry.get("conditional_color")
+    value = {
+        "value_provider_conf": {
+            "colors": [
+                {
+                    "filters": [
+                        {"id": "1", "type": "contains", "field": 10, "value": "x"},
+                        {"id": "2", "type": "equal", "field": 11, "value": "y"},
+                    ],
+                    "filter_groups": [],
+                    "operator": "AND",
+                    "color": "red",
+                }
+            ]
+        }
+    }
+    result = provider.set_import_serialized_value(value, {"database_fields": {10: 100}})
+    filters = result["value_provider_conf"]["colors"][0]["filters"]
+    assert [condition["field"] for condition in filters] == [100]
+
+
+@pytest.mark.django_db
+def test_conditional_field_delete_cleans_up_decorations(data_fixture, coloring_setup):
+    from jadawel.contrib.database.fields.handler import FieldHandler
+
+    setup = coloring_setup
+    decoration = ViewDecoration.objects.create(
+        view=setup["view"],
+        type="background_color",
+        value_provider_type="conditional_color",
+        value_provider_conf=conditional_conf(setup["text"].id),
+        order=1,
+    )
+    FieldHandler().delete_field(user=setup["user"], field=setup["text"])
+    assert not ViewDecoration.objects.filter(pk=decoration.pk).exists()

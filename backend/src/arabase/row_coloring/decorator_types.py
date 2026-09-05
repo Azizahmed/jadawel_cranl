@@ -19,17 +19,13 @@ def ensure_single_decorator_per_view(view, decorator_type, ignore_id=None):
     return existing
 
 
-class BackgroundColorDecoratorType(DecoratorType):
-    """Paints the whole row background with the decoration value.
+class ColorRowDecoratorTypeBase(DecoratorType):
+    """Shared behavior for the row-coloring decorator types.
 
-    OSS re-implementation of upstream's premium `background_color`
-    decorator. The type string intentionally matches upstream so that
-    exports, duplication and Airtable imports keep referring to the same
-    type. The value itself is resolved client-side by the matching value
-    provider; the backend only stores and validates the configuration.
+    Both types enforce one configuration of their own type per view, while
+    explicitly allowing one background and one left-border decoration to
+    coexist.
     """
-
-    type = "background_color"
 
     def before_create_decoration(self, view, user):
         if ensure_single_decorator_per_view(view, self.type).exists():
@@ -50,3 +46,29 @@ class BackgroundColorDecoratorType(DecoratorType):
             raise DecoratorValueProviderTypeNotCompatible(
                 f"View {view_decoration.view_id} already has a {self.type} decoration."
             )
+
+
+class BackgroundColorDecoratorType(ColorRowDecoratorTypeBase):
+    """Paints the whole row background with the decoration value.
+
+    OSS re-implementation of upstream's premium `background_color`
+    decorator. The type string intentionally matches upstream so that
+    exports, duplication and Airtable imports keep referring to the same
+    type. The value itself is resolved client-side by the matching value
+    provider; the backend only stores and validates the configuration.
+    """
+
+    type = "background_color"
+
+
+class LeftBorderColorDecoratorType(ColorRowDecoratorTypeBase):
+    """Paints a subtle color bar on the row's inline-start edge.
+
+    OSS re-implementation of upstream's `left_border_color` decorator.
+    The type string matches upstream (it is what the Airtable import
+    mapping emits) and "left" is read as the logical inline-start edge,
+    so the bar renders on the right in Arabic (RTL) views. The value is
+    resolved client-side by the value provider like the background one.
+    """
+
+    type = "left_border_color"
