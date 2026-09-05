@@ -10,6 +10,7 @@ import {
 } from '@jadawel/modules/arabase/integrations/serviceTypes'
 import { BackupAdminType } from '@jadawel/modules/arabase/adminTypes'
 import { ArabasePlugin } from '@jadawel/modules/arabase/plugins'
+import { ViewerRoleType } from '@jadawel/modules/arabase/roleTypes'
 import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/store/publicDashboardApplication'
 import { HtmlPageViewType } from '@jadawel/modules/arabase/views/viewTypes'
 import htmlPageViewStore from '@jadawel/modules/arabase/views/store/htmlPageView'
@@ -71,6 +72,11 @@ export default defineNuxtPlugin({
     $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
 
     $registry.register('plugin', new ArabasePlugin(context))
+
+    // Workspace VIEWER role (#36): enforced server-side by the additive
+    // `viewer_role` permission manager; registered here so the role appears
+    // in the invite form and the members table role dropdown.
+    $registry.register('roles', new ViewerRoleType(context))
 
     // Row coloring (#28): decorators fed by single select colors or
     // conditional rules. Core's toolbar menu and row/card rendering pick
