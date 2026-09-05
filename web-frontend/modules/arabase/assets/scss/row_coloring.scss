@@ -1,3 +1,8 @@
+// Row coloring (#28). Registered by modules/arabase/module.js as a standalone
+// stylesheet, so it must import the palette itself: nothing is in scope for a
+// file outside core's aggregated default.scss.
+@import '@jadawel/modules/core/assets/scss/colors';
+
 // Row coloring (#28): decorations resolved client-side by the arabase value
 // providers. The bar positions itself for the two places it renders in, and
 // both use logical properties so RTL mirrors the bar to the inline-start
