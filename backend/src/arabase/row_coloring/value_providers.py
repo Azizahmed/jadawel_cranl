@@ -88,23 +88,35 @@ class SingleSelectColorValueProviderType(DecoratorValueProviderType):
         value["value_provider_conf"] = conf
         return value
 
-    def _delete_decorations_for_field(self, field: Field):
+    def _delete_decorations_for_fields(self, fields):
+        """One DELETE for every configuration referencing any of ``fields``.
+
+        ``field_id`` is a flat key in the conf, so Django's JSONField can
+        filter it in SQL. Field ids are globally unique, so the table filter
+        is only there to keep the query on the (table, type) index.
+        """
+        if not fields:
+            return
         ViewDecoration.objects.filter(
             value_provider_type=self.type,
-            view__table_id=field.table_id,
-            value_provider_conf__field_id=field.id,
+            view__table_id__in={field.table_id for field in fields},
+            value_provider_conf__field_id__in=[field.id for field in fields],
         ).delete()
 
     def after_field_delete(self, deleted_field: Field):
-        self._delete_decorations_for_field(deleted_field)
+        self._delete_decorations_for_fields([deleted_field])
 
     def after_fields_type_change(self, fields):
-        for field in fields:
-            if (
-                field_type_registry.get_by_model(field.specific_class).type
-                != SINGLE_SELECT_FIELD_TYPE
-            ):
-                self._delete_decorations_for_field(field)
+        stale = [
+            field
+            for field in fields
+            if field_type_registry.get_by_model(field.specific_class).type
+            != SINGLE_SELECT_FIELD_TYPE
+        ]
+        # Batched: core calls this hook once per registered provider type, so
+        # a per-field loop would add one query per field per provider and
+        # break core's num-queries assertions for the field change path.
+        self._delete_decorations_for_fields(stale)
 
     def validate_conf_for_view(self, view, conf) -> Union[Field, None]:
         """Public entry point used by tests and future callers."""
@@ -232,32 +244,45 @@ class ConditionalColorValueProviderType(DecoratorValueProviderType):
         value["value_provider_conf"] = conf
         return value
 
-    def _delete_decorations_for_field(self, field: Field):
-        # Condition references are nested inside a JSON array, which
-        # Django's JSONField cannot query, so filter the few decorations
-        # of this table in Python.
+    def _delete_decorations_for_fields(self, fields):
+        """Drop configurations whose conditions reference any of ``fields``.
+
+        Condition references are nested inside a JSON array, which Django's
+        JSONField cannot query, so the few decorations of these tables are
+        matched in Python. One SELECT collects candidates and stale rows go
+        out in a single DELETE.
+        """
+        if not fields:
+            return
+        field_ids = {field.id for field in fields}
         decorations = ViewDecoration.objects.filter(
-            value_provider_type=self.type, view__table_id=field.table_id
+            value_provider_type=self.type,
+            view__table_id__in={field.table_id for field in fields},
         )
-        for decoration in decorations:
-            conditions = [
-                condition
+        stale_ids = [
+            decoration.id
+            for decoration in decorations
+            if any(
+                condition.get("field") in field_ids
                 for rule in (decoration.value_provider_conf or {}).get("colors", [])
                 for condition in rule.get("filters", [])
-            ]
-            if any(condition.get("field") == field.id for condition in conditions):
-                decoration.delete()
+            )
+        ]
+        if stale_ids:
+            ViewDecoration.objects.filter(id__in=stale_ids).delete()
 
     def after_field_delete(self, deleted_field: Field):
-        self._delete_decorations_for_field(deleted_field)
+        self._delete_decorations_for_fields([deleted_field])
 
     def after_fields_type_change(self, fields):
         # After a type change the stored conditions may no longer be
         # compatible with the new field type (the operator set itself is
         # field-agnostic). Removing the stale configuration keeps views
         # predictable; users simply configure the coloring again.
-        for field in fields:
-            self._delete_decorations_for_field(field)
+        # Batched: core calls this hook once per registered provider type, so
+        # a per-field loop would break core's num-queries assertions for the
+        # field change path.
+        self._delete_decorations_for_fields(fields)
 
     def validate_conf_for_view(self, view, conf) -> List[str]:
         """Public entry point used by tests and future callers."""
