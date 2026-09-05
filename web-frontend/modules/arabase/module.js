@@ -45,6 +45,7 @@ export default defineNuxtModule({
     nuxt.options.css.push(resolve('./assets/scss/html_page_view.scss'))
     nuxt.options.css.push(resolve('./assets/scss/mcp_protection.scss'))
     nuxt.options.css.push(resolve('./assets/scss/row_coloring.scss'))
+    nuxt.options.css.push(resolve('./assets/scss/kanban.scss'))
 
     // Public dashboard share pages. Anonymous routes, so they must live
     // outside the authenticated `app` layout.

@@ -34,7 +34,7 @@ export class BackgroundColorDecoratorType extends ViewDecoratorType {
   }
 
   isCompatible(view) {
-    return ['grid', 'gallery'].includes(view?.type)
+    return ['grid', 'gallery', 'kanban'].includes(view?.type)
   }
 
   canAdd({ view }) {

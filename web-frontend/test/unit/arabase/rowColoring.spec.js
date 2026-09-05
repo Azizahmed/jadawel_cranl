@@ -73,9 +73,10 @@ describe('SingleSelectColorValueProviderType', () => {
 describe('BackgroundColorDecoratorType', () => {
   const decorator = new BackgroundColorDecoratorType({ app })
 
-  test('is compatible with grid and gallery views', () => {
+  test('is compatible with grid, gallery and kanban views', () => {
     expect(decorator.isCompatible({ type: 'grid' })).toBe(true)
     expect(decorator.isCompatible({ type: 'gallery' })).toBe(true)
+    expect(decorator.isCompatible({ type: 'kanban' })).toBe(true)
     expect(decorator.isCompatible({ type: 'form' })).toBe(false)
   })
 
@@ -115,9 +116,10 @@ describe('BackgroundColorDecorator', () => {
 describe('LeftBorderColorDecoratorType', () => {
   const decorator = new LeftBorderColorDecoratorType({ app })
 
-  test('is compatible with grid and gallery views', () => {
+  test('is compatible with grid, gallery and kanban views', () => {
     expect(decorator.isCompatible({ type: 'grid' })).toBe(true)
     expect(decorator.isCompatible({ type: 'gallery' })).toBe(true)
+    expect(decorator.isCompatible({ type: 'kanban' })).toBe(true)
     expect(decorator.isCompatible({ type: 'form' })).toBe(false)
   })
 

@@ -11,6 +11,8 @@ import {
 import { BackupAdminType } from '@jadawel/modules/arabase/adminTypes'
 import { ArabasePlugin } from '@jadawel/modules/arabase/plugins'
 import { ViewerRoleType } from '@jadawel/modules/arabase/roleTypes'
+import { KanbanViewType } from '@jadawel/modules/arabase/kanban/viewType'
+import kanbanStore from '@jadawel/modules/arabase/kanban/store'
 import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/store/publicDashboardApplication'
 import { HtmlPageViewType } from '@jadawel/modules/arabase/views/viewTypes'
 import htmlPageViewStore from '@jadawel/modules/arabase/views/store/htmlPageView'
@@ -72,6 +74,16 @@ export default defineNuxtPlugin({
     $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
 
     $registry.register('plugin', new ArabasePlugin(context))
+
+    // The OSS kanban board (#35). Its store lives under the same
+    // prefixed `view/` namespaces as every other table view type's, so the
+    // table page's store-prefix conventions apply unchanged.
+    for (const prefix of ['page/', 'template/']) {
+      if (!$store.hasModule(`${prefix}view/kanban`)) {
+        $store.registerModuleNuxtSafe(`${prefix}view/kanban`, kanbanStore)
+      }
+    }
+    $registry.register('view', new KanbanViewType(context))
 
     // Workspace VIEWER role (#36): enforced server-side by the additive
     // `viewer_role` permission manager; registered here so the role appears
