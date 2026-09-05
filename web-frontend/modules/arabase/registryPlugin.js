@@ -14,6 +14,8 @@ import publicDashboardApplicationStore from '@jadawel/modules/arabase/dashboard/
 import { HtmlPageViewType } from '@jadawel/modules/arabase/views/viewTypes'
 import htmlPageViewStore from '@jadawel/modules/arabase/views/store/htmlPageView'
 import { McpProtectedEndpointSettingsType } from '@jadawel/modules/arabase/mcp/settingsTypes'
+import { BackgroundColorDecoratorType } from '@jadawel/modules/arabase/decorators/backgroundColor'
+import { SingleSelectColorValueProviderType } from '@jadawel/modules/arabase/valueProviders/singleSelectColor'
 
 /**
  * Registry registrations for the fork's own types.
@@ -67,6 +69,17 @@ export default defineNuxtPlugin({
     $registry.register('dashboardWidget', new UpcomingDatesWidgetType(context))
 
     $registry.register('plugin', new ArabasePlugin(context))
+
+    // Row coloring (#29): background decorator fed by single select colors.
+    // Core's toolbar menu and row rendering pick these up with no core edits.
+    $registry.register(
+      'viewDecorator',
+      new BackgroundColorDecoratorType(context)
+    )
+    $registry.register(
+      'decoratorValueProvider',
+      new SingleSelectColorValueProviderType(context)
+    )
 
     // Replace only the settings presentation; the core endpoint card and legacy
     // endpoint APIs remain reusable and upstream-owned.

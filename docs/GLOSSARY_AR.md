@@ -46,6 +46,13 @@ term exists).
 | Timeline | خط زمني |
 | Page | صفحة |
 
+## Row coloring
+
+| English | Arabic |
+|---------|--------|
+| Row coloring | تلوين الصفوف |
+| Background color | لون الخلفية |
+
 ## Common field types
 
 | English | Arabic |
