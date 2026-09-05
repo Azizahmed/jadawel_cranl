@@ -14,10 +14,7 @@
  * test/unit/arabase/rowColoring.spec.js.
  */
 
-const ARABASE_VIEW_DECORATOR_TYPES = [
-  'background_color',
-  'left_border_color',
-]
+const ARABASE_VIEW_DECORATOR_TYPES = ['background_color', 'left_border_color']
 
 const ARABASE_DECORATOR_VALUE_PROVIDER_TYPES = [
   'single_select_color',
