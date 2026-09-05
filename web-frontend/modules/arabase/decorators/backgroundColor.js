@@ -10,11 +10,11 @@ const IMAGE =
   )
 
 /**
- * Paints the whole grid row with the color resolved by the value provider.
+ * Paints the whole record with the color resolved by the value provider.
  *
  * OSS counterpart of the backend `background_color` decorator type
- * registered in `arabase.row_coloring`. Limited to the grid view in this
- * slice; Gallery and Kanban arrive with the shared resolver ticket.
+ * registered in `arabase.row_coloring`. Works on every decorating view:
+ * the grid paints the whole row, gallery cards paint the whole card.
  */
 export class BackgroundColorDecoratorType extends ViewDecoratorType {
   static getType() {
@@ -34,7 +34,7 @@ export class BackgroundColorDecoratorType extends ViewDecoratorType {
   }
 
   isCompatible(view) {
-    return view?.type === 'grid'
+    return ['grid', 'gallery'].includes(view?.type)
   }
 
   canAdd({ view }) {

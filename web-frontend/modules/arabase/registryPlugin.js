@@ -15,7 +15,9 @@ import { HtmlPageViewType } from '@jadawel/modules/arabase/views/viewTypes'
 import htmlPageViewStore from '@jadawel/modules/arabase/views/store/htmlPageView'
 import { McpProtectedEndpointSettingsType } from '@jadawel/modules/arabase/mcp/settingsTypes'
 import { BackgroundColorDecoratorType } from '@jadawel/modules/arabase/decorators/backgroundColor'
+import { LeftBorderColorDecoratorType } from '@jadawel/modules/arabase/decorators/leftBorderColor'
 import { SingleSelectColorValueProviderType } from '@jadawel/modules/arabase/valueProviders/singleSelectColor'
+import { ConditionalColorValueProviderType } from '@jadawel/modules/arabase/valueProviders/conditionsColor'
 
 /**
  * Registry registrations for the fork's own types.
@@ -70,15 +72,21 @@ export default defineNuxtPlugin({
 
     $registry.register('plugin', new ArabasePlugin(context))
 
-    // Row coloring (#29): background decorator fed by single select colors.
-    // Core's toolbar menu and row rendering pick these up with no core edits.
+    // Row coloring (#28): decorators fed by single select colors or
+    // conditional rules. Core's toolbar menu and row/card rendering pick
+    // these up with no core edits.
     $registry.register(
       'viewDecorator',
       new BackgroundColorDecoratorType(context)
     )
+    $registry.register('viewDecorator', new LeftBorderColorDecoratorType(context))
     $registry.register(
       'decoratorValueProvider',
       new SingleSelectColorValueProviderType(context)
+    )
+    $registry.register(
+      'decoratorValueProvider',
+      new ConditionalColorValueProviderType(context)
     )
 
     // Replace only the settings presentation; the core endpoint card and legacy

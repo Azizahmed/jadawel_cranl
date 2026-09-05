@@ -1,6 +1,7 @@
 import { DecoratorValueProviderType } from '@jadawel/modules/database/decoratorValueProviders'
 import { SingleSelectFieldType } from '@jadawel/modules/database/fieldTypes'
 import { BackgroundColorDecoratorType } from '@jadawel/modules/arabase/decorators/backgroundColor'
+import { LeftBorderColorDecoratorType } from '@jadawel/modules/arabase/decorators/leftBorderColor'
 import SingleSelectColorForm from '@jadawel/modules/arabase/components/SingleSelectColorForm'
 
 const COLOR_PATTERN = /^[a-z-]+$/
@@ -31,7 +32,7 @@ export class SingleSelectColorValueProviderType extends DecoratorValueProviderTy
   }
 
   getCompatibleDecoratorTypes() {
-    return [BackgroundColorDecoratorType]
+    return [BackgroundColorDecoratorType, LeftBorderColorDecoratorType]
   }
 
   getFormComponent() {

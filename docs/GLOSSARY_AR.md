@@ -52,6 +52,10 @@ term exists).
 |---------|--------|
 | Row coloring | تلوين الصفوف |
 | Background color | لون الخلفية |
+| Left border color | لون الحد الجانبي |
+| Conditions | شروط |
+| Rule | قاعدة |
+| Default color | اللون الافتراضي |
 
 ## Common field types
 
