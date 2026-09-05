@@ -349,5 +349,11 @@
     "removeRule": "Remove rule",
     "chooseColor": "Choose color",
     "defaultRuleLabel": "Default"
+  },
+  "roles": {
+    "viewer": {
+      "name": "Viewer",
+      "description": "Read-only access: sees all data and row colors, but cannot change view settings such as colors, filters, sorts or groupings."
+    }
   }
 }

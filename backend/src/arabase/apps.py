@@ -87,6 +87,23 @@ class ArabaseConfig(AppConfig):
             ConditionalColorValueProviderType()
         )
 
+        from arabase.permissions.viewer_role import ViewerRolePermissionManagerType
+        from jadawel.core.registries import permission_manager_type_registry
+
+        # Workspace VIEWER role (#36): an additive permission manager that
+        # denies view-configuration mutations for VIEWER members. It must sit
+        # before the core `basic` manager in the chain so its denial is the
+        # first definitive answer for those operations; every other decision
+        # falls through to core unchanged.
+        permission_manager_type_registry.register(ViewerRolePermissionManagerType())
+        if (
+            "viewer_role" not in settings.PERMISSION_MANAGERS
+            and "basic" in settings.PERMISSION_MANAGERS
+        ):
+            settings.PERMISSION_MANAGERS.insert(
+                settings.PERMISSION_MANAGERS.index("basic"), "viewer_role"
+            )
+
         from arabase.template_catalog import (
             LOCAL_TEMPLATE_PATTERN,
             reconcile_local_template_catalog_after_migrate,
