@@ -331,5 +331,13 @@
     "rowLimitHelp": "How many rows are handed to the page, up to 1000.",
     "externalResourcesLabel": "Allow external resources",
     "externalResourcesWarning": "Lets the page load scripts, styles and fonts from known CDNs. Sending data out stays blocked, but an external script will see the row data on the page."
+  },
+  "rowColoring": {
+    "backgroundColorName": "Background color",
+    "backgroundColorDescription": "Paint the whole row with the color of a single select option.",
+    "singleSelectName": "Single select",
+    "singleSelectDescription": "Use the color of a single select option to color the row.",
+    "backgroundAlreadyAdded": "This view already has a background color.",
+    "chooseField": "Choose the single select field that controls the row color."
   }
 }
