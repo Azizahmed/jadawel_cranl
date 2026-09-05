@@ -16,6 +16,26 @@ kept as written for the historical record.
 
 ---
 
+## Plugin web-frontend runtime-setup guard (2026-09-05)
+
+**Context:** `install_plugin.sh` guards each install step with a marker file under
+`/jadawel/container_markers/` so a restart does not repeat it. Three of the four
+guards test `! -f "$MARKER"` — run when the marker is absent. The web-frontend
+runtime-setup guard tested `-f "$MARKER"` instead, and since that marker is only
+written inside the same branch, it could never be true on a fresh install: a
+plugin's `web-frontend/runtime_setup.sh` never ran, and on an already-set-up
+container it ran on every start. Exactly inverted, in both directions. Inherited
+from upstream Baserow; found while checking this repo's plugin contract against
+Baserow's published plugin docs.
+
+| File | Change | Reason | Merge risk |
+|------|--------|--------|------------|
+| `deploy/plugins/install_plugin.sh` | Negated the web-frontend runtime-setup marker test (`-f` → `! -f`) at line 273 | Match the backend guard at line 227 so a plugin's frontend runtime setup runs once, on the first start after install, instead of never | low |
+
+**Test:** `deploy/plugins/test_marker_guards.sh` evaluates the guard expression
+across marker present/absent × `--runtime` × `--overwrite` and asserts the four
+run/skip outcomes. The `--runtime` gate is unchanged by the fix.
+
 ## MCP protection CORS header (2026-08-31)
 
 **Context:** CranL's preview hostname serves the Nuxt frontend while its runtime

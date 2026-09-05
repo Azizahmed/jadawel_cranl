@@ -270,7 +270,7 @@ if [[ -d "/jadawel/web-frontend" && -d "$PLUGIN_WEBFRONTEND_FOLDER" ]]; then
     fi
 
     WEBFRONTEND_RUNTIME_SETUP_MARKER=/jadawel/container_markers/$plugin_name.web-frontend-runtime-setup
-    if [[ ( -f "$WEBFRONTEND_RUNTIME_SETUP_MARKER" || "$overwrite" == "true" ) && $runtime == "true" ]]; then
+    if [[ ( ! -f "$WEBFRONTEND_RUNTIME_SETUP_MARKER" || "$overwrite" == "true" ) && $runtime == "true" ]]; then
       check_and_run_script "$PLUGIN_WEBFRONTEND_FOLDER" runtime_setup.sh
       touch "$WEBFRONTEND_RUNTIME_SETUP_MARKER"
     else
