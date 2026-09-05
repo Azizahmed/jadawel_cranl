@@ -9,7 +9,7 @@ rows endpoint lives in `arabase.api.kanban`.
 from typing import Any, Dict, Optional
 from zipfile import ZipFile
 
-from django.db.models import Q, QuerySet
+from django.db.models import Case, F, Q, QuerySet, When
 from django.urls import include, path
 
 from rest_framework import serializers
@@ -126,40 +126,59 @@ class KanbanViewType(ViewType):
         return super().prepare_values(values, table, user)
 
     def after_field_delete(self, field):
-        """Drop the two field references when their field is deleted."""
+        """Drop the two field references when their field is deleted.
 
-        KanbanView.objects.filter(single_select_field=field).update(
-            single_select_field=None
+        Trashed fields are not hard-deleted, so the ``SET_NULL`` foreign keys
+        do not fire; the references are cleared here instead. Filtering by id
+        (not by the instance) because the signal can pass an unsaved model
+        after a type conversion replaced it.
+        """
+
+        KanbanView.objects.filter(single_select_field_id=field.id).update(
+            single_select_field_id=None
         )
-        KanbanView.objects.filter(card_cover_image_field=field).update(
-            card_cover_image_field=None
+        KanbanView.objects.filter(card_cover_image_field_id=field.id).update(
+            card_cover_image_field_id=None
         )
 
     def after_fields_type_change(self, fields):
-        """Clear references that no longer match the expected field type."""
+        """Clear references that no longer match the expected field type.
 
-        not_single_select = [
-            field
+        One UPDATE for both references, so a field-type change costs the
+        same one query per registered view type as the gallery's, keeping
+        core's num-queries budgets for the field change path stable.
+        """
+
+        stale_single_ids = [
+            field.id
             for field in fields
             if field_type_registry.get_by_model(field.specific_class).type
             != "single_select"
         ]
-        if not_single_select:
-            KanbanView.objects.filter(
-                single_select_field_id__in=[f.id for f in not_single_select]
-            ).update(single_select_field_id=None)
-
-        cannot_represent_files = [
-            field
+        stale_cover_ids = [
+            field.id
             for field in fields
             if not field_type_registry.get_by_model(
                 field.specific_class
             ).can_represent_files(field)
         ]
-        if cannot_represent_files:
-            KanbanView.objects.filter(
-                card_cover_image_field_id__in=[f.id for f in cannot_represent_files]
-            ).update(card_cover_image_field_id=None)
+
+        if not stale_single_ids and not stale_cover_ids:
+            return
+
+        KanbanView.objects.filter(
+            Q(single_select_field_id__in=stale_single_ids)
+            | Q(card_cover_image_field_id__in=stale_cover_ids)
+        ).update(
+            single_select_field=Case(
+                When(single_select_field_id__in=stale_single_ids, then=None),
+                default=F("single_select_field"),
+            ),
+            card_cover_image_field=Case(
+                When(card_cover_image_field_id__in=stale_cover_ids, then=None),
+                default=F("card_cover_image_field"),
+            ),
+        )
 
     def view_created(self, view):
         """Show the first three fields on new cards, like the gallery does."""
