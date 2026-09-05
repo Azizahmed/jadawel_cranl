@@ -140,6 +140,13 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - JADAWEL_ENABLE_SILK=${JADAWEL_ENABLE_SILK:-false}
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
+      # Without this celery spawns one worker per CPU core, and each one
+      # loads the full Django app (~300 MB RSS). On a many-core host that
+      # blows past the 768 MB container limit inherited from the production
+      # compose: the pool gets OOM-killed mid-boot, watchmedo restarts it,
+      # and realtime broadcasts (websocket events after every row change)
+      # silently stop. Four workers fit comfortably and drain the dev queues.
+      - JADAWEL_AMOUNT_OF_WORKERS=${JADAWEL_AMOUNT_OF_WORKERS:-4}
     volumes:
       - ./docs:/jadawel/docs
       - ./backend:/jadawel/backend
@@ -158,6 +165,9 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
       - JADAWEL_ENABLE_SILK=${JADAWEL_ENABLE_SILK:-false}
       - JADAWEL_DANGEROUS_SILKY_ANALYZE_QUERIES
+      # See the celery service above: keep the export pool inside the
+      # container's memory limit on many-core hosts.
+      - JADAWEL_AMOUNT_OF_WORKERS=${JADAWEL_AMOUNT_OF_WORKERS:-4}
     volumes:
       - ./docs:/jadawel/docs
       - ./backend:/jadawel/backend

@@ -522,3 +522,125 @@ def test_conditional_field_delete_cleans_up_decorations(data_fixture, coloring_s
     )
     FieldHandler().delete_field(user=setup["user"], field=setup["text"])
     assert not ViewDecoration.objects.filter(pk=decoration.pk).exists()
+
+
+def public_info_url(view):
+    return reverse("api:database:views:public_info", kwargs={"slug": view.slug})
+
+
+def public_rule(field_id, color, operator="AND"):
+    return {
+        "filters": [
+            {"id": f"f{field_id}", "type": "contains", "field": field_id, "value": "x"}
+        ],
+        "filter_groups": [],
+        "operator": operator,
+        "color": color,
+    }
+
+
+DEFAULT_RULE = {"filters": [], "filter_groups": [], "operator": "AND", "color": "gray"}
+
+
+@pytest.mark.django_db
+def test_public_view_info_sanitizes_row_coloring(
+    api_client, data_fixture, coloring_setup
+):
+    """#28 story 13: anonymous visitors get the view colors, sanitized.
+
+    Rules referencing hidden fields are dropped (their filter values could
+    describe hidden data); rules on public fields and the empty-condition
+    default rule stay. The background from a public single select field is
+    passed through unchanged.
+    """
+    setup = coloring_setup
+    grid = data_fixture.create_grid_view(table=setup["table"], public=True)
+    hidden = data_fixture.create_text_field(table=setup["table"], name="Secret")
+    data_fixture.create_grid_view_field_option(grid, setup["status"], hidden=False)
+    data_fixture.create_grid_view_field_option(grid, setup["text"], hidden=False)
+    data_fixture.create_grid_view_field_option(grid, hidden, hidden=True)
+
+    data_fixture.create_view_decoration(
+        view=grid,
+        type="background_color",
+        value_provider_type="single_select_color",
+        value_provider_conf={"field_id": setup["status"].id},
+        order=0,
+    )
+    data_fixture.create_view_decoration(
+        view=grid,
+        type="left_border_color",
+        value_provider_type="conditional_color",
+        value_provider_conf={
+            "colors": [
+                public_rule(setup["text"].id, "red"),
+                public_rule(hidden.id, "blue"),
+                DEFAULT_RULE,
+            ]
+        },
+        order=1,
+    )
+
+    response = api_client.get(public_info_url(grid))
+    assert response.status_code == HTTP_200_OK, response.content
+    body = response.json()
+
+    field_ids = {f["id"] for f in body["fields"]}
+    assert setup["status"].id in field_ids
+    assert hidden.id not in field_ids
+
+    decorations = body["view"]["decorations"]
+    assert len(decorations) == 2
+    background = next(d for d in decorations if d["type"] == "background_color")
+    assert background["value_provider_conf"] == {"field_id": setup["status"].id}
+    border = next(d for d in decorations if d["type"] == "left_border_color")
+    assert border["value_provider_conf"] == {
+        "colors": [public_rule(setup["text"].id, "red"), DEFAULT_RULE]
+    }
+
+
+@pytest.mark.django_db
+def test_public_view_hides_coloring_on_hidden_field(
+    api_client, data_fixture, coloring_setup
+):
+    setup = coloring_setup
+    grid = data_fixture.create_grid_view(table=setup["table"], public=True)
+    hidden_select = data_fixture.create_single_select_field(
+        table=setup["table"], name="Hidden status"
+    )
+    data_fixture.create_grid_view_field_option(grid, setup["text"], hidden=False)
+    data_fixture.create_grid_view_field_option(grid, hidden_select, hidden=True)
+
+    data_fixture.create_view_decoration(
+        view=grid,
+        type="background_color",
+        value_provider_type="single_select_color",
+        value_provider_conf={"field_id": hidden_select.id},
+        order=0,
+    )
+
+    response = api_client.get(public_info_url(grid))
+    assert response.status_code == HTTP_200_OK
+    assert response.json()["view"]["decorations"] == []
+
+
+@pytest.mark.django_db
+def test_public_view_never_exposes_providers_without_public_support(
+    api_client, data_fixture, coloring_setup
+):
+    """Providers that do not implement the public hook are denied by default."""
+    setup = coloring_setup
+    grid = data_fixture.create_grid_view(table=setup["table"], public=True)
+    data_fixture.create_grid_view_field_option(grid, setup["text"], hidden=False)
+
+    data_fixture.create_view_decoration(
+        view=grid,
+        type="tmp_decorator_type_1",
+        value_provider_type="value_provider_1",
+        value_provider_conf={"secret": "leak"},
+        order=0,
+    )
+
+    response = api_client.get(public_info_url(grid))
+    assert response.status_code == HTTP_200_OK
+    assert response.json()["view"]["decorations"] == []

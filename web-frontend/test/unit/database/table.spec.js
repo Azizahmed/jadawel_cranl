@@ -1,4 +1,5 @@
 import { TestApp, UIHelpers } from '@jadawel/test/helpers/testApp'
+import { scopeOutArabaseRowColoring } from '@jadawel/test/helpers/arabaseDecorators'
 import flushPromises from 'flush-promises'
 
 import Table from '@jadawel/modules/database/pages/table'
@@ -11,6 +12,9 @@ describe('Table Component Tests', () => {
   beforeEach(() => {
     testApp = new TestApp()
     mockServer = testApp.mockServer
+    // The snapshot below asserts a core-only toolbar; the fork's row-coloring
+    // types would add the Color menu item to it.
+    scopeOutArabaseRowColoring(testApp.store.$registry)
   })
 
   afterEach(async () => await testApp.afterEach())

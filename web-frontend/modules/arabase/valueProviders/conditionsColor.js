@@ -17,9 +17,9 @@ const COLOR_PATTERN = /^[a-z-]+$/
  *
  * Rules are evaluated in stored order and the first match wins. A rule
  * with no conditions matches every row, so a trailing empty rule acts as
- * the default color for unmatched rows. Rows never match rules whose
- * fields no longer exist, which renders them undecorated instead of
- * crashing the grid.
+ * the default color for unmatched rows. Rules whose conditions reference
+ * fields the view does not provide are skipped before matching, so they
+ * render undecorated instead of crashing the grid or matching partially.
  */
 export class ConditionalColorValueProviderType extends DecoratorValueProviderType {
   static getType() {
@@ -85,7 +85,17 @@ export class ConditionalColorValueProviderType extends DecoratorValueProviderTyp
     if (!registry) {
       return null
     }
+    // A rule whose conditions reference a field the view does not provide
+    // must never match. Catching the tree's error is not enough: an OR group
+    // short-circuits on its first matching condition, so a stale or hidden
+    // field could otherwise paint the row from partial knowledge.
+    const knownFieldIds = new Set((fields || []).map((field) => field.id))
     for (const { rule, tree } of this.getRuleTrees(options)) {
+      if (
+        (rule.filters || []).some((filter) => !knownFieldIds.has(filter.field))
+      ) {
+        continue
+      }
       try {
         if (tree.matches(registry, fields, row)) {
           return typeof rule.color === 'string' &&
@@ -94,8 +104,8 @@ export class ConditionalColorValueProviderType extends DecoratorValueProviderTyp
             : null
         }
       } catch (error) {
-        // A rule referencing a field or filter type that no longer exists
-        // must never break row rendering; treat it as no-match.
+        // A rule referencing a filter type that no longer exists must never
+        // break row rendering; treat it as no-match.
         continue
       }
     }

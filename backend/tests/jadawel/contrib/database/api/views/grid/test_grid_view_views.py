@@ -3308,6 +3308,7 @@ def test_get_public_grid_view(api_client, data_fixture):
             "order": 0,
             "public": True,
             "slug": grid_view.slug,
+            "decorations": [],
             "sortings": [
                 {
                     "field": hidden_sort.field.id,
