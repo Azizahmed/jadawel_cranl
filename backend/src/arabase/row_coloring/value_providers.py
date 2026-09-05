@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Any, Dict, List, Union
 
 from rest_framework import serializers
 
@@ -8,9 +8,14 @@ from jadawel.contrib.database.views.exceptions import (
     DecoratorValueProviderTypeNotCompatible,
 )
 from jadawel.contrib.database.views.models import ViewDecoration
-from jadawel.contrib.database.views.registries import DecoratorValueProviderType
+from jadawel.contrib.database.views.registries import (
+    DecoratorValueProviderType,
+    view_filter_type_registry,
+)
 
 SINGLE_SELECT_FIELD_TYPE = "single_select"
+COLOR_NAME_PATTERN = r"^[a-z-]+$"
+FILTER_OPERATORS = ("AND", "OR")
 
 
 class SingleSelectColorConfSerializer(serializers.Serializer):
@@ -62,7 +67,7 @@ class SingleSelectColorValueProviderType(DecoratorValueProviderType):
     """
 
     type = "single_select_color"
-    compatible_decorator_types = ["background_color"]
+    compatible_decorator_types = ["background_color", "left_border_color"]
     value_provider_conf_serializer_class = SingleSelectColorConfSerializer
 
     def before_update_decoration(self, view_decoration, user):
@@ -106,3 +111,156 @@ class SingleSelectColorValueProviderType(DecoratorValueProviderType):
         if not conf:
             return None
         return get_single_select_field_or_raise(view, conf)
+
+
+class ConditionalColorFilterSerializer(serializers.Serializer):
+    """One condition row of a conditional color rule.
+
+    Reuses Jadawel's existing view filter operator vocabulary: `type` is a
+    `view_filter_type_registry` key, evaluated client-side by the same
+    operator implementations that power view filters.
+    """
+
+    id = serializers.CharField(required=True)
+    type = serializers.CharField(required=True)
+    field = serializers.IntegerField(required=True)
+    value = serializers.CharField(
+        required=False, allow_blank=True, allow_null=True, default=""
+    )
+    group = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True, default=None
+    )
+
+    def validate_type(self, value):
+        known_types = {t.type for t in view_filter_type_registry.get_all()}
+        if value not in known_types:
+            raise serializers.ValidationError(f"{value} is not a valid filter type.")
+        return value
+
+
+class ConditionalColorGroupSerializer(serializers.Serializer):
+    """A nested condition group of a conditional color rule."""
+
+    id = serializers.CharField(required=True)
+    filter_type = serializers.ChoiceField(choices=["AND", "OR"])
+    parent_group = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True, default=None
+    )
+
+
+class ConditionalColorRuleSerializer(serializers.Serializer):
+    """One color rule: condition tree + the color it paints when matched.
+
+    The shape deliberately matches what the Airtable import mapping emits
+    for `conditional_color` (see `airtable.registry.py`), so imported
+    views work without translation. An empty condition list always
+    matches, which is how the default color for unmatched rows is
+    expressed (last rule, first-match-wins).
+    """
+
+    filters = ConditionalColorFilterSerializer(many=True, required=False, default=list)
+    filter_groups = ConditionalColorGroupSerializer(
+        many=True, required=False, default=list
+    )
+    operator = serializers.ChoiceField(choices=["AND", "OR"])
+    color = serializers.RegexField(COLOR_NAME_PATTERN)
+
+
+class ConditionalColorConfSerializer(serializers.Serializer):
+    colors = ConditionalColorRuleSerializer(many=True, required=True)
+
+
+def get_conditional_color_problems(view, conf) -> List[str]:
+    """Return human-readable problems with a conditional color configuration.
+
+    Shape validation happens in the serializer above; this checks the
+    semantics that need the database: every condition must reference a
+    field that exists on the view's table.
+    """
+
+    problems = []
+    table_fields = Field.objects.filter(table_id=view.table_id)
+    known_field_ids = set(table_fields.values_list("id", flat=True))
+    for rule in (conf or {}).get("colors", []):
+        for condition in rule.get("filters", []):
+            if condition.get("field") not in known_field_ids:
+                problems.append(
+                    f"Condition references field {condition.get('field')} "
+                    "which does not exist on the view's table."
+                )
+    return problems
+
+
+class ConditionalColorValueProviderType(DecoratorValueProviderType):
+    """Colors a row from the first matching list of conditions.
+
+    OSS re-implementation of upstream's `conditional_color` provider,
+    same type string as the Airtable import mapping emits. Rules are
+    evaluated in stored order client-side and the first match wins; a
+    rule with no conditions matches every row and therefore acts as the
+    default color for unmatched rows.
+    """
+
+    type = "conditional_color"
+    compatible_decorator_types = ["background_color", "left_border_color"]
+    value_provider_conf_serializer_class = ConditionalColorConfSerializer
+
+    def before_update_decoration(self, view_decoration, user):
+        conf = view_decoration.value_provider_conf or {}
+        if not conf:
+            return
+        problems = get_conditional_color_problems(view_decoration.view, conf)
+        if problems:
+            raise DecoratorValueProviderTypeNotCompatible(problems[0])
+
+    def set_import_serialized_value(
+        self, value: Dict[str, Any], id_mapping: Dict[str, Dict[int, Any]]
+    ) -> Dict[str, Any]:
+        conf = value.get("value_provider_conf") or {}
+        field_mapping = id_mapping.get("database_fields", {})
+        for rule in conf.get("colors", []):
+            kept = []
+            for condition in rule.get("filters", []):
+                new_field_id = field_mapping.get(condition.get("field"))
+                # A field that was not imported must not keep pointing at
+                # a stale id that could belong to another field in the
+                # target workspace; drop the condition instead.
+                if new_field_id is not None:
+                    condition["field"] = new_field_id
+                    kept.append(condition)
+            rule["filters"] = kept
+        value["value_provider_conf"] = conf
+        return value
+
+    def _delete_decorations_for_field(self, field: Field):
+        # Condition references are nested inside a JSON array, which
+        # Django's JSONField cannot query, so filter the few decorations
+        # of this table in Python.
+        decorations = ViewDecoration.objects.filter(
+            value_provider_type=self.type, view__table_id=field.table_id
+        )
+        for decoration in decorations:
+            conditions = [
+                condition
+                for rule in (decoration.value_provider_conf or {}).get("colors", [])
+                for condition in rule.get("filters", [])
+            ]
+            if any(condition.get("field") == field.id for condition in conditions):
+                decoration.delete()
+
+    def after_field_delete(self, deleted_field: Field):
+        self._delete_decorations_for_field(deleted_field)
+
+    def after_fields_type_change(self, fields):
+        # After a type change the stored conditions may no longer be
+        # compatible with the new field type (the operator set itself is
+        # field-agnostic). Removing the stale configuration keeps views
+        # predictable; users simply configure the coloring again.
+        for field in fields:
+            self._delete_decorations_for_field(field)
+
+    def validate_conf_for_view(self, view, conf) -> List[str]:
+        """Public entry point used by tests and future callers."""
+        if not conf:
+            return []
+        return get_conditional_color_problems(view, conf)
