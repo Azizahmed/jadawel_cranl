@@ -55,12 +55,18 @@ class ArabaseConfig(AppConfig):
         widget_type_registry.register(ProgressWidgetType())
         widget_type_registry.register(UpcomingDatesWidgetType())
 
+        from arabase.kanban.view_types import KanbanViewType
         from arabase.views.view_types import HtmlPageViewType
         from jadawel.contrib.database.views.registries import view_type_registry
 
         # Registering is all it takes to mount /api/database/views/html-page/:
         # core builds that urlconf from `view_type_registry.api_urls`.
         view_type_registry.register(HtmlPageViewType())
+
+        # The OSS kanban board (#35): rows are fetched per select-option stack
+        # from the view type's own API; `can_decorate` makes row colors work
+        # on its cards through the same decoration machinery as grid/gallery.
+        view_type_registry.register(KanbanViewType())
 
         from arabase.row_coloring.decorator_types import (
             BackgroundColorDecoratorType,

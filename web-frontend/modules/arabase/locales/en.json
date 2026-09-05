@@ -355,5 +355,15 @@
       "name": "Viewer",
       "description": "Read-only access: sees all data and row colors, but cannot change view settings such as colors, filters, sorts or groupings."
     }
+  },
+  "kanbanViewType": {
+    "name": "Kanban",
+    "description": "A board grouped by a single select field."
+  },
+  "kanbanView": {
+    "chooseGroupingField": "Choose the single select field to group the board by:",
+    "noSingleSelectField": "Add a single select field to the table first.",
+    "emptyStack": "No value",
+    "loadMore": "Load more"
   }
 }

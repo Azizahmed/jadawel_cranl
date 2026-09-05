@@ -1,0 +1,110 @@
+// The kanban board (#35). Registered by modules/arabase/module.js as a
+// standalone stylesheet, so it must import the palette itself: nothing is in
+// scope for a file outside core's aggregated default.scss.
+@import '@jadawel/modules/core/assets/scss/colors';
+@import '@jadawel/modules/core/assets/scss/placeholders';
+
+.kanban-view {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+}
+
+.kanban-view__empty {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.kanban-view__empty-title {
+  font-weight: 600;
+}
+
+.kanban-view__empty-hint {
+  color: $color-neutral-700;
+}
+
+.kanban-view__board {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  overflow-x: auto;
+  block-size: 100%;
+}
+
+.kanban-view__stack {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 280px;
+  inline-size: 280px;
+  flex-shrink: 0;
+  background-color: $color-neutral-100;
+  border-radius: 6px;
+  border: 2px dashed transparent;
+  max-block-size: 100%;
+}
+
+.kanban-view__stack--drop-target {
+  border-color: $color-primary-500;
+}
+
+.kanban-view__stack-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.kanban-view__stack-badge {
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.kanban-view__stack-title {
+  font-weight: 600;
+
+  @extend %ellipsis;
+}
+
+.kanban-view__stack-count {
+  margin-inline-start: auto;
+  color: $color-neutral-700;
+  font-size: 12px;
+}
+
+.kanban-view__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 12px 12px;
+  overflow-y: auto;
+}
+
+.kanban-view__card {
+  cursor: grab;
+}
+
+.kanban-view__card--dragging {
+  opacity: 0.4;
+}
+
+.kanban-view__more {
+  color: $color-neutral-700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px;
+
+  &:hover {
+    text-decoration: none;
+    color: $color-primary-600;
+  }
+}
