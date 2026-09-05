@@ -93,6 +93,55 @@ def test_create_background_color_from_single_select(
 
 
 @pytest.mark.django_db
+def test_coloring_reads_and_writes_stay_inside_the_workspace(
+    api_client, data_fixture, coloring_setup
+):
+    """#29: colors are visible to everyone who can see the view, and the
+    configuration can only be changed from inside the workspace.
+
+    This fork has no viewer role (enterprise RBAC was stripped with premium:
+    workspace roles are ADMIN and MEMBER), so the contract pinned here is the
+    core decoration API's own: any workspace member reads and manages
+    decorations, users outside the workspace are rejected on both.
+    """
+    setup = coloring_setup
+    outsider, outsider_token = data_fixture.create_user_and_token()
+    payload = {
+        "type": "background_color",
+        "value_provider_type": "single_select_color",
+        "value_provider_conf": {"field_id": setup["status"].id},
+    }
+
+    outsider_list = api_client.get(
+        decorations_url(setup["view"]), **auth(outsider_token)
+    )
+    assert outsider_list.status_code == HTTP_400_BAD_REQUEST
+    assert outsider_list.json()["error"] == "ERROR_USER_NOT_IN_GROUP"
+
+    outsider_create = api_client.post(
+        decorations_url(setup["view"]), payload, format="json", **auth(outsider_token)
+    )
+    assert outsider_create.status_code == HTTP_400_BAD_REQUEST
+    assert outsider_create.json()["error"] == "ERROR_USER_NOT_IN_GROUP"
+    assert ViewDecoration.objects.filter(view=setup["view"]).count() == 0
+
+    member, member_token = data_fixture.create_user_and_token()
+    data_fixture.create_user_workspace(
+        workspace=setup["table"].database.workspace,
+        user=member,
+        permissions="MEMBER",
+    )
+    member_list = api_client.get(decorations_url(setup["view"]), **auth(member_token))
+    assert member_list.status_code == HTTP_200_OK
+
+    member_create = api_client.post(
+        decorations_url(setup["view"]), payload, format="json", **auth(member_token)
+    )
+    assert member_create.status_code == HTTP_200_OK, member_create.content
+    assert ViewDecoration.objects.filter(view=setup["view"]).count() == 1
+
+
+@pytest.mark.django_db
 def test_second_background_color_is_rejected(api_client, data_fixture, coloring_setup):
     setup = coloring_setup
     payload = {
