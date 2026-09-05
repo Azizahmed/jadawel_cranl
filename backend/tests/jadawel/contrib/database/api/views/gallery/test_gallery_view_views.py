@@ -825,6 +825,7 @@ def test_get_public_gallery_view(api_client, data_fixture):
             "order": 0,
             "public": True,
             "slug": gallery_view.slug,
+            "decorations": [],
             "sortings": [
                 # Note the sorting for the hidden field is not returned
                 {

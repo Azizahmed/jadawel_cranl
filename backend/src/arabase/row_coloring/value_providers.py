@@ -118,6 +118,16 @@ class SingleSelectColorValueProviderType(DecoratorValueProviderType):
         # break core's num-queries assertions for the field change path.
         self._delete_decorations_for_fields(stale)
 
+    def prepare_value_provider_conf_for_public(self, view_decoration, public_field_ids):
+        # The color is resolved client-side from the row value, which the
+        # public rows response only includes for visible fields. A hidden
+        # field would leak its existence through the conf, so the decoration
+        # is hidden entirely instead.
+        conf = view_decoration.value_provider_conf or {}
+        if conf.get("field_id") not in public_field_ids:
+            return None
+        return conf
+
     def validate_conf_for_view(self, view, conf) -> Union[Field, None]:
         """Public entry point used by tests and future callers."""
         if not conf:
@@ -283,6 +293,22 @@ class ConditionalColorValueProviderType(DecoratorValueProviderType):
         # a per-field loop would break core's num-queries assertions for the
         # field change path.
         self._delete_decorations_for_fields(fields)
+
+    def prepare_value_provider_conf_for_public(self, view_decoration, public_field_ids):
+        # A rule's filter values can describe hidden data ("the secret
+        # budget field is above X"), so any rule referencing a field that is
+        # not publicly visible is dropped wholesale. Rules that only touch
+        # public fields — including the empty-condition default rule — stay.
+        conf = view_decoration.value_provider_conf or {}
+        public_rules = [
+            rule
+            for rule in conf.get("colors", [])
+            if all(
+                condition.get("field") in public_field_ids
+                for condition in rule.get("filters", [])
+            )
+        ]
+        return {"colors": public_rules}
 
     def validate_conf_for_view(self, view, conf) -> List[str]:
         """Public entry point used by tests and future callers."""

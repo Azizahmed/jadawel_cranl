@@ -1007,6 +1007,7 @@ def test_user_with_password_can_get_info_about_a_public_password_protected_view(
             "order": 0,
             "public": True,
             "slug": grid_view.slug,
+            "decorations": [],
             "sortings": [],
             "group_bys": [],
             "table": {
@@ -1039,6 +1040,7 @@ def test_user_with_password_can_get_info_about_a_public_password_protected_view(
             "order": 0,
             "public": True,
             "slug": grid_view.slug,
+            "decorations": [],
             "sortings": [],
             "group_bys": [],
             "table": {

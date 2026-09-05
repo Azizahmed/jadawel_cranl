@@ -1,4 +1,5 @@
 import ViewDecoratorContext from '@jadawel/modules/database/components/view/ViewDecoratorContext'
+import { scopeOutArabaseRowColoring } from '@jadawel/test/helpers/arabaseDecorators'
 import { DecoratorValueProviderType } from '@jadawel/modules/database/decoratorValueProviders'
 import { ViewDecoratorType } from '@jadawel/modules/database/viewDecorators'
 
@@ -114,6 +115,12 @@ describe('GridViewRows component with decoration', () => {
     store = $store
     mock = new MockAdapter($client, { onNoMatch: 'throwException' })
     mockServer = new MockServer(mock, $store)
+
+    // This spec asserts core's decorator context against a core-only
+    // registry: its snapshots enumerate every registered decorator. The
+    // fork's row-coloring types have their own coverage in
+    // test/unit/arabase/rowColoring.spec.js.
+    scopeOutArabaseRowColoring($registry)
   })
 
   afterEach((done) => {

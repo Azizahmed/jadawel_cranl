@@ -327,6 +327,29 @@ describe('ConditionalColorValueProviderType', () => {
     ).toBe(null)
   })
 
+  test('an OR rule referencing a missing field never matches', () => {
+    // The filter tree short-circuits OR groups on the first matching
+    // condition, so without the preflight the stale field would silently
+    // turn this into a partial match.
+    const options = {
+      colors: [
+        rule(
+          [
+            { id: '1', type: 'contains', field: 999, value: 'anything' },
+            { id: '2', type: 'contains', field: 10, value: 'gold' },
+          ],
+          'OR',
+          'red'
+        ),
+        rule([], 'AND', 'gray'),
+      ],
+    }
+    const row = { id: 1, field_10: 'GOLD customer' }
+    expect(provider.getValue({ options, fields: conditionalFields, row })).toBe(
+      'gray'
+    )
+  })
+
   test('rules referencing unknown fields are skipped instead of crashing', () => {
     const options = {
       colors: [

@@ -66,7 +66,7 @@ from .exceptions import (
 if TYPE_CHECKING:
     from jadawel.contrib.database.fields.models import Field
     from jadawel.contrib.database.table.models import FieldObject, Table
-    from jadawel.contrib.database.views.models import FormView, View
+    from jadawel.contrib.database.views.models import FormView, View, ViewDecoration
 
 
 class ViewType(
@@ -1409,6 +1409,23 @@ class DecoratorValueProviderType(CustomFieldsInstanceMixin, Instance):
 
         :param fields: The concerned fields.
         """
+
+    def prepare_value_provider_conf_for_public(
+        self, view_decoration: "ViewDecoration", public_field_ids: Set[int]
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Returns the value provider conf that is safe to expose on a publicly
+        shared view, or None when the decoration must not be exposed at all.
+
+        The default denies everything: a provider that does not explicitly
+        opt in never leaks its configuration to anonymous visitors.
+
+        :param view_decoration: The stored decoration to sanitize.
+        :param public_field_ids: Ids of the fields visible on the public view.
+        :return: The sanitized conf, or None to hide the decoration.
+        """
+
+        return None
 
     def get_serializer_class(self, *args, **kwargs):
         # Add meta ref name to avoid name collision

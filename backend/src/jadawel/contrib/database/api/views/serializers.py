@@ -664,6 +664,7 @@ class PublicViewSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
     sortings = serializers.SerializerMethodField()
     group_bys = serializers.SerializerMethodField()
+    decorations = serializers.SerializerMethodField()
     show_logo = serializers.BooleanField(required=False)
     ownership_type = serializers.SerializerMethodField()
 
@@ -693,6 +694,46 @@ class PublicViewSerializer(serializers.ModelSerializer):
     def get_type(self, instance):
         return view_type_registry.get_by_model(instance.specific_class).type
 
+    @extend_schema_field(ViewDecorationSerializer(many=True))
+    def get_decorations(self, instance):
+        """Decorations of the view, sanitized for anonymous visitors.
+
+        Each value provider decides via
+        ``prepare_value_provider_conf_for_public`` which parts of its
+        configuration are safe to expose given the publicly visible fields.
+        A provider that returns ``None`` hides its decoration entirely, and
+        providers that do not implement the hook are never exposed.
+        """
+
+        public_field_ids = {field.id for field in self.context["fields"]}
+        decorations = []
+        for decoration in instance.viewdecoration_set.all().order_by("order", "id"):
+            if decoration.type not in decorator_type_registry.get_types():
+                continue
+            if (
+                decoration.value_provider_type
+                not in decorator_value_provider_type_registry.get_types()
+            ):
+                continue
+            provider = decorator_value_provider_type_registry.get(
+                decoration.value_provider_type
+            )
+            conf = provider.prepare_value_provider_conf_for_public(
+                decoration, public_field_ids
+            )
+            if conf is None:
+                continue
+            decorations.append(
+                {
+                    "id": decoration.id,
+                    "type": decoration.type,
+                    "value_provider_type": decoration.value_provider_type,
+                    "value_provider_conf": conf,
+                    "order": decoration.order,
+                }
+            )
+        return decorations
+
     @extend_schema_field(OpenApiTypes.STR)
     def get_ownership_type(self, instance):
         # The publicly shared view does not need to know which view ownership type is
@@ -710,6 +751,7 @@ class PublicViewSerializer(serializers.ModelSerializer):
             "type",
             "sortings",
             "group_bys",
+            "decorations",
             "public",
             "slug",
             "show_logo",
